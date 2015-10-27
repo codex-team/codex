@@ -1,0 +1,737 @@
+*{-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;}
+audio, canvas, iframe, img, svg, video {vertical-align: middle;}
+textarea {resize: vertical;}
+::-moz-selection { background: #b3d4fc; text-shadow: none;}
+::selection { background: #b3d4fc; text-shadow: none;}
+.clearfix:before,
+.clearfix:after { content: " "; display: table }
+.clearfix:after { clear: both; }
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+.fl_l{float: left;}
+.fl_r{float: right;}
+.constrain{overflow: hidden;}
+.pointer{cursor: pointer ;}
+.hide{display: none;}
+.block{display: block;  }
+.p_rel{position: relative;}
+a{color: #6091c8;}
+a:hover{color: #3A81D2;}
+a:hover{text-decoration: underline;}
+
+
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="url"],
+textarea{
+    padding: 10px;
+    border-radius: 2px;
+    border: 0;
+    font-size: 15px;
+    font-family: inherit;
+    outline: none;
+    background: #f4f5f8;
+}
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus,
+    input[type="search"]:focus,
+    input[type="url"]:focus,
+    textarea:focus{
+        background: #eef5fd;
+    }
+input[type="text"], input[type="url"], input[type="email"], input[type="password"], input[type="search"], textarea, .fake_textarea, .input_with_template{
+    width: 100%;
+}
+
+/*input::-moz-placeholder, textarea::-moz-placeholder { color: #A3B1BA !important; transition: all 200ms ease; background: transparent;}
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #A3B1BA !important; transition: all 200ms ease;}
+
+input:focus::-moz-placeholder, textarea:focus::-moz-placeholder {opacity: .1 !important; transition: all 200ms ease}
+input:focus::-webkit-input-placeholder, textarea:focus::-webkit-input-placeholder { opacity: .1 !important; }
+*/
+
+
+.button,
+input[type="submit"],
+button{
+    -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
+    border-radius: 30px;
+    border: 0;
+    display: inline-block;
+    padding: 12px 24px;
+    color: #5a677f;
+    vertical-align: top;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: inherit;
+    background: #c0cedc;
+    line-height: 1em;
+}
+.button:hover,
+input[type="submit"]:hover,
+button:hover{
+    background: #93adc7;
+    color: #3d516f;
+    text-decoration: none;
+}
+.button.master,
+button.master,
+input[type="submit"],
+button[type="submit"]{
+    background: #5c95cf;
+    color: #fff;
+}
+    .button.master:hover,
+    button.master:hover,
+    input[type="submit"]:hover{
+        background: #3c7ab9;
+    }
+.button.disabled,
+button.disabled,
+button[disabled],
+input[disabled]
+{
+    background: #EAECF1;
+    color: #A9AFC1;
+}
+    .button.disabled:hover,
+    button.disabled:hover,
+    button[disabled]:hover,
+    input[disabled]:hover
+    {
+        background: #EAECF1;
+        color: #A9AFC1;
+    }
+.vk_button{
+    background: #6886ad;
+    color: #fff;
+    padding: 12px 24px 12px 17px;
+}
+    .vk_button:hover{
+        background: #496c98;
+        color: #fff;
+    }
+    .vk_button i{margin-right: 8px;}
+
+/*.button.loading{position: relative; overflow: hidden; background: #5A85C1}
+.button.loading:before{
+  content: ''; width: 100%; height: 100%; display: block;
+  background: url('../libs/jcrop/Jcrop.gif'); opacity: .1;
+  position: absolute; left: 0; top: 0;
+}
+*/
+
+
+
+@font-face {
+  font-family: 'codex';
+  src: url('../fonts/codex.eot?30090408');
+  src: url('../fonts/codex.eot?30090408#iefix') format('embedded-opentype'),
+       url('../fonts/codex.woff?30090408') format('woff'),
+       url('../fonts/codex.ttf?30090408') format('truetype'),
+       url('../fonts/codex.svg?30090408#codex') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'codex';
+    src: url('../font/codex.svg?30090408#codex') format('svg');
+  }
+}
+*/
+
+ [class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: "codex";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+
+  /* Font smoothing. That was taken from TWBS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+}
+
+.icon-vkontakte:before { content: '\e800'; } /* '' */
+.icon-twitter:before { content: '\e801'; } /* '' */
+.icon-facebook-squared:before { content: '\e802'; } /* '' */
+.icon-github-circled:before { content: '\e803'; } /* '' */
+.icon-heart:before { content: '\e804'; } /* '' */
+.icon-star:before { content: '\e805'; } /* '' */
+.icon-star-empty:before { content: '\e806'; } /* '' */
+.icon-search:before { content: '\e807'; } /* '' */
+.icon-rss:before { content: '\e808'; } /* '' */
+.icon-link:before { content: '\e809'; } /* '' */
+.icon-chat:before { content: '\e80a'; } /* '' */
+.icon-pencil:before { content: '\e80b'; } /* '' */
+.icon-pin:before { content: '\e80c'; } /* '' */
+.icon-attach:before { content: '\e80d'; } /* '' */
+.icon-tags:before { content: '\e80e'; } /* '' */
+.icon-up-big:before { content: '\e80f'; } /* '' */
+.icon-down-big:before { content: '\e810'; } /* '' */
+.icon-eye:before { content: '\e811'; } /* '' */
+.icon-rocket:before { content: '\e812'; } /* '' */
+.icon-briefcase:before { content: '\e813'; } /* '' */
+.icon-users:before { content: '\e814'; } /* '' */
+.icon-user:before { content: '\e815'; } /* '' */
+.icon-user-add:before { content: '\e816'; } /* '' */
+.icon-forward:before { content: '\e817'; } /* '' */
+.icon-cog-1:before { content: '\e818'; } /* '' */
+.icon-ok:before { content: '\e819'; } /* '' */
+.icon-cancel:before { content: '\e81a'; } /* '' */
+
+.error_alert{
+    background: #FDF4F4;
+    color: #7E2226;
+    font-size: 15px;
+    padding: 20px;
+    border-radius: 2px;
+    margin-top: 40px;
+}
+.success_alert{
+    background: #F2F5FB;
+    color: #6F809A;
+    font-size: 16px;
+    padding: 100px 200px;
+    text-align: center;
+    border-radius: 2px;
+    margin-top: 40px;
+}
+.success_alert.compact{
+    padding: 30px;
+}
+
+
+
+
+
+
+
+html {
+    font-size: 1em;
+    line-height: 1.4;
+    font-family: 'PT Sans', sans-serif, Arial;
+}
+
+.black_land{
+    background: #0a0a0a;
+    color: #b9c7de;
+}
+
+.m_logo_wrap{
+    width: 224px;
+    height: 224px;
+    margin-top: -112px;
+    margin-left: -112px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    text-align: center;
+}
+    .m_logo_wrap .m_logo{
+        display: inline-block;
+        background: url('../img/logo224.png') no-repeat;
+        width: 224px;
+        height: 224px;
+        margin-bottom: 20px;
+    }
+    .m_logo_wrap a{
+        color: #d9e6fb;
+        font-size: 17px;
+    }
+
+.center_side{
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.site_header{
+    border-bottom: 1px solid #eceff6;
+    font-size: 0;
+}
+    .site_header a{
+        position: relative;
+        display: inline-block;
+        padding: 18px;
+        color: #6091c8;
+        text-decoration: none;
+        font-size: 16px;
+    }
+        .site_header a:hover::before,
+        .site_header .current::before{
+            content: '';
+            display: block;
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 3px;
+            background: #dde2e9;
+        }
+.site_menu{
+    margin: 0 12px;
+}
+
+.left_col{
+    width: 47%;
+    margin-right: 100px;
+    padding-left: 30px;
+}
+    .left_col article{
+        padding: 35px 0;
+    }
+.right_col{
+    padding-left: 60%;
+    padding-right: 30px;
+}
+
+
+.blank .user_panel{
+    padding: 20px 0;
+}
+    .user_panel .ava{
+        display: inline-block;
+        border-radius: 40px;
+        overflow: hidden;
+        vertical-align: middle;
+        margin-right: 10px;
+    }
+        .user_panel .ava, .user_panel .ava > img {
+            width: 40px;
+            height: 40px;
+        }
+    .user_panel .name{
+        display: inline-block;
+        color: #667ca6;
+    }
+    .user_panel .logout{
+        color: #bac1cf;
+        display: inline-block;
+        margin-top: 8px;
+    }
+
+.blank label{
+    display: block;
+    margin-bottom: 7px;
+}
+.blank textarea{
+    margin-bottom: 20px;
+    resize: none;
+}
+
+.blank .additional_fields input{
+    margin-bottom: 20px;
+}
+
+
+.logo_medium{
+    display: inline-block;
+    background: url('../img/logo_medium.png') no-repeat;
+    width: 233px;
+    height: 231px;
+}
+
+.page_pic{
+    text-align: center;
+}
+.page_pic .logo_medium{
+    margin: 55px 0;
+    margin-left: -25px;
+}
+
+.blank_auth{
+    margin-bottom: 30px;
+}
+    .blank_auth .vk_button{
+        vertical-align: middle;
+        margin-right: 17px;
+    }
+    .blank_auth .additional{
+        display: inline-block;
+        color: #838ea1;
+    }
+
+.mobile_logo_small{
+    display: block;
+    background: url('../img/logo_small.png') no-repeat;
+    width: 123px;
+    height: 122px;
+    margin: 40px auto 20px;
+    display: none;
+}
+
+.p_table{
+    width: 100%;
+    margin: 30px;
+}
+.p_table td{
+    padding: 15px;
+    border-bottom: 1px solid #EFF1F5;
+    word-wrap: break-word;
+    max-width: 300px;
+}
+.list_user_ava{
+    position: relative;
+    display: inline-block;
+    border: 1px solid #e8ebf4;
+    border-radius: 20px;
+    overflow: hidden;
+    font-size: 20px;
+    text-align: center;
+    vertical-align: middle;
+}
+    .list_user_ava,
+    .list_user_ava > img{
+        width: 40px;
+        height: 40px;
+    }
+    .list_user_ava .numb{
+        display: inline-block;
+        padding-top: 7px;
+        color: #99abbb;
+        font-weight: bold;
+    }
+.list_user_name{
+    font-weight: bold;
+}
+.list_user_vk_name i{
+    margin-right: 5px;
+}
+
+.p_table .checker{
+    position: absolute;
+    right: -7px;
+    bottom: 0;
+    width: 22px;
+    height: 22px;
+    background: #6579AD;
+    color: #fff;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    display: none;
+}
+    .p_table td:hover .checker{
+        display: block;
+    }
+    .p_table .checker.checked{
+        display: block;
+        background: #26AF89;
+    }
+    .p_table .checker i{
+        margin: 1px;
+        line-height: 1.7em;
+    }
+.article{
+    margin: 0 30px;
+    padding: 35px 0;
+}
+    .article .first_header{
+        margin-top: 0;
+    }
+    .article .left_col{
+        padding-left: 0;
+    }
+.page_block{
+    margin-top: 50px;
+}
+.block_link{
+    display: block;
+    max-width: 350px;
+    color: inherit;
+    text-decoration: none;
+}
+
+
+.additional_tasks{
+    margin: 0;
+    padding: 0;
+}
+    .additional_tasks li{
+        list-style-type: none;
+        padding: 20px 0;
+        border-bottom: 1px solid #e4eaf5;
+    }
+        .additional_tasks li:before{
+            content: '';
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 5px;
+            background: #DFE7F5;
+            margin-right: 15px;
+        }
+            .additional_tasks .back:before{background: #6699df}
+            .additional_tasks .front:before{background: #e87474}
+            .additional_tasks .ui:before{background: #9bf1b3}
+
+    .additional_tasks.legend li{
+        display: inline-block;
+        border-bottom: 0;
+        margin-right: 50px;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+.technic{
+    display: inline-block;
+    padding: 0 4px;
+    background-color: #E2EFFD;
+    font-family: 'monaco', 'consolas', 'courier';
+    font-size: 13px;
+    color: #5B8AC3;
+
+}
+
+@-webkit-keyframes wobble {
+    0% { -webkit-transform: translateX(0%); }
+    15% { -webkit-transform: translateX(-1%) rotate(-5deg); }
+    30% { -webkit-transform: translateX(3%) rotate(3deg); }
+    45% { -webkit-transform: translateX(-1%) rotate(-3deg); }
+    60% { -webkit-transform: translateX(3%) rotate(2deg); }
+    75% { -webkit-transform: translateX(-1%) rotate(-1deg); }
+    100% { -webkit-transform: translateX(0%); }
+}
+
+@-moz-keyframes wobble {
+    0% { -moz-transform: translateX(0%); }
+    15% { -moz-transform: translateX(-1%) rotate(-5deg); }
+    30% { -moz-transform: translateX(3%) rotate(3deg); }
+    45% { -moz-transform: translateX(-1%) rotate(-3deg); }
+    60% { -moz-transform: translateX(3%) rotate(2deg); }
+    75% { -moz-transform: translateX(-1%) rotate(-1deg); }
+    100% { -moz-transform: translateX(0%); }
+}
+
+@-o-keyframes wobble {
+    0% { -o-transform: translateX(0%); }
+    15% { -o-transform: translateX(-1%) rotate(-5deg); }
+    30% { -o-transform: translateX(3%) rotate(3deg); }
+    45% { -o-transform: translateX(-1%) rotate(-3deg); }
+    60% { -o-transform: translateX(3%) rotate(2deg); }
+    75% { -o-transform: translateX(-1%) rotate(-1deg); }
+    100% { -o-transform: translateX(0%); }
+}
+
+@keyframes wobble {
+    0% { transform: translateX(0%); }
+    15% { transform: translateX(-1%) rotate(-5deg); }
+    30% { transform: translateX(3%) rotate(3deg); }
+    45% { transform: translateX(-1%) rotate(-3deg); }
+    60% { transform: translateX(3%) rotate(2deg); }
+    75% { transform: translateX(-1%) rotate(-1deg); }
+    100% { transform: translateX(0%); }
+}
+
+.wobble {
+    -webkit-animation-name: wobble; -moz-animation-name: wobble; -o-animation-name: wobble; animation-name: wobble;
+    -webkit-animation-duration: 400ms; -moz-animation-duration: 400ms; -o-animation-duration: 400ms; animation-duration: 400ms;
+    -webkit-animation-iteration-count: 1; -moz-animation-iteration-count: 1; -o-animation-iteration-count: 1; animation-iteration-count: 1;
+}
+
+
+
+@-webkit-keyframes bounceIn {
+    0% { opacity: 0; -webkit-transform: scale(.3);}
+    50% {opacity: 1; -webkit-transform: scale(1.05);}
+    70% {-webkit-transform: scale(.9);}
+    100% {-webkit-transform: scale(1);}
+}
+
+@-moz-keyframes bounceIn {
+    0% {opacity: 0;-moz-transform: scale(.3);}
+    50% {opacity: 1;-moz-transform: scale(1.05);}
+    70% {-moz-transform: scale(.9);}
+    100% {-moz-transform: scale(1);}
+}
+@-o-keyframes bounceIn {
+    0% {opacity: 0;-o-transform: scale(.3);}
+    50% {opacity: 1;-o-transform: scale(1.05);}
+    70% {-o-transform: scale(.9);}
+    100% {-o-transform: scale(1);}
+}
+@keyframes bounceIn {
+    0% {opacity: 0;transform: scale(.3);}
+    50% {opacity: 1;transform: scale(1.05);}
+    70% {transform: scale(.9);}
+    100% {transform: scale(1);}
+}
+
+.bounceIn {
+    -webkit-animation-name: bounceIn; -webkit-animation-duration: 600ms; -webkit-animation-iteration-count: 1;
+    -moz-animation-name: bounceIn; -moz-animation-duration: 600ms; -moz-animation-iteration-count: 1;
+    -o-animation-name: bounceIn; -o-animation-duration: 600ms; -o-animation-iteration-count: 1;
+    animation-name: bounceIn; animation-duration: 600ms; animation-iteration-count: 1;
+}
+
+
+@media all and (max-width: 1000px){
+
+    .left_col{margin-right: 0;}
+    .right_col{padding-left: 56%;}
+
+}
+
+@media all and (max-width: 800px){
+
+    .left_col{
+        float: none;
+        width: auto;
+        padding: 0 30px;
+    }
+    .left_col article{
+        padding: 10px 0;
+    }
+    .right_col{
+        padding: 30px;
+    }
+    .page_pic{
+        display: none;
+    }
+    .blank_auth{
+        text-align: center;
+    }
+        .blank_auth .vk_button{margin-right: 0;}
+        .blank_auth .additional{
+            display: block;
+            margin-top: 15px;
+        }
+    .mobile_logo_small{
+        display: block;
+    }
+    .success_alert{
+        padding: 30px;
+    }
+
+    .page_block .right_col{
+        padding: 0;
+        margin-top: 50px;
+    }
+
+}
+
+
+
+
+@media print, (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 1.25dppx), (min-resolution: 120dpi) {
+    .m_logo_wrap .m_logo{
+        background: url('../img/logo224@2x.png') no-repeat;
+        background-size: 224px 224px;
+    }
+    .logo_medium{
+        background: url('../img/logo_medium@2x.png') no-repeat;
+        background-size: 233px 231px;
+    }
+
+    .mobile_logo_small{
+        background: url('../img/logo_medium.png') no-repeat;
+        background-size: 123px auto;
+    }
+
+}
+
+@media print {
+    *,
+    *:before,
+    *:after,
+    *:first-letter,
+    *:first-line {
+        background: transparent !important;
+        color: #000 !important; /* Black prints faster:
+                                   http://www.sanbeiji.com/archives/953 */
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+
+    /*
+     * Don't show links that are fragment identifiers,
+     * or use the `javascript:` pseudo protocol
+     */
+
+    a[href^="#"]:after,
+    a[href^="javascript:"]:after {
+        content: "";
+    }
+
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+
+    /*
+     * Printing Tables:
+     * http://css-discuss.incutio.com/wiki/Printing_Tables
+     */
+
+    thead {
+        display: table-header-group;
+    }
+
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+
+    img {
+        max-width: 100% !important;
+    }
+
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+}
