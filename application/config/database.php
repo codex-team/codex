@@ -19,7 +19,7 @@ return array
 			 * Ports and sockets may be appended to the hostname.
 			 */
 			'hostname'   => 'localhost',
-			'database'   => '332',
+			'database'   => 'difual-alpha',
 			'username'   => 'difual-alpha',
 			'password'   => 'SpADffLB8y9WrHza',
 			'persistent' => FALSE,
