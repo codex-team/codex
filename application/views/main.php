@@ -23,7 +23,7 @@
     */ ?>
 
     <link rel="stylesheet" href="/public/css/normalize.css">
-    <link rel="stylesheet" href="/public/css/main.css">
+    <link rel="stylesheet" href="/public/css/main.css?v=<?= filemtime("public/css/main.css") ?>">
     <link rel="icon" type="image/png" href="/public/img/fav_round.png?v=994" id="favicon" />
 
     <meta id="metaImage" name="image" property="og:image"  content="https://ifmo.su/img/meta_img.png" />
@@ -35,7 +35,7 @@
     <? /** Template content */ ?>
     <?= $content ?>
 
-    <script src="/public/js/main.js"></script>
+    <script src="/public/js/main.js?v=<?= filemtime("public/js/main.js") ?>"></script>
     <? /*
         <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter32652805 = new Ya.Metrika({ id:32652805, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="https://mc.yandex.ru/watch/32652805" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     */?>
