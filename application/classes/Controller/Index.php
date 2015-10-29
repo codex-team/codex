@@ -6,7 +6,7 @@ class Controller_Index extends Controller_Base_preDispatch
     /** Action for index page */
     public function action_index()
     {
-        $this->template->title = 'Команда CodeX';
+        $this->title = 'Команда CodeX';
         $this->template->content = View::factory('templates/index', $this->view);
     }
 
