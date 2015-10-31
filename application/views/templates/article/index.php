@@ -29,7 +29,9 @@
         if (!$comments) {
             echo "<p>пусто</p>";
         } else {
-            # цикл по элементам массива комментариев к статье
+            while (list($id_comment, $article, $name, $comment) = mysql_fetch_row($comments)) {
+                echo "<p><b>".$name."</b>: ".$comment."</p>";
+            }
         }
     ?>
 
