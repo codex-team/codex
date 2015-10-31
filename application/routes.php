@@ -13,7 +13,7 @@ Route::set('INDEX_PAGE', '')->defaults(array(
     'action' => 'index'
 ));
 
-Route::set('ARTICLE_VIEW', 'article/<article_id>')->defaults(array(
+Route::set('ARTICLE_PAGE', 'article/<article_id>', array('article_id' => $DIGIT))->defaults(array(
     'controller' => 'articles_index',
     'action' => 'showArticle'
 ));
