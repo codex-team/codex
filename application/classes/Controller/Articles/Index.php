@@ -19,11 +19,11 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
         $dbcnx = @mysql_connect($dblocation, $dbuser, $dbpassword);
         if (!$dbcnx) {
-            echo "Can't connect<br>".mysql_error();
+            echo "Can't connect to ".$dblocation.".<br>Error: ".mysql_error();
             exit();
         }
         if (!@mysql_select_db($dbname, $dbcnx)) {
-            echo "В данным момент база данных недоступна<br>".mysql_error();
+            echo "Database ".$dbname." currently not availiable.<br>Error:".mysql_error();
             exit();
         }
         mysql_query ("set character_set_results='utf8'");
@@ -50,11 +50,11 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
         $dbcnx = @mysql_connect($dblocation, $dbuser, $dbpassword);
         if (!$dbcnx) {
-            echo "В данный момент сервер базы данных недоступен <br>".mysql_error();
+            echo "Can't connect to ".$dblocation.".<br>Error: ".mysql_error();
             exit();
         }
         if (!@mysql_select_db($dbname, $dbcnx)) {
-            echo "В данным момент база данных недоступна<br>".mysql_error();
+            echo "Database ".$dbname." currently not availiable.<br>Error:".mysql_error();
             exit();
         }
         mysql_query ("set character_set_results='utf8'");
