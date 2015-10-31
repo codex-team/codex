@@ -3,18 +3,14 @@
 class Controller_Articles_Index extends Controller_Base_preDispatch
 {
 
-    /** Action for index page */
-    public function action_index()
-    {
-        $this->title = 'Команда CodeX';
-        $this->template->content = View::factory('templates/index', $this->view);
-    }
-
     public function action_showArticle()
     {
         $id = $this->request->param('article_id');
 
-        echo($id); exit();
+        $this->title = 'Article #'.$id;
+        $this->view["id"] = $id;
+        $this->view["comments"] = '';
+        $this->template->content = View::factory('templates/article/index', $this->view);
     }
 
 }
