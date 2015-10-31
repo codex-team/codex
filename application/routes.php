@@ -13,6 +13,11 @@ Route::set('INDEX_PAGE', '')->defaults(array(
     'action' => 'index'
 ));
 
+Route::set('ADD_COMMENT_SCRIPT', 'article/addcomment')->defaults(array(
+    'controller' => 'articles_index',
+    'action' => 'addComment'
+));
+
 Route::set('ARTICLE_PAGE', 'article/<article_id>', array('article_id' => $DIGIT))->defaults(array(
     'controller' => 'articles_index',
     'action' => 'showArticle'

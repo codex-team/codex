@@ -12,10 +12,16 @@
 
     <h1 class="first_header">
         Статья #<?= $id ?>
+        <?
+            # заголовок статьи
+        ?>
     </h1>
 
     <p>
         Содержимое статьи
+        <?
+            # тут все ясно
+        ?>
     </p>
 
     <h3>Комментарии</h3>
@@ -23,13 +29,14 @@
         if (!$comments) {
             echo "<p>пусто</p>";
         } else {
-            # какой-нибудь цикл по элементам массива комментариев к статье
+            # цикл по элементам массива комментариев к статье
         }
     ?>
 
     <p>
         <h3>Выскажи свое мнение</h3>
-        <form method="POST" action="#">
+        <form method="POST" action="/article/addcomment">
+            <input type="hidden" name="id" value="<?= $id ?>" />
             <label for="blankNameInput">Ваше имя</label>
             <input type="text" name="name" id="blankNameInput" />
             <label for="blankCommentTextarea">Комментарий</label>
