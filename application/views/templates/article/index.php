@@ -2,6 +2,7 @@
     <div class="center_side">
         <div class="site_menu">
             <a href="/">Главная</a>
+            <a href="/article/">Статьи</a>
         </div>
     </div>
 </div>
@@ -29,9 +30,9 @@
         if (!$comments) {
             echo "<p>пусто</p>";
         } else {
-            while (list($id_comment, $article, $name, $comment) = mysql_fetch_row($comments)) {
-                echo "<p><b>".$name."</b>: ".$comment."</p>";
-            }
+            foreach($comments as $current_commentary):
+                echo "<p><b>".$current_commentary['name']."</b>: ".$current_commentary['comment']."</p>";
+            endforeach;
         }
     ?>
 

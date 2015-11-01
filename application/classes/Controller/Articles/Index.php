@@ -10,27 +10,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $this->title = 'Article #'.$id;
         $this->view["id"] = $id;
 
-        # место для кода массива комментариев для статьи
-
-        $dblocation = '127.0.0.1';
-        $dbname = 'difual-alpha';
-        $dbuser = 'difual-alpha';
-        $dbpassword = 'SpADffLB8y9WrHza';
-
-        $dbcnx = @mysql_connect($dblocation, $dbuser, $dbpassword);
-        if (!$dbcnx) {
-            echo "Can't connect to ".$dblocation.".<br>Error: ".mysql_error();
-            exit();
-        }
-        if (!@mysql_select_db($dbname, $dbcnx)) {
-            echo "Database ".$dbname." currently not availiable.<br>Error:".mysql_error();
-            exit();
-        }
-        mysql_query ("set character_set_results='utf8'");
-
-        $this->view["comments"] = mysql_query("SELECT * FROM comments WHERE article = ".$id."");
-
-        # конец кода массива комментариев
+        $this->view["comments"] = DB::select('*')->from('comments')->where('article', '=', $id)->execute();
 
         $this->template->content = View::factory('templates/article/index', $this->view);
     }
@@ -41,28 +21,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $name = $_POST['name'];
         $comment = $_POST['comment'];
 
-        # место для кода сохранения комментария в бд
-
-        $dblocation = '127.0.0.1';
-		$dbname = 'difual-alpha';
-		$dbuser = 'difual-alpha';
-        $dbpassword = 'SpADffLB8y9WrHza';
-
-        $dbcnx = @mysql_connect($dblocation, $dbuser, $dbpassword);
-        if (!$dbcnx) {
-            echo "Can't connect to ".$dblocation.".<br>Error: ".mysql_error();
-            exit();
-        }
-        if (!@mysql_select_db($dbname, $dbcnx)) {
-            echo "Database ".$dbname." currently not availiable.<br>Error:".mysql_error();
-            exit();
-        }
-        mysql_query ("set character_set_results='utf8'");
-        mysql_query("SET NAMES utf8");
-
-        $sql = 'INSERT INTO comments(article, name, comment) VALUES("'.$id.'", "'.$name.'", "'.$comment.'")';
-        mysql_query($sql);
-        # конец кода сохранения комментария
+        DB::insert('comments', array('article', 'name', 'comment'))->values(array($id, $name, $comment))->execute();
 
         $this->redirect('/article/'.$id);
     }
