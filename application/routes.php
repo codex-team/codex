@@ -10,17 +10,44 @@ $STRING = '[-a-z\d]+';
 
 Route::set('INDEX_PAGE', '')->defaults(array(
     'controller' => 'index',
-    'action' => 'index'
+    'action' => 'index',
 ));
+
+Route::set('ARTICLE_LIST', 'article')->defaults(array(
+    'controller' => 'articles_index',
+    'action' => 'showAllArticles',
+));
+
+Route::set('ARTICLE_PAGE', 'article/<article_id>', array('article_id' => $DIGIT))->defaults(array(
+    'controller' => 'articles_index',
+    'action' => 'showArticle'
+));
+
+// Scripts for articles
+
+Route::set('ADD_ARTICLE_SCRIPT', 'article/addarticle')->defaults(array(
+    'controller' => 'articles_index',
+    'action' => 'addArticle'
+));
+
+Route::set('DEL_ARTICLE_SCRIPT', 'article/delarticle/<article_id>', array('article_id' => $DIGIT))->defaults(array(
+    'controller' => 'articles_index',
+    'action' => 'delArticle'
+));
+
+
+
+
+// Scripts for comments
 
 Route::set('ADD_COMMENT_SCRIPT', 'article/addcomment')->defaults(array(
     'controller' => 'articles_index',
     'action' => 'addComment'
 ));
 
-Route::set('ARTICLE_PAGE', 'article/<article_id>', array('article_id' => $DIGIT))->defaults(array(
+Route::set('DEL_COMMENT_SCRIPT', 'article/delcomment/<comment_id>', array('comment_id' => $DIGIT))->defaults(array(
     'controller' => 'articles_index',
-    'action' => 'showArticle'
+    'action' => 'delComment'
 ));
 
 // Defaults

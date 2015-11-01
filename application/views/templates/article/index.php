@@ -2,7 +2,7 @@
     <div class="center_side">
         <div class="site_menu">
             <a href="/">Главная</a>
-            <a href="/article/">Статьи</a>
+            <a href="/article">Статьи</a>
         </div>
     </div>
 </div>
@@ -12,17 +12,11 @@
 
 
     <h1 class="first_header">
-        Статья #<?= $id ?>
-        <?
-            # заголовок статьи
-        ?>
+        <?= $article['title'] ?>
     </h1>
 
     <p>
-        Содержимое статьи
-        <?
-            # тут все ясно
-        ?>
+        <?= $article['text'] ?>
     </p>
 
     <h3>Комментарии</h3>
@@ -31,7 +25,7 @@
             echo "<p>пусто</p>";
         } else {
             foreach($comments as $current_commentary):
-                echo "<p><b>".$current_commentary['name']."</b>: ".$current_commentary['comment']."</p>";
+                echo "<a><a href='/article/delcomment/".$current_commentary['id']."'>[удалить]</a> <b>".$current_commentary['name']."</b>: ".$current_commentary['comment']."</p>";
             endforeach;
         }
     ?>
@@ -39,7 +33,7 @@
     <p>
         <h3>Выскажи свое мнение</h3>
         <form method="POST" action="/article/addcomment">
-            <input type="hidden" name="id" value="<?= $id ?>" />
+            <input type="hidden" name="id" value="<?= $article['id'] ?>" />
             <label for="blankNameInput">Ваше имя</label>
             <input type="text" name="name" id="blankNameInput" />
             <label for="blankCommentTextarea">Комментарий</label>
