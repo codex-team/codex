@@ -13,6 +13,11 @@ Route::set('INDEX_PAGE', '')->defaults(array(
     'action' => 'index'
 ));
 
+Route::set('AUTH', 'auth/<action>')->defaults(array(
+    'controller' => 'auth',
+    'action' => 'action'
+));
+
 // Defaults
 // Route::set('default', '(<controller>(/<action>(/<id>)))')
 //     ->defaults(array(
