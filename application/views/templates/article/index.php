@@ -25,15 +25,33 @@
             echo "<p>пусто</p>";
         } else {
             foreach($comments as $current_commentary):
-                echo "<a><a href='/article/delcomment/".$current_commentary['id']."'>[удалить]</a> <b>".$current_commentary['name']."</b>: ".$current_commentary['comment']."</p>";
+              if ($current_commentary['answer'] == 0) {
+                  echo "<a href='/article/delcomment/" . $current_commentary['id'] . "'>[удалить]</a>
+                      <a onclick='document.getElementById(`answer_to_comment`).value=" . $current_commentary['id'] . ";
+                                  document.getElementById(`answer_username`).innerHTML=`Ваш ответ на комментарий
+                                  пользователя ". $current_commentary['name'] .": <i>".$current_commentary['comment']."</i>`;'>[Ответить]</a>
+                      <b>" . $current_commentary['name'] . "</b>: " . $current_commentary['comment'];
+
+                  foreach($subcomments as $subcomment):
+                      if ($current_commentary['id'] == $subcomment['answer']){
+                          echo "<div style='margin: 0px 77px'>";
+                          echo "<a href='/article/delcomment/" . $subcomment['id'] . "'>[удалить]</a>
+                                <b>" . $subcomment['name'] . "</b>: " . $subcomment['comment'];
+                          echo "</div>";
+                      }
+                  endforeach;
+
+                  echo "</p>";
+              }
             endforeach;
         }
     ?>
 
     <p>
-        <h3>Выскажи свое мнение</h3>
+        <h3 id="answer_username">Выскажи свое мнение</h3>
         <form method="POST" action="/article/addcomment">
             <input type="hidden" name="id" value="<?= $article['id'] ?>" />
+            <input type="hidden" name="answer" value="NULL" id="answer_to_comment"/>
             <label for="blankNameInput">Ваше имя</label>
             <input type="text" name="name" id="blankNameInput" />
             <label for="blankCommentTextarea">Комментарий</label>

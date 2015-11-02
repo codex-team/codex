@@ -18,6 +18,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $this->view["id"] = $id;
 
         $articles = DB::select('*')->from('articles')->where('id', '=', $id)->execute();
+        #$comments = DB::select('*')->from('comments')->where('article', '=', $id)->execute();
         $this->view["comments"] = DB::select('*')->from('comments')->where('article', '=', $id)->execute();
 
         # этот код надо бы сделать красивее
@@ -28,6 +29,8 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
             $article['text'] = $current_article['text'];
             $article['date'] = $current_article['date'];
         endforeach;
+
+        $this->view["subcomments"] = DB::select('*')->from('comments')->where('article', '=', $id)->execute();
         # конец кода, который нао сделать красивее
 
         $this->view["article"] = $article;
@@ -61,8 +64,9 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $id = $_POST['id'];
         $name = $_POST['name'];
         $comment = $_POST['comment'];
+        $answer = $_POST['answer'];
 
-        DB::insert('comments', array('article', 'name', 'comment'))->values(array($id, $name, $comment))->execute();
+        DB::insert('comments', array('article', 'name', 'comment', 'answer'))->values(array($id, $name, $comment, $answer))->execute();
 
         $this->redirect('/article/'.$id);
     }
@@ -79,6 +83,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         # надо бы сделать этот красивее
 
         DB::delete('comments')->where('id', '=', $comment_id)->execute();
+        DB::delete('comments')->where('answer', '=', $comment_id)->execute();
 
         $this->redirect('/article/'.$id);
     }
