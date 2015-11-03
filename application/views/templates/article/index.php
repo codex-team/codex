@@ -26,7 +26,7 @@
 
         foreach($comment_level as $current_comment_level):
             if ($current_comment_level > $current_commentary['answer']) {
-                        array_pop($comment_level);
+                array_pop($comment_level);
             }
         endforeach;
 
@@ -36,13 +36,18 @@
         echo "<div style='margin: 0px ".$level."px'>";
 
         echo "<p>";
-        echo "<a href='/article/delcomment/" . $current_commentary['id'] . "'>[удалить]</a>
-              <a onclick='document.getElementById(`answer_to_comment`).value=" . $current_commentary['id'] . ";
-                          document.getElementById(`blankCommentTextarea`).innerHTML=`".$current_commentary['name'].", `;
+        #echo "<a href='/article/delcomment/" . $current_commentary['id'] . "'>[удалить]</a>
+        #                <a onclick='document.getElementById(`answer_to_comment`).value=" . $current_commentary['id'] . ";
+        #                 document.getElementById(`blankCommentTextarea`).innerHTML=`".$current_commentary['name'].", `;
+        #                  document.getElementById(`answer_username`).innerHTML=`Ваш ответ на комментарий
+        #                          пользователя ". $current_commentary['name'] .": <i>".$current_commentary['comment']."</i>`;'>[ответить]</a>
+        #      <b>" . $current_commentary['name'] . "</b>: " . $current_commentary['comment'];
+        echo "<a onclick='document.getElementById(`answer_to_comment`).value=" . $current_commentary['id'] . ";
+                         document.getElementById(`blankCommentTextarea`).innerHTML=`".$current_commentary['name'].", `;
                           document.getElementById(`answer_username`).innerHTML=`Ваш ответ на комментарий
                                   пользователя ". $current_commentary['name'] .": <i>".$current_commentary['comment']."</i>`;'>[ответить]</a>
               <b>" . $current_commentary['name'] . "</b>: " . $current_commentary['comment'];
-        echo "(".$current_commentary['id'].", ".$current_commentary['answer'].")";
+        #echo "(".$current_commentary['id'].", ".$current_commentary['answer'].")";
         echo "</p>";
 
         echo "</div>";
