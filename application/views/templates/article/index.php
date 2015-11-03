@@ -30,7 +30,7 @@
             }
         endforeach;
 
-        $level = count($comment_level) * 77;
+        $level = count($comment_level) * 39;
         $comment_level[] = $current_commentary['id'];
 
         echo "<div style='margin: 0px ".$level."px'>";
