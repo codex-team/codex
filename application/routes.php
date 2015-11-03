@@ -23,7 +23,8 @@ Route::set('ARTICLE_PAGE', 'article/<article_id>', array('article_id' => $DIGIT)
     'action' => 'showArticle'
 ));
 
-// Scripts for articles
+#<<<<<<< HEAD
+# Scripts for articles
 
 Route::set('ADD_ARTICLE_SCRIPT', 'article/addarticle')->defaults(array(
     'controller' => 'articles_index',
@@ -48,6 +49,13 @@ Route::set('ADD_COMMENT_SCRIPT', 'article/addcomment')->defaults(array(
 Route::set('DEL_COMMENT_SCRIPT', 'article/delcomment/<comment_id>', array('comment_id' => $DIGIT))->defaults(array(
     'controller' => 'articles_index',
     'action' => 'delComment'
+));
+#=======
+
+Route::set('DESIGN_PREVIEW', 'design/<page>')->defaults(array(
+    'controller' => 'index',
+    'action' => 'designPreview'
+#>>>>>>> master
 ));
 
 // Defaults

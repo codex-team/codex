@@ -21,37 +21,39 @@
 
     <h3>Комментарии</h3>
     <?
-        if (!$comments) {
-            echo "<p>пусто</p>";
-        } else {
-            foreach($comments as $current_commentary):
-              if ($current_commentary['answer'] == 0) {
-                  echo "<a href='/article/delcomment/" . $current_commentary['id'] . "'>[удалить]</a>
-                      <a onclick='document.getElementById(`answer_to_comment`).value=" . $current_commentary['id'] . ";
-                                  document.getElementById(`answer_username`).innerHTML=`Ваш ответ на комментарий
-                                  пользователя ". $current_commentary['name'] .": <i>".$current_commentary['comment']."</i>`;'>[Ответить]</a>
-                      <b>" . $current_commentary['name'] . "</b>: " . $current_commentary['comment'];
+    $comment_level = [];
+    foreach($comments as $current_commentary):
 
-                  foreach($subcomments as $subcomment):
-                      if ($current_commentary['id'] == $subcomment['answer']){
-                          echo "<div style='margin: 0px 77px'>";
-                          echo "<a href='/article/delcomment/" . $subcomment['id'] . "'>[удалить]</a>
-                                <b>" . $subcomment['name'] . "</b>: " . $subcomment['comment'];
-                          echo "</div>";
-                      }
-                  endforeach;
+        foreach($comment_level as $current_comment_level):
+            if ($current_comment_level > $current_commentary['answer']) {
+                        array_pop($comment_level);
+            }
+        endforeach;
 
-                  echo "</p>";
-              }
-            endforeach;
-        }
+        $level = count($comment_level) * 77;
+        $comment_level[] = $current_commentary['id'];
+
+        echo "<div style='margin: 0px ".$level."px'>";
+
+        echo "<p>";
+        echo "<a href='/article/delcomment/" . $current_commentary['id'] . "'>[удалить]</a>
+              <a onclick='document.getElementById(`answer_to_comment`).value=" . $current_commentary['id'] . ";
+                          document.getElementById(`blankCommentTextarea`).innerHTML=`".$current_commentary['name'].", `;
+                          document.getElementById(`answer_username`).innerHTML=`Ваш ответ на комментарий
+                                  пользователя ". $current_commentary['name'] .": <i>".$current_commentary['comment']."</i>`;'>[ответить]</a>
+              <b>" . $current_commentary['name'] . "</b>: " . $current_commentary['comment'];
+        echo "(".$current_commentary['id'].", ".$current_commentary['answer'].")";
+        echo "</p>";
+
+        echo "</div>";
+    endforeach;
     ?>
 
     <p>
         <h3 id="answer_username">Выскажи свое мнение</h3>
         <form method="POST" action="/article/addcomment">
             <input type="hidden" name="id" value="<?= $article['id'] ?>" />
-            <input type="hidden" name="answer" value="NULL" id="answer_to_comment"/>
+            <input type="hidden" name="answer" value="0" id="answer_to_comment"/>
             <label for="blankNameInput">Ваше имя</label>
             <input type="text" name="name" id="blankNameInput" />
             <label for="blankCommentTextarea">Комментарий</label>
