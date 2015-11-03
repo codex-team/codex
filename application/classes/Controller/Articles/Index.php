@@ -44,7 +44,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
             $comments_table_rebuild[$var_k] = $comment;
             $i++;
         endforeach;
-        unset($comments_table_rebuild[$i]);
+        array_pop($comments_table_rebuild);
         # пересобрали.
 
         # этот код надо бы сделать красивее
