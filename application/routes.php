@@ -18,6 +18,12 @@ Route::set('ARTICLE_PAGE', 'article/<article_id>', array('article_id' => $DIGIT)
     'action' => 'showArticle'
 ));
 
+
+Route::set('DESIGN_PREVIEW', 'design/<page>')->defaults(array(
+    'controller' => 'index',
+    'action' => 'designPreview'
+));
+
 // Defaults
 // Route::set('default', '(<controller>(/<action>(/<id>)))')
 //     ->defaults(array(
