@@ -12,6 +12,18 @@ Route::set('INDEX_PAGE', '')->defaults(array(
     'controller' => 'index',
     'action' => 'index',
 ));
+Route::set('JOIN_PAGE', 'join')->defaults(array(
+    'controller' => 'join_index',
+    'action' => 'index',
+));
+Route::set('TASK_LIST', 'task')->defaults(array(
+    'controller' => 'task_index',
+    'action' => 'All',
+));
+Route::set('TASK_PAGE', 'task/<who>', array('who' => $STRING))->defaults(array(
+    'controller' => 'task_index',
+    'action' => 'whoSet',
+));
 
 Route::set('ARTICLE_LIST', 'article')->defaults(array(
     'controller' => 'articles_index',
