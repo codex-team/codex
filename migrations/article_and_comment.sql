@@ -6,8 +6,8 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `description` text NOT NULL,
   `text` text NOT NULL,
   `cover` varchar(10),
-  `dt_add` DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  `dt_edit` DATETIME DEFAULT NULL,
+  `dt_add` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  `dt_edit` TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -20,8 +20,8 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `article` int(11) NOT NULL,
   `uid` int(11) NOT NULL,
   `text` text NOT NULL,
-  `dt_add` DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  `dt_edit` DATETIME DEFAULT NULL,
+  `dt_add` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  `dt_edit` TIMESTAMP,
   `is_removed` TINYINT(1) DEFAULT FALSE NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
