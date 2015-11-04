@@ -63,6 +63,11 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $this->template->content = View::factory('templates/article/index', $this->view);
     }
 
+    public function action_newArticle()
+    {
+        $this->template->content = View::factory('templates/article/new_article', $this->view);
+    }
+
     public function action_addArticle()
     {
         $title = $_POST['title'];

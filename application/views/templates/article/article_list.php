@@ -16,14 +16,7 @@
             endforeach;
       ?>
       <p>
-        <h2>Добавить статью</h2>
-        <form method="POST" action="/article/addarticle">
-          <label for="blankNameInput">Заголовок статьи</label>
-          <input type="text" name="title" id="blankNameInput" />
-          <label for="blankCommentTextarea">Содержание</label>
-          <textarea name="text" id="blankCommentTextarea"  required></textarea>
-          <p><button class="master" id="blankSendButton">Добавить</button></p>
-        </form>
+        <a href="/article/newarticle"><button>Добавить статью</button></a>
       </p>
   </article>
 </div>

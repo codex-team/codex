@@ -23,8 +23,15 @@ Route::set('ARTICLE_PAGE', 'article/<article_id>', array('article_id' => $DIGIT)
     'action' => 'showArticle'
 ));
 
+Route::set('NEW_ARTICLE_PAGE', 'article/newarticle')->defaults(array(
+    'controller' => 'articles_index',
+    'action' => 'newArticle'
+));
+
 #<<<<<<< HEAD
-# Scripts for articles
+
+
+// Scripts for articles
 
 Route::set('ADD_ARTICLE_SCRIPT', 'article/addarticle')->defaults(array(
     'controller' => 'articles_index',
