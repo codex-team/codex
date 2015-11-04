@@ -8,6 +8,9 @@ CREATE TABLE `articles` (
 ALTER TABLE `articles`
   ADD PRIMARY KEY (`id`);
 
+ALTER TABLE `articles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
 
 CREATE TABLE `comments` (
   `id` int(11) NOT NULL,
@@ -19,4 +22,7 @@ CREATE TABLE `comments` (
 
 ALTER TABLE `comments`
   ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `comments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144;
 
