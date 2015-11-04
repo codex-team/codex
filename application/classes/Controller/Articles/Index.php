@@ -7,7 +7,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
     {
         $this->view["articles"] = DB::select('*')->from('articles')->execute();
 
-        $this->template->content = View::factory('templates/article/article_list', $this->view);
+        $this->template->content = View::factory('templates/articles/list', $this->view);
     }
 
     public function action_showArticle()
@@ -60,12 +60,12 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $this->view["comments"] = $comments_table_rebuild;
         $this->view["article"] = $article;
 
-        $this->template->content = View::factory('templates/article/index', $this->view);
+        $this->template->content = View::factory('templates/articles/article', $this->view);
     }
 
     public function action_newArticle()
     {
-        $this->template->content = View::factory('templates/article/new_article', $this->view);
+        $this->template->content = View::factory('templates/articles/article_new', $this->view);
     }
 
     public function action_addArticle()
