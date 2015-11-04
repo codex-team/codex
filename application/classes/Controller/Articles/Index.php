@@ -20,7 +20,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $comments_table = DB::select('*')->from('comments')->where('article', '=', $id)->order_by('answer', 'ASC', 'id', 'ASC')->execute();
         $comments_table_rebuild = [];
 
-        # пересобираем массив комментариев
+        // пересобираем массив комментариев
         $i = 0;
         foreach($comments_table as $comment):
             $comments_table_rebuild[] = $comment;
@@ -45,9 +45,9 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
             $i++;
         endforeach;
         array_pop($comments_table_rebuild);
-        # пересобрали.
+        // пересобрали.
 
-        # этот код надо бы сделать красивее
+        // этот код надо бы сделать красивее
         $article = [];
         foreach($articles as $current_article):
             $article['id'] = $current_article['id'];
@@ -55,7 +55,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
             $article['text'] = $current_article['text'];
             $article['date'] = $current_article['date'];
         endforeach;
-        # конец кода, который надо сделать красивее
+        // конец кода, который надо сделать красивее
 
         $this->view["comments"] = $comments_table_rebuild;
         $this->view["article"] = $article;
@@ -100,12 +100,12 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
     {
         $comment_id = $this->request->param('comment_id');
 
-        # получаем id статьи для редиректа
+        // получаем id статьи для редиректа
         $comment = DB::select('*')->from('comments')->where('id', '=', $comment_id)->execute();
         foreach($comment as $current_comment):
             $id = $current_comment['article'];
         endforeach;
-        # надо бы сделать этот красивее
+        // надо бы сделать этот красивее
 
         DB::delete('comments')->where('id', '=', $comment_id)->execute();
         DB::delete('comments')->where('answer', '=', $comment_id)->execute();
