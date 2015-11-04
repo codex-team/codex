@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Comments_Action extends Controller_Base_preDispatch
+class Controller_Comments extends Controller_Base_preDispatch
 {
 
     public function action_add()

@@ -49,12 +49,12 @@ Route::set('DEL_ARTICLE_SCRIPT', 'article/delarticle/<article_id>', array('artic
 // Scripts for comments
 
 Route::set('ADD_COMMENT_SCRIPT', 'article/addcomment')->defaults(array(
-    'controller' => 'comments_action',
+    'controller' => 'comments',
     'action' => 'add'
 ));
 
 Route::set('DEL_COMMENT_SCRIPT', 'article/delcomment/<comment_id>', array('comment_id' => $DIGIT))->defaults(array(
-    'controller' => 'comments_action',
+    'controller' => 'comments',
     'action' => 'delete'
 ));
 #=======
