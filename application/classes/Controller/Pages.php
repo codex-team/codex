@@ -1,7 +1,14 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Task_Index extends Controller_Base_preDispatch
+class Controller_Pages extends Controller_Base_preDispatch
 {
+
+
+ public function action_index()
+    {
+    	 $this->title = 'Набор в команду CodeX';
+    	  $this->template->content = View::factory('templates/join/index', $this->view);
+}
 
  public function action_All()
     {    
@@ -10,7 +17,6 @@ class Controller_Task_Index extends Controller_Base_preDispatch
     	  $this->template->content = View::factory('templates/task/index', $this->view);
   
     }
-
 
  public function action_whoSet()
     {    

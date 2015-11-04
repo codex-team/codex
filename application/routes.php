@@ -13,15 +13,15 @@ Route::set('INDEX_PAGE', '')->defaults(array(
     'action' => 'index',
 ));
 Route::set('JOIN_PAGE', 'join')->defaults(array(
-    'controller' => 'join_index',
+    'controller' => 'pages',
     'action' => 'index',
 ));
 Route::set('TASK_LIST', 'task')->defaults(array(
-    'controller' => 'task_index',
+    'controller' => 'pages',
     'action' => 'All',
 ));
 Route::set('TASK_PAGE', 'task/<who>', array('who' => $STRING))->defaults(array(
-    'controller' => 'task_index',
+    'controller' => 'pages',
     'action' => 'whoSet',
 ));
 

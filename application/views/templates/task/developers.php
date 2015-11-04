@@ -4,8 +4,8 @@
             <div class="center_side">
                 <div class="site_menu">
                     <a href="/">Главная</a>
-                    <a href="/join.php">Набор в клуб</a>
-                    <a href="/task.php" class="current">Задания</a>
+                    <a href="/join">Набор в клуб</a>
+                    <a href="/task" class="current">Задания</a>
                 </div>
             </div>
         </div>
