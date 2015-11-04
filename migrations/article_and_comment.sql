@@ -1,4 +1,5 @@
-CREATE TABLE `articles` (
+DROP TABLE IF EXISTS `articles`;
+CREATE TABLE IF NOT EXISTS `articles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uid` int(11) NOT NULL,
   `title` varchar(140) NOT NULL,
@@ -12,7 +13,8 @@ CREATE TABLE `articles` (
 
 
 
-CREATE TABLE `comments` (
+DROP TABLE IF EXISTS `comments`;
+CREATE TABLE IF NOT EXISTS `comments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) NOT NULL,
   `article` int(11) NOT NULL,

@@ -17,8 +17,10 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $this->view["id"] = $id;
 
         $articles = DB::select('*')->from('articles')->where('id', '=', $id)->execute();
-        $comments_table = DB::select('*')->from('comments')->where('article', '=', $id)->order_by('answer', 'ASC', 'id', 'ASC')->execute();
-        $comments_table_rebuild = [];
+        $this->view["article"] = $articles[0];
+
+        $comments_table = DB::select('*')->from('comments')->where('article', '=', $id)->order_by('parent_id', 'ASC', 'id', 'ASC')->execute();
+        $comments_table_rebuild = array();
 
         // пересобираем массив комментариев
         $i = 0;
@@ -27,9 +29,9 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
             $var_k = $i;
             for ($j = 0; $j < $i; $j++){
-                if ($comment['answer'] == $comments_table_rebuild[$j]['id']) {
+                if ($comment['parent_id'] == $comments_table_rebuild[$j]['id']) {
                     for ($k = $j + 1; $k < $i; $k++){
-                        if ($comment['answer'] != $comments_table_rebuild[$k]['answer']){
+                        if ($comment['parent_id'] != $comments_table_rebuild[$k]['parent_id']){
                             $var_k = $k;
                             break;
                         };
@@ -47,18 +49,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         array_pop($comments_table_rebuild);
         // пересобрали.
 
-        // этот код надо бы сделать красивее
-        $article = [];
-        foreach($articles as $current_article):
-            $article['id'] = $current_article['id'];
-            $article['title'] = $current_article['title'];
-            $article['text'] = $current_article['text'];
-            $article['date'] = $current_article['date'];
-        endforeach;
-        // конец кода, который надо сделать красивее
-
         $this->view["comments"] = $comments_table_rebuild;
-        $this->view["article"] = $article;
 
         $this->template->content = View::factory('templates/articles/article', $this->view);
     }

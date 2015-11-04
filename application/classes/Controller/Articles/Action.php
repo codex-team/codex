@@ -5,11 +5,15 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
 
     public function action_add()
     {
+        // uid будет опредеться тут, а не в форме
+        $uid = $_POST['uid']; // = 0
         $title = $_POST['title'];
+        $description = $_POST['description'];
         $text = $_POST['text'];
-        $date = date("Y-m-d");
+        // cover - картинка
+        $cover = $_POST['cover'];
 
-        DB::insert('articles', array('title', 'text', 'date'))->values(array($title, $text, $date))->execute();
+        DB::insert('articles', array('uid', 'title', 'description', 'text', 'cover'))->values(array($uid, $title, $description, $text, $cover))->execute();
 
         $this->redirect('/article');
     }

@@ -15,6 +15,10 @@
         <?= $article['title'] ?>
     </h1>
 
+    <h2 class="first_header">
+        <?= $article['description'] ?>
+    </h2>
+
     <p>
         <?= $article['text'] ?>
     </p>
@@ -25,7 +29,7 @@
     foreach($comments as $current_commentary):
 
         foreach($comment_level as $current_comment_level):
-            if ($current_comment_level > $current_commentary['answer']) {
+            if ($current_comment_level > $current_commentary['parent_id']) {
                 array_pop($comment_level);
             }
         endforeach;
@@ -37,22 +41,12 @@
 
         echo "<p>";
 
-        // delete button
-        #echo "<a href='/article/delcomment/" . $current_commentary['id'] . "'>[удалить]</a>
-        #                <a onclick='document.getElementById(`answer_to_comment`).value=" . $current_commentary['id'] . ";
-        #                 document.getElementById(`blankCommentTextarea`).innerHTML=`".$current_commentary['name'].", `;
-        #                  document.getElementById(`answer_username`).innerHTML=`Ваш ответ на комментарий
-        #                          пользователя ". $current_commentary['name'] .": <i>".$current_commentary['comment']."</i>`;'>[ответить]</a>
-        #      <b>" . $current_commentary['name'] . "</b>: " . $current_commentary['comment'];
-
-        echo "<a onclick='document.getElementById(`answer_to_comment`).value=" . $current_commentary['id'] . ";
-                         document.getElementById(`blankCommentTextarea`).innerHTML=`".$current_commentary['name'].", `;
+        echo "<a href='/article/delcomment/" . $current_commentary['id'] . "'>[удалить]</a>
+                        <a onclick='document.getElementById(`answer_to_comment`).value=" . $current_commentary['id'] . ";
+                         document.getElementById(`blankCommentTextarea`).innerHTML=`".$current_commentary['uid'].", `;
                           document.getElementById(`answer_username`).innerHTML=`Ваш ответ на комментарий
-                                  пользователя ". $current_commentary['name'] .": <i>".$current_commentary['comment']."</i>`;'>[ответить]</a>
-              <b>" . $current_commentary['name'] . "</b>: " . $current_commentary['comment'];
-
-        // debug info
-        #echo "(".$current_commentary['id'].", ".$current_commentary['answer'].")";
+                                  пользователя ". $current_commentary['uid'] .": <i>".$current_commentary['text']."</i>`;'>[ответить]</a>
+              <b>" . $current_commentary['uid'] . "</b>: " . $current_commentary['text'];
 
         echo "</p>";
 
@@ -63,12 +57,12 @@
     <p>
         <h3 id="answer_username">Выскажи свое мнение</h3>
         <form method="POST" action="/article/addcomment">
-            <input type="hidden" name="id" value="<?= $article['id'] ?>" />
-            <input type="hidden" name="answer" value="0" id="answer_to_comment"/>
+            <input type="hidden" name="article" value="<?= $article['id'] ?>" />
+            <input type="hidden" name="parent_id" value="0" id="answer_to_comment"/>
             <label for="blankNameInput">Ваше имя</label>
-            <input type="text" name="name" id="blankNameInput" />
+            <input type="text" name="uid" id="blankNameInput" value="0"/>
             <label for="blankCommentTextarea">Комментарий</label>
-            <textarea name="comment" id="blankCommentTextarea"  required></textarea>
+            <textarea name="text" id="blankCommentTextarea"  required></textarea>
             <p><button class="master" id="blankSendButton">Добавить комментарий</button></p>
         </form>
     </p>

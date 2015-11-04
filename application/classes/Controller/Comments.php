@@ -5,14 +5,14 @@ class Controller_Comments extends Controller_Base_preDispatch
 
     public function action_add()
     {
-        $id = $_POST['id'];
-        $name = $_POST['name'];
-        $comment = $_POST['comment'];
-        $answer = $_POST['answer'];
+        $article = $_POST['article'];
+        $uid = $_POST['uid'];
+        $text = $_POST['text'];
+        $parent_id = $_POST['parent_id'];
 
-        DB::insert('comments', array('article', 'name', 'comment', 'answer'))->values(array($id, $name, $comment, $answer))->execute();
+        DB::insert('comments', array('article', 'uid', 'text', 'parent_id'))->values(array($article, $uid, $text, $parent_id))->execute();
 
-        $this->redirect('/article/'.$id);
+        $this->redirect('/article/'.$article);
     }
 
     public function action_delete()
@@ -22,14 +22,18 @@ class Controller_Comments extends Controller_Base_preDispatch
         // получаем id статьи для редиректа
         $comment = DB::select('*')->from('comments')->where('id', '=', $comment_id)->execute();
         foreach($comment as $current_comment):
-            $id = $current_comment['article'];
+            $article = $current_comment['article'];
         endforeach;
         // надо бы сделать этот красивее
 
-        DB::delete('comments')->where('id', '=', $comment_id)->execute();
-        DB::delete('comments')->where('answer', '=', $comment_id)->execute();
+        // нужен код для отметки на комментарии и на всех его подкомментариях
+        // is_removed = TRUE
+        // рекурсивно по всем сабкомментам
 
-        $this->redirect('/article/'.$id);
+        #DB::delete('comments')->where('id', '=', $comment_id)->execute();
+        #DB::delete('comments')->where('parent_id', '=', $comment_id)->execute();
+
+        $this->redirect('/article/'.$article);
     }
 
 }
