@@ -21,17 +21,20 @@ class Controller_Comments extends Controller_Base_preDispatch
 
         // получаем id статьи для редиректа
         $comment = DB::select('*')->from('comments')->where('id', '=', $comment_id)->execute();
-        foreach($comment as $current_comment):
-            $article = $current_comment['article'];
-        endforeach;
-        // надо бы сделать этот красивее
+        $article = $comment[0]['article'];
 
-        // нужен код для отметки на комментарии и на всех его подкомментариях
-        // is_removed = TRUE
-        // рекурсивно по всем сабкомментам
+        // удаляем комментарий и все его подкомментарии рекурсивно
+        function delete_subcomments($parent_id)
+        {
+            $subcomments = DB::select('*')->from('comments')->where('parent_id', '=', $parent_id)->execute();
 
-        #DB::delete('comments')->where('id', '=', $comment_id)->execute();
-        #DB::delete('comments')->where('parent_id', '=', $comment_id)->execute();
+            foreach($subcomments as $comment):
+               delete_subcomments($comment['id']);
+            endforeach;
+
+            DB::delete('comments')->where('id', '=', $parent_id)->execute();
+        }
+        delete_subcomments($comment_id);
 
         $this->redirect('/article/'.$article);
     }
