@@ -16,7 +16,7 @@
           <label for="blankNameInput">Заголовок статьи</label>
           <input type="text" name="title" id="blankNameInput" />
           <label for="blankNameInput">Описание</label>
-          <input type="text" name="description" id="blankNameInput" />
+          <textarea name="description" id="blankCommentTextarea"  required></textarea>
           <label for="blankCommentTextarea">Содержание</label>
           <textarea name="text" id="blankCommentTextarea"  required></textarea>
           <label for="blankNameInput">Обложка (позже будет файлоприемник)</label>
