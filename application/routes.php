@@ -34,13 +34,13 @@ Route::set('NEW_ARTICLE_PAGE', 'article/newarticle')->defaults(array(
 // Scripts for articles
 
 Route::set('ADD_ARTICLE_SCRIPT', 'article/addarticle')->defaults(array(
-    'controller' => 'articles_index',
-    'action' => 'addArticle'
+    'controller' => 'articles_action',
+    'action' => 'add'
 ));
 
 Route::set('DEL_ARTICLE_SCRIPT', 'article/delarticle/<article_id>', array('article_id' => $DIGIT))->defaults(array(
-    'controller' => 'articles_index',
-    'action' => 'delArticle'
+    'controller' => 'articles_action',
+    'action' => 'delete'
 ));
 
 
@@ -49,13 +49,13 @@ Route::set('DEL_ARTICLE_SCRIPT', 'article/delarticle/<article_id>', array('artic
 // Scripts for comments
 
 Route::set('ADD_COMMENT_SCRIPT', 'article/addcomment')->defaults(array(
-    'controller' => 'articles_index',
-    'action' => 'addComment'
+    'controller' => 'comments_action',
+    'action' => 'add'
 ));
 
 Route::set('DEL_COMMENT_SCRIPT', 'article/delcomment/<comment_id>', array('comment_id' => $DIGIT))->defaults(array(
-    'controller' => 'articles_index',
-    'action' => 'delComment'
+    'controller' => 'comments_action',
+    'action' => 'delete'
 ));
 #=======
 
