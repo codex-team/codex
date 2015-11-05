@@ -3,4 +3,15 @@
     <a href="/article">Статьи</a>
       <a href="/join">Подать заявку</a>
         <a href="/task">Задания</a>
+    <?php
+        /** === Auth usage example: === */
+        $user = Oauth::instance('vkontakte')->get_profile();
+    ?>
+
+    <?php if ($user): ?>
+        <a href='/auth/vk'>Вход VK</a>
+    <?php else: ?>
+        <a href='/logout'>Выход</a>
+    <?php endif; ?>
+
 </div>
