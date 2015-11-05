@@ -46,6 +46,7 @@ class Controller_Base_preDispatch extends Controller_Template
 
         $this->session = Session::instance();
 
+        View::set_global('auth', new Dao_Auth());
 
         if ($this->auto_render) {
             // Initialize with empty values

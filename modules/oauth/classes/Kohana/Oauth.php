@@ -10,10 +10,4 @@ abstract class Kohana_Oauth {
 		$class = 'Oauth_' . ucfirst($service);
 		return Kohana_Oauth::$instance = new $class($config -> get($service));
 	}
-
-	public function get_profile()
-	{
-		return Session::instance()->get('profile');
-	}
-
 }

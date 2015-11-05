@@ -1,41 +1,62 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.');
 
+/**
+ * Class Controller_Auth
+ */
 class Controller_Auth extends Controller_Base_preDispatch
 {
+
+    /**
+     * Осуществляет авторизацию в ВК. В случае, если пользователь авторизован в первый раз - добавляет новую запись
+     * в таблицу Users. Модель пользователя помещается в сессию "profile". Далее проиходит редирект на /auth/callback
+     */
     public function action_vk()
     {
-        $this->template->title = 'Команда CodeX';
-        $this->template->content = View::factory('templates/index', $this->view);
-
         $vk = Oauth::instance('vkontakte');
         if ($vk->login())
         {
             $profile = $vk->get_user();
             if ($profile)
             {
-                $user = Model_Users::factory('Users')->where('uid', '=', ":uid")->param(":uid", $profile->uid)->find();
-                if ($user->id)
+                Session::instance()->set('profile', $profile);
+
+                $user = DB::select('*')->from('Users')->where('uid', '=', ":uid")->param(":uid", $profile->uid)->execute();
+                #$user = Model_Users::factory('Users')->where('uid', '=', ":uid")->param(":uid", $profile->uid)->find();
+                if (!isset($user[0]))
                 {
-                    Session::instance()->set('profile', $profile);
-                    Controller::redirect('/auth/callback');
-                }
-                else
-                {
-                    Session::instance()->set('profile', $profile);
-                    $user = Model_Users::factory('Users');
+                    DB::insert('Users', array('first_name', 'last_name', 'uid'))->values(array($profile->first_name, $profile->last_name, $profile->uid))->execute();
+                    /*$user = Model_Users::factory('Users');
                     $user->uid = $profile->uid;
                     $user->first_name = $profile->first_name;
                     $user->last_name = $profile->last_name;
                     $user->save();
-                    Controller::redirect('/auth/callback');
+                    */
                 }
+                $this->auth_callback('/');
             }
+        }
+        else
+        {
+            # Add auth error view
+            $this->auth_callback('/');
         }
 
     }
 
-    public function action_callback()
+    /**
+     * Деавторизует пользователя путем очищения сессии "profile". Возвращает на главную страницу.
+     */
+    public function action_logout()
     {
+        Session::instance()->delete('profile');
         Controller::redirect('/');
+    }
+
+    /**
+     * Место для пост-авторизации. В конце осуществляет редирект страницу $page.
+     */
+    private function auth_callback($page='/')
+    {
+        Controller::redirect($page);
     }
 }
