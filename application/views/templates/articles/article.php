@@ -24,6 +24,8 @@
         <?= $article['text'] ?>
     </p>
 
+    <h5><?= $article['dt_add'] ?></h5>
+
     <h3>Комментарии</h3>
     <?
     $comment_level = [];
@@ -38,16 +40,29 @@
         $level = count($comment_level) * 39;
         $comment_level[] = $current_commentary['id'];
 
+
+        // костыли на время отсутствия регистрации на сайт
+        if ($current_commentary['uid'] == 0){$username = 'Гость';}else{$username = $current_commentary['uid'];};
+        // конец
+
         echo "<div style='margin: 0px ".$level."px'>";
 
         echo "<p>";
 
+        // костыли на время...
+//        echo "<a href='/article/delcomment/" . $current_commentary['id'] . "'>[удалить]</a>
+//                        <a onclick='document.getElementById(`answer_to_comment`).value=" . $current_commentary['id'] . ";
+//                         document.getElementById(`blankCommentTextarea`).innerHTML=`".$current_commentary['uid'].", `;
+//                          document.getElementById(`answer_username`).innerHTML=`Ваш ответ на комментарий
+//                                  пользователя ". $current_commentary['uid'] .": <i>".$current_commentary['text']."</i>`;'>[ответить]</a> ";
+//        echo "<b>" . $current_commentary['uid'] . "</b>: " . $current_commentary['text'];
+        // конец
         echo "<a href='/article/delcomment/" . $current_commentary['id'] . "'>[удалить]</a>
                         <a onclick='document.getElementById(`answer_to_comment`).value=" . $current_commentary['id'] . ";
-                         document.getElementById(`blankCommentTextarea`).innerHTML=`".$current_commentary['uid'].", `;
+                         document.getElementById(`blankCommentTextarea`).innerHTML=`".$username.", `;
                           document.getElementById(`answer_username`).innerHTML=`Ваш ответ на комментарий
-                                  пользователя ". $current_commentary['uid'] .": <i>".$current_commentary['text']."</i>`;'>[ответить]</a>
-              <b>" . $current_commentary['uid'] . "</b>: " . $current_commentary['text'];
+                                  пользователя ". $username .": <i>".$current_commentary['text']."</i>`;'>[ответить]</a> ";
+        echo "<b>" . $username . "</b>: " . $current_commentary['text'];
 
         echo "</p>";
 
