@@ -1,4 +1,4 @@
-Working project for alpha-server
+ыыWorking project for alpha-server
 
 http://alpha.difual.com
 
