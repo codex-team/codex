@@ -40,9 +40,6 @@ Route::set('NEW_ARTICLE_PAGE', 'article/newarticle')->defaults(array(
     'action' => 'newArticle'
 ));
 
-#<<<<<<< HEAD
-
-
 // Scripts for articles
 
 Route::set('ADD_ARTICLE_SCRIPT', 'article/addarticle')->defaults(array(
@@ -55,9 +52,6 @@ Route::set('DEL_ARTICLE_SCRIPT', 'article/delarticle/<article_id>', array('artic
     'action' => 'delete'
 ));
 
-
-
-
 // Scripts for comments
 
 Route::set('ADD_COMMENT_SCRIPT', 'article/addcomment')->defaults(array(
@@ -69,12 +63,15 @@ Route::set('DEL_COMMENT_SCRIPT', 'article/delcomment/<comment_id>', array('comme
     'controller' => 'comments',
     'action' => 'delete'
 ));
-#=======
 
 Route::set('DESIGN_PREVIEW', 'design/<page>')->defaults(array(
     'controller' => 'index',
     'action' => 'designPreview'
-#>>>>>>> master
+));
+
+Route::set('AUTH', 'auth/<action>')->defaults(array(
+    'controller' => 'auth',
+    'action' => 'action'
 ));
 
 // Defaults

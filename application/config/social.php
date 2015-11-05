@@ -4,8 +4,8 @@ return array
 (
 
     'vk' => array(
-        'VK_APP_ID'             => '',
-        'VK_APP_SECRET'         => '',
+        'VK_APP_ID'             => '3642070',
+        'VK_APP_SECRET'         => '6csWQgf0UjhOYKbou16e',
         'REDIRECT_URI'          => 'http://'.Arr::get($_SERVER, 'SERVER_NAME').'/auth/vk',
         'DISPLAY'               => 'page', // page OR popup OR touch OR wap
         'SCOPE'                 => array(
