@@ -91,6 +91,7 @@ class Controller_Auth extends Controller_Base_preDispatch
                 $user = Model_Users::factory('Users')->where('uid', '=', ":uid")->param(":uid", $profile->uid)->find();
                 if ($user->id)
                 {
+                    Session::instance()->set('profile', $profile);
                     Controller::redirect('/auth/callback');
                 }
                 else
@@ -104,7 +105,6 @@ class Controller_Auth extends Controller_Base_preDispatch
                     Controller::redirect('/auth/callback');
                 }
             }
-            var_dump($profile);
         }
 
     }

@@ -9,10 +9,7 @@ class Controller_Index extends Controller_Base_preDispatch
         $this->template->title = 'Команда CodeX';
         $this->template->content = View::factory('templates/index', $this->view);
 
-        #Auth::instance()->force_login('admin');
-        #$user = Auth::instance()->get_user();
         $user = Oauth::instance('vkontakte')->get_profile();
-
         if ($user)
         {
             echo "Добрый день, " . $user->first_name;
