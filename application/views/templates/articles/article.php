@@ -10,6 +10,7 @@
 <div class="center_side clear">
   <article class="article">
 
+    <img src="/public/img/covers/<?= $article['cover'] ?>" width="100%"/>
 
     <h1 class="first_header">
         <?= $article['title'] ?>

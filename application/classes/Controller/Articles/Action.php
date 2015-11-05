@@ -10,10 +10,14 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
         $title = $_POST['title'];
         $description = $_POST['description'];
         $text = $_POST['text'];
-        // cover - картинка
-        $cover = $_POST['cover'];
+        $cover = $_FILES['cover'];
+        // save cover
+        $uploaddir = 'public/img/covers/';
+        $uploadfile = $uploaddir . basename($cover['name']);
+        move_uploaded_file($cover['tmp_name'], $uploadfile);
+        // end save
 
-        DB::insert('articles', array('uid', 'title', 'description', 'text', 'cover'))->values(array($uid, $title, $description, $text, $cover))->execute();
+        DB::insert('articles', array('uid', 'title', 'description', 'text', 'cover'))->values(array($uid, $title, $description, $text, $cover['name']))->execute();
 
         $this->redirect('/article');
     }
