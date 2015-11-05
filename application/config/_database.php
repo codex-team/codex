@@ -18,7 +18,7 @@ return array
 			 *
 			 * Ports and sockets may be appended to the hostname.
 			 */
-			'hostname'   => 'localhost',
+			'hostname'   => '127.0.0.1',#'localhost',
 			'database'   => 'difual-alpha',
 			'username'   => 'difual-alpha',
 			'password'   => 'SpADffLB8y9WrHza',

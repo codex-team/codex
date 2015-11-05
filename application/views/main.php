@@ -30,7 +30,7 @@
     <link id="linkImage" rel="image_src" href="https://ifmo.su/img/meta_img.png" />
 
 </head>
-<body class="black_land">
+<body <? if ($_SERVER['REQUEST_URI'] == '/') {echo 'class="black_land"';}; ?>>
 
     <? /** Template content */ ?>
     <?= $content ?>
