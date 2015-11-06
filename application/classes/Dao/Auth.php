@@ -12,7 +12,7 @@ class Dao_Auth extends Dao_Base
         $this->profile = Session::instance()->get('profile');
     }
 
-    public function is_guest()
+    public function is_authorized()
     {
         return isset($this->profile);
     }
