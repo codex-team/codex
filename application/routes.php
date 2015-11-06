@@ -56,10 +56,10 @@ Route::set('DEL_ARTICLE_SCRIPT', 'article/delarticle/<article_id>', array('artic
 =======
  // Scripts for users
 
-//Route::set('USER_PAGE', 'user/<user_id>', array('user_id' => $DIGIT))->defaults(array(
-  ///  'controller' => 'users_index',
-   // 'action' => 'showUser'
-//));
+Route::set('USER_PAGE', 'user/<user_id>', array('user_id' => $DIGIT))->defaults(array(
+    'controller' => 'users_index',
+    'action' => 'showUser'
+));
 
 
 >>>>>>> a09a3302b66551df7a2598897eafd99b9f40e988
