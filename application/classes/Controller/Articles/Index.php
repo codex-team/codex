@@ -5,7 +5,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
     public function action_showAllArticles()
     {
-        $this->view["articles"] = DB::select('*')->from('articles')->execute();
+        $this->view["articles"] = DB::select('*')->from('articles')->order_by('id', 'DESC')->execute();
 
         $this->template->content = View::factory('templates/articles/list', $this->view);
     }

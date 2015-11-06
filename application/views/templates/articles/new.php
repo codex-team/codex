@@ -3,6 +3,7 @@
         <div class="site_menu">
             <a href="/">Главная</a>
             <a href="/article">Статьи</a>
+            <a href="/article/new" class="current">Добавить статью</a>
         </div>
     </div>
 </div>
