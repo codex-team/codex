@@ -52,8 +52,8 @@ Route::set('DEL_ARTICLE_SCRIPT', 'article/delarticle/<article_id>', array('artic
     'action' => 'delete'
 ));
 
-<<<<<<< HEAD
-=======
+//<<<<<<< HEAD
+//=======
  // Scripts for users
 
 Route::set('USER_PAGE', 'user/<user_id>', array('user_id' => $DIGIT))->defaults(array(
@@ -62,7 +62,7 @@ Route::set('USER_PAGE', 'user/<user_id>', array('user_id' => $DIGIT))->defaults(
 ));
 
 
->>>>>>> a09a3302b66551df7a2598897eafd99b9f40e988
+//>>>>>>> a09a3302b66551df7a2598897eafd99b9f40e988
 // Scripts for comments
 
 Route::set('ADD_COMMENT_SCRIPT', 'article/addcomment')->defaults(array(
