@@ -9,11 +9,6 @@ class Controller_Base_preDispatch extends Controller_Template
     /** Data to pass into view */
     public $view = array();
 
-    public static function renderHeader($active = "")
-    {
-        return View::factory("templates/header", array("active" => $active));
-    }
-
     /**
      * The before() method is called before your controller action.
      * In our template controller we override this method so that we can

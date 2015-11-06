@@ -7,15 +7,16 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
     {
         $this->view["articles"] = DB::select('*')->from('articles')->order_by('id', 'DESC')->execute();
 
-        $this->template->content = View::factory('templates/articles/list', $this->view);
-        $this->template->header =
-            Controller_Base_preDispatch::renderHeader("allArticles");
+        $content = View::factory('templates/articles/list', $this->view);
+
+        $this->template->content = View::factory("templates/articles/wrapper",
+                array("active" => "allArticles", "content" => $content));
     }
 
     public function action_showArticle()
     {
         $id = $this->request->param('article_id');
-        $this->title = 'Article #'.$id;
+        $this->title = 'Article #' . $id;
         $this->view["id"] = $id;
 
         $articles = DB::select('*')->from('articles')->where('id', '=', $id)->execute();
@@ -26,14 +27,14 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
         // пересобираем массив комментариев
         $i = 0;
-        foreach($comments_table as $comment):
+        foreach ($comments_table as $comment):
             $comments_table_rebuild[] = $comment;
 
             $var_k = $i;
-            for ($j = 0; $j < $i; $j++){
+            for ($j = 0; $j < $i; $j++) {
                 if ($comment['parent_id'] == $comments_table_rebuild[$j]['id']) {
-                    for ($k = $j + 1; $k < $i; $k++){
-                        if ($comment['parent_id'] != $comments_table_rebuild[$k]['parent_id']){
+                    for ($k = $j + 1; $k < $i; $k++) {
+                        if ($comment['parent_id'] != $comments_table_rebuild[$k]['parent_id']) {
                             $var_k = $k;
                             break;
                         };
@@ -41,7 +42,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
                     break;
                 };
             };
-            for ($j = $i; $j >= $var_k; $j--){
+            for ($j = $i; $j >= $var_k; $j--) {
                 $comments_table_rebuild[$j + 1] = $comments_table_rebuild[$j];
             }
 
@@ -53,14 +54,18 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
         $this->view["comments"] = $comments_table_rebuild;
 
-        $this->template->content = View::factory('templates/articles/article', $this->view);
-        $this->template->header = Controller_Base_preDispatch::renderHeader();
+        $content = View::factory('templates/articles/article', $this->view);
+
+        $this->template->content = View::factory("templates/articles/wrapper",
+            array("active" => "", "content" => $content));
     }
 
     public function action_newArticle()
     {
-        $this->template->content = View::factory('templates/articles/new', $this->view);
-        $this->template->header = Controller_Base_preDispatch::renderHeader("newArticle");
+        $content = View::factory('templates/articles/new', $this->view);
+
+        $this->template->content = View::factory("templates/articles/wrapper",
+            array("active" => "newArticle", "content" => $content));
     }
 
 }
