@@ -54,6 +54,7 @@ class Model_Methods extends Model
             return false;
 
         $fileParts = pathinfo($file['name']);
+        $fileParts['extension'] = strtolower($fileParts['extension']);
 
         // Validate the file type
         if ($fileTypes && !in_array($fileParts['extension'], $fileTypes)) {
