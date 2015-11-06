@@ -17,6 +17,11 @@ class Dao_Auth extends Dao_Base
         return isset($this->profile);
     }
 
+    public function is_guest()
+    {
+        return !isset($this->profile);
+    }
+
     public function get_profile()
     {
         return $this->profile;
