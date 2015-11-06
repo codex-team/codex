@@ -8,6 +8,8 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $this->view["articles"] = DB::select('*')->from('articles')->order_by('id', 'DESC')->execute();
 
         $this->template->content = View::factory('templates/articles/list', $this->view);
+        $this->template->header =
+            Controller_Base_preDispatch::renderHeader("allArticles");
     }
 
     public function action_showArticle()
@@ -52,11 +54,13 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $this->view["comments"] = $comments_table_rebuild;
 
         $this->template->content = View::factory('templates/articles/article', $this->view);
+        $this->template->header = Controller_Base_preDispatch::renderHeader();
     }
 
     public function action_newArticle()
     {
         $this->template->content = View::factory('templates/articles/new', $this->view);
+        $this->template->header = Controller_Base_preDispatch::renderHeader("newArticle");
     }
 
 }

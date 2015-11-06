@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="language" content="<?= I18n::$lang ?>" />
-    <title><?= $title ? $title : $GLOBALS['SITE_NAME'] ?></title>
-    <meta property="og:title" content="<?= $GLOBALS['SITE_NAME'] ?>" />
+    <title><?= $title ?></title>
+    <meta property="og:title" content="<?= $title ?>" />
     <meta property="og:site_name" content="<?= $GLOBALS['SITE_NAME'] ?>" />
 
-    <meta name="description" property="og:description" content="Сайт клуба веб-разработки CodeX в НИУ ИТМО">
+    <meta name="description" property="og:description" content="<?= $description ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -32,6 +32,8 @@
 
 </head>
 <body <? if ($_SERVER['REQUEST_URI'] == '/') {echo 'class="black_land"';}; ?>>
+
+    <?= $header ?>
 
     <? /** Template content */ ?>
     <?= $content ?>
