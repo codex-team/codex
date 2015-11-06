@@ -6,7 +6,7 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
     public function action_add()
     {
         // uid будет опредеться тут, а не в форме
-        $uid = $_POST['uid']; // = 0
+        $user_id = $_POST['user_id']; // = 0
         $title = $_POST['title'];
         $description = $_POST['description'];
         $text = $_POST['text'];
@@ -17,7 +17,7 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
         move_uploaded_file($cover['tmp_name'], $uploadfile);
         // end save
 
-        DB::insert('articles', array('uid', 'title', 'description', 'text', 'cover'))->values(array($uid, $title, $description, $text, $cover['name']))->execute();
+        DB::insert('articles', array('user_id', 'title', 'description', 'text', 'cover'))->values(array($user_id, $title, $description, $text, $cover['name']))->execute();
 
         $this->redirect('/article');
     }

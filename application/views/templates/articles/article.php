@@ -35,10 +35,10 @@
 
 
             // костыли на время отсутствия регистрации на сайт
-            if ($current_commentary['uid'] === 0) {
+            if ($current_commentary['user_id'] === 0) {
                 $username = 'Гость';
             } else {
-                $username = $current_commentary['uid'];
+                $username = $current_commentary['user_id'];
             };
             // конец
         ?>
@@ -69,10 +69,10 @@
             <label for="blankNameInput">Ваше имя</label>
 
             <?php if ($auth->is_authorized()): ?>
-                <input type="text" name="uid" id="blankNameInput"
+                <input type="text" name="user_id" id="blankNameInput"
                        value="<?= $auth->get_profile()->first_name; ?> <?= $auth->get_profile()->last_name ?>"/>
             <?php else: ?>
-                <input type="text" name="uid" id="blankNameInput" value="Мистер Аноним"/>
+                <input type="text" name="user_id" id="blankNameInput" value="Мистер Аноним"/>
             <?php endif; ?>
             <label for="blankCommentTextarea">Комментарий</label>
             <textarea name="text" id="blankCommentTextarea" required></textarea>

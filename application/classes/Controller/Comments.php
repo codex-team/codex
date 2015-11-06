@@ -6,11 +6,11 @@ class Controller_Comments extends Controller_Base_preDispatch
     public function action_add()
     {
         $article = $_POST['article'];
-        $uid = $_POST['uid'];
+        $user_id = $_POST['user_id'];
         $text = $_POST['text'];
         $parent_id = $_POST['parent_id'];
 
-        DB::insert('comments', array('article', 'uid', 'text', 'parent_id'))->values(array($article, $uid, $text, $parent_id))->execute();
+        DB::insert('comments', array('article', 'user_id', 'text', 'parent_id'))->values(array($article, $user_id, $text, $parent_id))->execute();
 
         $this->redirect('/article/'.$article);
     }
