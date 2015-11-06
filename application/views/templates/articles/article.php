@@ -23,6 +23,32 @@
     <p>
         <?= $article['text'] ?>
     </p>
+    <!--Обрабатываем строку с тегами-->
+    <?php
+
+        $tagsString = $article['tags'];
+
+        $tagsArr = array();
+
+        for ($i=0; $i < strlen($tagsString); $i++) { 
+            if ($tagsString{$i}=="#") {
+                $tempString = "";
+                for ($j=$i+1; $j < strlen($tagsString) ; $j++) { 
+                    $tempString .= $tagsString{$j};
+                    if ($tagsString{$j}==" " || $tagsString{$j}==",") {
+                        break;
+                    }
+                }
+                $tagsArr[] = $tempString;
+            }
+        }
+    ?>
+    <!--Прекращаем обработку. Теперь у нас есть массив (tagsArr) с тегами-->
+    <h4 style="display:inline; margin-right:5px">Теги:</h4>
+    <?php foreach ($tagsArr as $tag): ?>
+        <a href="#" style="margin-right:5px; font-style:italic;">#<?= $tag ?></a>
+    <?php endforeach;?>
+    
 
     <h5><?= $article['dt_add'] ?></h5>
 

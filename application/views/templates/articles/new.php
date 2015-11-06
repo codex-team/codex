@@ -19,6 +19,8 @@
           <textarea name="description" id="blankCommentTextarea"  required></textarea>
           <label for="blankCommentTextarea">Содержание</label>
           <textarea name="text" id="blankCommentTextarea"  required></textarea>
+          <label for="blankNameInput">Теги</label>
+          <input type="text" name="title" id="blankNameInput" />
           <label for="blankNameInput">Обложка</label>
           <input type="file" name="cover" id="blankNameInput" />
           <p><button class="master" id="blankSendButton">Добавить</button></p>
