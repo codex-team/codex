@@ -1,5 +1,5 @@
 <div class="header_text">
-    <?php if ($auth->is_guest()): ?>
+    <?php if ($auth->is_authorized()): ?>
         Добрый день, <?= $auth->get_profile()->first_name; ?>
     <?php endif; ?>
 </div>
@@ -10,10 +10,10 @@
     <a href="/join">Подать заявку</a>
     <a href="/task">Задания</a>
 
-    <?php if (!$auth->is_guest()): ?>
-        <a href='/auth/vk'>Вход VK</a>
-    <?php else: ?>
+    <?php if ($auth->is_authorized()): ?>
         <a href='/auth/logout'>Выход</a>
+    <?php else: ?>
+        <a href='/auth/vk'>Вход VK</a>
     <?php endif; ?>
 
 </div>
