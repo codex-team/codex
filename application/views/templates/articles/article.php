@@ -35,7 +35,7 @@
 
 
             // костыли на время отсутствия регистрации на сайт
-            if ($current_commentary['user_id'] === 0) {
+            if ($current_commentary['user_id'] == 0) {
                 $username = 'Гость';
             } else {
                 $username = $current_commentary['user_id'];
@@ -64,7 +64,7 @@
         <h3 id="answer_username">Выскажи свое мнение</h3>
 
         <form method="POST" action="/article/addcomment">
-            <input type="hidden" name="article" value="<?= $article['id'] ?>"/>
+            <input type="hidden" name="article_id" value="<?= $article['id'] ?>"/>
             <input type="hidden" name="parent_id" value="0" id="answer_to_comment"/>
             <label for="blankNameInput">Ваше имя</label>
 
@@ -72,7 +72,7 @@
                 <input type="text" name="user_id" id="blankNameInput"
                        value="<?= $auth->get_profile()->first_name; ?> <?= $auth->get_profile()->last_name ?>"/>
             <?php else: ?>
-                <input type="text" name="user_id" id="blankNameInput" value="Мистер Аноним"/>
+                <input type="text" name="user_id" id="blankNameInput" value="0"/>
             <?php endif; ?>
             <label for="blankCommentTextarea">Комментарий</label>
             <textarea name="text" id="blankCommentTextarea" required></textarea>
