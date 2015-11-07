@@ -6,10 +6,10 @@
         </div>
     </div>
 </div>
-<div class="center_side clear">
-    <p><img src="" alt="" width = 100%></p>   
-    	<p><? if ($auth->is_authorized() && empty($userId)): ?></p> 
-    	<p><?= 'auth'?></p>	
+<link rel="stylesheet" href="/public/css/userInfo.css">
+<div class="center_side clear">  
+	<div class = "first_column"> 
+    	   <? if ($auth->is_authorized() && empty($userId)): ?>
     	<p>Имя: <?= $auth->get_profile()->first_name . $auth->get_profile()->last_name; ?> </p>
     	   <? elseif ( isset($error) ): ?>
     	<p><?= $error; ?></p>
@@ -18,13 +18,10 @@
     	<p>Имя: <?= $user->name ?> </p>
     	<p>Дата регистрации: <?= $user->dt_create ?> </p>
     	<p>Идентификатор пользователя: <?= $user->id; ?> </p>
-    	<p>Идентификатор vk: <?= $user->vk_id; ?> </p>
+    	<!--<p>Идентификатор vk: <?= $user->vk_id; ?> </p>-->
     	   <? endif; ?>
-    	
-    		
-	    	
-    	
-    	
-
-      
+    	</div>
+    	<div class = "second_column">
+    	<p>Список статей:</p>
+    	</div>
 </div>
