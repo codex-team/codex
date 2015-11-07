@@ -72,7 +72,7 @@
                 <input type="text" name="user_id" id="blankNameInput"
                        value="<?= $auth->get_profile()->first_name; ?> <?= $auth->get_profile()->last_name ?>"/>
             <?php else: ?>
-                <input type="text" name="user_id" id="blankNameInput" value="Мистер Аноним"/>
+                <input type="text" name="user_id" id="blankNameInput" value="0"/>
             <?php endif; ?>
             <label for="blankCommentTextarea">Комментарий</label>
             <textarea name="text" id="blankCommentTextarea" required></textarea>
