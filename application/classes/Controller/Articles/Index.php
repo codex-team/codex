@@ -5,7 +5,10 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
     public function action_showAllArticles()
     {
-        $this->view["articles"] = DB::select('*')->from('articles')->order_by('id', 'DESC')->execute();
+        $this->view["articles"] = DB::select('*')
+                                      ->from('Articles')
+                                      ->order_by('id', 'DESC')
+                                      ->execute();
 
         $content = View::factory('templates/articles/list', $this->view);
 
@@ -19,10 +22,20 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $this->title = 'Article #' . $id;
         $this->view["id"] = $id;
 
-        $articles = DB::select('*')->from('articles')->where('id', '=', $id)->execute();
+        $articles = DB::select('*')
+                        ->from('Articles')
+                        ->where('id', '=', $id)
+                        ->execute();
+
         $this->view["article"] = $articles[0];
 
-        $comments_table = DB::select('*')->from('comments')->where('article', '=', $id)->order_by('parent_id', 'ASC', 'id', 'ASC')->execute();
+        $comments_table = DB::select('*')
+                              ->from('Comments')
+                              ->where('article', '=', $id)
+                              ->where('is_removed', '=', 0)
+                              ->order_by('parent_id', 'ASC', 'id', 'ASC')
+                              ->execute();
+
         $comments_table_rebuild = array();
 
         // пересобираем массив комментариев
