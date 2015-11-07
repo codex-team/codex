@@ -19,7 +19,8 @@ class Controller_Base_preDispatch extends Controller_Template
     {
         /** Disallow requests from other domains */
         if ( Kohana::$environment === Kohana::PRODUCTION ) {
-            if ( (Arr::get($_SERVER, 'SERVER_NAME') != 'alpha.difual.com') && (Arr::get($_SERVER, 'SERVER_NAME') != 'ifmo.su') ) {
+            if ( (Arr::get($_SERVER, 'SERVER_NAME') != 'alpha.difual.com') &&
+                (Arr::get($_SERVER, 'SERVER_NAME') != 'ifmo.su') ) {
                 exit();
             }
         }
@@ -33,20 +34,8 @@ class Controller_Base_preDispatch extends Controller_Template
         $GLOBALS['SITE_NAME']   = "CodeX";
         $GLOBALS['FROM_ACTION'] = $this->request->action();
 
-        // methods
-        $this->methods = new Model_Methods();
-        View::set_global('methods', $this->methods);
+        $this->setGlobals();
 
-        // modules
-        $this->redis = $this->_redis();
-        View::set_global('redis', $this->redis);
-
-        $this->memcache = $memcache = Cache::instance('memcache');
-        View::set_global('memcache', $memcache);
-
-        $this->session = Session::instance();
-
-        View::set_global('auth', new Dao_Auth());
 
         if ($this->auto_render) {
             // Initialize with empty values
@@ -54,6 +43,7 @@ class Controller_Base_preDispatch extends Controller_Template
             $this->template->keywords    = '';
             $this->template->description = '';
             $this->template->content     = '';
+            $this->template->header      = '';
         }
     }
 
@@ -111,6 +101,24 @@ class Controller_Base_preDispatch extends Controller_Template
         $redis->auth('21gJs32hv3ks');
         $redis->select(0);
         return $redis;
+    }
+
+    private function setGlobals()
+    {
+        // methods
+        $this->methods = new Model_Methods();
+        View::set_global('methods', $this->methods);
+
+        // modules
+        $this->redis = $this->_redis();
+        View::set_global('redis', $this->redis);
+
+        $this->memcache = $memcache = Cache::instance('memcache');
+        View::set_global('memcache', $memcache);
+
+        $this->session = Session::instance();
+
+        View::set_global('auth', new Dao_Auth());
     }
 
 }

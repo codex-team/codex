@@ -1,13 +1,3 @@
-<div class="site_header" xmlns="http://www.w3.org/1999/html">
-    <div class="center_side">
-        <div class="site_menu">
-            <a href="/">Главная</a>
-            <a href="/article">Статьи</a>
-            <a href="/article/new">Добавить статью</a>
-        </div>
-    </div>
-</div>
-
 <div class="center_side clear">
     <article class="article">
 
@@ -45,37 +35,29 @@
 
 
             // костыли на время отсутствия регистрации на сайт
-            if ($current_commentary['uid'] === 0) {
+            if ($current_commentary['user_id'] === 0) {
                 $username = 'Гость';
             } else {
-                $username = $current_commentary['uid'];
+                $username = $current_commentary['user_id'];
             };
             // конец
-
-            echo "<div style='margin: 0px " . $level . "px'>";
-
-            echo "<p>";
-
-            // костыли на время...
-//        echo "<a href='/article/delcomment/" . $current_commentary['id'] . "'>[удалить]</a>
-//                        <a onclick='document.getElementById(`answer_to_comment`).value=" . $current_commentary['id'] . ";
-//                         document.getElementById(`blankCommentTextarea`).innerHTML=`".$current_commentary['uid'].", `;
-//                          document.getElementById(`answer_username`).innerHTML=`Ваш ответ на комментарий
-//                                  пользователя ". $current_commentary['uid'] .": <i>".$current_commentary['text']."</i>`;'>[ответить]</a> ";
-//        echo "<b>" . $current_commentary['uid'] . "</b>: " . $current_commentary['text'];
-            // конец
-            echo "<a href='/article/delcomment/" . $current_commentary['id'] . "'>[удалить]</a>
-                        <a onclick='document.getElementById(`answer_to_comment`).value=" . $current_commentary['id'] . ";
-                         document.getElementById(`blankCommentTextarea`).innerHTML=`" . $username . ", `;
-                          document.getElementById(`answer_username`).innerHTML=`Ваш ответ на комментарий
-                                  пользователя " . $username . ": <i>" . $current_commentary['text'] . "</i>`;'>[ответить]</a> ";
-            echo "<b>" . $username . "</b>: " . $current_commentary['text'];
-
-            echo "</p>";
-
-            echo "</div>";
-        endforeach;
         ?>
+
+            <div style='margin: 0 <?= $level ?>px'>
+
+                <p>
+                    <a href='/article/delcomment/<?= $current_commentary['id'] ?>'>[удалить]</a>
+                    <a onclick="document.getElementById('answer_to_comment').value=<?= $current_commentary['id'] ?>;
+                        document.getElementById('blankCommentTextarea').innerHTML='<?= $username ?>, ';
+                        document.getElementById('answer_username')
+                        .innerHTML='Ваш ответ на комментарий пользователя <?= $username ?>: ' +
+                        '<i> <?= $current_commentary['text'] ?></i>';">[ответить]</a>
+                    <b> <?= $username ?></b> <?= $current_commentary['text'] ?>
+
+                </p>
+
+            </div>
+        <? endforeach; ?>
 
         <p>
 
@@ -85,7 +67,13 @@
             <input type="hidden" name="article" value="<?= $article['id'] ?>"/>
             <input type="hidden" name="parent_id" value="0" id="answer_to_comment"/>
             <label for="blankNameInput">Ваше имя</label>
-            <input type="text" name="uid" id="blankNameInput"/>
+
+            <?php if ($auth->is_authorized()): ?>
+                <input type="text" name="user_id" id="blankNameInput"
+                       value="<?= $auth->get_profile()->first_name; ?> <?= $auth->get_profile()->last_name ?>"/>
+            <?php else: ?>
+                <input type="text" name="user_id" id="blankNameInput" value="Мистер Аноним"/>
+            <?php endif; ?>
             <label for="blankCommentTextarea">Комментарий</label>
             <textarea name="text" id="blankCommentTextarea" required></textarea>
 
