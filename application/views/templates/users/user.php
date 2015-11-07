@@ -23,7 +23,7 @@
     	<div class = "second_column">
     	<p>Список статей:</p>
     	<?//= Debug::vars($user);//foreach ($user->article_title as $article): ?>
-    		<a href ="" ><?//= $user->article_title; ?></a>
+    		<!--<a href ="" ><?= $user->article_title; ?></a>-->
     	<?//endforeach; ?>
     	</div>
     	<? endif; ?>
