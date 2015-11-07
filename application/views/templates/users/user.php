@@ -19,9 +19,12 @@
     	<p>Дата регистрации: <?= $user->dt_create ?> </p>
     	<p>Идентификатор пользователя: <?= $user->id; ?> </p>
     	<!--<p>Идентификатор vk: <?= $user->vk_id; ?> </p>-->
-    	   <? endif; ?>
     	</div>
     	<div class = "second_column">
     	<p>Список статей:</p>
+    	<?//= Debug::vars($user);//foreach ($user->article_title as $article): ?>
+    		<a href ="" ><?//= $user->article_title; ?></a>
+    	<?//endforeach; ?>
     	</div>
+    	<? endif; ?>
 </div>
