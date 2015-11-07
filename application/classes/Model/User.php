@@ -4,6 +4,9 @@ Class Model_User extends Model
 {
     public $id ;
     public $name;
+    public $photo;
+    public $dt_create;
+    public $vk_id;
 
 	public function __construct($id = 0)
 	{
@@ -11,7 +14,10 @@ Class Model_User extends Model
 		if(!empty($user['id']))
 		{
 			$this->id = $user['id'];
-			$this->name = $user['first_name'] . ' ' . $user['last_name'];
+			$this->name = $user['name'];
+			$this->photo = $user['photo'];
+			$this->dt_create = $user['dt_create'];
+			$this->vk_id = $user['vk_id'];
 		}
 		
 		

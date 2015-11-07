@@ -14,8 +14,11 @@
     	   <? elseif ( isset($error) ): ?>
     	<p><?= $error; ?></p>
     	   <? else: ?>
-    	<p>Идентификатор пользователя: <?= $user->id; ?> </p>
+	<p><img src = <?= $user->photo ?> ></p>
     	<p>Имя: <?= $user->name ?> </p>
+    	<p>Дата регистрации: <?= $user->dt_create ?> </p>
+    	<p>Идентификатор пользователя: <?= $user->id; ?> </p>
+    	<p>Идентификатор vk: <?= $user->vk_id; ?> </p>
     	   <? endif; ?>
     	
     		
