@@ -5,7 +5,7 @@ class Controller_Comments extends Controller_Base_preDispatch
 
     public function action_add()
     {
-        $article    = Arr::get($_POST,'article');
+        $article_id    = Arr::get($_POST,'article_id');
         $user_id    = Arr::get($_POST,'user_id');
         $text       = Arr::get($_POST,'text');
         $parent_id  = Arr::get($_POST, 'parent_id');
@@ -31,7 +31,7 @@ class Controller_Comments extends Controller_Base_preDispatch
         }
 
         DB::insert('Comments', array('article_id', 'user_id', 'text', 'parent_id', 'root_id'))
-            ->values(array($article, $user_id, $text, $parent_id, $root_id))
+            ->values(array($article_id, $user_id, $text, $parent_id, $root_id))
             ->execute();
 
         $this->redirect('/article/'.$article);
