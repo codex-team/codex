@@ -8,6 +8,7 @@ class Controller_Base_preDispatch extends Controller_Template
 
     /** Data to pass into view */
     public $view = array();
+    
 
     public static function renderHeader($active = "")
     {
@@ -49,6 +50,7 @@ class Controller_Base_preDispatch extends Controller_Template
             $this->template->description = '';
             $this->template->content     = '';
             $this->template->header      = '';
+           
         }
     }
 
@@ -122,7 +124,16 @@ class Controller_Base_preDispatch extends Controller_Template
         View::set_global('memcache', $memcache);
 
         $this->session = Session::instance();
-
+        
+        $auth = new Dao_Auth();
+        if ( isset($auth->profile['id']) ){
+        	$userId = $auth->profile['id'];        
+        } else {
+        	$userId = 0;
+        }
+        
+	$this->user = new Model_User($userId);
+        View::set_global('user', $this->user);
         View::set_global('auth', new Dao_Auth());
     }
 

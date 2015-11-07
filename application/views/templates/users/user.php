@@ -7,11 +7,21 @@
     </div>
 </div>
 <div class="center_side clear">
-    <p><img src="<?= $userPhoto ?>" alt="" width = 100%></p>
-    <p>Идентификатор пользователя: <?= $userId ?></p>
-    <p>Имя: <?= $firstName ?> </p>
-    <p>Фамилия: <?= $secondName ?></p>
-    <p>Возраст: <?= $age ?></p>
-    <p>Дата регистрации: <?= $regDate ?></p>
-    <p>Информация о себе: <?= $info ?></p>
+    <p><img src="" alt="" width = 100%></p>   
+    	<p><? if ($auth->is_authorized() && empty($userId)): ?></p> 
+    	<p><?= 'auth'?></p>	
+    	<p>Имя: <?= $auth->get_profile()->first_name . $auth->get_profile()->last_name; ?> </p>
+    	   <? elseif ( isset($error) ): ?>
+    	<p><?= $error; ?></p>
+    	   <? else: ?>
+    	<p>Идентификатор пользователя: <?= $user->id; ?> </p>
+    	<p>Имя: <?= $user->name ?> </p>
+    	   <? endif; ?>
+    	
+    		
+	    	
+    	
+    	
+
+      
 </div>
