@@ -28,7 +28,7 @@ Class Model_User extends Model
 	
 	public function is_empty()
 	{
-		return empty($id);
+		return empty($this->id);
 	}
 
 }

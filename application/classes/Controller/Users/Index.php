@@ -56,7 +56,12 @@ class Controller_Users_Index extends Controller_Base_preDispatch
 
     public function action_view()
     {
+        $user_id = $this->request->param('user_id');
+        $model = new Model_User($user_id);
 
+        $this->template->content = View::factory('templates/users/view', [
+            'user' => $model,
+        ]);
     }
 
 }
