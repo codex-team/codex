@@ -22,9 +22,13 @@
     	</div>
     <div class = "second_column">
     	<p>Список статей:</p>
-    	<?//= Debug::vars($user);//foreach ($user->article_title as $article): ?>
-    		<a href ="" ><?//= $user->article_title; ?></a>
-    	<?//endforeach; ?>
+    	<? if( !empty($article_list) ): ?>
+    	    <? foreach ($article_list as $title): ?>
+    	        <p><a href=""><?= $title ?></a></p>
+    	    <? endforeach; ?>
+        <? else: ?>
+            <?= $empty_article; ?>
+        <? endif; ?>
     </div>
     	<? endif; ?>
 </div>
