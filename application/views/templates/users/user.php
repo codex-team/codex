@@ -14,17 +14,17 @@
     	   <? elseif ( isset($error) ): ?>
     	<p><?= $error; ?></p>
     	   <? else: ?>
-	<p><img src = <?= $user->photo ?> ></p>
+	<p><img src = <?= $user->photo ?> width=100%></p>
     	<p>Имя: <?= $user->name ?> </p>
     	<p>Дата регистрации: <?= $user->dt_create ?> </p>
     	<p>Идентификатор пользователя: <?= $user->id; ?> </p>
     	<!--<p>Идентификатор vk: <?= $user->vk_id; ?> </p>-->
     	</div>
-    	<div class = "second_column">
+    <div class = "second_column">
     	<p>Список статей:</p>
     	<?//= Debug::vars($user);//foreach ($user->article_title as $article): ?>
     		<a href ="" ><?//= $user->article_title; ?></a>
     	<?//endforeach; ?>
-    	</div>
+    </div>
     	<? endif; ?>
 </div>
