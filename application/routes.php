@@ -55,9 +55,9 @@ Route::set('DEL_ARTICLE_SCRIPT', 'article/delarticle/<article_id>', array('artic
 
  // Scripts for users
 
-Route::set('USER_PAGE', 'user(/<user_id>)', array('user_id' => $DIGIT))->defaults(array(
+Route::set('USER_PAGE', 'user/<action>(/<user_id>)', array('user_id' => $DIGIT, 'action' => $STRING))->defaults(array(
     'controller' => 'users_index',
-    'action' => 'showUser'
+    'action' => 'action'
 ));
 
 
