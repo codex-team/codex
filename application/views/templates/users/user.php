@@ -23,7 +23,7 @@
     	    </form>
         <? else: ?>
 	        <p><img src = <?= $user->photo ?> width=100%></p>
-    	    <p>Имя: <?= $user->name ?> </p>
+    	    <p class="userName">Имя: <?= $user->name ?> </p>
     	    <p>Дата регистрации: <?= $user->dt_create ?> </p>
     	    <p>Идентификатор пользователя: <?= $user->id; ?> </p>
     	    <!--<p>Идентификатор vk: <?= $user->vk_id; ?> </p>-->
