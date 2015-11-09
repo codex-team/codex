@@ -2,7 +2,7 @@
 
 Class Model_User extends Model
 {
-    public $id ;
+    public $id;
     public $name;
     public $photo;
     public $dt_create;
