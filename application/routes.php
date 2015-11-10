@@ -83,6 +83,13 @@ Route::set('AUTH', 'auth/<action>')->defaults(array(
     'action' => 'action'
 ));
 
+// TAGS
+
+Route::set('TAGS', 'tags(/<inner_route>)', array('inner_route' => $STRING))->defaults(array(
+    'controller' => 'tags',
+    'action' => 'initial',
+));
+
 // Defaults
 // Route::set('default', '(<controller>(/<action>(/<id>)))')
 //     ->defaults(array(
