@@ -5,10 +5,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
     public function action_showAllArticles()
     {
-        $this->view["articles"] = DB::select('*')
-                                      ->from('Articles')
-                                      ->order_by('id', 'DESC')
-                                      ->execute();
+        $this->view["articles"] = DB::select('*')->from('Articles')->where('is_removed', '=', 0)->order_by('id', 'DESC')->execute();
 
         $content = View::factory('templates/articles/list', $this->view);
 
@@ -22,25 +19,26 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $this->title = 'Article #' . $id;
         $this->view["id"] = $id;
 
-        $articles = DB::select('*')
-                        ->from('Articles')
-                        ->where('id', '=', $id)
-                        ->execute();
+        $articles = DB::select('*')->from('Articles')->where('id', '=', $id)->execute();
 
         $this->view["article"] = $articles[0];
 
-        $comments_table = DB::select('*')
-                              ->from('Comments')
-                              ->where('article', '=', $id)
-                              ->where('is_removed', '=', 0)
-                              ->order_by('parent_id', 'ASC', 'id', 'ASC')
-                              ->execute();
+        $comments_table = DB::select('*')->from('Comments')->where('article_id', '=', $id)->where('is_removed', '=', 0)
+                              ->order_by('parent_id', 'ASC', 'id', 'ASC')->execute();
 
         $comments_table_rebuild = array();
 
         // пересобираем массив комментариев
+        $names_for_comments = array();
         $i = 0;
         foreach ($comments_table as $comment):
+
+            // записываем имя автора комментария в массив
+            $get_author_name = DB::select('*')->from('Users')->where('id', '=', $comment['user_id'])->execute();
+            $get_author_name = $get_author_name[0]['name'];
+            $names_for_comments[$comment['id']] = array('author' => $get_author_name);
+
+
             $comments_table_rebuild[] = $comment;
 
             $var_k = $i;
@@ -66,7 +64,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         // пересобрали.
 
         $this->view["comments"] = $comments_table_rebuild;
-
+        $this->view["names_for_comments"] = $names_for_comments;
         $content = View::factory('templates/articles/article', $this->view);
 
         $this->template->content = View::factory("templates/articles/wrapper",
