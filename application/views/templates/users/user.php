@@ -5,8 +5,10 @@
 
 <div class="columns">
 	<div class = "first_column">
+	<?= Debug::vars($article_list);?>
         <? if ($auth->is_authorized() && empty($userId)): ?>
-    	    <p>Имя: <?= $auth->get_profile()->first_name . $auth->get_profile()->last_name; ?> </p>
+		<p>Имя: <?= $auth->get_profile()->first_name .
+			    $auth->get_profile()->last_name; ?> </p>
         <? elseif ( isset($error) ): ?>
     	    <p><?= $error; ?></p>
     	    <form action="">
@@ -26,16 +28,18 @@
     <div class = "second_column">
     	<div class="article_list">
     	    <p>Список статей:</p>
-    	        <? if( !empty($article_list) ): ?>
-    	        <? foreach ($article_list as $title): ?>
-    	            <p><a href=""><?= $title ?></a></p>
+    	    <?//= Debug::vars($article_list);?>
+    	        <?if( !empty($article_list) ): ?>
+    	        <? foreach ($article_list as $titleList): ?>
+    	        <?// foreach ($titleList as $title): ?>
+    	            <p><a href=<?= '/article/' . $titleList['id'] ?> > <?= $titleList['title'] ?></a></p>
+    	        <?// endforeach; ?>
     	        <? endforeach; ?>
                 <? else: ?>
-                    <?= $empty_article; ?>
+                    <?//= $empty_article; ?>
                 <? endif; ?>
         </div>
         <? endif; ?>
     </div>
 </div>
 </div>
-

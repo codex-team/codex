@@ -1,4 +1,5 @@
 <?php defined('SYSPATH') or die('No direct script access.');
+
 class Controller_Users_Index extends Controller_Base_preDispatch
 {
     public function action_showUser()
@@ -13,8 +14,10 @@ class Controller_Users_Index extends Controller_Base_preDispatch
         else
         {
             $viewUser = $this->user;
-            $this->view["error"] = "Пожалуйста войдите в аккаунт.";
+            $this->view["error"] = "Пожалуйста, войдите в аккаунт.";
         }
+        $this->view['article_list'] = $user->arr_article;
+        //$this->view['article_id']
         $this->view["user"] = $viewUser;
         $this->view["user_id"] = $user_id;
         $this->template->content = View::factory('templates/users/user', $this->view);
