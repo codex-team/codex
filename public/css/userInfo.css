@@ -1,8 +1,22 @@
+.columns {
+    margin-left: 3%;
+    margin-top: 5%; 
+}
 .first_column {
-float: left;
-width:30%;
+    float: left;
+    margin-left: 0;
+    width:30%;
+    font-weight: 600;
 }
 .second_column {
-float: right;
-width:70%;
+    float: right;
+    width:70%;
+    font-weight: 600;
+}
+.article_list {
+    margin-left: 15%;
+}
+.userName {
+    
+    
 }
