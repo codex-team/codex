@@ -1,13 +1,8 @@
-<div class="site_header" xmlns="http://www.w3.org/1999/html">
-    <div class="center_side">
-        <div class="site_menu">
-            <a href="/">Главная</a>
-            <a href="/article">Статьи</a>
-        </div>
-    </div>
-</div>
+<?= View::factory('/templates/head') ?>
+
 <link rel="stylesheet" href="/public/css/userInfo.css">
 <div class="center_side clear">
+
 <div class="columns">
 	<div class = "first_column">
         <? if ($auth->is_authorized() && empty($userId)): ?>
@@ -43,3 +38,4 @@
     </div>
 </div>
 </div>
+
