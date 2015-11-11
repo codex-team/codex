@@ -38,7 +38,10 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
             ->values(array($user_id, $title, $description, $text, $cover['name']))
             ->execute();
 
-        $this->redirect('/article');
+        $new_article = DB::select('*')->from('Articles')->order_by('id', 'DESC')->execute();
+        $article_id = $new_article[0]['id'];
+
+        $this->redirect('/article/' . $article_id);
     }
 
     public function action_delete()

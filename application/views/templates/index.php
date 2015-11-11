@@ -2,6 +2,8 @@
     <?php if ($auth->is_authorized()): ?>
         Добрый день, <?= $auth->get_profile()->first_name; ?>
     <?php endif; ?>
+    <br>
+    <? var_dump($user->id); ?>
 </div>
 
 <div class="m_logo_wrap">
