@@ -16,7 +16,7 @@ class Controller_Comments extends Controller_Base_preDispatch
 
         $user_id = $this->user->id;
 
-        // getting the
+        // getting the root id
         function get_root_id($id){
 
             $comment = DB::select('*')->from('Comments')->where('id', '=', $id)->execute();

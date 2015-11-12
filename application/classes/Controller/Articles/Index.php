@@ -15,15 +15,16 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
     public function action_showArticle()
     {
-        $id = $this->request->param('article_id');
-        $this->title = 'Article #' . $id;
-        $this->view["id"] = $id;
+        $articleId = $this->request->param('article_id');
 
-        $articles = DB::select('*')->from('Articles')->where('id', '=', $id)->execute();
+        $this->title = 'Article #' . $articleId;
+        $this->view["id"] = $articleId;
 
-        $this->view["article"] = $articles[0];
+        $articles = DB::select('*')->from('Articles')->where('id', '=', $articleId)->execute();
 
-        $comments_table = DB::select('*')->from('Comments')->where('article_id', '=', $id)->where('is_removed', '=', 0)
+        $this->view["article"] = Model_Article::get($articleId);
+
+        $comments_table = DB::select('*')->from('Comments')->where('article_id', '=', $articleId)->where('is_removed', '=', 0)
                               ->order_by('parent_id', 'ASC', 'id', 'ASC')->execute();
 
         $comments_table_rebuild = array();

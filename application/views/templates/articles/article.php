@@ -2,21 +2,21 @@
     <article class="article">
 
         <div class="article_image">
-            <img src="/public/img/covers/<?= $article['cover'] ?>"/>
+            <img src="/public/img/covers/<?= $article->cover ?>"/>
         </div>
 
-        <p class="time_subtitle"><?= $article['dt_create'] ?></p>
+        <p class="time_subtitle"><?= $article->dt_create ?></p>
 
         <h1 class="first_header">
-            <?= $article['title'] ?>
+            <?= $article->title ?>
         </h1>
 
         <p class="first_header">
-            <?= $article['description'] ?>
+            <?= $article->description ?>
         </p>
 
         <p>
-            <?= $article['text'] ?>
+            <?= $article->text ?>
         </p>
 
         <h3>Комментарии</h3>
@@ -62,7 +62,7 @@
         <h3 id="answer_username">Выскажи свое мнение</h3>
 
         <form method="POST" action="/article/addcomment">
-            <input type="hidden" name="article_id" value="<?= $article['id'] ?>"/>
+            <input type="hidden" name="article_id" value="<?= $article->id ?>"/>
             <input type="hidden" name="parent_id" value="0" id="answer_to_comment"/>
             <label for="blankCommentTextarea">Комментарий</label>
             <textarea name="text" id="blankCommentTextarea" required></textarea>

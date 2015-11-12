@@ -28,4 +28,18 @@ class Model_Methods extends Model
     }
 
 
+    public function save_cover($cover)
+    {
+        // generating new filename
+        $new_name = bin2hex(openssl_random_pseudo_bytes(5));
+        $cover_new_name = $new_name . '.jpg';
+
+        // saving
+        $uploaddir = 'public/img/covers/';
+        $uploadfile = $uploaddir . $cover_new_name;
+        move_uploaded_file($cover['tmp_name'], $uploadfile);
+
+        // return new cover name for db
+        return $cover_new_name;
+    }
 }
