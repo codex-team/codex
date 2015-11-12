@@ -7,6 +7,7 @@
 
 $DIGIT = '\d+';
 $STRING = '[-a-z\d]+';
+$QUERY =  '[0-9a-zA-Zа-яёА-ЯЁ\s\-\.]+$';
 
 Route::set('INDEX_PAGE', '')->defaults(array(
     'controller' => 'index',
@@ -96,9 +97,9 @@ Route::set('AUTH', 'auth/<action>')->defaults(array(
 
 // TAGS
 
-Route::set('TAGS', 'tags(/<inner_route>)', array('inner_route' => $STRING))->defaults(array(
-    'controller' => 'tags',
-    'action' => 'initial',
+Route::set('TAGS', 'tag(/<query>)', array('query' => $QUERY))->defaults(array(
+    'controller' => 'articles_tags',
+    'action' => 'search',
 ));
 //Scripts for admin panel---------
 //Articles
