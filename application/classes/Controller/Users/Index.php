@@ -3,9 +3,11 @@ class Controller_Users_Index extends Controller_Base_preDispatch
 {
     public function action_showUser()
     {
-        //load info from DB
+        //загрузка данных из БД
         $user_id = $this->request->param('user_id');
         $user = new Model_User($user_id);
+
+        //передача данных во view
         if ( $user -> id )
         {
             $viewUser = $user;
@@ -15,10 +17,12 @@ class Controller_Users_Index extends Controller_Base_preDispatch
             $viewUser = $this->user;
             $this->view["error"] = "Пожалуйста, войдите в аккаунт.";
         }
+
+	//передача данных пользователя и списка заголовков статей с ссылками на них
         $this->view['article_list'] = $user->arr_article;
-        //$this->view['article_id']
         $this->view["user"] = $viewUser;
         $this->view["user_id"] = $user_id;
+
         $this->template->content = View::factory('templates/users/user', $this->view);
     }
     public function action_create()
