@@ -1,5 +1,6 @@
 <div class="center_side clear">
     <? foreach ($articles as $current_article): ?>
+      <? if ($current_article['is_removed'] == 0): ?>
         <article class="article">
 
             <div class="article_image">
@@ -24,6 +25,7 @@
                 </p>
             </div>
         </article>
+      <? endif; ?>
     <? endforeach; ?>
 
     <? if (count($articles) == 0): ?>

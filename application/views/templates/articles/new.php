@@ -3,7 +3,6 @@
     <h1>Добавить статью</h1>
      <p>
       <form method="POST" action="/article/addarticle" enctype="multipart/form-data">
-          <input type="hidden" name="user_id" id="blankNameInput" value="0" />
           <label for="blankNameInput">Заголовок статьи</label>
           <input type="text" name="title" id="blankNameInput" />
           <label for="blankNameInput">Описание</label>
