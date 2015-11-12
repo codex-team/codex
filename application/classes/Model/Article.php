@@ -41,7 +41,7 @@ Class Model_Article extends Model
     public function save()
     {
         $idAndRowAffected = DB::insert('Articles', array('title', 'text', 'description', 'cover', 'user_id', 'is_published'))
-            ->values(array($this->title, $this->text, $this->description, $this->cover, $this->user_id, $this->is_published))
+            ->values(array($this->title, $this->text, $this->description, $this->cover['name'], $this->user_id, $this->is_published))
             ->execute();
 
         if ($idAndRowAffected)
@@ -91,6 +91,27 @@ Class Model_Article extends Model
             $model->is_removed = $article['is_removed'];
             $model->is_published = $article['is_published'];
         }
+    }
+
+    /**
+     * Сохранение файла обложки для статьи
+     *
+     * @param $cover переменная с файлом
+     * @return string новое имя файла
+     */
+    public function save_cover($cover)
+    {
+        // generating new filename
+        $new_name = bin2hex(openssl_random_pseudo_bytes(5));
+        $cover_new_name = $new_name . '.jpg';
+
+        // saving
+        $uploaddir = 'upload/covers/';
+        $uploadfile = $uploaddir . $cover_new_name;
+        move_uploaded_file($cover['tmp_name'], $uploadfile);
+
+        // return new cover name for db
+        return $cover_new_name;
     }
 
 }

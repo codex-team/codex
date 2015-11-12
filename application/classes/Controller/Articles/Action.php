@@ -16,7 +16,7 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
         $model->title          = Arr::get($_POST,'title');
         $model->description    = Arr::get($_POST,'description');
         $model->text           = Arr::get($_POST,'text');
-        $cover                 = Arr::get($_FILES,'cover');
+        $model->cover          = Arr::get($_FILES,'cover');
 
         $errors = FALSE;
         $table_values = array();
@@ -37,7 +37,7 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
         }
 
         // getting new name for cover
-        $model->cover = $this->methods->save_cover($cover);
+        $model->cover['name'] = $this->methods->save_cover($model->cover);
 
         $model->user_id = $user_id;
 
