@@ -2,50 +2,94 @@
 
 Class Model_Article extends Model
 {
+    public $id = 0;
+    public $title;
+    public $text;
+    public $description;
+    public $cover;
+    public $user_id;
+    public $dt_create;
+    public $dt_update;
+    public $is_removed;
+    public $is_published;
 
-    public function save_cover($cover)
+    /**
+     * Пустой конструктор для модели статьи, если нужно получить статью из хранилища, надо пользоваться методом
+     * Model_Article::get()
+     */
+    public function __construct()
     {
-        // generating new filename
-        $new_name = bin2hex(openssl_random_pseudo_bytes(5));
-        $cover_new_name = $new_name . '.jpg';
-
-        // saving
-        $uploaddir = 'public/img/covers/';
-        $uploadfile = $uploaddir . $cover_new_name;
-        move_uploaded_file($cover['tmp_name'], $uploadfile);
-
-        // return new cover name for db
-        return $cover_new_name;
     }
 
-    public function add_article($arr_article_parts)
-	{
-        // saving
-        DB::insert('Articles', array('user_id', 'title', 'description', 'text', 'cover'))
-            ->values($arr_article_parts)
+    /**
+     * Удаляет статью, представленную в модели.
+     *
+     * @param $user_id Number идентификатор пользователя, для проверки прав на удаление статьи
+     */
+    public function delete_article($user_id)
+    {
+        if ($this->id != 0 && $user_id == $this->user_id)
+        {
+            DB::update('Articles')->where('id', '=', $this->id)
+                ->set(array('is_removed' => 1))->execute();
+
+            // Статья удалена
+            $this->id = 0;
+        }
+    }
+
+    public function save()
+    {
+        $idAndRowAffected = DB::insert('Articles', array('title', 'text', 'description', 'cover', 'user_id', 'is_published'))
+            ->values(array($this->title, $this->text, $this->description, $this->cover, $this->user_id, $this->is_published))
             ->execute();
 
-        // getting id of new article
-        $new_article = DB::select('*')->from('Articles')->order_by('id', 'DESC')->execute();
-        $article_id = $new_article[0]['id'];
-
-        // return article id
-        return $article_id;
-	}
-
-    public function delete_article($article_id, $user_id)
-    {
-        // getting id
-        $article = DB::select('*')->from('Articles')->where('id', '=', $article_id)->execute();
-
-        // if this it is user's article, we can delete it
-        if ($article[0]['user_id'] == $user_id)
+        if ($idAndRowAffected)
         {
-            // is_removed = 1 , for this article
-            DB::update('Articles')->where('id', '=', $article_id)->set(array('is_removed' => 1))->execute();
+            $article = DB::select()->from('Articles')->where('id', '=', $idAndRowAffected[0])->execute()->current();
 
-            // is_removed = 1, for comments for the article
-            DB::update('Comments')->where('article_id', '=', $article_id)->set(array('is_removed' => 1))->execute();
+            $this->fillModelByRow($article, $this);
+        }
+    }
+
+
+    /**
+     * Возвращает статью из базы данных с указанным идентификатором, иначе возвращает пустую статью с айдишником 0.
+     *
+     * @param int $id идентификатор статьи в базе
+     * @return Model_Article экземпляр модели с указанным идентификатором и заполненными полями, если найден в базе или
+     * пустую модель с айдишником равным нулю.
+     */
+    public static function get($id = 0)
+    {
+        $article = DB::select()->from('Articles')->where('id', '=', $id)->execute()->current();
+
+        $model = new Model_Article();
+        self::fillModelByRow($article, $model);
+
+        return $model;
+    }
+
+    /**
+     * Превращает строку базы данных в объект модели
+     *
+     * @param $article array строка из базы данных со статьёй
+     * @param $model Model_Article модель, которая будет заполняться
+     * @return Model_Article модель, заполненная полями из статьи, либо пустая модель, если была передана пустая строка.
+     */
+    private static function fillModelByRow($article, $model)
+    {
+        if (!empty($article['id'])) {
+            $model->id = $article['id'];
+            $model->title = $article['title'];
+            $model->text = $article['text'];
+            $model->description = $article['description'];
+            $model->cover = $article['cover'];
+            $model->user_id = $article['user_id'];
+            $model->dt_create = $article['dt_create'];
+            $model->dt_update = $article['dt_update'];
+            $model->is_removed = $article['is_removed'];
+            $model->is_published = $article['is_published'];
         }
     }
 
