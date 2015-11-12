@@ -5,7 +5,7 @@
 
 <div class="columns">
 	<div class = "first_column">
-	<?= Debug::vars($article_list);?>
+	<?//= Debug::vars($article_list);?>
         <? if ($auth->is_authorized() && empty($userId)): ?>
 		<p>Имя: <?= $auth->get_profile()->first_name .
 			    $auth->get_profile()->last_name; ?> </p>
