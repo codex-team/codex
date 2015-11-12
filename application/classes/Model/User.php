@@ -26,7 +26,7 @@ Class Model_User extends Model
 			$this->dt_create = $user['dt_create'];
 			$this->vk_id = $user['vk_id'];
 
-			$this->arr_article = $this->get_articles_id_list();
+			$this->arr_article = $this->get_articles_list();
 		}
 	}
 
@@ -66,12 +66,12 @@ Class Model_User extends Model
 	}
 
     /**
-     * Возвращает массив статей 
+     * Возвращает массив статей пользователя
      * @return true, если данные успешно записаны в БД
      */
-	private function get_articles_id_list()
+	public function get_articles_list()
 	{
-        return DB::select('title', 'id')->from('Articles')->execute()->as_array();
+        return DB::select('title', 'id')->from('Articles')->where('user_id', '=', $this->id)->execute()->as_array();
 	}
 
 }
