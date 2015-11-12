@@ -75,7 +75,8 @@ class Kohana_Oauth_Vkontakte extends Oauth {
     }
     $params = array(
         'uid' => $vk_user_id,
-        'access_token' => $vk_token
+        'access_token' => $vk_token,
+        'fields' => 'photo_50,photo_200,photo_max,city'
     );
     $resp = Request::factory('https://api.vk.com/method/users.get')
       ->method('GET')

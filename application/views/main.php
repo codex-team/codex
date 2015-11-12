@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="/public/css/normalize.css">
     <link rel="stylesheet" href="/public/css/main.css?v=<?= filemtime("public/css/main.css") ?>">
     <link rel="stylesheet" href="/public/css/articles.css?v=<?= filemtime("public/css/articles.css") ?>">
+    <link rel="stylesheet" href="/public/css/admin.css?v=<?= filemtime("public/css/admin.css") ?>">
     <link rel="icon" type="image/png" href="/public/img/fav_round.png?v=994" id="favicon" />
 
     <meta id="metaImage" name="image" property="og:image"  content="https://ifmo.su/img/meta_img.png" />

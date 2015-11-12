@@ -123,14 +123,14 @@ class Controller_Base_preDispatch extends Controller_Template
         $auth = new Dao_Auth();
         if ( $auth->is_authorized() )
         {
-        	$user_id = $auth->get_profile()->uid;
+        	$vk_id = $auth->get_profile()->uid;
         }
         else
         {
-            $user_id = 0;
+            $vk_id = 0;
         }
-        
-	    $this->user = new Model_User($user_id);
+
+	    $this->user = Model_User::findByAttribute('vk_id', $vk_id);
 
         View::set_global('user', $this->user);
         View::set_global('auth', $auth);

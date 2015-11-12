@@ -20,26 +20,25 @@ class Controller_Auth extends Controller_Base_preDispatch
             {
                 Session::instance()->set('profile', $profile);
 
-                $user = DB::select('*')->from('Users')->where('vk_id', '=', ":vk_id")->param(":vk_id", $profile->uid)->execute();
-                #$user = Model_Users::factory('Users')->where('uid', '=', ":uid")->param(":uid", $profile->uid)->find();
-                if (!isset($user[0]))
+                $user = Model_User::findByAttribute('vk_id', $profile->uid);
+                if ($user->is_empty())
                 {
-                    DB::insert('Users', array('name', 'vk_id'))->values(array($profile->first_name . " " . $profile->last_name, $profile->uid))->execute();
-                    /*$user = Model_Users::factory('Users');
-                    $user->uid = $profile->uid;
-                    $user->first_name = $profile->first_name;
-                    $user->last_name = $profile->last_name;
+                    $user = new Model_User();
+                    $user->vk_id = $profile->uid;
+                    $user->photo_small = $profile->photo_50;
+                    $user->photo = $profile->photo_200;
+                    $user->photo_big = $profile->photo_max;
+                    $user->name = $this->get_vk_name($profile);
+
                     $user->save();
-                    */
                 }
-                $this->auth_callback('/');
             }
         }
         else
         {
             # Add auth error view
-            $this->auth_callback('/');
         }
+        $this->auth_callback('/');
 
     }
 
@@ -58,5 +57,14 @@ class Controller_Auth extends Controller_Base_preDispatch
     private function auth_callback($page='/')
     {
         Controller::redirect($page);
+    }
+
+    /**
+     * Генерирует имя для записи в БД из информации профиля ВК
+     * @return string
+     */
+    private function get_vk_name($profile)
+    {
+        return join(' ', [$profile->first_name, $profile->last_name]);
     }
 }
