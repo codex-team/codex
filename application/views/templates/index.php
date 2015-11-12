@@ -16,12 +16,9 @@
         <a href='/auth/logout'>Выход</a>
     <? else: ?>
         <a href='/auth/vk'>Вход VK</a>
-<<<<<<< HEAD
     <?php endif; ?>
     <br>
     <a href="/admin/article" id="panel_link">Панель администратора</a>
-=======
     <? endif; ?>
->>>>>>> origin/master
 
 </div>
