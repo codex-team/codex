@@ -1,9 +1,7 @@
 <div class="header_text">
-    <? if ($user->id): ?>
+    <? if ($auth->is_authorized()): ?>
         Добрый день, <a href="/user/<?= $user->id ?>"><?= $user->name; ?></a>
     <? endif; ?>
-    <br>
-    <? var_dump($user->id); ?>
 </div>
 
 <div class="m_logo_wrap">

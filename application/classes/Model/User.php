@@ -7,12 +7,16 @@ Class Model_User extends Model
     public $photo;
     public $dt_create;
     public $vk_id;
-    public $arr_article;
+    #public $arr_article;
 
-	public function __construct($id = 0)
+	/**
+	 * @param int $vk_id
+     */
+	public function __construct($vk_id = 0)
 	{
-		$user = DB::select()->from('Users')->where('id', '=', $id)->execute()->current();
-		$arr_article = DB::select('title', 'id')->from('Articles')->execute()->as_array();
+		if (!$vk_id) return;
+
+		$user = DB::select()->from('Users')->where('vk_id', '=', $vk_id)->execute()->current();
 		if(!empty($user['id']))
 		{
 			$this->id = $user['id'];
@@ -20,15 +24,43 @@ Class Model_User extends Model
 			$this->photo = $user['photo'];
 			$this->dt_create = $user['dt_create'];
 			$this->vk_id = $user['vk_id'];
-			$this->arr_article = $arr_article;
+			#$this->arr_article = $arr_article;
 		}
-
-		return;
 	}
 
+	/**
+	 * @return bool
+     */
 	public function is_empty()
 	{
 		return empty($this->id);
+	}
+
+
+	/**
+	 * Заполняет модель параметрами
+	 * @param $name
+	 * @param $photo
+	 * @param $vk_id
+	 * @throws Kohana_Exception
+     */
+	public function load($name, $photo, $vk_id)
+	{
+		$this->name = $name;
+		$this->photo = $photo;
+		$this->vk_id = $vk_id;
+	}
+
+	/**
+	 * Создает новую запись в БД
+	 * @return true, если данные успешно записаны в БД
+	 */
+	public function save()
+	{
+		if (DB::insert('Users', array('name', 'vk_id', 'photo'))->values(array($this->name, $this->vk_id, $this->photo))->execute())
+			return true;
+		else
+			return false;
 	}
 
 }
