@@ -19,6 +19,5 @@
     <?php endif; ?>
     <br>
     <a href="/admin/article" id="panel_link">Панель администратора</a>
-    <? endif; ?>
 
 </div>
