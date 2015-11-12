@@ -5,24 +5,20 @@ Class Model_User extends Model
     public $id;
     public $name;
     public $photo;
+    public $photo_big;
+    public $photo_small;
     public $dt_create;
     public $vk_id;
 	/**
 	 * @param int $vk_id
      */
-	public function __construct($vk_id = 0)
+	public function __construct()
 	{
-		if (!$vk_id) return;
-
-		$user = DB::select()->from('Users')->where('vk_id', '=', $vk_id)->execute()->current();
-		if(!empty($user['id']))
-		{
-			$this->id = $user['id'];
-			$this->name = $user['name'];
-			$this->photo = $user['photo'];
-			$this->dt_create = $user['dt_create'];
-			$this->vk_id = $user['vk_id'];
-		}
+        $this->name = '';
+        $this->photo = '';
+        $this->photo_big = '';
+        $this->photo_small = '';
+        $this->vk_id = 0;
 	}
 
 	/**
@@ -32,6 +28,27 @@ Class Model_User extends Model
 	{
 		return empty($this->id);
 	}
+
+    public static function findOne($id = 0)
+    {
+        return get_user_by_attr('id', $id);
+    }
+
+    public static function findByAttribute($attr = 'id', $value = 0)
+    {
+        $model = new Model_User();
+
+        $user = DB::select()->from('Users')->where($attr, '=', $value)->execute()->current();
+        if(!empty($user['id']))
+        {
+            $model->id = $user['id'];
+            $model->name = $user['name'];
+            $model->photo = $user['photo'];
+            $model->dt_create = $user['dt_create'];
+            $model->vk_id = $user['vk_id'];
+        }
+        return $model;
+    }
 
 
 	/**
@@ -54,7 +71,7 @@ Class Model_User extends Model
 	 */
 	public function save()
 	{
-		if (DB::insert('Users', array('name', 'vk_id', 'photo'))->values(array($this->name, $this->vk_id, $this->photo))->execute())
+		if (DB::insert('Users', array('name', 'vk_id', 'photo', 'photo_small', 'photo_big'))->values(array($this->name, $this->vk_id, $this->photo, $this->photo_small, $this->photo_big))->execute())
 			return true;
 		else
 			return false;

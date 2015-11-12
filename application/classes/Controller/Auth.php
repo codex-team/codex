@@ -20,10 +20,16 @@ class Controller_Auth extends Controller_Base_preDispatch
             {
                 Session::instance()->set('profile', $profile);
 
-                $user = new Model_User($profile->uid);
+                $user = Model_User::findByAttribute('vk_id', $profile->uid);
                 if ($user->is_empty())
                 {
-                    $user->load($this->get_vk_name($profile), $profile->photo_50, $profile->uid);
+                    $user = new Model_User();
+                    $user->vk_id = $profile->uid;
+                    $user->photo_small = $profile->photo_50;
+                    $user->photo = $profile->photo_200;
+                    $user->photo_big = $profile->photo_max;
+                    $user->name = $this->get_vk_name($profile);
+
                     $user->save();
                 }
             }

@@ -130,7 +130,7 @@ class Controller_Base_preDispatch extends Controller_Template
             $vk_id = 0;
         }
 
-	    $this->user = new Model_User($vk_id);
+	    $this->user = Model_User::findByAttribute('vk_id', $vk_id);
 
         View::set_global('user', $this->user);
         View::set_global('auth', $auth);
