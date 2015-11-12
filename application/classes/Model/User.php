@@ -7,9 +7,6 @@ Class Model_User extends Model
     public $photo;
     public $dt_create;
     public $vk_id;
-
-    public $arr_article;
-
 	/**
 	 * @param int $vk_id
      */
@@ -25,8 +22,6 @@ Class Model_User extends Model
 			$this->photo = $user['photo'];
 			$this->dt_create = $user['dt_create'];
 			$this->vk_id = $user['vk_id'];
-
-			$this->arr_article = $this->get_articles_list();
 		}
 	}
 

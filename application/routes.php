@@ -101,7 +101,6 @@ Route::set('TAGS', 'tags(/<inner_route>)', array('inner_route' => $STRING))->def
     'action' => 'initial',
 ));
 
-<<<<<<< HEAD
 //Scripts for admin panel---------
 //Articles
 Route::set('ADMIN_ARTICLE_LIST', 'admin/article')->defaults(array(
@@ -128,8 +127,6 @@ Route::set('ADMIN_USERS_LIST', 'admin/users')->defaults(array(
     'controller' => 'admin',
     'action' => 'showAllUsers',
 ));
-=======
->>>>>>> origin/master
 
 // Defaults
 // Route::set('default', '(<controller>(/<action>(/<id>)))')
