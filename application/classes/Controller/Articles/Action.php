@@ -53,21 +53,11 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
 
         $article_id = $this->request->param('article_id');
 
-<<<<<<< HEAD
-        DB::update('Articles')->where('id', '=', $article_id)
-            ->set(array('is_removed' => 1))
-            ->execute();
-
-        DB::update('Comments')->where('id', '=', $article_id)
-            ->set(array('is_removed' => 1))
-            ->execute();
-=======
         // is_removed = 1 , for this article
         DB::update('Articles')->where('id', '=', $article_id)->set(array('is_removed' => 1))->execute();
 
         // is_removed = 1, for comments for the article
         DB::update('Comments')->where('article_id', '=', $article_id)->set(array('is_removed' => 1))->execute();
->>>>>>> origin/master
 
         $this->redirect('/article');
     }
