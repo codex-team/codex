@@ -127,6 +127,22 @@ Route::set('ADMIN_USERS_LIST', 'admin/users')->defaults(array(
     'action' => 'showAllUsers',
 ));
 
+
+// - viz redaktor -
+
+Route::set('ARTICLE_EDITOR', 'editor', array())->defaults(array(
+    'controller' => 'articles_edit',
+    'action' => 'showNewEditor'
+));
+Route::set('ARTICLE_EDITOR_SAVE_IMG_FROM_FILE', 'saveimgfile', array())->defaults(array(
+    'controller' => 'articles_edit',
+    'action' => 'saveImgFromFile'
+));
+Route::set('ARTICLE_EDITOR_SAVE_IMG_FROM_URL', 'saveimgurl', array())->defaults(array(
+    'controller' => 'articles_edit',
+    'action' => 'saveImgFromUrl'
+));
+
 // Defaults
 // Route::set('default', '(<controller>(/<action>(/<id>)))')
 //     ->defaults(array(

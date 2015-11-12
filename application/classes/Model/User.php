@@ -83,14 +83,14 @@ Class Model_User extends Model
      */
     public function update()
     {
-        if (DB::update('Users')->set([
+        if (DB::update('Users')->set(array(
             'name' => $this->name,
             'vk_id' => $this->vk_id,
             'fb_id' => $this->fb_id,
             'photo' => $this->photo,
             'photo_small' => $this->photo_small,
             'photo_big' => $this->photo_big,
-        ])->where('id', '=', $this->id)->execute())
+        ))->where('id', '=', $this->id)->execute())
             return true;
         else
             return false;
