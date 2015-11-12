@@ -91,6 +91,7 @@ class Controller_Auth extends Controller_Base_preDispatch
     public function action_logout()
     {
         Session::instance()->delete('profile');
+        Session::instance()->delete('instance');
         Controller::redirect('/');
     }
 
