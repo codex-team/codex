@@ -9,6 +9,8 @@ Class Model_User extends Model
     public $photo_small;
     public $dt_create;
     public $vk_id;
+
+
 	/**
 	 * @param int $vk_id
      */
@@ -21,7 +23,9 @@ Class Model_User extends Model
         $this->vk_id = 0;
 	}
 
+
 	/**
+     * Возвращает статус заполненности модели
 	 * @return bool
      */
 	public function is_empty()
@@ -29,11 +33,24 @@ Class Model_User extends Model
 		return empty($this->id);
 	}
 
+
+    /**
+     * Возвращает модель пользователя по его id
+     * @param int $id
+     * @return Model_User
+     */
     public static function findOne($id = 0)
     {
         return get_user_by_attr('id', $id);
     }
 
+
+    /**
+     * Возвращает модель пользователя по его уникальному атрибуту
+     * @param string $attr
+     * @param int $value
+     * @return Model_User
+     */
     public static function findByAttribute($attr = 'id', $value = 0)
     {
         $model = new Model_User();
@@ -65,6 +82,7 @@ Class Model_User extends Model
 		$this->vk_id = $vk_id;
 	}
 
+
 	/**
 	 * Создает новую запись в БД
 	 * @return true, если данные успешно записаны в БД
@@ -77,6 +95,7 @@ Class Model_User extends Model
 			return false;
 	}
 
+    
     /**
      * Возвращает массив статей пользователя
      * @return true, если данные успешно записаны в БД
