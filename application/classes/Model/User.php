@@ -7,7 +7,8 @@ Class Model_User extends Model
     public $photo;
     public $dt_create;
     public $vk_id;
-    #public $arr_article;
+
+    public $arr_article;
 
 	/**
 	 * @param int $vk_id
@@ -24,7 +25,8 @@ Class Model_User extends Model
 			$this->photo = $user['photo'];
 			$this->dt_create = $user['dt_create'];
 			$this->vk_id = $user['vk_id'];
-			#$this->arr_article = $arr_article;
+
+			$this->arr_article = $this->get_articles_id_list();
 		}
 	}
 
@@ -61,6 +63,15 @@ Class Model_User extends Model
 			return true;
 		else
 			return false;
+	}
+
+    /**
+     * Возвращает массив статей 
+     * @return true, если данные успешно записаны в БД
+     */
+	private function get_articles_id_list()
+	{
+        return DB::select('title', 'id')->from('Articles')->execute()->as_array();
 	}
 
 }
