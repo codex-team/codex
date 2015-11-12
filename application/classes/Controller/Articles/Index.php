@@ -5,10 +5,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
     public function action_showAllArticles()
     {
-        $this->view["articles"] = DB::select('*')
-                                      ->from('Articles')
-                                      ->order_by('id', 'DESC')
-                                      ->execute();
+        $this->view["articles"] = DB::select('*')->from('Articles')->where('is_removed', '=', 0)->order_by('id', 'DESC')->execute();
 
         $content = View::factory('templates/articles/list', $this->view);
 
@@ -31,7 +28,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
         $comments_table = DB::select('*')
                               ->from('Comments')
-                              ->where('article', '=', $id)
+                              ->where('id', '=', $id)
                               ->where('is_removed', '=', 0)
                               ->order_by('parent_id', 'ASC', 'id', 'ASC')
                               ->execute();
