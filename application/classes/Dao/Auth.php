@@ -3,6 +3,7 @@
 class Dao_Auth extends Dao_Base
 {
     private $profile;
+    private $instance;
 
     /**
      * Конструктор записывает инстанс сессии в приватную $profile.
@@ -10,6 +11,7 @@ class Dao_Auth extends Dao_Base
     public function __construct()
     {
         $this->profile = Session::instance()->get('profile');
+        $this->instance = Session::instance()->get('instance');
     }
 
     /**
@@ -35,6 +37,15 @@ class Dao_Auth extends Dao_Base
     public function get_profile()
     {
         return $this->profile;
+    }
+
+    /**
+     * Возвращает тип используемой соцсети.
+     * @return Session::instance()->get('instance')
+     */
+    public function get_instance()
+    {
+        return $this->instance;
     }
 
 }

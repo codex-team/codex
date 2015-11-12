@@ -16,9 +16,11 @@ class Controller_Auth extends Controller_Base_preDispatch
         if ($vk->login())
         {
             $profile = $vk->get_user();
+
             if ($profile)
             {
                 Session::instance()->set('profile', $profile);
+                Session::instance()->set('instance', 'vkontakte');
 
                 $user = Model_User::findByAttribute('vk_id', $profile->uid);
                 if ($user->is_empty())
@@ -40,6 +42,42 @@ class Controller_Auth extends Controller_Base_preDispatch
         }
         $this->auth_callback('/');
 
+    }
+
+    public function action_facebook()
+    {
+        $fb = Oauth::instance('facebook');
+        if ($fb->login())
+        {
+            $profile = $fb->get_user();
+
+            if ($profile)
+            {
+                Session::instance()->set('profile', $profile);
+                Session::instance()->set('instance', 'facebook');
+
+                $user = Model_User::findByAttribute('fb_id', $profile->id);
+                if ($user->is_empty())
+                {
+                    $user = new Model_User();
+                    $user->fb_id = $profile->id;
+
+                    /*
+                     * Загрузить фото профиля целиком: $fb->get_images($profile->id);
+                     *
+                     */
+
+                    $user->name = $profile->name;
+
+                    $user->save();
+                }
+            }
+        }
+        else
+        {
+
+        }
+        $this->auth_callback('/');
     }
 
     /**

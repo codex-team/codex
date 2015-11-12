@@ -121,16 +121,19 @@ class Controller_Base_preDispatch extends Controller_Template
         $this->session = Session::instance();
         
         $auth = new Dao_Auth();
-        if ( $auth->is_authorized() )
-        {
-        	$vk_id = $auth->get_profile()->uid;
+        if ( $auth->is_authorized() ) {
+            $profile = $auth->get_profile();
+            $instance = $auth->get_instance();
+
+            if ($instance == 'vkontakte')
+                $this->user = Model_User::findByAttribute('vk_id', $profile->vk_id);
+            elseif ($instance == 'facebook')
+                $this->user = Model_User::findByAttribute('fb_id', $profile->fb_id);
+            else
+                $this->user = new Model_User();
         }
         else
-        {
-            $vk_id = 0;
-        }
-
-	    $this->user = Model_User::findByAttribute('vk_id', $vk_id);
+            $this->user = new Model_User();
 
         View::set_global('user', $this->user);
         View::set_global('auth', $auth);

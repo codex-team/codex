@@ -21,11 +21,11 @@ return array(
         'GET_TOKEN_URI' => NULL
     ),
     'facebook' => array(
-        'APP_ID'        => NULL,
-        'APP_SECRET'    => NULL,
+        'APP_ID'        => '920338118051299',
+        'APP_SECRET'    => '1aad033053c89df7d19580aac43abf5c',
         'SETTINGS'      => NULL,
-        'REDIRECT_URI'  => NULL,
-        'GET_CODE_URI'  => NULL,
-        'GET_TOKEN_URI' => NULL
+        'REDIRECT_URI'  => 'http://'.Arr::get($_SERVER, 'SERVER_NAME').'/auth/facebook',
+        'GET_CODE_URI'  => 'https://www.facebook.com/dialog/oauth',
+        'GET_TOKEN_URI' => 'https://graph.facebook.com/oauth/access_token'
     ),
 );
