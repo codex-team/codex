@@ -16,7 +16,7 @@ class Controller_Articles_Edit extends Controller_Base_preDispatch
     function action_saveImgFromFile(){
 
         $methods = new Model_Methods();
-        $filePath = $methods->SavePostFile("EDITOR_IMG", "images/", 2097152, array('jpg','jpeg','gif','png','bmp'));
+        $filePath = $methods->SavePostFile("EDITOR_IMG", "redactor/", 2097152, array('jpg','jpeg','gif','png','bmp'));
 
         echo $filePath;
         die();
