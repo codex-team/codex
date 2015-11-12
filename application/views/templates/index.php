@@ -15,5 +15,7 @@
     <?php else: ?>
         <a href='/auth/vk'>Вход VK</a>
     <?php endif; ?>
+    <br>
+    <a href="/admin/article" id="panel_link">Панель администратора</a>
 
 </div>
