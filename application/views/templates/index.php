@@ -1,9 +1,7 @@
 <div class="header_text">
-    <? if ($user->id): ?>
+    <? if ($auth->is_authorized()): ?>
         Добрый день, <a href="/user/<?= $user->id ?>"><?= $user->name; ?></a>
     <? endif; ?>
-    <br>
-    <? var_dump($user->id); ?>
 </div>
 
 <div class="m_logo_wrap">
@@ -13,12 +11,10 @@
     <a href="/task">Задания</a>
 
     <? if ($user->id): ?>
-        <a href='/auth/logout'>Выход</a>
+        <a href='/auth/logout'>Выход</a><br>
+        <a href="/admin/article" id="panel_link">Панель администратора</a>
     <? else: ?>
         <a href='/auth/vk'>Вход VK</a>
     <?php endif; ?>
-    <br>
-    <a href="/admin/article" id="panel_link">Панель администратора</a>
-    <? endif; ?>
 
 </div>
