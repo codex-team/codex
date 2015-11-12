@@ -9,12 +9,12 @@ class Controller_Comments extends Controller_Base_preDispatch
         $text           = Arr::get($_POST, 'text');
         $parent_id      = Arr::get($_POST, 'parent_id');
 
-        if ($this->user->id) {
-            $user_id = $this->user->id;
-        } else {
-            // id for guest user
-            $user_id = 1;
-        }
+        // if user has no id ( = guest user), then redirect to main page
+        if (!($this->user->id)) {
+            $this->redirect('/');
+        };
+
+        $user_id = $this->user->id;
 
         // getting the
         function get_root_id($id){
@@ -44,6 +44,11 @@ class Controller_Comments extends Controller_Base_preDispatch
 
     public function action_delete()
     {
+        // if user has no id ( = guest user), then redirect to main page
+        if (!($this->user->id)) {
+            $this->redirect('/');
+        };
+
         $comment_id = $this->request->param('comment_id');
 
         // получаем id статьи для редиректа

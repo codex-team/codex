@@ -10,12 +10,12 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
         $text           = Arr::get($_POST,'text');
         $cover          = Arr::get($_FILES,'cover');
 
-        if ($this->user->id) {
-            $user_id = $this->user->id;
-        } else {
-            // id for guest user
-            $user_id = 1;
-        }
+        // if user has no id ( = guest user), then redirect to main page
+        if (!($this->user->id)) {
+            $this->redirect('/');
+        };
+
+        $user_id = $this->user->id;
 
         // saving cover for new article
         function save_cover($cover)
@@ -46,6 +46,11 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
 
     public function action_delete()
     {
+        // if user has no id ( = guest user), then redirect to main page
+        if (!($this->user->id)) {
+            $this->redirect('/');
+        };
+
         $article_id = $this->request->param('article_id');
 
         // is_removed = 1 , for this article
