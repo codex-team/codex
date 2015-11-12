@@ -44,6 +44,11 @@ class Controller_Auth extends Controller_Base_preDispatch
 
     }
 
+
+    /**
+     * Осуществляет авторизацию в facebook. В случае, если пользователь авторизован в первый раз - добавляет новую запись
+     * в таблицу Users. Модель пользователя помещается в сессию "profile". Далее проиходит редирект на /auth/callback
+     */
     public function action_facebook()
     {
         $fb = Oauth::instance('facebook');
