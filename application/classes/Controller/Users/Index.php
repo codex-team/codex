@@ -1,5 +1,4 @@
 <?php defined('SYSPATH') or die('No direct script access.');
-
 class Controller_Users_Index extends Controller_Base_preDispatch
 {
     public function action_showUser()
