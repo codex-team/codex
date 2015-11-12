@@ -10,7 +10,7 @@
 class Controller_Articles_Edit extends Controller_Base_preDispatch
 {
     function action_showNewEditor(){
-        $this->template->content = View::factory('templates/Articles/new_editor', $this->view);
+        $this->template->content = View::factory('templates/articles/new_editor', $this->view);
     }
 
     function action_saveImgFromFile(){
