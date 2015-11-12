@@ -28,7 +28,7 @@ class Controller_Articles_Edit extends Controller_Base_preDispatch
 
         $image_name = uniqid() . ".jpg";
 
-        $uploaddir    = '/upload/images/';
+        $uploaddir    = '/upload/redaktor/';
         $uploaddirPhp = $_SERVER['DOCUMENT_ROOT'] . $uploaddir;
 
         $response = Request::factory($url)->execute();
