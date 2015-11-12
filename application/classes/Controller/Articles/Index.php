@@ -23,8 +23,17 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
         $this->view["article"] = $articles[0];
 
+<<<<<<< HEAD
+        $comments_table = DB::select('*')
+                              ->from('Comments')
+                              ->where('id', '=', $id)
+                              ->where('is_removed', '=', 0)
+                              ->order_by('parent_id', 'ASC', 'id', 'ASC')
+                              ->execute();
+=======
         $comments_table = DB::select('*')->from('Comments')->where('article_id', '=', $id)->where('is_removed', '=', 0)
                               ->order_by('parent_id', 'ASC', 'id', 'ASC')->execute();
+>>>>>>> origin/master
 
         $comments_table_rebuild = array();
 

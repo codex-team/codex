@@ -101,6 +101,35 @@ Route::set('TAGS', 'tags(/<inner_route>)', array('inner_route' => $STRING))->def
     'action' => 'initial',
 ));
 
+<<<<<<< HEAD
+//Scripts for admin panel---------
+//Articles
+Route::set('ADMIN_ARTICLE_LIST', 'admin/article')->defaults(array(
+    'controller' => 'admin',
+    'action' => 'showAllArticles',
+));
+
+Route::set('ADMIN_DEL_ARTICLE', 'admin/article/delarticle/<article_id>', array('article_id' => $DIGIT))->defaults(array(
+    'controller' => 'admin',
+    'action' => 'delete'
+));
+
+Route::set('ADMIN_EDIT_ARTICLE', 'admin/article/editarticle/<article_id>', array('article_id' => $DIGIT))->defaults(array(
+    'controller' => 'admin',
+    'action' => 'edit'
+));
+
+Route::set('ADMIN_UPDATE_ARTICLE', 'admin/article/updatearticle/<article_id>', array('article_id' => $DIGIT))->defaults(array(
+    'controller' => 'admin',
+    'action' => 'update'
+));
+//Users
+Route::set('ADMIN_USERS_LIST', 'admin/users')->defaults(array(
+    'controller' => 'admin',
+    'action' => 'showAllUsers',
+));
+=======
+>>>>>>> origin/master
 
 // Defaults
 // Route::set('default', '(<controller>(/<action>(/<id>)))')

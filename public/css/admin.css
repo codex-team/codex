@@ -1,0 +1,22 @@
+#admin_articles{
+	width:100% !important;
+	border:0;
+}
+
+#admin_articles td{
+	text-align: center;
+}
+
+#admin_articles tr:first-of-type td{
+	padding-bottom:40px;
+}
+
+#admin_articles tr:last-of-type td{
+	padding-top:10px;
+}
+
+#note_for_dates{
+	font-style: italic !important;
+	font-size:15px;
+	color:#aaaaaa;
+}
