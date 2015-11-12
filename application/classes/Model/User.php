@@ -3,24 +3,19 @@
 Class Model_User extends Model
 {
     public $id;
-    public $name;
-    public $photo;
-    public $photo_big;
-    public $photo_small;
+    public $name = '';
+    public $photo = '';
+    public $photo_big = '';
+    public $photo_small = '';
     public $dt_create;
-    public $vk_id;
+    public $vk_id = 0;
 
 
 	/**
-	 * @param int $vk_id
+	 *
      */
 	public function __construct()
 	{
-        $this->name = '';
-        $this->photo = '';
-        $this->photo_big = '';
-        $this->photo_small = '';
-        $this->vk_id = 0;
 	}
 
 
@@ -39,9 +34,9 @@ Class Model_User extends Model
      * @param int $id
      * @return Model_User
      */
-    public static function findOne($id = 0)
+    public static function get($id = 0)
     {
-        return get_user_by_attr('id', $id);
+        return self::findByAttribute('id', $id);
     }
 
 
@@ -69,21 +64,6 @@ Class Model_User extends Model
 
 
 	/**
-	 * Заполняет модель параметрами
-	 * @param $name
-	 * @param $photo
-	 * @param $vk_id
-	 * @throws Kohana_Exception
-     */
-	public function load($name, $photo, $vk_id)
-	{
-		$this->name = $name;
-		$this->photo = $photo;
-		$this->vk_id = $vk_id;
-	}
-
-
-	/**
 	 * Создает новую запись в БД
 	 * @return true, если данные успешно записаны в БД
 	 */
@@ -95,7 +75,26 @@ Class Model_User extends Model
 			return false;
 	}
 
-    
+
+    /**
+     * Обновляет запись в БД
+     * @return true, если данные успешно записаны в БД
+     */
+    public function update()
+    {
+        if (DB::update('Users')->set([
+            'name' => $this->name,
+            'vk_id' => $this->vk_id,
+            'photo' => $this->photo,
+            'photo_small' => $this->photo_small,
+            'photo_big' => $this->photo_big,
+        ])->where('id', '=', $this->id)->execute())
+            return true;
+        else
+            return false;
+    }
+
+
     /**
      * Возвращает массив статей пользователя
      * @return true, если данные успешно записаны в БД
