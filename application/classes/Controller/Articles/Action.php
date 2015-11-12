@@ -5,59 +5,59 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
 
     public function action_add()
     {
-        $title          = Arr::get($_POST,'title');
-        $description    = Arr::get($_POST,'description');
-        $text           = Arr::get($_POST,'text');
-        $cover          = Arr::get($_FILES,'cover');
+        $user_id = $this->user->id;
 
-        // if user has no id ( = guest user), then redirect to main page
-        if (!($this->user->id)) {
+        if (empty($user_id)) {
             $this->redirect('/');
         };
 
-        $user_id = $this->user->id;
+        $model = new Model_Article();
 
-        // saving cover for new article
-        function save_cover($cover)
+        $model->title          = Arr::get($_POST,'title');
+        $model->description    = Arr::get($_POST,'description');
+        $model->text           = Arr::get($_POST,'text');
+        $cover                 = Arr::get($_FILES,'cover');
+
+        $errors = FALSE;
+        $table_values = array();
+
+        if ($model->title != '')       { $table_values['title'] = array('value' => $model->title); }               else { $errors = TRUE; }
+        if ($model->description != '') { $table_values['description'] = array('value' => $model->description); }   else { $errors = TRUE; }
+        if ($model->text != '')        { $table_values['text'] = array('value' => $model->text); }                 else { $errors = TRUE; }
+
+        if ($errors)
         {
-            $new_name = bin2hex(openssl_random_pseudo_bytes(5));
-            $cover_new_name = $new_name . '.jpg';
+            $this->view["table_values"] = $table_values;
 
-            $uploaddir = 'public/img/covers/';
-            $uploadfile = $uploaddir . $cover_new_name;
-            move_uploaded_file($cover['tmp_name'], $uploadfile);
+            $content = View::factory('templates/articles/new', $this->view);
+            $this->template->content = View::factory("templates/articles/wrapper",
+                array("active" => "newArticle", "content" => $content, "table_values" => $table_values));
 
-            return $cover_new_name;
+            return false;
         }
 
-        $cover['name'] = save_cover($cover);
+        // getting new name for cover
+        $model->cover = $this->methods->save_cover($cover);
 
+        $model->user_id = $user_id;
 
-        // adding new article
-        DB::insert('Articles', array('user_id', 'title', 'description', 'text', 'cover'))
-            ->values(array($user_id, $title, $description, $text, $cover['name']))
-            ->execute();
+        $model->is_published = true;            // FIXME изменить, когда будет доступны режимы публикации
 
-        $new_article = DB::select('*')->from('Articles')->order_by('id', 'DESC')->execute();
-        $article_id = $new_article[0]['id'];
+        $model->save();
 
-        $this->redirect('/article/' . $article_id);
+        // redirect to new article
+        $this->redirect('/article/' . $model->id);
     }
 
     public function action_delete()
     {
-        // if user has no id ( = guest user), then redirect to main page
-        if (!($this->user->id)) {
-            $this->redirect('/');
-        };
-
+        $user_id = $this->user->id;
         $article_id = $this->request->param('article_id');
 
-        // is_removed = 1 , for this article
-        DB::update('Articles')->where('id', '=', $article_id)->set(array('is_removed' => 1))->execute();
-
-        // is_removed = 1, for comments for the article
-        DB::update('Comments')->where('article_id', '=', $article_id)->set(array('is_removed' => 1))->execute();
+        if (!empty($article_id) && !empty($user_id))
+        {
+            Model_Article::get($article_id)->delete_article($user_id);
+        }
 
         $this->redirect('/article');
     }
