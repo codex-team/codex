@@ -1,9 +1,9 @@
 <?php defined('SYSPATH') or die('No direct script access.');
-
 /**
  * Set the routes. Each route must have a minimum of a name, a URI and a set of
  * defaults for the URI.
  */
+
 
 $DIGIT = '\d+';
 $STRING = '[-a-z\d]+';
@@ -12,14 +12,17 @@ Route::set('INDEX_PAGE', '')->defaults(array(
     'controller' => 'index',
     'action' => 'index',
 ));
+
 Route::set('JOIN_PAGE', 'join')->defaults(array(
     'controller' => 'pages',
     'action' => 'index',
 ));
+
 Route::set('TASK_LIST', 'task')->defaults(array(
     'controller' => 'pages',
     'action' => 'All',
 ));
+
 Route::set('TASK_PAGE', 'task/<who>', array('who' => $STRING))->defaults(array(
     'controller' => 'pages',
     'action' => 'whoSet',
@@ -40,6 +43,7 @@ Route::set('NEW_ARTICLE_PAGE', 'article/newarticle')->defaults(array(
     'action' => 'newArticle'
 ));
 
+
 // Scripts for articles
 
 Route::set('ADD_ARTICLE_SCRIPT', 'article/addarticle')->defaults(array(
@@ -53,11 +57,17 @@ Route::set('DEL_ARTICLE_SCRIPT', 'article/delarticle/<article_id>', array('artic
 ));
 
 
- // Scripts for users
+// Scripts for users
 
 Route::set('USER_PAGE', 'user/<action>(/<user_id>)', array('user_id' => $DIGIT, 'action' => $STRING))->defaults(array(
     'controller' => 'users_index',
     'action' => 'action'
+));
+
+Route::set('USER_PAGE', 'user(/<user_id>)', array('user_id' => $DIGIT))->defaults(array(
+
+	'controller' => 'users_index',
+	'action' => 'showUser'
 ));
 
 
@@ -83,6 +93,7 @@ Route::set('AUTH', 'auth/<action>')->defaults(array(
     'action' => 'action'
 ));
 
+
 // TAGS
 
 Route::set('TAGS', 'tags(/<inner_route>)', array('inner_route' => $STRING))->defaults(array(
@@ -90,6 +101,7 @@ Route::set('TAGS', 'tags(/<inner_route>)', array('inner_route' => $STRING))->def
     'action' => 'initial',
 ));
 
+<<<<<<< HEAD
 //Scripts for admin panel---------
 //Articles
 Route::set('ADMIN_ARTICLE_LIST', 'admin/article')->defaults(array(
@@ -116,6 +128,8 @@ Route::set('ADMIN_USERS_LIST', 'admin/users')->defaults(array(
     'controller' => 'admin',
     'action' => 'showAllUsers',
 ));
+=======
+>>>>>>> origin/master
 
 // Defaults
 // Route::set('default', '(<controller>(/<action>(/<id>)))')

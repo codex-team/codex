@@ -7,12 +7,12 @@ Class Model_User extends Model
     public $photo;
     public $dt_create;
     public $vk_id;
-    public $article;
+    public $arr_article;
 
 	public function __construct($id = 0)
 	{
 		$user = DB::select()->from('Users')->where('id', '=', $id)->execute()->current();
-		$article = DB::select('title')->from('Articles')->where('user_id', '=', $id)->execute()->current();
+		$arr_article = DB::select('title', 'id')->from('Articles')->execute()->as_array();
 		if(!empty($user['id']))
 		{
 			$this->id = $user['id'];
@@ -20,12 +20,12 @@ Class Model_User extends Model
 			$this->photo = $user['photo'];
 			$this->dt_create = $user['dt_create'];
 			$this->vk_id = $user['vk_id'];
-			$this->article = $article;
-		}	
-		
+			$this->arr_article = $arr_article;
+		}
+
 		return;
 	}
-	
+
 	public function is_empty()
 	{
 		return empty($this->id);
