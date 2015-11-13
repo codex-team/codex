@@ -24,29 +24,19 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
         $this->title = $article->title;
 
-        $comments_table = DB::select('*')->from('Comments')->where('article_id', '=', $articleId)->where('is_removed', '=', 0)
-                              ->order_by('parent_id', 'ASC', 'id', 'ASC')->execute();
+        $comments = Model_Comment::getCommentsByArticle($articleId);
 
         $comments_table_rebuild = array();
 
-        // пересобираем массив комментариев
-        $names_for_comments = array();
         $i = 0;
-        foreach ($comments_table as $comment):
-
-            // записываем имя автора комментария в массив
-            $get_author_name = DB::select('*')->from('Users')->where('id', '=', $comment['user_id'])->execute();
-            $get_author_name = $get_author_name[0]['name'];
-            $names_for_comments[$comment['id']] = array('author' => $get_author_name);
-
-
+        foreach ($comments as $comment):
             $comments_table_rebuild[] = $comment;
 
             $var_k = $i;
             for ($j = 0; $j < $i; $j++) {
-                if ($comment['parent_id'] == $comments_table_rebuild[$j]['id']) {
+                if ($comment->parent_id == $comments_table_rebuild[$j]->id) {
                     for ($k = $j + 1; $k < $i; $k++) {
-                        if ($comment['parent_id'] != $comments_table_rebuild[$k]['parent_id']) {
+                        if ($comment->parent_id != $comments_table_rebuild[$k]->parent_id) {
                             $var_k = $k;
                             break;
                         };
@@ -65,7 +55,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         // пересобрали.
 
         $this->view["comments"] = $comments_table_rebuild;
-        $this->view["names_for_comments"] = $names_for_comments;
+
         $content = View::factory('templates/articles/article', $this->view);
 
         $this->template->content = View::factory("templates/articles/wrapper",
