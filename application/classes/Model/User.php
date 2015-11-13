@@ -9,6 +9,7 @@ Class Model_User extends Model
     public $photo_small = '';
     public $dt_create;
     public $vk_id = 0;
+    public $fb_id = 0;
 
 
 	/**
@@ -69,7 +70,7 @@ Class Model_User extends Model
 	 */
 	public function save()
 	{
-		if (DB::insert('Users', array('name', 'vk_id', 'photo', 'photo_small', 'photo_big'))->values(array($this->name, $this->vk_id, $this->photo, $this->photo_small, $this->photo_big))->execute())
+		if (DB::insert('Users', array('name', 'vk_id', 'fb_id', 'photo', 'photo_small', 'photo_big'))->values(array($this->name, $this->vk_id, $this->fb_id, $this->photo, $this->photo_small, $this->photo_big))->execute())
 			return true;
 		else
 			return false;
@@ -82,13 +83,14 @@ Class Model_User extends Model
      */
     public function update()
     {
-        if (DB::update('Users')->set([
+        if (DB::update('Users')->set(array(
             'name' => $this->name,
             'vk_id' => $this->vk_id,
+            'fb_id' => $this->fb_id,
             'photo' => $this->photo,
             'photo_small' => $this->photo_small,
             'photo_big' => $this->photo_big,
-        ])->where('id', '=', $this->id)->execute())
+        ))->where('id', '=', $this->id)->execute())
             return true;
         else
             return false;

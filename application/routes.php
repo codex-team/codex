@@ -7,6 +7,7 @@
 
 $DIGIT = '\d+';
 $STRING = '[-a-z\d]+';
+$QUERY =  '[0-9a-zA-Zа-яёА-ЯЁ\s\-\.]+$';
 
 Route::set('INDEX_PAGE', '')->defaults(array(
     'controller' => 'index',
@@ -96,9 +97,9 @@ Route::set('AUTH', 'auth/<action>')->defaults(array(
 
 // TAGS
 
-Route::set('TAGS', 'tags(/<inner_route>)', array('inner_route' => $STRING))->defaults(array(
-    'controller' => 'tags',
-    'action' => 'initial',
+Route::set('TAGS', 'tag(/<query>)', array('query' => $QUERY))->defaults(array(
+    'controller' => 'articles_tags',
+    'action' => 'search',
 ));
 //Scripts for admin panel---------
 //Articles
@@ -125,6 +126,22 @@ Route::set('ADMIN_UPDATE_ARTICLE', 'admin/article/updatearticle/<article_id>', a
 Route::set('ADMIN_USERS_LIST', 'admin/users')->defaults(array(
     'controller' => 'admin',
     'action' => 'showAllUsers',
+));
+
+
+// - viz redaktor -
+
+Route::set('ARTICLE_EDITOR', 'editor', array())->defaults(array(
+    'controller' => 'articles_edit',
+    'action' => 'showNewEditor'
+));
+Route::set('ARTICLE_EDITOR_SAVE_IMG_FROM_FILE', 'saveimgfile', array())->defaults(array(
+    'controller' => 'articles_edit',
+    'action' => 'saveImgFromFile'
+));
+Route::set('ARTICLE_EDITOR_SAVE_IMG_FROM_URL', 'saveimgurl', array())->defaults(array(
+    'controller' => 'articles_edit',
+    'action' => 'saveImgFromUrl'
 ));
 
 // Defaults

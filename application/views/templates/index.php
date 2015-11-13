@@ -15,6 +15,7 @@
         <a href="/admin/article" id="panel_link">Панель администратора</a>
     <? else: ?>
         <a href='/auth/vk'>Вход VK</a>
+        <a href='/auth/vk'>Вход FB</a>
     <?php endif; ?>
 
     <br>
