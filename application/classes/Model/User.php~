@@ -31,7 +31,7 @@ Class Model_User extends Model
 
     public static function findOne($id = 0)
     {
-        return Model_User::findByAttribute('id', $id);
+        return get_user_by_attr('id', $id);
     }
 
     public static function findByAttribute($attr = 'id', $value = 0)
