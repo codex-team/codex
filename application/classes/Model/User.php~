@@ -39,11 +39,6 @@ Class Model_User extends Model
     {
         return self::findByAttribute('id', $id);
     }
-	/**
-     * Возвращает модель пользователя по его vk_id
-     * @param int $vk_id
-     * @return Model_User
-     */
 	public static function getByVkId($vk_id = 0)
     {
         return self::findByAttribute('vk_id', $vk_id);
