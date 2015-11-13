@@ -11,19 +11,19 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
             $this->redirect('/');
         };
 
-        $model = new Model_Article();
+        $article = new Model_Article();
 
-        $model->title          = Arr::get($_POST,'title');
-        $model->description    = Arr::get($_POST,'description');
-        $model->text           = Arr::get($_POST,'text');
+        $article->title          = Arr::get($_POST,'title');
+        $article->description    = Arr::get($_POST,'description');
+        $article->text           = Arr::get($_POST,'text');
         $cover                 = Arr::get($_FILES,'cover');
 
         $errors = FALSE;
         $table_values = array();
 
-        if ($model->title != '')       { $table_values['title'] = array('value' => $model->title); }               else { $errors = TRUE; }
-        if ($model->description != '') { $table_values['description'] = array('value' => $model->description); }   else { $errors = TRUE; }
-        if ($model->text != '')        { $table_values['text'] = array('value' => $model->text); }                 else { $errors = TRUE; }
+        if ($article->title != '')       { $table_values['title'] = array('value' => $article->title); }               else { $errors = TRUE; }
+        if ($article->description != '') { $table_values['description'] = array('value' => $article->description); }   else { $errors = TRUE; }
+        if ($article->text != '')        { $table_values['text'] = array('value' => $article->text); }                 else { $errors = TRUE; }
 
         if ($errors)
         {
@@ -37,16 +37,16 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
         }
 
         // getting new name for cover
-        $model->cover = $this->methods->save_cover($cover);
+        $article->cover = $this->methods->save_cover($cover);
 
-        $model->user_id = $user_id;
+        $article->user_id = $user_id;
 
-        $model->is_published = true;            // FIXME изменить, когда будет доступны режимы публикации
+        $article->is_published = true;            // FIXME изменить, когда будет доступны режимы публикации
 
-        $model->save();
+        $article->insert();
 
         // redirect to new article
-        $this->redirect('/article/' . $model->id);
+        $this->redirect('/article/' . $article->id);
     }
 
     public function action_delete()
