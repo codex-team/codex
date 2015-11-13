@@ -37,12 +37,12 @@ Class Model_User extends Model
      */
     public static function get($id = 0)
     {
-<<<<<<< HEAD
-        return Model_User::findByAttribute('id', $id);
-=======
         return self::findByAttribute('id', $id);
->>>>>>> 4becfa64e7dc687033dcf58420a81d23c2178197
     }
+	public static function getByVkId($vk_id = 0)
+    {
+        return self::findByAttribute('vk_id', $vk_id);
+    }	
 
 
     /**

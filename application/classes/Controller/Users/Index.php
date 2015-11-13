@@ -3,27 +3,33 @@ class Controller_Users_Index extends Controller_Base_preDispatch
 {
     public function action_showUser()
     {
-        //загрузка данных из БД
-        //$user_id = $this->request->param('user_id');
-	$user_id = $user->vk_id;
-        $user = Model_User::findOne($user_id);
-
-        //передача данных во view
-        if ( $user -> id )
+		/*
+		* Если в ссылке /user/<user_id> передан user_id, тогда пользователя находят в БД по его id
+		* Если в ссылке не передан user_id, тогда пользователя находят в БД по его vk_id, то есть под тем профилем, под которым он авторизовался через вк.
+		* Если пользователя нет в БД, тогда выводится сообщение об ошибке и просьбе авторизоваться.		
+		*/
+		if( $this->request->param('user_id') )
+		{
+			$user = Model_User::get( $this->request->param('user_id') );
+		}
+		else
+		{
+			$user_id = $this->user->vk_id;
+	        $user = Model_User::getByVkId($user_id);
+		}
+        if ( !empty($user -> vk_id) )
         {
             $viewUser = $user;
+			$this->view["user"] = $user;
         }
         else
         {
-            $viewUser = $this->user;
-            $this->view["error"] = "Пожалуйста, войдите в аккаунт.";
+            $this->view["user"] = $this->user;
+            $this->view["error"] = "Пожалуйста, авторизуйтесь.";
         }
 
-	//передача данных пользователя и списка заголовков статей с ссылками на них
-        $this->view['article_list'] = $user->arr_article;
-        $this->view["user"] = $viewUser;
-        $this->view["user_id"] = $user_id;
-
+        $this->view['article_list'] = $user->get_articles_list();
+        
         $this->template->content = View::factory('templates/users/user', $this->view);
     }
     public function action_create()
