@@ -12,8 +12,10 @@
             Дата регистрации: <?= $user->dt_create ?></br>
             vk.com <a href = <?= "//vk.com/id" . $user->vk_id; ?> ><?= $user->name ?></a></br>
             facebook.com
+        <? elseif( !empty($user_id) ): ?>
+            <p>Такого пользователя не существует.</p>
         <? else: ?>
-            <p>Пожалуйста, <a href="/auth/vk">авторизуйтесь</a>.</p>
+            <p>Пожалуйста <a href="/auth/vk">авторизуйтесь</a>.</p>
         <? endif; ?>
         </div>
     </div>

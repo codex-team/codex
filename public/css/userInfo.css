@@ -6,7 +6,6 @@
     float: left;
     margin-left: 0;
     width:30%;
-    font-weight: 600;
 }
 .userPhoto{
     width:100%;
@@ -17,7 +16,6 @@
 .second_column {
     float: right;
     width:70%;
-    font-weight: 600;
 }
 .article_list {
     margin-left: 15%;
