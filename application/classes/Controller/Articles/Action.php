@@ -16,7 +16,7 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
         $article->title          = Arr::get($_POST,'title');
         $article->description    = Arr::get($_POST,'description');
         $article->text           = Arr::get($_POST,'text');
-        $cover                 = Arr::get($_FILES,'cover');
+        $cover                   = Arr::get($_FILES,'cover');
 
         $errors = FALSE;
         $table_values = array();
@@ -56,7 +56,7 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
 
         if (!empty($article_id) && !empty($user_id))
         {
-            Model_Article::get($article_id)->delete_article($user_id);
+            Model_Article::get($article_id)->remove($user_id);
         }
 
         $this->redirect('/article');
