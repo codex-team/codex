@@ -1,19 +1,21 @@
 <div class="header_text">
-    <?php if ($auth->is_guest()): ?>
-        Добрый день, <?= $auth->get_profile()->first_name; ?>
-    <?php endif; ?>
+    <? if ($auth->is_authorized()): ?>
+        Добрый день, <a href="/user/<?= $user->id ?>"><?= $user->name; ?></a>
+    <? endif; ?>
 </div>
 
 <div class="m_logo_wrap">
     <div class="m_logo"></div>
     <a href="/article">Статьи</a>
-      <a href="/join">Подать заявку</a>
-        <a href="/task">Задания</a>
+    <a href="/join">Подать заявку</a>
+    <a href="/task">Задания</a>
 
-    <?php if (!$auth->is_guest()): ?>
+    <? if ($user->id): ?>
+        <a href='/auth/logout'>Выход</a><br>
+        <a href="/admin/article" id="panel_link">Панель администратора</a>
+    <? else: ?>
         <a href='/auth/vk'>Вход VK</a>
-    <?php else: ?>
-        <a href='/auth/logout'>Выход</a>
+        <a href='/auth/facebook'>Вход FB</a>
     <?php endif; ?>
 
 </div>

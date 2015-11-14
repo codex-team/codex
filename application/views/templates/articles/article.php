@@ -1,113 +1,77 @@
-<div class="site_header" xmlns="http://www.w3.org/1999/html">
-    <div class="center_side">
-        <div class="site_menu">
-            <a href="/">Главная</a>
-            <a href="/article">Статьи</a>
-        </div>
-    </div>
-</div>
-
 <div class="center_side clear">
-  <article class="article">
+    <article class="article">
 
-    <img src="/public/img/covers/<?= $article['cover'] ?>" width="100%"/>
+        <div class="article_image">
+            <img src="/public/img/covers/<?= $article->cover ?>"/>
+        </div>
 
-    <h1 class="first_header">
-        <?= $article['title'] ?>
-    </h1>
+        <p class="time_subtitle"><?= $article->dt_create ?></p>
 
-    <h2 class="first_header">
-        <?= $article['description'] ?>
-    </h2>
+        <h1 class="first_header">
+            <?= $article->title ?>
+        </h1>
 
-    <p>
-        <?= $article['text'] ?>
-    </p>
-    <!--Обрабатываем строку с тегами-->
-    <?php
+        <p class="first_header">
+            <?= $article->description ?>
+        </p>
 
-        $tagsString = $article['tags'];
+        <p>
+            <?= $article->text ?>
+        </p>
 
-        $tagsArr = array();
+        <h3>Комментарии</h3>
+        <?
+        $comment_level = [];
+        foreach ($comments as $comment):
 
-        for ($i=0; $i < strlen($tagsString); $i++) { 
-            if ($tagsString{$i}=="#") {
-                $tempString = "";
-                for ($j=$i+1; $j < strlen($tagsString) ; $j++) { 
-                    $tempString .= $tagsString{$j};
-                    if ($tagsString{$j}==" " || $tagsString{$j}==",") {
-                        break;
-                    }
+            foreach ($comment_level as $current_comment_level):
+                if ($current_comment_level > $comment->parent_id) {
+                    array_pop($comment_level);
                 }
-                $tagsArr[] = $tempString;
-            }
-        }
-    ?>
-    <!--Прекращаем обработку. Теперь у нас есть массив (tagsArr) с тегами-->
-    <h4 style="display:inline; margin-right:5px">Теги:</h4>
-    <?php foreach ($tagsArr as $tag): ?>
-        <a href="#" style="margin-right:5px; font-style:italic;">#<?= $tag ?></a>
-    <?php endforeach;?>
-    
+            endforeach;
 
-    <h5><?= $article['dt_add'] ?></h5>
-
-    <h3>Комментарии</h3>
-    <?
-    $comment_level = [];
-    foreach($comments as $current_commentary):
-
-        foreach($comment_level as $current_comment_level):
-            if ($current_comment_level > $current_commentary['parent_id']) {
-                array_pop($comment_level);
-            }
-        endforeach;
-
-        $level = count($comment_level) * 39;
-        $comment_level[] = $current_commentary['id'];
+            $level = count($comment_level) * 39;
+            $comment_level[] = $comment->id;
 
 
-        // костыли на время отсутствия регистрации на сайт
-        if ($current_commentary['uid'] == 0){$username = 'Гость';}else{$username = $current_commentary['uid'];};
-        // конец
+            if ($comment->user_id == 0) {
+                $username = 'Гость';
+            } else {
+                $username = Model_User::get($comment->user_id)->name;
+            };
+        ?>
 
-        echo "<div style='margin: 0px ".$level."px'>";
+            <div style='margin: 0 <?= $level ?>px'>
 
-        echo "<p>";
+                <p>
+                    <a href='/article/delcomment/<?= $comment->id ?>'>[удалить]</a>
+                    <a onclick="document.getElementById('answer_to_comment').value=<?= $comment->id ?>;
+                        document.getElementById('blankCommentTextarea').innerHTML='<?= $username ?>, ';
+                        document.getElementById('answer_username')
+                        .innerHTML='Ваш ответ на комментарий пользователя <?= $username ?>: ' +
+                        '<i> <?= $comment->text ?></i>';">[ответить]</a>
+                    <b> <?= $username ?></b>: <?= $comment->text ?>
 
-        // костыли на время...
-//        echo "<a href='/article/delcomment/" . $current_commentary['id'] . "'>[удалить]</a>
-//                        <a onclick='document.getElementById(`answer_to_comment`).value=" . $current_commentary['id'] . ";
-//                         document.getElementById(`blankCommentTextarea`).innerHTML=`".$current_commentary['uid'].", `;
-//                          document.getElementById(`answer_username`).innerHTML=`Ваш ответ на комментарий
-//                                  пользователя ". $current_commentary['uid'] .": <i>".$current_commentary['text']."</i>`;'>[ответить]</a> ";
-//        echo "<b>" . $current_commentary['uid'] . "</b>: " . $current_commentary['text'];
-        // конец
-        echo "<a href='/article/delcomment/" . $current_commentary['id'] . "'>[удалить]</a>
-                        <a onclick='document.getElementById(`answer_to_comment`).value=" . $current_commentary['id'] . ";
-                         document.getElementById(`blankCommentTextarea`).innerHTML=`".$username.", `;
-                          document.getElementById(`answer_username`).innerHTML=`Ваш ответ на комментарий
-                                  пользователя ". $username .": <i>".$current_commentary['text']."</i>`;'>[ответить]</a> ";
-        echo "<b>" . $username . "</b>: " . $current_commentary['text'];
+                </p>
 
-        echo "</p>";
+            </div>
+        <? endforeach; ?>
 
-        echo "</div>";
-    endforeach;
-    ?>
+        <p>
 
-    <p>
         <h3 id="answer_username">Выскажи свое мнение</h3>
-        <form method="POST" action="/article/addcomment">
-            <input type="hidden" name="article" value="<?= $article['id'] ?>" />
-            <input type="hidden" name="parent_id" value="0" id="answer_to_comment"/>
-            <label for="blankNameInput">Ваше имя</label>
-            <input type="text" name="uid" id="blankNameInput" value="0"/>
-            <label for="blankCommentTextarea">Комментарий</label>
-            <textarea name="text" id="blankCommentTextarea"  required></textarea>
-            <p><button class="master" id="blankSendButton">Добавить комментарий</button></p>
-        </form>
-    </p>
 
-  </article>
+        <form method="POST" action="/article/addcomment">
+            <input type="hidden" name="article_id" value="<?= $article->id ?>"/>
+            <input type="hidden" name="parent_id" value="0" id="answer_to_comment"/>
+            <label for="blankCommentTextarea">Комментарий</label>
+            <textarea name="text" id="blankCommentTextarea" required></textarea>
+
+            <p>
+                <button class="master" id="blankSendButton">Добавить комментарий</button>
+            </p>
+        </form>
+        </p>
+
+    </article>
 </div>

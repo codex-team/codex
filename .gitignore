@@ -10,5 +10,6 @@ sftp-config.json
 *.sublime-project
 *.sublime-workspace
 .htaccess
-application/config/database.php
+application/config/database.php*
 public/img/covers/*
+/nbproject/private/

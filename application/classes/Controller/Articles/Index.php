@@ -5,33 +5,38 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
     public function action_showAllArticles()
     {
-        $this->view["articles"] = DB::select('*')->from('articles')->execute();
+        $this->view["articles"] = Model_Article::getActiveArticles();
 
-        $this->template->content = View::factory('templates/articles/list', $this->view);
+        $content = View::factory('templates/articles/list', $this->view);
+
+        $this->template->content = View::factory("templates/articles/wrapper",
+                array("active" => "allArticles", "content" => $content));
     }
 
     public function action_showArticle()
     {
-        $id = $this->request->param('article_id');
-        $this->title = 'Article #'.$id;
-        $this->view["id"] = $id;
+        $articleId = $this->request->param('article_id');
+        $this->view["id"] = $articleId;
 
-        $articles = DB::select('*')->from('articles')->where('id', '=', $id)->execute();
-        $this->view["article"] = $articles[0];
+        $article = Model_Article::get($articleId);
 
-        $comments_table = DB::select('*')->from('comments')->where('article', '=', $id)->order_by('parent_id', 'ASC', 'id', 'ASC')->execute();
+        $this->view["article"] = $article;
+
+        $this->title = $article->title;
+
+        $comments = Model_Comment::getCommentsByArticle($articleId);
+
         $comments_table_rebuild = array();
 
-        // пересобираем массив комментариев
         $i = 0;
-        foreach($comments_table as $comment):
+        foreach ($comments as $comment):
             $comments_table_rebuild[] = $comment;
 
             $var_k = $i;
-            for ($j = 0; $j < $i; $j++){
-                if ($comment['parent_id'] == $comments_table_rebuild[$j]['id']) {
-                    for ($k = $j + 1; $k < $i; $k++){
-                        if ($comment['parent_id'] != $comments_table_rebuild[$k]['parent_id']){
+            for ($j = 0; $j < $i; $j++) {
+                if ($comment->parent_id == $comments_table_rebuild[$j]->id) {
+                    for ($k = $j + 1; $k < $i; $k++) {
+                        if ($comment->parent_id != $comments_table_rebuild[$k]->parent_id) {
                             $var_k = $k;
                             break;
                         };
@@ -39,7 +44,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
                     break;
                 };
             };
-            for ($j = $i; $j >= $var_k; $j--){
+            for ($j = $i; $j >= $var_k; $j--) {
                 $comments_table_rebuild[$j + 1] = $comments_table_rebuild[$j];
             }
 
@@ -51,12 +56,18 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
         $this->view["comments"] = $comments_table_rebuild;
 
-        $this->template->content = View::factory('templates/articles/article', $this->view);
+        $content = View::factory('templates/articles/article', $this->view);
+
+        $this->template->content = View::factory("templates/articles/wrapper",
+            array("active" => "", "content" => $content));
     }
 
     public function action_newArticle()
     {
-        $this->template->content = View::factory('templates/articles/new', $this->view);
+        $content = View::factory('templates/articles/new', $this->view);
+
+        $this->template->content = View::factory("templates/articles/wrapper",
+            array("active" => "newArticle", "content" => $content));
     }
 
 }

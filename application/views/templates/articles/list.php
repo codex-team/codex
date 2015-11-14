@@ -1,21 +1,38 @@
-<div class="site_header" xmlns="http://www.w3.org/1999/html">
-    <div class="center_side">
-        <div class="site_menu">
-            <a href="/">Главная</a>
-        </div>
-    </div>
-</div>
-
 <div class="center_side clear">
-  <article class="article">
-      <h1>Список статей</h1>
-      <?
-            foreach($articles as $current_article):
-                echo "<p><a href='/article/delarticle/".$current_article['id']."'>[удалить]</a> <a href='/article/".$current_article['id']."'><b>".$current_article['title']."</b></a></p>";
-            endforeach;
-      ?>
-      <p>
-        <a href="/article/newarticle"><button>Добавить статью</button></a>
-      </p>
-  </article>
+  <? foreach ($articles as $current_article): ?>
+    <article class="article">
+
+      <div class="article_image">
+        <img src="/public/img/covers/<?= $current_article->cover ?>"
+             alt="<?= $current_article->title ?>"
+             title="<?= $current_article->title ?>"/>
+      </div>
+
+      <div>
+        <h2 class="articleTitle"><?= $current_article->title ?></h2>
+
+        <p>
+          <?= $current_article->description ?>
+        </p>
+      </div>
+
+      <div class="article_footer article_underscore">
+        <a href="/article/<?= $current_article->id ?>" class="read_more">Читать дальше</a>
+
+        <p class="article_tags">
+          <a href='/article/delarticle/<?= $current_article->id ?>'>Удалить</a>
+        </p>
+      </div>
+    </article>
+  <? endforeach; ?>
+
+  <? if (count($articles) == 0): ?>
+    <article class="article">
+      <p>Здесь пока нет ничего =(</p>
+
+      <p>Вы можете стать первым.</p>
+
+      <p><a href="/article/newarticle">Добавить статью</a></p>
+    </article>
+  <? endif; ?>
 </div>

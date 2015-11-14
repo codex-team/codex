@@ -10,6 +10,12 @@ class Controller_Base_preDispatch extends Controller_Template
     public $view = array();
 
     /**
+     * @var Model_User активный пользователь.
+     */
+    protected $user;
+    
+
+    /**
      * The before() method is called before your controller action.
      * In our template controller we override this method so that we can
      * set up default values. These variables are then available to our
@@ -19,7 +25,8 @@ class Controller_Base_preDispatch extends Controller_Template
     {
         /** Disallow requests from other domains */
         if ( Kohana::$environment === Kohana::PRODUCTION ) {
-            if ( (Arr::get($_SERVER, 'SERVER_NAME') != 'alpha.difual.com') && (Arr::get($_SERVER, 'SERVER_NAME') != 'ifmo.su') ) {
+            if ( (Arr::get($_SERVER, 'SERVER_NAME') != 'alpha.difual.com') &&
+                (Arr::get($_SERVER, 'SERVER_NAME') != 'ifmo.su') ) {
                 exit();
             }
         }
@@ -33,20 +40,8 @@ class Controller_Base_preDispatch extends Controller_Template
         $GLOBALS['SITE_NAME']   = "CodeX";
         $GLOBALS['FROM_ACTION'] = $this->request->action();
 
-        // methods
-        $this->methods = new Model_Methods();
-        View::set_global('methods', $this->methods);
+        $this->setGlobals();
 
-        // modules
-        $this->redis = $this->_redis();
-        View::set_global('redis', $this->redis);
-
-        $this->memcache = $memcache = Cache::instance('memcache');
-        View::set_global('memcache', $memcache);
-
-        $this->session = Session::instance();
-
-        View::set_global('auth', new Dao_Auth());
 
         if ($this->auto_render) {
             // Initialize with empty values
@@ -54,6 +49,8 @@ class Controller_Base_preDispatch extends Controller_Template
             $this->template->keywords    = '';
             $this->template->description = '';
             $this->template->content     = '';
+            $this->template->header      = '';
+           
         }
     }
 
@@ -111,6 +108,40 @@ class Controller_Base_preDispatch extends Controller_Template
         $redis->auth('21gJs32hv3ks');
         $redis->select(0);
         return $redis;
+    }
+
+    private function setGlobals()
+    {
+        // methods
+        $this->methods = new Model_Methods();
+        View::set_global('methods', $this->methods);
+
+        // modules
+        $this->redis = $this->_redis();
+        View::set_global('redis', $this->redis);
+
+        $this->memcache = $memcache = Cache::instance('memcache');
+        View::set_global('memcache', $memcache);
+
+        $this->session = Session::instance();
+        
+        $auth = new Dao_Auth();
+        if ( $auth->is_authorized() ) {
+            $profile = $auth->get_profile();
+            $instance = $auth->get_instance();
+
+            if ($instance == 'vkontakte')
+                $this->user = Model_User::findByAttribute('vk_id', $profile->uid);
+            elseif ($instance == 'facebook')
+                $this->user = Model_User::findByAttribute('fb_id', $profile->id);
+            else
+                $this->user = new Model_User();
+        }
+        else
+            $this->user = new Model_User();
+
+        View::set_global('user', $this->user);
+        View::set_global('auth', $auth);
     }
 
 }
