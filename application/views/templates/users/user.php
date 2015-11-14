@@ -13,7 +13,7 @@
             vk.com <a href = <?= "//vk.com/id" . $user->vk_id; ?> ><?= $user->name ?></a></br>
             facebook.com
         <? else: ?>
-            <?= $error; ?>
+            <p>Пожалуйста, <a href="/auth/vk">авторизуйтесь</a>.</p>
         <? endif; ?>
         </div>
     </div>
@@ -22,8 +22,8 @@
         <? if ( !$user->is_empty() ): ?>
              Список ваших статей:</br>
              <?if ( !empty($article_list) ): ?>
-                <? foreach ($article_list as $titleList): ?>
-                    <a href=<?= '/article/' . $titleList['id'] ?> > <?= $titleList['title'] ?></a></br>
+                <? foreach ($article_list as $list): ?>
+                    <a href=<?= '/article/' . $list['id'] ?> > <?= $list['title'] ?></a></br>
                 <? endforeach; ?>
             <? else: ?>
                 <?= 'У вас еще нет статей.'?>
