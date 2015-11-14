@@ -6,20 +6,20 @@
 <div class="columns">
     <div class = "first_column">
         <div class="mainInfo">
-        <? if ( !empty($user->vk_id) ): ?>
+        <? if ( !$user->is_empty() ): ?>
             <img src=<?= $user->photo ?> class="userPhoto">
             Имя: <?= $user->name; ?></br>
             Дата регистрации: <?= $user->dt_create ?></br>
             vk.com <a href = <?= "//vk.com/id" . $user->vk_id; ?> ><?= $user->name ?></a></br>
             facebook.com
-        <? elseif ( isset($error) ): ?>
+        <? else: ?>
             <?= $error; ?>
         <? endif; ?>
         </div>
     </div>
-    <div class = "second_column">
+    <div class="second_column">
         <div class="article_list">
-        <? if ( !empty($user->vk_id) ): ?>
+        <? if ( !$user->is_empty() ): ?>
              Список ваших статей:</br>
              <?if ( !empty($article_list) ): ?>
                 <? foreach ($article_list as $titleList): ?>
