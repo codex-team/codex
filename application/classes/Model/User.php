@@ -80,7 +80,9 @@ Class Model_User extends Model
 	 */
 	public function save()
 	{
-		if (DB::insert('Users', array('name', 'vk_id', 'fb_id', 'photo', 'photo_small', 'photo_big'))->values(array($this->name, $this->vk_id, $this->fb_id, $this->photo, $this->photo_small, $this->photo_big))->execute())
+		if (DB::insert('Users', array('name', 'vk_id', 'fb_id', 'photo', 'photo_small', 'photo_big'))->
+		values(array($this->name, $this->vk_id, $this->fb_id, $this->photo, $this->photo_small, $this->photo_big))
+		->execute())
 			return true;
 		else
 			return false;

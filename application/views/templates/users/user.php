@@ -4,28 +4,31 @@
 <div class="center_side clear">
 
 <div class="columns">
-	<div class = "first_column">
+    <div class = "first_column">
+        <div class="mainInfo">
         <? if ( !empty($user->vk_id) ): ?>
-		<p><img src = <?= $user->photo ?> width="100%"> </p>
-		<p> Имя: <?= $user->name; ?> </p>
-		<p> Дата регистрации: <?= $user->dt_create ?> </p>
-		<p> vk.com: <a href = <?= "//vk.com/id" . $user->vk_id; ?>><?= $user->name ?></a></p>
+            <img src=<?= $user->photo ?> class="userPhoto">
+            Имя: <?= $user->name; ?></br>
+            Дата регистрации: <?= $user->dt_create ?></br>
+            vk.com <a href = <?= "//vk.com/id" . $user->vk_id; ?> ><?= $user->name ?></a></br>
+            facebook.com
         <? elseif ( isset($error) ): ?>
-    	    <p><?= $error; ?></p>
+            <?= $error; ?>
         <? endif; ?>
-    	</div>
-<div class = "second_column">
-    	<div class="article_list">
-	    <? if ( !empty($user->vk_id) ): ?>
-    	    <p> Список ваших статей: </p>
-    	        <?if ( !empty($article_list) ): ?>
-    	        <? foreach ($article_list as $titleList): ?>
-    	            <p><a href=<?= '/article/' . $titleList['id'] ?> > <?= $titleList['title'] ?></a></p>
-    	        <? endforeach; ?>
-		<? else: ?>
-			<?= 'У вас еще нет статей.'?>
-                <? endif; ?>
-	    <? endif; ?>
         </div>
-</div>
+    </div>
+    <div class = "second_column">
+        <div class="article_list">
+        <? if ( !empty($user->vk_id) ): ?>
+             Список ваших статей:</br>
+             <?if ( !empty($article_list) ): ?>
+                <? foreach ($article_list as $titleList): ?>
+                    <a href=<?= '/article/' . $titleList['id'] ?> > <?= $titleList['title'] ?></a></br>
+                <? endforeach; ?>
+            <? else: ?>
+                <?= 'У вас еще нет статей.'?>
+            <? endif; ?>
+        <? endif; ?>
+        </div>
+    </div>
 </div>

@@ -22,14 +22,14 @@ class Controller_Users_Index extends Controller_Base_preDispatch
 	    $user = Model_User::getByVkId($user_id);
 	}
 
-    if ( !empty($user -> vk_id) ){
+    if ( $user->vk_id != 0 ){
 	   	$this->view["user"] = $user;
     }
     else{
-        $this->view["user"] = $this->user;
-        $this->view["error"] = "Пожалуйста, авторизуйтесь.";
+        $this->view["user"] = $user;
+        $this->view['error'] = "Пожалуйста, авторизуйтесь.";
     }
-
+        $this->view['user_id'] = $this->request->param('user_id');
         $this->view['article_list'] = $user->get_articles_list();
         $this->template->content = View::factory('templates/users/user', $this->view);
 
