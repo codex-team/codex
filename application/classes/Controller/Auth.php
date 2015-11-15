@@ -65,14 +65,10 @@ class Controller_Auth extends Controller_Base_preDispatch
                 if ($user->is_empty())
                 {
                     $user = new Model_User();
-                    $user->fb_id = $profile->id;
-
-                    /*
-                     * Загрузить фото профиля целиком: $fb->get_images($profile->id);
-                     *
-                     */
-
                     $user->name = $profile->name;
+                    $user->fb_id = $profile->id;
+                    # TODO: Проверить загрузку на альфе $user->photo = $fb->get_images($profile->id);
+                    # TODO: Загрузить фото профиля целиком: $fb->get_images($profile->id);
 
                     $user->save();
                 }
@@ -85,6 +81,7 @@ class Controller_Auth extends Controller_Base_preDispatch
         $this->auth_callback('/');
     }
 
+
     /**
      * Деавторизует пользователя путем очищения сессии "profile". Возвращает на главную страницу.
      */
@@ -95,6 +92,7 @@ class Controller_Auth extends Controller_Base_preDispatch
         Controller::redirect('/');
     }
 
+
     /**
      * Место для пост-авторизации. В конце осуществляет редирект страницу $page.
      */
@@ -102,6 +100,7 @@ class Controller_Auth extends Controller_Base_preDispatch
     {
         Controller::redirect($page);
     }
+
 
     /**
      * Генерирует имя для записи в БД из информации профиля ВК
