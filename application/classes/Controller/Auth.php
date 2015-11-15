@@ -53,8 +53,7 @@ class Controller_Auth extends Controller_Base_preDispatch
     {
         if ( $error = $this->request->query('error_code') )
         {
-            $this->template->content = $this->generate_auth_error();
-            return;
+            $this->generate_auth_error();
         }
 
         $fb = Oauth::instance('facebook');
@@ -110,16 +109,16 @@ class Controller_Auth extends Controller_Base_preDispatch
 
     /**
      * Метод, вызываемый при ошибке авторизации со стороны соц. сети
-     * @return View
+     * @return HTTP_Exception_FacebookException
      */
     private function generate_auth_error()
     {
         $error_code = $this->request->query('error_code');
         $error_message = $this->request->query('error_message');
 
-        return View::factory('templates/auth/error', [
-            'error_code' => $error_code,
-            'error_message' => $error_message
+        throw new HTTP_Exception_FacebookException('Ошибка #:error_code : :error_message', [
+            ':error_code' => $error_code,
+            ':error_message' => $error_message,
         ]);
     }
 
