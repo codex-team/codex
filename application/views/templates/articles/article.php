@@ -2,7 +2,7 @@
     <article class="article">
 
         <div class="article_image">
-            <img src="/public/img/covers/<?= $article->cover ?>"/>
+            <img src="/upload/covers/<?= $article->cover ?>"/>
         </div>
 
         <p class="time_subtitle"><?= $article->dt_create ?></p>
@@ -52,7 +52,7 @@
                             document.getElementById('blankCommentTextarea').innerHTML='<?= $username ?>, ';
                             document.getElementById('answer_username').innerHTML='Ваш ответ на комментарий пользователя <?= $username ?>: ' +
                             '<i> <?= $comment->text ?></i>';">[ответить]</a>
-                        
+
                         <b> <?= $username ?></b>: <?= $comment->text ?>
 
                     </p>
