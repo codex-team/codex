@@ -51,6 +51,12 @@ class Controller_Auth extends Controller_Base_preDispatch
      */
     public function action_facebook()
     {
+        if ( $error = $this->request->query('error_code') )
+        {
+            $this->template->content = $this->generate_auth_error();
+            return;
+        }
+
         $fb = Oauth::instance('facebook');
         if ($fb->login())
         {
@@ -99,6 +105,22 @@ class Controller_Auth extends Controller_Base_preDispatch
     private function auth_callback($page='/')
     {
         Controller::redirect($page);
+    }
+
+
+    /**
+     * Метод, вызываемый при ошибке авторизации со стороны соц. сети
+     * @return View
+     */
+    private function generate_auth_error()
+    {
+        $error_code = $this->request->query('error_code');
+        $error_message = $this->request->query('error_message');
+
+        return View::factory('templates/auth/error', [
+            'error_code' => $error_code,
+            'error_message' => $error_message
+        ]);
     }
 
 
