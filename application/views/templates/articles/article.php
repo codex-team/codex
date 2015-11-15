@@ -2,7 +2,7 @@
     <article class="article">
 
         <div class="article_image">
-            <img src="/public/img/covers/<?= $article->cover ?>"/>
+            <img src="/upload/covers/<?= $article->cover ?>"/>
         </div>
 
         <p class="time_subtitle"><?= $article->dt_create ?></p>
@@ -21,41 +21,47 @@
 
         <h3>Комментарии</h3>
         <?
-        $comment_level = [];
-        foreach ($comments as $comment):
+        if ($comments) {
+            $comment_level = [];
+            foreach ($comments as $comment):
 
-            foreach ($comment_level as $current_comment_level):
-                if ($current_comment_level > $comment->parent_id) {
-                    array_pop($comment_level);
-                }
-            endforeach;
+                foreach ($comment_level as $current_comment_level):
+                    if ($current_comment_level > $comment->parent_id) {
+                        array_pop($comment_level);
+                    }
+                endforeach;
 
-            $level = count($comment_level) * 39;
-            $comment_level[] = $comment->id;
+                $level = count($comment_level) * 39;
+                $comment_level[] = $comment->id;
 
 
-            if ($comment->user_id == 0) {
-                $username = 'Гость';
-            } else {
-                $username = Model_User::get($comment->user_id)->name;
-            };
-        ?>
+                if ($comment->user_id == 0) {
+                    $username = 'Гость';
+                } else {
+                    $username = Model_User::get($comment->user_id)->name;
+                };
+                ?>
 
-            <div style='margin: 0 <?= $level ?>px'>
+                <div style='margin: 0 <?= $level ?>px'>
 
-                <p>
-                    <a href='/article/delcomment/<?= $comment->id ?>'>[удалить]</a>
-                    <a onclick="document.getElementById('answer_to_comment').value=<?= $comment->id ?>;
-                        document.getElementById('blankCommentTextarea').innerHTML='<?= $username ?>, ';
-                        document.getElementById('answer_username')
-                        .innerHTML='Ваш ответ на комментарий пользователя <?= $username ?>: ' +
-                        '<i> <?= $comment->text ?></i>';">[ответить]</a>
-                    <b> <?= $username ?></b>: <?= $comment->text ?>
+                    <p>
+                        <? if ($comment->user_id == $user->id) {?>
+                            <a href='/article/delcomment/<?= $comment->id ?>'>[удалить]</a>
+                        <? } ?>
+                        <a onclick="document.getElementById('answer_to_comment').value=<?= $comment->id ?>;
+                            document.getElementById('blankCommentTextarea').innerHTML='<?= $username ?>, ';
+                            document.getElementById('answer_username').innerHTML='Ваш ответ на комментарий пользователя <?= $username ?>: ' +
+                            '<i> <?= $comment->text ?></i>';">[ответить]</a>
 
-                </p>
+                        <b> <?= $username ?></b>: <?= $comment->text ?>
 
-            </div>
-        <? endforeach; ?>
+                    </p>
+
+                </div>
+            <? endforeach; ?>
+        <? } else { ?>
+             <p>Комментариев нет</p>
+        <? } ?>
 
         <p>
 

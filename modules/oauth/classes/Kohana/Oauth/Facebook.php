@@ -102,7 +102,7 @@ class Kohana_Oauth_Facebook extends Oauth {
             #'redirect' => 0,
             'type' => 'large'
         );
-        $resp          = Request::factory('https://graph.facebook.com/v2.5/'.$user_id.'/picture', array(
+        $resp          = Request::factory('https://graph.facebook.com/v2.5/'.$user_id, array(
             'follow' => TRUE))
             ->method(Request::GET)
             ->query($params)

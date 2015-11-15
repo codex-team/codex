@@ -3,7 +3,7 @@
     <article class="article">
 
       <div class="article_image">
-        <img src="/public/img/covers/<?= $current_article->cover ?>"
+        <img src="/upload/covers/<?= $current_article->cover ?>"
              alt="<?= $current_article->title ?>"
              title="<?= $current_article->title ?>"/>
       </div>
