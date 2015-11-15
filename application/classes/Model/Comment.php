@@ -21,6 +21,56 @@ Class Model_Comment extends Model
     {
     }
 
+    /**
+     * Добавляет комментарий в бд
+     */
+    public function insert()
+    {
+        $idAndRowAffected = DB::insert('Comments', array('article_id', 'user_id', 'text', 'parent_id', 'root_id'))
+                    ->values(array($this->article_id, $this->user_id, $this->text, $this->parent_id, $this->root_id))
+                    ->execute();
+
+        if ($idAndRowAffected)
+        {
+            $comment = DB::select()->from('Comments')->where('id', '=', $idAndRowAffected[0])->execute()->current();
+
+            $this->fillByRow($comment);
+        }
+    }
+
+    /**
+     * Удаляем комментарий и все его подкомментарии
+     *
+     * @param $user айди текущего пользователя, чтобы комментарий мог удалить только владелец
+     * @return mixed айди статьи для редиректа
+     */
+    public function delete_comment($user)
+    {
+        // получаем id статьи для редиректа
+        $comment = DB::select('*')->from('Comments')->where('id', '=', $this->id)->execute();
+        $article_id = $comment[0]['article_id'];
+
+        if ($this->user_id != $user->id)
+        {
+            return $article_id;
+        }
+
+        // удаляем комментарий и все его подкомментарии рекурсивно
+        function delete_subcomments($parent_id)
+        {
+            $subcomments = DB::select('*')->from('Comments')->where('parent_id', '=', $parent_id)->execute();
+
+            foreach($subcomments as $comment):
+                delete_subcomments($comment['id']);
+            endforeach;
+
+            DB::update('Comments')->where('id', '=', $parent_id)->set(array('is_removed' => 1))->execute();
+        }
+        delete_subcomments($this->id);
+
+        return $article_id;
+
+    }
 
     /**
      * Возвращает комментарий из базы данных с указанным идентификатором, иначе возвращает пустую статью с айдишником 0.
@@ -68,6 +118,7 @@ Class Model_Comment extends Model
 
         if (!empty($article_id)) {
             $comment_rows = DB::select()->from('Comments')->where('article_id', '=', $article_id)
+                ->where('is_removed', '=', 0)
                 ->order_by('id', 'ASC')
                 ->order_by('parent_id', 'ASC')
                 ->execute();

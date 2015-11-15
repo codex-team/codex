@@ -21,9 +21,12 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
         $errors = FALSE;
         $table_values = array();
 
-        if ($article->title != '')       { $table_values['title'] = array('value' => $article->title); }               else { $errors = TRUE; }
-        if ($article->description != '') { $table_values['description'] = array('value' => $article->description); }   else { $errors = TRUE; }
-        if ($article->text != '')        { $table_values['text'] = array('value' => $article->text); }                 else { $errors = TRUE; }
+        if ($article->title != '')       { $table_values['title'] = array('value' => $article->title); }
+            else { $errors = TRUE; }
+        if ($article->description != '') { $table_values['description'] = array('value' => $article->description); }
+            else { $errors = TRUE; }
+        if ($article->text != '')        { $table_values['text'] = array('value' => $article->text); }
+            else { $errors = TRUE; }
 
         if ($errors)
         {
