@@ -2,6 +2,7 @@
 
 class Controller_Users_Index extends Controller_Base_preDispatch
 {
+<<<<<<< HEAD
 
 		/*
 		* Если в ссылке /user/<user_id> передан user_id, тогда пользователя находят в БД по его id
