@@ -24,13 +24,13 @@
         <? if ( !$user->is_empty() ): ?>
             Список ваших статей:</br>
             <?if ( !empty($article_list) ): ?>
-                <? foreach ($article_list as $list): ?>
+             <? foreach ($article_list as $list): ?>
                     <a href="<?= '/article/' . $list['id'] ?>" > <?= $list['title'] ?></a></br>
                 <? endforeach; ?>
             <? else: ?>
                 <?= 'У вас еще нет статей.'?>
             <? endif; ?>
-       <? endif; ?>
+        <? endif; ?>
         </div>
     </div>
 </div>
