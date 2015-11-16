@@ -27,6 +27,5 @@
                 <? endif; ?>
 	    <? endif; ?>
         </div>
-    </div>
 </div>
 </div>
