@@ -5,7 +5,7 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
 
     public function action_add()
     {
-        $user_id = $this->user->id;
+        $user_id = $this->user->id; 
 
         if (empty($user_id)) {
             $this->redirect('/');

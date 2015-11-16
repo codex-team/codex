@@ -2,6 +2,7 @@
 
 class Controller_Users_Index extends Controller_Base_preDispatch
 {
+<<<<<<< HEAD
 
 		/*
 		* Если в ссылке /user/<user_id> передан user_id, тогда пользователя находят в БД по его id
@@ -23,6 +24,7 @@ class Controller_Users_Index extends Controller_Base_preDispatch
         $this->view['user'] = $user;
         $this->view['user_id'] = $user_id;
         $this->view['article_list'] = $user->get_articles_list();
+
 
         $this->template->content = View::factory('templates/users/user', $this->view);
 

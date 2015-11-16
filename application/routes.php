@@ -128,6 +128,10 @@ Route::set('ADMIN_USERS_LIST', 'admin/users')->defaults(array(
     'action' => 'showAllUsers',
 ));
 
+Route::set('ADMIN_DEL_USER', 'admin/users/deluser/<user_id>', array('user_id' => $DIGIT))->defaults(array(
+    'controller' => 'admin',
+    'action' => 'deleteUser',
+));
 
 // - viz redaktor -
 

@@ -1,22 +1,32 @@
-#admin_articles{
+.admin_tables{
 	width:100% !important;
 	border:0;
+	margin-top: 20px;
 }
 
-#admin_articles td{
+.admin_tables td{
 	text-align: center;
+	padding:8px;
 }
 
-#admin_articles tr:first-of-type td{
+.admin_tables tr:first-of-type td{
 	padding-bottom:40px;
 }
 
-#admin_articles tr:last-of-type td{
+.admin_tables tr:last-of-type td{
 	padding-top:10px;
 }
 
-#note_for_dates{
+.note_for_dates{
 	font-style: italic !important;
 	font-size:15px;
 	color:#aaaaaa;
+}
+
+.title{
+	width:35%;
+}
+
+.name{
+	width:25%;
 }
