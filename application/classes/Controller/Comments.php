@@ -16,22 +16,8 @@ class Controller_Comments extends Controller_Base_preDispatch
 
         $user_id = $this->user->id;
 
-        // getting the root id
-        function get_root_id($id){
-
-            $comment = DB::select('*')->from('Comments')->where('id', '=', $id)->execute();
-            $comment = $comment[0];
-
-            if ($comment['parent_id'] != 0){
-                get_root_id($comment['parent_id']);
-                return $comment['id'];
-            } else {
-                return $comment['id'];
-            }
-        }
-
         if ($parent_id != 0){
-            $root_id = get_root_id($parent_id);
+            $root_id = self::get_root_id($parent_id);
         } else {
             $root_id = 0;
         }
@@ -40,6 +26,19 @@ class Controller_Comments extends Controller_Base_preDispatch
             ->values(array($article_id, $user_id, $text, $parent_id, $root_id))->execute();
 
         $this->redirect('/article/'.$article_id);
+    }
+
+    // getting the root id
+    private function get_root_id($id) {
+        $comment = DB::select('*')->from('Comments')->where('id', '=', $id)->execute();
+        $comment = $comment[0];
+
+        if ($comment['parent_id'] != 0){
+            self::get_root_id($comment['parent_id']);
+            return $comment['id'];
+        } else {
+            return $comment['id'];
+        }
     }
 
     public function action_delete()

@@ -22,35 +22,35 @@
         <h3>Комментарии</h3>
         <?
         $comment_level = [];
-        foreach ($comments as $current_commentary):
+        foreach ($comments as $comment):
 
             foreach ($comment_level as $current_comment_level):
-                if ($current_comment_level > $current_commentary['parent_id']) {
+                if ($current_comment_level > $comment->parent_id) {
                     array_pop($comment_level);
                 }
             endforeach;
 
             $level = count($comment_level) * 39;
-            $comment_level[] = $current_commentary['id'];
+            $comment_level[] = $comment->id;
 
 
-            if ($current_commentary['user_id'] == 0) {
+            if ($comment->user_id == 0) {
                 $username = 'Гость';
             } else {
-                $username = $names_for_comments[$current_commentary['id']]['author'];
+                $username = Model_User::get($comment->user_id)->name;
             };
         ?>
 
             <div style='margin: 0 <?= $level ?>px'>
 
                 <p>
-                    <a href='/article/delcomment/<?= $current_commentary['id'] ?>'>[удалить]</a>
-                    <a onclick="document.getElementById('answer_to_comment').value=<?= $current_commentary['id'] ?>;
+                    <a href='/article/delcomment/<?= $comment->id ?>'>[удалить]</a>
+                    <a onclick="document.getElementById('answer_to_comment').value=<?= $comment->id ?>;
                         document.getElementById('blankCommentTextarea').innerHTML='<?= $username ?>, ';
                         document.getElementById('answer_username')
                         .innerHTML='Ваш ответ на комментарий пользователя <?= $username ?>: ' +
-                        '<i> <?= $current_commentary['text'] ?></i>';">[ответить]</a>
-                    <b> <?= $username ?></b>: <?= $current_commentary['text'] ?>
+                        '<i> <?= $comment->text ?></i>';">[ответить]</a>
+                    <b> <?= $username ?></b>: <?= $comment->text ?>
 
                 </p>
 

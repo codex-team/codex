@@ -8,6 +8,11 @@ class Controller_Base_preDispatch extends Controller_Template
 
     /** Data to pass into view */
     public $view = array();
+
+    /**
+     * @var Model_User активный пользователь.
+     */
+    protected $user;
     
 
     /**

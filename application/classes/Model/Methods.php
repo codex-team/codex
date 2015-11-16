@@ -35,7 +35,7 @@ class Model_Methods extends Model
         $cover_new_name = $new_name . '.jpg';
 
         // saving
-        $uploaddir = 'public/img/covers/';
+        $uploaddir = 'upload/covers/';
         $uploadfile = $uploaddir . $cover_new_name;
         move_uploaded_file($cover['tmp_name'], $uploadfile);
 

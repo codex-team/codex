@@ -21,8 +21,8 @@ Class Model_User extends Model
 
 
 	/**
-     * Возвращает статус заполненности модели
-	 * @return bool
+     	* Возвращает статус заполненности модели
+	* @return bool
      */
 	public function is_empty()
 	{
@@ -39,7 +39,8 @@ Class Model_User extends Model
     {
         return self::findByAttribute('id', $id);
     }
-	/**
+
+    /**
      * Возвращает модель пользователя по его vk_id
      * @param int $vk_id
      * @return Model_User
@@ -47,7 +48,7 @@ Class Model_User extends Model
 	public static function getByVkId($vk_id = 0)
     {
         return self::findByAttribute('vk_id', $vk_id);
-    }	
+    }
 
 
     /**
@@ -79,7 +80,9 @@ Class Model_User extends Model
 	 */
 	public function save()
 	{
-		if (DB::insert('Users', array('name', 'vk_id', 'fb_id', 'photo', 'photo_small', 'photo_big'))->values(array($this->name, $this->vk_id, $this->fb_id, $this->photo, $this->photo_small, $this->photo_big))->execute())
+		if (DB::insert('Users', array('name', 'vk_id', 'fb_id', 'photo', 'photo_small', 'photo_big'))->
+		values(array($this->name, $this->vk_id, $this->fb_id, $this->photo, $this->photo_small, $this->photo_big))
+		->execute())
 			return true;
 		else
 			return false;
@@ -112,7 +115,8 @@ Class Model_User extends Model
      */
 	public function get_articles_list()
 	{
-        return DB::select('title', 'id')->from('Articles')->where('user_id', '=', $this->id)->execute()->as_array();
+        return DB::select('title', 'id')->from('Articles')->
+        where('user_id', '=', $this->id)->execute()->as_array();
 	}
 
 }

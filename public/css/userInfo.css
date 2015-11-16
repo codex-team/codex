@@ -1,22 +1,26 @@
 .columns {
     margin-left: 3%;
-    margin-top: 5%; 
+    margin-top: 5%;
 }
 .first_column {
     float: left;
     margin-left: 0;
     width:30%;
-    font-weight: 600;
+}
+.userPhoto{
+    width:100%;
+}
+.mainInfo{
+    text-align:"left";
 }
 .second_column {
     float: right;
     width:70%;
-    font-weight: 600;
 }
 .article_list {
     margin-left: 15%;
 }
 .userName {
-    
-    
+
+
 }
