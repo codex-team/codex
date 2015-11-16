@@ -4,8 +4,9 @@
             <p>Здесь пока нет статей.</p>
         </article>
     <? else: ?>
-        <table id="admin_articles">
+        <table class="admin_tables">
             <tr>
+                <th>ID</th>
                 <th>Название</th>
                 <th>Автор</th>
                 <th>Дата</th>
@@ -16,7 +17,12 @@
             <? foreach ($articles as $current_article): ?>
                 <? if ($current_article['is_removed'] == 0): ?>
                     <tr>
-                        <td><a href="/article/<?= $current_article['id'] ?>" class="read_more"><?= $current_article['title'] ?></a></td>
+                        <td><?= $current_article['id'] ?></td>
+                        <td class="title">
+                            <a href="/article/<?= $current_article['id'] ?>">
+                                <?= $current_article['title'] ?>
+                            </a>
+                        </td>
                         <td><?= $current_article['user_id'] ?></td>
                         <td>
                             <?  //Выводим дату изменений, если таковые были.
@@ -36,7 +42,8 @@
             <tr>
                 <td></td>
                 <td></td>
-                <td id="note_for_dates">Дата последних изменений.</td>
+                <td></td>
+                <td class="note_for_dates">Дата последних изменений.</td>
                 <td></td>
                 <td></td>
                 <td></td>
