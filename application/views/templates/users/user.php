@@ -10,8 +10,12 @@
             	<img src="<?= $user->photo ?>" class="userPhoto">
             	Имя: <?= $user->name; ?></br>
             	Дата регистрации: <?= $user->dt_create ?></br>
-            	vk.com <a href="<?= "//vk.com/id" . $user->vk_id; ?>" ><?= $user->name ?></a></br>
-            	facebook.com
+                <? if ( !empty($user->vk_id) ): ?>
+                    vk.com <a href="<?= "//vk.com/id" . $user->vk_id; ?>" ><?= $user->name ?></a></br>
+                <? endif; ?>
+                <? if ( !empty($user->fb_id) ): ?>
+                    facebook.com <a href="<?= "//facebook.com/" . $user->fb_id; ?>" ><?= $user->name ?></a>
+                <? endif; ?> 
         	<? elseif( !empty($user_id) ): ?>
             		<p>Такого пользователя не существует.</p>
         	<? else: ?>
