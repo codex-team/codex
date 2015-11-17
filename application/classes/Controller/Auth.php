@@ -20,7 +20,6 @@ class Controller_Auth extends Controller_Base_preDispatch
             if ($profile)
             {
                 Session::instance()->set('profile', $profile);
-                Session::instance()->set('instance', 'vkontakte');
 
                 $user = Model_User::findByAttribute('vk_id', $profile->uid);
                 if ($user->is_empty())
@@ -69,7 +68,6 @@ class Controller_Auth extends Controller_Base_preDispatch
             if ($profile)
             {
                 Session::instance()->set('profile', $profile);
-                Session::instance()->set('instance', 'facebook');
 
                 $user = Model_User::findByAttribute('fb_id', $profile->id);
                 if ($user->is_empty())
@@ -98,7 +96,6 @@ class Controller_Auth extends Controller_Base_preDispatch
     public function action_logout()
     {
         Session::instance()->delete('profile');
-        Session::instance()->delete('instance');
         Controller::redirect('/');
     }
 
