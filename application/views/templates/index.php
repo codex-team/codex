@@ -4,6 +4,12 @@
     <? endif; ?>
 </div>
 
+<?
+    /** Dao MySQL Test */
+    $user = Dao_Users::select()->where('id', '=', 1)->limit(1)->execute();
+?>
+<?= Debug::vars( $user ); ?>
+
 <div class="m_logo_wrap">
     <div class="m_logo"></div>
     <a href="/article">Статьи</a>
