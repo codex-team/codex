@@ -29,6 +29,10 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
         if ($article->text != '')        { $table_values['text'] = array('value' => $article->text); }
             else { $errors = TRUE; }
 
+        if (($cover['size'] > 100000000) || (($cover['type'] != 'image/jpeg') && ($cover['type'] != 'image/png'))){
+            $errors = TRUE;
+        }
+
         if ($errors)
         {
             $this->view["table_values"] = $table_values;
