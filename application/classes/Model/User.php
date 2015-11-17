@@ -21,8 +21,8 @@ Class Model_User extends Model
 
 
 	/**
-     * Возвращает статус заполненности модели
-	 * @return bool
+     	* Возвращает статус заполненности модели
+	* @return bool
      */
 	public function is_empty()
 	{
@@ -39,15 +39,6 @@ Class Model_User extends Model
     {
         return self::findByAttribute('id', $id);
     }
-	/**
-     * Возвращает модель пользователя по его vk_id
-     * @param int $vk_id
-     * @return Model_User
-     */
-	public static function getByVkId($vk_id = 0)
-    {
-        return self::findByAttribute('vk_id', $vk_id);
-    }	
 
 
     /**
@@ -66,7 +57,7 @@ Class Model_User extends Model
             $model->id = $user['id'];
             $model->name = $user['name'];
             $model->photo = $user['photo'];
-            $model->dt_create = $user['dt_create'];
+            $model->dt_create = Date::formatted_time($user['dt_create'],'Y-m-d');
             $model->vk_id = $user['vk_id'];
         }
         return $model;
@@ -79,7 +70,9 @@ Class Model_User extends Model
 	 */
 	public function save()
 	{
-		if (DB::insert('Users', array('name', 'vk_id', 'fb_id', 'photo', 'photo_small', 'photo_big'))->values(array($this->name, $this->vk_id, $this->fb_id, $this->photo, $this->photo_small, $this->photo_big))->execute())
+		if (DB::insert('Users', array('name', 'vk_id', 'fb_id', 'photo', 'photo_small', 'photo_big'))->
+		values(array($this->name, $this->vk_id, $this->fb_id, $this->photo, $this->photo_small, $this->photo_big))
+		->execute())
 			return true;
 		else
 			return false;
@@ -107,12 +100,13 @@ Class Model_User extends Model
 
 
     /**
-     * Возвращает массив статей пользователя
+     * Возвращает массив опубликованных статей пользователя
      * @return true, если данные успешно записаны в БД
      */
 	public function get_articles_list()
 	{
-        return DB::select('title', 'id')->from('Articles')->where('user_id', '=', $this->id)->execute()->as_array();
+        return DB::select('title', 'id')->from('Articles')->
+        where('user_id', '=', $this->id)->and_where('is_removed', '=', 0)->execute()->as_array();
 	}
 
 }

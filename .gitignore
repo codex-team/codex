@@ -13,3 +13,4 @@ sftp-config.json
 application/config/database.php*
 public/img/covers/*
 /nbproject/private/
+*~
