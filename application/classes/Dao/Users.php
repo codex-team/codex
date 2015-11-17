@@ -4,6 +4,6 @@ class Dao_Users extends Dao_MySQL_Base {
 
     protected $cache_key = 'Dao_Users';
 
-    protected $table = 'users';
+    protected $table = 'Users';
 
 }
