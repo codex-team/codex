@@ -105,8 +105,7 @@ Class Model_User extends Model
      */
 	public function get_articles_list()
 	{
-        return DB::select('title', 'id')->from('Articles')->
-        where('user_id', '=', $this->id)->and_where('is_removed', '=', 0)->execute()->as_array();
+        return Model_Article::getByUserId($this->id);
 	}
 
 }
