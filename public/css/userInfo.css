@@ -1,22 +1,47 @@
 .columns {
     margin-left: 3%;
-    margin-top: 5%; 
+    margin-top: 5%;
 }
-.first_column {
+.firstColumn {
     float: left;
     margin-left: 0;
     width:30%;
-    font-weight: 600;
 }
-.second_column {
+.userPhoto{
+    width:100%;
+    border-radius: 6px;
+}
+.mainInfo{
+    text-align:"left";
+}
+.secondColumn {
     float: right;
     width:70%;
-    font-weight: 600;
 }
-.article_list {
+.articleList {
     margin-left: 15%;
 }
-.userName {
-    
-    
+.headerList{
+    font-size: 18px;
+    background-color: #E7E4FC;
+    padding: 10px 10px 10px;
+    width: 50%;
+    border-radius: 3px 3px 0px 0px;
+    border-width: 1px 1px 1px 1px;
+    border-style: solid solid solid;
+    border-color: #D8D8D8;
+    line-height: 20px;
+    margin: 0px;
+}
+li {
+    list-style: none;
+}
+.boxList{
+    border-style: none solid solid;
+    border-width: 0px 1px 1px 1px;
+    border-color: #D8D8D8;
+    border-radius: 0px 0px 3px 3px;
+    width: 50%;
+    margin: 0px;
+    line-height: 35px;
 }
