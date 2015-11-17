@@ -122,7 +122,7 @@ Kohana::modules(array(
     'image'      => MODPATH.'image',      // Image manipulation
     'minion'     => MODPATH.'minion',     // CLI Tasks
     'orm'        => MODPATH.'orm',        // Object Relationship Mapping
-    // 'unittest'   => MODPATH.'unittest',   // Unit testing
+    'unittest'   => MODPATH.'unittest',   // Unit testing
     // 'userguide'  => MODPATH.'userguide',  // User guide and API documentation
     // 'email'         => MODPATH.'email',
     // 'messages'      => MODPATH.'messages',
