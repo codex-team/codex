@@ -15,7 +15,7 @@ class Controller_Auth extends Controller_Base_preDispatch
         $vk = Oauth::instance('vkontakte');
         if ($vk->login())
         {
-            $profile = $vk->get_user();
+            $profile = $vk->get_user('photo_50,photo_200,photo_max,city');
 
             if ($profile)
             {
@@ -33,6 +33,11 @@ class Controller_Auth extends Controller_Base_preDispatch
                     $user->name = $this->get_vk_name($profile);
 
                     $user->save();
+                }
+                else
+                {
+                    # Update outdated params
+                    #if ($user->vk_uri)
                 }
             }
         }
