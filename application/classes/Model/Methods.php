@@ -28,19 +28,20 @@ class Model_Methods extends Model
     }
 
 
+
     public function save_cover($cover)
     {
-        // generating new filename
         $new_name = bin2hex(openssl_random_pseudo_bytes(5));
-        $cover_new_name = $new_name . '.jpg';
+        $cover['name'] = $new_name . '.' . pathinfo($cover['name'], PATHINFO_EXTENSION);
 
-        // saving
         $uploaddir = 'upload/covers/';
-        $uploadfile = $uploaddir . $cover_new_name;
-        move_uploaded_file($cover['tmp_name'], $uploadfile);
 
-        // return new cover name for db
-        return $cover_new_name;
+        if ($file = Upload::save($cover, NULL, $uploaddir)){
+            Image::factory($file)->save($uploaddir . $cover['name']);
+            unlink($file);
+        }
+
+        return $cover['name'];
     }
 
 
@@ -104,7 +105,7 @@ class Model_Methods extends Model
             'с' => 's',   'т' => 't',   'у' => 'u',
             'ф' => 'f',   'х' => 'h',   'ц' => 'c',
             'ч' => 'ch',  'ш' => 'sh',  'щ' => 'sch',
-            'ь' => "",  'ы' => 'y',   'ъ' => "",
+            'ь' => "",    'ы' => 'y',   'ъ' => "",
             'э' => 'e',   'ю' => 'yu',  'я' => 'ya',
 
             'А' => 'A',   'Б' => 'B',   'В' => 'V',
@@ -116,13 +117,13 @@ class Model_Methods extends Model
             'С' => 'S',   'Т' => 'T',   'У' => 'U',
             'Ф' => 'F',   'Х' => 'H',   'Ц' => 'C',
             'Ч' => 'Ch',  'Ш' => 'Sh',  'Щ' => 'Sch',
-            'Ь' => "",  'Ы' => 'Y',   'Ъ' => "",
+            'Ь' => "",    'Ы' => 'Y',   'Ъ' => "",
             'Э' => 'E',   'Ю' => 'Yu',  'Я' => 'Ya',
-            ' ' => '_', '-' => '_', '-' => '_', '.' => '_',
-            ',' => '_', '\'' => '', '\"' => '', '(' => '_', ')' => '_',
-            '?' => '_', '#' => '_', '$' => '_', '!' => '_',
-            '@' => '_', '%' => '^', '&' => '_', '*' => '_',
-            '`' => '_', '\\' => '_', '/' => '_'//, '*' => '_'
+            ' ' => '_',   '-' => '_',   '-' => '_',    '.' => '_',
+            ',' => '_',   '\'' => '',   '\"' => '',    '(' => '_', ')' => '_',
+            '?' => '_',   '#' => '_',   '$' => '_',    '!' => '_',
+            '@' => '_',   '%' => '^',   '&' => '_',    '*' => '_',
+            '`' => '_',   '\\' => '_',  '/' => '_'//,    '*' => '_'
         );
         // translit
         $tmp = strtr($string, $converter);
