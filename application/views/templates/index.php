@@ -6,9 +6,9 @@
 
 <?
     /** Dao MySQL Test */
-    $user = Dao_Users::select()->where('id', '=', 1)->limit(1)->execute();
+    $daoTest = Dao_Users::select()->where('id', '=', 1)->limit(1)->execute();
 ?>
-<?= Debug::vars( $user ); ?>
+<?= Debug::vars( $daoTest ); ?>
 
 <div class="m_logo_wrap">
     <div class="m_logo"></div>
