@@ -57,7 +57,7 @@ Class Model_User extends Model
             $model->id = $user['id'];
             $model->name = $user['name'];
             $model->photo = $user['photo'];
-            $model->dt_create = $user['dt_create'];
+            $model->dt_create = Date::formatted_time($user['dt_create'],'Y-m-d');
             $model->vk_id = $user['vk_id'];
         }
         return $model;

@@ -14,6 +14,7 @@ class Controller_Users_Index extends Controller_Base_preDispatch
     public function action_showUser()
     {
         $user_id = $this->request->param('user_id');
+
 	    if( !empty($user_id) ){
 		    $user = Model_User::get( $user_id );
 	    }else{
@@ -23,7 +24,6 @@ class Controller_Users_Index extends Controller_Base_preDispatch
         $this->view['user'] = $user;
         $this->view['user_id'] = $user_id;
         $this->view['article_list'] = $user->get_articles_list();
-
 
         $this->template->content = View::factory('templates/users/user', $this->view);
 
