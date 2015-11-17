@@ -28,7 +28,11 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
         if ($article->text != '')        { $table_values['text'] = array('value' => $article->text); }
             else { $errors = TRUE; }
 
-        if (($cover['size'] > 10485760) || (($cover['type'] != 'image/jpeg') && ($cover['type'] != 'image/png'))){
+        if (!Upload::valid($cover) or
+            !Upload::not_empty($cover) or
+            !Upload::type($cover, array('jpg', 'jpeg', 'png')) or
+            !Upload::size($cover, '10M'))
+        {
             $table_values['cover'] = TRUE;
             $errors = TRUE;
         }
