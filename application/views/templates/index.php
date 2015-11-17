@@ -3,7 +3,6 @@
         Добрый день, <a href="/user/<?= $user->id ?>"><?= $user->name; ?></a>
     <? endif; ?>
 </div>
-
 <div class="m_logo_wrap">
     <div class="m_logo"></div>
     <a href="/article">Статьи</a>

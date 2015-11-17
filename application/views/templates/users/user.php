@@ -16,7 +16,7 @@
     	</div>
 <div class = "second_column">
     	<div class="article_list">
-	    <? if ( !empty($user->vk_id) ): ?>		
+	    <? if ( !empty($user->vk_id) ): ?>
     	    <p> Список ваших статей: </p>
     	        <?if ( !empty($article_list) ): ?>
     	        <? foreach ($article_list as $titleList): ?>
