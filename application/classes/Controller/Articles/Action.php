@@ -13,24 +13,21 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
 
         $article = new Model_Article();
 
-<<<<<<< HEAD
-        $model->title          = Arr::get($_POST,'title');
-        $model->description    = Arr::get($_POST,'description');
-        $model->text           = Arr::get($_POST,'text');
-        $model->cover          = Arr::get($_FILES,'cover');
-=======
         $article->title          = Arr::get($_POST,'title');
         $article->description    = Arr::get($_POST,'description');
         $article->text           = Arr::get($_POST,'text');
-        $cover                 = Arr::get($_FILES,'cover');
->>>>>>> master
+        $cover                   = Arr::get($_FILES,'cover');
+
 
         $errors = FALSE;
         $table_values = array();
 
-        if ($article->title != '')       { $table_values['title'] = array('value' => $article->title); }               else { $errors = TRUE; }
-        if ($article->description != '') { $table_values['description'] = array('value' => $article->description); }   else { $errors = TRUE; }
-        if ($article->text != '')        { $table_values['text'] = array('value' => $article->text); }                 else { $errors = TRUE; }
+        if ($article->title != '')       { $table_values['title'] = array('value' => $article->title); }
+            else { $errors = TRUE; }
+        if ($article->description != '') { $table_values['description'] = array('value' => $article->description); }
+            else { $errors = TRUE; }
+        if ($article->text != '')        { $table_values['text'] = array('value' => $article->text); }
+            else { $errors = TRUE; }
 
         if ($errors)
         {
@@ -44,11 +41,8 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
         }
 
         // getting new name for cover
-<<<<<<< HEAD
-        $model->cover['name'] = $this->methods->save_cover($model->cover);
-=======
         $article->cover = $this->methods->save_cover($cover);
->>>>>>> master
+
 
         $article->user_id = $user_id;
 
@@ -67,7 +61,7 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
 
         if (!empty($article_id) && !empty($user_id))
         {
-            Model_Article::get($article_id)->delete_article($user_id);
+            Model_Article::get($article_id)->remove($user_id);
         }
 
         $this->redirect('/article');

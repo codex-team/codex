@@ -51,6 +51,11 @@ class Controller_Auth extends Controller_Base_preDispatch
      */
     public function action_facebook()
     {
+        if ( $error = $this->request->query('error_code') )
+        {
+            $this->generate_auth_error();
+        }
+
         $fb = Oauth::instance('facebook');
         if ($fb->login())
         {
@@ -65,14 +70,10 @@ class Controller_Auth extends Controller_Base_preDispatch
                 if ($user->is_empty())
                 {
                     $user = new Model_User();
-                    $user->fb_id = $profile->id;
-
-                    /*
-                     * Загрузить фото профиля целиком: $fb->get_images($profile->id);
-                     *
-                     */
-
                     $user->name = $profile->name;
+                    $user->fb_id = $profile->id;
+                    # TODO: Проверить загрузку на альфе $user->photo = $fb->get_images($profile->id);
+                    # TODO: Загрузить фото профиля целиком: $fb->get_images($profile->id);
 
                     $user->save();
                 }
@@ -85,6 +86,7 @@ class Controller_Auth extends Controller_Base_preDispatch
         $this->auth_callback('/');
     }
 
+
     /**
      * Деавторизует пользователя путем очищения сессии "profile". Возвращает на главную страницу.
      */
@@ -95,6 +97,7 @@ class Controller_Auth extends Controller_Base_preDispatch
         Controller::redirect('/');
     }
 
+
     /**
      * Место для пост-авторизации. В конце осуществляет редирект страницу $page.
      */
@@ -102,6 +105,23 @@ class Controller_Auth extends Controller_Base_preDispatch
     {
         Controller::redirect($page);
     }
+
+
+    /**
+     * Метод, вызываемый при ошибке авторизации со стороны соц. сети
+     * @return HTTP_Exception_FacebookException
+     */
+    private function generate_auth_error()
+    {
+        $error_code = $this->request->query('error_code');
+        $error_message = $this->request->query('error_message');
+
+        throw new HTTP_Exception_FacebookException('Ошибка #:error_code : :error_message', [
+            ':error_code' => $error_code,
+            ':error_message' => $error_message,
+        ]);
+    }
+
 
     /**
      * Генерирует имя для записи в БД из информации профиля ВК

@@ -1,5 +1,11 @@
 <?php defined('SYSPATH') OR die('No Direct Script Access');
 
+/**
+ * Модель статьи, имеет поля, соответствующие полям в базе данных и статические методы для получения
+ * статьи и массива статей по некоторым признакам.
+ *
+ * @author     Eliseev Alexandr
+ */
 Class Model_Article extends Model
 {
     public $id = 0;
@@ -14,28 +20,11 @@ Class Model_Article extends Model
     public $is_published;
 
     /**
-     * Пустой конструктор для модели статьи, если нужно получить статью из хранилища, надо пользоваться методом
-     * Model_Article::get()
+     * Пустой конструктор для модели статьи, если нужно получить статью из хранилища, нужно пользоваться статическими
+     * методами
      */
     public function __construct()
     {
-    }
-
-    /**
-     * Удаляет статью, представленную в модели.
-     *
-     * @param $user_id Number идентификатор пользователя, для проверки прав на удаление статьи
-     */
-    public function delete_article($user_id)
-    {
-        if ($this->id != 0 && $user_id == $this->user_id)
-        {
-            DB::update('Articles')->where('id', '=', $this->id)
-                ->set(array('is_removed' => 1))->execute();
-
-            // Статья удалена
-            $this->id = 0;
-        }
     }
 
     /**
@@ -46,8 +35,9 @@ Class Model_Article extends Model
     public function insert()
     {
         $idAndRowAffected = DB::insert('Articles', array('title', 'text', 'description', 'cover', 'user_id', 'is_published'))
-            ->values(array($this->title, $this->text, $this->description, $this->cover['name'], $this->user_id, $this->is_published))
-            ->execute();
+          ->values(array($this->title, $this->text, $this->description, $this->cover, $this->user_id, $this->is_published))
+          ->execute();
+
 
         if ($idAndRowAffected)
         {
@@ -57,29 +47,46 @@ Class Model_Article extends Model
         }
     }
 
-
     /**
      * Заполняет текущий объект строкой из базы данных.
      *
-     * @param $article array строка из базы данных со статьёй
+     * @param $article_row array строка из базы данных с создаваемой статьёй
      * @return Model_Article модель, заполненная полями из статьи, либо пустая модель, если была передана пустая строка.
      */
-    private function fillByRow($article)
+    private function fillByRow($article_row)
     {
-        if (!empty($article['id'])) {
-            $this->id           = $article['id'];
-            $this->title        = $article['title'];
-            $this->text         = $article['text'];
-            $this->description  = $article['description'];
-            $this->cover        = $article['cover'];
-            $this->user_id      = $article['user_id'];
-            $this->dt_create    = $article['dt_create'];
-            $this->dt_update    = $article['dt_update'];
-            $this->is_removed   = $article['is_removed'];
-            $this->is_published = $article['is_published'];
+        if (!empty($article_row['id'])) {
+            $this->id           = $article_row['id'];
+            $this->title        = $article_row['title'];
+            $this->text         = $article_row['text'];
+            $this->description  = $article_row['description'];
+            $this->cover        = $article_row['cover'];
+            $this->user_id      = $article_row['user_id'];
+            $this->dt_create    = $article_row['dt_create'];
+            $this->dt_update    = $article_row['dt_update'];
+            $this->is_removed   = $article_row['is_removed'];
+            $this->is_published = $article_row['is_published'];
         }
 
         return $this;
+    }
+
+
+    /**
+     * Удаляет статью, представленную в модели.
+     *
+     * @param $user_id Number идентификатор пользователя, для проверки прав на удаление статьи
+     */
+    public function remove($user_id)
+    {
+        if ($this->id != 0 && $user_id == $this->user_id)
+        {
+            DB::update('Articles')->where('id', '=', $this->id)
+              ->set(array('is_removed' => 1))->execute();
+
+            // Статья удалена
+            $this->id = 0;
+        }
     }
 
     /**
@@ -99,46 +106,57 @@ Class Model_Article extends Model
     }
 
 
+    /**
+     * Получить все активные (опубликованные и не удалённые статьи) в порядке убывания айдишников.
+     */
     public static function getActiveArticles()
     {
-        $articles = DB::select()->from('Articles')->where('is_removed', '=', false)
-            ->where('is_published', '=', true)
-            ->order_by('id', 'DESC')->execute()->as_array();
+        return Model_Article::getArticles(false, false);
+    }
 
-        $article_models = array();
 
-        if (!empty($articles)) {
-            foreach ($articles as $article) {
-                $model = new Model_Article();
-
-                $model->fillByRow($article);
-
-                array_push($article_models, $model);
-            }
-        }
-
-        return $article_models;
+    /**
+     * Получить все не удалённые статьи в порядке убывания айдишников.
+     */
+    public static function getAllArticles()
+    {
+        return Model_Article::getArticles(true, false);
     }
 
     /**
-     * Сохранение файла обложки для статьи
+     * Получить список статей с указанными условиями.
      *
-     * @param $cover переменная с файлом
-     * @return string новое имя файла
+     * @param $add_removed boolean добавлять ли удалённые статьи в получаемый список статей
+     * @param $add_not_published boolean
+     * @return array ModelArticle массив моделей, удовлетворяющих запросу
      */
-    public function save_cover($cover)
+    private static function getArticles($add_not_published = false, $add_removed = false)
     {
-        // generating new filename
-        $new_name = bin2hex(openssl_random_pseudo_bytes(5));
-        $cover_new_name = $new_name . '.jpg';
+        $articlesQuery = DB::select()->from('Articles');
 
-        // saving
-        $uploaddir = 'upload/covers/';
-        $uploadfile = $uploaddir . $cover_new_name;
-        move_uploaded_file($cover['tmp_name'], $uploadfile);
+        if (!$add_removed) {
+            $articlesQuery->where('is_removed', '=', false);
+        }
 
-        // return new cover name for db
-        return $cover_new_name;
+        if (!$add_not_published) {
+            $articlesQuery->where('is_published', '=', true);
+        }
+
+        $article_rows = $articlesQuery->order_by('id', 'DESC')->execute()->as_array();
+
+
+        $articles = array();
+
+        if (!empty($article_rows)) {
+            foreach ($article_rows as $article_row) {
+                $article = new Model_Article();
+
+                $article->fillByRow($article_row);
+
+                array_push($articles, $article);
+            }
+        }
+
+        return $articles;
     }
-
 }

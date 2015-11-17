@@ -5,7 +5,7 @@ class Controller_Admin extends Controller_Base_preDispatch
 
     public function action_showAllArticles()
     {
-        $this->view["articles"] = DB::select('*')->from('Articles')->where('is_removed', '=', 0)->order_by('id', 'DESC')->execute();
+        $this->view["articles"] = Model_Article::getAllArticles();
 
         $content = View::factory('templates/admin/articles/list', $this->view);
 
