@@ -32,7 +32,7 @@ class Model_Methods extends Model
     {
         // generating new filename
         $new_name = bin2hex(openssl_random_pseudo_bytes(5));
-        $cover_new_name = $new_name . '.jpg';
+        $cover_new_name = $new_name . '.jpg';                   // TODO getting file extension
 
         // saving
         $uploaddir = 'upload/covers/';
