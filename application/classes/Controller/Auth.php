@@ -15,12 +15,11 @@ class Controller_Auth extends Controller_Base_preDispatch
         $vk = Oauth::instance('vkontakte');
         if ($vk->login())
         {
-            $profile = $vk->get_user();
+            $profile = $vk->get_user('photo_50,photo_200,photo_max,city');
 
             if ($profile)
             {
                 Session::instance()->set('profile', $profile);
-                Session::instance()->set('instance', 'vkontakte');
 
                 $user = Model_User::findByAttribute('vk_id', $profile->uid);
                 if ($user->is_empty())
@@ -33,6 +32,11 @@ class Controller_Auth extends Controller_Base_preDispatch
                     $user->name = $this->get_vk_name($profile);
 
                     $user->save();
+                }
+                else
+                {
+                    # Update outdated params
+                    #if ($user->vk_uri)
                 }
             }
         }
@@ -64,7 +68,6 @@ class Controller_Auth extends Controller_Base_preDispatch
             if ($profile)
             {
                 Session::instance()->set('profile', $profile);
-                Session::instance()->set('instance', 'facebook');
 
                 $user = Model_User::findByAttribute('fb_id', $profile->id);
                 if ($user->is_empty())
@@ -93,7 +96,6 @@ class Controller_Auth extends Controller_Base_preDispatch
     public function action_logout()
     {
         Session::instance()->delete('profile');
-        Session::instance()->delete('instance');
         Controller::redirect('/');
     }
 
