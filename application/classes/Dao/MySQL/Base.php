@@ -2,6 +2,10 @@
 
 class Dao_MySQL_Base {
 
+    /**
+    * @todo Workaround memcache keys confilct with multiple sites on single server. Ex: key 'Dao_Users:1' may be sets on different sites.
+    */
+
     protected $table = 'null';
 
     const INSERT  = 1;
@@ -123,7 +127,7 @@ class Dao_MySQL_Base {
     public function cached($seconds, $key = null, array $tags = null)
     {
         $this->lifetime = $seconds;
-        if ($key) $this->keycached = $this->cache_key .':'. $key;
+        if ($key) $this->keycached = $this->cache_key .  .':'. $key;
         if ($tags) $this->tagcached = $tags;
         return $this;
     }
