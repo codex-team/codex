@@ -6,10 +6,8 @@
  */
 class Kohana_Oauth_Vkontakte extends Oauth {
 
-    /**
-     * @var string
-     */
     protected static $config;
+
 
     /**
      * @param string $config
@@ -93,7 +91,7 @@ class Kohana_Oauth_Vkontakte extends Oauth {
             throw new Kohana_Exception('NO QUERY PARAMS');
         }
 
-        if (isset($error))
+        if (isset($error)) # TODO: not $params['error'] ?
         {
             # TODO: Throw custom Exception for VK
             throw new Kohana_Exception('Error: '.$error.' Description: '.$error_description);
