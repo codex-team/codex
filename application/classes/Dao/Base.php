@@ -10,11 +10,12 @@ class Dao_Base {
 
     private $action;
 
-    protected $limit     = 1;
-    protected $cached    = 0;
-    protected $keycached = null;
-    protected $where     = array();
-    protected $fields    = array();
+    protected $limit        = 1;
+    protected $cached       = 0;
+    protected $keycached    = null;
+    protected $whereEquals  = array();
+    protected $fields       = array();
+    protected $order_by     = array();
 
     public static function insert()
     {
@@ -43,15 +44,35 @@ class Dao_Base {
         return $this;
     }
 
-    public function where($field, $value)
+    /**
+     * Запрос в котором значение поля $field равно $value.
+     *
+     * @param String $field поле по которому поставлено условие
+     * @param mixed $value значение, которому должно быть равно поле
+     * @return $this объект, для построения дальшейшего вызова.
+     */
+    public function whereEquals($field, $value)
     {
-        $this->where[$field] = $value;
+        $this->whereEquals[$field] = $value;
         return $this;
     }
 
     public function limit($limit)
     {
         $this->limit = $limit;
+        return $this;
+    }
+
+    /**
+     * Use ORDER BY $field $direction from SQL.
+     *
+     * @param string $field field to sort by
+     * @param string $direction direction of sort.
+     * @return self
+     */
+    public function order_by($field, $direction = 'ASC')
+    {
+        $this->order_by[$field] = $direction;
         return $this;
     }
 
@@ -91,9 +112,9 @@ class Dao_Base {
 
     private function updateExecute()
     {
-        if (!$this->where) throw new Exception('Попытка обновить все записи в таблице!');
+        if (!$this->whereEquals) throw new Exception('Попытка обновить все записи в таблице!');
         $update = DB::update($this->table)->set($this->fields);
-        foreach($this->where as $key => $value) $update->where($key, '=', $value);
+        foreach($this->whereEquals as $key => $value) $update->where($key, '=', $value);
         $update = $update->execute();
         if ($update)  return $update;
         return false;
@@ -102,9 +123,10 @@ class Dao_Base {
     private function selectExecute()
     {
         $select = DB::select()->from($this->table);
-        foreach($this->where as $key => $value) $select->where($key, '=', $value);
+        foreach($this->whereEquals  as $key => $value) $select->where($key, '=', $value);
+        foreach($this->order_by     as $key => $value) $select->order_by($key, $value);
 
-        if ($this->cached) {
+        if ($this->cached && sizeof($this->order_by) == 0) {
             $keycache = $this->getKeyCached();
             $cache = Kohana_Cache::instance('memcache')->get($keycache);
             if ($cache !== null) {
@@ -118,7 +140,7 @@ class Dao_Base {
             $select = $select->execute()->as_array();
         }
 
-        if ($this->cached) {
+        if ($this->cached && sizeof($this->order_by) == 0) {
             Kohana_Cache::instance('memcache')->set($keycache, $select, $this->cached);
         }
 
@@ -132,8 +154,8 @@ class Dao_Base {
 
         $keyprefix = 'dbcache:' . $this->table . ':';
         if (!$key) {
-            ksort($this->where);
-            $key = sha1(json_encode($this->where));
+            ksort($this->whereEquals);
+            $key = sha1(json_encode($this->whereEquals));
         }
 
         $this->keycached = $keyprefix . $key;
