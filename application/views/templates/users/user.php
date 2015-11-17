@@ -16,7 +16,7 @@
     	</div>
 <div class = "second_column">
     	<div class="article_list">
-	    <? if ( !empty($user->vk_id) ): ?>		
+	    <? if ( !empty($user->vk_id) ): ?>
     	    <p> Список ваших статей: </p>
     	        <?if ( !empty($article_list) ): ?>
     	        <? foreach ($article_list as $titleList): ?>
@@ -27,5 +27,11 @@
                 <? endif; ?>
 	    <? endif; ?>
         </div>
+
+        <?
+            /** Dao MySQL Test */
+            $user = Dao_Users::select()->where('id', '=', 1)->limit(1)->execute();
+        ?>
+        <?= Debug::vars( $user ); ?>
 </div>
 </div>
