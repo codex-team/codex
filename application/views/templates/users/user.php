@@ -29,8 +29,8 @@
             <p class="headerList">Список статей:</p>
             <ul class="boxList">
             <?if ( !empty($article_list) ): ?>
-                <? foreach ($article_list as $list): ?>
-                    <li><a href="<?= '/article/' . $list['id'] ?>" > <?= $list['title'] ?></a></li>
+                <? foreach ($article_list as $article): ?>
+                    <li><a href="<?= '/article/' . $article->id ?>" > <?= $article->title ?></a></li>
                 <? endforeach; ?>
             </ul>
             <? endif; ?>
