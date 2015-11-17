@@ -18,7 +18,11 @@ class Controller_Comments extends Controller_Base_preDispatch
 
         if ($comment->parent_id != 0){
             $parent_comment = Model_Comment::get($comment->parent_id);
-            $comment->root_id = $parent_comment->root_id;
+            if ($parent_comment->parent_id != 0) {
+                $comment->root_id = $parent_comment->root_id;
+            } else {
+                $comment->root_id = $parent_comment->id;
+            }
         } else {
             $comment->root_id = 0;
         }
