@@ -1,29 +1,32 @@
 <?php defined('SYSPATH') or die('No direct script access.');
+
 class Controller_Users_Index extends Controller_Base_preDispatch
 {
+
+		/*
+		* Если в ссылке /user/<user_id> передан user_id, тогда пользователя находят в БД по его id
+		* Если в ссылке не передан user_id, тогда пользователя находят в БД по его vk_id, то есть под тем
+		*профилем, 	под которым он авторизовался через вк.
+		* Если пользователя нет в БД, тогда выводится сообщение об ошибке и просьбе авторизоваться.
+		*/
+
+
     public function action_showUser()
     {
-        //загрузка данных из БД
         $user_id = $this->request->param('user_id');
-        $user = new Model_User($user_id);
 
-        //передача данных во view
-        if ( $user -> id )
-        {
-            $viewUser = $user;
-        }
-        else
-        {
-            $viewUser = $this->user;
-            $this->view["error"] = "Пожалуйста, войдите в аккаунт.";
-        }
+	    if( !empty($user_id) ){
+		    $user = Model_User::get( $user_id );
+	    }else{
+	        $user = $this->user;
+	    }
 
-	//передача данных пользователя и списка заголовков статей с ссылками на них
-        $this->view['article_list'] = $user->arr_article;
-        $this->view["user"] = $viewUser;
-        $this->view["user_id"] = $user_id;
+        $this->view['user'] = $user;
+        $this->view['user_id'] = $user_id;
+        $this->view['article_list'] = $user->get_articles_list();
 
         $this->template->content = View::factory('templates/users/user', $this->view);
+
     }
     public function action_create()
     {
