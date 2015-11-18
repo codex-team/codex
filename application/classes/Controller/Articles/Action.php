@@ -28,6 +28,15 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
         if ($article->text != '')        { $table_values['text'] = array('value' => $article->text); }
             else { $errors = TRUE; }
 
+        if (!Upload::valid($cover) or
+            !Upload::not_empty($cover) or
+            !Upload::type($cover, array('jpg', 'jpeg', 'png')) or
+            !Upload::size($cover, '10M'))
+        {
+            $table_values['cover'] = TRUE;
+            $errors = TRUE;
+        }
+
         if ($errors)
         {
             $this->view["table_values"] = $table_values;

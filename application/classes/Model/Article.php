@@ -34,13 +34,22 @@ Class Model_Article extends Model
      */
     public function insert()
     {
-        $idAndRowAffected = DB::insert('Articles', array('title', 'text', 'description', 'cover', 'user_id', 'is_published'))
-          ->values(array($this->title, $this->text, $this->description, $this->cover, $this->user_id, $this->is_published))
-          ->execute();
+        $idAndRowAffected = Dao_Articles::insert()
+                                ->set('title',          $this->title)
+                                ->set('text',           $this->text)
+                                ->set('description',    $this->description)
+                                ->set('cover',          $this->cover)
+                                ->set('user_id',        $this->user_id)
+                                ->set('is_published',   $this->is_published)
+                                ->clearcache()
+                                ->execute();
 
-        if ($idAndRowAffected)
-        {
-            $article = DB::select()->from('Articles')->where('id', '=', $idAndRowAffected[0])->execute()->current();
+        if ($idAndRowAffected) {
+            $article = Dao_Articles::select()
+                ->where('id', '=', $idAndRowAffected[0])
+                ->limit(1)
+                ->cached(10*Date::MINUTE)
+                ->execute();
 
             $this->fillByRow($article);
         }
@@ -55,6 +64,7 @@ Class Model_Article extends Model
     private function fillByRow($article_row)
     {
         if (!empty($article_row['id'])) {
+
             $this->id           = $article_row['id'];
             $this->title        = $article_row['title'];
             $this->text         = $article_row['text'];
@@ -78,10 +88,12 @@ Class Model_Article extends Model
      */
     public function remove($user_id)
     {
-        if ($this->id != 0 && $user_id == $this->user_id)
-        {
-            DB::update('Articles')->where('id', '=', $this->id)
-              ->set(array('is_removed' => 1))->execute();
+        if ($this->id != 0 && $user_id == $this->user_id) {
+
+            Dao_Articles::update()->where('id', '=', $this->id)
+                ->set('is_removed', 1)
+                ->clearcache()
+                ->execute();
 
             // Статья удалена
             $this->id = 0;
@@ -97,11 +109,25 @@ Class Model_Article extends Model
      */
     public static function get($id = 0)
     {
-        $article = DB::select()->from('Articles')->where('id', '=', $id)->execute()->current();
+        $article = Dao_Articles::select()
+            ->where('id', '=', $id)
+            ->limit(1)
+            ->execute();
 
         $model = new Model_Article();
 
         return $model->fillByRow($article);
+    }
+
+    public static function getByUserId($user_id)
+    {
+        $articleRows = Dao_Articles::select()
+            ->where('user_id', '=', $user_id)
+            ->where('is_removed', '=', 0)
+            ->limit(1)
+            ->execute();
+
+        return self::rowsToModels($articleRows);
     }
 
 
@@ -131,7 +157,7 @@ Class Model_Article extends Model
      */
     private static function getArticles($add_not_published = false, $add_removed = false)
     {
-        $articlesQuery = DB::select()->from('Articles');
+        $articlesQuery = Dao_Articles::select()->limit(200);
 
         if (!$add_removed) {
             $articlesQuery->where('is_removed', '=', false);
@@ -141,9 +167,13 @@ Class Model_Article extends Model
             $articlesQuery->where('is_published', '=', true);
         }
 
-        $article_rows = $articlesQuery->order_by('id', 'DESC')->execute()->as_array();
+        $article_rows = $articlesQuery->order_by('id', 'DESC')->cached(Date::HOUR)->execute();
 
+        return self::rowsToModels($article_rows);
+    }
 
+    private static function rowsToModels($article_rows)
+    {
         $articles = array();
 
         if (!empty($article_rows)) {

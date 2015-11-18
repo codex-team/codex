@@ -53,7 +53,8 @@
                             document.getElementById('answer_username').innerHTML='Ваш ответ на комментарий пользователя <?= $username ?>: ' +
                             '<i> <?= $comment->text ?></i>';">[ответить]</a>
 
-                        <b> <?= $username ?></b>: <?= $comment->text ?>
+                        <a href="/user/<?=Model_User::get($comment->user_id)->id ?>"><b> <?= $username ?></b></a>:
+                        <?= $comment->text ?>
 
                     </p>
 
