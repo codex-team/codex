@@ -10,6 +10,8 @@ Class Model_User extends Model
     public $dt_create;
     public $vk_id = 0;
     public $fb_id = 0;
+    public $github_id = 0;
+    public $github_uri = '';
 
 
 	/**
@@ -58,7 +60,8 @@ Class Model_User extends Model
             $model->name = $user['name'];
             $model->photo = $user['photo'];
             $model->dt_create = Date::formatted_time($user['dt_create'],'Y-m-d');
-            $model->vk_id = $user['vk_id'];
+            $model->github_id = $user['github_id'];
+            $model->github_uri = $user['github_uri'];
         }
         return $model;
     }
@@ -70,8 +73,8 @@ Class Model_User extends Model
 	 */
 	public function save()
 	{
-		if (DB::insert('Users', array('name', 'vk_id', 'fb_id', 'photo', 'photo_small', 'photo_big'))->
-		values(array($this->name, $this->vk_id, $this->fb_id, $this->photo, $this->photo_small, $this->photo_big))
+		if (DB::insert('Users', array('name', 'github_id', 'github_uri', 'photo', 'photo_small', 'photo_big'))->
+		values(array($this->name, $this->github_id, $this->github_uri, $this->photo, $this->photo_small, $this->photo_big))
 		->execute())
 			return true;
 		else
@@ -87,8 +90,8 @@ Class Model_User extends Model
     {
         if (DB::update('Users')->set(array(
             'name' => $this->name,
-            'vk_id' => $this->vk_id,
-            'fb_id' => $this->fb_id,
+            'github_id' => $this->github_id,
+            'github_uri' => $this->github_uri,
             'photo' => $this->photo,
             'photo_small' => $this->photo_small,
             'photo_big' => $this->photo_big,

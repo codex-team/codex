@@ -128,12 +128,9 @@ class Controller_Base_preDispatch extends Controller_Template
         $auth = new Dao_Auth();
         if ( $auth->is_authorized() ) {
             $profile = $auth->get_profile();
-            $instance = $auth->get_instance();
 
-            if ($instance == 'vkontakte')
-                $this->user = Model_User::findByAttribute('vk_id', $profile->uid);
-            elseif ($instance == 'facebook')
-                $this->user = Model_User::findByAttribute('fb_id', $profile->id);
+            if ($profile)
+                $this->user = Model_User::findByAttribute('github_id', $profile->id);
             else
                 $this->user = new Model_User();
         }
