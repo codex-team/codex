@@ -13,8 +13,7 @@
         <a href='/auth/logout'>Выход</a><br>
         <a href="/admin/article" id="panel_link">Панель администратора</a>
     <? else: ?>
-        <a href='/auth/vk'>Вход VK</a>
-        <a href='/auth/facebook'>Вход FB</a>
+        <a href='/auth/github'>Вход Github</a>
     <?php endif; ?>
 
 </div>
