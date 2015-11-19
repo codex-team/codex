@@ -5,7 +5,7 @@ class Controller_Admin extends Controller_Base_preDispatch
 
     public function action_showAllArticles()
     {
-        $this->view["articles"] = Model::factory('Admin')->loadArticles();
+        $this->view["articles"] = Model_Article::getAllArticles();
 
         $content = View::factory('templates/admin/articles/list', $this->view);
 
@@ -30,11 +30,9 @@ class Controller_Admin extends Controller_Base_preDispatch
     {
         $article_id = $this->request->param('article_id');
 
-        $article = array();
+        $article = Model_Article::get($article_id);
 
-        $article = Model::factory('Admin')->editArticle($article_id);
-
-        $this->view["article"] = $article[0];
+        $this->view["article"] = $article;
 
         $content = View::factory('templates/admin/articles/edit', $this->view);
 
@@ -50,31 +48,30 @@ class Controller_Admin extends Controller_Base_preDispatch
         $text           = Arr::get($_POST,'text');
         $cover          = Arr::get($_POST,'cover');
 
-        $cover['name'] = Model::factory('Methods')->save_cover($cover);
+        $cover['name'] = $this->methods->save_cover($cover);
 
         $article_id = $this->request->param('article_id');
 
         //Устанавливаем часовой  пояс для корректного вывода dt_update
         date_default_timezone_set("UTC");
-        $time = time(); 
-        $offset = 3; 
-        $time += 3 * 3600;
+        $time = time();
+        $offset = 3;
+        $time += 3 * 3600;      // TODO(#38) это ад, нужно заменить на хранимку
 
-        $model = new Model_Admin();
-        $model->user_id = $user_id;
-        $model->title = $title;
-        $model->description = $description;
-        $model->text = $text;
-        $model->cover = $cover['name'];
-        $model->dt_update = date('Y-m-d H:i:s', $time);
-        $model->updateArticle($article_id);
+        $article = Model_Article::get($article_id);
+        $article->user_id = $user_id;
+        $article->title = $title;
+        $article->description = $description;
+        $article->text = $text;
+        $article->cover = $cover['name'];
+        $article->dt_update = date('Y-m-d H:i:s', $time);
 
         $this->redirect('/admin/article');
     }
 
     public function action_showAllUsers()
     {
-        $this->view["users"] = Model::factory('Admin')->loadUsers();
+        $this->view["users"] = Model_User::getAll();
 
         $content = View::factory('templates/admin/users/list', $this->view);
 
@@ -89,7 +86,7 @@ class Controller_Admin extends Controller_Base_preDispatch
 
         if (!empty($deleted_id) && !empty($user_id))
         {
-            Model_Article::getUser($deleted_id)->removeUser($user_id);
+             Model_User::get($deleted_id)->remove($user_id);
         }
 
         $this->redirect('/admin/users');

@@ -100,6 +100,24 @@ Class Model_Article extends Model
         }
     }
 
+
+    /**
+     * Обновляет статью, сохраняя поля модели.
+     */
+    public function update()
+    {
+        Dao_Articles::update()->where('id', '=', $this->id)
+            ->set('title',          $this->title)
+            ->set('text',           $this->text)
+            ->set('description',    $this->description)
+            ->set('cover',          $this->cover)
+            ->set('user_id',        $this->user_id)
+            ->set('is_published',   $this->is_published)
+            ->set('dt_update',   $this->dt_update)      // TODO(#38) remove
+            ->clearcache()
+            ->execute();
+    }
+
     /**
      * Возвращает статью из базы данных с указанным идентификатором, иначе возвращает пустую статью с айдишником 0.
      *
@@ -157,7 +175,7 @@ Class Model_Article extends Model
      */
     private static function getArticles($add_not_published = false, $add_removed = false)
     {
-        $articlesQuery = Dao_Articles::select()->limit(200);
+        $articlesQuery = Dao_Articles::select()->limit(200);        // TODO(#40) add pagination.
 
         if (!$add_removed) {
             $articlesQuery->where('is_removed', '=', false);

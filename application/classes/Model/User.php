@@ -8,28 +8,69 @@ Class Model_User extends Model
     public $photo_big = '';
     public $photo_small = '';
     public $dt_create;
+    public $dt_update;
     public $vk_id = 0;
     public $fb_id = 0;
     public $github_id = 0;
     public $github_uri = '';
+    public $role = 0;
+    public $is_removed = 0;
 
 
-	/**
-	 *
+    /**
+     *
      */
-	public function __construct()
-	{
-	}
+    public function __construct()
+    {
+    }
 
-
-	/**
-     	* Возвращает статус заполненности модели
-	* @return bool
+    /**
+     * @param $user
+     * @return Model_User
      */
-	public function is_empty()
-	{
-		return empty($this->id);
-	}
+    private static function rowToModel($user)
+    {
+        $model = new Model_User();
+        if (!empty($user['id'])) {
+            $model->id = $user['id'];
+            $model->name = $user['name'];
+            $model->photo = $user['photo'];
+            $model->dt_create = Date::formatted_time($user['dt_create'], 'Y-m-d');
+            $model->dt_update = Date::formatted_time($user['dt_update'], 'Y-m-d');
+            $model->github_id = $user['github_id'];
+            $model->github_uri = $user['github_uri'];
+            $model->role = $user['role'];
+            $model->is_removed = $user['is_removed'];
+        }
+        return $model;
+    }
+
+
+    /**
+     * Удаляет из базы данную статью.
+     */
+    public function remove()
+    {
+        if ($this->id != 0) {
+
+            DB::update('Users')->where('id', '=', $this->id)
+                ->set(array('is_removed' => 1))
+                ->execute();
+
+            // Статья удалена
+            $this->id = 0;
+        }
+    }
+
+
+    /**
+     * Возвращает статус заполненности модели
+     * @return bool
+     */
+    public function is_empty()
+    {
+        return empty($this->id);
+    }
 
 
     /**
@@ -51,35 +92,48 @@ Class Model_User extends Model
      */
     public static function findByAttribute($attr = 'id', $value = 0)
     {
-        $model = new Model_User();
-
         $user = DB::select()->from('Users')->where($attr, '=', $value)->execute()->current();
-        if(!empty($user['id']))
-        {
-            $model->id = $user['id'];
-            $model->name = $user['name'];
-            $model->photo = $user['photo'];
-            $model->dt_create = Date::formatted_time($user['dt_create'],'Y-m-d');
-            $model->github_id = $user['github_id'];
-            $model->github_uri = $user['github_uri'];
-        }
-        return $model;
+
+        return self::rowToModel($user);
     }
 
 
-	/**
-	 * Создает новую запись в БД
-	 * @return true, если данные успешно записаны в БД
-	 */
-	public function save()
-	{
-		if (DB::insert('Users', array('name', 'github_id', 'github_uri', 'photo', 'photo_small', 'photo_big'))->
-		values(array($this->name, $this->github_id, $this->github_uri, $this->photo, $this->photo_small, $this->photo_big))
-		->execute())
-			return true;
-		else
-			return false;
-	}
+    /**
+     * Получает из хранилища данных информацию о всех пользователях и превращает её в экземпляры модели
+     */
+    public static function getAll()
+    {
+        $users_rows = DB::select()->from('Users')->limit(200)->execute()->as_array();    // TODO(#40) add pagination
+
+        $users = array();
+
+        if (!empty($users_rows)) {
+            foreach ($users_rows as $user_row) {
+                $user = self::rowToModel($user_row);
+                $users[] = $user;
+            }
+        }
+
+        return $users;
+    }
+
+
+    /**
+     * Создает новую запись в БД
+     * @return true, если данные успешно записаны в БД
+     */
+    public function save()
+    {
+        if (DB::insert('Users', array('name', 'github_id', 'github_uri',
+            'photo', 'photo_small', 'photo_big', 'role', 'is_removed'))->
+        values(array($this->name, $this->github_id, $this->github_uri,
+            $this->photo, $this->photo_small, $this->photo_big, $this->role, $this->is_removed))
+            ->execute()
+        )
+            return true;
+        else
+            return false;
+    }
 
 
     /**
@@ -93,9 +147,13 @@ Class Model_User extends Model
             'github_id' => $this->github_id,
             'github_uri' => $this->github_uri,
             'photo' => $this->photo,
+            'dt_update' => $this->dt_update,        // TODO(#38) stored procedure
             'photo_small' => $this->photo_small,
             'photo_big' => $this->photo_big,
-        ))->where('id', '=', $this->id)->execute())
+            'role' => $this->role,
+            'is_removed' => $this->is_removed,
+        ))->where('id', '=', $this->id)->execute()
+        )
             return true;
         else
             return false;
@@ -106,9 +164,9 @@ Class Model_User extends Model
      * Возвращает массив опубликованных статей пользователя
      * @return true, если данные успешно записаны в БД
      */
-	public function get_articles_list()
-	{
+    public function get_articles_list()
+    {
         return Model_Article::getByUserId($this->id);
-	}
+    }
 
 }
