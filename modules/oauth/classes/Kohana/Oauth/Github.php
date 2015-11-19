@@ -41,7 +41,7 @@ class Kohana_Oauth_GitHub extends Oauth {
             'type' => 'large'
         );
 
-        $resp = Request::factory//('https://graph.facebook.com/v2.5/'.$user_id, array(
+        $resp = Request::factory('https://graph.facebook.com/v2.5/'.$user_id, array(
             'follow' => TRUE))
             ->method(Request::GET)
             ->query($params)
@@ -70,8 +70,13 @@ class Kohana_Oauth_GitHub extends Oauth {
             'access_token' => $gh_token,
         );
 
-        $resp = Request::factory//('https://graph.facebook.com/me')
+        $headers = array(
+            'user-agent' => 'codex browser'
+        );
+
+        $resp = Request::factory('https://api.github.com/user')
             ->method(Request::GET)
+            ->headers($headers)
             ->query($params)
             ->execute();
 

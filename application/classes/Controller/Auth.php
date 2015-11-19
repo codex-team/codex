@@ -91,6 +91,48 @@ class Controller_Auth extends Controller_Base_preDispatch
 
 
     /**
+     * Осуществляет авторизацию в github. В случае, если пользователь авторизован в первый раз - добавляет новую запись
+     * в таблицу Users. Модель пользователя помещается в сессию "profile". Далее проиходит редирект на /auth/callback
+     */
+    public function action_github()
+    {
+        if ( $error = $this->request->query('error_code') )
+        {
+            $this->generate_auth_error();
+        }
+
+        $gh = Oauth::instance('github');
+        if ($gh->login())
+        {
+            $profile = $gh->get_user();
+            var_dump($profile);exit;
+
+            if ($profile)
+            {
+                Session::instance()->set('profile', $profile);
+
+                $user = Model_User::findByAttribute('fb_id', $profile->id);
+                if ($user->is_empty())
+                {
+                    $user = new Model_User();
+                    $user->name = $profile->name;
+                    $user->fb_id = $profile->id;
+                    # TODO: Проверить загрузку на альфе $user->photo = $fb->get_images($profile->id);
+                    # TODO: Загрузить фото профиля целиком: $fb->get_images($profile->id);
+
+                    $user->save();
+                }
+            }
+        }
+        else
+        {
+
+        }
+        $this->auth_callback('/');
+    }
+
+
+    /**
      * Деавторизует пользователя путем очищения сессии "profile". Возвращает на главную страницу.
      */
     public function action_logout()
