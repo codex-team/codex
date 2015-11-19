@@ -46,7 +46,7 @@ Class Model_Article extends Model
 
         if ($idAndRowAffected) {
             $article = Dao_Articles::select()
-                ->where('id', '=', $idAndRowAffected[0])
+                ->where('id', '=', $idAndRowAffected)
                 ->limit(1)
                 ->cached(10*Date::MINUTE)
                 ->execute();
@@ -167,7 +167,7 @@ Class Model_Article extends Model
             $articlesQuery->where('is_published', '=', true);
         }
 
-        $article_rows = $articlesQuery->order_by('id', 'DESC')->cached(Date::HOUR)->execute();
+        $article_rows = $articlesQuery->order_by('id', 'DESC')->execute();
 
         return self::rowsToModels($article_rows);
     }
