@@ -65,6 +65,7 @@ class Controller_Admin extends Controller_Base_preDispatch
         $article->text = $text;
         $article->cover = $cover['name'];
         $article->dt_update = date('Y-m-d H:i:s', $time);
+        $article->update();
 
         $this->redirect('/admin/article');
     }
