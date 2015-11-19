@@ -14,6 +14,15 @@
         <p>
           <?= $current_article->description ?>
         </p>
+        <? if(isset($tags_list)): ?>
+            <p>
+            <?foreach ($tags_list[$current_article->id] as $current_tag): ?>
+                
+                <a <?echo 'href="/tag/'.$current_tag.'"'; ?> ><span class="technic"><?= $current_tag; ?></span></a>
+                
+            <? endforeach; ?>
+            </p>
+        <? endif; ?>
       </div>
 
       <div class="article_footer article_underscore">

@@ -17,5 +17,18 @@
         </div>
     </div>
 </div>
+        <?
+               if (isset($search) && isset($query)){
+                  if ($search == 'found') {
+                    echo '<span class="searching_tab">Результаты поиска по тэгу <div class="query">'.$query.'</div></span>';
+                  }
+                    elseif ($search == 'not_found') {
+                    echo '<span class="searching_tab not_found">Ничего не нашлось по тэгу <div class="query">'.$query.'</div></span>';
+                    }
+                    elseif ($search == 'library') {
+                    echo '<span class="searching_tab">Облако тэгов</span>';
+                    }
+                }
+        ?>
 
 <?= $content ?>

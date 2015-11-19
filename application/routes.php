@@ -97,9 +97,13 @@ Route::set('AUTH', 'auth/<action>')->defaults(array(
 
 // TAGS
 
-Route::set('TAGS', 'tag(/<query>)', array('query' => $QUERY))->defaults(array(
+Route::set('TAGS_SEARCH', 'tag(/<query>)', array('query' => $QUERY))->defaults(array(
     'controller' => 'articles_tags',
     'action' => 'search',
+));
+Route::set('TAGS_LIBRARY', 'lib')->defaults(array(
+    'controller' => 'articles_tags',
+    'action' => 'library',
 ));
 //Scripts for admin panel---------
 //Articles
