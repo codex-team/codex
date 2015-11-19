@@ -20,38 +20,6 @@ class Kohana_Oauth_GitHub extends Oauth {
 
 
     /**
-     * Получение изображений через Github Api
-     * @param $user_id
-     * @return mixed
-     * @throws Kohana_Exception
-     */
-    public function get_images($user_id)
-    {
-        $gh_token = $this->token;
-
-        if (!$gh_token)
-        {
-            # TODO: Throw custom Exception for Github
-            throw new Kohana_Exception('Невозможно получить токен и id');
-        }
-
-        $params = array(
-            'access_token' => $gh_token,
-            #'redirect' => 0,
-            'type' => 'large'
-        );
-
-        $resp = Request::factory('https://graph.facebook.com/v2.5/'.$user_id, array(
-            'follow' => TRUE))
-            ->method(Request::GET)
-            ->query($params)
-            ->execute();
-
-        return $resp->body();
-    }
-
-
-    /**
      * Получение информации о себе через Github Api
      * @return mixed
      * @throws Kohana_Exception
