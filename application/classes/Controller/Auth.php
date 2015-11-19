@@ -105,20 +105,19 @@ class Controller_Auth extends Controller_Base_preDispatch
         if ($gh->login())
         {
             $profile = $gh->get_user();
-            var_dump($profile);exit;
 
             if ($profile)
             {
                 Session::instance()->set('profile', $profile);
 
-                $user = Model_User::findByAttribute('fb_id', $profile->id);
+                $user = Model_User::findByAttribute('github_id', $profile->id);
                 if ($user->is_empty())
                 {
                     $user = new Model_User();
-                    $user->name = $profile->name;
-                    $user->fb_id = $profile->id;
-                    # TODO: Проверить загрузку на альфе $user->photo = $fb->get_images($profile->id);
-                    # TODO: Загрузить фото профиля целиком: $fb->get_images($profile->id);
+                    $user->name = $profile->login;
+                    $user->github_id = $profile->id;
+                    $user->github_uri = $profile->login;
+                    $user->photo = $profile->avatar_url;
 
                     $user->save();
                 }
