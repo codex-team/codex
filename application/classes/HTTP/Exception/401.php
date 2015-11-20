@@ -9,7 +9,9 @@ class HTTP_Exception_401 extends Kohana_HTTP_Exception_401 {
         $response = Response::factory()
             ->status(401)
             ->headers('Location', URL::site('/'));
- 
+
+        Model_Methods::telegram_send_error($this->getMessage());
+
         return $response;
     }
 }

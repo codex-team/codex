@@ -163,7 +163,7 @@ class Model_Methods extends Model
         }
     }
 
-    function rebuildCommentsTree($comments)
+    public function rebuildCommentsTree($comments)
     {
         $comments_table_rebuild = array();
 
@@ -193,5 +193,28 @@ class Model_Methods extends Model
         array_pop($comments_table_rebuild);
 
         return $comments_table_rebuild;
+    }
+
+    public static function telegram_send_error($err)
+    {
+        $token = '149275035:AAE6GB9PkrRBeS1PndeQVGewfJqlY5K-xtk';
+        $chat_id = -42287706;
+
+        $text = 'Error! ' . $err;
+
+        $url = 'https://api.telegram.org/bot' . $token . '/sendMessage';
+
+        $params = array(
+            'chat_id' => $chat_id,
+            'text' => $text
+        );
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_exec($ch);
+        curl_close($ch);
+
+        return true;
     }
 }
