@@ -104,18 +104,24 @@
 }
 .editor_content .add_buttons button:before {
     content: "";
-    background: no-repeat url(/public/img/editor_buttons.png) 0;
+    background: no-repeat url(/public/img/editor_buttons.png?) 0;
     position: absolute;
     width: 20px;
     height: 20px;
     left: 8px;
     top: 8px;
 }
-.editor_content .add_buttons .paragraph:before{}
+.editor_content .add_buttons .paragraph:before{
+    background-position: -156px -1px;
+}
 .editor_content .add_buttons .img:before{
     background-position: -27px 0;
     width: 22px;
     left: 7px;
+}
+.editor_content .add_buttons .list:before{
+    background-position: -56px 0;
+    width: 21px;
 }
 .editor_content .node{
     border: 1px dashed;
