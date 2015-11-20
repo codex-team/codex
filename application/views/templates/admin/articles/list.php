@@ -15,8 +15,8 @@
                 <td></td>
             </tr>
             <? foreach ($articles as $current_article): ?>
-<!--                TODO(#39) здесь не предусмотрен сценарий обработки неудалённых статей -->
-                <? if ($current_article->is_removed == 0): ?>
+<!--                TODO(#39) здесь не предусмотрен сценарий обработки удалённых статей -->
+                <? if ($current_article->is_removed == False): ?>
                     <tr>
                         <td><?= $current_article->id ?></td>
                         <td class="title">
@@ -35,6 +35,7 @@
                             ?>
                         </td>
                         <td>Без просмотров</td>
+<!--                        TODO(#44) Выводить счётчик просмотров-->
                         <td><a href='/admin/article/editarticle/<?= $current_article->id ?>'>Редактировать</a></td>
                         <td><a href='/admin/article/delarticle/<?= $current_article->id ?>'>Удалить</a></td>
                     </tr>

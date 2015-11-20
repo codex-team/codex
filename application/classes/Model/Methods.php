@@ -39,9 +39,12 @@ class Model_Methods extends Model
         if ($file = Upload::save($cover, NULL, $uploaddir)){
             Image::factory($file)->save($uploaddir . $cover['name']);
             unlink($file);
-        }
 
-        return $cover['name'];
+            return $cover['name'];
+        }
+        else {
+            return false;
+        }
     }
 
 

@@ -25,66 +25,6 @@ Class Model_User extends Model
     }
 
     /**
-     * @param $user
-     * @return Model_User
-     */
-    private static function rowToModel($user)
-    {
-        $model = new Model_User();
-        if (!empty($user['id'])) {
-            $model->id = $user['id'];
-            $model->name = $user['name'];
-            $model->photo = $user['photo'];
-            $model->dt_create = Date::formatted_time($user['dt_create'], 'Y-m-d');
-            $model->dt_update = Date::formatted_time($user['dt_update'], 'Y-m-d');
-            $model->github_id = $user['github_id'];
-            $model->github_uri = $user['github_uri'];
-            $model->role = $user['role'];
-            $model->is_removed = $user['is_removed'];
-        }
-        return $model;
-    }
-
-
-    /**
-     * Удаляет из базы данную статью.
-     */
-    public function remove()
-    {
-        if ($this->id != 0) {
-
-            DB::update('Users')->where('id', '=', $this->id)
-                ->set(array('is_removed' => 1))
-                ->execute();
-
-            // Статья удалена
-            $this->id = 0;
-        }
-    }
-
-
-    /**
-     * Возвращает статус заполненности модели
-     * @return bool
-     */
-    public function is_empty()
-    {
-        return empty($this->id);
-    }
-
-
-    /**
-     * Возвращает модель пользователя по его id
-     * @param int $id
-     * @return Model_User
-     */
-    public static function get($id = 0)
-    {
-        return self::findByAttribute('id', $id);
-    }
-
-
-    /**
      * Возвращает модель пользователя по его уникальному атрибуту
      * @param string $attr
      * @param int $value
@@ -97,6 +37,15 @@ Class Model_User extends Model
         return self::rowToModel($user);
     }
 
+    /**
+     * Возвращает модель пользователя по его id
+     * @param int $id
+     * @return Model_User
+     */
+    public static function get($id = 0)
+    {
+        return self::findByAttribute('id', $id);
+    }
 
     /**
      * Получает из хранилища данных информацию о всех пользователях и превращает её в экземпляры модели
@@ -117,6 +66,52 @@ Class Model_User extends Model
         return $users;
     }
 
+    /**
+     * @param $user
+     * @return Model_User
+     */
+    private static function rowToModel($user)
+    {
+        $model = new Model_User();
+        if (!empty($user['id'])) {
+            $model->id = $user['id'];
+            $model->name = $user['name'];
+            $model->photo = $user['photo'];
+            $model->dt_create = Date::formatted_time($user['dt_create'], 'Y-m-d');
+            $model->dt_update = Date::formatted_time($user['dt_update'], 'Y-m-d');
+            $model->github_id = $user['github_id'];
+            $model->github_uri = $user['github_uri'];
+            $model->role = $user['role'];
+            $model->is_removed = $user['is_removed'];
+        }
+
+        return $model;
+    }
+
+    /**
+     * Удаляет из базы данного пользователя.
+     */
+    public function remove()
+    {
+        if ($this->id != 0) {
+
+            DB::update('Users')->where('id', '=', $this->id)
+                ->set(array('is_removed' => 1))
+                ->execute();
+
+            // Статья удалена
+            $this->id = 0;
+        }
+    }
+
+    /**
+     * Возвращает статус заполненности модели
+     * @return bool
+     */
+    public function is_empty()
+    {
+        return empty($this->id);
+    }
 
     /**
      * Создает новую запись в БД
@@ -129,10 +124,11 @@ Class Model_User extends Model
         values(array($this->name, $this->github_id, $this->github_uri,
             $this->photo, $this->photo_small, $this->photo_big, $this->role, $this->is_removed))
             ->execute()
-        )
+        ) {
             return true;
-        else
-            return false;
+        } else {
+            return true;
+        }
     }
 
 
@@ -143,15 +139,15 @@ Class Model_User extends Model
     public function update()
     {
         if (DB::update('Users')->set(array(
-            'name' => $this->name,
-            'github_id' => $this->github_id,
-            'github_uri' => $this->github_uri,
-            'photo' => $this->photo,
-            'dt_update' => $this->dt_update,        // TODO(#38) stored procedure
+            'name'        => $this->name,
+            'github_id'   => $this->github_id,
+            'github_uri'  => $this->github_uri,
+            'photo'       => $this->photo,
+            'dt_update'   => $this->dt_update,        // TODO(#38) trigger
             'photo_small' => $this->photo_small,
-            'photo_big' => $this->photo_big,
-            'role' => $this->role,
-            'is_removed' => $this->is_removed,
+            'photo_big'   => $this->photo_big,
+            'role'        => $this->role,
+            'is_removed'  => $this->is_removed,
         ))->where('id', '=', $this->id)->execute()
         )
             return true;
