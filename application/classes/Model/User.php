@@ -99,7 +99,7 @@ Class Model_User extends Model
                 ->set(array('is_removed' => 1))
                 ->execute();
 
-            // Статья удалена
+            // Пользователь удалена
             $this->id = 0;
         }
     }
