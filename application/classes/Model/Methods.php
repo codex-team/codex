@@ -200,7 +200,7 @@ class Model_Methods extends Model
         $token = '149275035:AAE6GB9PkrRBeS1PndeQVGewfJqlY5K-xtk';
         $chat_id = -42287706;
 
-        $text = 'Error! ' . $err;
+        $text = $err;
 
         $url = 'https://api.telegram.org/bot' . $token . '/sendMessage';
 
