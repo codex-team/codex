@@ -15,27 +15,29 @@
                 <td></td>
             </tr>
             <? foreach ($articles as $current_article): ?>
-                <? if ($current_article['is_removed'] == 0): ?>
+<!--                TODO(#39) здесь не предусмотрен сценарий обработки удалённых статей -->
+                <? if ($current_article->is_removed == False): ?>
                     <tr>
-                        <td><?= $current_article['id'] ?></td>
+                        <td><?= $current_article->id ?></td>
                         <td class="title">
-                            <a href="/article/<?= $current_article['id'] ?>">
-                                <?= $current_article['title'] ?>
+                            <a href="/article/<?= $current_article->id ?>">
+                                <?= $current_article->title ?>
                             </a>
                         </td>
-                        <td><?= $current_article['user_id'] ?></td>
+                        <td><?= $current_article->user_id ?></td>
                         <td>
                             <?  //Выводим дату изменений, если таковые были.
-                                if(is_null($current_article['dt_update'])):
-                                    echo $current_article['dt_create']; 
+                                if(is_null($current_article->dt_update)):
+                                    echo $current_article->dt_create;
                                 else:
-                                    echo $current_article['dt_update'];
+                                    echo $current_article->dt_update;
                                 endif;
                             ?>
                         </td>
                         <td>Без просмотров</td>
-                        <td><a href='/admin/article/editarticle/<?= $current_article['id'] ?>'>Редактировать</a></td>
-                        <td><a href='/admin/article/delarticle/<?= $current_article['id'] ?>'>Удалить</a></td>
+<!--                        TODO(#44) Выводить счётчик просмотров-->
+                        <td><a href='/admin/article/editarticle/<?= $current_article->id ?>'>Редактировать</a></td>
+                        <td><a href='/admin/article/delarticle/<?= $current_article->id ?>'>Удалить</a></td>
                     </tr>
                 <? endif; ?>
             <? endforeach; ?>
