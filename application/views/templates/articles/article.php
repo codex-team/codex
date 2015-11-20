@@ -1,23 +1,26 @@
 <div class="center_side clear">
     <article class="article">
 
-        <div class="article_image">
-            <img src="/upload/covers/<?= $article->cover ?>"/>
-        </div>
-
-        <p class="time_subtitle"><?= $article->dt_create ?></p>
+        <?
+        // мешает
+//        <div class="article_image">
+//            <img src="/upload/covers/< ?= $article->cover ? >"/>
+//        </div>
+//
+//        <p class="time_subtitle">< ?= $article->dt_create ? ></p>
+        ?>
 
         <h1 class="first_header">
             <?= $article->title ?>
         </h1>
 
         <p class="first_header">
-            <?= $article->description ?>
+            <?//= $article->description ?>
         </p>
 
-        <p>
-            <?= $article->text ?>
-        </p>
+        <div class="article_content">
+            <?= htmlspecialchars_decode($article->text )?>
+        </div>
 
         <h3>Комментарии</h3>
         <?

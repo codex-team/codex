@@ -598,6 +598,14 @@ var editor = {
     }
 };
 
+//
+editor.restoreContent = function () {
+    //.stored_content
+    window.setTimeout(function() {
+        document.execCommand('selectAll', false, null)
+    }, 1);
+};
+
 // selects all text in editing element
 editor.selectAll = function () {
     window.setTimeout(function() {

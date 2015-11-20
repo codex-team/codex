@@ -129,9 +129,9 @@ class Controller_Base_preDispatch extends Controller_Template
         if ( $auth->is_authorized() ) {
             $profile = $auth->get_profile();
 
-//            if ($profile)
-//                $this->user = Model_User::findByAttribute('github_id', $profile->id);
-//            else
+            if ($profile)
+                $this->user = Model_User::findByAttribute('github_id', $profile->id);
+            else
                 $this->user = new Model_User();
         }
         else
