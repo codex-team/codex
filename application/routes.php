@@ -29,7 +29,7 @@ Route::set('TASK_PAGE', 'task/<who>', array('who' => $STRING))->defaults(array(
     'action' => 'whoSet',
 ));
 
-Route::set('ARTICLE_LIST', 'article')->defaults(array(
+Route::set('ARTICLE_LIST', 'articles')->defaults(array(
     'controller' => 'articles_index',
     'action' => 'showAllArticles',
 ));

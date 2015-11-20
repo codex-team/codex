@@ -1,19 +1,28 @@
-<div class="header_text">
-    <? if ($auth->is_authorized()): ?>
-        Добрый день, <a href="/user/<?= $user->id ?>"><?= $user->name; ?></a>
-    <? endif; ?>
+<div class="clarity_page">
+    <div class="center_side">
+        <div class="cdx_logo"></div>
+        <p>CodeX — это новый клуб в НИУ ИТМО, объединяющий студентов и выпускников, интересующихся веб-разработкой, дизайном и изучением новых технологий на практике.</p>
+        <p>Наша цель — собрать команду молодых специалистов с горящими глазами и идеалистическим настроем.</p>
+    </div>
 </div>
-<div class="m_logo_wrap">
-    <div class="m_logo"></div>
-    <a href="/article">Статьи</a>
-    <a href="/join">Подать заявку</a>
-    <a href="/task">Задания</a>
-
-    <? if ($user->id): ?>
-        <a href='/auth/logout'>Выход</a><br>
-        <a href="/admin/article" id="panel_link">Панель администратора</a>
-    <? else: ?>
-        <a href='/auth/github'>Вход Github</a>
-    <?php endif; ?>
-
+<? /*
+<div class="center_side">
+    <div class="double_sections clearfix">
+        <section class="fl_l">
+            <div class="cdx_news">
+                <h3>Последние новости</h3>
+                <div class="item">
+                    <time>13 ноя</time>
+                    <a href="">Конкурс на стикеры (и звание техлида)</a>
+                </div>
+                <div class="item">
+                    <time>12 сен</time>
+                    <a href="">Набор в клуб завершен</a>
+                </div>
+            </div>
+        </section>
+        <section class="constrain">
+        </section>
+    </div>
 </div>
+*/ ?>

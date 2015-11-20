@@ -13,7 +13,7 @@ class Controller_Base_preDispatch extends Controller_Template
      * @var Model_User активный пользователь.
      */
     protected $user;
-    
+
 
     /**
      * The before() method is called before your controller action.
@@ -49,8 +49,6 @@ class Controller_Base_preDispatch extends Controller_Template
             $this->template->keywords    = '';
             $this->template->description = '';
             $this->template->content     = '';
-            $this->template->header      = '';
-           
         }
     }
 
@@ -65,9 +63,8 @@ class Controller_Base_preDispatch extends Controller_Template
         // echo View::factory('profiler/stats');
 
         if ($this->auto_render) {
-            if ( $this->title ) {
-                $this->template->title = $this->title;
-            }
+            if ( $this->title ) $this->template->title = $this->title;
+            if ( $this->description ) $this->template->description = $this->description;
         }
 
         parent::after();
@@ -124,7 +121,7 @@ class Controller_Base_preDispatch extends Controller_Template
         View::set_global('memcache', $memcache);
 
         $this->session = Session::instance();
-        
+
         $auth = new Dao_Auth();
         if ( $auth->is_authorized() ) {
             $profile = $auth->get_profile();

@@ -62,8 +62,7 @@ input:focus::-webkit-input-placeholder, textarea:focus::-webkit-input-placeholde
 
 
 .button,
-input[type="submit"],
-button{
+input[type="submit"]{
     -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
     border-radius: 30px;
     border: 0;
@@ -78,35 +77,28 @@ button{
     line-height: 1em;
 }
 .button:hover,
-input[type="submit"]:hover,
-button:hover{
+input[type="submit"]:hover{
     background: #93adc7;
     color: #3d516f;
     text-decoration: none;
 }
 .button.master,
-button.master,
-input[type="submit"],
-button[type="submit"]{
+input[type="submit"]{
     background: #5c95cf;
     color: #fff;
 }
     .button.master:hover,
-    button.master:hover,
     input[type="submit"]:hover{
         background: #3c7ab9;
+        color: #fff;
     }
 .button.disabled,
-button.disabled,
-button[disabled],
 input[disabled]
 {
     background: #EAECF1;
     color: #A9AFC1;
 }
     .button.disabled:hover,
-    button.disabled:hover,
-    button[disabled]:hover,
     input[disabled]:hover
     {
         background: #EAECF1;
@@ -130,16 +122,25 @@ input[disabled]
   position: absolute; left: 0; top: 0;
 }
 */
+pre, code, .technic{
+    display: inline-block;
+    padding: 0 4px;
+    background-color: #E2EFFD;
+    font-family: 'monaco', 'consolas', 'courier';
+    font-size: 13px;
+    color: #5B8AC3;
+}
+
 
 
 
 @font-face {
-  font-family: 'codex';
-  src: url('../fonts/codex.eot?30090408');
-  src: url('../fonts/codex.eot?30090408#iefix') format('embedded-opentype'),
-       url('../fonts/codex.woff?30090408') format('woff'),
-       url('../fonts/codex.ttf?30090408') format('truetype'),
-       url('../fonts/codex.svg?30090408#codex') format('svg');
+  font-family: 'codex_ic';
+  src: url('../fonts/codex_icons/codex_ic.eot?87250635');
+  src: url('../fonts/codex_icons/codex_ic.eot?87250635#iefix') format('embedded-opentype'),
+       url('../fonts/codex_icons/codex_ic.woff?87250635') format('woff'),
+       url('../fonts/codex_icons/codex_ic.ttf?87250635') format('truetype'),
+       url('../fonts/codex_icons/codex_ic.svg?87250635#codex_ic') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -155,7 +156,7 @@ input[disabled]
 */
 
  [class^="icon-"]:before, [class*=" icon-"]:before {
-  font-family: "codex";
+  font-family: "codex_ic";
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -205,7 +206,7 @@ input[disabled]
 .icon-up-big:before { content: '\e80f'; } /* '' */
 .icon-down-big:before { content: '\e810'; } /* '' */
 .icon-eye:before { content: '\e811'; } /* '' */
-.icon-rocket:before { content: '\e812'; } /* '' */
+.icon-instagram:before { content: '\e812'; } /* '' */
 .icon-briefcase:before { content: '\e813'; } /* '' */
 .icon-users:before { content: '\e814'; } /* '' */
 .icon-user:before { content: '\e815'; } /* '' */
@@ -214,6 +215,8 @@ input[disabled]
 .icon-cog-1:before { content: '\e818'; } /* '' */
 .icon-ok:before { content: '\e819'; } /* '' */
 .icon-cancel:before { content: '\e81a'; } /* '' */
+.icon-spin4:before { content: '\e81b'; } /* '' */
+.icon-picture:before { content: '\e81c'; } /* '' */
 
 .error_alert{
     background: #FDF4F4;
@@ -243,69 +246,150 @@ input[disabled]
 
 
 html {
-    font-size: 1.1em;
-    line-height: 1.4;
+    font-size: 1em;
+    line-height: 1.4em;
     font-family: 'PT Sans', sans-serif, Arial;
 }
-
-.black_land{
-    background: #0a0a0a;
-    color: #b9c7de;
-}
-
-.m_logo_wrap{
-    width: 224px;
-    height: 224px;
-    margin-top: -112px;
-    margin-left: -112px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    text-align: center;
-}
-    .m_logo_wrap .m_logo{
-        display: inline-block;
-        background: url('../img/logo224.png') no-repeat;
-        width: 224px;
-        height: 224px;
-        margin-bottom: 20px;
-    }
-    .m_logo_wrap a{
-        color: #d9e6fb;
-        font-size: 17px;
-    }
-
 .center_side{
     max-width: 1000px;
     margin: 0 auto;
 }
 
 
+
+
 /* Side header styles*/
 
 
 .site_header{
-    border-bottom: 1px solid #eceff6;
-    font-size: 0;
-}
-
-.site_menu{
-    margin: 0 12px;
-}
-
-.site_menu a{
-    color: #6091c8;
-    text-decoration: none;
-    font-size: 16px;
-    padding: 18px;
     position: relative;
-    display: inline-block;
+    border-bottom: 1px solid #eceff6;
+}
+    .site_menu{
+        margin: 0 12px;
+        font-size: 0;
+    }
+        .site_menu a{
+            text-decoration: none;
+            font-size: 16px;
+            padding: 18px;
+            position: relative;
+            display: inline-block;
+        }
+            .site_menu .current{
+                font-weight: bold;
+            }
+    .site_header .icon_link{
+        display: inline-block;
+        font-size: 22px;
+        margin-top: 17px;
+        vertical-align: middle;
+    }
+    .site_header .login{
+        text-decoration: none;
+    }
+        .site_header .login .text{
+            font-size: 15px;
+            vertical-align: middle;
+        }
+    .site_header .social_buttons{
+        position: absolute;
+        left: 50%;
+        width: 150px;
+        margin-left: -75px;
+        text-align: center;
+    }
+
+.site_footer{
+    border-top: 1px solid #eceff6;
+    padding: 30px 0;
+    margin-top: 30px;
+}
+    .site_footer section{
+        max-width: 400px;
+        margin-left: 30px;
+    }
+        .site_footer .codex_desc{
+            margin-right: 10px;
+        }
+        .site_footer section ul{
+            list-style: none;
+            padding-left: 0;
+            font-size: 14px;
+            line-height: 1.8em;
+        }
+        .site_footer section a{
+            text-decoration: none;
+        }
+    .site_footer h5{
+        margin: 0 0 10px;
+        font-size: 15px;
+    }
+    .site_footer p{
+        font-size: 14px;
+        margin: 0;
+    }
+    .site_footer .desclimer{
+        color: #aaa;
+    }
+
+.page_header{
+    padding: 60px 30px;
+}
+.page_header h1{
+    font-size: 26px;
+}
+.page_header .description{
+    max-width: 500px;
 }
 
-.site_menu a:hover,
-.site_menu .current{
-    color: #E87474;
+
+.blog .title{
+    margin: 0 0 15px;
+    font-size: 20px;
+    line-height: 1.5em;
 }
+    .blog .title a{
+        text-decoration: none;
+        color: inherit;
+    }
+    .blog .counters .item{
+        display: inline-block;
+        margin-right: 20px;
+        color: #a8adb6;
+    }
+.blog .info{
+    width: 30%;
+    margin-left: 100px;
+}
+    .blog .author .ava{
+        border-radius: 20px;
+        overflow: hidden;
+        background: #e9ecf5;
+        margin-right: 20px;
+    }
+        .blog .author .ava,
+        .blog .author .ava img{
+            width: 40px;
+            height: 40px;
+            display: block;
+        }
+    .blog .author .name{
+        font-weight: bold;
+        font-size: 15px;
+        line-height: 1em;
+    }
+    .blog .author .nick{
+        display: inline-block;
+        margin-top: 3px;
+        text-decoration: none;
+    }
+
+
+
+
+
+
 
 .left_col{
     width: 47%;
@@ -508,15 +592,53 @@ html {
         font-weight: bold;
     }
 
-.technic{
-    display: inline-block;
-    padding: 0 4px;
-    background-color: #E2EFFD;
-    font-family: 'monaco', 'consolas', 'courier';
-    font-size: 13px;
-    color: #5B8AC3;
 
+
+.clarity_page{
+    padding: 100px 0 70px;
+    text-align: center;
 }
+    .clarity_page .cdx_logo{
+        display: inline-block;
+        background: url('../img/logo224.png') no-repeat;
+        width: 224px;
+        height: 224px;
+        margin: 0 auto 50px;
+    }
+    .clarity_page p{
+        max-width: 500px;
+        margin: 15px auto;
+    }
+
+.double_sections{
+    padding: 30px;
+}
+    .double_sections .constrain{
+        border-left: 2px solid #e8ecf1;
+    }
+
+.cdx_news{
+    border-left: 3px solid #e8ecf1;
+    padding: 15px 35px;
+}
+    .cdx_news h3{
+        margin: 0 0 20px;
+    }
+    .cdx_news .item{
+        margin-top: 15px;
+    }
+    .cdx_news time{
+        display: block;
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+
+
+
+
+
+
 
 @-webkit-keyframes wobble {
     0% { -webkit-transform: translateX(0%); }
@@ -663,77 +785,4 @@ html {
         background-size: 123px auto;
     }
 
-}
-
-@media print {
-    *,
-    *:before,
-    *:after,
-    *:first-letter,
-    *:first-line {
-        background: transparent !important;
-        color: #000 !important; /* Black prints faster:
-                                   http://www.sanbeiji.com/archives/953 */
-        box-shadow: none !important;
-        text-shadow: none !important;
-    }
-
-    a,
-    a:visited {
-        text-decoration: underline;
-    }
-
-    a[href]:after {
-        content: " (" attr(href) ")";
-    }
-
-    abbr[title]:after {
-        content: " (" attr(title) ")";
-    }
-
-    /*
-     * Don't show links that are fragment identifiers,
-     * or use the `javascript:` pseudo protocol
-     */
-
-    a[href^="#"]:after,
-    a[href^="javascript:"]:after {
-        content: "";
-    }
-
-    pre,
-    blockquote {
-        border: 1px solid #999;
-        page-break-inside: avoid;
-    }
-
-    /*
-     * Printing Tables:
-     * http://css-discuss.incutio.com/wiki/Printing_Tables
-     */
-
-    thead {
-        display: table-header-group;
-    }
-
-    tr,
-    img {
-        page-break-inside: avoid;
-    }
-
-    img {
-        max-width: 100% !important;
-    }
-
-    p,
-    h2,
-    h3 {
-        orphans: 3;
-        widows: 3;
-    }
-
-    h2,
-    h3 {
-        page-break-after: avoid;
-    }
 }
