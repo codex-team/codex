@@ -119,16 +119,16 @@
                       <button class="list" data-type="list"></button>
                       <button class="img" data-type="img"></button>
                   </div>
+
+                      <?
+                      if (isset($table_values['text']['value'])){
+                          echo htmlspecialchars_decode($table_values['text']['value']);
+                      }
+                      ?>
               </div>
           </div>
 
-          <textarea class="hidden" name="text" id="html_result"  required>
-              <?
-              if (isset($table_values['text']['value'])){
-                  echo $table_values['text']['value'];
-              }
-              ?>
-          </textarea>
+          <textarea class="hidden" name="text" id="html_result"></textarea>
 
           <p><button class="master" id="blankSendButton">Добавить</button></p>
       </form>
