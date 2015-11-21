@@ -4,25 +4,25 @@
 
 // --- COMMON FUNCTIONS ---
 
-// 'c' from 'codex' - micro framework
-var c = {
+// 'cdx' from 'codex' - micro framework
+var cdx = {
 
 };
 
-all = function (selector, context) {
+cdx.all = function (selector, context) {
     var res;
 
-    if (!isDefined(context)) {
-        context = document
+    if (!cdx.isDefined(context)) {
+        context = document;
     }
 
-    if (isArray(context) || isNodeList(context)) {
+    if (cdx.isArray(context) || cdx.isNodeList(context)) {
         var nodeList;
         res = [];
 
         for (var index = 0; index < context.length; index++) {
-            nodeList = all(selector, context[index]);
-            res      = res.concat( nodeListToArray(nodeList) )
+            nodeList = cdx.all(selector, context[index]);
+            res      = res.concat( cdx.nodeListToArray(nodeList) );
         }
 
     } else {
@@ -30,245 +30,231 @@ all = function (selector, context) {
     }
 
     return res;
-}
+};
 
-nodeListToArray = function (nodeLsit) {
+cdx.nodeListToArray = function (nodeLsit) {
     var res = [];
 
     for (var index = 0; index < nodeLsit.length; index++) {
-        res.push(nodeLsit.item(index))
+        res.push(nodeLsit.item(index));
     }
 
     return res;
-}
+};
 
-el = function (selector, context) {
-    return all(selector, context)[0]
-}
+cdx.el = function (selector, context) {
+    return cdx.all(selector, context)[0];
+};
 
-log = function(obj, title){
+cdx.log = function(obj, title){
+    // todo make polyfill if console.log not support etc ie <= 8
+
     if (!title)
-        title = ""
-    console.log(title+" =>", obj)
-}
+        title = "";
 
-isDefined = function(obj){
-    return typeof obj != "undefined"
-}
+    console.log(title + " =>", obj);
+};
 
-isString = function(obj){
-    return typeof obj == "string"
-}
+cdx.isDefined = function(obj){
+    return typeof obj != "undefined";
+};
 
-isString = function(obj){
-    return typeof obj == "string"
-}
+cdx.isString = function(obj){
+    return typeof obj == "string";
+};
 
-isArray = function(obj){
-    return obj instanceof Array
-}
+cdx.isString = function(obj){
+    return typeof obj == "string";
+};
 
-isNodeList = function(obj){
-    return obj.toString() == "[object NodeList]"
-}
+cdx.isArray = function(obj){
+    return obj instanceof Array;
+};
 
-after = function(relObj, newObj){
+cdx.isNodeList = function(obj){
+    return obj.toString() == "[object NodeList]";
+};
+
+cdx.after = function(relObj, newObj){
     var nextEl = next(relObj);
 
     if (nextEl)
-        before(nextEl, newObj)
+        cdx.before(nextEl, newObj);
     else
-        append(relObj, newObj)
-}
-
-before = function(relObj, newObj){
-    relObj.parentNode.insertBefore(newObj, relObj)
-}
-
-append = function(relObj, newObj){
-    relObj.parentNode.appendChild(newObj)
-}
-
-replace = function(oldObj, newObj){
-    before(oldObj, newObj)
-    return remove(oldObj)
-}
-
-prev = function(obj){
-    return obj.previousElementSibling
-}
-
-next = function(obj){
-    return obj.nextElementSibling
-}
-
-remove = function(obj){
-    return obj.parentNode.removeChild(obj)
-}
-
-data = function(obj, field, value) {
-    var data = obj.dataset
-
-    if (!isDefined(field))
-        return data
-
-    if (isDefined(value))
-        obj.dataset[field] = value
-
-    return data[field]
-}
-
-attr = function(obj, field, value) {
-    if (!isDefined(value))
-        return obj.getAttribute(field)
-    else
-        obj.setAttribute(field, value)
-}
-
-removeAttr = function(obj, field) {
-    obj.removeAttribute(field)
-}
-
-removeAttrAll = function (collection, field) {
-    for (var index = 0; index < collection.length; index++) {
-        removeAttr(collection[index], field)
-    }
-}
-
-addClass = function(obj, className) {
-    obj.classList.add(className)
-}
-
-removeClass = function(obj, className) {
-    obj.classList.remove(className)
-}
-
-hasClass = function(obj, className) {
-    return obj.classList.contains(className)
-}
-
-c.create = function (tagName) {
-    return document.createElement(tagName)
+        cdx.append(relObj, newObj);
 };
 
-function collectionHtml(collection){
-    var str = ""
+cdx.before = function(relObj, newObj){
+    relObj.parentNode.insertBefore(newObj, relObj);
+};
+
+cdx.append = function(relObj, newObj){
+    relObj.parentNode.appendChild(newObj);
+};
+
+cdx.replace = function(oldObj, newObj){
+    cdx.before(oldObj, newObj);
+
+    return remove(oldObj);
+};
+
+cdx.prev = function(obj){
+    return obj.previousElementSibling;
+};
+
+cdx.next = function(obj){
+    return obj.nextElementSibling;
+};
+
+cdx.remove = function(obj){
+    return obj.parentNode.removeChild(obj);
+};
+
+cdx.data = function(obj, field, value) {
+    var data = obj.dataset;
+
+    if (!cdx.isDefined(field))
+        return data;
+
+    if (cdx.isDefined(value))
+        obj.dataset[field] = value;
+
+    return data[field];
+};
+
+cdx.attr = function(obj, field, value) {
+    if (!cdx.isDefined(value))
+        return obj.getAttribute(field);
+    else
+        obj.setAttribute(field, value);
+};
+
+cdx.removeAttr = function(obj, field) {
+    obj.removeAttribute(field);
+};
+
+cdx.removeAttrAll = function (collection, field) {
     for (var index = 0; index < collection.length; index++) {
-        str += collection[index].outerHTML
+        cdx.removeAttr(collection[index], field)
+    }
+};
+
+cdx.addClass = function(obj, className) {
+    obj.classList.add(className);
+};
+
+cdx.removeClass = function(obj, className) {
+    obj.classList.remove(className);
+};
+
+cdx.hasClass = function(obj, className) {
+    return obj.classList.contains(className);
+};
+
+cdx.create = function (tagName) {
+    return document.createElement(tagName);
+};
+
+cdx.collectionHtml = function(collection){
+    var str = "";
+
+    for (var index = 0; index < collection.length; index++) {
+        str += collection[index].outerHTML;
     }
 
-    return str
-}
+    return str;
+};
 
-//parents = function(obj, selector){
-//
-//}
-
-bind = function(event, selector, func){
-    var res = isString(selector) ? all(selector) : selector
+cdx.bind = function(event, selector, func){
+    var res = cdx.isString(selector) ? cdx.all(selector) : selector;
 
     for (var index = 0; index < res.length; index++) {
-        res[index].addEventListener(event, func)
+        res[index].addEventListener(event, func);
     }
+};
 
-}
+cdx.click = function(selector, func){
+    cdx.bind("click", selector, func);
+};
 
-click = function(selector, func){
-    bind("click", selector, func)
-}
+cdx.change = function(selector, func){
+    cdx.bind("change", selector, func);
+};
 
-change = function(selector, func){
-    bind("change", selector, func)
-}
-
-
-
-function each (collection, callback){
-    if (!callback)
-        return
+cdx.each = function(collection, callback){
+    if (!callback) return;
 
     for (var index = 0; index < collection.length; index++) {
-        callback(collection[index])
+        callback(collection[index]);
     }
+};
 
-}
-
-function addhttp(url) {
+cdx.addhttp = function(url) {
     if (!/^(f|ht)tps?:\/\//i.test(url)) {
         url = "http://" + url;
     }
+
     return url;
-}
-
-function random (X) {
-    return Math.floor(X * (Math.random() % 1));
-}
-
-function randomBetween (MinV, MaxV) {
-    return MinV + random(MaxV - MinV + 1);
-}
+};
 
 // --- EDITOR FUNCTIONS ---
 
 var editor = {
-    defultImg : "/public/img/defEditorImg.png",
+    defultImg  : "/public/img/defEditorImg.png",
     loadingImg : "/public/img/loading.gif",
 
     initAddButtons : function (buttons) {
-        click(buttons, function (e) {
-            var buttonsNode      = this.parentNode
-            var cloneButtonsNode = buttonsNode.cloneNode(true)
+        cdx.click(buttons, function (e) {
+            var buttonsNode      = this.parentNode,
+                cloneButtonsNode = buttonsNode.cloneNode(true),
+                newEditorNode    = editor.createEditorNode(data(this, "type"));
 
-            var newEditorNode = editor.createEditorNode(data(this, "type"))
+            cdx.before(buttonsNode, cloneButtonsNode);
+            cdx.before(buttonsNode, newEditorNode);
 
-            before(buttonsNode, cloneButtonsNode)
-            before(buttonsNode, newEditorNode)
+            editor.initAddButtons(cdx.all(".add_buttons button", cloneButtonsNode));
 
-            editor.initAddButtons(all(".add_buttons button", cloneButtonsNode))
-
-            e.preventDefault()
+            e.preventDefault();
         })
     },
+
     //
     createEditorNode : function (type) {
-        var node = el(".editor_content .node[data-type=" + type + "]").cloneNode(true)
+        var node = el(".editor_content .node[data-type=" + type + "]").cloneNode(true);
 
-        removeClass(node, "hidden")
-        removeClass(node, "example")
-        editor.initNodesButtons([node])
+        cdx.removeClass(node, "hidden");
+        cdx.removeClass(node, "example");
+        editor.initNodesButtons([node]);
 
-        // todo clear pasted data
-        //bind("copy", all("[contenteditable=true]", node), function (e) {
-        //    log(e, "onpaste")
-        //})
+        // todo clear pasted data (?)
 
         // обработка клавиш, общая для всех видов узлов
         editor.initNodesKeys(node);
 
-
-        return node
+        return node;
     },
 
     //
     initNodesButtons : function (nodes) {
-            var node, nodeType
+        var node, nodeType;
+
         for (var index = 0; index < nodes.length; ++index) {
-            node = nodes[index]
-            nodeType  = data(node, "type")
+            node      = nodes[index];
+            nodeType  = cdx.data(node, "type");
 
             // init common buttons
-            editor.initCommonButtons(node)
+            editor.initCommonButtons(node);
 
             if (nodeType == "img"){
-                editor.initImgNodeButtons(node)
+                editor.initImgNodeButtons(node);
             }
 
             if (nodeType == "header"){
-                editor.initHeaderNodeButtons(node)
+                editor.initHeaderNodeButtons(node);
             }
 
             if (nodeType == "list"){ // todo || orderlist
-                editor.initListNodeButtons(node)
+                editor.initListNodeButtons(node);
             }
         }
     },
@@ -276,44 +262,44 @@ var editor = {
     // init move and remove buttons
     initCommonButtons : function (node) {
         // remove
-        click(all("button[data-action=remove]", node), function (e) {
+        cdx.click(cdx.all("button[data-action=remove]", node), function (e) {
             // 4 first remove add buttons before block
-            remove(prev(this.parentNode.parentNode))
-            // and after remove content node
-            remove(this.parentNode.parentNode)
+            cdx.remove(cdx.prev(this.parentNode.parentNode));
 
-            e.preventDefault()
+            // and after remove content node
+            cdx.remove(this.parentNode.parentNode);
+
+            e.preventDefault();
         });
 
         // move up
-        click(all("button[data-action=moveup]", node), function (e) {
-            var editor_node = this.parentNode.parentNode;
-            var add_buttons = next(editor_node);
-            var prev_editor_node = prev( prev(editor_node) );
+        cdx.click(cdx.all("button[data-action=moveup]", node), function (e) {
+            var editor_node      = this.parentNode.parentNode,
+                add_buttons      = cdx.next(editor_node),
+                prev_editor_node = cdx.prev( cdx.prev(editor_node) );
 
-            if (hasClass(prev_editor_node, "node") && !hasClass(prev_editor_node, "example")){
-                before(prev_editor_node, editor_node);
-                before(add_buttons, prev_editor_node);
+            if (cdx.hasClass(prev_editor_node, "node") && !cdx.hasClass(prev_editor_node, "example")){
+                cdx.before(prev_editor_node, editor_node);
+                cdx.before(add_buttons, prev_editor_node);
             }
 
             e.preventDefault()
         });
 
         // move down
-        click(all("button[data-action=movedown]", node), function (e) {
-            var editor_node      = this.parentNode.parentNode;
-            var next_editor_node = next( next(editor_node) );
+        cdx.click(cdx.all("button[data-action=movedown]", node), function (e) {
+            var editor_node      = this.parentNode.parentNode,
+                next_editor_node = cdx.next( cdx.next(editor_node) );
 
             if (next_editor_node) {
-                var add_buttons = next(next_editor_node);
+                var add_buttons = cdx.next(next_editor_node);
 
-                before(editor_node, next_editor_node);
-                before(add_buttons, editor_node)
+                cdx.before(editor_node, next_editor_node);
+                cdx.before(add_buttons, editor_node);
             }
 
-            e.preventDefault()
+            e.preventDefault();
         })
-
     },
 
     //
@@ -337,28 +323,28 @@ var editor = {
     // подготовка узла с картинкой
     initImgNodeButtons : function (node) {
         // show file dialog
-        click(all(".change_img_btn", node), function () {
+        click(cdx.all(".change_img_btn", node), function () {
             el(".change_img_input", node).click()
         })
 
         // set img from url input
-        change(all(".img_from_url", node), function () {
+        change(cdx.all(".img_from_url", node), function () {
             editor.setImgFromUrl(node, this.value)
         })
 
-        bind("keyup", all(".img_from_url", node), function () {
+        bind("keyup", cdx.all(".img_from_url", node), function () {
             editor.setImgFromUrl(node, this.value)
         })
 
         // than wrong img url given
-        bind("error", all(".img", node), function () {
+        bind("error", cdx.all(".img", node), function () {
             attr(el(".img", node), "src", editor.defultImg)
             addClass(el(".delete_img", node), "hidden")
             log("error while load img")
         })
 
         // set img from file input
-        change(all(".change_img_input", node), function () {
+        change(cdx.all(".change_img_input", node), function () {
             var input = this
 
             if (input.files && input.files[0]) {
@@ -377,7 +363,7 @@ var editor = {
         })
 
         // delete img btn
-        click(all(".delete_img", node), function () {
+        click(cdx.all(".delete_img", node), function () {
             attr(el(".img", node), "src", editor.defultImg)
             addClass(this, "hidden")
         })
@@ -386,11 +372,11 @@ var editor = {
     // подготовка узла с заголовоком
     initHeaderNodeButtons : function (node) {
         // change header type btn
-        click(all(".setting_buttons button", node), function (e) {
+        click(cdx.all(".setting_buttons button", node), function (e) {
             var type = data(this, "type"),
                 curHeader = el(".js_header", node);
 
-            var newHeader = c.create(type);
+            var newHeader = cdx.create(type);
             newHeader.textContent = curHeader.textContent;
             newHeader.classList.add(curHeader.classList);
 
@@ -496,7 +482,7 @@ var editor = {
         }
 
         // init exists li
-        onLiKeyPres( all(".content li", node) );
+        onLiKeyPres( cdx.all(".content li", node) );
     },
 
     // - editor save functions -
@@ -508,7 +494,7 @@ var editor = {
 
         //
         //получить все блоки с контентом
-        var originNodes = all(".editor_content .node:not(.example)")
+        var originNodes = cdx.all(".editor_content .node:not(.example)")
         var cloneNodes = []
 
         //выбросить из них упр кнопки
@@ -525,8 +511,8 @@ var editor = {
             if (action_buttons) remove(action_buttons)
             removeAttr(el(".content", cloneNode), "contenteditable")
 
-            // remove contenteditable from all child elements
-            removeAttrAll(all("[contenteditable]", cloneNode), "contenteditable")
+            // remove contenteditable from cdx.all child elements
+            removeAttrAll(cdx.all("[contenteditable]", cloneNode), "contenteditable")
 
             cloneNodes.push(cloneNode)
         })
@@ -661,7 +647,7 @@ var editor = {
 
 //
 editor.prepareStoredNodes = function () {
-    var nodes = all(".editor_content .node:not(.example)")
+    var nodes = cdx.all(".editor_content .node:not(.example)")
 
     if (nodes) {
         var addButtons, node, nodeType, actionBtns, settingsBtns;
@@ -695,7 +681,7 @@ editor.prepareStoredNodes = function () {
             if (nodeType == "header" || nodeType == "text"){
                 attr(el(".content", node), "contenteditable", "true")
             } else if (nodeType == "list"){
-                var listLi = all("li", node);
+                var listLi = cdx.all("li", node);
 
                 for (var liIndex = 0; liIndex < listLi.length; liIndex++) {
                     attr(listLi[liIndex], "contenteditable", "true")
@@ -707,7 +693,7 @@ editor.prepareStoredNodes = function () {
 
 // обработка клавиш, общая для всех видов узлов
 editor.initNodesKeys = function(nodes){
-    bind("keydown", all(".content", nodes), function (e) {
+    bind("keydown", cdx.all(".content", nodes), function (e) {
         var node     = this.parentNode,
             nodeType = data(node, "type"),
             nextNode = editor.getNextNode(node),
@@ -830,7 +816,7 @@ editor.focusNode = function (node, selectAll) {
         editor.selectAll();
 };
 
-// selects all text in editing element
+// selects cdx.all text in editing element
 editor.selectAll = function () {
     window.setTimeout(function() {
         document.execCommand('selectAll', false, null)
@@ -840,16 +826,16 @@ editor.selectAll = function () {
 //
 editor.init = function () {
     editor.prepareStoredNodes()
-    editor.initAddButtons(all(".add_buttons button"))
-    editor.initNodesButtons(all(".editor_content .node"))
+    editor.initAddButtons(cdx.all(".add_buttons button"))
+    editor.initNodesButtons(cdx.all(".editor_content .node"))
     // обработка клавиш, общая для всех видов узлов
-    editor.initNodesKeys(all(".editor_content .node"));
+    editor.initNodesKeys(cdx.all(".editor_content .node"));
 };
 
 // --- EDITOR ---
 
 editor.init();
 
-//click(all("#btn_save"), editor.save)
-click(all("#blankSendButton"), editor.save);
+//click(cdx.all("#btn_save"), editor.save)
+click(cdx.all("#blankSendButton"), editor.save);
 
