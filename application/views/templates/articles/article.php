@@ -18,6 +18,15 @@
         <p>
             <?= $article->text ?>
         </p>
+       
+            <p>
+            <? foreach ($tags_list as $current_tag): ?>
+                
+                <a <?echo 'href="/tag/'.$current_tag.'"'; ?> ><span class="technic"><?= $current_tag; ?></span></a>
+                
+            <? endforeach; ?>
+            </p>
+       
 
         <h3>Комментарии</h3>
         <?
