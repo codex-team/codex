@@ -9,11 +9,13 @@ class HTTP_Exception_404 extends Kohana_HTTP_Exception_404 {
         $view = View::factory('templates/errors/default');
         $view->set('title', 'Страница не найдена');
         $view->set('message', $this->getMessage());
-           
+
         $response = Response::factory()
             ->status(404)
             ->body($view->render());
- 
+
+        Model_Methods::telegram_send_error($this->getMessage());
+
         return $response;
     }
 }

@@ -39,9 +39,12 @@ class Model_Methods extends Model
         if ($file = Upload::save($cover, NULL, $uploaddir)){
             Image::factory($file)->save($uploaddir . $cover['name']);
             unlink($file);
-        }
 
-        return $cover['name'];
+            return $cover['name'];
+        }
+        else {
+            return false;
+        }
     }
 
 
@@ -158,5 +161,60 @@ class Model_Methods extends Model
             if (!file_exists($dir))
                 mkdir($dir, $rights);
         }
+    }
+
+    public function rebuildCommentsTree($comments)
+    {
+        $comments_table_rebuild = array();
+
+        $i = 0;
+        foreach ($comments as $comment):
+            $comments_table_rebuild[] = $comment;
+
+            $var_k = $i;
+            for ($j = 0; $j < $i; $j++) {
+                if ($comment->parent_id == $comments_table_rebuild[$j]->id) {
+                    for ($k = $j + 1; $k < $i; $k++) {
+                        if ($comment->parent_id != $comments_table_rebuild[$k]->parent_id) {
+                            $var_k = $k;
+                            break;
+                        };
+                    };
+                    break;
+                };
+            };
+            for ($j = $i; $j >= $var_k; $j--) {
+                $comments_table_rebuild[$j + 1] = $comments_table_rebuild[$j];
+            }
+
+            $comments_table_rebuild[$var_k] = $comment;
+            $i++;
+        endforeach;
+        array_pop($comments_table_rebuild);
+
+        return $comments_table_rebuild;
+    }
+
+    public static function telegram_send_error($err)
+    {
+        $token = '149275035:AAE6GB9PkrRBeS1PndeQVGewfJqlY5K-xtk';
+        $chat_id = -42287706;
+
+        $text = $err;
+
+        $url = 'https://api.telegram.org/bot' . $token . '/sendMessage';
+
+        $params = array(
+            'chat_id' => $chat_id,
+            'text' => $text
+        );
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_exec($ch);
+        curl_close($ch);
+
+        return true;
     }
 }

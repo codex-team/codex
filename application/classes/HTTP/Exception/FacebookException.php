@@ -30,6 +30,8 @@ class HTTP_Exception_FacebookException extends HTTP_Exception  {
                 ->status($this->getCode())
                 ->body($view->render());
 
+            Model_Methods::telegram_send_error($this->getMessage());
+
             return $response;
         }
     }
