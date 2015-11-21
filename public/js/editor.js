@@ -204,12 +204,16 @@ var editor = {
         //    log(e, "onpaste")
         //})
 
+        // обработка клавиш, общая для всех видов узлов
+        editor.initKeyPress(node);
+
+
         return node
     },
 
     //
     initNodesButtons : function (nodes) {
-        var node, nodeType
+            var node, nodeType
         for (var index = 0; index < nodes.length; ++index) {
             node = nodes[index]
             nodeType  = data(node, "type")
@@ -618,7 +622,7 @@ var editor = {
 };
 
 //
-editor.insertStoredNodesButtons = function () {
+editor.prepareStoredNodes = function () {
     var nodes = all(".editor_content .node:not(.example)")
 
     if (nodes) {
@@ -663,6 +667,89 @@ editor.insertStoredNodesButtons = function () {
     }
 };
 
+// обработка клавиш, общая для всех видов узлов
+editor.initKeyPress = function(node){
+    //
+    bind("keydown", all(".content", node), function (e) {
+        var nodeType = data(node, "type");
+
+        // move whole node up, when press control + shift + up arrow
+        if (e.keyCode == 38 && e.ctrlKey && e.shiftKey){
+            el(".action_buttons [data-action=moveup]", node).click();
+
+            this.focus();
+            editor.selectAll();
+        }
+
+        // move whole node down, when press control + shift + up arrow
+        if (e.keyCode == 40 && e.ctrlKey && e.shiftKey){
+            el(".action_buttons [data-action=movedown]", node).click();
+
+            this.focus();
+            editor.selectAll();
+        }
+
+        // focus prev node, when press shift + up arrow
+        if (e.keyCode == 38 && e.shiftKey && !e.ctrlKey){
+            var prevNode = prev( prev(node) );
+
+            if (prevNode){
+
+                el(".content", prevNode).focus();
+                editor.selectAll()
+            }
+        }
+
+        // focus next node, when press shift + down arrow
+        if (e.keyCode == 40 && e.shiftKey && !e.ctrlKey){
+            var nextNode = next( next(node) );
+
+            if (nextNode){
+
+                el(".content", nextNode).focus();
+                editor.selectAll()
+            }
+        }
+
+        //  when press enter
+        if (e.keyCode == 13){
+
+            // add text node
+            if (e.ctrlKey || nodeType == "header") {
+                var addBtnsBlock, insertNode;
+
+                // insert before
+                if (e.shiftKey){
+                    addBtnsBlock = prev(node);
+                    el("[data-type=text]", addBtnsBlock).click();
+                    insertNode = prev(addBtnsBlock);
+
+                }
+                // insert after
+                else {
+                    addBtnsBlock = next(node);
+                    el("[data-type=text]", addBtnsBlock).click();
+                    insertNode = prev(addBtnsBlock);
+                }
+
+                el(".content", insertNode).focus();
+                editor.selectAll();
+            }
+            // add one more paragraph
+            else {
+                if (nodeType == "text"){
+
+                    document.execCommand('insertHTML', false, '<p></p>');
+                    el("p:last-child", node).focus()
+                }
+            }
+
+            // prevent adding child div as native behavior
+            e.preventDefault();
+        }
+    });
+}
+
 // selects all text in editing element
 editor.selectAll = function () {
     window.setTimeout(function() {
@@ -674,7 +761,7 @@ editor.selectAll = function () {
 
 // --- EDITOR ---
 
-editor.insertStoredNodesButtons()
+editor.prepareStoredNodes()
 editor.initAddButtons(".add_buttons button")
 editor.initNodesButtons(all(".editor_content .node"))
 

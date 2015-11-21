@@ -129,6 +129,7 @@
     margin: 20px 0;
 }
 .editor_content .node .content{}
+.editor_content .node .content p{min-height: 25px;}
 .editor_content .node .action_buttons{
     border-top: 1px dashed;
     text-align: right;
