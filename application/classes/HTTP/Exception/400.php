@@ -13,6 +13,8 @@ class HTTP_Exception_400 extends Kohana_HTTP_Exception_400 {
         $response = Response::factory()
             ->status(400)
             ->body($view->render());
+
+        Model_Methods::telegram_send_error($this->getMessage());
  
         return $response;
     }

@@ -13,7 +13,9 @@ class HTTP_Exception_403 extends Kohana_HTTP_Exception_403 {
         $response = Response::factory()
             ->status(403)
             ->body($view->render());
- 
+
+        Model_Methods::telegram_send_error($this->getMessage());
+
         return $response;
     }
 }
