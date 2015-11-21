@@ -74,7 +74,7 @@
                       </div>
                   </div>
 
-                  <div class="node hidden example" data-type="img">
+                  <div class="node hidden example" data-type="img" data-focusable="false">
                       <div class="setting_buttons">
                           <label>URL адрес картинки:</label>
                           <input type="text" class="img_from_url" value="dummyimage.com/500x300/6091C8/575757.png&text=Hello+from+url1">

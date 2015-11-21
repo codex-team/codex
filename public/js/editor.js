@@ -10,12 +10,38 @@ var c = {
 };
 
 all = function (selector, context) {
-    //debugger
+    var res;
+
     if (!isDefined(context)) {
         context = document
     }
-    return context.querySelectorAll(selector)
+
+    if (isArray(context) || isNodeList(context)) {
+        var nodeList;
+        res = [];
+
+        for (var index = 0; index < context.length; index++) {
+            nodeList = all(selector, context[index]);
+            res      = res.concat( nodeListToArray(nodeList) )
+        }
+
+    } else {
+        res = context.querySelectorAll(selector);
+    }
+
+    return res;
 }
+
+nodeListToArray = function (nodeLsit) {
+    var res = [];
+
+    for (var index = 0; index < nodeLsit.length; index++) {
+        res.push(nodeLsit.item(index))
+    }
+
+    return res;
+}
+
 el = function (selector, context) {
     return all(selector, context)[0]
 }
@@ -32,6 +58,18 @@ isDefined = function(obj){
 
 isString = function(obj){
     return typeof obj == "string"
+}
+
+isString = function(obj){
+    return typeof obj == "string"
+}
+
+isArray = function(obj){
+    return obj instanceof Array
+}
+
+isNodeList = function(obj){
+    return obj.toString() == "[object NodeList]"
 }
 
 after = function(relObj, newObj){
@@ -205,7 +243,7 @@ var editor = {
         //})
 
         // обработка клавиш, общая для всех видов узлов
-        editor.initKeyPress(node);
+        editor.initNodesKeys(node);
 
 
         return node
@@ -369,8 +407,8 @@ var editor = {
             bind("keydown", liElements, function (e) {
                 var prevEl, nextEl;
 
-                // move up, when press shift + up arrow
-                if (e.keyCode == 38 && e.shiftKey){
+                // move up, when press ctrlKey + up arrow
+                if (e.keyCode == 38 && e.ctrlKey && !e.shiftKey){
                     prevEl = prev(this);
 
                     if (prevEl){
@@ -380,8 +418,8 @@ var editor = {
                     }
                 }
 
-                // move down, when press shift + down arrow
-                if (e.keyCode == 40 && e.shiftKey){
+                // move down, when press ctrlKey + down arrow
+                if (e.keyCode == 40 && e.ctrlKey && !e.shiftKey){
                     nextEl = next(this);
 
                     if (nextEl){
@@ -392,7 +430,7 @@ var editor = {
                 }
 
                 // when press up arrow
-                if (e.keyCode == 38 && !e.shiftKey){
+                if (e.keyCode == 38 && !e.ctrlKey && !e.shiftKey){
                     prevEl = prev(this);
 
                     if (prevEl){
@@ -402,7 +440,7 @@ var editor = {
                 }
 
                 // when press down arrow
-                if (e.keyCode == 40 && !e.shiftKey){
+                if (e.keyCode == 40 && !e.ctrlKey && !e.shiftKey){
                     nextEl = next(this);
 
                     if (nextEl){
@@ -439,7 +477,7 @@ var editor = {
                 }
 
                 // when press enter
-                if (e.keyCode == 13){
+                if (e.keyCode == 13 && !e.ctrlKey){
                     var newLi = this.cloneNode();
 
                     // add new li
@@ -668,52 +706,48 @@ editor.prepareStoredNodes = function () {
 };
 
 // обработка клавиш, общая для всех видов узлов
-editor.initKeyPress = function(node){
-    //
-    bind("keydown", all(".content", node), function (e) {
-        var nodeType = data(node, "type");
+editor.initNodesKeys = function(nodes){
+    bind("keydown", all(".content", nodes), function (e) {
+        var node     = this.parentNode,
+            nodeType = data(node, "type"),
+            nextNode = editor.getNextNode(node),
+            prevNode = editor.getPrevNode(node),
+            nextFocusableNode = editor.getNexFocusabletNode(node),
+            prevFocusableNode = editor.getPrevFocusableNode(node);
 
         // move whole node up, when press control + shift + up arrow
         if (e.keyCode == 38 && e.ctrlKey && e.shiftKey){
-            el(".action_buttons [data-action=moveup]", node).click();
-
-            this.focus();
-            editor.selectAll();
+            if (prevNode){
+                el(".action_buttons [data-action=moveup]", node).click();
+                editor.focusNode(node);
+            }
         }
 
         // move whole node down, when press control + shift + up arrow
         if (e.keyCode == 40 && e.ctrlKey && e.shiftKey){
-            el(".action_buttons [data-action=movedown]", node).click();
-
-            this.focus();
-            editor.selectAll();
+            if (nextNode){
+                el(".action_buttons [data-action=movedown]", node).click();
+                editor.focusNode(node);
+            }
         }
 
         // focus prev node, when press shift + up arrow
         if (e.keyCode == 38 && e.shiftKey && !e.ctrlKey){
-            var prevNode = prev( prev(node) );
 
-            if (prevNode){
-
-                el(".content", prevNode).focus();
-                editor.selectAll()
+            if (prevFocusableNode){
+                editor.focusNode(prevFocusableNode);
             }
         }
 
         // focus next node, when press shift + down arrow
         if (e.keyCode == 40 && e.shiftKey && !e.ctrlKey){
-            var nextNode = next( next(node) );
-
-            if (nextNode){
-
-                el(".content", nextNode).focus();
-                editor.selectAll()
+            if (nextFocusableNode){
+                editor.focusNode(nextFocusableNode);
             }
         }
 
         //  when press enter
         if (e.keyCode == 13){
-
             // add text node
             if (e.ctrlKey || nodeType == "header") {
                 var addBtnsBlock, insertNode;
@@ -723,7 +757,6 @@ editor.initKeyPress = function(node){
                     addBtnsBlock = prev(node);
                     el("[data-type=text]", addBtnsBlock).click();
                     insertNode = prev(addBtnsBlock);
-
                 }
                 // insert after
                 else {
@@ -732,15 +765,14 @@ editor.initKeyPress = function(node){
                     insertNode = prev(addBtnsBlock);
                 }
 
-                el(".content", insertNode).focus();
-                editor.selectAll();
+                editor.focusNode(insertNode);
             }
             // add one more paragraph
             else {
                 if (nodeType == "text"){
 
                     document.execCommand('insertHTML', false, '<p></p>');
-                    el("p:last-child", node).focus()
+                    editor.focusNode(node, false);
                 }
             }
 
@@ -750,6 +782,54 @@ editor.initKeyPress = function(node){
     });
 }
 
+editor.getNextNode = function (node) {
+    return next( next(node) );
+};
+
+editor.getPrevNode = function (node) {
+    return prev( prev(node) );
+};
+
+
+// img, video and etc nodes - are not fucusable
+editor.getNexFocusabletNode = function (node) {
+    var nextNode = editor.getNextNode(node);
+//debugger
+    if (nextNode){
+       if (data(nextNode, "focusable") == "false")
+            return editor.getNexFocusabletNode(nextNode);
+        else
+            return nextNode;
+    }
+};
+
+// get prev node with the right type
+editor.getPrevFocusableNode = function (node) {
+    var prevNode = editor.getPrevNode(node);
+
+    if (prevNode && !hasClass(prevNode, "example")) {
+        if (data(prevNode, "focusable") == "false")
+            return editor.getPrevFocusableNode(prevNode);
+        else
+            return prevNode;
+    }
+};
+
+editor.focusNode = function (node, selectAll) {
+    var nodeType = data(node, "type");
+
+    if (nodeType == "text" || nodeType == "header"){
+        el(".content", node).focus();
+    }
+
+    if (nodeType == "list"){
+        el(".content li:first-child", node).focus();
+    }
+
+    if (!isDefined(selectAll) || selectAll)
+        editor.selectAll();
+};
+
 // selects all text in editing element
 editor.selectAll = function () {
     window.setTimeout(function() {
@@ -757,14 +837,19 @@ editor.selectAll = function () {
     }, 1);
 };
 
-
+//
+editor.init = function () {
+    editor.prepareStoredNodes()
+    editor.initAddButtons(all(".add_buttons button"))
+    editor.initNodesButtons(all(".editor_content .node"))
+    // обработка клавиш, общая для всех видов узлов
+    editor.initNodesKeys(all(".editor_content .node"));
+};
 
 // --- EDITOR ---
 
-editor.prepareStoredNodes()
-editor.initAddButtons(".add_buttons button")
-editor.initNodesButtons(all(".editor_content .node"))
+editor.init();
 
 //click(all("#btn_save"), editor.save)
-click(all("#blankSendButton"), editor.save)
+click(all("#blankSendButton"), editor.save);
 
