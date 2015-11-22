@@ -5,12 +5,11 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
     public function action_showAllArticles()
     {
-        $this->view["articles"] = Model_Article::getActiveArticles();
+        $this->title = "Статьи команды CodeX";
+        $this->description = "Здесь собраны заметки о нашем опыте и исследованиях в области веб-разработки, дизайна, маркетинга и организации рабочих процессов";
 
-        $content = View::factory('templates/articles/list', $this->view);
-
-        $this->template->content = View::factory("templates/articles/wrapper",
-                array("active" => "allArticles", "content" => $content));
+        $this->view["articles"]  = Model_Article::getActiveArticles();
+        $this->template->content = View::factory('templates/articles/list', $this->view);
     }
 
     public function action_showArticle()
@@ -30,18 +29,12 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
         $this->view["comments"] = $comments_table_rebuild;
 
-        $content = View::factory('templates/articles/article', $this->view);
-
-        $this->template->content = View::factory("templates/articles/wrapper",
-            array("active" => "", "content" => $content));
+        $this->template->content = View::factory('templates/articles/article', $this->view);
     }
 
     public function action_newArticle()
     {
-        $content = View::factory('templates/articles/new', $this->view);
-
-        $this->template->content = View::factory("templates/articles/wrapper",
-            array("active" => "newArticle", "content" => $content));
+        $this->template->content = View::factory('templates/articles/new', $this->view);
     }
 
 }
