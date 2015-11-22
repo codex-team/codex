@@ -4,6 +4,11 @@
 
 // --- COMMON FUNCTIONS ---
 
+// 'c' from 'codex' - micro framework
+var c = {
+
+};
+
 all = function (selector, context) {
     //debugger
     if (!isDefined(context)) {
@@ -30,15 +35,25 @@ isString = function(obj){
 }
 
 after = function(relObj, newObj){
+    var nextEl = next(relObj);
 
+    if (nextEl)
+        before(nextEl, newObj)
+    else
+        append(relObj, newObj)
 }
 
 before = function(relObj, newObj){
     relObj.parentNode.insertBefore(newObj, relObj)
 }
 
-replace = function(oldObj, newObj){
+append = function(relObj, newObj){
+    relObj.parentNode.appendChild(newObj)
+}
 
+replace = function(oldObj, newObj){
+    before(oldObj, newObj)
+    return remove(oldObj)
 }
 
 prev = function(obj){
@@ -50,7 +65,7 @@ next = function(obj){
 }
 
 remove = function(obj){
-    obj.parentNode.removeChild(obj)
+    return obj.parentNode.removeChild(obj)
 }
 
 data = function(obj, field, value) {
@@ -76,6 +91,12 @@ removeAttr = function(obj, field) {
     obj.removeAttribute(field)
 }
 
+removeAttrAll = function (collection, field) {
+    for (var index = 0; index < collection.length; index++) {
+        removeAttr(collection[index], field)
+    }
+}
+
 addClass = function(obj, className) {
     obj.classList.add(className)
 }
@@ -87,6 +108,10 @@ removeClass = function(obj, className) {
 hasClass = function(obj, className) {
     return obj.classList.contains(className)
 }
+
+c.create = function (tagName) {
+    return document.createElement(tagName)
+};
 
 function collectionHtml(collection){
     var str = ""
@@ -117,6 +142,8 @@ click = function(selector, func){
 change = function(selector, func){
     bind("change", selector, func)
 }
+
+
 
 function each (collection, callback){
     if (!callback)
@@ -160,6 +187,8 @@ var editor = {
             before(buttonsNode, newEditorNode)
 
             editor.initAddButtons(all(".add_buttons button", cloneButtonsNode))
+
+            e.preventDefault()
         })
     },
     //
@@ -170,8 +199,14 @@ var editor = {
         removeClass(node, "example")
         editor.initNodesButtons([node])
 
+        // todo clear pasted data
+        //bind("copy", all("[contenteditable=true]", node), function (e) {
+        //    log(e, "onpaste")
+        //})
+
         return node
     },
+
     //
     initNodesButtons : function (nodes) {
         var node, nodeType
@@ -179,38 +214,51 @@ var editor = {
             node = nodes[index]
             nodeType  = data(node, "type")
 
-            // todo init common buttons
+            // init common buttons
             editor.initCommonButtons(node)
 
             if (nodeType == "img"){
                 editor.initImgNodeButtons(node)
             }
+
+            if (nodeType == "header"){
+                editor.initHeaderNodeButtons(node)
+            }
+
+            if (nodeType == "list"){ // todo || orderlist
+                editor.initListNodeButtons(node)
+            }
         }
     },
-    // move and remove buttons
+
+    // init move and remove buttons
     initCommonButtons : function (node) {
         // remove
-        click(all("button[data-action=remove]", node), function () {
+        click(all("button[data-action=remove]", node), function (e) {
             // 4 first remove add buttons before block
             remove(prev(this.parentNode.parentNode))
             // and after remove content node
             remove(this.parentNode.parentNode)
-        })
+
+            e.preventDefault()
+        });
 
         // move up
-        click(all("button[data-action=moveup]", node), function () {
-            var editor_node = this.parentNode.parentNode
-            var add_buttons = next(editor_node)
-            var prev_editor_node = prev( prev(editor_node) )
+        click(all("button[data-action=moveup]", node), function (e) {
+            var editor_node = this.parentNode.parentNode;
+            var add_buttons = next(editor_node);
+            var prev_editor_node = prev( prev(editor_node) );
 
-            if (hasClass(prev_editor_node, "node")){
-                before(prev_editor_node, editor_node)
-                before(add_buttons, prev_editor_node)
+            if (hasClass(prev_editor_node, "node") && !hasClass(prev_editor_node, "example")){
+                before(prev_editor_node, editor_node);
+                before(add_buttons, prev_editor_node);
             }
-        })
+
+            e.preventDefault()
+        });
 
         // move down
-        click(all("button[data-action=movedown]", node), function () {
+        click(all("button[data-action=movedown]", node), function (e) {
             var editor_node = this.parentNode.parentNode
             var next_editor_node = next( next(editor_node) )
             var add_buttons = next(next_editor_node)
@@ -220,9 +268,12 @@ var editor = {
                 before(editor_node, next_editor_node)
                 before(add_buttons, editor_node)
             }
+
+            e.preventDefault()
         })
 
     },
+
     //
     setImgFromUrl : function(node, url){
         // todo check for correct url
@@ -240,7 +291,8 @@ var editor = {
             addClass(el(".delete_img", node), "hidden")
         }
     },
-    //
+
+    // подготовка узла с картинкой
     initImgNodeButtons : function (node) {
         // rename file input
         fileInputName = attr(el("[type=file]", node), "name")
@@ -293,13 +345,106 @@ var editor = {
         })
     },
 
+    // подготовка узла с заголовоком
+    initHeaderNodeButtons : function (node) {
+        // change header type btn
+        click(all(".setting_buttons button", node), function (e) {
+            var type = data(this, "type"),
+                curHeader = el(".js_header", node);
+
+            var newHeader = c.create(type);
+            newHeader.textContent = curHeader.textContent;
+            newHeader.classList.add(curHeader.classList);
+
+            replace(curHeader, newHeader)
+
+            e.preventDefault()
+        })
+    },
+
+    // подготовка узла со списком
+    initListNodeButtons : function (node) {
+        // process key events
+        var onLiKeyPres = function (liElements) {
+            bind("keydown", liElements, function (e) {
+                var prevEl, nextEl;
+
+                // when press up arrow
+                if (e.keyCode == 38){
+                    prevEl = prev(this);
+
+                    if (prevEl){
+                        prevEl.focus();
+                        editor.selectAll()
+                    }
+                }
+
+                // when press down arrow
+                if (e.keyCode == 40){
+                    nextEl = next(this);
+
+                    if (nextEl){
+                        nextEl.focus();
+                        editor.selectAll()
+                    }
+                }
+
+                // when press backspace
+                if (e.keyCode == 8){
+                    prevEl = prev(this);
+
+                    if (prevEl && !this.textContent){
+                        remove(this);
+                        prevEl.focus();
+                        editor.selectAll()
+                    }
+                }
+
+                // when press delete
+                if (e.keyCode == 46){
+                    nextEl = next(this);
+
+                    if (nextEl && !this.textContent){
+                        remove(this);
+                        nextEl.focus();
+                        editor.selectAll();
+
+                        // fix removing first word in next li
+                        e.preventDefault()
+                    }
+
+
+                }
+
+                // when press enter
+                if (e.keyCode == 13){
+                    var newLi = this.cloneNode();
+
+                    // add new li
+                    if (e.shiftKey)
+                        before(this, newLi);
+                    else
+                        after(this, newLi);
+
+                    newLi.focus();
+                    onLiKeyPres( [newLi] );
+
+                    // prevent adding child div as native behavior
+                    e.preventDefault()
+                }
+            })
+        }
+
+        // init exists li
+        onLiKeyPres( all(".content li", node) );
+    },
+
     // - editor save functions -
 
     save : function () {
             log("saving...")
         //заблокировать редактор
-        el("#btn_save").textContent = "Подготовка к сохранению..."
-        attr(el("#btn_save"), "disabled", "disabled")
+        editor.disableEditor()
 
         //
         //получить все блоки с контентом
@@ -320,6 +465,9 @@ var editor = {
             if (action_buttons) remove(action_buttons)
             removeAttr(el(".content", cloneNode), "contenteditable")
 
+            // remove contenteditable from all child elements
+            removeAttrAll(all("[contenteditable]", cloneNode), "contenteditable")
+
             cloneNodes.push(cloneNode)
         })
         log(cloneNodes, "cloneNodes")
@@ -329,6 +477,50 @@ var editor = {
         editor.uploadImagesFromQueue()
 
     },
+
+    // блокируем редактор на время сохранения
+    disableEditor : function () {
+        //editor.saveBtnText = el("#btn_save").textContent
+        //
+        //el("#btn_save").textContent = "Подготовка к сохранению..."
+        //attr(el("#btn_save"), "disabled", "disabled")
+
+        // todo remove temp dubling
+        editor.saveBtnText = el("#blankSendButton").textContent
+        el("#blankSendButton").textContent = "Подготовка к сохранению..."
+        attr(el("#blankSendButton"), "disabled", "disabled")
+
+    },
+
+    // разблокируем редактор после сохранения
+    enableEditor : function () {
+        //el(("#btn_save")).textContent = "Готово!"
+        //
+        //// friendly mode :)
+        //setTimeout(function() {
+        //    el(("#btn_save")).textContent = "Сохранить"
+        //    removeAttr(el("#btn_save"), "disabled")
+        //}, 750);
+
+
+        // todo remove temp dubling
+        el(("#blankSendButton")).textContent = "Готово!"
+
+        // friendly mode :)
+        setTimeout(function() {
+            el(("#blankSendButton")).textContent = editor.saveBtnText
+            removeAttr(el("#blankSendButton"), "disabled")
+        }, 750);
+    },
+
+    // выгрузить окончательный html в инпут для загрузки на сервер
+    outHtml : function () {
+        el("#html_result").innerHTML = collectionHtml(editor.cloneNodes)
+
+        // todo remove temp dubling
+        //el("#blankCommentTextarea").innerHTML = collectionHtml(editor.cloneNodes)
+    },
+
     // save img and replace img tag src
     //imgOriginNode - исходный блок редактора, нужен тк в клоне к этому моменту уже нет блоков с настройками
     addImgToUploadQueue : function (imgCloneNode, imgOriginNode) {
@@ -359,23 +551,18 @@ var editor = {
     cloneNodes     : [],
     //
     uploadImagesFromQueue : function () {
-        //debugger
         if (uploadParams = editor.imgUploadQueue.pop())
             editor.uploadImagesFromQueueStep(uploadParams)
         else {
-
             // выгрузить окончательный html в инпут для загрузки на сервер
-            el("#html_result").innerHTML = collectionHtml(editor.cloneNodes)
-            //
+            editor.outHtml()
+
             //разблокировать редактор
-            el(("#btn_save")).textContent = "Готово!"
+            editor.enableEditor()
 
-            // friendly mode :)
-            setTimeout(function() {
-                el(("#btn_save")).textContent = "Сохранить"
-                removeAttr(el("#btn_save"), "disabled")
-            }, 750);
-
+            var form = el("#edit_article_form")
+            if (form)
+                form.submit()
         }
     },
     uploadImagesFromQueueStep : function (uploadParams) {
@@ -409,7 +596,23 @@ var editor = {
         xhr.send(formData);  // multipart/form-data
 
     }
-}
+};
+
+//
+editor.restoreContent = function () {
+    //.stored_content
+    window.setTimeout(function() {
+        document.execCommand('selectAll', false, null)
+    }, 1);
+};
+
+// selects all text in editing element
+editor.selectAll = function () {
+    window.setTimeout(function() {
+        document.execCommand('selectAll', false, null)
+    }, 1);
+};
+
 
 
 // --- EDITOR ---
@@ -417,4 +620,6 @@ var editor = {
 editor.initAddButtons(".add_buttons button")
 editor.initNodesButtons(all(".editor_content .node"))
 
-click(all("#btn_save"), editor.save)
+//click(all("#btn_save"), editor.save)
+click(all("#blankSendButton"), editor.save)
+

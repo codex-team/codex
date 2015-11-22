@@ -29,7 +29,7 @@ Route::set('TASK_PAGE', 'task/<who>', array('who' => $STRING))->defaults(array(
     'action' => 'whoSet',
 ));
 
-Route::set('ARTICLE_LIST', 'article')->defaults(array(
+Route::set('ARTICLE_LIST', 'articles')->defaults(array(
     'controller' => 'articles_index',
     'action' => 'showAllArticles',
 ));
@@ -60,10 +60,10 @@ Route::set('DEL_ARTICLE_SCRIPT', 'article/delarticle/<article_id>', array('artic
 
 // Scripts for users
 
-Route::set('USER_PAGE', 'user/<action>(/<user_id>)', array('user_id' => $DIGIT, 'action' => $STRING))->defaults(array(
-    'controller' => 'users_index',
-    'action' => 'action'
-));
+// Route::set('USER_PAGE', 'user/<action>(/<user_id>)', array('user_id' => $DIGIT, 'action' => $STRING))->defaults(array(
+//     'controller' => 'users_index',
+//     'action' => 'action'
+// ));
 
 Route::set('USER_PAGE', 'user(/<user_id>)', array('user_id' => $DIGIT))->defaults(array(
 
@@ -135,10 +135,19 @@ Route::set('ADMIN_DEL_USER', 'admin/users/<user_id>/deluser', array('user_id' =>
 
 // - viz redaktor -
 
-Route::set('ARTICLE_EDITOR', 'editor', array())->defaults(array(
-    'controller' => 'articles_edit',
-    'action' => 'showNewEditor'
+
+
+Route::set('EDITOR_LANDING', 'editor', array())->defaults(array(
+    'controller' => 'editor',
+    'action' => 'landing'
 ));
+
+
+/** Sorry, Mark, I need this route. */
+// Route::set('ARTICLE_EDITOR', 'editor', array())->defaults(array(
+//     'controller' => 'articles_edit',
+//     'action' => 'showNewEditor'
+// ));
 Route::set('ARTICLE_EDITOR_SAVE_IMG_FROM_FILE', 'saveimgfile', array())->defaults(array(
     'controller' => 'articles_edit',
     'action' => 'saveImgFromFile'

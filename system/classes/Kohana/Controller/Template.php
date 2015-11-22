@@ -21,7 +21,8 @@ abstract class Kohana_Controller_Template extends Controller {
 	public $auto_render = TRUE;
 
 	public $url         = NULL;
-	public $title       = '';
+    public $title       = '';
+	public $description = '';
 
 
 	/**

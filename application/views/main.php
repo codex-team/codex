@@ -24,21 +24,66 @@
 
     <link rel="stylesheet" href="/public/css/normalize.css">
     <link rel="stylesheet" href="/public/css/main.css?v=<?= filemtime("public/css/main.css") ?>">
+    <? /*
     <link rel="stylesheet" href="/public/css/articles.css?v=<?= filemtime("public/css/articles.css") ?>">
     <link rel="stylesheet" href="/public/css/admin.css?v=<?= filemtime("public/css/admin.css") ?>">
     <link rel="stylesheet" href="/public/css/editor.css?v=<?= filemtime("public/css/editor.css") ?>">
-    <link rel="icon" type="image/png" href="/public/img/fav_round.png?v=994" id="favicon" />
+    */ ?>
+    <link rel="icon" type="image/png" href="/public/img/fav_shield@3x.png?v=985" id="favicon" />
 
     <meta id="metaImage" name="image" property="og:image"  content="https://ifmo.su/img/meta_img.png" />
     <link id="linkImage" rel="image_src" href="https://ifmo.su/img/meta_img.png" />
 
 </head>
-<body <? if ($_SERVER['REQUEST_URI'] == '/') {echo 'class="black_land"';}; ?>>
+<body>
 
-    <?= $header ?>
+    <header class="site_header">
+        <div class="center_side clearfix">
+            <? if ($user->id): ?>
+                <a class="profile fl_r" href="/user/<?= $user->id ?>">
+                    <span class="ava"><img src="<?= $user->photo_small ?>" alt="<?= $user->name ?>" /></span>
+                    <span class="text">Profile</span>
+                </a>
+            <? else: ?>
+                <a class="icon_link login fl_r" href="/auth/github">
+                    <i class="icon-github-circled"></i><span class="text">login</span>
+                </a>
+            <? endif ?>
+            <div class="site_menu fl_l">
+                <a href="/">CodeX</a>
+                <a href="/join">Join team</a>
+                <a href="/articles">Exp</a>
+            </div>
+            <div class="social_buttons">
+                <a class="icon_link social" href="//vk.com/codex_team" target="_blank"><i class="icon-vkontakte"></i></a>
+            </div>
+        </div>
+    </header>
 
-    <? /** Template content */ ?>
     <?= $content ?>
+
+    <footer class="site_footer">
+        <div class="center_side clearfix">
+            <section class="fl_l codex_desc">
+                <h5>CodeX</h5>
+                <p>Клуб веб-разработки, дизайна и маркетинга. Мы строим команду молодых специалистов, способную создавать полноценные проекты в интернете на мировом уровне.</p>
+            </section>
+            <section class="fl_r">
+                <h5>Подписывайтесь</h5>
+                <ul>
+                    <li><a href="//vk.com/codex_team" target="_blank"><i class="icon-vkontakte"></i> <u>ВКонтакте</u></a></li>
+                    <li><a href="" target="_blank"><i class="icon-instagram"></i> <u>Instagram</u></a></li>
+                </ul>
+            </section>
+            <section class="fl_l">
+                <h5>Связаться с командой</h5>
+                <ul>
+                    <li><a href="mailto:team@ifmo.su?Subject=CodeX%20Team"><u>team@ifmo.su</u></a></li>
+                    <li><a href="mailto:specc.dev@gmail.com?Subject=CodeX%20Team"><u>specc.dev@gmail.com</u></a> <span class="desclimer">— Савченко Петр</span></li>
+                </ul>
+            </section>
+        </div>
+    </footer>
 
     <script src="/public/js/main.js?v=<?= filemtime("public/js/main.js") ?>"></script>
     <script src="/public/js/editor.js?v=<?= filemtime("public/js/editor.js") ?>"></script>
