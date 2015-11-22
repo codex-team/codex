@@ -108,17 +108,17 @@ Route::set('ADMIN_ARTICLE_LIST', 'admin/article')->defaults(array(
     'action' => 'showAllArticles',
 ));
 
-Route::set('ADMIN_DEL_ARTICLE', 'admin/article/delarticle/<article_id>', array('article_id' => $DIGIT))->defaults(array(
+Route::set('ADMIN_DEL_ARTICLE', 'admin/article/<article_id>/delarticle', array('article_id' => $DIGIT))->defaults(array(
     'controller' => 'admin',
     'action' => 'delete'
 ));
 
-Route::set('ADMIN_EDIT_ARTICLE', 'admin/article/editarticle/<article_id>', array('article_id' => $DIGIT))->defaults(array(
+Route::set('ADMIN_EDIT_ARTICLE', 'admin/article/<article_id>/editarticle', array('article_id' => $DIGIT))->defaults(array(
     'controller' => 'admin',
     'action' => 'edit'
 ));
 
-Route::set('ADMIN_UPDATE_ARTICLE', 'admin/article/updatearticle/<article_id>', array('article_id' => $DIGIT))->defaults(array(
+Route::set('ADMIN_UPDATE_ARTICLE', 'admin/article/<article_id>/updatearticle', array('article_id' => $DIGIT))->defaults(array(
     'controller' => 'admin',
     'action' => 'update'
 ));
@@ -128,7 +128,7 @@ Route::set('ADMIN_USERS_LIST', 'admin/users')->defaults(array(
     'action' => 'showAllUsers',
 ));
 
-Route::set('ADMIN_DEL_USER', 'admin/users/deluser/<user_id>', array('user_id' => $DIGIT))->defaults(array(
+Route::set('ADMIN_DEL_USER', 'admin/users/<user_id>/deluser', array('user_id' => $DIGIT))->defaults(array(
     'controller' => 'admin',
     'action' => 'deleteUser',
 ));

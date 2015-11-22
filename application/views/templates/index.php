@@ -16,4 +16,6 @@
         <a href='/auth/github'>Вход Github</a>
     <?php endif; ?>
 
+    <a href="/admin/article" id="panel_link">Панель администратора</a>
+
 </div>
