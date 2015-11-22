@@ -13,12 +13,12 @@
                 <div class="fl_r info">
                     <div class="author clearfix">
                         <div class="ava fl_l">
-                            <img src="<?= Model_User::get($article->user_id)->photo ?>" alt="" />
+                            <img src="<?= $article->author->photo ?>" alt="" />
                         </div>
                         <div class="constrain">
-                            <div class="name"><?= Model_User::get($article->user_id)->name ?></div>
-                            <a class="nick" href="/user/<?= Model_User::get($article->user_id)->id ?>">
-                                @<?= Model_User::get($article->user_id)->github_uri ?>
+                            <div class="name"><?= $article->author->name ?></div>
+                            <a class="nick" href="/user/<?= $article->author->id ?>">
+                                @<?= $article->author->github_uri ?>
                             </a>
                         </div>
                     </div>
@@ -27,9 +27,8 @@
                 <div class="counters">
                     <time class="item"><?= date_format(date_create($article->dt_create), 'd M'); ?></time>
                     <a class="item" href="/article/<?= $article->id ?>">
-                        <? $number_of_comments = count(Model_Comment::getCommentsByArticle($article->id)); ?>
-                        <?= $number_of_comments ?>
-                        Comment<? if ($number_of_comments != 1){ echo 's'; } ?>
+                        <?= $article->commentsCount ?>
+                        Comment<? if ($article->commentsCount != 1){ echo 's'; } ?>
                     </a>
                 </div>
             </article>
