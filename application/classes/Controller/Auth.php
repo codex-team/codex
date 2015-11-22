@@ -114,7 +114,11 @@ class Controller_Auth extends Controller_Base_preDispatch
                 if ($user->is_empty())
                 {
                     $user = new Model_User();
-                    $user->name = $profile->login;
+                    if ($profile->name)
+                        $user->name = $profile->name;
+                    else
+                        $user->name = $profile->login;
+                    
                     $user->github_id = $profile->id;
                     $user->github_uri = $profile->login;
                     $user->photo = $profile->avatar_url;

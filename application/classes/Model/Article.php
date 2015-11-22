@@ -19,6 +19,9 @@ Class Model_Article extends Model
     public $is_removed;
     public $is_published;
 
+    public $author;
+    public $commentsCount;
+
     /**
      * Пустой конструктор для модели статьи, если нужно получить статью из хранилища, нужно пользоваться статическими
      * методами
@@ -75,6 +78,9 @@ Class Model_Article extends Model
             $this->dt_update    = $article_row['dt_update'];
             $this->is_removed   = $article_row['is_removed'];
             $this->is_published = $article_row['is_published'];
+
+            $this->author           = Model_User::get($this->user_id);
+            $this->commentsCount    = Model_Comment::countCommentsByArticle($this->id);
         }
 
         return $this;

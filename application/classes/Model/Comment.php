@@ -134,4 +134,17 @@ Class Model_Comment extends Model
 
         return $comments;
     }
+
+    public static function countCommentsByArticle($article_id)
+    {
+        if (!empty($article_id))
+        {
+            $commentsCount = DB::select()->from('Comments')->where('article_id', '=', $article_id)
+                ->where('is_removed', '=', 0)
+                ->execute()
+                ->count();
+        }
+
+        return $commentsCount;
+    }
 }
