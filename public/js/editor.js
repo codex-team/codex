@@ -76,7 +76,7 @@ cdx.isNodeList = function(obj){
 };
 
 cdx.after = function(relObj, newObj){
-    var nextEl = next(relObj);
+    var nextEl = cdx.next(relObj);
 
     if (nextEl)
         cdx.before(nextEl, newObj);
@@ -95,7 +95,7 @@ cdx.append = function(relObj, newObj){
 cdx.replace = function(oldObj, newObj){
     cdx.before(oldObj, newObj);
 
-    return remove(oldObj);
+    return cdx.remove(oldObj);
 };
 
 cdx.prev = function(obj){
@@ -207,7 +207,7 @@ var editor = {
         cdx.click(buttons, function (e) {
             var buttonsNode      = this.parentNode,
                 cloneButtonsNode = buttonsNode.cloneNode(true),
-                newEditorNode    = editor.createEditorNode(data(this, "type"));
+                newEditorNode    = editor.createEditorNode(cdx.data(this, "type"));
 
             cdx.before(buttonsNode, cloneButtonsNode);
             cdx.before(buttonsNode, newEditorNode);
@@ -220,7 +220,7 @@ var editor = {
 
     //
     createEditorNode : function (type) {
-        var node = el(".editor_content .node[data-type=" + type + "]").cloneNode(true);
+        var node = cdx.el(".editor_content .node[data-type=" + type + "]").cloneNode(true);
 
         cdx.removeClass(node, "hidden");
         cdx.removeClass(node, "example");
@@ -307,80 +307,81 @@ var editor = {
         // todo check for correct url
         // todo check is it img on url
         if (url){
-            url = addhttp(url)
+            url = cdx.addhttp(url);
 
-            var img = el(".img", node)
-            attr(img, "src", editor.loadingImg) // while loading
-            attr(img, "src", url)
-            data(img, "from", "url")
-            removeClass(el(".delete_img", node), "hidden")
+            var img = cdx.el(".img", node);
+            cdx.attr(img, "src", editor.loadingImg) // while loading
+            cdx.attr(img, "src", url);
+            cdx.data(img, "from", "url");
+            cdx.removeClass(cdx.el(".delete_img", node), "hidden");
         } else {
-            attr(el(".img", node), "src", editor.defultImg)
-            addClass(el(".delete_img", node), "hidden")
+            cdx.attr(cdx.el(".img", node), "src", editor.defultImg);
+            cdx.addClass(cdx.el(".delete_img", node), "hidden");
         }
     },
 
     // подготовка узла с картинкой
     initImgNodeButtons : function (node) {
         // show file dialog
-        click(cdx.all(".change_img_btn", node), function () {
-            el(".change_img_input", node).click()
-        })
+        cdx.click(cdx.all(".change_img_btn", node), function () {
+            cdx.el(".change_img_input", node).click();
+        });
 
         // set img from url input
-        change(cdx.all(".img_from_url", node), function () {
-            editor.setImgFromUrl(node, this.value)
-        })
+        cdx.change(cdx.all(".img_from_url", node), function () {
+            editor.setImgFromUrl(node, this.value);
+        });
 
-        bind("keyup", cdx.all(".img_from_url", node), function () {
-            editor.setImgFromUrl(node, this.value)
-        })
+        cdx.bind("keyup", cdx.all(".img_from_url", node), function () {
+            editor.setImgFromUrl(node, this.value);
+        });
 
         // than wrong img url given
-        bind("error", cdx.all(".img", node), function () {
-            attr(el(".img", node), "src", editor.defultImg)
-            addClass(el(".delete_img", node), "hidden")
-            log("error while load img")
-        })
+        cdx.bind("error", cdx.all(".img", node), function () {
+            cdx.attr(cdx.el(".img", node), "src", editor.defultImg);
+            cdx.addClass(cdx.el(".delete_img", node), "hidden");
+            cdx.log("error while load img");
+        });
 
         // set img from file input
-        change(cdx.all(".change_img_input", node), function () {
-            var input = this
+        cdx.change(cdx.all(".change_img_input", node), function () {
+            var input = this;
 
             if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                var img = el(".img", node)
+                var reader = new FileReader(),
+                    img    = cdx.el(".img", node);
 
-                removeClass(el(".delete_img", node), "hidden")
-                attr(img, "src", "/public/img/loading.gif")
-                data(img, "from", "file")
+                cdx.removeClass(cdx.el(".delete_img", node), "hidden");
+                cdx.attr(img, "src", "/public/img/loading.gif");
+                cdx.data(img, "from", "file");
 
                 reader.readAsDataURL(input.files[0]);
+                
                 reader.onload = function (e) {
-                    attr(img, "src", e.target.result)
+                    cdx.attr(img, "src", e.target.result);
                 }
             }
-        })
+        });
 
         // delete img btn
-        click(cdx.all(".delete_img", node), function () {
-            attr(el(".img", node), "src", editor.defultImg)
-            addClass(this, "hidden")
+        cdx.click(cdx.all(".delete_img", node), function () {
+            cdx.attr(cdx.el(".img", node), "src", editor.defultImg);
+            cdx.addClass(this, "hidden");
         })
     },
 
     // подготовка узла с заголовоком
     initHeaderNodeButtons : function (node) {
         // change header type btn
-        click(cdx.all(".setting_buttons button", node), function (e) {
-            var type = data(this, "type"),
-                curHeader = el(".js_header", node);
+        cdx.click(cdx.all(".setting_buttons button", node), function (e) {
+            var type      = cdx.data(this, "type"),
+                curHeader = cdx.el(".js_header", node);
 
             var newHeader = cdx.create(type);
             newHeader.textContent = curHeader.textContent;
             newHeader.classList.add(curHeader.classList);
 
-            replace(curHeader, newHeader)
+            cdx.replace(curHeader, newHeader);
 
             e.preventDefault()
         })
@@ -390,73 +391,73 @@ var editor = {
     initListNodeButtons : function (node) {
         // process key events
         var onLiKeyPres = function (liElements) {
-            bind("keydown", liElements, function (e) {
+            cdx.bind("keydown", liElements, function (e) {
                 var prevEl, nextEl;
 
                 // move up, when press ctrlKey + up arrow
                 if (e.keyCode == 38 && e.ctrlKey && !e.shiftKey){
-                    prevEl = prev(this);
+                    prevEl = cdx.prev(this);
 
                     if (prevEl){
-                        after(this, prevEl)
+                        cdx.after(this, prevEl);
                         this.focus();
-                        editor.selectAll()
+                        editor.selectAll();
                     }
                 }
 
                 // move down, when press ctrlKey + down arrow
                 if (e.keyCode == 40 && e.ctrlKey && !e.shiftKey){
-                    nextEl = next(this);
+                    nextEl = cdx.next(this);
 
                     if (nextEl){
-                        before(this, nextEl)
+                        cdx.before(this, nextEl);
                         this.focus();
-                        editor.selectAll()
+                        editor.selectAll();
                     }
                 }
 
                 // when press up arrow
                 if (e.keyCode == 38 && !e.ctrlKey && !e.shiftKey){
-                    prevEl = prev(this);
+                    prevEl = cdx.prev(this);
 
                     if (prevEl){
                         prevEl.focus();
-                        editor.selectAll()
+                        editor.selectAll();
                     }
                 }
 
                 // when press down arrow
                 if (e.keyCode == 40 && !e.ctrlKey && !e.shiftKey){
-                    nextEl = next(this);
+                    nextEl = cdx.next(this);
 
                     if (nextEl){
                         nextEl.focus();
-                        editor.selectAll()
+                        editor.selectAll();
                     }
                 }
 
                 // when press backspace
                 if (e.keyCode == 8){
-                    prevEl = prev(this);
+                    prevEl = cdx.prev(this);
 
                     if (prevEl && !this.textContent){
-                        remove(this);
+                        cdx.remove(this);
                         prevEl.focus();
-                        editor.selectAll()
+                        editor.selectAll();
                     }
                 }
 
                 // when press delete
                 if (e.keyCode == 46){
-                    nextEl = next(this);
+                    nextEl = cdx.next(this);
 
                     if (nextEl && !this.textContent){
-                        remove(this);
+                        cdx.remove(this);
                         nextEl.focus();
                         editor.selectAll();
 
                         // fix removing first word in next li
-                        e.preventDefault()
+                        e.preventDefault();
                     }
 
 
@@ -468,18 +469,18 @@ var editor = {
 
                     // add new li
                     if (e.shiftKey)
-                        before(this, newLi);
+                        cdx.before(this, newLi);
                     else
-                        after(this, newLi);
+                        cdx.after(this, newLi);
 
                     newLi.focus();
                     onLiKeyPres( [newLi] );
 
                     // prevent adding child div as native behavior
-                    e.preventDefault()
+                    e.preventDefault();
                 }
             })
-        }
+        };
 
         // init exists li
         onLiKeyPres( cdx.all(".content li", node) );
@@ -487,55 +488,70 @@ var editor = {
 
     // - editor save functions -
 
-    save : function () {
+    saveStart : function () {
         //log("saving...")
         //заблокировать редактор
-        editor.disableEditor()
+        editor.disableEditor();
 
         //
         //получить все блоки с контентом
-        var originNodes = cdx.all(".editor_content .node:not(.example)")
-        var cloneNodes = []
+        var originNodes = cdx.all(".editor_content .node:not(.example)");
+        var cloneNodes = [];
 
         //выбросить из них упр кнопки
-        each(originNodes, function(node){
-            var cloneNode       = node.cloneNode(true)
-            var nodeType        = data(cloneNode, "type")
-            var setting_buttons = el(".setting_buttons", cloneNode)
-            var action_buttons  = el(".action_buttons", cloneNode)
+        cdx.each(originNodes, function(node){
+            var cloneNode       = node.cloneNode(true),
+                nodeType        = cdx.data(cloneNode, "type"),
+                setting_buttons = cdx.el(".setting_buttons", cloneNode),
+                action_buttons  = cdx.el(".action_buttons", cloneNode);
 
             // save img and replace img tag src
-            if (nodeType == "img") editor.addImgToUploadQueue(cloneNode, node)
+            if (nodeType == "img") editor.addImgToUploadQueue(cloneNode, node);
 
-            if (setting_buttons) remove(setting_buttons)
-            if (action_buttons) remove(action_buttons)
-            removeAttr(el(".content", cloneNode), "contenteditable")
+            if (setting_buttons) cdx.remove(setting_buttons);
+            if (action_buttons)  cdx.remove(action_buttons);
+
+            cdx.removeAttr(cdx.el(".content", cloneNode), "contenteditable");
 
             // remove contenteditable from cdx.all child elements
-            removeAttrAll(cdx.all("[contenteditable]", cloneNode), "contenteditable")
+            cdx.removeAttrAll(cdx.all("[contenteditable]", cloneNode), "contenteditable");
 
-            cloneNodes.push(cloneNode)
-        })
-        //log(cloneNodes, "cloneNodes")
-        editor.cloneNodes = cloneNodes
+            cloneNodes.push(cloneNode);
+        });
+
+        //log(cloneNodes, "cloneNodes");
+        editor.cloneNodes = cloneNodes;
+
         //
+        editor.uploadImagesFromQueue();
 
-        editor.uploadImagesFromQueue()
+    },
 
+    //
+    saveFinish : function () {
+        // выгрузить окончательный html в инпут для загрузки на сервер
+        editor.outHtml();
+
+        //разблокировать редактор
+        editor.enableEditor();
+
+        var form = cdx.el("#edit_article_form");
+
+        if (form)
+            form.submit()
     },
 
     // блокируем редактор на время сохранения
     disableEditor : function () {
-        //editor.saveBtnText = el("#btn_save").textContent
+        //editor.saveBtnText = cdx.el("#btn_save").textContent
         //
         //el("#btn_save").textContent = "Подготовка к сохранению..."
-        //attr(el("#btn_save"), "disabled", "disabled")
+        //attr(cdx.el("#btn_save"), "disabled", "disabled")
 
         // todo remove temp dubling
-        editor.saveBtnText = el("#blankSendButton").textContent
-        el("#blankSendButton").textContent = "Подготовка к сохранению..."
-        attr(el("#blankSendButton"), "disabled", "disabled")
-
+        editor.saveBtnText = cdx.el("#blankSendButton").textContent;
+        cdx.el("#blankSendButton").textContent = "Подготовка к сохранению...";
+        cdx.attr(cdx.el("#blankSendButton"), "disabled", "disabled")
     },
 
     // разблокируем редактор после сохранения
@@ -544,24 +560,24 @@ var editor = {
         //
         //// friendly mode :)
         //setTimeout(function() {
-        //    el(("#btn_save")).textContent = "Сохранить"
-        //    removeAttr(el("#btn_save"), "disabled")
+        //    cdx.el(("#btn_save")).textContent = "Сохранить"
+        //    cdx.removeAttr(cdx.el("#btn_save"), "disabled")
         //}, 750);
 
 
         // todo remove temp dubling
-        el(("#blankSendButton")).textContent = "Готово!"
+        cdx.el(("#blankSendButton")).textContent = "Готово!";
 
         // friendly mode :)
         setTimeout(function() {
-            el(("#blankSendButton")).textContent = editor.saveBtnText
-            removeAttr(el("#blankSendButton"), "disabled")
+            cdx.el(("#blankSendButton")).textContent = editor.saveBtnText;
+            cdx.removeAttr(cdx.el("#blankSendButton"), "disabled")
         }, 750);
     },
 
     // выгрузить окончательный html в инпут для загрузки на сервер
     outHtml : function () {
-        el("#html_result").innerHTML = collectionHtml(editor.cloneNodes)
+        cdx.el("#html_result").innerHTML = cdx.collectionHtml(editor.cloneNodes);
 
         // todo remove temp dubling
         //el("#blankCommentTextarea").innerHTML = collectionHtml(editor.cloneNodes)
@@ -570,17 +586,16 @@ var editor = {
     // save img and replace img tag src
     //imgOriginNode - исходный блок редактора, нужен тк в клоне к этому моменту уже нет блоков с настройками
     addImgToUploadQueue : function (imgCloneNode, imgOriginNode) {
-        var img = el(".img", imgCloneNode)
-        var imgSource = data(img, "from")
-        //log(imgSource)
+        var img       = cdx.el(".img", imgCloneNode),
+            imgSource = cdx.data(img, "from");
 
         // save img from file
         if (imgSource == "file"){
             editor.imgUploadQueue.push({
                 img   : img,
                 from  : "file",
-                input : el("[type=file]", imgOriginNode)
-            })
+                input : cdx.el("[type=file]", imgOriginNode)
+           });
         }
 
         // save img from url
@@ -588,103 +603,102 @@ var editor = {
             editor.imgUploadQueue.push({
                 img   : img,
                 from  : "url",
-                url   : el(".img_from_url", imgOriginNode).value
-            })
+                url   : cdx.el(".img_from_url", imgOriginNode).value
+            });
         }
     },
+
     //
     imgUploadQueue : [],
     cloneNodes     : [],
+
     //
     uploadImagesFromQueue : function () {
+        var uploadParams;
+
         if (uploadParams = editor.imgUploadQueue.pop())
-            editor.uploadImagesFromQueueStep(uploadParams)
+            editor.uploadImagesFromQueueStep(uploadParams);
         else {
-            // выгрузить окончательный html в инпут для загрузки на сервер
-            editor.outHtml()
-
-            //разблокировать редактор
-            editor.enableEditor()
-
-            var form = el("#edit_article_form")
-            if (form)
-                form.submit()
+            editor.saveFinish();
         }
     },
     uploadImagesFromQueueStep : function (uploadParams) {
         // todo legacy support, ie <= 9
-        formData = new FormData();
+        var formData = new FormData(),
+            xhr      = new XMLHttpRequest();
 
         //log(uploadParams, 'uploadParams')
 
-        var xhr = new XMLHttpRequest();
-
         if (uploadParams.from == "file"){
-            formData.append("EDITOR_IMG", uploadParams.input.files[0])
+            formData.append("EDITOR_IMG", uploadParams.input.files[0]);
             xhr.open('POST', "/saveimgfile", true);
         }
+
         if (uploadParams.from == "url"){
-            formData.append("url", addhttp(uploadParams.url))
+            formData.append("url", cdx.addhttp(uploadParams.url));
             xhr.open('POST', "/saveimgurl", true);
         }
 
         xhr.onload = function(e) {
-             console.log("answer", e.currentTarget.responseText)
+             //console.log("answer", e.currentTarget.responseText);
+
             if (xhr.readyState == 4 && xhr.status == 200) {
-                attr(uploadParams.img, "src", e.currentTarget.responseText)
-                data(uploadParams.img, "from", "cache")
+                cdx.attr(uploadParams.img, "src", e.currentTarget.responseText);
+                cdx.data(uploadParams.img, "from", "cache");
 
                 // запускаем следующий файл на загрузку
-                editor.uploadImagesFromQueue()
+                editor.uploadImagesFromQueue();
             } else
-                console.log("Error while ajax request:", xhr, e.currentTarget.responseText)
-        }
+                console.log("Error while ajax request:", xhr, e.currentTarget.responseText);
+        };
 
-        xhr.send(formData);  // multipart/form-data
-
+        // send request
+        xhr.send(formData);
     }
 };
 
 //
 editor.prepareStoredNodes = function () {
-    var nodes = cdx.all(".editor_content .node:not(.example)")
+    var nodes = cdx.all(".editor_content .node:not(.example)");
 
-    if (nodes) {
+    if (nodes.length) {
         var addButtons, node, nodeType, actionBtns, settingsBtns;
 
         // prepare addButtons block
-        addButtons = el(".editor_content .add_buttons.example").cloneNode(true);
-        removeClass(addButtons, "example")
-        removeClass(addButtons, "hidden")
+        addButtons = cdx.el(".editor_content .add_buttons.example").cloneNode(true);
+        cdx.removeClass(addButtons, "example");
+        cdx.removeClass(addButtons, "hidden");
 
         // prepare common actionBtns block
-        actionBtns = el(".editor_content .node[data-type=text].example .action_buttons").cloneNode(true);
+        actionBtns = cdx.el(".editor_content .node[data-type=text].example .action_buttons").cloneNode(true);
 
         // walk nodes
         for (var index = 0; index < nodes.length; index++) {
             node     = nodes[index];
-            nodeType = data(node, "type")
+            nodeType = cdx.data(node, "type");
 
             // add addButtons block after each node
-            after(node, addButtons.cloneNode(true))
+            cdx.after(node, addButtons.cloneNode(true));
 
             // add common buttons
-            after(el(".content", node), actionBtns.cloneNode(true))
+            cdx.after(cdx.el(".content", node), actionBtns.cloneNode(true));
 
             // if node has settings buttons - add them
-            settingsBtns = el(".editor_content .node[data-type=" + nodeType + "].example .setting_buttons");
+            settingsBtns = cdx.el(".editor_content .node[data-type=" + nodeType + "].example .setting_buttons");
+
             if (settingsBtns){
-                before(el(".content", node), settingsBtns.cloneNode(true))
+                cdx.before(cdx.el(".content", node), settingsBtns.cloneNode(true));
             }
 
             // make editable
-            if (nodeType == "header" || nodeType == "text"){
-                attr(el(".content", node), "contenteditable", "true")
-            } else if (nodeType == "list"){
+            if (nodeType == "header" || nodeType == "text") {
+                cdx.attr(cdx.el(".content", node), "contenteditable", "true");
+            }
+            else if (nodeType == "list") {
                 var listLi = cdx.all("li", node);
 
                 for (var liIndex = 0; liIndex < listLi.length; liIndex++) {
-                    attr(listLi[liIndex], "contenteditable", "true")
+                    cdx.attr(listLi[liIndex], "contenteditable", "true");
                 }
             }
         }
@@ -693,9 +707,9 @@ editor.prepareStoredNodes = function () {
 
 // обработка клавиш, общая для всех видов узлов
 editor.initNodesKeys = function(nodes){
-    bind("keydown", cdx.all(".content", nodes), function (e) {
+    cdx.bind("keydown", cdx.all(".content", nodes), function (e) {
         var node     = this.parentNode,
-            nodeType = data(node, "type"),
+            nodeType = cdx.data(node, "type"),
             nextNode = editor.getNextNode(node),
             prevNode = editor.getPrevNode(node),
             nextFocusableNode = editor.getNexFocusabletNode(node),
@@ -704,7 +718,7 @@ editor.initNodesKeys = function(nodes){
         // move whole node up, when press control + shift + up arrow
         if (e.keyCode == 38 && e.ctrlKey && e.shiftKey){
             if (prevNode){
-                el(".action_buttons [data-action=moveup]", node).click();
+                cdx.el(".action_buttons [data-action=moveup]", node).click();
                 editor.focusNode(node);
             }
         }
@@ -712,14 +726,13 @@ editor.initNodesKeys = function(nodes){
         // move whole node down, when press control + shift + up arrow
         if (e.keyCode == 40 && e.ctrlKey && e.shiftKey){
             if (nextNode){
-                el(".action_buttons [data-action=movedown]", node).click();
+                cdx.el(".action_buttons [data-action=movedown]", node).click();
                 editor.focusNode(node);
             }
         }
 
         // focus prev node, when press shift + up arrow
         if (e.keyCode == 38 && e.shiftKey && !e.ctrlKey){
-
             if (prevFocusableNode){
                 editor.focusNode(prevFocusableNode);
             }
@@ -740,15 +753,15 @@ editor.initNodesKeys = function(nodes){
 
                 // insert before
                 if (e.shiftKey){
-                    addBtnsBlock = prev(node);
-                    el("[data-type=text]", addBtnsBlock).click();
-                    insertNode = prev(addBtnsBlock);
+                    addBtnsBlock = cdx.prev(node);
+                    cdx.el("[data-type=text]", addBtnsBlock).click();
+                    insertNode = cdx.prev(addBtnsBlock);
                 }
                 // insert after
                 else {
-                    addBtnsBlock = next(node);
-                    el("[data-type=text]", addBtnsBlock).click();
-                    insertNode = prev(addBtnsBlock);
+                    addBtnsBlock = cdx.next(node);
+                    cdx.el("[data-type=text]", addBtnsBlock).click();
+                    insertNode = cdx.prev(addBtnsBlock);
                 }
 
                 editor.focusNode(insertNode);
@@ -756,7 +769,6 @@ editor.initNodesKeys = function(nodes){
             // add one more paragraph
             else {
                 if (nodeType == "text"){
-
                     document.execCommand('insertHTML', false, '<p></p>');
                     editor.focusNode(node, false);
                 }
@@ -766,23 +778,23 @@ editor.initNodesKeys = function(nodes){
             e.preventDefault();
         }
     });
-}
+};
 
 editor.getNextNode = function (node) {
-    return next( next(node) );
+    return cdx.next( cdx.next(node) );
 };
 
 editor.getPrevNode = function (node) {
-    return prev( prev(node) );
+    return cdx.prev( cdx.prev(node) );
 };
 
 
 // img, video and etc nodes - are not fucusable
 editor.getNexFocusabletNode = function (node) {
     var nextNode = editor.getNextNode(node);
-//debugger
+
     if (nextNode){
-       if (data(nextNode, "focusable") == "false")
+       if (cdx.data(nextNode, "focusable") == "false")
             return editor.getNexFocusabletNode(nextNode);
         else
             return nextNode;
@@ -793,8 +805,8 @@ editor.getNexFocusabletNode = function (node) {
 editor.getPrevFocusableNode = function (node) {
     var prevNode = editor.getPrevNode(node);
 
-    if (prevNode && !hasClass(prevNode, "example")) {
-        if (data(prevNode, "focusable") == "false")
+    if (prevNode && !cdx.hasClass(prevNode, "example")) {
+        if (cdx.data(prevNode, "focusable") == "false")
             return editor.getPrevFocusableNode(prevNode);
         else
             return prevNode;
@@ -802,32 +814,32 @@ editor.getPrevFocusableNode = function (node) {
 };
 
 editor.focusNode = function (node, selectAll) {
-    var nodeType = data(node, "type");
+    var nodeType = cdx.data(node, "type");
 
     if (nodeType == "text" || nodeType == "header"){
-        el(".content", node).focus();
+        cdx.el(".content", node).focus();
     }
 
     if (nodeType == "list"){
-        el(".content li:first-child", node).focus();
+        cdx.el(".content li:first-child", node).focus();
     }
 
-    if (!isDefined(selectAll) || selectAll)
+    if (!cdx.isDefined(selectAll) || selectAll)
         editor.selectAll();
 };
 
 // selects cdx.all text in editing element
 editor.selectAll = function () {
     window.setTimeout(function() {
-        document.execCommand('selectAll', false, null)
+        document.execCommand('selectAll', false, null);
     }, 1);
 };
 
 //
 editor.init = function () {
-    editor.prepareStoredNodes()
-    editor.initAddButtons(cdx.all(".add_buttons button"))
-    editor.initNodesButtons(cdx.all(".editor_content .node"))
+    editor.prepareStoredNodes();
+    editor.initAddButtons(cdx.all(".add_buttons button"));
+    editor.initNodesButtons(cdx.all(".editor_content .node"));
     // обработка клавиш, общая для всех видов узлов
     editor.initNodesKeys(cdx.all(".editor_content .node"));
 };
@@ -836,6 +848,6 @@ editor.init = function () {
 
 editor.init();
 
-//click(cdx.all("#btn_save"), editor.save)
-click(cdx.all("#blankSendButton"), editor.save);
+//cdx.click(cdx.all("#btn_save"), editor.save)
+cdx.click(cdx.all("#blankSendButton"), editor.saveStart);
 
