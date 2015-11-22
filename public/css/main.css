@@ -840,7 +840,7 @@ html {
 
 
 @media print, (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 1.25dppx), (min-resolution: 120dpi) {
-    .m_logo_wrap .m_logo{
+    .m_logo_wrap .m_logo, .clarity_page .cdx_logo{
         background: url('../img/logo224@2x.png') no-repeat;
         background-size: 224px 224px;
     }
