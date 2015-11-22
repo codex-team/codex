@@ -18,7 +18,13 @@
                   echo $table_values['description']['value'];
               }
               ?></textarea>
-          <label for="blankCommentTextarea">Содержание</label>
+          <label for="blankTagsTextarea">Тэги</label>
+         <input type="text" name="tags" id="blankTagsInput" value="<?
+          if (isset($table_values['title']['value'])){
+              echo $table_values['title']['value'];
+          }
+          ?>"/>
+              <label for="blankCommentTextarea">Содержание</label>
           <textarea name="text" id="blankCommentTextarea"  required><?
               if (isset($table_values['text']['value'])){
                   echo $table_values['text']['value'];

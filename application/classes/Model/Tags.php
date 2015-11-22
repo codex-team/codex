@@ -1,8 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 /**
- * Tags Class has several public methods for interaction with database 
- * and validation.
+ * Tags Class has several public methods for interaction with database .
  *
  * @author Zotov Vladislav
  */
@@ -11,185 +10,199 @@ Class Model_Tags extends Model_Database
 {
 
 
-public $tag_name;
 
 
 /**
-* @tags_list method defines public param tag_name
-* @tag_name which is presented as array with two or one indexes depending on range
-* @range defines the scope of searching area - it can be ALL (searchs for all articles) or integer(as article id)
+*  method defines public param tag_name
+* 
 */
 
-public function tags_list($range){
+public static function GetTagsByArticle($id){
 
-    if ($range == 'all'){
-     $article_query = DB::select('id')->from('Articles');
-    }
-    elseif(is_int($range)){
-        $article_query = DB::select('id')->from('Articles')->where('id','=',$range);
-    }
-    else{
-        return false;
-    }
-    if($article_query){
-        $article_list = $article_query->execute()->as_array();
-    }
-    else{
-        return false;
-    }  
-    if($article_list !== null){
 
-        for($index = 0; $index < count($article_list); ++$index){
-            $link_query = DB::select('tag_id')
-            ->from('Tags_articles')
-            ->where('article_id','=',$article_list[$index]['id'])
-            ->execute()
-            ->as_array();
-            if($link_query){
+    $tag_name = array();
+    $index = 0;
+    
+    
+    if($id !== null){
 
-                for($inner_index = 0; $inner_index < count($link_query); ++$inner_index){
-                    $tags_query = DB::select('name')
-                    ->from('Tags')
-                    ->where('id','=',$link_query[$inner_index]['tag_id'])
-                    ->execute()
-                    ->current();
-                    if($tags_query){
+            $tags_articles_tag_id =  Dao_TagsArticles::select('tag_id')
+                                                       ->where('article_id','=',$id)
+                                                       ->execute();
 
-                        if ($range == 'all'){ 
-                            // tag_name variable is represented as array with indexes  [article id] [index key]
-                            $this->tag_name [ $article_list[$index]['id'] ] [$inner_index] = $tags_query['name'];
-                        }
-                        elseif(is_int($range)){
-                            // in this case tag_name variable is represented as array with only index [index key]
-                            $this->tag_name [$inner_index] = $tags_query['name'];
-                        }
-                    }
-                    else{
-                        return false;
-                    }
+            if (!empty($tags_articles_tag_id)) {
+                foreach ($tags_articles_tag_id as $tag_id) {
+
+                    
+                    $tag_record =  Dao_Tags::select('name')
+                                             ->where('id','=',$tag_id)
+                                             ->execute();
+                    $tag_name[$index] = $tag_record[0]["name"];
+
+                    $index++;
                 }
             }
-            else{
-                return false;
-            }
-        }
+
+        return $tag_name;
     }
 }
 
+public static function GetAllTags(){
+
+    $all_tags = array();
+    $articles = Model_Article::getActiveArticles();
+
+    if(!empty($articles)){
+
+        foreach ($articles as $article) {
+
+            $article->id = intval($article->id);
+            $all_tags[$article->id] = self::GetTagsByArticle($article->id);
+
+        
+        }
+    }
+    return $all_tags;
+}
+public static function GetUniqueTags(){
+    $index = 0;
+    $one_demention = array();
+    $multiarray = self::GetAllTags();
+    foreach ($multiarray as $inner_array) {
+        $one_demention = array_merge($one_demention, $inner_array); 
+        ++$index;
+       
+    }
+    
+    return array_unique($one_demention);
+
+}
+
 /**
-* @search_by_query returns array of found articles ids which fit with query
-* @query tag by which the query will be made
-* @found_article_id array with  index [key] which is keep increasing by sequence, represents found articles ids.
+* returns array of found articles ids which fit with query
+* 
+* 
 */
 
-public function search_by_query($query){
+private static function SearchByTag($tag_name){
 
-    $tags_query = DB::select('id')
-    ->from('Tags')
-    ->where('name','=',$query)
-    ->execute()
-    ->current();
+    $article_id = array();
+    $tag = Dao_Tags::select('id')
+                     ->where('name','=',$tag_name)
+                     ->execute();
 
-    if( $tags_query == 0 ){
-        return null;
-    } 
-    else{ 
+    if(!empty($tag)){
 
-        for($index = 0; ; ++$index){
+        $article_ids = Dao_TagsArticles::select('article_id')
+                                         ->where('tag_id','=',$tag[0]["id"])
+                                         ->execute();
 
-            $link_query = DB::select('article_id')
-            ->from('Tags_articles')
-            ->where('tag_id','=',$tags_query['id'])
-            ->execute()
-            ->as_array();
+        for ($index = 0; $index < count($article_ids); $index++ ) {
 
-            if($link_query){
-                $found_article_id[$index] = $link_query[$index]['article_id'];
-            }
-            else{
-                return null;
-            }
-            if( $index == (count($link_query)-1) ){
-                break;
-            }
+            $article_id[$index] = $article_ids[$index]["article_id"];
         }
-        return $found_article_id;
     }
+
+    return  $article_id;
+}
+
+public static function GetArticlesByTag($tag_name){
+
+    $article = array();
+    $article_id = self::SearchByTag($tag_name);
+
+    for($index = 0; $index < count($article_id); $index++){
+
+        $article[$index] = Model_Article::get($article_id[$index]);
+
+    }
+
+return array_reverse($article);
+
 }
  
 
+
+
 /**
-* Validates tags by regular state and length(30 symblols for each tag), returns TRUE if tags are correct.
+*  inserts tags into tables and matches them with article id 
+*
 */
-public function validate_tags($tags){
 
-    if(!empty($tags)){
+public static function InsertTags($tags,$article_id){
 
-        if(preg_match('/^[0-9a-zA-Zа-яёА-ЯЁ\s\-\.\,]+$/', $tags)){
-            $single_tag = explode(",", $tags);
-            for($index = 0; $index < count($single_tag); ++$index){
+    if(!empty($tags) && !empty($article_id)){ 
 
-                if(strlen($single_tag[$index]) > 30){
-                    return false;
-                }
+        $single_tag = explode(",", $tags);
+
+        for($index = 0; $index < count($single_tag); ++$index){
+
+           $is_existing_tag = self::SearchByTag($single_tag[$index]);
+
+            if( empty($is_existing_tag) ){
+
+                $new_tag = Dao_Tags::insert()
+                                     ->set('name', $single_tag[$index])
+                                     ->clearcache()
+                                     ->execute();
             }
-            return true;
+            else{
+                $new_tag = $single_tag[$index]; 
+            }
+            if($new_tag){
+
+                $get_new_tag_id = Dao_Tags::select()
+                                            ->where('name', '=', $single_tag[$index])
+                                            ->limit(1)
+                                            ->cached(10*Date::MINUTE)
+                                            ->execute();
+                $new_relation_tag_article = Dao_TagsArticles::insert()
+                                                              ->set('tag_id',     $get_new_tag_id["id"])
+                                                              ->set('article_id', $article_id)
+                                                              ->limit(1)
+                                                              ->clearcache()
+                                                              ->execute();
+                $cache_it =  Dao_TagsArticles::select()
+                                               ->where('article_id', '=', $article_id)
+                                               ->limit(1)
+                                               ->cached(10*Date::MINUTE)
+                                               ->execute();  
+            }
+        }           return true;
+    }
+    else{
+                    return false;
+    }
+}
+
+
+/**
+*  deletes tags and tag_articles records
+*
+*/
+
+public static function DeleteTags($article_id){
+
+    if(isset($article_id)){
+
+        $tag_ids_to_delete = Dao_TagsArticles::select('tag_id')
+                                               ->where('article_id', '=', $article_id)
+                                               ->execute();
+        $tags_articles_clear = Dao_TagsArticles::delete()
+                                                 ->where('article_id', '=', $article_id)
+                                                 ->clearcache()
+                                                 ->execute();
+        for ($index = 0; $index < count($tag_ids_to_delete) ; $index++){ 
+
+            $tags_clear = Dao_Tags::delete()
+                                    ->where('id', '=',  $tag_ids_to_delete[$index]["tag_id"])
+                                    ->clearcache()
+                                    ->execute();
         }
-        else{
-            return false;
-        }
+        return  $tag_ids_to_delete;   
     }
     else{
         return false;
     }
 }
-
-/**
-* @insert_tags inserts tags into tables and match them with article id 
-*
-*/
-
-public function insert_tags($tags,$article_id){
-
-    if(!empty($tags) && !empty($article_id)){ 
-        $single_tag = explode(",", $tags);
-        for($index = 0; $index < count($single_tag); ++$index){
-
-            $tags_query = DB::select('id')
-            ->from('Tags')
-            ->where('name','=',$single_tag[$index])
-            ->execute()
-            ->current();
-            if($tags_query == 0){
-
-                $new_tag = DB::insert('tags', array('name'))->values( array($single_tag[$index]) )->execute();
-                if($new_tag){
-
-                    $new_tag_id = DB::select('id')
-                    ->from('Tags')
-                    ->where('name','=',$single_tag[$index])
-                    ->execute()
-                    ->current();
-
-                    $prepared_tag_id = $new_tag_id['id'];
-                }
-                else{
-                    return false;
-                }
-            }
-            else{
-                $prepared_tag_id = $tags_query['id'];
-            }
-            $new_link = DB::insert('tags_articles', array('article_id','tag_id'))
-            ->values( array($article_id, $prepared_tag_id) )
-            ->execute();
-            if(!$new_link){
-                return false;
-            }
-        }
-        return true;
-    }
-}
-
-
 }

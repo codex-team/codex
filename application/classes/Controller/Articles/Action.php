@@ -17,6 +17,7 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
         $article->description    = Arr::get($_POST,'description');
         $article->text           = Arr::get($_POST,'text');
         $cover                   = Arr::get($_FILES,'cover');
+        $tags                    = Arr::get($_POST,'tags');
 
         $errors = FALSE;
         $table_values = array();
@@ -26,6 +27,8 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
         if ($article->description != '') { $table_values['description'] = array('value' => $article->description); }
             else { $errors = TRUE; }
         if ($article->text != '')        { $table_values['text'] = array('value' => $article->text); }
+            else { $errors = TRUE; }
+             if ($tags != '')        { $table_values['tags'] = array('value' => $tags); }
             else { $errors = TRUE; }
 
         if (!Upload::valid($cover) or
@@ -56,19 +59,22 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
         $article->is_published = true;            // FIXME изменить, когда будет доступны режимы публикации
 
         $article->insert();
+ 
+        Model_Tags::InsertTags($tags,$article->id);  
 
         // redirect to new article
         $this->redirect('/article/' . $article->id);
     }
 
     public function action_delete()
-    {
+    { 
         $user_id = $this->user->id;
         $article_id = $this->request->param('article_id');
 
         if (!empty($article_id) && !empty($user_id))
         {
             Model_Article::get($article_id)->remove($user_id);
+            Model_Tags::DeleteTags($article_id); 
         }
 
         $this->redirect('/article');

@@ -18,7 +18,8 @@
         <p>
             <?= $article->text ?>
         </p>
-       
+
+        <?if (isset($tags_list)): ?>
             <p>
             <? foreach ($tags_list as $current_tag): ?>
                 
@@ -26,6 +27,7 @@
                 
             <? endforeach; ?>
             </p>
+        <? endif; ?>
        
 
         <h3>Комментарии</h3>

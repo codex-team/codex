@@ -7,9 +7,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
     {
         $this->view["articles"] = Model_Article::getActiveArticles();
 
-        $tags_obj = new Model_Tags;
-        $tags_obj->tags_list('all');
-        $this->view["tags_list"] = $tags_obj->tag_name;
+        $this->view["tags_list"] = Model_Tags::GetAllTags();
 
         $content = View::factory('templates/articles/list', $this->view);
 
@@ -24,11 +22,11 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
         $article = Model_Article::get($articleId);
 
-        $tags_obj = new Model_Tags;
-        $tags_obj->tags_list(intval($articleId));
-        $this->view["tags_list"] = $tags_obj->tag_name;
-
         $this->view["article"] = $article;
+
+        $tag_name = Model_Tags::GetTagsByArticle(intval($articleId));
+        
+        $this->view["tags_list"] = $tag_name;
 
         $this->title = $article->title;
 
