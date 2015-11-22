@@ -103,22 +103,22 @@ Route::set('TAGS', 'tag(/<query>)', array('query' => $QUERY))->defaults(array(
 ));
 //Scripts for admin panel---------
 //Articles
-Route::set('ADMIN_ARTICLE_LIST', 'admin/article')->defaults(array(
+Route::set('ADMIN_ARTICLE_LIST', 'admin/articles')->defaults(array(
     'controller' => 'admin',
     'action' => 'showAllArticles',
 ));
 
-Route::set('ADMIN_DEL_ARTICLE', 'admin/article/<article_id>/delarticle', array('article_id' => $DIGIT))->defaults(array(
+Route::set('ADMIN_DEL_ARTICLE', 'admin/articles/<article_id>/delarticle', array('article_id' => $DIGIT))->defaults(array(
     'controller' => 'admin',
     'action' => 'delete'
 ));
 
-Route::set('ADMIN_EDIT_ARTICLE', 'admin/article/<article_id>/editarticle', array('article_id' => $DIGIT))->defaults(array(
+Route::set('ADMIN_EDIT_ARTICLE', 'admin/articles/<article_id>/editarticle', array('article_id' => $DIGIT))->defaults(array(
     'controller' => 'admin',
     'action' => 'edit'
 ));
 
-Route::set('ADMIN_UPDATE_ARTICLE', 'admin/article/<article_id>/updatearticle', array('article_id' => $DIGIT))->defaults(array(
+Route::set('ADMIN_UPDATE_ARTICLE', 'admin/articles/<article_id>/updatearticle', array('article_id' => $DIGIT))->defaults(array(
     'controller' => 'admin',
     'action' => 'update'
 ));

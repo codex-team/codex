@@ -22,7 +22,7 @@ class Controller_Admin extends Controller_Base_preDispatch
             Model_Article::get($article_id)->remove($user_id);
         }
 
-        $this->redirect('/admin/article');
+        $this->redirect('/admin/articles');
     }
 
     public function action_edit()
@@ -68,7 +68,7 @@ class Controller_Admin extends Controller_Base_preDispatch
 
         $article->update();
 
-        $this->redirect('/admin/article');
+        $this->redirect('/admin/articles');
     }
 
     public function action_showAllUsers()

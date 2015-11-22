@@ -9,8 +9,6 @@
                 <th>ID</th>
                 <th>Имя</th>
                 <th>Права</th>
-                <th>ВК ID</th>
-                <th>FB ID</th>
                 <th>Github ID</th>
                 <th>Дата</th>
                 <td></td>
@@ -26,8 +24,6 @@
                             </a>
                         </td>
                         <td><?= $user->role ?></td>
-                        <td><?= $user->vk_id ?></td>
-                        <td><?= $user->fb_id ?></td>
                         <td><?= $user->github_id ?></td>
                         <td>
                             <?  //Выводим дату изменений, если таковые были.
@@ -44,8 +40,6 @@
                 <? endif; ?>
             <? endforeach; ?>
             <tr>
-                <td></td>
-                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
