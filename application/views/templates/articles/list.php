@@ -8,26 +8,32 @@
     </div>
 
     <div class="blog">
-        <? for ( $i=1; $i<5; $i++ ): ?>
+        <? foreach ($articles as $article): ?>
             <article class="article">
                 <div class="fl_r info">
                     <div class="author clearfix">
                         <div class="ava fl_l">
-                            <img src="" alt="" />
+                            <img src="<?= Model_User::get($article->user_id)->photo ?>" alt="" />
                         </div>
                         <div class="constrain">
-                            <div class="name">User Name</div>
-                            <a class="nick" href="">@nickname</a>
+                            <div class="name"><?= Model_User::get($article->user_id)->name ?></div>
+                            <a class="nick" href="/user/<?= Model_User::get($article->user_id)->id ?>">
+                                @<?= Model_User::get($article->user_id)->github_uri ?>
+                            </a>
                         </div>
                     </div>
                 </div>
-                <h2 class="title"><a href="">12 понятий и команд, которые вам необходимо усвоить для работы с Git</a></h2>
+                <h2 class="title"><a href="/article/<?= $article->id ?>"><?= $article->title ?></a></h2>
                 <div class="counters">
-                    <time class="item">12 dec</time>
-                    <a class="item" href="">Comment</a>
+                    <time class="item"><?= date_format(date_create($article->dt_create), 'd M'); ?></time>
+                    <a class="item" href="/article/<?= $article->id ?>">
+                        <? $number_of_comments = count(Model_Comment::getCommentsByArticle($article->id)); ?>
+                        <?= $number_of_comments ?>
+                        Comment<? if ($number_of_comments != 1){ echo 's'; } ?>
+                    </a>
                 </div>
             </article>
-        <? endfor; ?>
+        <? endforeach; ?>
     </div>
 
 </div>
