@@ -704,6 +704,26 @@ html {
 
 
 
+.landing_page{
+    padding: 100px;
+    text-align: center;
+    color: #1c1e21;
+}
+    .landing_page h1{
+        font-size: 58px;
+        margin-bottom: 70px;
+        line-height: 1.4em;
+    }
+    .landing_page .slogan{
+        font-size: 18px;
+        line-height: 1.6em;
+    }
+    .landing_page .get_button{
+        display: inline-block;
+        margin-top: 80px;
+        font-size: 30px;
+    }
+
 
 
 
@@ -888,6 +908,14 @@ html {
             margin-right: 5px;
             font-size: inherit;
         }
+
+
+.landing_page{
+    padding: 50px 25px;
+}
+    .landing_page h1{
+        font-size: 40px;
+    }
 
 }
 
