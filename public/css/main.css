@@ -834,6 +834,61 @@ html {
         margin-top: 50px;
     }
 
+    .site_header{
+        padding: 0 25px;
+    }
+    .site_menu{
+        margin: 0;
+        white-space: nowrap;
+        overflow: auto;
+    }
+        .site_menu a{
+            padding: 18px 0;
+            margin-right: 20px;
+        }
+        .site_header .social_buttons{
+            display: none;
+        }
+
+    .clarity_page{
+        padding: 50px 25px;
+    }
+
+    .site_footer{
+        padding: 25px;
+    }
+        .site_footer section{
+            float: none;
+            max-width: none;
+            margin: 0 0 20px;
+        }
+        .site_footer section:last-child{
+            margin-bottom: 0;
+        }
+
+    .blog .info{
+        float: none;
+        width: auto;
+        margin-left: 0;
+        margin-bottom: 15px;
+        font-size: 14px;
+    }
+        .blog .info .constrain{
+            line-height: 1em;
+        }
+        .blog .author .ava{
+            margin-right: 10px;
+        }
+            .blog .author .ava, .blog .author .ava img{
+                width: 16px;
+                height: 16px;
+            }
+        .blog .author .name{
+            display: inline-block;
+            margin-right: 5px;
+            font-size: inherit;
+        }
+
 }
 
 
