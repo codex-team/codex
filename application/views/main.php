@@ -69,14 +69,14 @@
                 <p>Клуб веб-разработки, дизайна и маркетинга. Мы строим команду молодых специалистов, способную создавать полноценные проекты в интернете на мировом уровне.</p>
             </section>
             <section class="fl_r">
-                <h5>Подписывайтесь</h5>
+                <h5>Follow us</h5>
                 <ul>
                     <li><a href="//vk.com/codex_team" target="_blank"><i class="icon-vkontakte"></i> <u>ВКонтакте</u></a></li>
-                    <li><a href="" target="_blank"><i class="icon-instagram"></i> <u>Instagram</u></a></li>
+                    <li><a href="//instagram.com/codex_team/" target="_blank"><i class="icon-instagram"></i> <u>Instagram</u></a></li>
                 </ul>
             </section>
             <section class="fl_l">
-                <h5>Связаться с командой</h5>
+                <h5>Contact team</h5>
                 <ul>
                     <li><a href="mailto:team@ifmo.su?Subject=CodeX%20Team"><u>team@ifmo.su</u></a></li>
                     <li><a href="mailto:specc.dev@gmail.com?Subject=CodeX%20Team"><u>specc.dev@gmail.com</u></a> <span class="desclimer">— Савченко Петр</span></li>
