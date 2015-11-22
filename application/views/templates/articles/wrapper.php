@@ -26,7 +26,7 @@
                     echo '<span class="searching_tab not_found">Ничего не нашлось по тэгу <div class="query">'.$query.'</div></span>';
                     }
                     elseif ($search == 'library') {
-                    echo '<span class="searching_tab">Облако тэгов</span>';
+                    echo '<span class="searching_tab">'.$query.'</span>';
                     }
                 }
         ?>
