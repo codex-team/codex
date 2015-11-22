@@ -124,15 +124,20 @@ class Controller_Base_preDispatch extends Controller_Template
 
         $auth = new Dao_Auth();
         if ( $auth->is_authorized() ) {
+
             $profile = $auth->get_profile();
 
-            if ($profile)
+            if ($profile){
                 $this->user = Model_User::findByAttribute('github_id', $profile->id);
-            else
+            } else {
                 $this->user = new Model_User();
-        }
-        else
+            }
+
+        } else {
+
             $this->user = new Model_User();
+
+        }
 
         View::set_global('user', $this->user);
         View::set_global('auth', $auth);

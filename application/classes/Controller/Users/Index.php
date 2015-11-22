@@ -15,16 +15,17 @@ class Controller_Users_Index extends Controller_Base_preDispatch
     {
         $user_id = $this->request->param('user_id');
 
-	    if( !empty($user_id) ){
-		    $user = Model_User::get( $user_id );
-	    }else{
-	        $user = $this->user;
+	    if ( !empty($user_id) ){
+		    $viewUser = Model_User::get( $user_id );
+	    } else {
+	        $viewUser = $this->user;
 	    }
 
-        $this->view['user'] = $user;
-        $this->view['user_id'] = $user_id;
-        $this->view['article_list'] = $user->get_articles_list();
+        if (!$viewUser->id) $this->redirect('/');
 
+        $this->title = $viewUser->name ?: 'Пользователь #' . $viewUser->id;
+
+        $this->view['viewUser']  = $viewUser;
         $this->template->content = View::factory('templates/users/user', $this->view);
 
     }

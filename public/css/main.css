@@ -269,7 +269,8 @@ html {
         margin: 0 12px;
         font-size: 0;
     }
-        .site_menu a{
+        .site_menu a,
+        .site_header .profile{
             text-decoration: none;
             font-size: 16px;
             padding: 18px;
@@ -299,6 +300,21 @@ html {
         margin-left: -75px;
         text-align: center;
     }
+
+    .site_header .ava{
+        background: #e9ecf5;
+        border-radius: 15px;
+        overflow: hidden;
+    }
+    .site_header .ava,
+    .site_header .ava > img{
+        display: inline-block;
+        width: 22px;
+        height: 22px;
+        vertical-align: bottom;
+    }
+
+
 
 .site_footer{
     border-top: 1px solid #eceff6;
@@ -387,6 +403,59 @@ html {
 
 
 
+.profile_page{
+    padding: 150px 0 110px;
+    text-align: center;
+}
+.profile_page .ava{
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+
+    background: #e9ecf5;
+    margin-bottom: 20px;
+    border-radius: 50px;
+    overflow: hidden;
+
+    /** Style for text placeholder from img-alt */
+    font-size: 100px;
+    line-height: 1em;
+    letter-spacing: 50px;
+    color: #CAD2E0;
+    font-weight: bold;
+}
+    .profile_page .ava > img{
+        vertical-align: top;
+        margin: -1px 0 0 -2px;
+        width: 103px;
+        height: 103px;
+    }
+    .profile_page .uname{
+        font-size: 22px;
+    }
+
+.profile_page .nickname{
+    display: inline-block;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+    .profile_page .nickname i{
+        vertical-align: middle;
+    }
+.profile_page .social_link{
+    display: inline-block;
+    padding: 2px 15px;
+    margin: 15px 7px;
+    border-radius: 15px;
+    color: #9C9DA2;
+    text-decoration: none;
+}
+
+
+.no_data{
+    text-align: center;
+    padding: 150px 0;
+}
 
 
 

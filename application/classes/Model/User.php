@@ -11,6 +11,8 @@ Class Model_User extends Model
     public $dt_update;
     public $vk_id = 0;
     public $fb_id = 0;
+    public $vk_uri = '';
+    public $fb_uri = '';
     public $github_id = 0;
     public $github_uri = '';
     public $role = 0;
@@ -74,14 +76,16 @@ Class Model_User extends Model
     {
         $model = new Model_User();
         if (!empty($user['id'])) {
-            $model->id = $user['id'];
-            $model->name = $user['name'];
-            $model->photo = $user['photo'];
-            $model->dt_create = Date::formatted_time($user['dt_create'], 'Y-m-d');
-            $model->dt_update = Date::formatted_time($user['dt_update'], 'Y-m-d');
-            $model->github_id = $user['github_id'];
+            $model->id         = $user['id'];
+            $model->name       = $user['name'];
+            $model->photo      = $user['photo'];
+            $model->dt_create  = $user['dt_create'];
+            $model->dt_update  = $user['dt_update'];
+            $model->github_id  = $user['github_id'];
             $model->github_uri = $user['github_uri'];
-            $model->role = $user['role'];
+            $model->vk_uri     = $user['vk_uri'];
+            $model->fb_uri     = $user['fb_uri'];
+            $model->role       = $user['role'];
             $model->is_removed = $user['is_removed'];
         }
 

@@ -39,9 +39,16 @@
 
     <header class="site_header">
         <div class="center_side clearfix">
-            <a class="icon_link login fl_r" href="/login">
-                <i class="icon-github-circled"></i><span class="text">login</span>
-            </a>
+            <? if ($user->id): ?>
+                <a class="profile fl_r" href="/user/<?= $user->id ?>">
+                    <span class="ava"><img src="<?= $user->photo_small ?>" alt="<?= $user->name ?>" /></span>
+                    <span class="text">Profile</span>
+                </a>
+            <? else: ?>
+                <a class="icon_link login fl_r" href="/auth/github">
+                    <i class="icon-github-circled"></i><span class="text">login</span>
+                </a>
+            <? endif ?>
             <div class="site_menu fl_l">
                 <a href="/">CodeX</a>
                 <a href="/join">Join team</a>
@@ -64,8 +71,8 @@
             <section class="fl_r">
                 <h5>Подписывайтесь</h5>
                 <ul>
-                    <li><a href=""><i class="icon-vkontakte"></i> <u>ВКонтакте</u></a></li>
-                    <li><a href=""><i class="icon-instagram"></i> <u>Instagram</u></a></li>
+                    <li><a href="//vk.com/codex_team" target="_blank"><i class="icon-vkontakte"></i> <u>ВКонтакте</u></a></li>
+                    <li><a href="" target="_blank"><i class="icon-instagram"></i> <u>Instagram</u></a></li>
                 </ul>
             </section>
             <section class="fl_l">
