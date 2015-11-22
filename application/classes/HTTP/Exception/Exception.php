@@ -25,6 +25,8 @@ class HTTP_Exception extends Kohana_HTTP_Exception {
             $response = Response::factory()
                 ->status($this->getCode())
                 ->body($view->render());
+
+            Model_Methods::telegram_send_error($this->getMessage());
  
             return $response;
         }
