@@ -141,8 +141,6 @@ Class Model_Comment extends Model
         {
             $commentsCount = DB::select()->from('Comments')->where('article_id', '=', $article_id)
                 ->where('is_removed', '=', 0)
-                ->order_by('id', 'ASC')
-                ->order_by('parent_id', 'ASC')
                 ->execute()
                 ->count();
         }
