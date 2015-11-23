@@ -68,19 +68,22 @@
         <? } ?>
 
         <p>
+        <? if ($user->id): ?>
+            <h3 id="answer_username">Выскажи свое мнение</h3>
 
-        <h3 id="answer_username">Выскажи свое мнение</h3>
+            <form method="POST" action="/comment/add">
+                <input type="hidden" name="article_id" value="<?= $article->id ?>"/>
+                <input type="hidden" name="parent_id" value="0" id="answer_to_comment"/>
+                <label for="blankCommentTextarea">Комментарий</label>
+                <textarea name="text" id="blankCommentTextarea" required></textarea>
 
-        <form method="POST" action="/comment/add">
-            <input type="hidden" name="article_id" value="<?= $article->id ?>"/>
-            <input type="hidden" name="parent_id" value="0" id="answer_to_comment"/>
-            <label for="blankCommentTextarea">Комментарий</label>
-            <textarea name="text" id="blankCommentTextarea" required></textarea>
-
-            <p>
-                <input type="submit" class="master" value="Добавить комментарий" />
-            </p>
-        </form>
+                <p>
+                    <input type="submit" class="master" value="Добавить комментарий" />
+                </p>
+            </form>
+        <? else: ?>
+            <h3>Комментарии могут оставлять только зарегистрированные пользователи</h3>
+        <? endif ?>
         </p>
 
     </article>
