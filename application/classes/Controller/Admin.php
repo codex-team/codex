@@ -50,17 +50,10 @@ class Controller_Admin extends Controller_Base_preDispatch
 
         $article_id = $this->request->param('article_id');
 
-        //Устанавливаем часовой  пояс для корректного вывода dt_update
-        date_default_timezone_set("UTC");
-        $time   = time();
-        $offset = 3;
-        $time += 3 * 3600;      // TODO(#38) это ад, нужно заменить на хранимку
-
         $article              = Model_Article::get($article_id);
         $article->title       = $title;
         $article->description = $description;
         $article->text        = $text;
-        $article->dt_update   = date('Y-m-d H:i:s', $time);
 
         if (!empty($cover_name)) {
             $article->cover = $cover_name;
