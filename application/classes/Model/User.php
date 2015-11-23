@@ -154,6 +154,8 @@ Class Model_User extends Model
             'photo_big'   => $this->photo_big,
             'role'        => $this->role,
             'is_removed'  => $this->is_removed,
+            'vk_uri'      => $this->vk_uri,
+            'fb_uri'      => $this->fb_uri,
         ))->where('id', '=', $this->id)->execute()
         )
             return true;
