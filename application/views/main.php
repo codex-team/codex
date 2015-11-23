@@ -52,7 +52,7 @@
             <div class="site_menu fl_l">
                 <a href="/">CodeX</a>
                 <a href="/join">Join team</a>
-                <a href="/articles">Exp</a>
+                <a href="/articles/all">Exp</a>
             </div>
             <div class="social_buttons">
                 <a class="icon_link social" href="//vk.com/codex_team" target="_blank"><i class="icon-vkontakte"></i></a>

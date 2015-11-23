@@ -29,34 +29,40 @@ Route::set('TASK_PAGE', 'task/<who>', array('who' => $STRING))->defaults(array(
     'action' => 'whoSet',
 ));
 
-Route::set('ARTICLE_LIST', 'articles')->defaults(array(
-    'controller' => 'articles_index',
-    'action' => 'showAllArticles',
+
+/**
+ * Articles
+ *
+ * /articles/all        - show all articles     (page)
+ * /articles/show/45    - show article #45      (page)
+ * /articles/edit/45    - edit article #45      (page)
+ * /articles/new        - new article           (page)
+ * /articles/add        - add new article       (script)
+ * /articles/del/45     - deleting article #45  (script)
+ *
+ * TODO merge 'new' and 'edit' pages
+ *
+ * @guryn
+ */
+Route::set('ARTICLES_AND_COMMENTS_SCRIPTS', 'articles/<action>(/<article_id>)',
+        array( 'action' => 'add|del|new|show|all|edit', 'article_id' => $DIGIT ))->defaults(array(
+    'controller' => 'articles',
+    'action' => 'action'
 ));
 
-Route::set('ARTICLE_PAGE', 'article/<article_id>', array('article_id' => $DIGIT))->defaults(array(
-    'controller' => 'articles_index',
-    'action' => 'showArticle'
+/**
+ * Comments
+ *
+ * /comment/add         - add comment       (script)
+ * /comment/del/45      - del comment #45   (script)
+ *
+ * @guryn
+ */
+Route::set('ADD_COMMENT_SCRIPT', 'comment/<action>(/<comment_id>)',
+        array( 'comment_id' => $DIGIT ))->defaults(array(
+    'controller' => 'comment',
+    'action' => 'action'
 ));
-
-Route::set('NEW_ARTICLE_PAGE', 'article/newarticle')->defaults(array(
-    'controller' => 'articles_index',
-    'action' => 'newArticle'
-));
-
-
-// Scripts for articles
-
-Route::set('ADD_ARTICLE_SCRIPT', 'article/addarticle')->defaults(array(
-    'controller' => 'articles_action',
-    'action' => 'add'
-));
-
-Route::set('DEL_ARTICLE_SCRIPT', 'article/delarticle/<article_id>', array('article_id' => $DIGIT))->defaults(array(
-    'controller' => 'articles_action',
-    'action' => 'delete'
-));
-
 
 // Scripts for users
 
@@ -72,22 +78,14 @@ Route::set('USER_PAGE', 'user(/<user_id>)', array('user_id' => $DIGIT))->default
 ));
 
 
-// Scripts for comments
-
-Route::set('ADD_COMMENT_SCRIPT', 'article/addcomment')->defaults(array(
-    'controller' => 'comments',
-    'action' => 'add'
-));
-
-Route::set('DEL_COMMENT_SCRIPT', 'article/delcomment/<comment_id>', array('comment_id' => $DIGIT))->defaults(array(
-    'controller' => 'comments',
-    'action' => 'delete'
-));
+// Design ?
 
 Route::set('DESIGN_PREVIEW', 'design/<page>')->defaults(array(
     'controller' => 'index',
     'action' => 'designPreview'
 ));
+
+// Auth
 
 Route::set('AUTH', 'auth/<action>')->defaults(array(
     'controller' => 'auth',

@@ -49,7 +49,7 @@
 
                     <p>
                         <? if ($comment->user_id == $user->id) {?>
-                            <a href='/article/delcomment/<?= $comment->id ?>'>[удалить]</a>
+                            <a href='/comment/del/<?= $comment->id ?>'>[удалить]</a>
                         <? } ?>
                         <a onclick="document.getElementById('answer_to_comment').value=<?= $comment->id ?>;
                             document.getElementById('blankCommentTextarea').innerHTML='<?= $username ?>, ';
@@ -71,14 +71,14 @@
 
         <h3 id="answer_username">Выскажи свое мнение</h3>
 
-        <form method="POST" action="/article/addcomment">
+        <form method="POST" action="/comment/add">
             <input type="hidden" name="article_id" value="<?= $article->id ?>"/>
             <input type="hidden" name="parent_id" value="0" id="answer_to_comment"/>
             <label for="blankCommentTextarea">Комментарий</label>
             <textarea name="text" id="blankCommentTextarea" required></textarea>
 
             <p>
-                <button class="master" id="blankSendButton">Добавить комментарий</button>
+                <input type="submit" class="master" value="Добавить комментарий" />
             </p>
         </form>
         </p>
