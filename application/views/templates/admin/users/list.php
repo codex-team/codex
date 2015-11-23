@@ -4,49 +4,51 @@
             <p>ользователей нет.</p>
         </article>
     <? else: ?>
-        <table class="admin_tables">
-            <tr>
-                <th>ID</th>
-                <th>Имя</th>
-                <th>Права</th>
-                <th>Github ID</th>
-                <th>Дата</th>
-                <td></td>
-                <td></td>
-            </tr>
+        <table class="p_table">
             <? foreach ($users as $user): ?>
                 <? if ($user->is_removed == 0): ?>
                     <tr>
-                        <td><?= $user->id ?></td>
-                        <td class="name">
-                            <a href="/user/<?= $user->id ?>">
-                                <?= $user->name ?>
-                            </a>
+                        <td class="id"><?= $user->id ?></td>
+                        <td width="40" >
+                            <div class="p_rel">
+                                <div class="list_user_ava">
+                                    <? if (!empty($user->photo)): ?>
+                                        <img src="<?= $user->photo ?>">
+                                    <? endif ?>
+                                    <span class="numb">
+                                        <?= $user->id ?>
+                                    </span>
+                                </div>
+                            </div>
                         </td>
-                        <td><?= $user->role ?></td>
-                        <td><?= $user->github_id ?></td>
+                        <td class="user">
+                            <a class="name" href="/user/<?= $user->id ?>"><?= $user->name ?></a> <br />
+                            <a class="nick" href="//github.com/<?= $user->github_uri ?>" target="_blank"><i class="icon-github-circled"></i><?= $user->github_uri ?></a>
+                        </td>
                         <td>
-                            <?  //Выводим дату изменений, если таковые были.
-                                if(is_null($user->dt_update)):
-                                    echo $user->dt_create;
-                                else:
-                                    echo $user->dt_update;
-                                endif;
-                            ?>
+                            <? if ($user->vk_uri): ?>
+                                <a href="//vk.com/<?= $user->vk_uri?>" target="_blank"><i class="icon-vkontakte"></i></a>
+                            <? endif ?>
                         </td>
-                        <td>Редактировать</td>
-                        <td><a href='/admin/users/<?= $user->id ?>/deluser'>Удалить</a></td>
+                        <td>
+                            <? if ($user->fb_uri): ?>
+                                <a href="//vk.com/<?= $user->fb_uri?>" target="_blank"><i class="icon-facebook-squared"></i></a>
+                            <? endif ?>
+                        </td>
+                        <td class="counter">
+                            <b>0</b>
+                            commits
+                        </td>
+                        <td class="counter">
+                            <b>0</b>
+                            articles
+                        </td>
+                        <td>
+                            <a href='/admin/users/deluser/<?= $user->id ?>'>Удалить</a>
+                        </td>
                     </tr>
                 <? endif; ?>
             <? endforeach; ?>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="note_for_dates">Дата последних изменений.</td>
-                <td></td>
-                <td></td>
-            </tr>
-        </table>    
+        </table>
     <? endif; ?>
 </div>

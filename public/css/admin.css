@@ -1,32 +1,91 @@
-.admin_tables{
-	width:100% !important;
-	border:0;
-	margin-top: 20px;
+
+.p_table{
+    width: 100%;
+    margin: 0 30px;
+}
+    .p_table td{
+        padding: 15px;
+        border-bottom: 1px solid #EFF1F5;
+        word-wrap: break-word;
+        max-width: 300px;
+    }
+
+    .p_table .id{
+        width: 20px;
+        color: #ccc;
+        font-size: 13px;
+    }
+    .p_table .name{
+        color: inherit;
+        font-weight: bold;
+        text-decoration: none;
+    }
+    .p_table .nick{
+        font-size: 13px;
+    }
+
+    .p_table .counter{
+        font-size: 13px;
+        color: #8C929E;
+        text-align: center;
+        line-height: 1em;
+    }
+        .p_table .counter b{
+            display: block;
+            font-size: 18px;
+            line-height: 1.4em;
+        }
+
+
+.list_user_ava{
+    position: relative;
+    display: inline-block;
+    border: 1px solid #e8ebf4;
+    border-radius: 20px;
+    overflow: hidden;
+    font-size: 20px;
+    text-align: center;
+    vertical-align: middle;
+}
+    .list_user_ava,
+    .list_user_ava > img{
+        width: 40px;
+        height: 40px;
+    }
+    .list_user_ava .numb{
+        display: inline-block;
+        padding-top: 7px;
+        color: #99abbb;
+        font-weight: bold;
+    }
+.list_user_name{
+    font-weight: bold;
+}
+.list_user_vk_name i{
+    margin-right: 5px;
 }
 
-.admin_tables td{
-	text-align: center;
-	padding:8px;
+.p_table .checker{
+    position: absolute;
+    right: -7px;
+    bottom: 0;
+    width: 22px;
+    height: 22px;
+    background: #6579AD;
+    color: #fff;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    display: none;
 }
-
-.admin_tables tr:first-of-type td{
-	padding-bottom:40px;
-}
-
-.admin_tables tr:last-of-type td{
-	padding-top:10px;
-}
-
-.note_for_dates{
-	font-style: italic !important;
-	font-size:15px;
-	color:#aaaaaa;
-}
-
-.title{
-	width:35%;
-}
-
-.name{
-	width:25%;
-}
+    .p_table td:hover .checker{
+        display: block;
+    }
+    .p_table .checker.checked{
+        display: block;
+        background: #26AF89;
+    }
+    .p_table .checker i{
+        margin: 1px;
+        line-height: 1.7em;
+    }
