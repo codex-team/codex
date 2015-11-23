@@ -109,7 +109,7 @@ class Controller_Articles extends Controller_Base_preDispatch
 
     public function action_edit()
     {
-        $user_id = 1;#$this->user->id;
+        $user_id = $this->user->id;
 
         if (empty($user_id)) {
             $this->redirect('/');
@@ -129,8 +129,6 @@ class Controller_Articles extends Controller_Base_preDispatch
         $this->view["table_values"] = $table_values;
 
         $this->template->content = View::factory('templates/articles/new', $this->view);
-
-
     }
 
 }
