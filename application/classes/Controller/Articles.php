@@ -109,7 +109,28 @@ class Controller_Articles extends Controller_Base_preDispatch
 
     public function action_edit()
     {
-        return true; # TODO code for editing article
+        $user_id = 1;#$this->user->id;
+
+        if (empty($user_id)) {
+            $this->redirect('/');
+        };
+
+        $articleId = $this->request->param('article_id');
+        $this->view["id"] = $articleId;
+
+        $article = Model_Article::get($articleId);
+        $table_values = array();
+
+
+        $table_values['title'] = array('value' => $article->title);
+        $table_values['description'] = array('value' => $article->description);
+        $table_values['text'] = array('value' => $article->text);
+
+        $this->view["table_values"] = $table_values;
+
+        $this->template->content = View::factory('templates/articles/new', $this->view);
+
+
     }
 
 }

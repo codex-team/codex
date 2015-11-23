@@ -40,9 +40,6 @@ Route::set('TASK_PAGE', 'task/<who>', array('who' => $STRING))->defaults(array(
  * /articles/add        - add new article       (script)
  * /articles/del/45     - deleting article #45  (script)
  *
- * TODO add 'edit' action
- * TODO merge 'new' and 'edit' pages
- *
  * @guryn
  */
 Route::set('ARTICLES_AND_COMMENTS_SCRIPTS', 'articles/<action>(/<article_id>)',
