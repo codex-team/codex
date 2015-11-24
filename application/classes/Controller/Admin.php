@@ -3,7 +3,7 @@
 class Controller_Admin extends Controller_Base_preDispatch
 {
 
-    public function action_showAllArticles()
+    public function action_show()
     {
         $this->view["articles"] = Model_Article::getAllArticles();
 
