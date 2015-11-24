@@ -543,44 +543,25 @@ var editor = {
 
     // блокируем редактор на время сохранения
     disableEditor : function () {
-        //editor.saveBtnText = cdx.el("#btn_save").textContent
-        //
-        //el("#btn_save").textContent = "Подготовка к сохранению..."
-        //attr(cdx.el("#btn_save"), "disabled", "disabled")
-
-        // todo remove temp dubling
-        editor.saveBtnText = cdx.el("#blankSendButton").textContent;
-        cdx.el("#blankSendButton").textContent = "Подготовка к сохранению...";
-        cdx.attr(cdx.el("#blankSendButton"), "disabled", "disabled")
+        editor.saveBtnText = cdx.el("#save_article").textContent;
+        cdx.el("#save_article").textContent = "Подготовка к сохранению...";
+        cdx.attr(cdx.el("#save_article"), "disabled", "disabled")
     },
 
     // разблокируем редактор после сохранения
     enableEditor : function () {
-        //el(("#btn_save")).textContent = "Готово!"
-        //
-        //// friendly mode :)
-        //setTimeout(function() {
-        //    cdx.el(("#btn_save")).textContent = "Сохранить"
-        //    cdx.removeAttr(cdx.el("#btn_save"), "disabled")
-        //}, 750);
-
-
-        // todo remove temp dubling
-        cdx.el(("#blankSendButton")).textContent = "Готово!";
+        cdx.el(("#save_article")).textContent = "Готово!";
 
         // friendly mode :)
         setTimeout(function() {
-            cdx.el(("#blankSendButton")).textContent = editor.saveBtnText;
-            cdx.removeAttr(cdx.el("#blankSendButton"), "disabled")
+            cdx.el(("#save_article")).textContent = editor.saveBtnText;
+            cdx.removeAttr(cdx.el("#save_article"), "disabled")
         }, 750);
     },
 
     // выгрузить окончательный html в инпут для загрузки на сервер
     outHtml : function () {
         cdx.el("#html_result").innerHTML = cdx.collectionHtml(editor.cloneNodes);
-
-        // todo remove temp dubling
-        //el("#blankCommentTextarea").innerHTML = collectionHtml(editor.cloneNodes)
     },
 
     // save img and replace img tag src
@@ -631,13 +612,14 @@ var editor = {
 
         if (uploadParams.from == "file"){
             formData.append("EDITOR_IMG", uploadParams.input.files[0]);
-            xhr.open('POST', "/saveimgfile", true);
         }
 
         if (uploadParams.from == "url"){
             formData.append("url", cdx.addhttp(uploadParams.url));
-            xhr.open('POST', "/saveimgurl", true);
         }
+
+        formData.append("source", uploadParams.from);
+        xhr.open('POST', "/editorsaveimg", true);
 
         xhr.onload = function(e) {
              //console.log("answer", e.currentTarget.responseText);
@@ -848,6 +830,5 @@ editor.init = function () {
 
 editor.init();
 
-//cdx.click(cdx.all("#btn_save"), editor.save)
-cdx.click(cdx.all("#blankSendButton"), editor.saveStart);
+cdx.click(cdx.all("#save_article"), editor.saveStart);
 

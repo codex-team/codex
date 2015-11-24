@@ -34,6 +34,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
     public function action_newArticle()
     {
+        $this->view["editor"] = View::factory('templates/articles/editor', $this->view);
         $this->template->content = View::factory('templates/articles/new', $this->view);
     }
 

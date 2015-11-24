@@ -39,7 +39,7 @@ Route::set('ARTICLE_PAGE', 'article/<article_id>', array('article_id' => $DIGIT)
     'action' => 'showArticle'
 ));
 
-Route::set('NEW_ARTICLE_PAGE', 'article/newarticle')->defaults(array(
+Route::set('NEW_ARTICLE_PAGE', 'articles/new')->defaults(array(
     'controller' => 'articles_index',
     'action' => 'newArticle'
 ));
@@ -113,7 +113,7 @@ Route::set('ADMIN_DEL_ARTICLE', 'admin/article/delarticle/<article_id>', array('
     'action' => 'delete'
 ));
 
-Route::set('ADMIN_EDIT_ARTICLE', 'admin/article/editarticle/<article_id>', array('article_id' => $DIGIT))->defaults(array(
+Route::set('ADMIN_EDIT_ARTICLE', 'article/<article_id>/edit', array('article_id' => $DIGIT))->defaults(array(
     'controller' => 'admin',
     'action' => 'edit'
 ));
@@ -135,26 +135,14 @@ Route::set('ADMIN_DEL_USER', 'admin/users/deluser/<user_id>', array('user_id' =>
 
 // - viz redaktor -
 
-
-
 Route::set('EDITOR_LANDING', 'editor', array())->defaults(array(
     'controller' => 'editor',
     'action' => 'landing'
 ));
 
-
-/** Sorry, Mark, I need this route. */
-// Route::set('ARTICLE_EDITOR', 'editor', array())->defaults(array(
-//     'controller' => 'articles_edit',
-//     'action' => 'showNewEditor'
-// ));
-Route::set('ARTICLE_EDITOR_SAVE_IMG_FROM_FILE', 'saveimgfile', array())->defaults(array(
+Route::set('ARTICLE_EDITOR_SAVE_IMG', 'editorsaveimg', array())->defaults(array(
     'controller' => 'articles_edit',
-    'action' => 'saveImgFromFile'
-));
-Route::set('ARTICLE_EDITOR_SAVE_IMG_FROM_URL', 'saveimgurl', array())->defaults(array(
-    'controller' => 'articles_edit',
-    'action' => 'saveImgFromUrl'
+    'action' => 'saveEditorImg'
 ));
 
 // Defaults
