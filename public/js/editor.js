@@ -10,12 +10,38 @@ var c = {
 };
 
 all = function (selector, context) {
-    //debugger
+    var res;
+
     if (!isDefined(context)) {
         context = document
     }
-    return context.querySelectorAll(selector)
+
+    if (isArray(context) || isNodeList(context)) {
+        var nodeList;
+        res = [];
+
+        for (var index = 0; index < context.length; index++) {
+            nodeList = all(selector, context[index]);
+            res      = res.concat( nodeListToArray(nodeList) )
+        }
+
+    } else {
+        res = context.querySelectorAll(selector);
+    }
+
+    return res;
 }
+
+nodeListToArray = function (nodeLsit) {
+    var res = [];
+
+    for (var index = 0; index < nodeLsit.length; index++) {
+        res.push(nodeLsit.item(index))
+    }
+
+    return res;
+}
+
 el = function (selector, context) {
     return all(selector, context)[0]
 }
@@ -32,6 +58,18 @@ isDefined = function(obj){
 
 isString = function(obj){
     return typeof obj == "string"
+}
+
+isString = function(obj){
+    return typeof obj == "string"
+}
+
+isArray = function(obj){
+    return obj instanceof Array
+}
+
+isNodeList = function(obj){
+    return obj.toString() == "[object NodeList]"
 }
 
 after = function(relObj, newObj){
@@ -204,12 +242,16 @@ var editor = {
         //    log(e, "onpaste")
         //})
 
+        // обработка клавиш, общая для всех видов узлов
+        editor.initNodesKeys(node);
+
+
         return node
     },
 
     //
     initNodesButtons : function (nodes) {
-        var node, nodeType
+            var node, nodeType
         for (var index = 0; index < nodes.length; ++index) {
             node = nodes[index]
             nodeType  = data(node, "type")
@@ -259,13 +301,13 @@ var editor = {
 
         // move down
         click(all("button[data-action=movedown]", node), function (e) {
-            var editor_node = this.parentNode.parentNode
-            var next_editor_node = next( next(editor_node) )
-            var add_buttons = next(next_editor_node)
-//debugger
-            if (hasClass(next_editor_node, "node")){
-                log("hasClass")
-                before(editor_node, next_editor_node)
+            var editor_node      = this.parentNode.parentNode;
+            var next_editor_node = next( next(editor_node) );
+
+            if (next_editor_node) {
+                var add_buttons = next(next_editor_node);
+
+                before(editor_node, next_editor_node);
                 before(add_buttons, editor_node)
             }
 
@@ -294,10 +336,6 @@ var editor = {
 
     // подготовка узла с картинкой
     initImgNodeButtons : function (node) {
-        // rename file input
-        fileInputName = attr(el("[type=file]", node), "name")
-        attr(el("[type=file]", node), "name", fileInputName + randomBetween(100, 999).toString())
-
         // show file dialog
         click(all(".change_img_btn", node), function () {
             el(".change_img_input", node).click()
@@ -369,8 +407,30 @@ var editor = {
             bind("keydown", liElements, function (e) {
                 var prevEl, nextEl;
 
+                // move up, when press ctrlKey + up arrow
+                if (e.keyCode == 38 && e.ctrlKey && !e.shiftKey){
+                    prevEl = prev(this);
+
+                    if (prevEl){
+                        after(this, prevEl)
+                        this.focus();
+                        editor.selectAll()
+                    }
+                }
+
+                // move down, when press ctrlKey + down arrow
+                if (e.keyCode == 40 && e.ctrlKey && !e.shiftKey){
+                    nextEl = next(this);
+
+                    if (nextEl){
+                        before(this, nextEl)
+                        this.focus();
+                        editor.selectAll()
+                    }
+                }
+
                 // when press up arrow
-                if (e.keyCode == 38){
+                if (e.keyCode == 38 && !e.ctrlKey && !e.shiftKey){
                     prevEl = prev(this);
 
                     if (prevEl){
@@ -380,7 +440,7 @@ var editor = {
                 }
 
                 // when press down arrow
-                if (e.keyCode == 40){
+                if (e.keyCode == 40 && !e.ctrlKey && !e.shiftKey){
                     nextEl = next(this);
 
                     if (nextEl){
@@ -417,7 +477,7 @@ var editor = {
                 }
 
                 // when press enter
-                if (e.keyCode == 13){
+                if (e.keyCode == 13 && !e.ctrlKey){
                     var newLi = this.cloneNode();
 
                     // add new li
@@ -442,7 +502,7 @@ var editor = {
     // - editor save functions -
 
     save : function () {
-            log("saving...")
+        //log("saving...")
         //заблокировать редактор
         editor.disableEditor()
 
@@ -470,7 +530,7 @@ var editor = {
 
             cloneNodes.push(cloneNode)
         })
-        log(cloneNodes, "cloneNodes")
+        //log(cloneNodes, "cloneNodes")
         editor.cloneNodes = cloneNodes
         //
 
@@ -586,6 +646,7 @@ var editor = {
              console.log("answer", e.currentTarget.responseText)
             if (xhr.readyState == 4 && xhr.status == 200) {
                 attr(uploadParams.img, "src", e.currentTarget.responseText)
+                data(uploadParams.img, "from", "cache")
 
                 // запускаем следующий файл на загрузку
                 editor.uploadImagesFromQueue()
@@ -599,11 +660,174 @@ var editor = {
 };
 
 //
-editor.restoreContent = function () {
-    //.stored_content
-    window.setTimeout(function() {
-        document.execCommand('selectAll', false, null)
-    }, 1);
+editor.prepareStoredNodes = function () {
+    var nodes = all(".editor_content .node:not(.example)")
+
+    if (nodes) {
+        var addButtons, node, nodeType, actionBtns, settingsBtns;
+
+        // prepare addButtons block
+        addButtons = el(".editor_content .add_buttons.example").cloneNode(true);
+        removeClass(addButtons, "example")
+        removeClass(addButtons, "hidden")
+
+        // prepare common actionBtns block
+        actionBtns = el(".editor_content .node[data-type=text].example .action_buttons").cloneNode(true);
+
+        // walk nodes
+        for (var index = 0; index < nodes.length; index++) {
+            node     = nodes[index];
+            nodeType = data(node, "type")
+
+            // add addButtons block after each node
+            after(node, addButtons.cloneNode(true))
+
+            // add common buttons
+            after(el(".content", node), actionBtns.cloneNode(true))
+
+            // if node has settings buttons - add them
+            settingsBtns = el(".editor_content .node[data-type=" + nodeType + "].example .setting_buttons");
+            if (settingsBtns){
+                before(el(".content", node), settingsBtns.cloneNode(true))
+            }
+
+            // make editable
+            if (nodeType == "header" || nodeType == "text"){
+                attr(el(".content", node), "contenteditable", "true")
+            } else if (nodeType == "list"){
+                var listLi = all("li", node);
+
+                for (var liIndex = 0; liIndex < listLi.length; liIndex++) {
+                    attr(listLi[liIndex], "contenteditable", "true")
+                }
+            }
+        }
+    }
+};
+
+// обработка клавиш, общая для всех видов узлов
+editor.initNodesKeys = function(nodes){
+    bind("keydown", all(".content", nodes), function (e) {
+        var node     = this.parentNode,
+            nodeType = data(node, "type"),
+            nextNode = editor.getNextNode(node),
+            prevNode = editor.getPrevNode(node),
+            nextFocusableNode = editor.getNexFocusabletNode(node),
+            prevFocusableNode = editor.getPrevFocusableNode(node);
+
+        // move whole node up, when press control + shift + up arrow
+        if (e.keyCode == 38 && e.ctrlKey && e.shiftKey){
+            if (prevNode){
+                el(".action_buttons [data-action=moveup]", node).click();
+                editor.focusNode(node);
+            }
+        }
+
+        // move whole node down, when press control + shift + up arrow
+        if (e.keyCode == 40 && e.ctrlKey && e.shiftKey){
+            if (nextNode){
+                el(".action_buttons [data-action=movedown]", node).click();
+                editor.focusNode(node);
+            }
+        }
+
+        // focus prev node, when press shift + up arrow
+        if (e.keyCode == 38 && e.shiftKey && !e.ctrlKey){
+
+            if (prevFocusableNode){
+                editor.focusNode(prevFocusableNode);
+            }
+        }
+
+        // focus next node, when press shift + down arrow
+        if (e.keyCode == 40 && e.shiftKey && !e.ctrlKey){
+            if (nextFocusableNode){
+                editor.focusNode(nextFocusableNode);
+            }
+        }
+
+        //  when press enter
+        if (e.keyCode == 13){
+            // add text node
+            if (e.ctrlKey || nodeType == "header") {
+                var addBtnsBlock, insertNode;
+
+                // insert before
+                if (e.shiftKey){
+                    addBtnsBlock = prev(node);
+                    el("[data-type=text]", addBtnsBlock).click();
+                    insertNode = prev(addBtnsBlock);
+                }
+                // insert after
+                else {
+                    addBtnsBlock = next(node);
+                    el("[data-type=text]", addBtnsBlock).click();
+                    insertNode = prev(addBtnsBlock);
+                }
+
+                editor.focusNode(insertNode);
+            }
+            // add one more paragraph
+            else {
+                if (nodeType == "text"){
+
+                    document.execCommand('insertHTML', false, '<p></p>');
+                    editor.focusNode(node, false);
+                }
+            }
+
+            // prevent adding child div as native behavior
+            e.preventDefault();
+        }
+    });
+}
+
+editor.getNextNode = function (node) {
+    return next( next(node) );
+};
+
+editor.getPrevNode = function (node) {
+    return prev( prev(node) );
+};
+
+
+// img, video and etc nodes - are not fucusable
+editor.getNexFocusabletNode = function (node) {
+    var nextNode = editor.getNextNode(node);
+//debugger
+    if (nextNode){
+       if (data(nextNode, "focusable") == "false")
+            return editor.getNexFocusabletNode(nextNode);
+        else
+            return nextNode;
+    }
+};
+
+// get prev node with the right type
+editor.getPrevFocusableNode = function (node) {
+    var prevNode = editor.getPrevNode(node);
+
+    if (prevNode && !hasClass(prevNode, "example")) {
+        if (data(prevNode, "focusable") == "false")
+            return editor.getPrevFocusableNode(prevNode);
+        else
+            return prevNode;
+    }
+};
+
+editor.focusNode = function (node, selectAll) {
+    var nodeType = data(node, "type");
+
+    if (nodeType == "text" || nodeType == "header"){
+        el(".content", node).focus();
+    }
+
+    if (nodeType == "list"){
+        el(".content li:first-child", node).focus();
+    }
+
+    if (!isDefined(selectAll) || selectAll)
+        editor.selectAll();
 };
 
 // selects all text in editing element
@@ -613,13 +837,19 @@ editor.selectAll = function () {
     }, 1);
 };
 
-
+//
+editor.init = function () {
+    editor.prepareStoredNodes()
+    editor.initAddButtons(all(".add_buttons button"))
+    editor.initNodesButtons(all(".editor_content .node"))
+    // обработка клавиш, общая для всех видов узлов
+    editor.initNodesKeys(all(".editor_content .node"));
+};
 
 // --- EDITOR ---
 
-editor.initAddButtons(".add_buttons button")
-editor.initNodesButtons(all(".editor_content .node"))
+editor.init();
 
 //click(all("#btn_save"), editor.save)
-click(all("#blankSendButton"), editor.save)
+click(all("#blankSendButton"), editor.save);
 

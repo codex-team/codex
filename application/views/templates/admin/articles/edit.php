@@ -3,26 +3,15 @@
   <article class="article">
     <h1>Редактировать статью</h1>
       <p>
-        <form method="POST" action="/admin/article/updatearticle/<?= $article->id ?>" enctype="multipart/form-data">
+        <form method="POST" action="/admin/article/updatearticle/<?= $article->id ?>" enctype="multipart/form-data" id="edit_article_form">
             <input type="hidden" name="user_id" id="blankNameInput" value="0" />
             <label for="blankNameInput">Заголовок статьи</label>
             <input type="text" name="title" id="blankNameInput" value="<?= $article->title ?>" />
             <label for="blankNameInput">Описание</label>
             <textarea name="description" id="blankCommentTextarea"  required><?= $article->description ?></textarea>
             <label for="blankCommentTextarea">Содержание</label>
-            <textarea name="text" id="blankCommentTextarea"  required><?= $article->text ?></textarea>
+            <textarea class="hidden" name="text" id="html_result"  required><?= $article->text ?></textarea>
 
-            <br><br>
-            <label for="blankNameInput">Обложка</label>
-            <input type="file" name="cover" id="blankNameInput" />
-
-            <br><br>
-            <label for="blankNameInput">Описание</label>
-            <textarea name="description" id="blankCommentTextarea"  required><?= $article['description'] ?></textarea>
-
-            <br><br>
-            <label for="html_result">Содержание</label>
-            <textarea class="hidden" name="text" id="html_result"  required><?= $article['text'] ?></textarea>
             <div class="editor_wrapper">
                 <div class="editor_content">
                     <div class="add_buttons hidden example">
@@ -59,7 +48,7 @@
                         </div>
                     </div>
 
-                    <div class="node hidden example" data-type="img">
+                    <div class="node hidden example" data-type="img" data-focusable="false">
                         <div class="setting_buttons">
                             <label>URL адрес картинки:</label>
                             <input type="text" class="img_from_url" value="dummyimage.com/500x300/6091C8/575757.png&text=Hello+from+url1">
@@ -105,7 +94,7 @@
                         <button class="img" data-type="img"></button>
                     </div>
 
-                    <div class="stored_content hidden"><?= $article['text'] ?></div>
+                    <?= htmlspecialchars_decode($article->text) ?>
                 </div>
             </div>
 
@@ -114,3 +103,4 @@
         </form>
     </article>
 </div>
+
