@@ -107,25 +107,11 @@ Class Model_Article extends Model
     }
 
 
-    public function trigger_before_update($id)
-    {
-        $query = DB::query(Database::CREATE TRIGGER, 'CREATE TRIGGER before_articles_update'. 
-                                    'BEFORE UPDATE ON Articles'.
-                                    'FOR EACH ROW'.
-                                        'SET NEW.dt_update = NOW()'.
-                                        'WHERE OLD.id = :id;')
-            ->param(':id', $id);
-        return $query;
-    }
-
     /**
      * Обновляет статью, сохраняя поля модели.
      */
     public function update()
     {
-        $trigger = trigger_before_update($this->id);
-        $trigger->execute();
-
         Dao_Articles::update()->where('id', '=', $this->id)
             ->set('title',          $this->title)
             ->set('text',           $this->text)
