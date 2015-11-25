@@ -1,4 +1,4 @@
-<div class="center_side clear">
+﻿<div class="center_side clear">
   <? foreach ($articles as $current_article): ?>
     <article class="article">
 
@@ -14,11 +14,11 @@
         <p>
           <?= $current_article->description ?>
         </p>
-        <? if(isset($tags_list)): ?>
+        <? if(isset($current_article->tags) && $current_article->tags != false): ?>
             <p>
-            <?foreach ($tags_list[$current_article->id] as $current_tag): ?>
-                
-                <a <?echo 'href="/tag/'.$current_tag.'"'; ?> ><span class="technic"><?= $current_tag; ?></span></a>
+            <?foreach ($current_article->tags as $current_tag): ?>
+
+                <a <?echo 'href="/tag/'.$current_tag["name"].'"'; ?> ><span class="technic"><?= $current_tag["name"]; ?></span></a>
                 
             <? endforeach; ?>
             </p>

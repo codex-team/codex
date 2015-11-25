@@ -14,6 +14,7 @@ Class Model_Article extends Model
     public $description;
     public $cover;
     public $user_id;
+    public $tags;
     public $dt_create;
     public $dt_update;
     public $is_removed;
@@ -75,6 +76,7 @@ Class Model_Article extends Model
             $this->dt_update    = $article_row['dt_update'];
             $this->is_removed   = $article_row['is_removed'];
             $this->is_published = $article_row['is_published'];
+            $this->tags         = Model_Tags::getTagsByArticle($this->id);
         }
 
         return $this;

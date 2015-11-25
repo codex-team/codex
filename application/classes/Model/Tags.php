@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 /**
- * Tags Class has several public methods for interaction with database .
+ * Tags Class.
  *
  * @author Zotov Vladislav
  */
@@ -9,127 +9,104 @@
 Class Model_Tags extends Model_Database
 {
 
-
-
-
 /**
-*  method defines public param tag_name
+* Получает названия всех тэгов (требуется только для библиотеки тэгов)
 * 
 */
 
-public static function GetTagsByArticle($id){
-
-
-    $tag_name = array();
-    $index = 0;
-    
-    
-    if($id !== null){
-
-            $tags_articles_tag_id =  Dao_TagsArticles::select('tag_id')
-                                                       ->where('article_id','=',$id)
-                                                       ->execute();
-
-            if (!empty($tags_articles_tag_id)) {
-                foreach ($tags_articles_tag_id as $tag_id) {
-
-                    
-                    $tag_record =  Dao_Tags::select('name')
-                                             ->where('id','=',$tag_id)
-                                             ->execute();
-                    $tag_name[$index] = $tag_record[0]["name"];
-
-                    $index++;
-                }
-            }
-
-        return $tag_name;
-    }
-}
-
-public static function GetAllTags(){
+public static function getAllTags(){
 
     $all_tags = array();
-    $articles = Model_Article::getActiveArticles();
 
-    if(!empty($articles)){
-
-        foreach ($articles as $article) {
-
-            $article->id = intval($article->id);
-            $all_tags[$article->id] = self::GetTagsByArticle($article->id);
-
-        
-        }
-    }
+    $all_tags = Dao_Tags::select('name')->execute();
+                  
     return $all_tags;
-}
-public static function GetUniqueTags(){
-    $index = 0;
-    $one_demention = array();
-    $multiarray = self::GetAllTags();
-    foreach ($multiarray as $inner_array) {
-        $one_demention = array_merge($one_demention, $inner_array); 
-        ++$index;
-       
-    }
-    
-    return array_unique($one_demention);
-
 }
 
 /**
-* returns array of found articles ids which fit with query
-* 
+*  Возвращает список тэгов для статьи (по ийди) в виде массива
 * 
 */
 
-private static function SearchByTag($tag_name){
+public static function getTagsByArticle($id){
 
-    $article_id = array();
-    $tag = Dao_Tags::select('id')
-                     ->where('name','=',$tag_name)
-                     ->execute();
+    if($id !== null){
 
-    if(!empty($tag)){
-
-        $article_ids = Dao_TagsArticles::select('article_id')
-                                         ->where('tag_id','=',$tag[0]["id"])
-                                         ->execute();
-
-        for ($index = 0; $index < count($article_ids); $index++ ) {
-
-            $article_id[$index] = $article_ids[$index]["article_id"];
-        }
+        $tag_name = Dao_Tags::select('Tags.name')
+                              ->join('Tags_articles')
+                              ->on('Tags.id', '=', 'Tags_articles.tag_id' )
+                              ->join('Articles')
+                              ->on('Articles.id', '=', 'Tags_articles.article_id')
+                              ->where('Articles.id', '=', $id)
+                              ->where('is_removed', '=', false)
+                              ->where('is_published', '=', true)
+                              ->execute();
     }
+
+    return $tag_name;
+}
+
+/**
+*  Возвращает список всех тэгов
+* 
+*/
+
+//FIXME не фильтрует тэги удаленных статей
+public static function getUniqueTags(){
+   
+    $unique = self::getAllTags();
+
+return $unique;
+}
+
+/**
+*  Возвращает айди статей по заданному тэгу в виде массива
+* 
+*/
+
+private static function searchByTag($tag_name){
+
+    $article_id = Dao_Articles::select('Articles.id')
+                              ->join('Tags_articles')
+                              ->on('Articles.id', '=', 'Tags_articles.article_id')
+                              ->join('Tags')
+                              ->on('Tags.id', '=', 'Tags_articles.tag_id' )
+                              ->where('Tags.name', '=', $tag_name)
+                              ->where('is_removed', '=', false)
+                              ->where('is_published', '=', true)
+                              ->execute();
 
     return  $article_id;
 }
 
-public static function GetArticlesByTag($tag_name){
+/**
+*  Возвращает список статей по заданному тэгу
+* 
+*/
+
+public static function getArticlesByTag($tag_name){
 
     $article = array();
-    $article_id = self::SearchByTag($tag_name);
+    $article_id = self::searchByTag($tag_name);
 
     for($index = 0; $index < count($article_id); $index++){
+        // Проверка на нулевой айди статьи
+        if ($article_id[$index]["id"] != 0){
 
-        $article[$index] = Model_Article::get($article_id[$index]);
-
+            $article[$index] = Model_Article::get($article_id[$index]["id"]);
+        }
     }
 
-return array_reverse($article);
+return $article;
 
 }
  
-
-
-
 /**
-*  inserts tags into tables and matches them with article id 
+*  Вносит тэги в БД в соответствии со статьей и кэширует их 
 *
 */
-
-public static function InsertTags($tags,$article_id){
+//FIXME В дальнейшем желательно использовать транзакцию 
+public static function insertTags($tags,$article_id){
 
     if(!empty($tags) && !empty($article_id)){ 
 
@@ -137,9 +114,9 @@ public static function InsertTags($tags,$article_id){
 
         for($index = 0; $index < count($single_tag); ++$index){
 
-           $is_existing_tag = self::SearchByTag($single_tag[$index]);
+           $is_existing_tag = self::SearchByTag($single_tag[$index]);//существует ли тэг в таблице Tags
 
-            if( empty($is_existing_tag) ){
+            if( empty($is_existing_tag) ){//если нет то добавляем его
 
                 $new_tag = Dao_Tags::insert()
                                      ->set('name', $single_tag[$index])
@@ -151,18 +128,18 @@ public static function InsertTags($tags,$article_id){
             }
             if($new_tag){
 
-                $get_new_tag_id = Dao_Tags::select()
+                $get_new_tag_id = Dao_Tags::select()//получаем айди текущего тэга и кэшируем тэг
                                             ->where('name', '=', $single_tag[$index])
                                             ->limit(1)
                                             ->cached(10*Date::MINUTE)
                                             ->execute();
-                $new_relation_tag_article = Dao_TagsArticles::insert()
+                $new_relation_tag_article = Dao_TagsArticles::insert()//создаем связующую запись в Tags_articles
                                                               ->set('tag_id',     $get_new_tag_id["id"])
                                                               ->set('article_id', $article_id)
                                                               ->limit(1)
                                                               ->clearcache()
                                                               ->execute();
-                $cache_it =  Dao_TagsArticles::select()
+                $cache_it =  Dao_TagsArticles::select()// кэшируем эту запись
                                                ->where('article_id', '=', $article_id)
                                                ->limit(1)
                                                ->cached(10*Date::MINUTE)
@@ -175,13 +152,12 @@ public static function InsertTags($tags,$article_id){
     }
 }
 
-
 /**
-*  deletes tags and tag_articles records
+* Функция безвозвратного удаления тэгов по айди статьи (нигде не используется на данный момент)
 *
 */
 
-public static function DeleteTags($article_id){
+public static function deleteTags($article_id){
 
     if(isset($article_id)){
 
@@ -205,4 +181,5 @@ public static function DeleteTags($article_id){
         return false;
     }
 }
+
 }

@@ -28,7 +28,7 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
             else { $errors = TRUE; }
         if ($article->text != '')        { $table_values['text'] = array('value' => $article->text); }
             else { $errors = TRUE; }
-             if ($tags != '')        { $table_values['tags'] = array('value' => $tags); }
+        if ($tags != '')                 { $table_values['tags'] = array('value' => $tags); }
             else { $errors = TRUE; }
 
         if (!Upload::valid($cover) or
@@ -59,7 +59,7 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
         $article->is_published = true;            // FIXME изменить, когда будет доступны режимы публикации
 
         $article->insert();
- 
+        //FIXME should use transaction here
         Model_Tags::InsertTags($tags,$article->id);  
 
         // redirect to new article
@@ -73,8 +73,7 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
 
         if (!empty($article_id) && !empty($user_id))
         {
-            Model_Article::get($article_id)->remove($user_id);
-            Model_Tags::DeleteTags($article_id); 
+            Model_Article::get($article_id)->remove($user_id); 
         }
 
         $this->redirect('/article');

@@ -19,11 +19,11 @@
             <?= $article->text ?>
         </p>
 
-        <?if (isset($tags_list)): ?>
+        <?if (isset($article->tags) && $article->tags != false): ?>
             <p>
-            <? foreach ($tags_list as $current_tag): ?>
+            <? foreach ($article->tags as $current_tag): ?>
                 
-                <a <?echo 'href="/tag/'.$current_tag.'"'; ?> ><span class="technic"><?= $current_tag; ?></span></a>
+                <a <?echo 'href="/tag/'.$current_tag["name"].'"'; ?> ><span class="technic"><?= $current_tag["name"]; ?></span></a>
                 
             <? endforeach; ?>
             </p>
@@ -33,7 +33,7 @@
         <h3>Комментарии</h3>
         <?
         if ($comments) {
-            $comment_level = [];
+            $comment_level = array();
             foreach ($comments as $comment):
 
                 foreach ($comment_level as $current_comment_level):
