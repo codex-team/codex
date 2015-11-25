@@ -119,7 +119,6 @@ Class Model_Article extends Model
             ->set('cover',          $this->cover)
             ->set('user_id',        $this->user_id)
             ->set('is_published',   $this->is_published)
-            ->set('dt_update',      $this->dt_update)      // TODO(#38) remove
             ->clearcache()
             ->execute();
     }
