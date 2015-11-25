@@ -1,52 +1,34 @@
 <div class="center_side clear">
-  <article class="article">
-    <h1>Добавить статью</h1>
-     <p>
-         <? if (isset($table_values)){ ?>
-             <span style="color:red">Пожалуйста, заполните все поля формы</span>
-         <? } ?>
-      <form method="POST" action="/article/addarticle" enctype="multipart/form-data" id="edit_article_form">
-          <label for="blankNameInput">Заголовок статьи</label>
-          <input type="text" name="title" id="blankNameInput" value="<?
-          if (isset($table_values['title']['value'])){
-              echo $table_values['title']['value'];
-          }
-          ?>"/>
 
-          <br>
-          <br>
-        <div>
-            <label for="blankNameInput">Описание</label>
-          <textarea name="description" id="blankCommentTextarea"  required><?
-              if (isset($table_values['description']['value'])){
-                  echo $table_values['description']['value'];
-              }
-              ?></textarea>
-        </div>
+    <article class="article">
 
-          <br>
-        <div>
-            <label for="blankNameInput">
-                Обложка
-            </label>
-            <input type="file" name="cover" id="blankNameInput" />
-            <? if (isset($table_values['cover']) && $table_values['cover'] == true){ ?>
-                <span style="color:red">Допускается PNG или JPEG файл объемом до 10MB</span>
-            <? } ?>
-        </div>
-          <br>
+        <form method="POST" action="/article/addarticle" enctype="multipart/form-data" id="edit_article_form">
 
-          <label for="blankCommentTextarea">Содержание</label>
+            <input class="article_form_header" type="text" name="title" id="blankNameInput" value="Greatest article"/>
 
-          <?=$editor;?>
+            <? /*
 
+                <label for="blankNameInput">Описание</label>
+                <textarea name="description" id="blankCommentTextarea"  required></textarea>
 
-          <textarea class="hidden" name="text" id="html_result"></textarea>
+                <label for="blankNameInput">Обложка</label>
+                <input type="file" name="cover" id="blankNameInput" />
+            */?>
 
-          <p><button class="master" id="save_article">Добавить</button></p>
-      </form>
-     </p>
-  </article>
+            <? /** Todo: Editor should be initialized by <script> handler for visible textarea */
+                 include "editor.php"
+            ?>
+            <textarea class="hidden" name="text" id="html_result"></textarea>
+
+            <div class="article_form_buttons">
+
+                <button class="button master" id="save_article">Опубликовать</button>
+                <button class="button" id="save_draft">Сохранить черновик</button>
+
+            </div>
+
+        </form>
+    </article>
 </div>
 
 

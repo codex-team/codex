@@ -33,7 +33,7 @@ class Controller_Admin extends Controller_Base_preDispatch
 
         $this->view["article"] = $article;
 
-        $this->view["editor"] = View::factory('templates/articles/editor', array("storedNodes" => $article->text));
+        // $this->view["editor"] = View::factory('templates/articles/editor', array("storedNodes" => $article->text));
         $content              = View::factory('templates/admin/articles/edit', $this->view);
 
         $this->template->content = View::factory("templates/admin/wrapper",
