@@ -57,7 +57,7 @@ Route::set('ARTICLES_AND_COMMENTS_SCRIPTS', 'articles/<action>(/<article_id>)',
  * @guryn
  */
 Route::set('ADD_COMMENT_SCRIPT', 'comment/<action>(/<comment_id>)',
-        array( 'comment_id' => $DIGIT ))->defaults(array(
+        array( 'action' => 'add|del', 'comment_id' => $DIGIT ))->defaults(array(
     'controller' => 'comment',
     'action' => 'action'
 ));
