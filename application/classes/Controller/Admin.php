@@ -10,16 +10,16 @@ class Controller_Admin extends Controller_Base_preDispatch
         switch ($category){
 
             case 'articles' : 
-                self::articles(); 
+                $content = self::articles(); 
                 break;
 
             case 'users' : 
-                self::users(); 
+                $content = self::users(); 
                 break;
         }
 
         $this->template->content = View::factory("templates/admin/wrapper",
-            array("content" => $this->view['content']));
+            array("content" => $content));
 
     }
 
@@ -27,9 +27,7 @@ class Controller_Admin extends Controller_Base_preDispatch
     {
         $this->view["articles"] = Model_Article::getAllArticles();
 
-        $content = View::factory('templates/admin/articles/list', $this->view);
-
-        $this->view['content'] = $content;
+        return View::factory('templates/admin/articles/list', $this->view);
 
     }
 
@@ -37,9 +35,7 @@ class Controller_Admin extends Controller_Base_preDispatch
     {
         $this->view["users"] = Model_User::getAll();
 
-        $content = View::factory('templates/admin/users/list', $this->view);
-
-        $this->view['content'] = $content;
+        return View::factory('templates/admin/users/list', $this->view);
 
     }
 
