@@ -36,8 +36,8 @@
                         </td>
                         <td>Без просмотров</td>
 <!--                        TODO(#44) Выводить счётчик просмотров-->
-                        <td><a href='/admin/articles/<?= $current_article->id ?>/editarticle'>Редактировать</a></td>
-                        <td><a href='/admin/articles/<?= $current_article->id ?>/delarticle'>Удалить</a></td>
+                        <td>Редактировать</td>
+                        <td><a href='/article/delarticle/<?= $current_article->id ?>'>Удалить</a></td>
                     </tr>
                 <? endif; ?>
             <? endforeach; ?>
