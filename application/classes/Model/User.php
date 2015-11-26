@@ -79,6 +79,8 @@ Class Model_User extends Model
             $model->id         = $user['id'];
             $model->name       = $user['name'];
             $model->photo      = $user['photo'];
+            $model->photo_small = $user['photo_small'];
+            $model->photo_big  = $user['photo_big'];
             $model->dt_create  = $user['dt_create'];
             $model->dt_update  = $user['dt_update'];
             $model->github_id  = $user['github_id'];
