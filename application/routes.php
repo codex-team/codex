@@ -42,7 +42,7 @@ Route::set('TASK_PAGE', 'task/<who>', array('who' => $STRING))->defaults(array(
  *
  * @guryn
  */
-Route::set('ARTICLES_AND_COMMENTS_SCRIPTS', 'articles/<action>(/<article_id>)',
+Route::set('ARTICLES_SCRIPTS', 'articles/<action>(/<article_id>)',
         array( 'action' => 'add|del|new|show|all|edit', 'article_id' => $DIGIT ))->defaults(array(
     'controller' => 'articles',
     'action' => 'action'
@@ -56,7 +56,7 @@ Route::set('ARTICLES_AND_COMMENTS_SCRIPTS', 'articles/<action>(/<article_id>)',
  *
  * @guryn
  */
-Route::set('ADD_COMMENT_SCRIPT', 'comment/<action>(/<comment_id>)',
+Route::set('COMMENTS_SCRIPT', 'comment/<action>(/<comment_id>)',
         array( 'action' => 'add|del', 'comment_id' => $DIGIT ))->defaults(array(
     'controller' => 'comment',
     'action' => 'action'
