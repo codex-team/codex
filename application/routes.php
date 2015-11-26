@@ -105,8 +105,7 @@ Route::set('TAGS', 'tag(/<query>)', array('query' => $QUERY))->defaults(array(
 //Script for admin panel---------
 
 Route::set('ADMIN', 'admin(/<category>(/<list>))', array('category' => 'articles|users',
-                                                                'list' => 'unpublished|deleted', 
-                                                                'id' => $DIGIT))
+                                                                'list' => 'unpublished|deleted'))
   ->defaults(array(
         'controller' => 'admin',
         'action' => 'index'
