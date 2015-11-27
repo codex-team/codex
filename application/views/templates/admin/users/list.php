@@ -43,9 +43,6 @@
                             <b>0</b>
                             articles
                         </td>
-                        <td>
-                            <a href='/admin/users/deluser/<?= $user->id ?>'>Удалить</a>
-                        </td>
                     </tr>
                 <? endif; ?>
             <? endforeach; ?>
