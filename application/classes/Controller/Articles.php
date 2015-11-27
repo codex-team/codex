@@ -104,7 +104,7 @@ class Controller_Articles extends Controller_Base_preDispatch
             Model_Article::get($article_id)->remove($user_id);
         }
 
-        $this->redirect('/article');
+        $this->redirect('/admin/articles');
     }
 
     public function action_edit()
