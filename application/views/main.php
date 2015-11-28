@@ -51,7 +51,6 @@
             <? endif ?>
             <div class="site_menu fl_l">
                 <a href="/">CodeX</a>
-                <a href="/join">Join team</a>
                 <a href="/articles">Exp</a>
             </div>
             <div class="social_buttons">

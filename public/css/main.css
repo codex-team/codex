@@ -68,24 +68,22 @@ input[type="submit"]{
     border: 0;
     display: inline-block;
     padding: 12px 24px;
-    color: #8296BB;
+    color: #5a677f;
     vertical-align: top;
     cursor: pointer;
     text-decoration: none;
     font-family: inherit;
-    background: transparent;
-    box-shadow: inset 0 0 0 2px #d2dcef;
+    background: #c0cedc;
     line-height: 1em;
 }
 .button:hover,
 input[type="submit"]:hover{
-    box-shadow: inset 0 0 0 2px #9bacce;
-    color: #6c84b4;
+    background: #93adc7;
+    color: #3d516f;
     text-decoration: none;
 }
 .button.master,
 input[type="submit"]{
-    box-shadow: none;
     background: #5c95cf;
     color: #fff;
 }
@@ -757,6 +755,32 @@ html {
 
 
 
+/** Article page styles */
+
+.big_header{
+    font-size: 67px;
+    line-height: 1.2em;
+    text-align: center;
+    padding: 100px 150px 40px;
+}
+.article_info{
+    text-align: center;
+    margin-left: -75px;
+    margin-bottom: 70px;
+}
+    .article_info time{
+        color: #9095a2;
+    }
+    .article_info .list_user_ava{
+        margin: 0 20px;
+        border: 0;
+    }
+
+.article_content{
+    font-size: 17px;
+    line-height: 1.6em;
+    margin: 0 70px;
+}
 
 
 @-webkit-keyframes wobble {
@@ -949,16 +973,6 @@ html {
 
 }
 
-
-input.article_form_header{
-    margin-bottom: 40px;
-    font-size: 32px;
-    font-weight: bold;
-}
-
-.article_form_buttons{
-    margin-top: 50px;
-}
 
 
 
