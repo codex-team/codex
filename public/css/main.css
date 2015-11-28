@@ -964,11 +964,45 @@ html {
         }
 
 
-.landing_page{
-    padding: 50px 25px;
-}
-    .landing_page h1{
+    .landing_page{
+        padding: 50px 25px;
+    }
+        .landing_page h1{
+            font-size: 40px;
+        }
+
+    .big_header{
+        padding: 30px 0;
         font-size: 40px;
+    }
+    .article_info{
+        margin-left: 0;
+        font-size: 15px;
+    }
+        .article_info time{
+            display: block;
+            margin-bottom: 10px;
+        }
+        .article_info .list_user_ava{
+            margin: 0 10px 0 0;
+            vertical-align: text-bottom;
+        }
+        .article_info .list_user_ava,
+        .article_info .list_user_ava > img{
+            width: 20px;
+            height: 20px;
+        }
+        .article_info .list_user_ava > img{
+            vertical-align: top;
+        }
+        .article_info .list_user_name{
+
+        }
+
+    .article_content{
+        margin: 0;
+        font-size: 16px;
+
     }
 
 }
