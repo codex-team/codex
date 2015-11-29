@@ -273,7 +273,7 @@ html {
         .site_header .profile{
             text-decoration: none;
             font-size: 16px;
-            padding: 18px;
+            padding: 18px 0;
             position: relative;
             display: inline-block;
         }
