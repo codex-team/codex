@@ -9,38 +9,34 @@
 
 class Controller_Articles_Edit extends Controller_Base_preDispatch
 {
-    /**
-     * Save editor img from url/file and displays img path from site root
-     * it takes all params from $_POST
-     * @author Markus3295
-     */
-    function action_saveEditorImg(){
-        // todo check secret key when upload (?)
+    function action_showNewEditor(){
+        $this->template->content = View::factory('templates/articles/new_editor', $this->view);
+    }
 
-        $source = Arr::get($_POST, "source");
+    function action_saveImgFromFile(){
 
-        if ($source == "url"){
-            if (!$url = Arr::get($_POST, "url"))
-                die();
+        $methods = new Model_Methods();
+        $filePath = $methods->SavePostFile("EDITOR_IMG", "redactor/", 2097152, array('jpg','jpeg','gif','png','bmp'));
 
-            $image_name = uniqid() . ".jpg";
+        echo $filePath;
+        die();
+    }
 
-            $uploaddir    = '/upload/redactor/';
-            $uploaddirPhp = $_SERVER['DOCUMENT_ROOT'] . $uploaddir;
-
-            $response = Request::factory($url)->execute();
-            $file = new SplFileObject($uploaddirPhp . $image_name, 'w');
-            $file->fwrite($response->body());
-
-            echo $uploaddir . $image_name;
+    function action_saveImgFromUrl(){
+        if (!$url = Arr::get($_POST, "url"))
             die();
 
-        } else if ($source == "file") {
-            $filePath = $this->methods->SavePostFile("EDITOR_IMG", "redactor/", 2097152, array('jpg','jpeg','gif','png','bmp'));
+        $image_name = uniqid() . ".jpg";
 
-            echo $filePath;
-            die();
-        }
+        $uploaddir    = '/upload/redactor/';
+        $uploaddirPhp = $_SERVER['DOCUMENT_ROOT'] . $uploaddir;
+
+        $response = Request::factory($url)->execute();
+        $file = new SplFileObject($uploaddirPhp . $image_name, 'w');
+        $file->fwrite($response->body());
+
+        echo $uploaddir . $image_name;
+        die();
     }
 
 }

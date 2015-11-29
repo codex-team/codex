@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Comments extends Controller_Base_preDispatch
+class Controller_Comment extends Controller_Base_preDispatch
 {
 
     public function action_add()
@@ -21,7 +21,7 @@ class Controller_Comments extends Controller_Base_preDispatch
         }
 
         if ($comment->text == ''){
-            $this->redirect('/article/'.$comment->article_id);
+            $this->redirect('/article/' . $comment->article_id);
         }
 
         if ($comment->parent_id != 0){
@@ -37,10 +37,10 @@ class Controller_Comments extends Controller_Base_preDispatch
 
         $comment->insert();
 
-        $this->redirect('/article/'.$comment->article_id);
+        $this->redirect('/article/' . $comment->article_id);
     }
 
-    public function action_delete()
+    public function action_del()
     {
         if (!($this->user->id)) {
             $this->redirect('/');
