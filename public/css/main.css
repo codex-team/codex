@@ -273,10 +273,13 @@ html {
         .site_header .profile{
             text-decoration: none;
             font-size: 16px;
-            padding: 18px 0;
+            padding: 18px;
             position: relative;
             display: inline-block;
         }
+            .site_header .profile{
+                padding-right: 0;
+            }
             .site_menu .current{
                 font-weight: bold;
             }
