@@ -1,26 +1,24 @@
 <div class="center_side clear">
     <article class="article">
 
-        <?
-        // мешает
-//        <div class="article_image">
-//            <img src="/upload/covers/< ?= $article->cover ? >"/>
-//        </div>
-//
-//        <p class="time_subtitle">< ?= $article->dt_create ? ></p>
-        ?>
-
-        <h1 class="first_header">
+        <h1 class="big_header">
             <?= $article->title ?>
         </h1>
 
-        <p class="first_header">
-            <?//= $article->description ?>
-        </p>
+        <div class="article_info">
+            <time><?= Date::fuzzy_span($article->dt_create) ?></time>
+            <span class="list_user_ava">
+                <img src="<?= $article->author->photo ?>" alt="<?= $article->author->name ?>">
+            </span>
+            <a class="list_user_name" href="/user/<?= $article->author->id ?>"><?= $article->author->name ?></a>
+        </div>
 
         <div class="article_content">
-            <?= htmlspecialchars_decode($article->text )?>
+            <?= Text::auto_p($article->text) ?>
         </div>
+
+
+        <? /*
 
         <h3>Комментарии</h3>
         <?
@@ -85,6 +83,8 @@
             <h3>Комментарии могут оставлять только зарегистрированные пользователи</h3>
         <? endif ?>
         </p>
+
+                *******/ ?>
 
     </article>
 </div>

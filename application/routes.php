@@ -100,6 +100,12 @@ Route::set('TAGS', 'tag(/<query>)', array('query' => $QUERY))->defaults(array(
 
 //Script for admin panel---------
 
+Route::set('ADMIN_EDIT_ARTICLE', 'article/<article_id>/edit', array('article_id' => $DIGIT))->defaults(array(
+    'controller' => 'admin',
+    'action' => 'edit'
+));
+
+
 Route::set('ADMIN', 'admin(/<category>(/<list>))', array('category' => 'articles|users',
                                                                 'list' => 'unpublished|deleted'))
   ->defaults(array(
@@ -109,26 +115,14 @@ Route::set('ADMIN', 'admin(/<category>(/<list>))', array('category' => 'articles
 
 // - viz redaktor -
 
-
-
 Route::set('EDITOR_LANDING', 'editor', array())->defaults(array(
     'controller' => 'editor',
     'action' => 'landing'
 ));
 
-
-/** Sorry, Mark, I need this route. */
-// Route::set('ARTICLE_EDITOR', 'editor', array())->defaults(array(
-//     'controller' => 'articles_edit',
-//     'action' => 'showNewEditor'
-// ));
-Route::set('ARTICLE_EDITOR_SAVE_IMG_FROM_FILE', 'saveimgfile', array())->defaults(array(
+Route::set('ARTICLE_EDITOR_SAVE_IMG', 'editorsaveimg', array())->defaults(array(
     'controller' => 'articles_edit',
-    'action' => 'saveImgFromFile'
-));
-Route::set('ARTICLE_EDITOR_SAVE_IMG_FROM_URL', 'saveimgurl', array())->defaults(array(
-    'controller' => 'articles_edit',
-    'action' => 'saveImgFromUrl'
+    'action' => 'saveEditorImg'
 ));
 
 // Defaults

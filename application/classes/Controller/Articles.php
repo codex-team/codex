@@ -38,7 +38,7 @@ class Controller_Articles extends Controller_Base_preDispatch
 
     public function action_add()
     {
-        $user_id = $this->user->id; 
+        $user_id = $this->user->id;
 
         if (empty($user_id)) {
             $this->redirect('/');
@@ -72,11 +72,11 @@ class Controller_Articles extends Controller_Base_preDispatch
 
         if ($errors)
         {
-            $this->view["table_values"] = $table_values;
+            // $this->view["editor"] = View::factory('templates/articles/editor', array("storedNodes" => $table_values['text']['value']));
 
             $content = View::factory('templates/articles/new', $this->view);
-            $this->template->content = View::factory("templates/articles/wrapper",
-                array("active" => "newArticle", "content" => $content, "table_values" => $table_values));
+
+            $this->template->content = View::factory("templates/articles/wrapper", array("active" => "newArticle", "content" => $content));
 
             return false;
         }
