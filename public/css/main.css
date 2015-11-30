@@ -781,9 +781,25 @@ html {
 
 .article_content{
     font-size: 17px;
-    line-height: 1.6em;
+    line-height: 1.5em;
     margin: 0 70px;
 }
+    .article_content h2{
+        margin: 50px 0 30px;
+    }
+    .article_content img{
+        max-width: 100%;
+        margin: 30px 0;
+    }
+    .article_content a{
+        color: #2574CE;
+        text-decoration: none;
+        border-bottom: 1px solid #B2C9F3;
+    }
+        .article_content a:hover{
+            color: #2C70F5;
+            border-bottom-color: #6E8FEC;
+        }
 
 
 @-webkit-keyframes wobble {
