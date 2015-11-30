@@ -277,6 +277,9 @@ html {
             position: relative;
             display: inline-block;
         }
+            .site_header .profile{
+                padding-right: 0;
+            }
             .site_menu .current{
                 font-weight: bold;
             }
