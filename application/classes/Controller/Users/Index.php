@@ -21,13 +21,53 @@ class Controller_Users_Index extends Controller_Base_preDispatch
 	        $viewUser = $this->user;
 	    }
 
+        if ($this->user->id == $viewUser->id) {
+            $isMyPage = true;
+        } else {
+            $isMyPage = false;
+        }
+
         if (!$viewUser->id) $this->redirect('/');
 
         $this->title = $viewUser->name ?: 'Пользователь #' . $viewUser->id;
-
         $this->view['viewUser']  = $viewUser;
+        $this->view['isMyPage']  = $isMyPage;
         $this->template->content = View::factory('templates/users/user', $this->view);
 
+    }
+    public function action_settings()
+    {
+        $user = Model_User::get($this->user->id);
+
+        if ($user->vk_uri == '0') $user->vk_uri = '';
+        if ($user->instagram_uri == '0') $user->instagram_uri = '';
+        $this->view['user'] = $user;
+
+        $this->template->content = View::factory('templates/users/settings', $this->view);
+    }
+    public function action_edit()
+    {
+        $name          = Arr::get($_POST, 'name');
+        $vk_url        = Arr::get($_POST, 'vk_uri');
+        $instagram_url = Arr::get($_POST, 'instagram_uri');
+        $about_me      = Arr::get($_POST, 'about_me');
+
+        if ( $newAva= $this->
+            methods->SavePostFile('ava', 'users/', 2097152,
+             array('jpg', 'jpeg', 'png')) ){
+            $this->user->photo = $newAva;
+        }
+
+        $vk_uri        = substr(parse_url($vk_url, PHP_URL_PATH), 1);
+        $instagram_uri = substr(parse_url($instagram_url, PHP_URL_PATH), 1);
+
+        $this->user->instagram_uri   = $instagram_uri;
+        $this->user->vk_uri          = $vk_uri;
+        $this->user->about_me        = $about_me;
+        $this->user->name            = $name;
+        $this->user->update();
+
+        $this->redirect('user/');
     }
     public function action_create()
     {

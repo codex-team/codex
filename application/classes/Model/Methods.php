@@ -29,12 +29,10 @@ class Model_Methods extends Model
 
 
 
-    public function save_cover($cover)
+    public function save_cover($cover, $uploaddir = 'upload/covers/')
     {
         $new_name = bin2hex(openssl_random_pseudo_bytes(5));
         $cover['name'] = $new_name . '.' . pathinfo($cover['name'], PATHINFO_EXTENSION);
-
-        $uploaddir = 'upload/covers/';
 
         if ($file = Upload::save($cover, NULL, $uploaddir)){
             Image::factory($file)->save($uploaddir . $cover['name']);

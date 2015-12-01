@@ -406,11 +406,11 @@ html {
 
 
 
-.profile_page{
+.profile_page, .settings{
     padding: 150px 0 110px;
     text-align: center;
 }
-.profile_page .ava{
+.profile_page .ava, .settings .ava{
     display: inline-block;
     width: 100px;
     height: 100px;
@@ -427,7 +427,7 @@ html {
     color: #CAD2E0;
     font-weight: bold;
 }
-    .profile_page .ava > img{
+    .profile_page .ava > img, .settings .ava > img{
         vertical-align: top;
         margin: -1px 0 0 -2px;
         width: 103px;
@@ -442,26 +442,45 @@ html {
     font-size: 16px;
     margin-bottom: 20px;
 }
+.profile_page .settings_link{
+    display: inline-block;
+    font-size: 16px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
     .profile_page .nickname i{
         vertical-align: middle;
     }
 .profile_page .social_link{
     display: inline-block;
     padding: 2px 15px;
-    margin: 15px 7px;
+    margin: 3px 7px;
     border-radius: 15px;
     color: #9C9DA2;
     text-decoration: none;
 }
-
+.profile_page .about_me{
+    display: inline-block;
+    margin-bottom: 20px;
+    text-decoration: none;
+}
 
 .no_data{
     text-align: center;
     padding: 150px 0;
 }
 
+.settings .user_edit_form{
+    padding-left:32%;
+    padding-right:32%;
+}
 
+.settings .user_edit_form input{
+    margin:1%;
+}
 
+.settings .user_edit_form label{
+}
 
 .left_col{
     width: 47%;
@@ -939,7 +958,7 @@ html {
             padding: 18px 0;
             margin-right: 20px;
         }
-        .site_header .social_buttons{
+        .site_header ._li_buttons{
             display: none;
         }
 

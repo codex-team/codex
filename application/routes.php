@@ -66,11 +66,19 @@ Route::set('DEL_ARTICLE_SCRIPT', 'article/delarticle/<article_id>', array('artic
 // ));
 
 Route::set('USER_PAGE', 'user(/<user_id>)', array('user_id' => $DIGIT))->defaults(array(
-
 	'controller' => 'users_index',
-	'action' => 'showUser'
+	'action'     => 'showUser'
 ));
 
+Route::set('USER_SETTINGS', 'user/settings')->defaults(array(
+	'controller' => 'users_index',
+	'action'     => 'settings'
+));
+
+Route::set('USER_ADD', 'user/edit')->defaults(array(
+	'controller' => 'users_index',
+	'action'     => 'edit'
+));
 
 // Scripts for comments
 
