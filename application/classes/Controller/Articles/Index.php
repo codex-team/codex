@@ -15,9 +15,13 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
     public function action_showArticle()
     {
         $articleId = $this->request->param('article_id');
+        $guestIp = $_SERVER['REMOTE_ADDR'];
+
         $this->view["id"] = $articleId;
 
         $article = Model_Article::get($articleId);
+
+        $views = Model_Views::increment($articleId);
 
         $this->view["article"] = $article;
 

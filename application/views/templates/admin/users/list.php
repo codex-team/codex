@@ -1,7 +1,7 @@
 <div class="center_side clear">
     <? if (count($users) == 0): ?>
         <article class="article">
-            <p>ользователей нет.</p>
+            <p>Пользователей нет.</p>
         </article>
     <? else: ?>
         <table class="p_table">
