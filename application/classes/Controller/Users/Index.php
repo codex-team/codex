@@ -35,6 +35,7 @@ class Controller_Users_Index extends Controller_Base_preDispatch
         $this->template->content = View::factory('templates/users/user', $this->view);
 
     }
+
     public function action_settings()
     {
         $user = Model_User::get($this->user->id);
@@ -45,25 +46,24 @@ class Controller_Users_Index extends Controller_Base_preDispatch
 
         $this->template->content = View::factory('templates/users/settings', $this->view);
     }
+
     public function action_edit()
     {
+        $maxFileSize   = 2097152;
         $name          = Arr::get($_POST, 'name');
         $vk_url        = Arr::get($_POST, 'vk_uri');
         $instagram_url = Arr::get($_POST, 'instagram_uri');
-        $about_me      = Arr::get($_POST, 'about_me');
+        $bio           = Arr::get($_POST, 'bio');
 
-        if ( $newAva= $this->
-            methods->SavePostFile('ava', 'users/', 2097152,
-             array('jpg', 'jpeg', 'png')) ){
+        if ( $newAva= $this->methods->SavePostFile('ava', 'users/', $maxFileSize, array('jpg', 'jpeg', 'png')) )
             $this->user->photo = $newAva;
-        }
 
         $vk_uri        = substr(parse_url($vk_url, PHP_URL_PATH), 1);
         $instagram_uri = substr(parse_url($instagram_url, PHP_URL_PATH), 1);
 
         $this->user->instagram_uri   = $instagram_uri;
         $this->user->vk_uri          = $vk_uri;
-        $this->user->about_me        = $about_me;
+        $this->user->bio             = $bio;
         $this->user->name            = $name;
         $this->user->update();
 

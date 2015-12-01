@@ -16,7 +16,7 @@ Class Model_User extends Model
     public $github_id     = 0;
     public $github_uri    = '';
     public $instagram_uri = '';
-    public $about_me      = '';
+    public $bio           = '';
     public $role          = 0;
     public $is_removed    = 0;
 
@@ -90,7 +90,7 @@ Class Model_User extends Model
             $model->vk_uri        = $user['vk_uri'];
             $model->fb_uri        = $user['fb_uri'];
             $model->instagram_uri = $user['instagram_uri'];
-            $model->about_me      = $user['about_me'];
+            $model->bio           = $user['bio'];
             $model->role          = $user['role'];
             $model->is_removed    = $user['is_removed'];
         }
@@ -161,7 +161,7 @@ Class Model_User extends Model
             'vk_uri'        => $this->vk_uri,
             'fb_uri'        => $this->fb_uri,
             'instagram_uri' => $this->instagram_uri,
-            'about_me'      => $this->about_me
+            'bio'           => $this->bio
         ))->where('id', '=', $this->id)->execute()
         )
             return true;

@@ -9,8 +9,8 @@
                 <a class="nickname" href="//github.com/<?= $viewUser->github_uri ?>" target="_blank">
                 <i class="icon-github-circled"></i><?= $viewUser->github_uri ?></a><br/>
             <? endif ?>
-            <? if (!empty($viewUser->about_me)): ?>
-                <div class="about_me"><?= $viewUser->about_me ?></div><br />
+            <? if (!empty($viewUser->bio)): ?>
+                <div class="bio"><?= $viewUser->bio ?></div><br />
             <? endif; ?>
             <? if (!empty($viewUser->vk_uri)): ?>
                 <a class="social_link vk" href="//vk.com/<?= $viewUser->vk_uri ?>" target="_blank">
