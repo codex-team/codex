@@ -13,7 +13,7 @@ class Controller_Users_Index extends Controller_Base_preDispatch
 
     public function action_showUser()
     {
-      $user_id = $this->request->param('user_id');
+        $user_id = $this->request->param('user_id');
 	    if ( !empty($user_id) ){
 		    $viewUser = Model_User::get( $user_id );
 	    } else {
@@ -35,17 +35,36 @@ class Controller_Users_Index extends Controller_Base_preDispatch
 
     }
 
+    /**
+     * Контроллер берет из роута имя контроллера и выполняет его
+     */
+    public function action_pages()
+    {
+        $pageName = $this->request->param('page_name');
+
+        if ($pageName == 'settings'){
+            $this->action_settings();
+        } elseif ($pageName == 'edit') {
+            $this->action_edit();
+        }
+    }
+
+    /**
+     * Контроллер передает данные о юзере на странцу настроек
+     */
     public function action_settings()
     {
         $user = Model_User::get($this->user->id);
 
         if ($user->vk_uri == '0') $user->vk_uri = '';
         if ($user->instagram_uri == '0') $user->instagram_uri = '';
-        $this->view['user'] = $user;
 
+        $this->view['user'] = $user;
         $this->template->content = View::factory('templates/users/settings', $this->view);
     }
-
+    /**
+     * Контроллер берет данные из формы и заносит в модель пользователя и базу данных
+     */
     public function action_edit()
     {
         $maxFileSize   = 2097152;
@@ -54,19 +73,25 @@ class Controller_Users_Index extends Controller_Base_preDispatch
         $instagram_url = Arr::get($_POST, 'instagram_uri');
         $bio           = Arr::get($_POST, 'bio');
 
-        if ( $newAva= $this->methods->SavePostFile('ava', 'users/', $maxFileSize, array('jpg', 'jpeg', 'png')) )
-            $this->user->photo = $newAva;
+        // проверка на удаление имени
+        if ($name != ''){
 
+            if ( $newAva= $this->methods->SavePostFile('ava', 'users/', $maxFileSize, array('jpg', 'jpeg', 'png')) )
+                $this->user->photo = $newAva;
+
+        //отсекаем  uri и '/'  от ссылки
         $vk_uri        = substr(parse_url($vk_url, PHP_URL_PATH), 1);
         $instagram_uri = substr(parse_url($instagram_url, PHP_URL_PATH), 1);
 
-        $this->user->instagram_uri   = $instagram_uri;
-        $this->user->vk_uri          = $vk_uri;
-        $this->user->bio             = $bio;
-        $this->user->name            = $name;
+        $this->user->vk_uri        = $vk_uri;
+        $this->user->instagram_uri = $instagram_uri;
+        $this->user->bio           = $bio;
+        $this->user->name          = $name;
         $this->user->update();
+        }
 
         $this->redirect('user/');
+
     }
     public function action_create()
     {

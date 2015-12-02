@@ -7,8 +7,6 @@ Class Model_User extends Model
     public $photo         = '';
     public $photo_big     = '';
     public $photo_small   = '';
-    public $dt_create;
-    public $dt_update;
     public $vk_id         = 0;
     public $fb_id         = 0;
     public $vk_uri        = '';
@@ -19,6 +17,8 @@ Class Model_User extends Model
     public $bio           = '';
     public $role          = 0;
     public $is_removed    = 0;
+    public $dt_create;
+    public $dt_update;
 
 
     /**

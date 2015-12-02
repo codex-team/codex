@@ -8,7 +8,7 @@
                 <p>Изменить аву<br/>
                 <input type="file" id="ava" name="ava"></p>
                 <label for="name">Имя</label>
-                <input type="text" id="name" name="name" value="<?= $user->name?>">
+                <input type="text" id="name" name="name" value="<?= $user->name?>" required>
                 <label for="vk_uri">Ссылка вк</label>
                 <input type="text" id="vk_uri" name="vk_uri" value="https://vk.com/<?= $user->vk_uri?>">
                 <label for="instagram_uri">Instagram</label>

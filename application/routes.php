@@ -60,24 +60,14 @@ Route::set('DEL_ARTICLE_SCRIPT', 'article/delarticle/<article_id>', array('artic
 
 // Scripts for users
 
-// Route::set('USER_PAGE', 'user/<action>(/<user_id>)', array('user_id' => $DIGIT, 'action' => $STRING))->defaults(array(
-//     'controller' => 'users_index',
-//     'action' => 'action'
-// ));
-
-Route::set('USER_PAGE', 'user(/<user_id>)', array('user_id' => $DIGIT))->defaults(array(
+Route::set('USER_PROFILE', 'user(/<user_id>)', array('user_id' => $DIGIT))->defaults(array(
 	'controller' => 'users_index',
 	'action'     => 'showUser'
 ));
 
-Route::set('USER_SETTINGS', 'user/settings')->defaults(array(
+Route::set('USER_PAGES', 'user/<page_name>', array('page_name' => $STRING))->defaults(array(
 	'controller' => 'users_index',
-	'action'     => 'settings'
-));
-
-Route::set('USER_ADD', 'user/edit')->defaults(array(
-	'controller' => 'users_index',
-	'action'     => 'edit'
+	'action'     => 'pages'
 ));
 
 // Scripts for comments

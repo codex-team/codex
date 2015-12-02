@@ -33,7 +33,6 @@ class Controller_Base_preDispatch extends Controller_Template
 
             /** Mark requests as secure and working with HTTPS  */
             $this->request->secure(true);
-
         }
 
         parent::before();
