@@ -101,37 +101,15 @@ Route::set('TAGS', 'tag(/<query>)', array('query' => $QUERY))->defaults(array(
     'controller' => 'articles_tags',
     'action' => 'search',
 ));
-//Scripts for admin panel---------
-//Articles
-Route::set('ADMIN_ARTICLE_LIST', 'admin/article')->defaults(array(
-    'controller' => 'admin',
-    'action' => 'showAllArticles',
-));
 
-Route::set('ADMIN_DEL_ARTICLE', 'admin/article/delarticle/<article_id>', array('article_id' => $DIGIT))->defaults(array(
-    'controller' => 'admin',
-    'action' => 'delete'
-));
+//Script for admin panel---------
 
-Route::set('ADMIN_EDIT_ARTICLE', 'admin/article/editarticle/<article_id>', array('article_id' => $DIGIT))->defaults(array(
-    'controller' => 'admin',
-    'action' => 'edit'
-));
-
-Route::set('ADMIN_UPDATE_ARTICLE', 'admin/article/updatearticle/<article_id>', array('article_id' => $DIGIT))->defaults(array(
-    'controller' => 'admin',
-    'action' => 'update'
-));
-//Users
-Route::set('ADMIN_USERS_LIST', 'admin/users')->defaults(array(
-    'controller' => 'admin',
-    'action' => 'showAllUsers',
-));
-
-Route::set('ADMIN_DEL_USER', 'admin/users/deluser/<user_id>', array('user_id' => $DIGIT))->defaults(array(
-    'controller' => 'admin',
-    'action' => 'deleteUser',
-));
+Route::set('ADMIN', 'admin(/<category>(/<list>))', array('category' => 'articles|users',
+                                                                'list' => 'unpublished|deleted'))
+  ->defaults(array(
+        'controller' => 'admin',
+        'action' => 'index'
+    ));
 
 // - viz redaktor -
 
