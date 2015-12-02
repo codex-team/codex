@@ -36,7 +36,7 @@ class Controller_Admin extends Controller_Base_preDispatch
             $ids[] = $article->id;
         }
 
-        $this->view["views"] = Model_Views::get($ids);
+        $this->view["views"] = Model_Stats::get($ids);
 
         $this->view["users"] = Model_User::getAll();
 
@@ -46,7 +46,7 @@ class Controller_Admin extends Controller_Base_preDispatch
 
     public function users()
     {
-        
+
         $this->view["users"] = Model_User::getAll();
 
         return View::factory('templates/admin/users/list', $this->view);

@@ -20,7 +20,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
         $article = Model_Article::get($articleId);
 
-        $views = Model_Views::increment($articleId);
+        $views = Model_Stats::increment($articleId);
 
         $this->view["article"] = $article;
 

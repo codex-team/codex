@@ -55,6 +55,9 @@ Class Model_Article extends Model
                 ->execute();
 
             $this->fillByRow($article);
+
+            $redis = Controller_Base_preDispatch::_redis();
+            $redis->set('stats:' . Model_Stats::ARTICLE . ':target:' . $this->id . ':time:' . 0, 0);
         }
     }
 
