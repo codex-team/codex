@@ -13,8 +13,7 @@ class Controller_Users_Index extends Controller_Base_preDispatch
 
     public function action_showUser()
     {
-        $user_id = $this->request->param('user_id');
-
+      $user_id = $this->request->param('user_id');
 	    if ( !empty($user_id) ){
 		    $viewUser = Model_User::get( $user_id );
 	    } else {
