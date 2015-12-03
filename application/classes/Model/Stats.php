@@ -24,7 +24,7 @@ Class Model_Stats extends Model
 
     }
 
-    public static function get($ids)
+    public static function get($articles)
     {
 
         $redis = Controller_Base_preDispatch::_redis();
@@ -32,7 +32,7 @@ Class Model_Stats extends Model
         $views = array(); 
 
         foreach ($ids as $article_id){
-            array_push($views, $redis->get('stats:' . self::ARTICLE . ':target:' . $article_id . ':time:' . 0)); 
+            array_push($views, $redis->get('stats:' . self::ARTICLE . ':target:' . $article_id . ':time:' . 0));
         }
 
         return $views;

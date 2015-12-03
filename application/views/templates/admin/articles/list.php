@@ -6,22 +6,27 @@
     <? else: ?>
         <table class="p_table">
             <? foreach ($articles as $current_article): ?>
-<!--                TODO(#39) здесь не предусмотрен сценарий обработки удалённых статей -->
-                <? if ($current_article->is_removed != 1): ?>
                     <tr>
                         <td class="id"><?= $current_article->id ?></td>
                         <td class="title">
                             <a href="/article/<?= $current_article->id ?>">
                                 <b><?= $current_article->title ?></b>
+                                <? if ($current_article->is_removed): ?>
+                                    <i>(deleted)</i>
+                                <? endif; ?>
+
+                                <? if ($current_article->is_published == false): ?>
+                                    <i>(unpublished)</i>
+                                <? endif; ?>
                             </a>
                         </td>
                         <td class="user">
                             <? foreach ($users as $user): ?>
-                                <? if ($user->id == $current_article->user_id): ?>
-                                    <a class="name" href="/user/<?= $user->id ?>"><?= $user->name ?></a> <br />
-                                    <a class="nick" href="//github.com/<?= $user->github_uri ?>" target="_blank">
+                                <? if ($user['id'] == $current_article->user_id): ?>
+                                    <a class="name" href="/user/<?= $user['id'] ?>"><?= $user['name'] ?></a> <br />
+                                    <a class="nick" href="//github.com/<?= $user['github_uri'] ?>" target="_blank">
                                         <i class="icon-github-circled"></i>
-                                        <?= $user->github_uri ?>
+                                        <?= $user['github_uri'] ?>
                                     </a>
                                 <? endif; ?>
                             <? endforeach; ?>

@@ -175,6 +175,11 @@ Class Model_Article extends Model
         return Model_Article::getArticles(true, false);
     }
 
+    public static function getAllArticlesAdmin()
+    {
+        return Model_Article::getArticles(true, true);
+    }
+
     /**
      * Получить список статей с указанными условиями.
      *

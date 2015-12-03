@@ -18,6 +18,7 @@ class Controller_Admin extends Controller_Base_preDispatch
                 break;
         }
 
+        $this->title = "Панель администрирования";
         $this->template->content = View::factory("templates/admin/wrapper",
             array("content" => $content));
 
@@ -26,11 +27,11 @@ class Controller_Admin extends Controller_Base_preDispatch
     public function articles()
     {
 
-        $articles = Model_Article::getAllArticles(); 
+        $articles = Model_Article::getAllArticlesAdmin(); 
 
         $this->view["articles"] = $articles;
 
-        $ids =  array();
+        $this->view["views"] = Model_Stats::get($articles);
 
         foreach ($articles as $article) {
             $ids[] = $article->id;
