@@ -14,12 +14,6 @@ Class Model_Stats extends Model
 
             $redis = Controller_Base_preDispatch::_redis();
 
-            /*$check = $redis->exists('stats:' . self::ARTICLE . ':target:' . $article_id . ':time:' . 0);
-
-            if ($check == 0) {
-                $redis->set('stats:' . self::ARTICLE . ':target:' . $article_id . ':time:' . 0, 0);
-            }*/
-
             $redis->incr('stats:' . self::ARTICLE . ':target:' . $article_id . ':time:' . 0);
 
     }
@@ -31,8 +25,8 @@ Class Model_Stats extends Model
 
         $views = array(); 
 
-        foreach ($ids as $article_id){
-            array_push($views, $redis->get('stats:' . self::ARTICLE . ':target:' . $article_id . ':time:' . 0));
+        foreach ($articles as $article){
+            array_push($views, $redis->get('stats:' . self::ARTICLE . ':target:' . $article->id . ':time:' . 0)); 
         }
 
         return $views;

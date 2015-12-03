@@ -32,13 +32,11 @@
                             <? endforeach; ?>
                         </td>
                         <td class="date">
-                            <?
-                                if(is_null($current_article->dt_update)):
-                                    echo $current_article->dt_create;
-                                else:
-                                    echo $current_article->dt_update;
-                                endif;
-                            ?>
+                            <? if(is_null($current_article->dt_update)): ?>
+                                    <b><?= $current_article->dt_create ?></b>
+                            <? else: ?>
+                                    <b><?= $current_article->dt_update ?></b>
+                            <? endif; ?>
                         </td>
                         <td class="counter">
                             <b><?= array_shift($views) ?></b>
@@ -46,7 +44,6 @@
                         </td>
                         <td><a href='/article/delarticle/<?= $current_article->id ?>'><i class="icon-cancel"></i></a></td>
                     </tr>
-                <? endif; ?>
             <? endforeach; ?>
         </table>    
     <? endif; ?>
