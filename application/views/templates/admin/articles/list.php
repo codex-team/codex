@@ -27,13 +27,11 @@
                             <? endforeach; ?>
                         </td>
                         <td class="date">
-                            <?
-                                if(is_null($current_article->dt_update)):
-                                    echo $current_article->dt_create;
-                                else:
-                                    echo $current_article->dt_update;
-                                endif;
-                            ?>
+                            <? if(is_null($current_article->dt_update)): ?>
+                                <?= $current_article->dt_create ?>
+                            <? else: ?>
+                            <?= $current_article->dt_update ?>
+                            <? endif; ?>
                         </td>
                         <td class="counter">
                             <b><?= array_shift($views) ?></b>
