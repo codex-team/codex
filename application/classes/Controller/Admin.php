@@ -27,7 +27,7 @@ class Controller_Admin extends Controller_Base_preDispatch
     public function articles()
     {
 
-        $articles = Model_Article::getAllArticlesAdmin(); 
+        $articles = Model_Article::getAllArticles(); 
 
         $this->view["articles"] = $articles;
 
