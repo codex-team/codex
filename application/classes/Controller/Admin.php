@@ -21,10 +21,9 @@ class Controller_Admin extends Controller_Base_preDispatch
                 break;
         }
 
+        $this->template->content = View::factory("templates/admin/wrapper", array("content" => $pageContent));
 
-        $this->title = "Панель администрирования";
-        $this->template->content = View::factory("templates/admin/wrapper",
-            array("content" => $content));
+
     }
     
     public function action_edit()
