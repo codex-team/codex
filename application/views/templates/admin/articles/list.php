@@ -30,7 +30,7 @@
                             <? if(is_null($current_article->dt_update)): ?>
                                 <?= $current_article->dt_create ?>
                             <? else: ?>
-                            <?= $current_article->dt_update ?>
+                                <?= $current_article->dt_update ?>
                             <? endif; ?>
                         </td>
                         <td class="counter">

@@ -78,9 +78,9 @@ Class Model_User extends Model
             foreach ($users_rows as $user_row) {
                 $model = new Model_User();
 
-                $model->id = $user_row['id'];
-                $model->name = $user_row['name'];
-                $model->github_uri = $user_row['github_uri'];
+                $model->id          = $user_row['id'];
+                $model->name        = $user_row['name'];
+                $model->github_uri  = $user_row['github_uri'];
 
                 $users[] = $model;
             }
