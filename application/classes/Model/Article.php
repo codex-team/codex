@@ -32,6 +32,7 @@ Class Model_Article extends Model
 
     /**
      * Добавляет текущий объект в базу данных и присваивает ему айдишник.
+     * Добавляет статистику для статьи в Redis.
      *
      * @throws Kohana_Exception
      */
@@ -56,8 +57,8 @@ Class Model_Article extends Model
 
             $this->fillByRow($article);
 
-            $template = Model_Stats::format(Model_Stats::ARTICLE, $this->id, 0);
-            Model_Stats::write_stats($template);
+            $key = Model_Stats::formatStatsKey(Model_Stats::ARTICLE, $this->id, 0);
+            Model_Stats::writeStats($key);
         }
     }
 

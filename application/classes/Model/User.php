@@ -68,27 +68,6 @@ Class Model_User extends Model
         return $users;
     }
 
-    public static function getAllForAdmin()
-    {
-        $users_rows = DB::select('id', 'name', 'github_uri')->from('Users')->limit(200)->execute()->as_array();
-
-        $users = array();
-
-        if (!empty($users_rows)) {
-            foreach ($users_rows as $user_row) {
-                $model = new Model_User();
-
-                $model->id          = $user_row['id'];
-                $model->name        = $user_row['name'];
-                $model->github_uri  = $user_row['github_uri'];
-
-                $users[] = $model;
-            }
-        }
-
-        return $users;
-    }
-
     /**
      * @param $user
      * @return Model_User

@@ -20,9 +20,9 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
         $article = Model_Article::get($articleId);
 
-        $template = Model_Stats::format(Model_Stats::ARTICLE, $articleId, 0);
+        $key = Model_Stats::formatStatsKey(Model_Stats::ARTICLE, $articleId, 0);
 
-        Model_Stats::increment($template);
+        Model_Stats::incrementStats($key);
 
         $this->view["article"] = $article;
 

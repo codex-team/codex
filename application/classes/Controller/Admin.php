@@ -45,20 +45,13 @@ class Controller_Admin extends Controller_Base_preDispatch
 
         $articles = Model_Article::getAllArticles(); 
 
-        $this->view["articles"] = $articles;
-
-        $views = array();
-
         foreach ($articles as $article) {
-            $template = Model_Stats::format(Model_Stats::ARTICLE, $article->id, 0);
+            $key = Model_Stats::formatStatsKey(Model_Stats::ARTICLE, $article->id, 0);
 
-            $views[] = Model_Stats::get_views($template);
+            $article->views = Model_Stats::getStats($key);
         }
 
-
-        $this->view["views"] = $views;
-
-        $this->view["users"] = Model_User::getAllForAdmin();
+        $this->view["articles"] = $articles;
 
         return View::factory('templates/admin/articles/list', $this->view);
 

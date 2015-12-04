@@ -3,38 +3,49 @@
 Class Model_Stats extends Model
 {
     const ARTICLE = 1;
+    public $redis;
 
 
     public function __construct()
     {
+        //$this->$redis = Controller_Base_preDispatch::_redis();
     }
 
-    public static function increment($template)
+    public static function incrementStats($key)
     {
         $redis = Controller_Base_preDispatch::_redis();
 
-        $redis->incr($template);
+        $redis->incr($key);
     }
 
-    public static function format($type, $id, $time)
+    /*
+    * Форматирует ключ для статистики.
+    * Принимает на вход тип статистики, цель (то, к чему она применяется) и дату.
+    * Возвращает ключ.
+    */
+    public static function formatStatsKey($type, $id, $time)
     {
-        $template = 'stats:' . $type . ':target:' . $id . ':time:' . $time;
+        $key = 'stats:' . $type . ':target:' . $id . ':time:' . $time;
 
-        return $template;
+        return $key;
     }
 
-    public static function write_stats($template)
+    /*
+    * Добавляет статистику в Redis с ключом $key.
+    *
+    */
+    public static function writeStats($key)
     {
         $redis = Controller_Base_preDispatch::_redis();
 
-        $redis->set($template);
+        $redis->set($key);
     }
 
-    public static function get_views($template)
+    public static function getStats($key)
     {
         $redis = Controller_Base_preDispatch::_redis();
 
-        $views = $redis->get($template); 
+        $views = $redis->get($key); 
 
         return $views;
     }
