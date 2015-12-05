@@ -108,7 +108,7 @@ class Controller_Auth extends Controller_Base_preDispatch
 
             if ($profile)
             {
-                Session::instance()->set('profile', $profile);
+                Cookie::set("oauth_token", $gh->get_token());
 
                 $user = Model_User::findByAttribute('github_id', $profile->id);
                 if ($user->is_empty())
@@ -122,8 +122,14 @@ class Controller_Auth extends Controller_Base_preDispatch
                     $user->github_id = $profile->id;
                     $user->github_uri = $profile->login;
                     $user->photo = $profile->avatar_url;
+                    $user->access_token = $gh->get_token();
 
                     $user->save();
+                }
+                else
+                {
+                    $user->access_token = $gh->get_token();
+                    $user->update();
                 }
             }
         }

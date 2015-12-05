@@ -17,6 +17,7 @@ Class Model_User extends Model
     public $github_uri = '';
     public $role = 0;
     public $is_removed = 0;
+    public $access_token = '';
 
 
     /**
@@ -89,6 +90,7 @@ Class Model_User extends Model
             $model->fb_uri     = $user['fb_uri'];
             $model->role       = $user['role'];
             $model->is_removed = $user['is_removed'];
+            $model->access_token = $user['access_token'];
         }
 
         return $model;
@@ -126,9 +128,9 @@ Class Model_User extends Model
     public function save()
     {
         if (DB::insert('Users', array('name', 'github_id', 'github_uri',
-            'photo', 'photo_small', 'photo_big', 'role', 'is_removed'))->
+            'photo', 'photo_small', 'photo_big', 'role', 'is_removed', 'access_token'))->
         values(array($this->name, $this->github_id, $this->github_uri,
-            $this->photo, $this->photo_small, $this->photo_big, $this->role, $this->is_removed))
+            $this->photo, $this->photo_small, $this->photo_big, $this->role, $this->is_removed, $this->access_token))
             ->execute()
         ) {
             return true;
@@ -154,6 +156,7 @@ Class Model_User extends Model
             'photo_big'   => $this->photo_big,
             'role'        => $this->role,
             'is_removed'  => $this->is_removed,
+            'access_token' => $this->access_token,
         ))->where('id', '=', $this->id)->execute()
         )
             return true;

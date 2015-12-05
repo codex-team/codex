@@ -130,10 +130,10 @@ class Controller_Base_preDispatch extends Controller_Template
         $auth = new Dao_Auth();
         if ( $auth->is_authorized() ) {
 
-            $profile = $auth->get_profile();
+            $access_token = $auth->get_token();
 
-            if ($profile){
-                $this->user = Model_User::findByAttribute('github_id', $profile->id);
+            if ($access_token){
+                $this->user = Model_User::findByAttribute('access_token', $access_token);
             } else {
                 $this->user = new Model_User();
             }
