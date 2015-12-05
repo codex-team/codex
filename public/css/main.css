@@ -125,10 +125,10 @@ input[disabled]
 .technic{
     display: inline-block;
     padding: 0 4px;
-    background-color: #E2EFFD;
+    background-color: #F4F7FB;
     font-family: 'monaco', 'consolas', 'courier';
     font-size: 13px;
-    color: #5B8AC3;
+    color: #456994;
 }
 
 
