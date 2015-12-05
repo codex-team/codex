@@ -26,9 +26,7 @@
             <? endif; ?>
             <? if ($isMyPage): ?>
                 <a class="settings_link" href="/user/settings" target="_self">Настройки</a><br />
-                <form action="/auth/logout">
-                    <input type="submit" value="Выйти">
-                </form>
+                <a class="logout" href="/auth/logout">Выйти </a>
             <? endif; ?>
         </div>
     </div>

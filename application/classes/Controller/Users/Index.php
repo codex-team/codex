@@ -36,92 +36,49 @@ class Controller_Users_Index extends Controller_Base_preDispatch
     }
 
     /**
-     * Контроллер берет из роута имя контроллера и выполняет его
-     */
-    public function action_pages()
-    {
-        $pageName = $this->request->param('page_name');
-
-        if ($pageName == 'settings'){
-            $this->action_settings();
-        } elseif ($pageName == 'edit') {
-            $this->action_edit();
-        }
-    }
-
-    /**
-     * Контроллер передает данные о юзере на странцу настроек
+     * Контроллер передает данные о юзере на странцу настроек и принимает изменения при нажатии  submit
+     * отслеживает submit с помощью csrf токена
      */
     public function action_settings()
     {
-        $user = Model_User::get($this->user->id);
+        $csrfToken = Arr::get($_POST, 'csrf');
 
-        if ($user->vk_uri == '0') $user->vk_uri = '';
-        if ($user->instagram_uri == '0') $user->instagram_uri = '';
+        if(!Security::check($csrfToken)){
+            $user = Model_User::get($this->user->id);
 
-        $this->view['user'] = $user;
-        $this->template->content = View::factory('templates/users/settings', $this->view);
-    }
-    /**
-     * Контроллер берет данные из формы и заносит в модель пользователя и базу данных
-     */
-    public function action_edit()
-    {
-        $maxFileSize   = 2097152;
-        $name          = Arr::get($_POST, 'name');
-        $vk_url        = Arr::get($_POST, 'vk_uri');
-        $instagram_url = Arr::get($_POST, 'instagram_uri');
-        $bio           = Arr::get($_POST, 'bio');
+            $this->view['user'] = $user;
+            $this->template->content = View::factory('templates/users/settings', $this->view);
+        } else {
+            $name          = Arr::get($_POST, 'name');
+            $vk_url        = Arr::get($_POST, 'vk_uri');
+            $instagram_url = Arr::get($_POST, 'instagram_uri');
+            $bio           = Arr::get($_POST, 'bio');
 
-        // проверка на удаление имени
-        if ($name != ''){
-
-            if ( $newAva= $this->methods->SavePostFile('ava', 'users/', $maxFileSize, array('jpg', 'jpeg', 'png')) )
+            // сохранение авы
+            if ( $newAva= $this->methods->SavePostFile('ava', 'users/', array('jpg', 'jpeg', 'png')) ){
                 $this->user->photo = $newAva;
+            }
 
-        //отсекаем  uri и '/'  от ссылки
-        $vk_uri        = substr(parse_url($vk_url, PHP_URL_PATH), 1);
-        $instagram_uri = substr(parse_url($instagram_url, PHP_URL_PATH), 1);
+            // parse_url парсит урл и отсекает uri юзера
+            // substr  возвращает нуль, если передали пусту строку
+            $vk_uri        = substr(parse_url($vk_url, PHP_URL_PATH), 1);
+            $instagram_uri = substr(parse_url($instagram_url, PHP_URL_PATH), 1);
 
-        $this->user->vk_uri        = $vk_uri;
-        $this->user->instagram_uri = $instagram_uri;
-        $this->user->bio           = $bio;
-        $this->user->name          = $name;
-        $this->user->update();
-        }
+            // если передали пусту строку
+            if($vk_uri == '0') $vk_uri = null;
+            if($instagram_uri == '0') $instagram_uri = null;
 
-        $this->redirect('user/');
+            // занесение данных в модель
+            $this->user->vk_uri        = $vk_uri;
+            $this->user->instagram_uri = $instagram_uri;
+            $this->user->bio           = $bio;
+            $this->user->name          = $name;
+            
+            // занесения данных в бд
+            $this->user->update();
 
-    }
-    public function action_create()
-    {
-    }
-    public function action_index()
-    {
-        $user_id = $this->request->param('user_id');
-        $model = new Model_User($user_id);
-        if ($model->is_empty())
-        {
-            $this->template->content = View::factory('templates/users/error', [
-                'user' => $model,
-            ]);
-        }
-        else
-        {
-            $this->template->content = View::factory('templates/users/user', [
-                'user' => $model,
-            ]);
+            $this->redirect('user/');
         }
     }
-    public function action_update()
-    {
-    }
-    public function action_view()
-    {
-        $user_id = $this->request->param('user_id');
-        $model = new Model_User($user_id);
-        $this->template->content = View::factory('templates/users/view', [
-            'user' => $model,
-        ]);
-    }
+
 }

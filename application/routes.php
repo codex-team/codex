@@ -65,9 +65,9 @@ Route::set('USER_PROFILE', 'user(/<user_id>)', array('user_id' => $DIGIT))->defa
 	'action'     => 'showUser'
 ));
 
-Route::set('USER_PAGES', 'user/<page_name>', array('page_name' => $STRING))->defaults(array(
+Route::set('USER_SETTINGS', 'user/settings')->defaults(array(
 	'controller' => 'users_index',
-	'action'     => 'pages'
+	'action'     => 'settings'
 ));
 
 // Scripts for comments
