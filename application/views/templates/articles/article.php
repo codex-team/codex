@@ -1,20 +1,22 @@
 <div class="center_side clear">
-    <article class="article">
+    <article class="article" itemscope itemtype="http://schema.org/Article">
 
-        <h1 class="big_header">
+        <h1 class="big_header" itemprop="name">
             <?= $article->title ?>
         </h1>
 
         <div class="article_info">
-            <time><?= Date::fuzzy_span($article->dt_create) ?></time>
+            <time itemprop="datePublished"><?= Date::fuzzy_span($article->dt_create) ?></time>
             <span class="list_user_ava">
                 <img src="<?= $article->author->photo ?>" alt="<?= $article->author->name ?>">
             </span>
-            <a class="list_user_name" href="/user/<?= $article->author->id ?>"><?= $article->author->name ?></a>
+            <span itemprop="author" itemscope itmetype="http://schema.org/Person">
+               <a class="list_user_name" href="/user/<?= $article->author->id ?>"><?= $article->author->name ?></a>
+            </span>
         </div>
 
-        <div class="article_content">
-            <?= Text::auto_p($article->text) ?>
+        <div class="article_content"  itemprop="articleBody">
+            <?= nl2br($article->text) ?>
         </div>
 
 
