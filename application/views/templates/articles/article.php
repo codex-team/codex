@@ -6,13 +6,13 @@
         </h1>
 
         <div class="article_info">
-            <time itemprop="datePublished"><?= Date::fuzzy_span($article->dt_create) ?></time>
-            <span class="list_user_ava">
-                <img src="<?= $article->author->photo ?>" alt="<?= $article->author->name ?>">
-            </span>
-            <span itemprop="author" itemscope itmetype="http://schema.org/Person">
-               <a class="list_user_name" href="/user/<?= $article->author->id ?>"><?= $article->author->name ?></a>
-            </span>
+            <div class="ava_holder">
+                <time itemprop="datePublished"><?= Date::fuzzy_span($article->dt_create) ?></time>
+                <span class="list_user_ava">
+                    <img src="<?= $article->author->photo ?>" alt="<?= $article->author->name ?>">
+                </span>
+                <a class="list_user_name" href="/user/<?= $article->author->id ?>" itemscope itmetype="http://schema.org/Person"><?= $article->author->name ?></a>
+            </div>
         </div>
 
         <div class="article_content"  itemprop="articleBody">
