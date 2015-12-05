@@ -8,14 +8,16 @@ Class Model_Stats extends Model
 
     public function __construct()
     {
-        //$this->$redis = Controller_Base_preDispatch::_redis();
+        $this->redis = Controller_Base_preDispatch::_redis();
     }
 
-    public static function incrementStats($key)
+    public static function increment($type, $id, $time)
     {
-        $redis = Controller_Base_preDispatch::_redis();
+        $model = new Model_Stats;
 
-        $redis->incr($key);
+        $key = self::getKey($type, $id, $time);
+
+        $model->redis->incr($key);
     }
 
     /*
@@ -23,7 +25,7 @@ Class Model_Stats extends Model
     * Принимает на вход тип статистики, цель (то, к чему она применяется) и дату.
     * Возвращает ключ.
     */
-    public static function formatStatsKey($type, $id, $time)
+    public static function getKey($type, $id, $time)
     {
         $key = 'stats:' . $type . ':target:' . $id . ':time:' . $time;
 
@@ -34,18 +36,22 @@ Class Model_Stats extends Model
     * Добавляет статистику в Redis с ключом $key.
     *
     */
-    public static function writeStats($key)
+    public static function hit($type, $id, $time)
     {
-        $redis = Controller_Base_preDispatch::_redis();
+        $model = new Model_Stats;
 
-        $redis->set($key);
+        $key = self::getKey($type, $id, $time);
+
+        $model->redis->set($key);
     }
 
-    public static function getStats($key)
+    public static function get($type, $id, $time)
     {
-        $redis = Controller_Base_preDispatch::_redis();
+        $model = new Model_Stats;
 
-        $views = $redis->get($key); 
+        $key = self::getKey($type, $id, $time);
+
+        $views = $model->redis->get($key); 
 
         return $views;
     }

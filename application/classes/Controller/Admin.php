@@ -46,9 +46,7 @@ class Controller_Admin extends Controller_Base_preDispatch
         $articles = Model_Article::getAllArticles(); 
 
         foreach ($articles as $article) {
-            $key = Model_Stats::formatStatsKey(Model_Stats::ARTICLE, $article->id, 0);
-
-            $article->views = Model_Stats::getStats($key);
+            $article->views = Model_Stats::get(Model_Stats::ARTICLE, $article->id, 0);
         }
 
         $this->view["articles"] = $articles;

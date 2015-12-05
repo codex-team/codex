@@ -57,8 +57,7 @@ Class Model_Article extends Model
 
             $this->fillByRow($article);
 
-            $key = Model_Stats::formatStatsKey(Model_Stats::ARTICLE, $this->id, 0);
-            Model_Stats::writeStats($key);
+            Model_Stats::hit(Model_Stats::ARTICLE, $this->id, 0);
         }
     }
 
