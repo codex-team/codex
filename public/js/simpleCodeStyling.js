@@ -16,7 +16,7 @@ var simpleCode = (function(simpleCode) {
             return str.replace( /'([^']+)'/gi , '\'<span class=sc_attr>$1</span>\'' );
         },
         keywords : function (str) {
-            return str.replace(/\b(var|function|typeof|new|return|endif|endforeach|foreach|if|for|in|while|break|do|continue|switch|case|int|void|python|from|import|install|def|virtualenv|source|sudo)([^a-z0-9\$_])/g, '<span class=sc_keyword>$1</span>$2')
+            return str.replace(/\b(var|function|typeof|new|return|endif|endforeach|foreach|if|for|in|while|break|do|continue|switch|case|int|void|python|from|import|install|def|virtualenv|source|sudo|git)([^a-z0-9\$_])/g, '<span class=sc_keyword>$1</span>$2')
         },
         digits : function (str) {
             return str.replace(/\b(\d+)\b/g, '<span class=sc_digt>$1</span>');
