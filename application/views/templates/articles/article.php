@@ -6,7 +6,7 @@
         </h1>
 
         <div class="article_info">
-            <time itemprop="datePublished">><?= Date::fuzzy_span($article->dt_create) ?></time>
+            <time itemprop="datePublished"><?= Date::fuzzy_span($article->dt_create) ?></time>
             <span class="list_user_ava">
                 <img src="<?= $article->author->photo ?>" alt="<?= $article->author->name ?>">
             </span>
