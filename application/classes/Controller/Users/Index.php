@@ -5,8 +5,7 @@ class Controller_Users_Index extends Controller_Base_preDispatch
 
 		/*
 		* Если в ссылке /user/<user_id> передан user_id, тогда пользователя находят в БД по его id
-		* Если в ссылке не передан user_id, тогда пользователя находят в БД по его vk_id, то есть под тем
-		*профилем, 	под которым он авторизовался через вк.
+		* Если в ссылке не передан user_id, тогда пользователя находят в текущей сессии авторизации.
 		* Если пользователя нет в БД, тогда выводится сообщение об ошибке и просьбе авторизоваться.
 		*/
 
@@ -73,7 +72,7 @@ class Controller_Users_Index extends Controller_Base_preDispatch
             $this->user->instagram_uri = $instagram_uri;
             $this->user->bio           = $bio;
             $this->user->name          = $name;
-            
+
             // занесения данных в бд
             $this->user->update();
 
