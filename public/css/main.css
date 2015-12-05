@@ -364,7 +364,7 @@ html {
 
 
 .blog .title{
-    margin: 0 0 15px;
+    margin: 0 0 5px;
     font-size: 20px;
     line-height: 1.5em;
 }
@@ -376,6 +376,7 @@ html {
         display: inline-block;
         margin-right: 20px;
         color: #a8adb6;
+        font-size: 14px;
     }
 .blog .info{
     width: 30%;
