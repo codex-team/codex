@@ -122,7 +122,7 @@ input[disabled]
   position: absolute; left: 0; top: 0;
 }
 */
-pre, code, .technic{
+.technic{
     display: inline-block;
     padding: 0 4px;
     background-color: #E2EFFD;
@@ -761,7 +761,7 @@ html {
 /** Article page styles */
 
 .big_header{
-    font-size: 67px;
+    font-size: 54px;
     line-height: 1.2em;
     text-align: center;
     padding: 100px 150px 40px;
@@ -800,6 +800,16 @@ html {
             color: #2C70F5;
             border-bottom-color: #6E8FEC;
         }
+    .article_content code{
+        display: block;
+        padding: 10px 15px;
+        background-color: #F9FAFB;
+        font-family: 'monospace', 'monaco', 'consolas', 'courier';
+        font-size: 13px;
+        color: #3D597B;
+    }
+
+
 
 
 @-webkit-keyframes wobble {

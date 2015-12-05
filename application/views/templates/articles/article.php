@@ -14,7 +14,7 @@
         </div>
 
         <div class="article_content">
-            <?= Text::auto_p($article->text) ?>
+            <?= nl2br($article->text) ?>
         </div>
 
 
