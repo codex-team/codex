@@ -1,0 +1,2 @@
+ALTER TABLE `Users` ADD `bio` TINYTEXT NULL ;
+ALTER TABLE `Users` ADD `instagram_uri` VARCHAR(64) NULL ;

@@ -33,13 +33,10 @@ class Model_Methods extends Model
     {
         $new_name = bin2hex(openssl_random_pseudo_bytes(5));
         $cover['name'] = $new_name . '.' . pathinfo($cover['name'], PATHINFO_EXTENSION);
-
         $uploaddir = 'upload/covers/';
-
         if ($file = Upload::save($cover, NULL, $uploaddir)){
             Image::factory($file)->save($uploaddir . $cover['name']);
             unlink($file);
-
             return $cover['name'];
         }
         else {
@@ -56,7 +53,7 @@ class Model_Methods extends Model
      * @param int $maxFileSize - макс размер файла в байтах. По умолчанию 2Mb
      * @param array $fileTypes - допустимые разширения файлов. По умолчанию не проверяется
      */
-    function SavePostFile($inputName, $dir = "", $maxFileSize = 2097152, $fileTypes = array()){
+    function SavePostFile($inputName, $dir = "", $fileTypes = array(), $maxFileSize = 2097152){
         // check 4 file was uploaded
         if ( (!$file = Arr::get($_FILES, $inputName) ) || ($file["error"] == 4) )
             return false;
