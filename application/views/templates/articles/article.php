@@ -9,7 +9,7 @@
                 <span itemprop="description">
                 <div class="article_info">
                 <span itemprop="datePublished">
-                <time>><?= Date::fuzzy_span($article->dt_create) ?></time>
+                <time><?= Date::fuzzy_span($article->dt_create) ?></time>
                 </span>
                 <span class="list_user_ava">
                     <span itemprop="image">
