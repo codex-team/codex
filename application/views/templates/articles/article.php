@@ -4,7 +4,7 @@
             <?= $article->title ?>
         </h1>
         <div class="article_info" itemprop="description">
-            <meta itemprop="datePublished" content=content="date('c',strtotime($article->dt_create))"/><time><?= Date::fuzzy_span($article->dt_create) ?></time>
+            <meta itemprop="datePublished" content="date('c',strtotime($article->dt_create))"/><time><?= Date::fuzzy_span($article->dt_create) ?></time>
             <span class="list_user_ava">
                 <img src="<?= $article->author->photo ?>" alt="<?= $article->author->name ?>" itemprop="image">
             </span>
