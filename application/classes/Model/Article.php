@@ -56,8 +56,6 @@ Class Model_Article extends Model
                 ->execute();
 
             $this->fillByRow($article);
-
-            Model_Stats::increment(Model_Stats::ARTICLE, $this->id, 0);
         }
     }
 

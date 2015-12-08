@@ -16,13 +16,13 @@ Class Model_Stats extends Model
     * создает ее.
     * Если есть, то инкрементирует (увеличивает на 1).
     */
-    public static function increment($type, $id, $time)
+    public static function hit($type, $id, $time)
     {
-        $model = new Model_Stats;
+        //$model = new Model_Stats;
 
         $key = self::getKey($type, $id, $time);
 
-        $model->redis->incr($key);
+        $this->redis->incr($key);
     }
 
     /*
@@ -39,11 +39,11 @@ Class Model_Stats extends Model
 
     public static function get($type, $id, $time)
     {
-        $model = new Model_Stats;
+        //$model = new Model_Stats;
 
         $key = self::getKey($type, $id, $time);
 
-        $views = $model->redis->get($key); 
+        $views = $this->redis->get($key); 
 
         return $views;
     }
