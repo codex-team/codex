@@ -23,11 +23,9 @@ Class Model_Stats extends Model
     */
     public function hit($type, $id, $time)
     {
-        $model = new Model_Stats;
-
         $key = self::getKey($type, $id, $time);
 
-        $model->redis->incr($key);
+        $this->redis->incr($key);
     }
 
     /*
@@ -44,11 +42,9 @@ Class Model_Stats extends Model
 
     public function get($type, $id, $time)
     {
-        $model = new Model_Stats;
-
         $key = self::getKey($type, $id, $time);
 
-        $views = $model->redis->get($key); 
+        $views = $this->redis->get($key); 
 
         return $views;
     }
