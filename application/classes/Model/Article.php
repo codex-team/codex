@@ -32,7 +32,6 @@ Class Model_Article extends Model
 
     /**
      * Добавляет текущий объект в базу данных и присваивает ему айдишник.
-     * Добавляет статистику для статьи в Redis.
      *
      * @throws Kohana_Exception
      */

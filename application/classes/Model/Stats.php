@@ -1,5 +1,10 @@
 <?php defined('SYSPATH') OR die('No Direct Script Access');
-
+/**
+* Создаем функции для работы с redis и
+* статистику просмотров.
+*
+* @author Ivan Zhuravlev
+*/
 Class Model_Stats extends Model
 {
     const ARTICLE = 1;
@@ -18,11 +23,11 @@ Class Model_Stats extends Model
     */
     public static function hit($type, $id, $time)
     {
-        //$model = new Model_Stats;
+        $model = new Model_Stats;
 
         $key = self::getKey($type, $id, $time);
 
-        $this->redis->incr($key);
+        $model->redis->incr($key);
     }
 
     /*
@@ -39,11 +44,11 @@ Class Model_Stats extends Model
 
     public static function get($type, $id, $time)
     {
-        //$model = new Model_Stats;
+        $model = new Model_Stats;
 
         $key = self::getKey($type, $id, $time);
 
-        $views = $this->redis->get($key); 
+        $views = $model->redis->get($key); 
 
         return $views;
     }
