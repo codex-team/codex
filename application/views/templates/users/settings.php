@@ -1,5 +1,5 @@
 <div class="center_side">
-        <div class="settings">
+    <div class="profile_page">
         <div class="ava">
             <img src="<?= $user->photo ?>" alt="<?= $user->name ?>">
         </div>
