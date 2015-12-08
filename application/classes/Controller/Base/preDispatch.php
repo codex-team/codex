@@ -118,7 +118,7 @@ class Controller_Base_preDispatch extends Controller_Template
         $this->methods = new Model_Methods();
         View::set_global('methods', $this->methods);
 
-        //stats
+        // stats
         $this->stats = new Model_Stats();
         View::set_global('stats', $this->stats);
 

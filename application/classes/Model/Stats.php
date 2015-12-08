@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') OR die('No Direct Script Access');
 /**
-* Создаем функции для работы с redis и
-* статистику просмотров.
+* Содержит функции для работы с redis и
+* статистикой просмотров.
 *
 * @author Ivan Zhuravlev
 */
