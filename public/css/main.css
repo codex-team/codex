@@ -769,16 +769,33 @@ html {
 }
 .article_info{
     text-align: center;
-    margin-left: -75px;
     margin-bottom: 70px;
 }
-    .article_info time{
-        color: #9095a2;
-    }
     .article_info .list_user_ava{
         margin: 0 20px;
         border: 0;
+        display: inline-block;
     }
+    .article_info .ava_holder{
+        display: inline-block;
+        position: relative;
+    }
+    .article_info time,
+    .article_info .list_user_name{
+        position: absolute;
+        top: 7px;
+    }
+        .article_info time{
+            color: #9095a2;
+            text-align: right;
+            left: -250px;
+            width: 250px;
+        }
+        .article_info .list_user_name{
+            text-align: left;
+            right: -250px;
+            width: 250px;
+        }
 
 .article_content{
     font-size: 17px;
@@ -1012,6 +1029,7 @@ html {
         .article_info time{
             display: block;
             margin-bottom: 10px;
+            text-align: center;
         }
         .article_info .list_user_ava{
             margin: 0 10px 0 0;
@@ -1025,10 +1043,10 @@ html {
         .article_info .list_user_ava > img{
             vertical-align: top;
         }
+        .article_info time,
         .article_info .list_user_name{
-
+            position: static;
         }
-
     .article_content{
         margin: 0;
         font-size: 16px;
