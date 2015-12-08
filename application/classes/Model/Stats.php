@@ -11,6 +11,11 @@ Class Model_Stats extends Model
         $this->redis = Controller_Base_preDispatch::_redis();
     }
 
+    /*
+    * Если статистики с такими параметрами нет, то 
+    * создает ее.
+    * Если есть, то инкрементирует (увеличивает на 1).
+    */
     public static function increment($type, $id, $time)
     {
         $model = new Model_Stats;
@@ -30,19 +35,6 @@ Class Model_Stats extends Model
         $key = 'stats:' . $type . ':target:' . $id . ':time:' . $time;
 
         return $key;
-    }
-
-    /*
-    * Добавляет статистику в Redis с ключом $key.
-    *
-    */
-    public static function hit($type, $id, $time)
-    {
-        $model = new Model_Stats;
-
-        $key = self::getKey($type, $id, $time);
-
-        $model->redis->set($key);
     }
 
     public static function get($type, $id, $time)

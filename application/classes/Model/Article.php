@@ -57,7 +57,7 @@ Class Model_Article extends Model
 
             $this->fillByRow($article);
 
-            Model_Stats::hit(Model_Stats::ARTICLE, $this->id, 0);
+            Model_Stats::increment(Model_Stats::ARTICLE, $this->id, 0);
         }
     }
 
