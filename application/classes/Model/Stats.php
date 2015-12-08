@@ -21,7 +21,7 @@ Class Model_Stats extends Model
     * создает ее.
     * Если есть, то инкрементирует (увеличивает на 1).
     */
-    public static function hit($type, $id, $time)
+    public function hit($type, $id, $time)
     {
         $model = new Model_Stats;
 
@@ -35,14 +35,14 @@ Class Model_Stats extends Model
     * Принимает на вход тип статистики, цель (то, к чему она применяется) и дату.
     * Возвращает ключ.
     */
-    public static function getKey($type, $id, $time)
+    public function getKey($type, $id, $time)
     {
         $key = 'stats:' . $type . ':target:' . $id . ':time:' . $time;
 
         return $key;
     }
 
-    public static function get($type, $id, $time)
+    public function get($type, $id, $time)
     {
         $model = new Model_Stats;
 
