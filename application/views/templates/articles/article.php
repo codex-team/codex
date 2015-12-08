@@ -1,15 +1,20 @@
+<?= Debug::vars($article) ?>
 <div class="center_side clear">
     <article class="article" itemscope itemtype="http://schema.org/Article">
         <h1 class="big_header" itemprop="headline">
             <?= $article->title ?>
         </h1>
-        <div class="article_info" itemprop="description">
-            <meta itemprop="datePublished" content="<? date(DATE_ISO8601, strtotime($article->dt_create)) ?>" /><time><?= Date::fuzzy_span($article->dt_create) ?></time>
-            <span class="list_user_ava">
+        <div class="article_info">
+            <meta itemprop="datePublished" content="<? echo date(DATE_ISO8601, strtotime($article->dt_create)); ?>" />
+            <time><?= Date::fuzzy_span($article->dt_create) ?></time>
+            <span class="list_user_ava" itemscope itemtype="http://schema.org/Person" itemprop="author">
                 <img src="<?= $article->author->photo ?>" alt="<?= $article->author->name ?>" itemprop="image">
             </span>
-            <a class="list_user_name" href="/user/<?= $article->author->id ?>" itemprop="author"><?= $article->author->name ?></a>
+            <meta itemprop="name" content="<? echo ($article->author->name); ?>" />
+            <a class="list_user_name" href="/user/<?= $article->author->id ?>" ><?= $article->author->name ?></a>
         </div>
+        <img src="" itemprop="image">
+        <meta itemprop="description" />
         <div class="article_content" itemprop="articleBody">
             <?= Text::auto_p($article->text) ?>
         </div>
