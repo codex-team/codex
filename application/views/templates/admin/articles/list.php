@@ -21,25 +21,23 @@
                             </a>
                         </td>
                         <td class="user">
-                            <? foreach ($users as $user): ?>
-                                <? if ($user['id'] == $current_article->user_id): ?>
-                                    <a class="name" href="/user/<?= $user['id'] ?>"><?= $user['name'] ?></a> <br />
-                                    <a class="nick" href="//github.com/<?= $user['github_uri'] ?>" target="_blank">
-                                        <i class="icon-github-circled"></i>
-                                        <?= $user['github_uri'] ?>
-                                    </a>
-                                <? endif; ?>
-                            <? endforeach; ?>
+                            <a class="name" href="/user/<?= $current_article->author->id ?>">
+                                <?= $current_article->author->name ?>
+                            </a> <br />
+                            <a class="nick" href="//github.com/<?= $current_article->author->github_uri ?>" target="_blank">
+                                <i class="icon-github-circled"></i>
+                                <?= $current_article->author->github_uri ?>
+                            </a>
                         </td>
                         <td class="date">
                             <? if(is_null($current_article->dt_update)): ?>
-                                    <b><?= $current_article->dt_create ?></b>
+                                <?= $current_article->dt_create ?>
                             <? else: ?>
-                                    <b><?= $current_article->dt_update ?></b>
+                                <?= $current_article->dt_update ?>
                             <? endif; ?>
                         </td>
                         <td class="counter">
-                            <b><?= array_shift($views) ?></b>
+                            <b><?= $current_article->views ?></b>
                             views
                         </td>
                         <td><a href='/article/delarticle/<?= $current_article->id ?>'><i class="icon-cancel"></i></a></td>

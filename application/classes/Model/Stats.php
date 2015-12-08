@@ -3,33 +3,48 @@
 Class Model_Stats extends Model
 {
     const ARTICLE = 1;
+    public $redis;
 
 
     public function __construct()
     {
+        $this->redis = Controller_Base_preDispatch::_redis();
     }
 
-    public static function increment($article_id)
+    /*
+    * Если статистики с такими параметрами нет, то 
+    * создает ее.
+    * Если есть, то инкрементирует (увеличивает на 1).
+    */
+    public static function hit($type, $id, $time)
     {
+        $model = new Model_Stats;
 
-            $redis = Controller_Base_preDispatch::_redis();
+        $key = self::getKey($type, $id, $time);
 
-            $redis->incr('stats:' . self::ARTICLE . ':target:' . $article_id . ':time:' . 0);
-
+        $model->redis->incr($key);
     }
 
-    public static function get($articles)
+    /*
+    * Форматирует ключ для статистики.
+    * Принимает на вход тип статистики, цель (то, к чему она применяется) и дату.
+    * Возвращает ключ.
+    */
+    public static function getKey($type, $id, $time)
     {
+        $key = 'stats:' . $type . ':target:' . $id . ':time:' . $time;
 
-        $redis = Controller_Base_preDispatch::_redis();
+        return $key;
+    }
 
-        $views = array(); 
+    public static function get($type, $id, $time)
+    {
+        $model = new Model_Stats;
 
-        foreach ($articles as $article){
-            array_push($views, $redis->get('stats:' . self::ARTICLE . ':target:' . $article->id . ':time:' . 0)); 
-        }
+        $key = self::getKey($type, $id, $time);
+
+        $views = $model->redis->get($key); 
 
         return $views;
-
     }
 }
