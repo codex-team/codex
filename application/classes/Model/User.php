@@ -179,4 +179,25 @@ Class Model_User extends Model
         return Model_Article::getByUserId($this->id);
     }
 
+    public function edit($name, $vk_url, $instagram_url, $bio, $newAva = null)
+    {
+        // parse_url парсит урл и отсекает uri юзера
+        // substr  возвращает нуль, если передали пусту строку
+        $vk_uri        = substr(parse_url($vk_url, PHP_URL_PATH), 1);
+        $instagram_uri = substr(parse_url($instagram_url, PHP_URL_PATH), 1);
+
+        // если передали пусту строку
+        if($vk_uri == '0') $vk_uri = null;
+        if($instagram_uri == '0') $instagram_uri = null;
+
+        // занесение данных в модель
+        $this->vk_uri        = $vk_uri;
+        $this->instagram_uri = $instagram_uri;
+        $this->bio           = $bio;
+        $this->name          = $name;
+		if ($newAva != null) { $this->photo = $newAva; }
+
+        // занесения данных в бд
+        $this->update();
+    }
 }

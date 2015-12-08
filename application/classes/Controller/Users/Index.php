@@ -13,6 +13,7 @@ class Controller_Users_Index extends Controller_Base_preDispatch
     public function action_showUser()
     {
         $user_id = $this->request->param('user_id');
+        
 	    if ( !empty($user_id) ){
 		    $viewUser = Model_User::get( $user_id );
 	    } else {
@@ -35,8 +36,8 @@ class Controller_Users_Index extends Controller_Base_preDispatch
     }
 
     /**
-     * Контроллер передает данные о юзере на странцу настроек и принимает изменения при нажатии  submit
-     * отслеживает submit с помощью csrf токена
+     * Контроллер рендерит страницу настроек, с переданными данными о пользователе
+     * В форме есть csrf токен, с помощью которого отслеживают передачу данных на сервер. 
      */
     public function action_settings()
     {
@@ -46,6 +47,7 @@ class Controller_Users_Index extends Controller_Base_preDispatch
             $user = Model_User::get($this->user->id);
 
             $this->view['user'] = $user;
+            
             $this->template->content = View::factory('templates/users/settings', $this->view);
         } else {
             $name          = Arr::get($_POST, 'name');
@@ -53,29 +55,15 @@ class Controller_Users_Index extends Controller_Base_preDispatch
             $instagram_url = Arr::get($_POST, 'instagram_uri');
             $bio           = Arr::get($_POST, 'bio');
 
-            // сохранение авы
-            if ( $newAva= $this->methods->SavePostFile('ava', 'users/', array('jpg', 'jpeg', 'png')) ){
-                $this->user->photo = $newAva;
+            /**
+             * Занесение данных в модель пользователя и в бд.
+             */
+            if ($newAva = $this->methods->SavePostFile('ava', 'users/', array('jpg', 'jpeg', 'png')) ){
+                $this->user->edit($name, $vk_url, $instagram_url, $bio, $newAva);
+            } else {
+                $this->user->edit($name, $vk_url, $instagram_url, $bio);
             }
-
-            // parse_url парсит урл и отсекает uri юзера
-            // substr  возвращает нуль, если передали пусту строку
-            $vk_uri        = substr(parse_url($vk_url, PHP_URL_PATH), 1);
-            $instagram_uri = substr(parse_url($instagram_url, PHP_URL_PATH), 1);
-
-            // если передали пусту строку
-            if($vk_uri == '0') $vk_uri = null;
-            if($instagram_uri == '0') $instagram_uri = null;
-
-            // занесение данных в модель
-            $this->user->vk_uri        = $vk_uri;
-            $this->user->instagram_uri = $instagram_uri;
-            $this->user->bio           = $bio;
-            $this->user->name          = $name;
-
-            // занесения данных в бд
-            $this->user->update();
-
+            
             $this->redirect('user/');
         }
     }
