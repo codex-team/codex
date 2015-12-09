@@ -1,17 +1,17 @@
 <div class="center_side clear">
     <article class="article" itemscope itemtype="http://schema.org/Article">
-
-        <h1 class="big_header" itemprop="name">
+        <h1 class="big_header" itemprop="headline">
             <?= $article->title ?>
         </h1>
-
         <div class="article_info">
-            <div class="ava_holder">
+            <div class="ava_holder" itemscope itemtype="http://schema.org/Person" itemprop="author">
+                <meta itemprop="datePublished" content="<?= date(DATE_ISO8601, strtotime($article->dt_create)) ?>" />
                 <time itemprop="datePublished"><?= Date::fuzzy_span($article->dt_create) ?></time>
-                <span class="list_user_ava">
-                    <img src="<?= $article->author->photo ?>" alt="<?= $article->author->name ?>">
+                <span class="list_user_ava" itemscope itemtype="http://schema.org/Person" itemprop="author">
+                    <img src="<?= $article->author->photo ?>" alt="<?= $article->author->name ?>"  itemprop="image">
                 </span>
-                <a class="list_user_name" href="/user/<?= $article->author->id ?>" itemscope itmetype="http://schema.org/Person"><?= $article->author->name ?></a>
+                <meta itemprop="author" content="<?= $article->author->name ?>" />
+                <a class="list_user_name" href="/user/<?= $article->author->id ?>"><?= $article->author->name ?></a>
             </div>
         </div>
 
