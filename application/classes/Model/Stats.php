@@ -8,7 +8,7 @@
 Class Model_Stats extends Model
 {
     const ARTICLE = 1;
-    public $redis;
+    private $redis;
 
 
     public function __construct()
@@ -21,7 +21,7 @@ Class Model_Stats extends Model
     * создает ее.
     * Если есть, то инкрементирует (увеличивает на 1).
     */
-    public function hit($type, $id, $time)
+    public function hit($type, $id, $time = 0)
     {
         $key = self::getKey($type, $id, $time);
 
@@ -40,7 +40,7 @@ Class Model_Stats extends Model
         return $key;
     }
 
-    public function get($type, $id, $time)
+    public function get($type, $id, $time = 0)
     {
         $key = self::getKey($type, $id, $time);
 
