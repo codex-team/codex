@@ -122,13 +122,13 @@ input[disabled]
   position: absolute; left: 0; top: 0;
 }
 */
-pre, code, .technic{
+.technic{
     display: inline-block;
     padding: 0 4px;
-    background-color: #E2EFFD;
+    background-color: #F4F7FB;
     font-family: 'monaco', 'consolas', 'courier';
     font-size: 13px;
-    color: #5B8AC3;
+    color: #456994;
 }
 
 
@@ -364,7 +364,7 @@ html {
 
 
 .blog .title{
-    margin: 0 0 15px;
+    margin: 0 0 5px;
     font-size: 20px;
     line-height: 1.5em;
 }
@@ -376,6 +376,7 @@ html {
         display: inline-block;
         margin-right: 20px;
         color: #a8adb6;
+        font-size: 14px;
     }
 .blog .info{
     width: 30%;
@@ -761,23 +762,40 @@ html {
 /** Article page styles */
 
 .big_header{
-    font-size: 67px;
+    font-size: 54px;
     line-height: 1.2em;
     text-align: center;
     padding: 100px 150px 40px;
 }
 .article_info{
     text-align: center;
-    margin-left: -75px;
     margin-bottom: 70px;
 }
-    .article_info time{
-        color: #9095a2;
-    }
     .article_info .list_user_ava{
         margin: 0 20px;
         border: 0;
+        display: inline-block;
     }
+    .article_info .ava_holder{
+        display: inline-block;
+        position: relative;
+    }
+    .article_info time,
+    .article_info .list_user_name{
+        position: absolute;
+        top: 7px;
+    }
+        .article_info time{
+            color: #9095a2;
+            text-align: right;
+            left: -250px;
+            width: 250px;
+        }
+        .article_info .list_user_name{
+            text-align: left;
+            right: -250px;
+            width: 250px;
+        }
 
 .article_content{
     font-size: 17px;
@@ -800,6 +818,16 @@ html {
             color: #2C70F5;
             border-bottom-color: #6E8FEC;
         }
+    .article_content code{
+        display: block;
+        padding: 10px 15px;
+        background-color: #F9FAFB;
+        font-family: 'monospace', 'monaco', 'consolas', 'courier';
+        font-size: 13px;
+        color: #3D597B;
+    }
+
+
 
 
 @-webkit-keyframes wobble {
@@ -1001,6 +1029,7 @@ html {
         .article_info time{
             display: block;
             margin-bottom: 10px;
+            text-align: center;
         }
         .article_info .list_user_ava{
             margin: 0 10px 0 0;
@@ -1014,10 +1043,10 @@ html {
         .article_info .list_user_ava > img{
             vertical-align: top;
         }
+        .article_info time,
         .article_info .list_user_name{
-
+            position: static;
         }
-
     .article_content{
         margin: 0;
         font-size: 16px;
