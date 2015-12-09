@@ -5,24 +5,6 @@
             <?= $article->title ?>
         </h1>
         <div class="article_info">
-<<<<<<< HEAD
-            <meta itemprop="datePublished" content="<?= date(DATE_ISO8601, strtotime($article->dt_create)) ?>" />
-            <time><?= Date::fuzzy_span($article->dt_create) ?></time>
-            <span class="list_user_ava" itemscope itemtype="http://schema.org/Person" itemprop="author">
-                <img src="<?= $article->author->photo ?>" alt="<?= $article->author->name ?>" itemprop="image">
-
-            </span>
-
-            <meta itemprop="author" content="<?= $article->author->name ?>" />
-            <a class="list_user_name" href="/user/<?= $article->author->id ?>" ><?= $article->author->name ?></a>
-        </div>
-            <meta itemprop="description" content="<?= $article->description ?>" />
-            <div><?= $article->description ?></div>
-        <img src="<?= $article->cover ?>" itemprop="image">
-        
-        <div class="article_content" itemprop="articleBody">
-            <?= Text::auto_p($article->text) ?>
-=======
             <div class="ava_holder" itemscope itemtype="http://schema.org/Person" itemprop="author">
                 <meta itemprop="datePublished" content="<?= date(DATE_ISO8601, strtotime($article->dt_create)) ?>" />
                 <time itemprop="datePublished"><?= Date::fuzzy_span($article->dt_create) ?></time>
@@ -36,7 +18,6 @@
 
         <div class="article_content"  itemprop="articleBody">
             <?= nl2br($article->text) ?>
->>>>>>> refs/remotes/origin/master
         </div>
 
 
