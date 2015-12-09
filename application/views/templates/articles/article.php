@@ -9,12 +9,16 @@
             <time><?= Date::fuzzy_span($article->dt_create) ?></time>
             <span class="list_user_ava" itemscope itemtype="http://schema.org/Person" itemprop="author">
                 <img src="<?= $article->author->photo ?>" alt="<?= $article->author->name ?>" itemprop="image">
+
             </span>
-            <meta itemprop="name" content="<? echo ($article->author->name); ?>" />
+
+            <meta itemprop="author" content="<?= $article->author->name ?>" />
             <a class="list_user_name" href="/user/<?= $article->author->id ?>" ><?= $article->author->name ?></a>
         </div>
-        <img src="" itemprop="image">
-        <meta itemprop="description" />
+            <meta itemprop="description" content="<?= $article->description ?>" />
+            <div><?= $article->description ?></div>
+        <img src="<?= $article->cover ?>" itemprop="image">
+        
         <div class="article_content" itemprop="articleBody">
             <?= Text::auto_p($article->text) ?>
         </div>
