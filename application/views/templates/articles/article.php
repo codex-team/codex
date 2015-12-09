@@ -1,4 +1,3 @@
-<?= Debug::vars($article) ?>
 <div class="center_side clear">
     <article class="article" itemscope itemtype="http://schema.org/Article">
         <h1 class="big_header" itemprop="headline">
