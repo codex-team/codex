@@ -42,5 +42,4 @@ class Controller_Articles_Edit extends Controller_Base_preDispatch
             die();
         }
     }
-
 }

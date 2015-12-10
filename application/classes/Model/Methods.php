@@ -33,10 +33,13 @@ class Model_Methods extends Model
     {
         $new_name = bin2hex(openssl_random_pseudo_bytes(5));
         $cover['name'] = $new_name . '.' . pathinfo($cover['name'], PATHINFO_EXTENSION);
+
         $uploaddir = 'upload/covers/';
+
         if ($file = Upload::save($cover, NULL, $uploaddir)){
             Image::factory($file)->save($uploaddir . $cover['name']);
             unlink($file);
+
             return $cover['name'];
         }
         else {
@@ -56,7 +59,7 @@ class Model_Methods extends Model
     function SavePostFile($inputName, $dir = "", $fileTypes = array(), $maxFileSize = 2097152){
         // check 4 file was uploaded
         if ( (!$file = Arr::get($_FILES, $inputName) ) || ($file["error"] == 4) )
-            return false;
+            return null;
 
         // todo get from config
         $uploaddir    = '/upload/' . ($dir ? $dir  : "");
@@ -68,13 +71,13 @@ class Model_Methods extends Model
 
         // Validate size
         if ($file['size'] > $maxFileSize)
-            return false;
+            return null;
 
         $fileParts = pathinfo($file['name']);
 
         // Validate the file type
         if ($fileTypes && !in_array($fileParts['extension'], $fileTypes)) {
-            return false;
+            return null;
         }
 
         // translit name
@@ -87,7 +90,7 @@ class Model_Methods extends Model
             return $uploadfileHtml;
         }
 
-        return false;
+        return null;
     }
 
     /**

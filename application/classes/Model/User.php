@@ -169,7 +169,6 @@ Class Model_User extends Model
             return false;
     }
 
-
     /**
      * Возвращает массив опубликованных статей пользователя
      * @return true, если данные успешно записаны в БД
@@ -179,22 +178,40 @@ Class Model_User extends Model
         return Model_Article::getByUserId($this->id);
     }
 
-    public function edit($name, $vk_url, $instagram_url, $bio, $newAva = null)
-    {
-        // parse_url парсит урл и отсекает uri юзера
-        // substr  возвращает нуль, если передали пусту строку
-        $vk_uri        = substr(parse_url($vk_url, PHP_URL_PATH), 1);
-        $instagram_uri = substr(parse_url($instagram_url, PHP_URL_PATH), 1);
+	/**
+	 * Парсит url отсекает uri
+	 * @return String, если успешно спрасилось
+	 * @return null, если не валидная строка
+	 */
+	public function parseUri($url)
+	{
+		$parsed_url = parse_url($url, PHP_URL_PATH);
 
-        // если передали пусту строку
-        if($vk_uri == '0') $vk_uri = null;
-        if($instagram_uri == '0') $instagram_uri = null;
+		//проверки на валидность строки
+		if ($parsed_url == '/' || $parsed_url == null){
+			return null;
+		} elseif (substr($parsed_url, 0, 1) == '/'){
+			return substr($parsed_url, 1);
+		} else {
+			return $parsed_url;
+		}
+	}
+	
+	/**
+	 * Метод заносит переданные данные о юзере в модель и базу
+	 * @param $fields - ассоциативный массив "название поля" - "значение",
+	 * @param $newAva - путь к сохраненной аватарке.
+	 */
+    public function edit($fields, $newAva = null)
+    {
+		$vk_uri 	   = $this->parseUri($fields['vk_url']);
+		$instagram_uri = $this->parseUri($fields['instagram_url']);
 
         // занесение данных в модель
+        $this->name          = $fields['name'];
         $this->vk_uri        = $vk_uri;
         $this->instagram_uri = $instagram_uri;
-        $this->bio           = $bio;
-        $this->name          = $name;
+        $this->bio           = $fields['bio'];
 		if ($newAva != null) { $this->photo = $newAva; }
 
         // занесения данных в бд
