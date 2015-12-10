@@ -511,8 +511,23 @@ html {
     resize: none;
 }
 
-.blank .additional_fields input{
+.blank .additional_fields input, .blank .settings input{
     margin-bottom: 20px;
+}
+
+.settings, .additional_user_info {
+    padding: 0% 30% 0% 30%;
+}
+
+.settings label{
+    padding-left: 10px;
+    text-align: left;
+    font-size: 16px;
+}
+
+.bio{
+    padding: 0% 15% 0% 15%;
+    color: #595858;
 }
 
 

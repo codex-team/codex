@@ -9,26 +9,29 @@
                 <a class="nickname" href="//github.com/<?= $viewUser->github_uri ?>" target="_blank">
                 <i class="icon-github-circled"></i><?= $viewUser->github_uri ?></a><br/>
             <? endif ?>
-            <? if (!empty($viewUser->bio)): ?>
-                <div class="bio"><?= $viewUser->bio ?></div><br />
-            <? endif; ?>
-            <? if (!empty($viewUser->vk_uri)): ?>
-                <a class="social_link vk" href="//vk.com/<?= $viewUser->vk_uri ?>" target="_blank">
-                <i class="icon-vkontakte"></i> <?= $viewUser->vk_uri ?></a><br />
-            <? endif; ?>
-            <? if (!empty($viewUser->fb_uri)): ?>
-                <a class="social_link vk" href="//facebook.com/<?= $viewUser->fb_uri ?>" target="_blank">
-                <i class="icon-facebook-squared"></i><?= $viewUser->fb_uri ?></a><br />
-            <? endif; ?>
-            <? if (!empty($viewUser->instagram_uri)): ?>
-                <a class="social_link instagram" href="//instagram.com/<?= $viewUser->instagram_uri ?>" target="_blank">
-                <i class="icon-instagram"></i><?= $viewUser->instagram_uri ?></a><br />
-            <? endif; ?>
-            <? if ($isMyPage): ?>
-                <a class="settings_link" href="/user/settings" target="_self">Настройки</a><br />
-                <a class="logout" href="/auth/logout">Выйти </a>
-            <? endif; ?>
-        </div>
+            <div class="additional_user_info">
+                <? if (!empty($viewUser->bio)): ?>
+                    <div class="bio"><?= $viewUser->bio ?></div>
+                <? endif; ?>
+                <? if (!empty($viewUser->vk_uri)): ?>
+                    <a class="social_link vk" href="//vk.com/<?= $viewUser->vk_uri ?>" target="_blank">
+                    <i class="icon-vkontakte"></i> <?= $viewUser->vk_uri ?></a><br />
+                <? endif; ?>
+                <? if (!empty($viewUser->fb_uri)): ?>
+                    <a class="social_link fb" href="//facebook.com/<?= $viewUser->fb_uri ?>" target="_blank">
+                    <i class="icon-facebook-squared"></i><?= $viewUser->fb_uri ?></a><br />
+                <? endif; ?>
+                <? if (!empty($viewUser->instagram_uri)): ?>
+                    <a class="social_link instagram" href="//instagram.com/<?= $viewUser->instagram_uri ?>" target="_blank">
+                    <i class="icon-instagram"></i><?= $viewUser->instagram_uri ?></a><br />
+                <? endif; ?>
+            </div>
+            <div class="user_links">
+                <? if ($isMyPage): ?>
+                    <a class="settings_link" href="/user/settings" target="_self">Настройки</a><br />
+                    <a class="logout" href="/auth/logout">Выйти </a>
+                <? endif; ?>
+            </div>
     </div>
 <? else: ?>
     <div class="no_data">
