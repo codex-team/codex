@@ -40,17 +40,22 @@ Class Model_Sessions extends Model
      */
     public function get_user_id()
     {
-        $current_session = DB::select('user_id')->from('Sessions')
+        $current_session = Dao_Sessions::select('user_id')
             ->where('access_token', '=', $this->auth_token)
-            ->cached(Date::DAY)
-            ->execute()->as_array();
+            ->cached(Date::DAY, 'sessions/get_user_id')
+            ->limit(1)
+            ->execute();
 
-        if (isset($current_session[0]['user_id']))
+        if (isset($current_session['user_id']))
         {
-            return $current_session[0]['user_id'];
+            return $current_session['user_id'];
         }
         else
+        {
+            Dao_Sessions::select()->clearcache('sessions/get_user_id');
             return false;
+        }
+
     }
 
 
@@ -61,17 +66,22 @@ Class Model_Sessions extends Model
      */
     public function find($user_id)
     {
-        $user_session = Dao_Sessions::select()->from('Sessions')
+        $user_session = Dao_Sessions::select('id')
             ->where('ip', '=', $this->ip)
-            ->and_where('user_agent', '=', $this->user_agent)
-            ->and_where('user_id', '=', $user_id)
-            ->cached(10*Date::MINUTE)
-            ->execute()->as_array();
+            ->where('user_agent', '=', $this->user_agent)
+            ->where('user_id', '=', $user_id)
+            ->cached(10*Date::MINUTE, 'sessions/find')
+            ->limit(1)
+            ->execute();
 
-        if (!empty($user_session[0]['id']))
+        if (!empty($user_session['id']))
             return true;
         else
+        {
+            Dao_Sessions::select()->clearcache('sessions/find');
             return false;
+        }
+
     }
 
 
