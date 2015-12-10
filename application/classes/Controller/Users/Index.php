@@ -55,13 +55,13 @@ class Controller_Users_Index extends Controller_Base_preDispatch
             $instagram_url = Arr::get($_POST, 'instagram_uri');
             $bio           = Arr::get($_POST, 'bio');
 
-			// сохранение фотографии на сервере
-			$newAva = $this->methods->saveImage('ava', 'users/', array('jpg', 'jpeg', 'png'));
+            // сохранение фотографии на сервере
+            $newAva = $this->methods->saveImage('ava', 'users/', array('jpg', 'jpeg', 'png'));
 
-            $fields = array('name'  		=> $name,
-							'vk_url'        => $vk_url,
-							'instagram_url' => $instagram_url,
-							'bio'           => $bio);
+            $fields = array('name'          => $name,
+                            'vk_url'        => $vk_url,
+                            'instagram_url' => $instagram_url,
+                            'bio'           => $bio);
 
             /**
              * Занесение данных в модель пользователя и в бд.

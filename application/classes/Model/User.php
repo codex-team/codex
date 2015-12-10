@@ -187,16 +187,16 @@ Class Model_User extends Model
 	{
 		$parsed_url = parse_url($url, PHP_URL_PATH);
 
-		//проверки на валидность строки
-		if ($parsed_url == '/' || $parsed_url == null){
-			return null;
-		} elseif (substr($parsed_url, 0, 1) == '/'){
-			return substr($parsed_url, 1);
-		} else {
-			return $parsed_url;
-		}
-	}
-	
+        //проверки на валидность строки
+        if ($parsed_url == '/' || $parsed_url == null){
+            return null;
+        } elseif (substr($parsed_url, 0, 1) == '/'){
+            return substr($parsed_url, 1);
+        } else {
+            return $parsed_url;
+        }
+    }
+
 	/**
 	 * Метод заносит переданные данные о юзере в модель и базу
 	 * @param $fields - ассоциативный массив "название поля" - "значение",
@@ -204,15 +204,16 @@ Class Model_User extends Model
 	 */
     public function edit($fields, $newAva = null)
     {
-		$vk_uri 	   = $this->parseUri($fields['vk_url']);
-		$instagram_uri = $this->parseUri($fields['instagram_url']);
+        $vk_uri        = $this->parseUri($fields['vk_url']);
+        $instagram_uri = $this->parseUri($fields['instagram_url']);
 
         // занесение данных в модель
         $this->name          = $fields['name'];
         $this->vk_uri        = $vk_uri;
         $this->instagram_uri = $instagram_uri;
         $this->bio           = $fields['bio'];
-		if ($newAva != null) { $this->photo = $newAva; }
+
+        if ($newAva != null) { $this->photo = $newAva; }
 
         // занесения данных в бд
         $this->update();
