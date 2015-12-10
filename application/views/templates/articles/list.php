@@ -23,14 +23,14 @@
                         </div>
                     </div>
                 </div>
-                <h2 class="title"><a href="/article/<?= $article->id ?>"><?= $article->title ?></a></h2>
                 <div class="counters">
                     <time class="item"><?= date_format(date_create($article->dt_create), 'd M'); ?></time>
-                    <a class="item" href="/article/<?= $article->id ?>">
+                    <? /*<a class="item" href="/article/<?= $article->id ?>">
                         <?= $article->commentsCount ?>
                         Comment<? if ($article->commentsCount != 1){ echo 's'; } ?>
-                    </a>
+                    </a >*/?>
                 </div>
+                <h2 class="title"><a href="/article/<?= $article->id ?>"><?= $article->title ?></a></h2>
             </article>
         <? endforeach; ?>
     </div>

@@ -15,9 +15,12 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
     public function action_showArticle()
     {
         $articleId = $this->request->param('article_id');
+
         $this->view["id"] = $articleId;
 
         $article = Model_Article::get($articleId);
+
+        $this->stats->hit(Model_Stats::ARTICLE, $articleId);
 
         $this->view["article"] = $article;
 
@@ -34,6 +37,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
     public function action_newArticle()
     {
+        // $this->view["editor"] = View::factory('templates/articles/editor', $this->view);
         $this->template->content = View::factory('templates/articles/new', $this->view);
     }
 

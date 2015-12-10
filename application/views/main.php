@@ -27,8 +27,8 @@
     <? /*
     <link rel="stylesheet" href="/public/css/articles.css?v=<?= filemtime("public/css/articles.css") ?>">
     <link rel="stylesheet" href="/public/css/admin.css?v=<?= filemtime("public/css/admin.css") ?>">
-    <link rel="stylesheet" href="/public/css/editor.css?v=<?= filemtime("public/css/editor.css") ?>">
     */ ?>
+    <link rel="stylesheet" href="/public/css/editor.css?v=<?= filemtime("public/css/editor.css") ?>">
     <link rel="icon" type="image/png" href="/public/img/fav_shield@3x.png?v=985" id="favicon" />
 
     <meta id="metaImage" name="image" property="og:image"  content="https://ifmo.su/img/meta_img.png" />
@@ -51,8 +51,7 @@
             <? endif ?>
             <div class="site_menu fl_l">
                 <a href="/">CodeX</a>
-                <a href="/join">Join team</a>
-                <a href="/articles">Exp</a>
+                <a href="/articles">Articles</a>
             </div>
             <div class="social_buttons">
                 <a class="icon_link social" href="//vk.com/codex_team" target="_blank"><i class="icon-vkontakte"></i></a>
@@ -86,9 +85,6 @@
     </footer>
 
     <script src="/public/js/main.js?v=<?= filemtime("public/js/main.js") ?>"></script>
-    <script src="/public/js/editor.js?v=<?= filemtime("public/js/editor.js") ?>"></script>
-    <? /*
-        <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter32652805 = new Ya.Metrika({ id:32652805, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="https://mc.yandex.ru/watch/32652805" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    */?>
+    <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter32652805 = new Ya.Metrika({ id:32652805, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="https://mc.yandex.ru/watch/32652805" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 </body>
 </html>

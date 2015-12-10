@@ -25,10 +25,15 @@ class Controller_Base_preDispatch extends Controller_Template
     {
         /** Disallow requests from other domains */
         if ( Kohana::$environment === Kohana::PRODUCTION ) {
+
             if ( (Arr::get($_SERVER, 'SERVER_NAME') != 'alpha.difual.com') &&
                 (Arr::get($_SERVER, 'SERVER_NAME') != 'ifmo.su') ) {
                 exit();
             }
+
+            /** Mark requests as secure and working with HTTPS  */
+            $this->request->secure(true);
+
         }
 
         parent::before();
@@ -112,6 +117,10 @@ class Controller_Base_preDispatch extends Controller_Template
         // methods
         $this->methods = new Model_Methods();
         View::set_global('methods', $this->methods);
+
+        // stats
+        $this->stats = new Model_Stats();
+        View::set_global('stats', $this->stats);
 
         // modules
         $this->redis = $this->_redis();

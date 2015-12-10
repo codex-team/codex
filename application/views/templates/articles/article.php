@@ -1,26 +1,26 @@
 <div class="center_side clear">
-    <article class="article">
+    <article class="article" itemscope itemtype="http://schema.org/Article">
 
-        <?
-        // мешает
-//        <div class="article_image">
-//            <img src="/upload/covers/< ?= $article->cover ? >"/>
-//        </div>
-//
-//        <p class="time_subtitle">< ?= $article->dt_create ? ></p>
-        ?>
-
-        <h1 class="first_header">
+        <h1 class="big_header" itemprop="name">
             <?= $article->title ?>
         </h1>
 
-        <p class="first_header">
-            <?//= $article->description ?>
-        </p>
-
-        <div class="article_content">
-            <?= htmlspecialchars_decode($article->text )?>
+        <div class="article_info">
+            <div class="ava_holder">
+                <time itemprop="datePublished"><?= Date::fuzzy_span($article->dt_create) ?></time>
+                <span class="list_user_ava">
+                    <img src="<?= $article->author->photo ?>" alt="<?= $article->author->name ?>">
+                </span>
+                <a class="list_user_name" href="/user/<?= $article->author->id ?>" itemscope itmetype="http://schema.org/Person"><?= $article->author->name ?></a>
+            </div>
         </div>
+
+        <div class="article_content"  itemprop="articleBody">
+            <?= nl2br($article->text) ?>
+        </div>
+
+
+        <? /*
 
         <h3>Комментарии</h3>
         <?
@@ -82,6 +82,8 @@
             </p>
         </form>
         </p>
+
+                *******/ ?>
 
     </article>
 </div>

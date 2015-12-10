@@ -39,7 +39,7 @@ Route::set('ARTICLE_PAGE', 'article/<article_id>', array('article_id' => $DIGIT)
     'action' => 'showArticle'
 ));
 
-Route::set('NEW_ARTICLE_PAGE', 'article/newarticle')->defaults(array(
+Route::set('NEW_ARTICLE_PAGE', 'articles/new')->defaults(array(
     'controller' => 'articles_index',
     'action' => 'newArticle'
 ));
@@ -101,60 +101,32 @@ Route::set('TAGS', 'tag(/<query>)', array('query' => $QUERY))->defaults(array(
     'controller' => 'articles_tags',
     'action' => 'search',
 ));
-//Scripts for admin panel---------
-//Articles
-Route::set('ADMIN_ARTICLE_LIST', 'admin/article')->defaults(array(
-    'controller' => 'admin',
-    'action' => 'showAllArticles',
-));
 
-Route::set('ADMIN_DEL_ARTICLE', 'admin/article/delarticle/<article_id>', array('article_id' => $DIGIT))->defaults(array(
-    'controller' => 'admin',
-    'action' => 'delete'
-));
+//Script for admin panel---------
 
-Route::set('ADMIN_EDIT_ARTICLE', 'admin/article/editarticle/<article_id>', array('article_id' => $DIGIT))->defaults(array(
+Route::set('ADMIN_EDIT_ARTICLE', 'article/<article_id>/edit', array('article_id' => $DIGIT))->defaults(array(
     'controller' => 'admin',
     'action' => 'edit'
 ));
 
-Route::set('ADMIN_UPDATE_ARTICLE', 'admin/article/updatearticle/<article_id>', array('article_id' => $DIGIT))->defaults(array(
-    'controller' => 'admin',
-    'action' => 'update'
-));
-//Users
-Route::set('ADMIN_USERS_LIST', 'admin/users')->defaults(array(
-    'controller' => 'admin',
-    'action' => 'showAllUsers',
-));
 
-Route::set('ADMIN_DEL_USER', 'admin/users/deluser/<user_id>', array('user_id' => $DIGIT))->defaults(array(
-    'controller' => 'admin',
-    'action' => 'deleteUser',
-));
+Route::set('ADMIN', 'admin(/<category>(/<list>))', array('category' => 'articles|users',
+                                                                'list' => 'unpublished|deleted'))
+  ->defaults(array(
+        'controller' => 'admin',
+        'action' => 'index'
+    ));
 
 // - viz redaktor -
-
-
 
 Route::set('EDITOR_LANDING', 'editor', array())->defaults(array(
     'controller' => 'editor',
     'action' => 'landing'
 ));
 
-
-/** Sorry, Mark, I need this route. */
-// Route::set('ARTICLE_EDITOR', 'editor', array())->defaults(array(
-//     'controller' => 'articles_edit',
-//     'action' => 'showNewEditor'
-// ));
-Route::set('ARTICLE_EDITOR_SAVE_IMG_FROM_FILE', 'saveimgfile', array())->defaults(array(
+Route::set('ARTICLE_EDITOR_SAVE_IMG', 'editorsaveimg', array())->defaults(array(
     'controller' => 'articles_edit',
-    'action' => 'saveImgFromFile'
-));
-Route::set('ARTICLE_EDITOR_SAVE_IMG_FROM_URL', 'saveimgurl', array())->defaults(array(
-    'controller' => 'articles_edit',
-    'action' => 'saveImgFromUrl'
+    'action' => 'saveEditorImg'
 ));
 
 // Defaults
