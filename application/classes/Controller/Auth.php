@@ -133,9 +133,7 @@ class Controller_Auth extends Controller_Base_preDispatch
                 else
                 {
                     $new_session = new Model_Sessions();
-                    if ($new_session->find($user->id))
-                        $new_session->update($user->id, $gh->get_token());
-                    else
+                    if (!$new_session->get_user_id())
                         $new_session->save($user->id, $gh->get_token());
                 }
             }

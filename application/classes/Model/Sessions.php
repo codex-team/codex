@@ -60,32 +60,6 @@ Class Model_Sessions extends Model
 
 
     /**
-     * Метод проверяет, существует ли запись для пользователя в таблице Sessions
-     * @param $user_id
-     * @return bool
-     */
-    public function find($user_id)
-    {
-        $user_session = Dao_Sessions::select('id')
-            ->where('ip', '=', $this->ip)
-            ->where('user_agent', '=', $this->user_agent)
-            ->where('user_id', '=', $user_id)
-            ->cached(10*Date::MINUTE, 'sessions/find')
-            ->limit(1)
-            ->execute();
-
-        if (!empty($user_session['id']))
-            return true;
-        else
-        {
-            Dao_Sessions::select()->clearcache('sessions/find');
-            return false;
-        }
-
-    }
-
-
-    /**
      * Метод создает новую запись в таблице Sessions с указанным user_id и access_token
      * @param $user_id
      * @param $access_token
