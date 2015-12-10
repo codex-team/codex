@@ -11,7 +11,6 @@ TOKEN = ""
 
 def get(url):
     http = httplib2.Http()
-    #http.add_credentials('n0str', TOKEN)
     headers = {
         'User-agent': 'Codex',
         'Authorization': 'Basic %s' % b64encode('n0str:%s' % TOKEN)
