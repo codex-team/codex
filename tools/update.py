@@ -7,22 +7,25 @@ from urllib import urlencode
 from base64 import b64encode
 
 BASE_COMMIT_HASH = "9e88b93d071c7f2b95d5263edae10b7683921257"
+TOKEN = ""
 
 def get(url):
     http = httplib2.Http()
-    http.add_credentials('n0str', 'be65a4a0e6b4f23099d470b9bba8e16ab45f0904')
+    #http.add_credentials('n0str', TOKEN)
     headers = {
         'User-agent': 'Codex',
-        'Authorization': 'Basic %s' % b64encode('n0str:be65a4a0e6b4f23099d470b9bba8e16ab45f0904')
+        'Authorization': 'Basic %s' % b64encode('n0str:%s' % TOKEN)
     }
     try:
         head, body = http.request(url, headers=headers)
         if head["status"] == '200':
             return json.loads(body)
         else:
-            return False
+            print "HTTP status error: %s %s" % (head["status"], body)
     except:
-        return False
+        print "Error with HTTP request"
+        exit()
+    exit()
 
 def update(r):
     last_commits = get("https://api.github.com/repos/codex-team/codex/commits/master")
@@ -52,5 +55,7 @@ def update(r):
     r.set('github/contributors', ','.join(c_list))
 
 if __name__ == "__main__":
+    TOKEN = open(".token").read().rstrip()
+    
     r = redis.StrictRedis(host='localhost', port=6379, db=0, password='21gJs32hv3ks')
     update(r)
