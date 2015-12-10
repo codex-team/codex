@@ -169,7 +169,7 @@ Class Model_Article extends Model
      */
     public static function getAllArticles()
     {
-        return Model_Article::getArticles(true, false);
+        return Model_Article::getArticles(true, true);
     }
 
     /**

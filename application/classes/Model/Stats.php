@@ -1,9 +1,14 @@
 <?php defined('SYSPATH') OR die('No Direct Script Access');
-
+/**
+* Содержит функции для работы с redis и
+* статистикой просмотров.
+*
+* @author Ivan Zhuravlev
+*/
 Class Model_Stats extends Model
 {
     const ARTICLE = 1;
-    public $redis;
+    private $redis;
 
 
     public function __construct()
@@ -16,10 +21,8 @@ Class Model_Stats extends Model
     * создает ее.
     * Если есть, то инкрементирует (увеличивает на 1).
     */
-    public static function hit($type, $id, $time)
+    public function hit($type, $id, $time = 0)
     {
-        $model = new Model_Stats;
-
         $key = self::getKey($type, $id, $time);
 
         $model->redis->incr($key);
@@ -30,17 +33,15 @@ Class Model_Stats extends Model
     * Принимает на вход тип статистики, цель (то, к чему она применяется) и дату.
     * Возвращает ключ.
     */
-    public static function getKey($type, $id, $time)
+    public function getKey($type, $id, $time)
     {
         $key = 'stats:' . $type . ':target:' . $id . ':time:' . $time;
 
         return $key;
     }
 
-    public static function get($type, $id, $time)
+    public function get($type, $id, $time = 0)
     {
-        $model = new Model_Stats;
-
         $key = self::getKey($type, $id, $time);
 
         $views = $model->redis->get($key); 
