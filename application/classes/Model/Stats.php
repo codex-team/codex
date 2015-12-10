@@ -25,7 +25,7 @@ Class Model_Stats extends Model
     {
         $key = self::getKey($type, $id, $time);
 
-        $model->redis->incr($key);
+        $this->redis->incr($key);
     }
 
     /*
@@ -44,7 +44,7 @@ Class Model_Stats extends Model
     {
         $key = self::getKey($type, $id, $time);
 
-        $views = $model->redis->get($key); 
+        $views = $this->redis->get($key); 
 
         return $views;
     }
