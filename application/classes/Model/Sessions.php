@@ -40,29 +40,17 @@ Class Model_Sessions extends Model
      */
     public function get_user_id($redis)
     {
-        $path = "sessions/" . $this->auth_token;
+        $current_session = DB::select('user_id')->from('Sessions')
+            ->where('access_token', '=', $this->auth_token)
+            ->cached(Date::DAY)
+            ->execute()->as_array();
 
-        $redis_user_id = $redis->get($path);
-
-        if ($redis_user_id)
+        if (isset($current_session[0]['user_id']))
         {
-            return $redis_user_id;
+            return $current_session[0]['user_id'];
         }
         else
-        {
-            $current_session = DB::select('user_id')->from('Sessions')
-                ->where('access_token', '=', $this->auth_token)
-                ->execute()->as_array();
-
-            $result = false;
-            if (isset($current_session[0]['user_id']))
-            {
-                $result = $current_session[0]['user_id'];
-                $redis->setex($path, 60*60*24, $result);
-            }
-
-            return $result;
-        }
+            return false;
     }
 
 
@@ -73,10 +61,11 @@ Class Model_Sessions extends Model
      */
     public function find($user_id)
     {
-        $user_session = DB::select()->from('Sessions')
+        $user_session = Dao_Sessions::select()->from('Sessions')
             ->where('ip', '=', $this->ip)
             ->and_where('user_agent', '=', $this->user_agent)
             ->and_where('user_id', '=', $user_id)
+            ->cached(10*Date::MINUTE)
             ->execute()->as_array();
 
         if (!empty($user_session[0]['id']))
