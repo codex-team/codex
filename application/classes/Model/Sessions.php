@@ -15,7 +15,7 @@ Class Model_Sessions extends Model
     public $user_agent;
     public $access_token;
 
-    
+
     public function __construct()
     {
         $this->ip = Request::$client_ip;
@@ -38,16 +38,31 @@ Class Model_Sessions extends Model
      * Возвращает user_id пользователя по access_token
      * @return Int, otherwise false
      */
-    public function get_user_id()
+    public function get_user_id($redis)
     {
-        $current_session = DB::select('user_id')->from('Sessions')
-            ->where('access_token', '=', $this->auth_token)
-            ->execute()->as_array();
+        $path = "sessions/" . $this->auth_token;
 
-        if (isset($current_session[0]['user_id']))
-            return $current_session[0]['user_id'];
+        $redis_user_id = $redis->get($path);
+
+        if ($redis_user_id)
+        {
+            return $redis_user_id;
+        }
         else
-            return false;
+        {
+            $current_session = DB::select('user_id')->from('Sessions')
+                ->where('access_token', '=', $this->auth_token)
+                ->execute()->as_array();
+
+            $result = false;
+            if (isset($current_session[0]['user_id']))
+            {
+                $result = $current_session[0]['user_id'];
+                $redis->setex($path, 10, $result);
+            }
+
+            return $result;
+        }
     }
 
 
