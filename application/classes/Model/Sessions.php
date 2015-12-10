@@ -58,7 +58,7 @@ Class Model_Sessions extends Model
             if (isset($current_session[0]['user_id']))
             {
                 $result = $current_session[0]['user_id'];
-                $redis->setex($path, 10, $result);
+                $redis->setex($path, 60*60*24, $result);
             }
 
             return $result;
