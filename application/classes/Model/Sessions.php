@@ -38,11 +38,14 @@ Class Model_Sessions extends Model
      * Возвращает user_id пользователя по access_token
      * @return Int, otherwise false
      */
-    public function get_user_id()
+    public function get_user_id($token=null)
     {
+        if (!$token)
+            $token = $this->auth_token;
+
         $current_session = Dao_Sessions::select('user_id')
-            ->where('access_token', '=', $this->auth_token)
-            ->cached(Date::DAY, 'sessions/get_user_id')
+            ->where('access_token', '=', $token)
+            ->cached(Date::DAY, 'sessions/' . $token)
             ->limit(1)
             ->execute();
 
@@ -52,10 +55,9 @@ Class Model_Sessions extends Model
         }
         else
         {
-            Dao_Sessions::select()->clearcache('sessions/get_user_id');
+            Dao_Sessions::select()->clearcache('sessions/' . $token);
             return false;
         }
-
     }
 
 
@@ -73,27 +75,5 @@ Class Model_Sessions extends Model
             ->execute();
 
         return $result;
-    }
-
-
-    /**
-     * Метод обновляет запись в таблице Sessions, соответствующую текущему пользователю,
-     * заменяя access_token на новый
-     * @param $user_id
-     * @param $access_token
-     * @return bool
-     */
-    public function update($user_id, $access_token)
-    {
-        if (DB::update('Sessions')->set(array(
-            'access_token' => $access_token
-        ))->where('user_id', '=', $user_id)
-            ->and_where('ip', '=', $this->ip)
-            ->and_where('user_agent', '=', $this->user_agent)
-            ->execute()
-        )
-            return true;
-        else
-            return false;
     }
 }

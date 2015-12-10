@@ -108,7 +108,8 @@ class Controller_Auth extends Controller_Base_preDispatch
 
             if ($profile)
             {
-                Cookie::set("auth_token", $gh->get_token());
+                $token = $gh->get_token();
+                Cookie::set("auth_token", $token);
 
                 $user = Model_User::findByAttribute('github_id', $profile->id);
                 if ($user->is_empty())
@@ -127,14 +128,14 @@ class Controller_Auth extends Controller_Base_preDispatch
                     {
                         $inserted_id = $result[0];
                         $new_session = new Model_Sessions();
-                        $new_session->save($inserted_id, $gh->get_token());
+                        $new_session->save($inserted_id, $token);
                     }
                 }
                 else
                 {
                     $new_session = new Model_Sessions();
-                    if (!$new_session->get_user_id())
-                        $new_session->save($user->id, $gh->get_token());
+                    if (!$new_session->get_user_id($token))
+                        $new_session->save($user->id, $token);
                 }
             }
         }
