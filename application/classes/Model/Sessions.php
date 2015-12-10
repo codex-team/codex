@@ -15,6 +15,7 @@ Class Model_Sessions extends Model
     public $user_agent;
     public $access_token;
 
+    
     public function __construct()
     {
         $this->ip = Request::$client_ip;
@@ -22,49 +23,81 @@ Class Model_Sessions extends Model
         $this->auth_token = Cookie::get("auth_token");
     }
 
+
+    /**
+     * Возвращает статус авторизованности пользователя
+     * @return bool
+     */
     public function is_authorized()
     {
         return isset($this->auth_token);
     }
 
+
+    /**
+     * Возвращает user_id пользователя по access_token
+     * @return Int, otherwise false
+     */
     public function get_user_id()
     {
-        $current_session = DB::select('user_id')->from('Sessions')->where('access_token', '=', $this->auth_token)->execute()->as_array();
+        $current_session = DB::select('user_id')->from('Sessions')
+            ->where('access_token', '=', $this->auth_token)
+            ->execute()->as_array();
+
         if (isset($current_session[0]['user_id']))
             return $current_session[0]['user_id'];
         else
             return false;
     }
 
+
+    /**
+     * Метод проверяет, существует ли запись для пользователя в таблице Sessions
+     * @param $user_id
+     * @return bool
+     */
     public function find($user_id)
     {
-        $user_session = DB::select()->from('Sessions')->where('ip', '=', $this->ip)
+        $user_session = DB::select()->from('Sessions')
+            ->where('ip', '=', $this->ip)
             ->and_where('user_agent', '=', $this->user_agent)
             ->and_where('user_id', '=', $user_id)
             ->execute()->as_array();
+
         if (!empty($user_session[0]['id']))
             return true;
         else
             return false;
     }
 
+
+    /**
+     * Метод создает новую запись в таблице Sessions с указанным user_id и access_token
+     * @param $user_id
+     * @param $access_token
+     * @return bool
+     * @throws Kohana_Exception
+     */
     public function save($user_id, $access_token)
     {
-        if (DB::insert('Sessions', array('user_id', 'ip', 'user_agent', 'access_token'))->
-            values(array($user_id, $this->ip, $this->user_agent, $access_token))->execute()
-            ) {
-            return true;
-        } else {
-            return true;
-        }
+        $result = DB::insert('Sessions', array('user_id', 'ip', 'user_agent', 'access_token'))
+            ->values(array($user_id, $this->ip, $this->user_agent, $access_token))
+            ->execute();
+
+        return $result;
     }
 
+
+    /**
+     * Метод обновляет запись в таблице Sessions, соответствующую текущему пользователю,
+     * заменяя access_token на новый
+     * @param $user_id
+     * @param $access_token
+     * @return bool
+     */
     public function update($user_id, $access_token)
     {
         if (DB::update('Sessions')->set(array(
-            'user_id' => $user_id,
-            'ip' => $this->ip,
-            'user_agent' => $this->user_agent,
             'access_token' => $access_token
         ))->where('user_id', '=', $user_id)
             ->and_where('ip', '=', $this->ip)
