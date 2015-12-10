@@ -178,14 +178,14 @@ Class Model_User extends Model
         return Model_Article::getByUserId($this->id);
     }
 
-	/**
-	 * Парсит url отсекает uri
-	 * @return String, если успешно спрасилось
-	 * @return null, если не валидная строка
-	 */
-	public function parseUri($url)
-	{
-		$parsed_url = parse_url($url, PHP_URL_PATH);
+    /**
+    * Парсит url отсекает uri
+     * @return String, если успешно спрасилось
+     * @return null, если не валидная строка
+     */
+     public function parseUri($url)
+    {
+        $parsed_url = parse_url($url, PHP_URL_PATH);
 
         //проверки на валидность строки
         if ($parsed_url == '/' || $parsed_url == null){
@@ -197,11 +197,11 @@ Class Model_User extends Model
         }
     }
 
-	/**
-	 * Метод заносит переданные данные о юзере в модель и базу
-	 * @param $fields - ассоциативный массив "название поля" - "значение",
-	 * @param $newAva - путь к сохраненной аватарке.
-	 */
+    /**
+    * Метод заносит переданные данные о юзере в модель и базу
+    * @param $fields - ассоциативный массив "название поля" - "значение",
+    * @param $newAva - путь к сохраненной аватарке.
+    */
     public function edit($fields, $newAva = null)
     {
         $vk_uri        = $this->parseUri($fields['vk_url']);
