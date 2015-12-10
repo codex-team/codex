@@ -7,7 +7,7 @@
         <div class="ava_holder">
             <div itemscope itemtype="http://schema.org/Person" itemprop="author">
                 <meta itemprop="datePublished" content="<?= date(DATE_ISO8601, strtotime($article->dt_create)) ?>" />
-                <time itemprop="datePublished"><?= Date::fuzzy_span($article->dt_create) ?></time>
+                <time><?= Date::fuzzy_span($article->dt_create) ?></time>
                 <span class="list_user_ava">
                     <img src="<?= $article->author->photo ?>" alt="<?= $article->author->name ?>"  itemprop="image">
                 </span>
