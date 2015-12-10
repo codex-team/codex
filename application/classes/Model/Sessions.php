@@ -48,22 +48,6 @@ Class Model_Sessions extends Model
             return false;
     }
 
-    public function checkAccess()
-    {
-        if (empty($this->auth_token))
-            return false;
-
-        $user_session = DB::select()->from('Sessions')->where('ip', '=', $this->ip)
-                                                      ->and_where('user_agent', '=', $this->user_agent)
-                                                      ->execute()->as_array();
-        if (!empty($user_session['access_token']) &&
-            $user_session['access_token'] == $this->access_token
-            )
-            return true;
-        else
-            return false;
-    }
-
     public function save($user_id, $access_token)
     {
         if (DB::insert('Sessions', array('user_id', 'ip', 'user_agent', 'access_token'))->
