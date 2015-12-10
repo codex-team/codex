@@ -134,7 +134,7 @@ class Controller_Base_preDispatch extends Controller_Template
         $auth = new Model_Sessions();
         if ( $auth->is_authorized() ) {
 
-            $user_id = $auth->get_user_id($this->redis);
+            $user_id = $auth->get_user_id();
             $this->user = Model_User::findByAttribute('id', $user_id);
 
         } else {

@@ -38,7 +38,7 @@ Class Model_Sessions extends Model
      * Возвращает user_id пользователя по access_token
      * @return Int, otherwise false
      */
-    public function get_user_id($redis)
+    public function get_user_id()
     {
         $current_session = DB::select('user_id')->from('Sessions')
             ->where('access_token', '=', $this->auth_token)
