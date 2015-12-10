@@ -125,8 +125,9 @@ class Controller_Auth extends Controller_Base_preDispatch
 
                     if ($result = $user->save())
                     {
+                        $inserted_id = $result[0];
                         $new_session = new Model_Sessions();
-                        $new_session->save($result[0], $gh->get_token());
+                        $new_session->save($insertedgi_id, $gh->get_token());
                     }
                 }
                 else
