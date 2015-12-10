@@ -2,14 +2,14 @@
 
 class Dao_Auth extends Dao_Base
 {
-    private $oauth_token;
-    
+    private $auth_token;
+
     /**
      * Конструктор записывает инстанс сессии в приватную $profile.
      */
     public function __construct()
     {
-        $this->oauth_token = Cookie::get("oauth_token");
+        $this->auth_token = Cookie::get("auth_token");
     }
 
     /**
@@ -17,7 +17,7 @@ class Dao_Auth extends Dao_Base
      */
     public function is_authorized()
     {
-        return isset($this->oauth_token);
+        return isset($this->auth_token);
     }
 
     /**
@@ -25,7 +25,7 @@ class Dao_Auth extends Dao_Base
      */
     public function is_guest()
     {
-        return !isset($this->oauth_token);
+        return !isset($this->auth_token);
     }
 
     /**
@@ -34,7 +34,14 @@ class Dao_Auth extends Dao_Base
      */
     public function get_token()
     {
-        return $this->oauth_token;
+        return $this->auth_token;
+    }
+
+
+    public function checkAuthorization()
+    {
+        $current_session = new Model_Sessions();
+        return $current_session->checkAccess($this->auth_token);
     }
 
 }

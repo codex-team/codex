@@ -131,16 +131,11 @@ class Controller_Base_preDispatch extends Controller_Template
 
         $this->session = Session::instance();
 
-        $auth = new Dao_Auth();
+        $auth = new Model_Sessions();
         if ( $auth->is_authorized() ) {
 
-            $access_token = $auth->get_token();
-
-            if ($access_token){
-                $this->user = Model_User::findByAttribute('access_token', $access_token);
-            } else {
-                $this->user = new Model_User();
-            }
+            $user_id = $auth->get_user_id();
+            $this->user = Model_User::findByAttribute('id', $user_id);
 
         } else {
 

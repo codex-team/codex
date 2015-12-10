@@ -127,13 +127,13 @@ Class Model_User extends Model
      */
     public function save()
     {
-        if (DB::insert('Users', array('name', 'github_id', 'github_uri',
-            'photo', 'photo_small', 'photo_big', 'role', 'is_removed', 'access_token'))->
+        if ($result = DB::insert('Users', array('name', 'github_id', 'github_uri',
+            'photo', 'photo_small', 'photo_big', 'role', 'is_removed'))->
         values(array($this->name, $this->github_id, $this->github_uri,
-            $this->photo, $this->photo_small, $this->photo_big, $this->role, $this->is_removed, $this->access_token))
+            $this->photo, $this->photo_small, $this->photo_big, $this->role, $this->is_removed))
             ->execute()
         ) {
-            return true;
+            return $result;
         } else {
             return true;
         }
@@ -155,8 +155,7 @@ Class Model_User extends Model
             'photo_small' => $this->photo_small,
             'photo_big'   => $this->photo_big,
             'role'        => $this->role,
-            'is_removed'  => $this->is_removed,
-            'access_token' => $this->access_token,
+            'is_removed'  => $this->is_removed
         ))->where('id', '=', $this->id)->execute()
         )
             return true;

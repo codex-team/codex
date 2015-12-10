@@ -67,7 +67,6 @@ class Kohana_Oauth_GitHub extends Oauth {
     public function login()
     {
         return $this->get_access_token();
-
     }
 
 

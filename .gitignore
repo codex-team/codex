@@ -15,3 +15,4 @@ application/config/oauth.php*
 public/img/covers/*
 /nbproject/private/
 *~
+tools/.token
