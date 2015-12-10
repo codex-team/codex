@@ -13,3 +13,5 @@ ALTER TABLE `Sessions`
 
 ALTER TABLE `Sessions`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
+
+ALTER TABLE `Sessions` ADD UNIQUE(`access_token`);
