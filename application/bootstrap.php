@@ -69,10 +69,19 @@ I18n::lang('en-us');
  * Note: If you supply an invalid environment name, a PHP warning will be thrown
  * saying "Couldn't find constant Kohana::<INVALID_ENV_NAME>"
  */
+
+/* old
 if (isset($_SERVER['KOHANA_ENV']))
 {
     Kohana::$environment = constant('Kohana::'.strtoupper($_SERVER['KOHANA_ENV']));
-}
+} 
+*/
+
+/**
+ *  Set $environment from server_name
+ */
+Kohana::$environment = ( (Arr::get($_SERVER, 'SERVER_NAME') === 'ifmo.su') || (Arr::get($_SERVER, 'SERVER_NAME') === 'alpha.difual.com')) ? Kohana::PRODUCTION : Kohana::DEVELOPMENT;
+
 
 /**
  * Initialize Kohana, setting the default options.

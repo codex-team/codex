@@ -1,21 +1,38 @@
 <?php defined('SYSPATH') or die('No direct script access.');
-
+/**
+ *  Handle 404 error
+ *  @author Alexander Demyashev (develop@demyashev.com)
+ */
 class HTTP_Exception_404 extends Kohana_HTTP_Exception_404 {
  
     public function get_response()
     {
-        Kohana_Exception::log($this);
-        
-        $view = View::factory('templates/errors/default');
-        $view->set('title', 'Страница не найдена');
-        $view->set('message', $this->getMessage());
+        if (Kohana::$environment >= Kohana::DEVELOPMENT)
+        {
+            return parent::get_response();
+        } 
+        else 
+        {
+            /*
 
-        $response = Response::factory()
-            ->status(404)
-            ->body($view->render());
+            // send debug info to developer
+            $to = Kohana::$config->load('main.site.author.email');
+            $subject = "404 Not Found";
+            $message = "{$this->getMessage()}\n\n{$this->getFile()} on line {$this->getLine()}";
+            $header  = "From: robot@" . Arr::get($_SERVER, 'SERVER_NAME'). "\r\n";
+         
+            @mail($to, $subject, $message, $header);
 
-        Model_Methods::telegram_send_error($this->getMessage());
+            */
 
-        return $response;
+            $view = View::factory('templates/errors/default');
+            $view->set('title',   "404 Not Found");
+            $view->set('message', "{$this->getMessage()}");  
+            $response = Response::factory()
+                ->status(404)
+                ->body($view->render());
+     
+            return $response;
+        }
     }
 }
