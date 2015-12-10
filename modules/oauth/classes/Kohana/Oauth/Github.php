@@ -145,7 +145,5 @@ class Kohana_Oauth_GitHub extends Oauth {
     {
         return $this->token;
     }
-
-
-
+    
 }

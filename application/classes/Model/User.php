@@ -17,7 +17,6 @@ Class Model_User extends Model
     public $github_uri = '';
     public $role = 0;
     public $is_removed = 0;
-    public $access_token = '';
 
 
     /**
@@ -90,7 +89,6 @@ Class Model_User extends Model
             $model->fb_uri     = $user['fb_uri'];
             $model->role       = $user['role'];
             $model->is_removed = $user['is_removed'];
-            $model->access_token = $user['access_token'];
         }
 
         return $model;
