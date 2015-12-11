@@ -15,8 +15,13 @@ Class Model_User extends Model
     public $fb_uri = '';
     public $github_id = 0;
     public $github_uri = '';
-    public $role = 0;
+    public $role = 1;
     public $is_removed = 0;
+
+
+    const ROLE_ANY = 0;
+    const ROLE_USER = 1;
+    const ROLE_ADMIN = 3;
 
 
     /**
@@ -159,6 +164,16 @@ Class Model_User extends Model
             return true;
         else
             return false;
+    }
+
+    public function checkAccess($roles)
+    {
+        foreach ($roles as $role)
+        {
+            if ($role == Model_User::ROLE_ANY || $role == $this->role)
+                return true;
+        }
+        return false;
     }
 
 

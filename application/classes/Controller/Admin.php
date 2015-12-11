@@ -3,6 +3,13 @@
 class Controller_Admin extends Controller_Base_preDispatch
 {
 
+    public function before()
+    {
+        parent::before();
+        if (!$this->user->checkAccess(array(Model_User::ROLE_ADMIN)))
+            throw new HTTP_Exception_403();
+    }
+
     public function action_index()
     {
         $category = $this->request->param('category');
