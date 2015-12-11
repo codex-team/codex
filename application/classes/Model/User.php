@@ -18,8 +18,10 @@ Class Model_User extends Model
     public $role = 1;
     public $is_removed = 0;
 
-    const ROLE_ADMIN = 3;
+
+    const ROLE_ANY = 0;
     const ROLE_USER = 1;
+    const ROLE_ADMIN = 3;
 
 
     /**
@@ -168,7 +170,7 @@ Class Model_User extends Model
     {
         foreach ($roles as $role)
         {
-            if ($role == "*" || $role == $this->role)
+            if ($role == Model_User::ROLE_ANY || $role == $this->role)
                 return true;
         }
         return false;
