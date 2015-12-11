@@ -67,7 +67,6 @@ class Kohana_Oauth_GitHub extends Oauth {
     public function login()
     {
         return $this->get_access_token();
-
     }
 
 
@@ -140,6 +139,11 @@ class Kohana_Oauth_GitHub extends Oauth {
         );
         return self::$config['GET_CODE_URI'].'?'.http_build_query($params);
 
+    }
+
+    public function get_token()
+    {
+        return $this->token;
     }
 
 }
