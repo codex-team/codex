@@ -15,8 +15,13 @@ Class Model_User extends Model
     public $fb_uri = '';
     public $github_id = 0;
     public $github_uri = '';
-    public $role = 0;
+    public $role = 1;
     public $is_removed = 0;
+
+
+    const ROLE_ANY = 0;
+    const ROLE_USER = 1;
+    const ROLE_ADMIN = 3;
 
 
     /**
@@ -125,13 +130,13 @@ Class Model_User extends Model
      */
     public function save()
     {
-        if (DB::insert('Users', array('name', 'github_id', 'github_uri',
+        if ($result = DB::insert('Users', array('name', 'github_id', 'github_uri',
             'photo', 'photo_small', 'photo_big', 'role', 'is_removed'))->
         values(array($this->name, $this->github_id, $this->github_uri,
             $this->photo, $this->photo_small, $this->photo_big, $this->role, $this->is_removed))
             ->execute()
         ) {
-            return true;
+            return $result;
         } else {
             return true;
         }
@@ -153,12 +158,22 @@ Class Model_User extends Model
             'photo_small' => $this->photo_small,
             'photo_big'   => $this->photo_big,
             'role'        => $this->role,
-            'is_removed'  => $this->is_removed,
+            'is_removed'  => $this->is_removed
         ))->where('id', '=', $this->id)->execute()
         )
             return true;
         else
             return false;
+    }
+
+    public function checkAccess($roles)
+    {
+        foreach ($roles as $role)
+        {
+            if ($role == Model_User::ROLE_ANY || $role == $this->role)
+                return true;
+        }
+        return false;
     }
 
 

@@ -131,16 +131,11 @@ class Controller_Base_preDispatch extends Controller_Template
 
         $this->session = Session::instance();
 
-        $auth = new Dao_Auth();
+        $auth = new Model_Sessions();
         if ( $auth->is_authorized() ) {
 
-            $profile = $auth->get_profile();
-
-            if ($profile){
-                $this->user = Model_User::findByAttribute('github_id', $profile->id);
-            } else {
-                $this->user = new Model_User();
-            }
+            $user_id = $auth->get_user_id();
+            $this->user = Model_User::findByAttribute('id', $user_id);
 
         } else {
 
