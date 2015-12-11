@@ -40,7 +40,16 @@
                             <b><?= $current_article->views ?></b>
                             views
                         </td>
-                        <td><a href='/article/delarticle/<?= $current_article->id ?>'><i class="icon-cancel"></i></a></td>
+                        <td>
+                            <a href='/article/delarticle/<?= $current_article->id ?>'>
+                                <? if (!$current_article->is_published): ?>
+                                    <i class="icon-forward"></i>
+                                <? endif; ?>
+                                <? if (($current_article->is_published) && (!$current_article->is_removed)): ?>
+                                    <i class="icon-cancel"></i>
+                                <? endif; ?>
+                            </a>
+                        </td>
                     </tr>
             <? endforeach; ?>
         </table>    

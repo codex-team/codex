@@ -3,7 +3,6 @@
     <ul class="page_menu">
         <li><a href="/admin/users">Users</a></li>
         <li><a href="/admin/articles">Articles</a></li>
-        <a href="#"><label><input type="checkbox">Показывать только активные</label></a>
     </ul>
 </div>
 <?= $content ?>
