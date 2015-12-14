@@ -14,8 +14,7 @@
                     </span>
                     <meta itemprop="url" href="/user/<?= $article->user_id ?>" />
                 </div>
-                <a class="list_user_name" itemprop="name" href="/user/<?= $article->author->id ?>">
-                    <?= $article->author->name ?></a>
+                <a class="list_user_name" itemprop="name" href="/user/<?= $article->author->id ?>"><?= $article->author->name ?></a>
             </div>
         </div>
         <div class="article_content"  itemprop="articleBody">
