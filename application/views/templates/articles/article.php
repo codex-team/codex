@@ -1,20 +1,24 @@
 <div class="center_side clear">
     <article class="article" itemscope itemtype="http://schema.org/Article">
 
+        <meta itemprop="datePublished" content="<?= date(DATE_ISO8601, strtotime($article->dt_create)) ?>" />
+
         <h1 class="big_header" itemprop="name">
             <?= $article->title ?>
         </h1>
         <div class="article_info">
-            <meta itemprop="datePublished" content="<?= date(DATE_ISO8601, strtotime($article->dt_create)) ?>" />
-            <time><?= Date::fuzzy_span($article->dt_create) ?></time>
-            <div class="ava_holder">
-                <div itemscope itemtype="http://schema.org/Person" itemprop="author">
-                    <span class="list_user_ava">
-                        <img src="<?= $article->author->photo ?>" alt="<?= $article->author->name ?>"  itemprop="image">
-                    </span>
-                    <meta itemprop="url" href="/user/<?= $article->user_id ?>" />
-                </div>
-                <a class="list_user_name" itemprop="name" href="/user/<?= $article->author->id ?>"><?= $article->author->name ?></a>
+            <div class="ava_holder" itemscope itemtype="http://schema.org/Person" itemprop="author">
+                <meta itemprop="url" href="/user/<?= $article->user_id ?>" />
+
+                <time>
+                    <?= Date::fuzzy_span($article->dt_create) ?>
+                </time>
+                <span class="list_user_ava">
+                    <img src="<?= $article->author->photo ?>" alt="<?= $article->author->name ?>"  itemprop="image">
+                </span>
+                <a class="list_user_name" itemprop="name" href="/user/<?= $article->author->id ?>">
+                    <?= $article->author->name ?>
+                </a>
             </div>
         </div>
         <div class="article_content"  itemprop="articleBody">
