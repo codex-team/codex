@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS `Sessions`;
-CREATE TABLE IF NOT EXISTS `Sessions` (
+CREATE TABLE `Sessions` (
 `id` int(10) unsigned NOT NULL,
   `user_id` int(10) unsigned NOT NULL,
   `ip` varchar(128) NOT NULL,
