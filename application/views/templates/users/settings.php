@@ -13,7 +13,7 @@
                     <label for="instagram_uri">Instagram</label>
                     <input type="text" id="instagram_uri" name="instagram_uri" value="<?=$user->instagram_uri?>"/>
                     <label for="bio">О себе</label>
-                    <input type="text" id="bio" name="bio" value="<?= $user->bio?>"/>
+                    <textarea rows="5" id="bio" name="bio"><?= $user->bio?></textarea>
                     <input type="hidden" name="csrf" value="<?= Security::token() ?>" />
                     <input type="submit" value="Сохранить" name="submit">
                 <div>

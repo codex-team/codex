@@ -520,9 +520,7 @@ html {
 }
 
 .settings label{
-    padding-left: 10px;
-    text-align: left;
-    font-size: 16px;
+    float: left;
 }
 
 .bio{
