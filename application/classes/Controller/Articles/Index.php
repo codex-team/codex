@@ -15,9 +15,14 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
     public function action_showArticle()
     {
         $articleId = $this->request->param('article_id');
+
         $this->view["id"] = $articleId;
 
         $article = Model_Article::get($articleId);
+        if ($article->id == 0)
+            throw new HTTP_Exception_404();
+
+        $this->stats->hit(Model_Stats::ARTICLE, $articleId);
 
         $this->view["article"] = $article;
 

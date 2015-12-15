@@ -1,24 +1,29 @@
 <?php defined('SYSPATH') OR die('No Direct Script Access');
 
 Class Model_User extends Model
-{
+{        
     public $id;
-    public $name          = '';
-    public $photo         = '';
-    public $photo_big     = '';
-    public $photo_small   = '';
-    public $vk_id         = 0;
-    public $fb_id         = 0;
-    public $vk_uri        = '';
-    public $fb_uri        = '';
-    public $github_id     = 0;
-    public $github_uri    = '';
-    public $instagram_uri = '';
-    public $bio           = '';
-    public $role          = 0;
-    public $is_removed    = 0;
+    public $name        = '';
+    public $photo       = '';
+    public $photo_big   = '';
+    public $photo_small = '';
     public $dt_create;
     public $dt_update;
+    public $vk_id       = 0;
+    public $fb_id       = 0;
+    public $vk_uri      = '';
+    public $fb_uri      = '';
+    public $github_id   = 0;
+    public $github_uri  = '';
+    public $bio         = '';
+    public $role        = 1;
+    public $is_removed  = 0;    
+
+
+
+    const ROLE_ANY = 0;
+    const ROLE_USER = 1;
+    const ROLE_ADMIN = 3;
 
 
     /**
@@ -129,13 +134,13 @@ Class Model_User extends Model
      */
     public function save()
     {
-        if (DB::insert('Users', array('name', 'github_id', 'github_uri',
+        if ($result = DB::insert('Users', array('name', 'github_id', 'github_uri',
             'photo', 'photo_small', 'photo_big', 'role', 'is_removed'))->
         values(array($this->name, $this->github_id, $this->github_uri,
             $this->photo, $this->photo_small, $this->photo_big, $this->role, $this->is_removed))
             ->execute()
         ) {
-            return true;
+            return $result;
         } else {
             return true;
         }
@@ -169,6 +174,17 @@ Class Model_User extends Model
             return false;
     }
 
+    public function checkAccess($roles)
+    {
+        foreach ($roles as $role)
+        {
+            if ($role == Model_User::ROLE_ANY || $role == $this->role)
+                return true;
+        }
+        return false;
+    }
+    
+    
     /**
      * Возвращает массив опубликованных статей пользователя
      * @return true, если данные успешно записаны в БД

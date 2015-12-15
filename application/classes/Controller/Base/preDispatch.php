@@ -118,6 +118,10 @@ class Controller_Base_preDispatch extends Controller_Template
         $this->methods = new Model_Methods();
         View::set_global('methods', $this->methods);
 
+        // stats
+        $this->stats = new Model_Stats();
+        View::set_global('stats', $this->stats);
+
         // modules
         $this->redis = $this->_redis();
         View::set_global('redis', $this->redis);
@@ -127,16 +131,11 @@ class Controller_Base_preDispatch extends Controller_Template
 
         $this->session = Session::instance();
 
-        $auth = new Dao_Auth();
+        $auth = new Model_Sessions();
         if ( $auth->is_authorized() ) {
 
-            $profile = $auth->get_profile();
-
-            if ($profile){
-                $this->user = Model_User::findByAttribute('github_id', $profile->id);
-            } else {
-                $this->user = new Model_User();
-            }
+            $user_id = $auth->get_user_id();
+            $this->user = Model_User::findByAttribute('id', $user_id);
 
         } else {
 

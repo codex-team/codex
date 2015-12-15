@@ -3,6 +3,13 @@
 class Controller_Admin extends Controller_Base_preDispatch
 {
 
+    public function before()
+    {
+        parent::before();
+        if (!$this->user->checkAccess(array(Model_User::ROLE_ADMIN)))
+            throw new HTTP_Exception_403();
+    }
+
     public function action_index()
     {
         $category = $this->request->param('category');
@@ -42,7 +49,14 @@ class Controller_Admin extends Controller_Base_preDispatch
 
     public function articles()
     {
-        $this->view["articles"] = Model_Article::getAllArticles();
+
+        $articles = Model_Article::getAllArticles(); 
+
+        foreach ($articles as $article) {
+            $article->views = $this->stats->get(Model_Stats::ARTICLE, $article->id);
+        }
+
+        $this->view["articles"] = $articles;
 
         return View::factory('templates/admin/articles/list', $this->view);
 
@@ -50,6 +64,7 @@ class Controller_Admin extends Controller_Base_preDispatch
 
     public function users()
     {
+
         $this->view["users"] = Model_User::getAll();
 
         return View::factory('templates/admin/users/list', $this->view);

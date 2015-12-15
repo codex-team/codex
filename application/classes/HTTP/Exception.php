@@ -1,11 +1,8 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /**
- *  Catch all errors and log them
- *
- *  @author Alexander Demyashev
- *  @since  14.11.2015 00:13
+ *  Handle anothers HTTP errors
+ *  @author Alexander Demyashev (develop@demyashev.com)
  */
-
 class HTTP_Exception extends Kohana_HTTP_Exception {
  
     public function get_response()
@@ -20,13 +17,11 @@ class HTTP_Exception extends Kohana_HTTP_Exception {
         {
             $view = View::factory('templates/errors/default');
             $view->set('title', 'Произошла ошибка');
-            $view->set('message', $this->getMessage());
+            $view->set('message', "({$this->getCode()}) {$this->getMessage()}");
  
             $response = Response::factory()
                 ->status($this->getCode())
                 ->body($view->render());
-
-            Model_Methods::telegram_send_error($this->getMessage());
  
             return $response;
         }
