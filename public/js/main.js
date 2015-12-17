@@ -165,6 +165,7 @@ var load = function( window ){
     return new LOAD();
 }( window );
 
+
 var callbacks = (function(callbacks) {
 
     callbacks.checkUserCanEdit = function (event) {
@@ -234,17 +235,22 @@ var callbacks = (function(callbacks) {
                         checker.className = checker.className.replace('bounceIn', '');
                     }
 
-
-
                 };
             }
         })
-
-
-
     }
 
+    callbacks.saveProfilePhoto = {
 
+        success: function (new_photo_name) {
+
+                    var old_photo = document.getElementById('profile-photo');
+
+                    old_photo.src = new_photo_name;
+
+                }
+
+    }
 
     return callbacks;
 
@@ -478,6 +484,7 @@ r(function(){
     }
 
 
+    /** <code> highlighting */
     var sourcesBlocks = document.querySelectorAll(".article_content code");
     if (sourcesBlocks.length){
         load.getScript({
@@ -489,6 +496,25 @@ r(function(){
             }
         });
     }
+
+    /** File transport button handlers */
+    var fileTransportButtons = document.getElementsByClassName("file-transport-button");
+    if (fileTransportButtons.length){
+        load.getScript({
+            async    : true,
+            url      : '/public/js/transport.js',
+            instance : 'fileTransport',
+            loadCallback : function(response){
+
+                transport.init(fileTransportButtons);
+
+            }
+        });
+    }
+
+
+
+
 
 
 });

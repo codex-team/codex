@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') OR die('No Direct Script Access');
 
 Class Model_User extends Model
-{        
+{
     public $id;
     public $name        = '';
     public $photo       = '';
@@ -17,7 +17,7 @@ Class Model_User extends Model
     public $github_uri  = '';
     public $bio         = '';
     public $role        = 1;
-    public $is_removed  = 0;    
+    public $is_removed  = 0;
 
 
 
@@ -183,8 +183,8 @@ Class Model_User extends Model
         }
         return false;
     }
-    
-    
+
+
     /**
      * Возвращает массив опубликованных статей пользователя
      * @return true, если данные успешно записаны в БД

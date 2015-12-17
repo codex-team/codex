@@ -56,7 +56,7 @@ class Controller_Users_Index extends Controller_Base_preDispatch
             $bio           = Arr::get($_POST, 'bio');
 
             // сохранение фотографии на сервере
-            $newAva = $this->methods->saveImage('ava', 'users/', array('jpg', 'jpeg', 'png'));
+            $newAva = $this->methods->saveImage('ava', 'users/');
 
             $fields = array('name'          => $name,
                             'vk_url'        => $vk_url,
@@ -71,5 +71,6 @@ class Controller_Users_Index extends Controller_Base_preDispatch
             $this->redirect('user/');
         }
     }
+
 
 }

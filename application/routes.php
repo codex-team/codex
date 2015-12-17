@@ -127,6 +127,22 @@ Route::set('ARTICLE_EDITOR_SAVE_IMG', 'editorsaveimg', array())->defaults(array(
     'action' => 'saveEditorImg'
 ));
 
+
+
+
+
+/**
+* Core
+*/
+Route::set('AJAX_FILE_TRANSPORT', 'ajax/transport')->defaults(array(
+    'controller'      => 'base_ajax',
+    'action'          => 'file_uploader'
+));
+
+
+
+
+
 // Defaults
 // Route::set('default', '(<controller>(/<action>(/<id>)))')
 //     ->defaults(array(

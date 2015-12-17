@@ -56,7 +56,7 @@ class Model_Methods extends Model
      * @param int $maxFileSize - макс размер файла в байтах. По умолчанию 2Mb
      * @param array $fileTypes - допустимые разширения файлов. По умолчанию не проверяется
      */
-    function saveImage($inputName, $dir = "", $fileTypes = array(), $maxFileSize = 2097152){
+    function saveImage($inputName, $dir = "", $fileTypes = array('jpg', 'jpeg', 'png'), $maxFileSize = 2097152){
         // check 4 file was uploaded
         if ( (!$file = Arr::get($_FILES, $inputName) ) || ($file["error"] == 4) )
             return null;
@@ -76,7 +76,7 @@ class Model_Methods extends Model
         $fileParts = pathinfo($file['name']);
 
         // Validate the file type
-        if ($fileTypes && !in_array($fileParts['extension'], $fileTypes)) {
+        if (!in_array($fileParts['extension'], $fileTypes)) {
             return null;
         }
 

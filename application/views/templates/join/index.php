@@ -37,7 +37,7 @@
         <form class="blank" id="joinBlank" method="post" action="joinRequest.php">
 
             <div class="blank_auth" id="blankAuthBlock">
-                <a class="button vk_button" href="/auth.php"><i class="icon-vkontakte"></i>Авторизоваться</a>
+                <a class="button vk_button with_icon" href="/auth.php"><i class="icon-vkontakte"></i>Авторизоваться</a>
                 <span class="additional">или ввести <u class="pointer" id="blankShowAdditionalFieldsButton">почту</u></span>
             </div>
 
