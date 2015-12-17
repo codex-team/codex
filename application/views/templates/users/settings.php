@@ -11,7 +11,7 @@
                 <img src="<?= $user->photo ?>" alt="<?= $user->name ?>" id="profile-photo">
             </div>
             <br/>
-            <div class="button with_icon file-transport-button" data-action="<?= Controller_Base_Ajax::ACTION_PROFILE_PHOTO ?>">
+            <div class="button with_icon file-transport-button" data-action="<?= Controller_Base_Ajax::TRANSPORT_ACTION_PROFILE_PHOTO ?>">
                 <i class="icon-picture"></i>Change
             </div>
         </div>

@@ -75,6 +75,8 @@ var transport = (function(transport){
 
     transport.submitCallback = function (){
 
+        const FILE_MAX_SIZE = 30 * 1024 * 1024; // 30 MB
+
         var files = transport.getFileObject( this );
 
         for (var i = files.length - 1; i >= 0; i--) {
@@ -86,8 +88,8 @@ var transport = (function(transport){
             }
 
             /** Validate file size */
-            if ( !transport.validateSize( files[i] , 30 * 1024 * 1024) ) {
-                window.console && console.warn('File size exceeded limit: %o MB', files[i].size / (1000*1000).toFixed(2) );
+            if ( !transport.validateSize( files[i] , FILE_MAX_SIZE) ) {
+                window.console && console.warn('File size exceeded limit: %o MB', files[i].size / (1024*1024).toFixed(2) );
                 return;
             }
 
@@ -124,6 +126,10 @@ var transport = (function(transport){
 
     transport.getFileObject = function ( fileInput ) {
         if ( !fileInput ) return false;
+        /**
+        * Workaround with IE that doesn't support File API
+        * @todo test and delete this crutch
+        */
         return typeof ActiveXObject == "function" ? (new ActiveXObject("Scripting.FileSystemObject")).getFile(fileInput.value) : fileInput.files;
     };
 

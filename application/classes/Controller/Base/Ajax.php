@@ -3,12 +3,11 @@
 class Controller_Base_Ajax extends Controller_Base_preDispatch {
 
 
-    const ACTION_PROFILE_PHOTO = 1;
-
     /**
-    * @var Description of error thrown
+    * Constants means action we did with transfered file
     */
-    public $error_description = '';
+    const TRANSPORT_ACTION_PROFILE_PHOTO = 1;
+    const TRANSPORT_ACTION_ARTICLE_COVER = 2;
 
     /**
     * @var string File size limitation
@@ -25,7 +24,8 @@ class Controller_Base_Ajax extends Controller_Base_preDispatch {
     }
 
     /**
-    * Checks for ajax request
+    * Returns true if ajax request accepted
+    * @return bool
     * @author Savchenko P. (@neSpecc)
     * @example if (!self::_is_ajax()) die('No direct access');
     */
@@ -55,41 +55,42 @@ class Controller_Base_Ajax extends Controller_Base_preDispatch {
 
         /**
         * Check for correct parametres
-        * If find error, write description in $this->error_description
         */
-        if ( $this->checkTransport($action, $id, $files) ) {
+        $dataValidationError = $this->getTransportValidationError($action, $id, $files);
 
-            switch ($action) {
+        if ( $dataValidationError ) {
 
-                case self::ACTION_PROFILE_PHOTO :
+            $response['error_description'] = $dataValidationError;
 
-                    $filename = $this->methods->saveImage('files', 'users/');
+        } else switch ($action) {
 
-                    if ($filename) {
+            case self::TRANSPORT_ACTION_PROFILE_PHOTO :
 
-                        /** Update user */
-                        $this->user->photo = $filename;
-                        $this->user->update();
+                $filename = $this->methods->saveImage('files', 'users/');
 
-                        /** Return success information. @uses client-side callback.saveProfilePhoto handler */
-                        $response['success']  = 1;
-                        $response['callback'] = 'callbacks.saveProfilePhoto.success("'.$filename.'")';
+                if ($filename) {
 
-                    } else {
-                        $response['error_description'] = 'File wasn\'t saved';
-                    }
+                    /** Update user */
+                    $this->user->photo = $filename;
+                    $this->user->update();
 
-                break;
+                    /** Return success information. @uses client-side callback.saveProfilePhoto handler */
+                    $response['success']  = 1;
+                    $response['callback'] = 'callbacks.saveProfilePhoto.success("'.$filename.'")';
 
-                default: $this->error_description = 'Wrong action'; break;
-            }
-        } else {
-            $response['error_description'] = $this->error_description;
+                } else {
+                    $response['error_description'] = 'File wasn\'t saved';
+                }
+
+            break;
+
+            default:  $response['error_description'] = 'Wrong action'; break;
         }
+
 
         /**
         * Return script to transport-frame, where fires parent-window transport.callback
-        * $response passed as first-parametr to cliednt-side callback function
+        * $response passed as first-parameter to client-side callback function
         */
         $script = '<script>window.parent.transport && window.parent.transport.response(' . @json_encode($response) . ')</script>';
 
@@ -99,31 +100,31 @@ class Controller_Base_Ajax extends Controller_Base_preDispatch {
 
     /**
     * Checks for correct parameters for file-transport
-    * @
+    * @return string error description or '' (empty) if all fields are correct
     */
-    private function checkTransport($action, $id, $files)
+    private function getTransportValidationError($action, $id, $files)
     {
         /** Checking for authorized user */
         if ( !$this->user->id ){
-            $this->error_description = 'Access denied'; return FALSE;
+            return 'Access denied';
         }
 
         /** Checking for required fields */
         if ( !$action ){
-            $this->error_description = 'Action missed'; return FALSE;
+            return 'Action missed';
         }
 
         /** Checking for correct files */
         if ( !$files || !Upload::not_empty($files) || !Upload::valid($files) ){
-            $this->error_description = 'File is missing or damaged'; return FALSE;
+            return 'File is missing or damaged';
         }
 
         /** Checking for max size  */
         if ( !Upload::size($files, $this->UPLOAD_MAX_SIZE ) ){
-            $this->error_description = 'File size exceeded limit'; return FALSE;
+            return 'File size exceeded limit';
         }
 
-        return TRUE;
+        return '';
     }
 
 
