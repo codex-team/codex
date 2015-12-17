@@ -22,16 +22,12 @@ class Controller_Base_Ajax extends Controller_Base_preDispatch {
 
         parent::before();
 
-        /** Allow access only for ajax requests */
-        if (self::_is_ajax()){
-            die('No direct access');
-        }
-
     }
 
     /**
     * Checks for ajax request
     * @author Savchenko P. (@neSpecc)
+    * @example if (!self::_is_ajax()) die('No direct access');
     */
     public static function _is_ajax()
     {
