@@ -11,13 +11,6 @@
                         <td class="title">
                             <a href="/article/<?= $current_article->id ?>">
                                 <b><?= $current_article->title ?></b>
-                                <? if ($current_article->is_removed): ?>
-                                    <i>(deleted)</i>
-                                <? endif; ?>
-
-                                <? if ($current_article->is_published == false): ?>
-                                    <i>(unpublished)</i>
-                                <? endif; ?>
                             </a>
                         </td>
                         <td class="user">
@@ -42,10 +35,7 @@
                         </td>
                         <td>
                             <a href='/article/delarticle/<?= $current_article->id ?>'>
-                                <? if (!$current_article->is_published): ?>
-                                    <i class="icon-forward"></i>
-                                <? endif; ?>
-                                <? if (($current_article->is_published) && (!$current_article->is_removed)): ?>
+                                <? if (!$current_article->is_removed): ?>
                                     <i class="icon-cancel"></i>
                                 <? endif; ?>
                             </a>
