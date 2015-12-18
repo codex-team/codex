@@ -20,17 +20,11 @@ class Controller_Users_Index extends Controller_Base_preDispatch
 	        $viewUser = $this->user;
 	    }
 
-        if ($this->user->id == $viewUser->id) {
-            $isMyPage = true;
-        } else {
-            $isMyPage = false;
-        }
-
         if (!$viewUser->id) $this->redirect('/');
 
         $this->title = $viewUser->name ?: 'Пользователь #' . $viewUser->id;
         $this->view['viewUser']  = $viewUser;
-        $this->view['isMyPage']  = $isMyPage;
+        $this->view['isMyPage']  = $this->user->id == $viewUser->id;
         $this->template->content = View::factory('templates/users/user', $this->view);
 
     }
