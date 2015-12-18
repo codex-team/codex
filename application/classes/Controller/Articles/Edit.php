@@ -36,11 +36,10 @@ class Controller_Articles_Edit extends Controller_Base_preDispatch
             die();
 
         } else if ($source == "file") {
-            $filePath = $this->methods->SavePostFile("EDITOR_IMG", "redactor/", 2097152, array('jpg','jpeg','gif','png','bmp'));
+            $filePath = $this->methods->saveImage("EDITOR_IMG", "redactor/", array('jpg','jpeg','gif','png','bmp'));
 
             echo $filePath;
             die();
         }
     }
-
 }

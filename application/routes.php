@@ -60,17 +60,15 @@ Route::set('DEL_ARTICLE_SCRIPT', 'article/delarticle/<article_id>', array('artic
 
 // Scripts for users
 
-// Route::set('USER_PAGE', 'user/<action>(/<user_id>)', array('user_id' => $DIGIT, 'action' => $STRING))->defaults(array(
-//     'controller' => 'users_index',
-//     'action' => 'action'
-// ));
-
-Route::set('USER_PAGE', 'user(/<user_id>)', array('user_id' => $DIGIT))->defaults(array(
-
+Route::set('USER_PROFILE', 'user(/<user_id>)', array('user_id' => $DIGIT))->defaults(array(
 	'controller' => 'users_index',
-	'action' => 'showUser'
+	'action'     => 'showUser'
 ));
 
+Route::set('USER_SETTINGS', 'user/settings')->defaults(array(
+	'controller' => 'users_index',
+	'action'     => 'settings'
+));
 
 // Scripts for comments
 
@@ -128,6 +126,22 @@ Route::set('ARTICLE_EDITOR_SAVE_IMG', 'editorsaveimg', array())->defaults(array(
     'controller' => 'articles_edit',
     'action' => 'saveEditorImg'
 ));
+
+
+
+
+
+/**
+* Core
+*/
+Route::set('AJAX_FILE_TRANSPORT', 'ajax/transport')->defaults(array(
+    'controller'      => 'base_ajax',
+    'action'          => 'file_uploader'
+));
+
+
+
+
 
 // Defaults
 // Route::set('default', '(<controller>(/<action>(/<id>)))')

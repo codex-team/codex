@@ -56,10 +56,10 @@ class Model_Methods extends Model
      * @param int $maxFileSize - макс размер файла в байтах. По умолчанию 2Mb
      * @param array $fileTypes - допустимые разширения файлов. По умолчанию не проверяется
      */
-    function SavePostFile($inputName, $dir = "", $maxFileSize = 2097152, $fileTypes = array()){
+    function saveImage($inputName, $dir = "", $fileTypes = array('jpg', 'jpeg', 'png'), $maxFileSize = 2097152){
         // check 4 file was uploaded
         if ( (!$file = Arr::get($_FILES, $inputName) ) || ($file["error"] == 4) )
-            return false;
+            return null;
 
         // todo get from config
         $uploaddir    = '/upload/' . ($dir ? $dir  : "");
@@ -71,13 +71,13 @@ class Model_Methods extends Model
 
         // Validate size
         if ($file['size'] > $maxFileSize)
-            return false;
+            return null;
 
         $fileParts = pathinfo($file['name']);
 
         // Validate the file type
-        if ($fileTypes && !in_array($fileParts['extension'], $fileTypes)) {
-            return false;
+        if (!in_array($fileParts['extension'], $fileTypes)) {
+            return null;
         }
 
         // translit name
@@ -90,7 +90,7 @@ class Model_Methods extends Model
             return $uploadfileHtml;
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -216,5 +216,25 @@ class Model_Methods extends Model
         curl_close($ch);
 
         return true;
+    }
+
+
+    /**
+     * Парсит url отсекает uri
+     * @return String, если успешно спрасилось
+     * @return null, если не валидная строка
+     */
+     public function parseUri($url)
+     {
+        $parsed_url = parse_url($url, PHP_URL_PATH);
+
+        //проверки на валидность строки
+        if ($parsed_url == '/' || $parsed_url == null){
+            return null;
+        } elseif (substr($parsed_url, 0, 1) == '/'){
+            return substr($parsed_url, 1);
+        } else {
+            return $parsed_url;
+        }
     }
 }
