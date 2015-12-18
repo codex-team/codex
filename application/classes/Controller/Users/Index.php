@@ -51,22 +51,20 @@ class Controller_Users_Index extends Controller_Base_preDispatch
             $this->template->content = View::factory('templates/users/settings', $this->view);
         } else {
             $name          = Arr::get($_POST, 'name');
-            $vk_url        = Arr::get($_POST, 'vk_uri');
-            $instagram_url = Arr::get($_POST, 'instagram_uri');
             $bio           = Arr::get($_POST, 'bio');
 
-            // сохранение фотографии на сервере
-            $newAva = $this->methods->saveImage('ava', 'users/');
+            $instagram_uri = $this->methods->parseUri(Arr::get($_POST, 'instagram_uri'));
+            $vk_uri        = $this->methods->parseUri(Arr::get($_POST, 'vk_uri'));
 
             $fields = array('name'          => $name,
-                            'vk_url'        => $vk_url,
-                            'instagram_url' => $instagram_url,
+                            'vk_uri'        => $vk_uri,
+                            'instagram_uri' => $instagram_uri,
                             'bio'           => $bio);
 
             /**
              * Занесение данных в модель пользователя и в бд.
              */
-            $this->user->edit($fields, $newAva);
+            $this->user->edit($fields);
 
             $this->redirect('user/');
         }

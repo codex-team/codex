@@ -215,21 +215,14 @@ Class Model_User extends Model
 
     /**
     * Метод заносит переданные данные о юзере в модель и базу
-    * @param $fields - ассоциативный массив "название поля" - "значение",
-    * @param $newAva - путь к сохраненной аватарке.
+    * @param $fields - ассоциативный массив "название поля" - "значение"
     */
-    public function edit($fields, $newAva = null)
+    public function edit($fields = array())
     {
-        $vk_uri        = $this->parseUri($fields['vk_url']);
-        $instagram_uri = $this->parseUri($fields['instagram_url']);
-
         // занесение данных в модель
-        $this->name          = $fields['name'];
-        $this->vk_uri        = $vk_uri;
-        $this->instagram_uri = $instagram_uri;
-        $this->bio           = $fields['bio'];
-
-        if ($newAva != null) { $this->photo = $newAva; }
+        foreach ($fields as $key => $value) {
+            $this->$key = $value;
+        }
 
         // занесения данных в бд
         $this->update();

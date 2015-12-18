@@ -217,4 +217,24 @@ class Model_Methods extends Model
 
         return true;
     }
+
+
+    /**
+     * Парсит url отсекает uri
+     * @return String, если успешно спрасилось
+     * @return null, если не валидная строка
+     */
+     public function parseUri($url)
+     {
+        $parsed_url = parse_url($url, PHP_URL_PATH);
+
+        //проверки на валидность строки
+        if ($parsed_url == '/' || $parsed_url == null){
+            return null;
+        } elseif (substr($parsed_url, 0, 1) == '/'){
+            return substr($parsed_url, 1);
+        } else {
+            return $parsed_url;
+        }
+    }
 }
