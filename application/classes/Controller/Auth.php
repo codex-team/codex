@@ -119,7 +119,7 @@ class Controller_Auth extends Controller_Base_preDispatch
                         $user->name = $profile->name;
                     else
                         $user->name = $profile->login;
-                    
+
                     $user->github_id = $profile->id;
                     $user->github_uri = $profile->login;
                     $user->photo = $profile->avatar_url;
@@ -148,11 +148,11 @@ class Controller_Auth extends Controller_Base_preDispatch
 
 
     /**
-     * Деавторизует пользователя путем очищения сессии "profile". Возвращает на главную страницу.
+     * Деавторизует пользователя путем очищения куки "auth_token". Возвращает на главную страницу.
      */
     public function action_logout()
     {
-        Session::instance()->delete('profile');
+        Cookie::delete("auth_token");
         Controller::redirect('/');
     }
 
