@@ -41,7 +41,7 @@
         <div class="center_side clearfix">
             <? if ($user->id): ?>
                 <a class="profile fl_r" href="/user/<?= $user->id ?>">
-                    <span class="ava"><img src="<?= $user->photo ?>" alt="<?= $user->name ?>" /></span>
+                    <span class="ava"><img src="<?= $user->photo ?>" alt="<?= $user->name ?>" id="header-avatar-updatable" /></span>
                     <span class="text">Profile</span>
                 </a>
             <? else: ?>

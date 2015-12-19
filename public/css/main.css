@@ -309,6 +309,7 @@ html {
     }
     .site_header .login{
         text-decoration: none;
+        margin-right: 30px;
     }
         .site_header .login .text{
             font-size: 15px;
@@ -445,19 +446,19 @@ html {
         background: #fff;
         color: #6091c8;
         border-radius: 50%;
-        padding: 3px 0;
+        padding: 4px;
         font-size: 20px;
-        width: 28px;
-        height: 28px;
+        transition: transform 150ms ease;
     }
-        .ava_wrapper .settings i{
-            position: absolute;
-            left: .4px;
-            top: 4px;
+        .ava_wrapper .settings .gear{
+            position: relative;
+            display: block;
+            width: 21px;
+            height: 21px;
+            background: url('../img/icon_gear.png') no-repeat;
         }
         .ava_wrapper .settings:hover{
-            background: #4592DA;
-            color: #fff;
+            transform: rotate(45deg);
         }
 
     .profile_page .ava,
@@ -502,7 +503,10 @@ html {
         .profile_page .nickname i{
             vertical-align: middle;
         }
-    .profile_page .social_link{
+        .profile_page .no_insta{
+            font-size: 18px;
+        }
+    .profile_page .social_link, .profile_page .no_insta{
         display: inline-block;
         padding: 2px 3px;
         margin: 15px 18px;
@@ -630,7 +634,7 @@ html {
 }
 .breadcrumb h1{
     display: inline-block;
-    margin: 0 5px 0 0;
+    margin: 0 5px 0 5px;
     font-size: inherit;
     font-weight: normal;
 }
@@ -1223,5 +1227,9 @@ html {
     .mobile_logo_small{
         background: url('../img/logo_medium.png') no-repeat;
         background-size: 123px auto;
+    }
+    .ava_wrapper .settings .gear{
+        background: url('../img/icon_gear@2x.png') no-repeat;
+        background-size: 21px 21px;
     }
 }

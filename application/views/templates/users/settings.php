@@ -8,7 +8,7 @@
 
         <div class="fl_l">
             <div class="ava">
-                <img src="<?= $user->photo ?>" alt="<?= $user->name ?>" id="profile-photo">
+                <img src="<?= $user->photo ?>" alt="<?= $user->name ?>" id="profile-photo-updatable">
             </div>
             <br/>
             <div class="button with_icon file-transport-button" data-action="<?= Controller_Base_Ajax::TRANSPORT_ACTION_PROFILE_PHOTO ?>">
