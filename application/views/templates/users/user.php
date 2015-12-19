@@ -7,7 +7,7 @@
                     <img src="<?= $viewUser->photo ?>" alt="<?= $viewUser->name ?>">
                 </div>
                 <? if ($isMyPage): ?>
-                    <a class="settings" href="/user/settings" title="Profile settings"><i class="icon-cog-1"></i></a>
+                    <a class="settings" href="/user/settings" title="Profile settings"><i class="gear"></i></a>
                 <? endif; ?>
             </div>
 
@@ -20,7 +20,7 @@
                 <a class="social_link vk" href="//vk.com/<?= $viewUser->vk_uri ?>" target="_blank"><i class="icon-vkontakte"></i></a>
             <? endif; ?>
             <? if (!empty($viewUser->github_uri)): ?>
-                <a class="nickname" href="//github.com/<?= $viewUser->github_uri ?>" target="_blank"><i class="icon-github-circled"></i></a>
+                <a class="nickname <?= empty($viewUser->instagram_uri) ? 'no_insta' : ''  ?>" href="//github.com/<?= $viewUser->github_uri ?>" target="_blank"><i class="icon-github-circled"></i></a>
             <? endif ?>
             <? if (!empty($viewUser->instagram_uri)): ?>
                 <a class="social_link instagram" href="//instagram.com/<?= $viewUser->instagram_uri ?>" target="_blank"><i class="icon-instagram"></i></a>

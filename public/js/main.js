@@ -244,11 +244,13 @@ var callbacks = (function(callbacks) {
 
         success: function (new_photo_name) {
 
-                    var old_photo = document.getElementById('profile-photo');
+            var settings_avatar = document.getElementById('profile-photo-updatable'),
+                header_avatar   = document.getElementById('header-avatar-updatable');
 
-                    old_photo.src = new_photo_name;
+            settings_avatar.src = new_photo_name;
+            header_avatar.src   = new_photo_name;
 
-                }
+        }
 
     }
 
