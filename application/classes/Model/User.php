@@ -75,6 +75,13 @@ Class Model_User extends Model
         return $users;
     }
 
+    public static function getAllForAdmin()
+    {
+        $users_rows = DB::select('id', 'name', 'github_uri')->from('Users')->limit(200)->execute()->as_array();    // TODO(#40) add pagination
+
+        return $users_rows;
+    }
+
     /**
      * @param $user
      * @return Model_User

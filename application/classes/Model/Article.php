@@ -165,9 +165,17 @@ Class Model_Article extends Model
 
 
     /**
-     * Получить все не удалённые статьи в порядке убывания айдишников.
+     * Получить все удалённые статьи в порядке убывания айдишников.
      */
-    public static function getAllArticles()
+    public static function getDeletedArticles()
+    {
+        return Model_Article::getArticles(false, true);
+    }
+
+    /**
+     * Получить все неопубликованные статьи в порядке убывания айдишников.
+     */
+    public static function getUnpublishedArticles()
     {
         return Model_Article::getArticles(true, false);
     }
@@ -183,12 +191,16 @@ Class Model_Article extends Model
     {
         $articlesQuery = Dao_Articles::select()->limit(200);        // TODO(#40) add pagination.
 
-        if (!$add_removed) {
-            $articlesQuery->where('is_removed', '=', false);
+        if ($add_removed && !$add_not_published) {
+            $articlesQuery->where('is_removed', '=', true);
         }
 
-        if (!$add_not_published) {
-            $articlesQuery->where('is_published', '=', true);
+        if (!$add_removed && $add_not_published) {
+            $articlesQuery->where('is_published', '=', false);
+        }
+
+        if (!$add_removed && !$add_not_published) {
+            $articlesQuery->where('is_removed', '=', false, 'and', 'is_published', '=', true);
         }
 
         $article_rows = $articlesQuery->order_by('id', 'DESC')->execute();

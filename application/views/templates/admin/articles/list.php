@@ -6,8 +6,6 @@
     <? else: ?>
         <table class="p_table">
             <? foreach ($articles as $current_article): ?>
-<!--                TODO(#39) здесь не предусмотрен сценарий обработки удалённых статей -->
-                <? if ($current_article->is_removed != 1): ?>
                     <tr>
                         <td class="id"><?= $current_article->id ?></td>
                         <td class="title">
@@ -35,9 +33,14 @@
                             <b><?= $current_article->views ?></b>
                             views
                         </td>
-                        <td><a href='/article/delarticle/<?= $current_article->id ?>'><i class="icon-cancel"></i></a></td>
+                        <td>
+                            <a href='/article/delarticle/<?= $current_article->id ?>'>
+                                <? if (!$current_article->is_removed): ?>
+                                    <i class="icon-cancel"></i>
+                                <? endif; ?>
+                            </a>
+                        </td>
                     </tr>
-                <? endif; ?>
             <? endforeach; ?>
         </table>    
     <? endif; ?>

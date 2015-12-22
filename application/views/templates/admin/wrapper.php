@@ -4,5 +4,6 @@
         <li><a href="/admin/users">Users</a></li>
         <li><a href="/admin/articles">Articles</a></li>
     </ul>
+    <?= $navArticles ?>
 </div>
 <?= $content ?>

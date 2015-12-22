@@ -13,12 +13,15 @@ class Controller_Admin extends Controller_Base_preDispatch
     public function action_index()
     {
         $category = $this->request->param('category');
+        $list_type = $this->request->param('list');
         $pageContent = '';
+        $nav_articles = '';
 
         switch ($category) {
 
             case 'articles' :
-                $pageContent = self::articles();
+                $pageContent = self::articles($list_type);
+                $nav_articles = View::factory('templates/admin/nav_articles', $this->view);
                 break;
             case 'users'    :
                 $pageContent = self::users();
@@ -28,7 +31,8 @@ class Controller_Admin extends Controller_Base_preDispatch
                 break;
         }
 
-        $this->template->content = View::factory("templates/admin/wrapper", array("content" => $pageContent));
+        $this->template->content = View::factory("templates/admin/wrapper", array("content" => $pageContent, "navArticles" => $nav_articles));
+
 
     }
     
@@ -47,10 +51,20 @@ class Controller_Admin extends Controller_Base_preDispatch
             array("active" => "edit", "content" => $content));
     }
 
-    public function articles()
+    public function articles($list_type = '')
     {
+        switch ($list_type) {
 
-        $articles = Model_Article::getAllArticles(); 
+            case 'unpublished' :
+                $articles = Model_Article::getUnpublishedArticles();
+                break;
+            case 'deleted' :
+                $articles = Model_Article::getDeletedArticles();
+                break;
+            case '' :
+                $articles = Model_Article::getActiveArticles();
+                break;
+        }
 
         foreach ($articles as $article) {
             $article->views = $this->stats->get(Model_Stats::ARTICLE, $article->id);
