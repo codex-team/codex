@@ -74,15 +74,16 @@ class Model_Methods extends Model
             return null;
 
         $fileParts = pathinfo($file['name']);
+        $extension = mb_strtolower($fileParts['extension']);
 
         // Validate the file type
-        if (!in_array($fileParts['extension'], $fileTypes)) {
+        if (!in_array($extension, $fileTypes)) {
             return null;
         }
 
         // translit name
-        $name = basename($file['name'], "." . $fileParts['extension']);
-        $name = $this->rus2translit( $name ) . "_" . time() . "." . $fileParts['extension']; // time() - 4 unigue same name files
+        $name = basename($file['name'], "." . $extension);
+        $name = $this->rus2translit( $name ) . "_" . time() . "." . $extension; // time() - 4 unigue same name files
         $uploadfileHtml = $uploaddir . $name;
         $uploadfilePhp  = $uploaddirPhp . $name;
 
