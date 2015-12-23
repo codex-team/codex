@@ -175,10 +175,10 @@ class Controller_Auth extends Controller_Base_preDispatch
         $error_code = $this->request->query('error_code');
         $error_message = $this->request->query('error_message');
 
-        throw new HTTP_Exception_FacebookException('Ошибка #:error_code : :error_message', [
+        throw new HTTP_Exception_FacebookException('Ошибка #:error_code : :error_message', array(
             ':error_code' => $error_code,
             ':error_message' => $error_message,
-        ]);
+        ));
     }
 
 
