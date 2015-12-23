@@ -44,7 +44,7 @@ class Controller_Auth extends Controller_Base_preDispatch
         {
             # Add auth error view
         }
-        $this->auth_callback('/');
+        $this->auth_callback();
 
     }
 
@@ -86,7 +86,7 @@ class Controller_Auth extends Controller_Base_preDispatch
         {
 
         }
-        $this->auth_callback('/');
+        $this->auth_callback();
     }
 
 
@@ -143,7 +143,7 @@ class Controller_Auth extends Controller_Base_preDispatch
         {
 
         }
-        $this->auth_callback('/');
+        $this->auth_callback();
     }
 
 
@@ -159,10 +159,17 @@ class Controller_Auth extends Controller_Base_preDispatch
 
     /**
      * Место для пост-авторизации. В конце осуществляет редирект страницу $page.
+     * @param $page - страница для редиректа. Если не задана - редирект идет по history_back.
      */
-    private function auth_callback($page='/')
+    private function auth_callback($page='')
     {
-        Controller::redirect($page);
+        if ($page)
+            Controller::redirect($page);
+        else
+        {
+            $ref = Request::initial()->referrer();
+            Controller::redirect($ref);
+        }
     }
 
 
