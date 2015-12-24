@@ -164,7 +164,9 @@ class Controller_Auth extends Controller_Base_preDispatch
     private function auth_callback($page='')
     {
         if ($page)
+        {
             Controller::redirect($page);
+        }
         else
         {
             $ref = Request::initial()->referrer();
