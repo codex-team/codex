@@ -19,7 +19,6 @@ class Controller_Auth extends Controller_Base_preDispatch
 
             if ($profile)
             {
-                Session::instance()->set('profile', $profile);
                 $token = Session::instance()->get('vk_token');
                 Cookie::set("auth_token", $token);
 
@@ -33,7 +32,7 @@ class Controller_Auth extends Controller_Base_preDispatch
                     $user->photo_big = $profile->photo_max;
                     $user->name = $this->get_vk_name($profile);
 
-                    if ($result = $user->save())
+                    if ($result = $user->save('vk'))
                     {
                         $inserted_id = $result[0];
                         $new_session = new Model_Sessions();

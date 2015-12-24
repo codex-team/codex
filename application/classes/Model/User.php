@@ -132,18 +132,30 @@ Class Model_User extends Model
      * Создает новую запись в БД
      * @return true, если данные успешно записаны в БД
      */
-    public function save()
+    public function save($social=none)
     {
-        if ($result = DB::insert('Users', array('name', 'github_id', 'github_uri',
-            'photo', 'photo_small', 'photo_big', 'role', 'is_removed'))->
-        values(array($this->name, $this->github_id, $this->github_uri,
-            $this->photo, $this->photo_small, $this->photo_big, $this->role, $this->is_removed))
-            ->execute()
-        ) {
-            return $result;
-        } else {
-            return true;
+        if ($social == "vk")
+        {
+            $result = DB::insert('Users', array('name', 'vk_id',
+                'photo', 'photo_small', 'photo_big', 'role', 'is_removed'))->
+            values(array($this->name, $this->vk_id,
+                $this->photo, $this->photo_small, $this->photo_big, $this->role, $this->is_removed))
+                ->execute();
         }
+        else
+        {
+            $result = DB::insert('Users', array('name', 'github_id', 'github_uri',
+                'photo', 'photo_small', 'photo_big', 'role', 'is_removed'))->
+            values(array($this->name, $this->github_id, $this->github_uri,
+                $this->photo, $this->photo_small, $this->photo_big, $this->role, $this->is_removed))
+                ->execute();
+        }
+
+
+        if ($result)
+            return $result;
+        else
+            return true;
     }
 
 
