@@ -154,7 +154,7 @@ Class Model_User extends Model
         }
 
         if ($result)
-            return true;
+            return $result;
         else
             return false;
     }
