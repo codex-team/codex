@@ -132,8 +132,10 @@ Class Model_User extends Model
      * Создает новую запись в БД
      * @return true, если данные успешно записаны в БД
      */
-    public function save($social=none)
+    public function save($social=null)
     {
+        $result = false;
+
         if ($social == "vk")
         {
             $result = DB::insert('Users', array('name', 'vk_id',
@@ -151,11 +153,10 @@ Class Model_User extends Model
                 ->execute();
         }
 
-
         if ($result)
-            return $result;
-        else
             return true;
+        else
+            return false;
     }
 
 
