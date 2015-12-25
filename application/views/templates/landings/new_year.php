@@ -51,7 +51,16 @@
 
             <div class="show_blank pointer" onclick="nyLandToggleForm(event)">Как вступить в клуб</div>
 
-            <div class="form <?= !$user->id ? 'hide pulled' : ''?>" id="nyLandingForm">
+            <?
+                $errorGiven = isset($savingResult) && !$savingResult && !empty($errorMessage);
+                $formShowed = $user->id || $errorGiven;
+            ?>
+
+            <div class="form <?= !$formShowed ? 'hide pulled' : '' ?>" id="nyLandingForm">
+
+                <? if ($errorGiven): ?>
+                    <div class="error"><?= $errorMessage ?></div>
+                <? endif ?>
 
                 <span class="number">1</span>
                 <p>Участие в CodeX подразумевает большое количество самостоятельной и командной работы. Вы должны быть готовы посвящать клубу значительную часть своего времени каждый день.</p>
@@ -61,7 +70,7 @@
 
                 <? if ( ! $user->id ): ?>
 
-                    <a href="/login/vk" class="auth">
+                    <a href="/auth/vk" class="auth">
                         <i class="icon-vkontakte"></i>
                         <div class="offer">Чтобы оставить заявку, авторизуйтесь через VK</div>
                         Так мы сможем с вами связаться
@@ -71,10 +80,10 @@
 
                     <form action="/" method="post">
 
-                        <input type="hidden" name="scrf" value="<?= Security::token() ?>" >
+                        <input type="hidden" name="csrf" value="<?= Security::token() ?>" >
 
-                        <label for="skills">Расскажите о своем опыте и навыках</label>
-                        <textarea name="skills" id="skills" rows="3"></textarea>
+                        <label for="skills">Расскажите о своем опыте и навыках, приложите ссылки на работы</label>
+                        <textarea name="skills" id="skills" rows="3" required ></textarea>
 
                         <label for="wishes">Чем бы вы хотели заниматься в клубе</label>
                         <textarea name="wishes" id="wishes" rows="3"></textarea>

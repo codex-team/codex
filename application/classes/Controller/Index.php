@@ -7,8 +7,12 @@ class Controller_Index extends Controller_Base_preDispatch
     public function action_index()
     {
         /** New year landing */
-        if (Security::check( Arr::get($_POST, 'scrf') )) {
+        if (Security::check( Arr::get($_POST, 'csrf') )) {
+
             $this->NewYearRequestSubmitted();
+
+            /** Refresh CSRF token */
+            Security::token(true);
         }
 
         $this->view['ny_user_requests'] = $this->user->getUserRequests();
@@ -39,12 +43,12 @@ class Controller_Index extends Controller_Base_preDispatch
         $wishes = trim(Arr::get($_POST, 'wishes'));
 
         if (!$this->user->id) {
-            $this->view['errorMessage'] = 'Авторизуйтесь, чтобы мы могли с вами связаться';
+            $this->view['errorMessage'] = 'Авторизуйтесь, чтобы мы могли с вами связаться';
             return;
         }
 
         if (!$skills) {
-            $this->view['errorMessage'] = 'Напишите пару слов о себе';
+            $this->view['errorMessage'] = 'Напишите пару слов о себе';
             return;
         }
 

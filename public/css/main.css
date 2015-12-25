@@ -1078,6 +1078,14 @@ html {
         .ny_land .submit:hover{
             background: #190303;
         }
+    .ny_land .error{
+        color: #CA3B3B;
+        font-size: 26px;
+        line-height: 1.3em;
+        font-weight: bold;
+        margin-bottom: 50px;
+
+    }
 
 .ny_request_saved{
     position: absolute;
@@ -1232,6 +1240,10 @@ html {
         }
         .site_header .social_buttons{
             display: none;
+        }
+        .site_header .profile,
+        .site_header .login{
+            margin-right: 0;
         }
 
     .clarity_page{
