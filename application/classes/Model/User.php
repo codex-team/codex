@@ -209,4 +209,28 @@ Class Model_User extends Model
         // занесения данных в бд
         $this->update();
     }
+
+    /**
+    * Saves user join-request
+    */
+    public function saveJoinRequest($skills, $wishes = NULL)
+    {
+        return Dao_Requests::insert()
+                             ->set('uid', $this->id)
+                             ->set('skills', $skills)
+                             ->set('wishes', $wishes)
+                             ->clearcache($this->id)
+                             ->execute();
+    }
+
+    /**
+    * Get user join-requests
+    * @return array with requests
+    */
+    public function getUserRequests()
+    {
+        if (!$this->id) return array();
+
+        return Dao_Requests::select()->where('uid','=', $this->id)->cached(Date::MINUTE * 10, $this->id)->execute();
+    }
 }
