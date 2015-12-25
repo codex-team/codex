@@ -19,7 +19,8 @@ class Controller_Auth extends Controller_Base_preDispatch
 
             if ($profile)
             {
-                Session::instance()->set('profile', $profile);
+                $token = Session::instance()->get('vk_token');
+                Cookie::set("auth_token", $token);
 
                 $user = Model_User::findByAttribute('vk_id', $profile->uid);
                 if ($user->is_empty())
@@ -31,12 +32,18 @@ class Controller_Auth extends Controller_Base_preDispatch
                     $user->photo_big = $profile->photo_max;
                     $user->name = $this->get_vk_name($profile);
 
-                    $user->save();
+                    if ($result = $user->save('vk'))
+                    {
+                        $inserted_id = $result[0];
+                        $new_session = new Model_Sessions();
+                        $new_session->save($inserted_id, $token);
+                    }
                 }
                 else
                 {
-                    # Update outdated params
-                    #if ($user->vk_uri)
+                    $new_session = new Model_Sessions();
+                    if (!$new_session->get_user_id($token))
+                        $new_session->save($user->id, $token);
                 }
             }
         }
@@ -44,7 +51,7 @@ class Controller_Auth extends Controller_Base_preDispatch
         {
             # Add auth error view
         }
-        $this->auth_callback('/');
+        Controller::redirect($this->get_return_url());
 
     }
 
@@ -86,7 +93,7 @@ class Controller_Auth extends Controller_Base_preDispatch
         {
 
         }
-        $this->auth_callback('/');
+        Controller::redirect($this->get_return_url());
     }
 
 
@@ -143,7 +150,7 @@ class Controller_Auth extends Controller_Base_preDispatch
         {
 
         }
-        $this->auth_callback('/');
+        Controller::redirect($this->get_return_url());
     }
 
 
@@ -153,16 +160,16 @@ class Controller_Auth extends Controller_Base_preDispatch
     public function action_logout()
     {
         Cookie::delete("auth_token");
-        Controller::redirect('/');
+        Controller::redirect($this->get_return_url());
     }
 
 
     /**
-     * Место для пост-авторизации. В конце осуществляет редирект страницу $page.
+     * @return URL для возвращения на предыдущую страницу
      */
-    private function auth_callback($page='/')
+    private function get_return_url()
     {
-        Controller::redirect($page);
+        return Request::initial()->referrer();
     }
 
 
