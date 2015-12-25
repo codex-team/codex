@@ -169,7 +169,11 @@ class Controller_Auth extends Controller_Base_preDispatch
      */
     private function get_return_url()
     {
-        return Request::initial()->referrer();
+        $ref = Request::initial()->referrer();
+        if ($ref)
+            return $ref;
+        else
+            return "/";
     }
 
 
