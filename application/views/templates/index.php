@@ -1,3 +1,7 @@
+<?
+    /** New Year Landing */
+    include 'landings/new_year.php';
+?>
 <div class="clarity_page">
     <div class="center_side">
         <div class="cdx_logo"></div>

@@ -22,9 +22,12 @@ class Controller_Users_Index extends Controller_Base_preDispatch
 
         if (!$viewUser->id) $this->redirect('/');
 
+        $this->view['join_requests'] = $viewUser->getUserRequests();
+
         $this->title = $viewUser->name ?: 'Пользователь #' . $viewUser->id;
         $this->view['viewUser']  = $viewUser;
         $this->view['isMyPage']  = $this->user->id == $viewUser->id;
+
         $this->template->content = View::factory('templates/users/user', $this->view);
 
     }

@@ -26,6 +26,10 @@
                 <a class="social_link instagram" href="//instagram.com/<?= $viewUser->instagram_uri ?>" target="_blank"><i class="icon-instagram"></i></a>
             <? endif; ?>
 
+            <? if (!empty($join_requests)): ?>
+                <div class="profile_join_requests">Заявка на вступление рассматривается</div>
+            <? endif ?>
+
             <? if ($isMyPage): ?>
                 <br />
                 <a class="logout" href="/auth/logout">Logout</a>
