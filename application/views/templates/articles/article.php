@@ -12,7 +12,7 @@
 
                 <meta itemprop="url" href="https://ifmo.su/user/<?= $article->user_id ?>" />
                 
-                <time><?= Date::fuzzy_span($article->dt_create) ?></time>              
+                <time><?= Date::fuzzy_span(strtotime($article->dt_create)) ?></time>
                 <span class="list_user_ava">
                     <img src="<?= $article->author->photo ?>" alt="https://ifmo.su/<?= $article->author->name ?>"  itemprop="image">
                 </span>   
