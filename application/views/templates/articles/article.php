@@ -24,8 +24,12 @@
         </div>
         <div class="article_content"  itemprop="articleBody">
             <?= nl2br($article->text) ?>
+            <h4>Читайте далее:</h4>
+            <?foreach ($randomArticles as $randomArticle):?>
+                <a href="/article/<?= $randomArticle->id ?>"><?= $randomArticle->title; ?></a><br>
+            <?endforeach;?>
         </div>
-
+        </div>
 
         <? /*
 

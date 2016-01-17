@@ -17,6 +17,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $articleId = $this->request->param('article_id');
 
         $this->view["id"] = $articleId;
+        $randomArticles = Model_Article::getRandomArticles($articleId);
 
         $article = Model_Article::get($articleId);
         if ($article->id == 0)
@@ -25,6 +26,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $this->stats->hit(Model_Stats::ARTICLE, $articleId);
 
         $this->view["article"] = $article;
+        $this->view["randomArticles"] = $randomArticles;
 
         $this->title = $article->title;
 

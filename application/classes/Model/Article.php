@@ -212,4 +212,37 @@ Class Model_Article extends Model
 
         return $articles;
     }
+    public static function getRandomArticles($id){
+
+        $i = 0;
+        $uniqueRandomArticles = array();
+        $lastArticleId = Dao_Articles::select('id')->limit(1)->order_by('id', 'DESC')->execute()['id'];
+
+        while($i < 3){
+            // получаем рандомный id в заданном диапазоне и рандомную статью 
+            $randomId = mt_rand(1, $lastArticleId);
+            $randomArticle = self::get($randomId);
+            $uniqueArticle = true;
+            
+            // проверяем, валидная ли рандомная статья
+            if ($randomId != $id && $randomArticle->id && $randomArticle->is_published){
+            
+                // проверяем в цикле уникальная ли статья в массиве
+                foreach ($uniqueRandomArticles as $uniqueRandomArticle){
+                
+                    if ($randomArticle->id == $uniqueRandomArticle->id){
+                        $uniqueArticle = false;
+                        break;
+                    }
+                }     
+                           
+                // если статья уникальна, тогда вносим ее в массив
+                if ($uniqueArticle){
+                    $uniqueRandomArticles[$i] = $randomArticle;
+                    $i++;
+                }
+            }
+        }        
+        return $uniqueRandomArticles;
+    }
 }
