@@ -232,7 +232,7 @@ Class Model_Article extends Model
             $randomArticle = array_shift($allArticles);
 
             if ($randomArticle->id != $currentId) {                
-                $randomArticles[$i] = $randomArticle;
+                array_push($randomArticles, $randomArticle);
                 $i++;
             }
         }
