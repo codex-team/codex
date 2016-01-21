@@ -228,16 +228,15 @@ Class Model_Article extends Model
         shuffle($allArticles);
         
         while($i < 3) {            
-            //берем первую статью, в замешанном массиве и удаляем ее из массива
-            $randomArticle = array_slice($allArticles, 0, 1)[0];
-            unset($allArticles[0]);
-            
+            // извлекаем первый элемент массива
+            $randomArticle = array_shift($allArticles);
+
             if ($randomArticle->id != $currentId) {                
                 $randomArticles[$i] = $randomArticle;
                 $i++;
             }
-            shuffle($allArticles);
         }
         return $randomArticles;
     }
 }
+
