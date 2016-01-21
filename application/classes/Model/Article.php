@@ -177,9 +177,10 @@ Class Model_Article extends Model
      *
      * @param $add_removed boolean добавлять ли удалённые статьи в получаемый список статей
      * @param $add_not_published boolean
+     * @param $cacheMinuteTime int на сколько минут кешировать
      * @return array ModelArticle массив моделей, удовлетворяющих запросу
      */
-    private static function getArticles($add_not_published = false, $add_removed = false)
+    private static function getArticles($add_not_published = false, $add_removed = false, $cachedTime = 0)
     {
         $articlesQuery = Dao_Articles::select()->limit(200);        // TODO(#40) add pagination.
 
@@ -190,7 +191,10 @@ Class Model_Article extends Model
         if (!$add_not_published) {
             $articlesQuery->where('is_published', '=', true);
         }
-
+        
+        if ($cachedTime) {
+            $articlesQuery->cached($cachedTime*Date::MINUTE);
+        }
         $article_rows = $articlesQuery->order_by('id', 'DESC')->execute();
 
         return self::rowsToModels($article_rows);
@@ -212,37 +216,28 @@ Class Model_Article extends Model
 
         return $articles;
     }
-    public static function getRandomArticles($id){
-
+    public static function getRandomArticles($currentId)
+    {
+        //получаем все статьи и кэшируем их на 5 минут
+        $allArticles = self::getArticles(false, false, 5);
+        
         $i = 0;
-        $uniqueRandomArticles = array();
-        $lastArticleId = Dao_Articles::select('id')->limit(1)->order_by('id', 'DESC')->execute()['id'];
-
-        while($i < 3){
-            // получаем рандомный id в заданном диапазоне и рандомную статью 
-            $randomId = mt_rand(1, $lastArticleId);
-            $randomArticle = self::get($randomId);
-            $uniqueArticle = true;
+        $randomArticles = array();
+        
+        //мешаем массив статей
+        shuffle($allArticles);
+        
+        while($i < 3) {            
+            //берем первую статью, в замешанном массиве и удаляем ее из массива
+            $randomArticle = array_slice($allArticles, 0, 1)[0];
+            unset($allArticles[0]);
             
-            // проверяем, валидная ли рандомная статья
-            if ($randomId != $id && $randomArticle->id && $randomArticle->is_published){
-            
-                // проверяем в цикле уникальная ли статья в массиве
-                foreach ($uniqueRandomArticles as $uniqueRandomArticle){
-                
-                    if ($randomArticle->id == $uniqueRandomArticle->id){
-                        $uniqueArticle = false;
-                        break;
-                    }
-                }     
-                           
-                // если статья уникальна, тогда вносим ее в массив
-                if ($uniqueArticle){
-                    $uniqueRandomArticles[$i] = $randomArticle;
-                    $i++;
-                }
+            if ($randomArticle->id != $currentId) {                
+                $randomArticles[$i] = $randomArticle;
+                $i++;
             }
-        }        
-        return $uniqueRandomArticles;
+            shuffle($allArticles);
+        }
+        return $randomArticles;
     }
 }
