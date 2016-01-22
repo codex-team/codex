@@ -49,6 +49,11 @@ Route::set('CONTESTS_LIST', 'contests')->defaults(array(
 	'action' => 'showAllContests',
 ));
 
+Route::set('CONTEST_PAGE', 'contest/<contest_id>', array('contest_id' => $DIGIT))->defaults(array(
+    'controller' => 'contests_index',
+    'action' => 'showContest'
+));
+
 
 // Scripts for articles
 

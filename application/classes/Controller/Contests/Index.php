@@ -12,4 +12,23 @@ class Controller_Contests_Index extends Controller_Base_preDispatch
         $this->template->content = View::factory('templates/contests/list', $this->view);
     }
 
+    public function action_showContest()
+    {
+        $contestId = $this->request->param('contest_id');
+
+        $this->view["id"] = $contestId;
+
+        $contest = Model_Contests::get($contestId);
+        if ($contest->id == 0)
+            throw new HTTP_Exception_404();
+
+//        $this->stats->hit(Model_Stats::CONTEST, $contestId);
+
+        $this->view["contest"] = $contest;
+
+        $this->title = $contest->title;
+
+        $this->template->content = View::factory('templates/contests/contest', $this->view);
+    }
+
 }
