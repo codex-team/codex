@@ -44,6 +44,11 @@ Route::set('NEW_ARTICLE_PAGE', 'articles/new')->defaults(array(
     'action' => 'newArticle'
 ));
 
+Route::set('CONTESTS_LIST', 'contests')->defaults(array(
+	'controller' => 'contests_index',
+	'action' => 'showAllContests',
+));
+
 
 // Scripts for articles
 
