@@ -188,7 +188,7 @@ Class Model_Article extends Model
             $articlesQuery->where('is_removed', '=', false);
         }
 
-        if (!$add_not_published) {
+        if (!$add_unpublished) {
             $articlesQuery->where('is_published', '=', true);
         }
         
@@ -216,19 +216,18 @@ Class Model_Article extends Model
 
         return $articles;
     }
-    public static function getRandomArticles($currentId, $numberOfRandomArticles = 3)
+    public static function getRandomArticles($currentArticleId, $numberOfRandomArticles = 3)
     {
         //получаем все статьи и кэшируем их на 5 минут
-        $allArticles      = self::getArticles(false, false, 5);
-        $numberOfArticles = count($allArticles);    
-
-        $key = array_search(self::get($currentId), $allArticles);
-        unset($allArticles[$key]);
+        $allArticles = self::getArticles(false, false, 5); 
+        
+        foreach ( $allArticles as $key => $article ){
+            if ( $article->id == $currentArticleId ) unset($allArticles[$key]);
+        }
         
         //мешаем массив статей
         shuffle($allArticles);
         
-        $randomArticles = array_splice($allArticles, 0, $numberOfRandomArticles);
-        return $randomArticles;
+        return array_slice($allArticles, 0, $numberOfRandomArticles);
     }
 }
