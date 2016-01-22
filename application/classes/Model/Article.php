@@ -219,21 +219,29 @@ Class Model_Article extends Model
     public static function getRandomArticles($currentId)
     {
         //получаем все статьи и кэшируем их на 5 минут
-        $allArticles = self::getArticles(false, false, 5);
-        
+        $allArticles      = self::getArticles(false, false, 5);
+        $numberOfArticles = count($allArticles);
+
         $i = 0;
         $randomArticles = array();
         
         //мешаем массив статей
         shuffle($allArticles);
-        
-        while($i < 3) {            
-            // извлекаем первый элемент массива
-            $randomArticle = array_shift($allArticles);
-
-            if ($randomArticle->id != $currentId) {                
-                array_push($randomArticles, $randomArticle);
-                $i++;
+        if ($numberOfArticles > 3) {
+            while($i < 3) {            
+                // извлекаем первый элемент массива
+                $randomArticle = array_shift($allArticles);
+                //print_r($randomArticle);
+                if ($randomArticle->id != $currentId) {                
+                    array_push($randomArticles, $randomArticle);
+                    $i++;
+                }
+            }
+        } else {
+            foreach ($allArticles as $article) {
+                if ($article->id != $currentId) {
+                    array_push($randomArticles, $article);
+                }
             }
         }
         return $randomArticles;

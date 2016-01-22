@@ -26,6 +26,7 @@
             <?= nl2br($article->text) ?>
             <div class="random_articles">
                 <h3>Читайте далее</h3>
+                <p>Остальные публикации CodeX, об интересных вещах в мире веб-разработки.</p>
                 <?foreach ($randomArticles as $randomArticle):?>
                     <a href="/article/<?= $randomArticle->id ?>"><?= $randomArticle->title; ?></a><br/>
                 <?endforeach;?>
