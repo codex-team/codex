@@ -180,7 +180,7 @@ Class Model_Article extends Model
      * @param $cacheMinuteTime int на сколько минут кешировать
      * @return array ModelArticle массив моделей, удовлетворяющих запросу
      */
-    private static function getArticles($add_not_published = false, $add_removed = false, $cachedTime = null)
+    private static function getArticles($add_unpublished = false, $add_removed = false, $cachedTime = null)
     {
         $articlesQuery = Dao_Articles::select()->limit(200);        // TODO(#40) add pagination.
 
@@ -225,17 +225,10 @@ Class Model_Article extends Model
         $key = array_search(self::get($currentId), $allArticles);
         unset($allArticles[$key]);
         
-        $i = 0;
-        $randomArticles = array();
-        
         //мешаем массив статей
         shuffle($allArticles);
-        if ($numberOfArticles > $numberOfRandomArticles) {
-            $randomArticles = array_splice($allArticles, 0, 3);
-        } else {
-            $randomArticles = $allArticles;
-        }
+        
+        $randomArticles = array_splice($allArticles, 0, $numberOfRandomArticles);
         return $randomArticles;
     }
 }
-
