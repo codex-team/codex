@@ -23,14 +23,19 @@
             </div>
         </div>
         <div class="article_content"  itemprop="articleBody">
+        
             <?= nl2br($article->text) ?>
-            <div class="random_articles">
+            
+            <ul class="random_articles">
+            
                 <h3>Читайте далее</h3>
                 <p>Заметки о наших экспериментах, кейсах и проблемах, которые мы решили.</p>
-                <?foreach ($randomArticles as $randomArticle):?>
-                    <a href="/article/<?= $randomArticle->id ?>"><?= $randomArticle->title; ?></a><br/>
-                <?endforeach;?>
-            </div>
+                
+                <? foreach ($randomArticles as $randomArticle): ?>
+                    <li><a href="/article/<?= $randomArticle->id ?>"><?= $randomArticle->title; ?></a></li>
+                <? endforeach; ?>
+                
+            </ul>
         </div>
 
         <? /*

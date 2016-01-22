@@ -1327,7 +1327,7 @@ html {
         font-size: 16px;
 
     }
-    
+
     .breadcrumb{
         margin-bottom: 30px;
     }
@@ -1380,13 +1380,16 @@ html {
 .random_articles {
     padding-top: 35px;
 }
-.random_articles a{
-    margin-bottom: 8px;
-    display: inline-block;
-}
-.random_articles h3{
-    margin-bottom:15px;
-}
+    .random_articles a{
+        margin-bottom: 8px;
+        display: inline-block;
+    }
+    .random_articles h3{
+        margin-bottom: 15px;
+    }
+    .random_articles li{
+        list-style: none;
+    }
 
 
 @media print, (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 1.25dppx), (min-resolution: 120dpi) {
