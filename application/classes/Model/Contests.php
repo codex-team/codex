@@ -84,9 +84,9 @@ Class Model_Contests extends Model
      *
      * @param $user_id Number идентификатор пользователя, для проверки прав на удаление контеста
      */
-    public function remove($user_id)
+    public function remove()
     {
-        if ($this->id != 0 && $user_id == $this->user_id) {
+        if ($this->id != 0) {
 
             Dao_Contests::update()->where('id', '=', $this->id)
                 ->set('status', -1)

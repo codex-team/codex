@@ -3,6 +3,7 @@
     <ul class="page_menu">
         <li><a href="/admin/users">Users</a></li>
         <li><a href="/admin/articles">Articles</a></li>
+        <li><a href="/admin/contests">Contests</a></li>
     </ul>
 </div>
 <?= $content ?>
