@@ -180,7 +180,7 @@ Class Model_Article extends Model
      * @param $cacheMinuteTime int на сколько минут кешировать
      * @return array ModelArticle массив моделей, удовлетворяющих запросу
      */
-    private static function getArticles($add_not_published = false, $add_removed = false, $cachedTime = 0)
+    private static function getArticles($add_not_published = false, $add_removed = false, $cachedTime = null)
     {
         $articlesQuery = Dao_Articles::select()->limit(200);        // TODO(#40) add pagination.
 
@@ -216,33 +216,24 @@ Class Model_Article extends Model
 
         return $articles;
     }
-    public static function getRandomArticles($currentId)
+    public static function getRandomArticles($currentId, $numberOfRandomArticles = 3)
     {
         //получаем все статьи и кэшируем их на 5 минут
         $allArticles      = self::getArticles(false, false, 5);
-        $numberOfArticles = count($allArticles);
+        $numberOfArticles = count($allArticles);    
 
+        $key = array_search(self::get($currentId), $allArticles);
+        unset($allArticles[$key]);
+        
         $i = 0;
         $randomArticles = array();
         
         //мешаем массив статей
         shuffle($allArticles);
-        if ($numberOfArticles > 3) {
-            while($i < 3) {            
-                // извлекаем первый элемент массива
-                $randomArticle = array_shift($allArticles);
-                //print_r($randomArticle);
-                if ($randomArticle->id != $currentId) {                
-                    array_push($randomArticles, $randomArticle);
-                    $i++;
-                }
-            }
+        if ($numberOfArticles > $numberOfRandomArticles) {
+            $randomArticles = array_splice($allArticles, 0, 3);
         } else {
-            foreach ($allArticles as $article) {
-                if ($article->id != $currentId) {
-                    array_push($randomArticles, $article);
-                }
-            }
+            $randomArticles = $allArticles;
         }
         return $randomArticles;
     }
