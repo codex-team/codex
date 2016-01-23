@@ -3,7 +3,7 @@
 class Controller_Contests_Action extends Controller_Base_preDispatch
 {
 
-         public function before()
+    public function before()
     {
         parent::before();
         if (!$this->user->checkAccess(array(Model_User::ROLE_ADMIN)))
