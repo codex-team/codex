@@ -1,8 +1,9 @@
 <div class="center_side clear">
 
     <article class="article">
-        <form method="POST" action="/articles/create" enctype="multipart/form-data" id="edit_article_form">
-            <textarea name="article_text" id="codex_editor" cols="30" rows="10"></textarea>
+        <form method="POST" action="/article/addarticle" enctype="multipart/form-data" id="edit_article_form">
+            <input type="text" name="title">
+            <textarea name="text" id="codex_editor" cols="30" rows="10"><h2>Введение</h2></textarea>
         </form>
             <script src="/public/extensions/codex.editor/ce_interface.js"></script>
             <script>
@@ -14,7 +15,7 @@
                 /** Document is ready */
                 ready(function() {
                     window.cEditor = new ce({
-                        tools : []
+                        tools : ['header']
                     });
                 })
 
@@ -23,18 +24,8 @@
 
     <div class="article_form_buttons">
 
-        <button onclick="copyDivContentToTextarea()" class="button master" id="save_article">Опубликовать</button>
-        <button class="button" id="save_draft">Сохранить черновик</button>
+        <button id="save_article" class="button master">Опубликовать</button>
+        <button id="codex_editor_export_btn" class="button">Сохранить черновик</button>
 
     </div>
 </div>
-
-<script type="application/javascript">
-    function copyDivContentToTextarea()
-    {
-        divValue = document.getElementById("codex_article_wrapper").innerHTML;
-        document.getElementById("codex_editor").value = divValue;
-
-        document.getElementById("edit_article_form").submit();
-    }
-</script>

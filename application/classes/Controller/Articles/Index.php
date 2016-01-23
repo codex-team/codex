@@ -42,7 +42,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $article_text = Arr::get($_POST, 'article_text', '');
         if ($article_text)
         {
-            
+            echo $article_text;
         }
         $this->template->content = View::factory('templates/articles/create', $this->view);
     }

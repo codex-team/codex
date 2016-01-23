@@ -14,42 +14,39 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
         $article = new Model_Article();
 
         $article->title          = Arr::get($_POST,'title');
-        $article->description    = Arr::get($_POST,'description');
-        $article->text           = Arr::get($_POST,'text');
-        $cover                   = Arr::get($_FILES,'cover');
+        $article->text           = html_entity_decode(Arr::get($_POST,'text'));
+//        $cover                   = Arr::get($_FILES,'cover');
 
         $errors = FALSE;
         $table_values = array();
 
         if ($article->title != '')       { $table_values['title'] = array('value' => $article->title); }
             else { $errors = TRUE; }
-        if ($article->description != '') { $table_values['description'] = array('value' => $article->description); }
-            else { $errors = TRUE; }
         if ($article->text != '')        { $table_values['text'] = array('value' => $article->text); }
             else { $errors = TRUE; }
 
-        if (!Upload::valid($cover) or
-            !Upload::not_empty($cover) or
-            !Upload::type($cover, array('jpg', 'jpeg', 'png')) or
-            !Upload::size($cover, '10M'))
-        {
-            $table_values['cover'] = TRUE;
-            $errors = TRUE;
-        }
+//        if (!Upload::valid($cover) or
+//            !Upload::not_empty($cover) or
+//            !Upload::type($cover, array('jpg', 'jpeg', 'png')) or
+//            !Upload::size($cover, '10M'))
+//        {
+//            $table_values['cover'] = TRUE;
+//            $errors = TRUE;
+//        }
 
         if ($errors)
         {
             // $this->view["editor"] = View::factory('templates/articles/editor', array("storedNodes" => $table_values['text']['value']));
 
-            $content = View::factory('templates/articles/new', $this->view);
+            var_dump($table_values);
+            $content = View::factory('templates/articles/create', $this->view);
 
             $this->template->content = View::factory("templates/articles/wrapper", array("active" => "newArticle", "content" => $content));
 
             return false;
         }
 
-        // getting new name for cover
-        $article->cover = $this->methods->save_cover($cover);
+//        $article->cover = $this->methods->save_cover($cover);
 
         $article->user_id = $user_id;
 
@@ -57,7 +54,6 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
 
         $article->insert();
 
-        // redirect to new article
         $this->redirect('/article/' . $article->id);
     }
 
