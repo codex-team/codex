@@ -1,10 +1,7 @@
 <div class="center_side clear">
     <article class="article" itemscope itemtype="http://schema.org/Article">
 
-        <? if (isset($article->dt_update)) {
-            echo "<meta itemprop=\"dateModified\" content=\"<?= date(DATE_ISO8601, strtotime($article->dt_update)) ?>\" />";
-        } ?>
-        
+        <meta itemprop="dateModified" content="<?= date(DATE_ISO8601, strtotime($article->dt_update)) ?>" />
         <meta itemprop="datePublished" content="<?= date(DATE_ISO8601, strtotime($article->dt_create)) ?>" />
 
         <h1 class="big_header" itemprop="headline">
