@@ -961,29 +961,6 @@ html {
         color: #3D597B;
     }
 
-.article_share{
-    padding:25px 35px;
-    background-color: #f2f5f8;
-
-}
-    .article_share .button{
-        background-color: #6483b1;
-        vertical-align: middle;
-
-
-    }
-
-    .article_share .offer {
-        color: #545865;
-        margin-right: 40px;
-        vertical-align: middle;
-    }
-.share_icon{
-    margin-left:15px;
-    color:#a3aebf;
-    font-size:20px;
-}
-
 .profile_join_requests{
     color: #9A9A9A;
     font-style: italic;
