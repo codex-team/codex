@@ -82,7 +82,6 @@ class Controller_Admin extends Controller_Base_preDispatch
         foreach ($contests as $contest)
         {
             $contest->winner = Model_User::get($contest->winner);
-            $contest->winner = $contest->winner->name;
         }
 
         $this->view["contests"] = $contests;

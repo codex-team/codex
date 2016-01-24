@@ -30,10 +30,10 @@
                         </td>
                         <td class="counter">
                             <b>
-                                <? if(empty($current_contest->winner)): ?>
+                                <? if(empty($current_contest->winner->name)): ?>
                                     <?= 'Nobody' ?>
                                 <? else: ?>
-                                    <?= $current_contest->winner?>
+                                    <?= $current_contest->winner->name?>
                                 <? endif; ?>
                             </b>
                             Winner
