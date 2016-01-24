@@ -48,8 +48,6 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
 
             $content = View::factory('templates/articles/create', $this->view);
 
-            $this->template->content = View::factory("templates/articles/wrapper", array("active" => "newArticle", "content" => $content));
-
             return false;
         }
 
