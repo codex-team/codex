@@ -26,14 +26,6 @@
 
             <?= nl2br($article->text) ?>
 
-            <div class="article_share">
-                <span class="offer">Если вам понравилась статья, опубликуйте ссылку на нее</span>
-                <span class="button vk_button with_icon" onclick=""><i class="icon-vkontakte"></i>Поделиться</span>
-                <i class="share_icon icon-twitter"></i>
-                <i class="share_icon icon-facebook-squared"></i>
-
-            </div>
-
         </div>
 
 
