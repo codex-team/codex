@@ -11,53 +11,59 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
             $this->redirect('/');
         };
 
-        $article = new Model_Article();
+        $article_id                  = Arr::get($_POST, 'article_id');
+        $article = Model_Article::get($article_id);
+
+        if ($article->user_id != $user_id && !$this->user->checkAccess(array(Model_User::ROLE_ADMIN)))
+            throw new HTTP_Exception_403();
+
+        if (!$article_id || !$article)
+            $article = new Model_Article();
 
         $article->title          = Arr::get($_POST,'title');
-        $article->description    = Arr::get($_POST,'description');
-        $article->text           = Arr::get($_POST,'text');
-        $cover                   = Arr::get($_FILES,'cover');
+        $article->text           = html_entity_decode(Arr::get($_POST,'text'));
+        $article->is_published   = (Arr::get($_POST, 'is_published'))? 1 : 0;
+//        $cover                   = Arr::get($_FILES,'cover');
 
         $errors = FALSE;
         $table_values = array();
 
         if ($article->title != '')       { $table_values['title'] = array('value' => $article->title); }
             else { $errors = TRUE; }
-        if ($article->description != '') { $table_values['description'] = array('value' => $article->description); }
-            else { $errors = TRUE; }
         if ($article->text != '')        { $table_values['text'] = array('value' => $article->text); }
             else { $errors = TRUE; }
 
-        if (!Upload::valid($cover) or
-            !Upload::not_empty($cover) or
-            !Upload::type($cover, array('jpg', 'jpeg', 'png')) or
-            !Upload::size($cover, '10M'))
-        {
-            $table_values['cover'] = TRUE;
-            $errors = TRUE;
-        }
+//        if (!Upload::valid($cover) or
+//            !Upload::not_empty($cover) or
+//            !Upload::type($cover, array('jpg', 'jpeg', 'png')) or
+//            !Upload::size($cover, '10M'))
+//        {
+//            $table_values['cover'] = TRUE;
+//            $errors = TRUE;
+//        }
 
         if ($errors)
         {
             // $this->view["editor"] = View::factory('templates/articles/editor', array("storedNodes" => $table_values['text']['value']));
 
-            $content = View::factory('templates/articles/new', $this->view);
-
-            $this->template->content = View::factory("templates/articles/wrapper", array("active" => "newArticle", "content" => $content));
+            $content = View::factory('templates/articles/create', $this->view);
 
             return false;
         }
 
-        // getting new name for cover
-        $article->cover = $this->methods->save_cover($cover);
+//      $article->cover = $this->methods->save_cover($cover);
 
         $article->user_id = $user_id;
 
-        $article->is_published = true;            // FIXME изменить, когда будет доступны режимы публикации
+        if ($article_id)
+        {
+            $article->update();
+        }
+        else
+        {
+            $article->insert();
+        }
 
-        $article->insert();
-
-        // redirect to new article
         $this->redirect('/article/' . $article->id);
     }
 

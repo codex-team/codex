@@ -13,37 +13,36 @@
       font-style: normal;
    }
 body{
-	text-align: center; 
-    background: #fff; 
-    margin-top: 30px;
+text-align: left; 
+background: #fff; 
+margin-top: 30px;
+font-family:"PT Sans";
 		}
 #block{
-	width: 800px; 
-    height: 100%; 
-    margin:0 auto; 
+width: 800px; 
+height: 100%; 
+margin:0 auto; 
 	}
 
 .site_header {
-    border-bottom: 1px solid #eceff6;
-    font-size: 0;
+border-bottom: 1px solid #eceff6;
+font-size: 0;
   }
 
  .center_side {
-    max-width: 1000px;
+max-width: 1000px;
     
   }
 
 .site_menu {
-    margin: 0 auto;
-    box-sizing: border-box;
-    text-align: left;
-    width: 800px; 
+margin: 0 auto;
+box-sizing: border-box;
+width: 800px; 
 
 
 }
 
 .site_header a {
-  font-family:"PT Sans"; 
     position: relative;
     display: inline-block;
     padding: 18px;
@@ -66,26 +65,19 @@ body{
 
    }
 
-   p{  font-family:"PT Sans"; 
+   p{   
   font-size:15px;
-  font-weight: 400;
   line-height: 1.8;
-  letter-spacing: -0.005em;
   margin-top: 30px;
   margin-bottom:15px;
-  text-align: left;
   clear:both;
 
   }
 
   h3{
-  font-family:"PT Sans"; 
   font-size:17px;
-  text-align:left; 
   margin-top:15px;
-  letter-spacing: 0.005em;
   padding-bottom:5px;
-  font-weight: 600;
   clear:both;
 }
   h3:hover{
@@ -94,14 +86,11 @@ body{
   }
 
   h1{
-  font-family:"PT Sans"; 
-  text-align:left; 
   line-height: 2;
   padding-top:40px;
   padding-bottom:20px;
   font-weight: bold;
   font-size:40px;
-  letter-spacing: -0.01em;
   clear:both;
   }
   button{
@@ -120,12 +109,9 @@ body{
   }
 
   h4{
-  font-family:"PT Sans"; 
   font-size:13px;
-  text-align:left; 
   color: #6091c8;
   margin-top:0px;
-  letter-spacing: 0.005em;
   padding-bottom:20px;
   font-weight: bold;
   clear:both;

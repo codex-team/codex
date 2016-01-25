@@ -39,9 +39,9 @@ Route::set('ARTICLE_PAGE', 'article/<article_id>', array('article_id' => $DIGIT)
     'action' => 'showArticle'
 ));
 
-Route::set('NEW_ARTICLE_PAGE', 'articles/new')->defaults(array(
+Route::set('NEW_ARTICLE_PAGE', 'articles/create')->defaults(array(
     'controller' => 'articles_index',
-    'action' => 'newArticle'
+    'action' => 'createArticle'
 ));
 
 

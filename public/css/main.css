@@ -753,6 +753,11 @@ html {
     .article .left_col{
         padding-left: 0;
     }
+
+.article_form_buttons {
+    padding-left: 30px;
+}
+
 .page_block{
     margin-top: 50px;
 }

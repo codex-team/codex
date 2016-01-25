@@ -38,10 +38,14 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $this->template->content = View::factory('templates/articles/article', $this->view);
     }
 
-    public function action_newArticle()
+    public function action_createArticle()
     {
-        // $this->view["editor"] = View::factory('templates/articles/editor', $this->view);
-        $this->template->content = View::factory('templates/articles/new', $this->view);
+        $article_text = Arr::get($_POST, 'article_text', '');
+        if ($article_text)
+        {
+            echo $article_text;
+        }
+        $this->template->content = View::factory('templates/articles/create', $this->view);
     }
 
 }
