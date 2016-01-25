@@ -23,7 +23,9 @@
             </div>
         </div>
         <div class="article_content"  itemprop="articleBody">
+
             <?= nl2br($article->text) ?>
+
         </div>
 
 

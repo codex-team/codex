@@ -130,12 +130,13 @@ font-size: 15px;
  }
 
 .site_header a:hover::before, .site_header .current::before {
-content: '';
-display: block;
-position: absolute;
-bottom: 0;
-left: 0;
-right: 0;
-height: 3px;
-background: #dde2e9;
-}
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #dde2e9;
+
+   }
