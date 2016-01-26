@@ -11,7 +11,7 @@
                     <tr>
                         <td class="id"><?= $current_contest->id ?></td>
                         <td class="title">
-                            <a href="/contests/<?= $current_contest->id ?>">
+                            <a href="/contest/<?= $current_contest->id ?>">
                                 <b><?= $current_contest->title ?></b>
                             </a>
                         </td>
