@@ -930,6 +930,7 @@ html {
     font-size: 17px;
     line-height: 1.5em;
     margin: 0 70px;
+    word-wrap: break-word;
 }
     .article_content h2{
         margin: 50px 0 30px;
@@ -954,6 +955,9 @@ html {
         font-family: 'monospace', 'monaco', 'consolas', 'courier';
         font-size: 13px;
         color: #3D597B;
+    }
+    .article_content li{
+        margin: 0.2em 0;
     }
 
 .profile_join_requests{
@@ -1099,6 +1103,65 @@ html {
 }
 
 /*** end of New Year landing styles *******************/
+
+
+/*** Contests ***/
+.contest{
+    margin: 0 30px;
+    padding: 30px 0;
+}
+.contest .disclaimer{
+    margin: 40px;
+    text-align: center;
+    color: #988e8e;
+    font-variant: small-caps;
+    font-size: 18px;
+    letter-spacing: 2px;
+}
+.contest .line{
+    position: relative;
+    margin: 0 70px;
+    height: 1px;
+    background: #ebe8e8;
+}   
+    .contest .line:before{
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: -19px;
+        width: 40px;
+        height: 40px;
+        margin-left: -20px;
+        background: #fff url('../img/contest_icon_goblet.png') no-repeat 50% 50%;  
+    }
+.contest .big_header{
+    padding-top: 0;
+}
+.contest_info{
+    width: 80%;
+    margin: 0 auto 50px;
+    color: #9a9ca0;
+}
+    .contest_info td{
+        width: 33%;
+        text-align: center;
+    }
+    .contest_info td:nth-of-type(2){
+        width: 34%;
+        border-left: 1px solid #caced4;
+        border-right: 1px solid #caced4;
+    }
+    .contest_info time{
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
+        margin-left: 10px;
+        font-weight: bold;
+        line-height: 1.1em;
+    }
+/*** end of Contests ***/
+
+
 
 
 
@@ -1375,6 +1438,13 @@ html {
         top: auto;
         margin: 20px;
     }
+    .contest_info td{
+        display: block;
+        width: auto !important;
+        padding: 5px 0;
+        font-size: 11px;
+        font-variant: small-caps;
+    }
 }
 
 
@@ -1400,5 +1470,9 @@ html {
     }
     .ny_land{
         background-size: 200px auto;
+    }
+    .contest .line:before{
+        background: #fff url('../img/contest_icon_goblet@2x.png') no-repeat 50% 50%;  
+        background-size: 18px auto;
     }
 }

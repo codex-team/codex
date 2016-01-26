@@ -22,6 +22,13 @@ class Controller_Contests_Index extends Controller_Base_preDispatch
 
 //        $this->stats->hit(Model_Stats::CONTEST, $contestId);
 
+        /** Add remaining days value */
+        if ($contest->dt_close){
+
+            $remainingTime = strtotime($contest->dt_close) - time();
+            $contest->daysRemaining = floor( $remainingTime / Date::DAY );
+        }
+
         $this->view["contest"] = $contest;
 
         $this->title = $contest->title;
