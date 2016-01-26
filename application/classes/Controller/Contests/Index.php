@@ -32,6 +32,7 @@ class Controller_Contests_Index extends Controller_Base_preDispatch
         $this->view["contest"] = $contest;
 
         $this->title = $contest->title;
+        $this->description = "Небольшой конкурс внутри НИУ ИТМО, который позволит вам показать свой творческий и профессиональный потенциал, соревнуясь за небольшие презенты.";
 
         $this->template->content = View::factory('templates/contests/contest', $this->view);
     }
