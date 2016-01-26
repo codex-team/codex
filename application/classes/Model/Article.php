@@ -177,7 +177,8 @@ Class Model_Article extends Model
      *
      * @param $add_removed boolean добавлять ли удалённые статьи в получаемый список статей
      * @param $add_not_published boolean
-     * @param $cacheMinuteTime int на сколько минут кешировать
+     * @param $cacheMinuteTime int на сколько минут кешировать, по умолчанию null, 
+     * кеш не сбрасывается при добавлении новой статьи.
      * @return array ModelArticle массив моделей, удовлетворяющих запросу
      */
     private static function getArticles($add_unpublished = false, $add_removed = false, $cachedTime = null)
@@ -191,10 +192,11 @@ Class Model_Article extends Model
         if (!$add_unpublished) {
             $articlesQuery->where('is_published', '=', true);
         }
-        
+
         if ($cachedTime) {
             $articlesQuery->cached($cachedTime*Date::MINUTE);
         }
+        
         $article_rows = $articlesQuery->order_by('id', 'DESC')->execute();
 
         return self::rowsToModels($article_rows);
@@ -216,6 +218,16 @@ Class Model_Article extends Model
 
         return $articles;
     }
+
+
+   /**
+    * Метод достает из БД все статьи, кеширует их на пять минут и выбирает из них три рандомные статьи.
+    * В перспективе этот метод заменит метод, с выборкой трех популярных статей, либо персональных рекомендаций статей.
+    *
+    * @param $currentArticleId - передается айди статьи, на странице которой выводится блок "Читайте далее".
+    * @param $numberOfRandomArticles - сколько рандомных статей выводить.
+    * @return array ModelArticle - массив объектов Article.
+    */ 
     public static function getRandomArticles($currentArticleId, $numberOfRandomArticles = 3)
     {
         //получаем все статьи и кэшируем их на 5 минут
@@ -224,10 +236,10 @@ Class Model_Article extends Model
         foreach ( $allArticles as $key => $article ){
             if ( $article->id == $currentArticleId ) unset($allArticles[$key]);
         }
-        
+   
         //мешаем массив статей
         shuffle($allArticles);
-        
+
         return array_slice($allArticles, 0, $numberOfRandomArticles);
     }
 }
