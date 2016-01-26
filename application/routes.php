@@ -44,6 +44,21 @@ Route::set('NEW_ARTICLE_PAGE', 'articles/create')->defaults(array(
     'action' => 'createArticle'
 ));
 
+Route::set('CONTESTS_LIST', 'contests')->defaults(array(
+	'controller' => 'contests_index',
+	'action' => 'showAllContests',
+));
+
+Route::set('CONTEST_PAGE', 'contest/<contest_id>', array('contest_id' => $DIGIT))->defaults(array(
+    'controller' => 'contests_index',
+    'action' => 'showContest'
+));
+
+Route::set('DEL_CONTEST_SCRIPT', 'contests/delcontest/<contest_id>', array('contest_id' => $DIGIT))->defaults(array(
+    'controller' => 'contests_action',
+    'action' => 'delete'
+));
+
 
 // Scripts for articles
 
@@ -108,7 +123,7 @@ Route::set('ADMIN_EDIT_ARTICLE', 'article/<article_id>/edit', array('article_id'
 ));
 
 
-Route::set('ADMIN', 'admin(/<category>(/<list>))', array('category' => 'articles|users',
+Route::set('ADMIN', 'admin(/<category>(/<list>))', array('category' => 'articles|users|contests',
                                                                 'list' => 'unpublished|deleted'))
   ->defaults(array(
         'controller' => 'admin',

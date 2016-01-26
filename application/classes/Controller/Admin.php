@@ -23,6 +23,9 @@ class Controller_Admin extends Controller_Base_preDispatch
             case 'users'    :
                 $pageContent = self::users();
                 break;
+            case 'contests' :
+                $pageContent = self::contests();
+                break;
             default         :
                 $pageContent = View::factory("templates/admin/dashboard");
                 break;
@@ -68,6 +71,22 @@ class Controller_Admin extends Controller_Base_preDispatch
         $this->view["users"] = Model_User::getAll();
 
         return View::factory('templates/admin/users/list', $this->view);
+
+    }
+
+    public function contests()
+    {
+
+        $contests = Model_Contests::getAllContests(); 
+
+        foreach ($contests as $contest)
+        {
+            $contest->winner = Model_User::get($contest->winner);
+        }
+
+        $this->view["contests"] = $contests;
+
+        return View::factory('templates/admin/contests/list', $this->view);
 
     }
 
