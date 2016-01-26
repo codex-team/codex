@@ -31,8 +31,8 @@
     <link rel="stylesheet" href="/public/extensions/codex.editor/editor.css?v=<?= filemtime("public/extensions/codex.editor/editor.css") ?>">
     <link rel="icon" type="image/png" href="/public/img/fav_shield@3x.png?v=985" id="favicon" />
 
-    <meta id="metaImage" name="image" property="og:image"  content="https://ifmo.su/img/meta_img.png" />
-    <link id="linkImage" rel="image_src" href="https://ifmo.su/img/meta_img.png" />
+    <meta id="metaImage" name="image" property="og:image"  content="https://ifmo.su/public/img/meta_img.png" />
+    <link id="linkImage" rel="image_src" href="https://ifmo.su/public/img/meta_img.png" />
 
 </head>
 <body>
