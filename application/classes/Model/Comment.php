@@ -139,10 +139,13 @@ Class Model_Comment extends Model
     {
         if (!empty($article_id))
         {
-            $commentsCount = DB::select()->from('Comments')->where('article_id', '=', $article_id)
-                ->where('is_removed', '=', 0)
-                ->execute()
-                ->count();
+            $commentsCount = DB::select(array(DB::expr('COUNT(id)') , 'counter'))
+                            ->from('Comments')
+                            ->where('article_id', '=', $article_id)
+                            ->where('is_removed', '=', 0)
+                            ->cached(Date::MINUTE * 10)
+                            ->execute()
+                            ->get('counter');
         }
 
         return $commentsCount;

@@ -29,12 +29,6 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
         $this->title = $article->title;
 
-        $comments = Model_Comment::getCommentsByArticle($articleId);
-
-        $comments_table_rebuild = $this->methods->rebuildCommentsTree($comments);
-
-        $this->view["comments"] = $comments_table_rebuild;
-
         $this->template->content = View::factory('templates/articles/article', $this->view);
     }
 

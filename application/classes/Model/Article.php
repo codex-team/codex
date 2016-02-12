@@ -136,6 +136,7 @@ Class Model_Article extends Model
         $article = Dao_Articles::select()
             ->where('id', '=', $id)
             ->limit(1)
+            ->cached(Date::MINUTE * 5, $id )
             ->execute();
 
         $model = new Model_Article();
@@ -160,7 +161,7 @@ Class Model_Article extends Model
      */
     public static function getActiveArticles()
     {
-        return Model_Article::getArticles(false, false);
+        return Model_Article::getArticles(false, false, Date::MINUTE * 5);
     }
 
 
@@ -177,7 +178,7 @@ Class Model_Article extends Model
      *
      * @param $add_removed boolean добавлять ли удалённые статьи в получаемый список статей
      * @param $add_not_published boolean
-     * @param $cacheMinuteTime int на сколько минут кешировать, по умолчанию null, 
+     * @param $cacheMinuteTime int на сколько минут кешировать, по умолчанию null,
      * кеш не сбрасывается при добавлении новой статьи.
      * @return array ModelArticle массив моделей, удовлетворяющих запросу
      */
@@ -196,7 +197,7 @@ Class Model_Article extends Model
         if ($cachedTime) {
             $articlesQuery->cached($cachedTime*Date::MINUTE);
         }
-        
+
         $article_rows = $articlesQuery->order_by('id', 'DESC')->execute();
 
         return self::rowsToModels($article_rows);
@@ -227,16 +228,16 @@ Class Model_Article extends Model
     * @param $currentArticleId - передается айди статьи, на странице которой выводится блок "Читайте далее".
     * @param $numberOfRandomArticles - сколько рандомных статей выводить.
     * @return array ModelArticle - массив объектов Article.
-    */ 
+    */
     public static function getRandomArticles($currentArticleId, $numberOfRandomArticles = 3)
     {
         //получаем все статьи и кэшируем их на 5 минут
-        $allArticles = self::getArticles(false, false, 5); 
-        
+        $allArticles = self::getArticles(false, false, 5);
+
         foreach ( $allArticles as $key => $article ){
             if ( $article->id == $currentArticleId ) unset($allArticles[$key]);
         }
-   
+
         //мешаем массив статей
         shuffle($allArticles);
 
