@@ -17,3 +17,5 @@ public/img/covers/*
 /nbproject/private/
 *~
 tools/.token
+Thumbs.db
+ehthumbs.db
