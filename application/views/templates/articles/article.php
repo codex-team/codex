@@ -25,8 +25,18 @@
 
             <?= nl2br($article->text) ?>
 
-        </div>
+            <ul class="random_articles">
 
+                <h3>Читайте далее</h3>
+                <p>Мы расскажем вам о крутых и интересных технологиях и приведём примеры их использования в наших проектах.</p>
+
+                <? foreach ($randomArticles as $randomArticle): ?>
+                    <li><a href="/article/<?= $randomArticle->id ?>"><?= $randomArticle->title; ?>.</a></li>
+                <? endforeach; ?>
+
+            </ul>
+
+        </div>
 
         <? /*
 
