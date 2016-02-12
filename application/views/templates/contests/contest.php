@@ -7,7 +7,7 @@
         <meta itemprop="datePublished" content="<?= date(DATE_ISO8601, strtotime($contest->dt_create)) ?>" />
 
         <div class="disclaimer">конкурс от команды codex</div>
-        <div class="line"></div>      
+        <div class="line"></div>
 
         <h1 class="big_header" itemprop="headline">
             <?= $contest->title ?>
@@ -21,7 +21,7 @@
                     <? if (!empty($contest->daysRemaining) && $contest->daysRemaining > 0): ?>
                         <?= $methods->num_decline($contest->daysRemaining, 'остался ' . $contest->daysRemaining . ' день', 'осталось ' . $contest->daysRemaining . ' дня', 'осталось ' . $contest->daysRemaining . ' дней'); ?>
                     <? else: ?>
-                        <i class="icon-ok"></i> Конкурс завершен
+                        <i class="icon-ok"></i> Скоро результаты
                     <? endif; ?>
                 </td>
             </tr>
