@@ -131,13 +131,22 @@ Class Model_Article extends Model
      * @return Model_Article экземпляр модели с указанным идентификатором и заполненными полями, если найден в базе или
      * пустую модель с айдишником равным нулю.
      */
-    public static function get($id = 0)
+    public static function get($id = 0, $needClearCache = false)
     {
         $article = Dao_Articles::select()
             ->where('id', '=', $id)
-            ->limit(1)
-            ->cached(Date::MINUTE * 5, $id )
-            ->execute();
+            ->limit(1);
+
+        if ($needClearCache)
+        {
+            $article->clearcache($id);
+        }
+        else
+        {
+            $article->cached(Date::MINUTE * 5, $id );
+        }
+
+        $article = $article->execute();
 
         $model = new Model_Article();
 
