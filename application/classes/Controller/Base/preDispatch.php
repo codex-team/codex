@@ -65,7 +65,7 @@ class Controller_Base_preDispatch extends Controller_Template
      */
     public function after()
     {
-        echo View::factory('profiler/stats');
+//        echo View::factory('profiler/stats');
 
         if ($this->auto_render) {
             if ( $this->title ) $this->template->title = $this->title;

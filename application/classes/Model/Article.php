@@ -135,12 +135,18 @@ Class Model_Article extends Model
     {
         $article = Dao_Articles::select()
             ->where('id', '=', $id)
-            ->limit(1)
-            ->cached(Date::MINUTE * 5, $id )
-            ->execute();
+            ->limit(1);
 
         if ($needClearCache)
-            Dao_Articles::select()->clearcache($id);
+        {
+            $article->clearcache($id);
+        }
+        else
+        {
+            $article->cached(Date::MINUTE * 5, $id );
+        }
+
+        $article = $article->execute();
 
         $model = new Model_Article();
 
