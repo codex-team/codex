@@ -18,7 +18,9 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
         $this->view["id"] = $articleId;
 
-        $article = Model_Article::get($articleId);
+        $needClearCache = (isset($_GET['clear']) && $_GET['clear'] == '1');
+
+        $article = Model_Article::get($articleId, $needClearCache);
         if ($article->id == 0)
             throw new HTTP_Exception_404();
 
