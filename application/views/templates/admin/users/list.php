@@ -23,11 +23,13 @@
                         </td>
                         <td class="user">
                             <a class="name" href="/user/<?= $user->id ?>"><?= $user->name ?></a> <br />
-                            <a class="nick" href="//github.com/<?= $user->github_uri ?>" target="_blank"><i class="icon-github-circled"></i><?= $user->github_uri ?></a>
+                            <? if ($user->github_uri): ?>
+                                <a class="nick" href="//github.com/<?= $user->github_uri ?>" target="_blank"><i class="icon-github-circled"></i><?= $user->github_uri ?></a>
+                            <? endif ?>
                         </td>
                         <td>
                             <? if ($user->vk_uri): ?>
-                                <a href="//vk.com/<?= $user->vk_uri?>" target="_blank"><i class="icon-vkontakte"></i></a>
+                                <a href="//vk.com/<?= $user->vk_uri ? $user->vk_uri : $user->vk_id ?>" target="_blank"><i class="icon-vkontakte"></i></a>
                             <? endif ?>
                         </td>
                         <td>
