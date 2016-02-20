@@ -99,6 +99,7 @@ Class Model_User extends Model
             $model->dt_update     = $user['dt_update'];
             $model->github_id     = $user['github_id'];
             $model->github_uri    = $user['github_uri'];
+            $model->vk_id         = $user['vk_id'];
             $model->vk_uri        = $user['vk_uri'];
             $model->fb_uri        = $user['fb_uri'];
             $model->instagram_uri = $user['instagram_uri'];
@@ -183,6 +184,7 @@ Class Model_User extends Model
             ->set('photo_big',     $this->photo_big)
             ->set('role',          $this->role)
             ->set('is_removed',    $this->is_removed)
+            ->set('vk_id',         $this->vk_id)
             ->set('vk_uri',        $this->vk_uri)
             ->set('fb_uri',        $this->fb_uri)
             ->set('instagram_uri', $this->instagram_uri)
