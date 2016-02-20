@@ -16,8 +16,8 @@
                     <div class="bio"><?= $viewUser->bio ?></div>
                 <? endif; ?>
 
-            <? if (!empty($viewUser->vk_uri)): ?>
-                <a class="social_link vk" href="//vk.com/<?= $viewUser->vk_uri ?>" target="_blank"><i class="icon-vkontakte"></i></a>
+            <? if (!empty($viewUser->vk_uri) or $viewUser->vk_id): ?>
+                <a class="social_link vk" href="//vk.com/<?= $viewUser->vk_uri ? $viewUser->vk_uri : 'id'.$viewUser->vk_id ?>" target="_blank"><i class="icon-vkontakte"></i></a>
             <? endif; ?>
             <? if (!empty($viewUser->github_uri)): ?>
                 <a class="nickname <?= empty($viewUser->instagram_uri) ? 'no_insta' : ''  ?>" href="//github.com/<?= $viewUser->github_uri ?>" target="_blank"><i class="icon-github-circled"></i></a>
