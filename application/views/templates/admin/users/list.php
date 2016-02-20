@@ -28,8 +28,8 @@
                             <? endif ?>
                         </td>
                         <td>
-                            <? if ($user->vk_uri): ?>
-                                <a href="//vk.com/<?= $user->vk_uri ? $user->vk_uri : $user->vk_id ?>" target="_blank"><i class="icon-vkontakte"></i></a>
+                            <? if ($user->vk_uri or $user->vk_id): ?>
+                                <a href="//vk.com/<?= $user->vk_uri ? $user->vk_uri : 'id'.$user->vk_id ?>" target="_blank"><i class="icon-vkontakte"></i></a>
                             <? endif ?>
                         </td>
                         <td>
