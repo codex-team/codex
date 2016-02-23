@@ -5,9 +5,38 @@
  */
 
 
+
 $DIGIT = '\d+';
 $STRING = '[-a-z\d]+';
 $QUERY =  '[0-9a-zA-Zа-яёА-ЯЁ\s\-\.]+$';
+
+
+/**
+ * New URIes
+ */
+
+Route::set('URI', '<route>(/<subaction>)', array(
+		'whatevet' => '.*',
+	))
+	->filter(function($route, $params, $request)
+	{
+		$action = $params['route'];
+
+		$model_uri = Model_Uri::Instance();
+		$forbidden = $model_uri->getForbiddenAliases();
+
+		if ( in_array($action, $forbidden))
+			return FALSE;
+
+	})
+	->defaults(array(
+		'controller' => 'Uri',
+		'action' => 'get',
+	));
+
+/**
+ * Default Routes
+ */
 
 Route::set('INDEX_PAGE', '')->defaults(array(
     'controller' => 'index',
@@ -153,7 +182,6 @@ Route::set('AJAX_FILE_TRANSPORT', 'ajax/transport')->defaults(array(
     'controller'      => 'base_ajax',
     'action'          => 'file_uploader'
 ));
-
 
 
 

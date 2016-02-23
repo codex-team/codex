@@ -10,7 +10,7 @@
     <div class="blog">
         <? foreach ($contests as $contest): ?>
             <div class="article">
-                <a href="/contest/<?= $contest->id ?>" class="read_more"><?= $contest->title; ?></a>
+                <a href="/contest-<?= $contest->id ?>" class="read_more"><?= $contest->title; ?></a>
             </div>
         <? endforeach; ?>
     </div>
