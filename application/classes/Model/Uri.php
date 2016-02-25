@@ -1,4 +1,4 @@
-<?php
+<?php defined('SYSPATH') or die('No direct script access.');
 /**
  * Created by PhpStorm.
  * User: Murod's Macbook Pro
@@ -26,6 +26,22 @@ class Model_Uri {
             self::$_instance = new self();
 
         return self::$_instance;
+    }
+
+    public function hash($string)
+    {
+        $length = strlen($string);
+
+        $pow[0] = 1;
+
+        for($i = 1; $i < $length; $i++)
+            $pow[$i] = $pow[$i - 1] * self::KEY;
+
+        $hash = 0;
+        for($i = 1; $i < $length; $i++)
+            $hash += $pow[$i] * ord($string[$i]);
+
+        return $hash;
     }
 
     public function getAliases()

@@ -1,4 +1,4 @@
-<?php
+<?php defined('SYSPATH') or die('No direct script access.');
 /**
  * Created by PhpStorm.
  * User: Murod's Macbook Pro
@@ -13,7 +13,8 @@ class Controller_Uri extends Controller {
         $parameter = $this->request->param('route');
         $sub = $this->request->param('subaction');
 
-        $action = new Query($parameter);
+        $action = new Model_HashUri($parameter);
+
         $Uri = Model_Uri::Instance();
         $route = $Uri->getAlias($action->hash());
 
@@ -27,74 +28,26 @@ class Controller_Uri extends Controller {
 
     public function action_add()
     {
-        /*$parameter = $this->request->param('whatever');
+        /*
+         * Есть недорабоктки....
+         */
 
-        $route = new Query($parameter);
+        //$parameter = $this->request->param('whatever');
 
-        $newAlias = $route->generateNewString();
-        $new = new Query($newAlias);
-        $newHash = $new->hash(2);
+        //$route = new Query($parameter);
 
-        $Uri = Model_Uri::Instance();
+        //$newAlias = $route->generateNewString();
+        //$new = new Query($newAlias);
+        //$newHash = $new->hash(2);
 
-        $Uri->setNewAlias($newAlias, $newHash, '1', '10');*/
+        //$Uri = Model_Uri::Instance();
+
+
+        //$Uri->setNewAlias($newAlias, $newHash, '1', '10');
+
     }
 
 }
 
-
-class Query {
-
-    const KEY = 31;
-
-    private $string;
-
-    public function __construct($string)
-    {
-        $this->string = $string;
-    }
-
-    public function hash()
-    {
-        $length = strlen($this->string);
-
-        $pow[0] = 1;
-
-        for($i = 1; $i < $length; $i++)
-            $pow[$i] = $pow[$i - 1] * self::KEY;
-
-        $hash = 0;
-        for($i = 1; $i < $length; $i++)
-            $hash += $pow[$i] * ord($this->string[$i]);
-
-        return $hash;
-    }
-
-    public function generateNewString()
-    {
-
-        $Uri = Model_Uri::Instance();
-
-        $aliases = $Uri->getAliases();
-
-        if ( isset($aliases[$this->hash()]) )
-        {
-            for($index = 1; ; $index++) {
-                $newString = $this->string . '-' . $index; // New String
-
-                $obj = new Query($newString);
-                $newHash = $obj->hash();
-
-                if ( !isset($aliases[$newHash])) {
-                    return $newString;
-                    break;
-                }
-            }
-        }
-        else {
-            return $this->string;
-        }
-    }
-}
 
 
