@@ -44,6 +44,12 @@ class Model_Uri {
         return $hash;
     }
 
+    public function aliasExist($hash)
+    {
+        $select = DB::select('hash')->from('Alias')->where('hash', '=', $hash)->execute()->as_array();
+        return ($select)? 1 : 0;
+    }
+
     public function getAliases()
     {
         $select = DB::select('*')->from('alias')->execute();

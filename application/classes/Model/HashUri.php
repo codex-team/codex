@@ -38,9 +38,9 @@ class Model_HashUri {
 
         $Uri = Model_Uri::Instance();
 
-        $aliases = $Uri->getAliases();
+        //$aliases = $Uri->getAliases();
 
-        if ( isset($aliases[$this->hash()]) )
+        if ( $Uri->aliasExist($this->hash()) )
         {
             for($index = 1; ; $index++) {
                 $newString = $this->string . '-' . $index; // New String
