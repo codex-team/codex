@@ -16,7 +16,7 @@ $QUERY =  '[0-9a-zA-Zа-яёА-ЯЁ\s\-\.]+$';
  */
 
 Route::set('URI', '<route>(/<subaction>)', array(
-		'whatevet' => '.*',
+		'route' => '.*',
 	))
 	->filter(function($route, $params, $request)
 	{
