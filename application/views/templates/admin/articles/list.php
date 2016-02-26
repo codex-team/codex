@@ -20,8 +20,7 @@
                                 <?= $current_article->author->name ?>
                             </a> <br />
                             <a class="nick" href="//github.com/<?= $current_article->author->github_uri ?>" target="_blank">
-                                <i class="icon-github-circled"></i>
-                                <?= $current_article->author->github_uri ?>
+                                <i class="icon-github-circled"></i><?= $current_article->author->github_uri ?>
                             </a>
                         </td>
                         <td class="date">
