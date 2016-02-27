@@ -10,43 +10,14 @@ class Controller_Uri extends Controller {
 
     public function action_get()
     {
-        $parameter = $this->request->param('route');
-        $sub = $this->request->param('subaction');
+        $route = $this->request->param('route');
+        $sub_action = $this->request->param('subaction');
 
-        $action = new Model_HashUri($parameter);
+        $model_alias = new Model_Alias();
+        $realRoute = $model_alias->getRealRoute($route);
 
-        $Uri = Model_Uri::Instance();
-        $route = $Uri->getAlias($action->hash());
-
-        $controller = $Uri->getTypeDefinition($route['type']);
-        $id = $route['id'];
-
-        $realRequest = $controller.'/'.$id.'/'.$sub;
-
-        echo Request::factory($realRequest)->execute();
+        echo Request::factory($realRoute)->execute();
     }
-
-    public function action_add()
-    {
-        /*
-         * Есть недорабоктки....
-         */
-
-        //$parameter = $this->request->param('whatever');
-
-        //$route = new Query($parameter);
-
-        //$newAlias = $route->generateNewString();
-        //$new = new Query($newAlias);
-        //$newHash = $new->hash(2);
-
-        //$Uri = Model_Uri::Instance();
-
-
-        //$Uri->setNewAlias($newAlias, $newHash, '1', '10');
-
-    }
-
 }
 
 
