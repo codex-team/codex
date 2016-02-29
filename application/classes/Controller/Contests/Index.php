@@ -17,16 +17,23 @@ class Controller_Contests_Index extends Controller_Base_preDispatch
         $contestId = $this->request->param('contest_id');
 
         $contest = Model_Contests::get($contestId);
-        if ($contest->id == 0)
+        if ($contest->id == 0){
             throw new HTTP_Exception_404();
+        }
 
-//        $this->stats->hit(Model_Stats::CONTEST, $contestId);
 
         /** Add remaining days value */
         if ($contest->dt_close){
 
             $remainingTime = strtotime($contest->dt_close) - time();
             $contest->daysRemaining = floor( $remainingTime / Date::DAY );
+        }
+
+        /**
+        * Add winner User information
+        */
+        if ($contest->winner) {
+            $contest->winner = Model_User::get($contest->winner);
         }
 
         $this->view["contest"] = $contest;
