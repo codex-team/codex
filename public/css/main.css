@@ -1578,4 +1578,7 @@ html {
         background: url('../img/branches@2x.png') no-repeat;
         background-size: 110px auto;
     }
+    .contest .nick::after{
+        background-position: -55px 0;
+    }
 }
