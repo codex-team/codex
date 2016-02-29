@@ -1114,6 +1114,9 @@ html {
 .contest{
     padding: 30px 0;
 }
+    .contest .article_content{
+        padding: 0 30px;
+    }
 .contest .disclaimer, .contest_alert a{
     margin: 40px;
     text-align: center;
@@ -1519,7 +1522,10 @@ html {
     }
     .contest_alert a{
         margin-top: 20px;
-
+    }
+    .contest .result p,
+    .contest .result h2{
+        margin: 20px 30px;
     }
 }
 
