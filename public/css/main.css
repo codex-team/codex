@@ -1519,7 +1519,13 @@ html {
     }
     .contest_alert a{
         margin-top: 20px;
-
+    }
+    .contest .article_content{
+        padding: 0 30px;
+    }
+    .contest .result p,
+    .contest .result h2{
+        margin: 20px 30px;
     }
 }
 
