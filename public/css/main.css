@@ -1293,7 +1293,9 @@ html {
         border-radius: 50%;
     }
 
-    .contests-item--info {}
+    .contests-item--info {
+        padding-left: 180px;
+    }
         .contests-item--title {
             margin: 0;
             padding: 6px 0 10px 0;
