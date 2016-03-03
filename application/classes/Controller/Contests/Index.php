@@ -8,7 +8,23 @@ class Controller_Contests_Index extends Controller_Base_preDispatch
         $this->title = "Конкурсы команды CodeX";
         $this->description = "Здесь собраны конкурсы, которые проводятся внутри нашей команды";
 
-        $this->view["contests"]  = Model_Contests::getActiveContests();
+        $contests = Model_Contests::getActiveContests();
+
+        $this->view['contests'] = array(
+            'opened' => array(),
+            'closed' => array(),
+        );
+
+        foreach ($contests as $contest) {
+
+            if ( $contest->dt_close > date("Y-m-d H:m:s") ){
+                $this->view["contests"]['opened'][] = $contest;
+            } else {
+                $this->view["contests"]['closed'][] = $contest;
+            }
+
+        }
+
         $this->template->content = View::factory('templates/contests/list', $this->view);
     }
 

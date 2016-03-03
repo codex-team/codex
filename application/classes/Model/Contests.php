@@ -11,6 +11,7 @@ Class Model_Contests extends Model
     public $id = 0;
     public $title;
     public $text;
+    public $description;
     public $results;
     public $prize;
     public $dt_create;
@@ -18,6 +19,7 @@ Class Model_Contests extends Model
     public $dt_close;
     public $status;
     public $winner;
+    public $list_icon;
 
     /**
      * Пустой конструктор для модели контестов, если нужно получить контест из хранилища, нужно пользоваться статическими
@@ -167,7 +169,7 @@ Class Model_Contests extends Model
             $contestsQuery->where('status', '=', 1);
         }
 
-        $contest_rows = $contestsQuery->order_by('id', 'DESC')->execute();
+        $contest_rows = $contestsQuery->order_by('dt_create', 'DESC')->execute();
 
         return self::rowsToModels($contest_rows);
     }
