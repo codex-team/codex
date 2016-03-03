@@ -1453,6 +1453,9 @@ html {
     .site_header{
         padding: 0 25px;
     }
+    .site_header .icon_link{
+        font-size: 14px;
+    }
     .site_menu{
         margin: 0;
         white-space: nowrap;
@@ -1460,7 +1463,8 @@ html {
     }
         .site_menu a{
             padding: 18px 0;
-            margin-right: 20px;
+            margin-right: 17px;
+            font-size: 15px;
         }
         .site_header .social_buttons{
             display: none;
@@ -1469,7 +1473,14 @@ html {
         .site_header .login{
             margin-right: 0;
         }
-
+        .site_header .profile{
+            padding-left: 0;
+        }
+        .site_header .ava, .site_header .ava > img{
+            width: 16px;
+            height: 16px;
+            vertical-align: middle;
+        }
     .clarity_page{
         padding: 50px 25px;
     }
