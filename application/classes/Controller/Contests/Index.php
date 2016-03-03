@@ -6,7 +6,7 @@ class Controller_Contests_Index extends Controller_Base_preDispatch
     public function action_showAllContests()
     {
         $this->title = "Конкурсы команды CodeX";
-        $this->description = "Здесь собраны конкурсы, которые проводятся внутри нашей команды";
+        $this->description = "Небольшие конкурсы, которые мы проводим, чтобы размяться, поработать с новыми технологиями и подходами и просто развлечься.";
 
         $contests = Model_Contests::getActiveContests();
 
