@@ -1,12 +1,17 @@
 <div class="center_side clear">
 
-    <div class="page_header">
+    <div class="page_header clearfix">
+
+        <div class="follow_us fl_r">
+            Мы завели канал в Телеграме, где будем анонсировать новые конкурсы и их результаты, а также интересные статьи и инсайды. Подписывайтесь!<br />
+            <a href="//telegram.me/codex_team" target="_blank"><i class="icon_telegram"></i><span>CodeX on Telegram</span></a>
+        </div>
+
         <h1>Конкурсы команды CodeX</h1>
         <div class="description">
             Чтобы развлечься и попрактиковаться в новых областях, мы проводим небольшие конкурсы, в которых каждый может продемонстрировать свой творческий потенциал, соревнуясь за небольшие презенты.
         </div>
     </div>
-
 
     <? if ($contests['opened']): ?>
 

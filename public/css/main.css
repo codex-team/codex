@@ -1295,6 +1295,35 @@ html {
 
 
 
+.follow_us{
+    width: 28%;
+    margin-top: 13px;
+    margin-left: 50px;
+    color: #7183a1;
+}
+    .follow_us a{
+        display: inline-block;
+        margin-top: 15px;
+        white-space: nowrap;
+    }
+        .follow_us a i{
+            vertical-align: middle;
+            margin-right: 14px;
+        }
+        .follow_us a span{
+            display: inline-block;
+            vertical-align: middle;
+            text-decoration: underline;
+        }
+
+.icon_telegram{
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    background: url('../img/icon_telegram.png') no-repeat;
+}
+
+
 
 
 @-webkit-keyframes wobble {
@@ -1614,6 +1643,12 @@ html {
         margin: 15px auto 30px;
     }
 
+    .follow_us{
+        width: auto;
+        float: none;
+        margin: 0 0 50px 0;
+    }
+
 
 
 }
@@ -1669,5 +1704,9 @@ html {
     }
     .contest .nick::after{
         background-position: -55px 0;
+    }
+    .icon_telegram{
+        background: url('../img/icon_telegram@2x.png') no-repeat;
+        background-size: 28px 28px;
     }
 }

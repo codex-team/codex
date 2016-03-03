@@ -1,6 +1,12 @@
 <div class="center_side clear">
 
-    <div class="page_header">
+    <div class="page_header clearfix">
+
+        <div class="follow_us fl_r">
+            Мы завели канал в Телеграме, где будем анонсировать новые статьи, конкурсы и другие интересные новости и инсайды. Подписывайтесь!<br />
+            <a href="//telegram.me/codex_team" target="_blank"><i class="icon_telegram"></i><span>CodeX on Telegram</span></a>
+        </div>
+
         <h1>Статьи команды CodeX</h1>
         <div class="description">
             Здесь собраны наши заметки о приобретенном опыте и результатах наших экспериментов. А еще так мы учимся писать интересные и грамотные тексты.
@@ -36,45 +42,3 @@
     </div>
 
 </div>
-<? /*
-
-  <? foreach ($articles as $current_article): ?>
-    <article class="article">
-
-      <div class="article_image">
-        <img src="/upload/covers/<?= $current_article->cover ?>"
-             alt="<?= $current_article->title ?>"
-             title="<?= $current_article->title ?>"/>
-      </div>
-
-      <div>
-        <h2 class="articleTitle"><?= $current_article->title ?></h2>
-
-        <p>
-          <?= $current_article->description ?>
-        </p>
-      </div>
-
-      <div class="article_footer article_underscore">
-        <a href="/article/<?= $current_article->id ?>" class="read_more">Читать дальше</a>
-
-        <p class="article_tags">
-          <a href='/article/delarticle/<?= $current_article->id ?>'>Удалить</a>
-        </p>
-      </div>
-    </article>
-  <? endforeach; ?>
-
-  <? if (count($articles) == 0): ?>
-    <article class="article">
-      <p>Здесь пока нет ничего =(</p>
-
-      <p>Вы можете стать первым.</p>
-
-      <p><a href="/article/newarticle">Добавить статью</a></p>
-    </article>
-  <? endif; ?>
-
-  */?>
-
-
