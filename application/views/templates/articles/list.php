@@ -3,7 +3,7 @@
     <div class="page_header clearfix">
 
         <div class="follow_us fl_r">
-            Мы завели канал в Телеграме, где будем анонсировать новые статьи, конкурсы и другие интересные новости и инсайды. Подписывайтесь!<br />
+            Мы завели канал в Телеграме, где будем анонсировать новые статьи, конкурсы, наши новости и инсайды. Подписывайтесь!<br />
             <a href="//telegram.me/codex_team" target="_blank"><i class="icon_telegram"></i><span>CodeX on Telegram</span></a>
         </div>
 
