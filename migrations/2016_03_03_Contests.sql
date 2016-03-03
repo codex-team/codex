@@ -60,3 +60,5 @@ ALTER TABLE `Contests`
 --
 ALTER TABLE `Contests`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+
+ALTER TABLE `Contests` ADD `description` TEXT NULL DEFAULT NULL AFTER `title`, ADD `list_icon` VARCHAR(100) NULL DEFAULT NULL AFTER `description`;

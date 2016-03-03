@@ -10,12 +10,18 @@ class Controller_Contests_Index extends Controller_Base_preDispatch
 
         $contests = Model_Contests::getActiveContests();
 
+        $this->view['contests'] = array(
+            'opened' => array(),
+            'closed' => array(),
+        );
+
         foreach ($contests as $contest) {
 
-            if ( $contest->dt_close > date("Y-m-d H:m:s") ) 
+            if ( $contest->dt_close > date("Y-m-d H:m:s") ){
                 $this->view["contests"]['opened'][] = $contest;
-            else 
+            } else {
                 $this->view["contests"]['closed'][] = $contest;
+            }
 
         }
 
