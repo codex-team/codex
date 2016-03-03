@@ -1481,6 +1481,9 @@ html {
             height: 16px;
             vertical-align: middle;
         }
+            .site_header .ava > img{
+                vertical-align: top;
+            }
     .clarity_page{
         padding: 50px 25px;
     }
