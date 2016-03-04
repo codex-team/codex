@@ -139,6 +139,29 @@ input[disabled]
   position: absolute; left: 0; top: 0;
 }
 
+.scroll_button:before {
+    font-family: "codex_ic";
+    content: '\e80f';
+}
+
+.scroll_button {
+    display: none;
+    position: fixed; 
+    bottom: 30px;
+    left: 30px;
+    padding: 32px 27px;
+    border-radius: 2px;
+    background: #eef2f5;
+    color: #bec4d2;
+    font-size: 18px;
+    text-align: center; 
+    cursor:pointer
+}
+
+    .scroll_button.show {
+        display: inline-block;
+    }
+
 .technic{
     display: inline-block;
     padding: 0 4px;
@@ -1511,5 +1534,8 @@ html {
     .contest .line:before{
         background: #fff url('../img/contest_icon_goblet@2x.png') no-repeat 50% 50%;
         background-size: 18px auto;
+    }
+    .scroll_button{
+        display: none !important;
     }
 }

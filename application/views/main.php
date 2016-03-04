@@ -56,9 +56,11 @@
             <div class="social_buttons">
                 <a class="icon_link social" href="//vk.com/codex_team" target="_blank"><i class="icon-vkontakte"></i></a>
             </div>
-        </div>
+        </div>       
     </header>
-
+     
+    <div id="scroll_button" class="scroll_button" onclick="scroll();"></div>
+    
     <?= $content ?>
 
     <footer class="site_footer">
@@ -98,6 +100,26 @@
     <script src="/public/js/main.js?v=<?= filemtime("public/js/main.js") ?>"></script>
     <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter32652805 = new Ya.Metrika({ id:32652805, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="https://mc.yandex.ru/watch/32652805" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     <script type="text/javascript">(window.Image ? (new Image()) : document.createElement('img')).src = location.protocol + '//vk.com/rtrg?r=r/h9TMw6W*8InHxVrFZ4tmb*x6Z5C3xX8BdMxOLhjmn9fIv51wjPMiGmbHGJJd7sOl87xLCs94644RwgS0o2PeBS*/xssAPVS1zN/LOx/HWw2kLUkcg0ELryq4QZF0IJtKIs0pJyo6/*z0qgpPsNl0u8pQPEQ12R4jrwKFQZK4k-';</script>
+    <script>
+
+    var scrollUpButton = document.getElementById('scroll_button');
+
+    window.addEventListener('scroll', checkScroll, false);
+
+    function scroll() {
+        window.scrollTo(0, 0);
+    }
+
+    function checkScroll() {
+        if ( window.pageYOffset > 100 ) {
+            scrollUpButton.classList.add('show')
+        } else {
+            scrollUpButton.classList.remove('show')
+        }                
+    }
+
+    
+</script>
 
 </body>
 </html>
