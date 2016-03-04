@@ -14,7 +14,7 @@ class Controller_Uri extends Controller {
         $sub_action = $this->request->param('subaction');
 
         $model_alias = new Model_Alias();
-        $realRoute = $model_alias->getRealRoute($route);
+        $realRoute = $model_alias->getRealRoute($route, $sub_action);
 
         echo Request::factory($realRoute)->execute();
     }

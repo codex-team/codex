@@ -98,7 +98,7 @@ class Model_Alias
         return $newAlias;
     }
 
-    public function getRealRoute($route)
+    public function getRealRoute($route, $sub_action = null)
     {
         $model_uri = Model_Uri::Instance();
         $hashType = new Sha256();
@@ -109,7 +109,10 @@ class Model_Alias
         if ( empty($alias))
             HTTP::redirect('contests');
 
-        return $model_uri->controllersMap[$alias['type']] . '/' . $alias['id'];
+        if ( $sub_action == null)
+            return $model_uri->controllersMap[$alias['type']] . '/' . $alias['id'];
+        else
+            return $model_uri->controllersMap[$alias['type']] .'/'. $sub_action . $alias['id'];
     }
 
 }
