@@ -11,12 +11,15 @@ Class Model_Contests extends Model
     public $id = 0;
     public $title;
     public $text;
+    public $description;
+    public $results;
     public $prize;
     public $dt_create;
     public $dt_update;
     public $dt_close;
     public $status;
     public $winner;
+    public $list_icon;
 
     /**
      * Пустой конструктор для модели контестов, если нужно получить контест из хранилища, нужно пользоваться статическими
@@ -62,17 +65,10 @@ Class Model_Contests extends Model
      */
     private function fillByRow($contest_row)
     {
-        if (!empty($contest_row['id'])) {
+        if (empty($contest_row['id'])) return $this;
 
-            $this->id           = $contest_row['id'];
-            $this->title        = $contest_row['title'];
-            $this->text         = $contest_row['text'];
-            $this->prize        = $contest_row['prize'];
-            $this->dt_create    = $contest_row['dt_create'];
-            $this->dt_update    = $contest_row['dt_update'];
-            $this->dt_close     = $contest_row['dt_close'];
-            $this->status       = $contest_row['status'];
-            $this->winner       = $contest_row['winner'];
+        foreach ($contest_row as $fieldname => $value) {
+            if (property_exists($this, $fieldname)) $this->$fieldname = $value;
         }
 
         return $this;
@@ -108,6 +104,7 @@ Class Model_Contests extends Model
 
             ->set('title',          $this->title)
             ->set('text',           $this->text)
+            ->set('results',        $this->results)
             ->set('prize',          $this->prize)
             ->set('dt_close',       $this->dt_close)
             ->set('status',         $this->status)
@@ -172,7 +169,7 @@ Class Model_Contests extends Model
             $contestsQuery->where('status', '=', 1);
         }
 
-        $contest_rows = $contestsQuery->order_by('id', 'DESC')->execute();
+        $contest_rows = $contestsQuery->order_by('dt_create', 'DESC')->execute();
 
         return self::rowsToModels($contest_rows);
     }

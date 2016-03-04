@@ -52,6 +52,7 @@
             <div class="site_menu fl_l">
                 <a href="/">CodeX</a>
                 <a href="/articles">Articles</a>
+                <a href="/contests">Contests</a>
             </div>
             <div class="social_buttons">
                 <a class="icon_link social" href="//vk.com/codex_team" target="_blank"><i class="icon-vkontakte"></i></a>
