@@ -38,7 +38,7 @@ Route::set('URI', '<route>(/<subaction>)', array(
  * Default Routes
  */
 
-Route::set('INDEX_PAGE', '')->defaults(array(
+/*Route::set('INDEX_PAGE', '')->defaults(array(
     'controller' => 'index',
     'action' => 'index',
 ));
@@ -63,6 +63,10 @@ Route::set('ARTICLE_LIST', 'articles')->defaults(array(
     'action' => 'showAllArticles',
 ));
 
+*/
+
+
+/*
 Route::set('ARTICLE_PAGE', 'article/<article_id>', array('article_id' => $DIGIT))->defaults(array(
     'controller' => 'articles_index',
     'action' => 'showArticle'
@@ -88,10 +92,12 @@ Route::set('DEL_CONTEST_SCRIPT', 'contests/delcontest/<contest_id>', array('cont
     'action' => 'delete'
 ));
 
+*/
+
 
 // Scripts for articles
 
-Route::set('ADD_ARTICLE_SCRIPT', 'article/addarticle')->defaults(array(
+/*Route::set('ADD_ARTICLE_SCRIPT', 'article/addarticle')->defaults(array(
     'controller' => 'articles_action',
     'action' => 'add'
 ));
@@ -172,7 +178,7 @@ Route::set('ARTICLE_EDITOR_SAVE_IMG', 'editorsaveimg', array())->defaults(array(
 ));
 
 
-
+*/
 
 
 /**
@@ -187,8 +193,8 @@ Route::set('AJAX_FILE_TRANSPORT', 'ajax/transport')->defaults(array(
 
 
 // Defaults
-// Route::set('default', '(<controller>(/<action>(/<id>)))')
-//     ->defaults(array(
-//         'controller' => 'index',
-//         'action'     => 'index',
-//     ));
+ Route::set('ALIASES', '(<controller>(/<action>(/<id>)))')
+     ->defaults(array(
+         'controller' => 'index',
+         'action'     => 'index'
+	 ));

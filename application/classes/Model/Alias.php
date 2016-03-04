@@ -34,7 +34,7 @@ class Model_Alias
     public $dt_create;
 
     /**
-     * Пустой конструктор для модели статьи, если нужно получить статью из хранилища, нужно пользоваться статическими
+     * Пустой конструктор для модели алиасов, если нужно получить статью из хранилища, нужно пользоваться статическими
      * методами
      */
     public function __construct()
@@ -106,13 +106,10 @@ class Model_Alias
         $hashedRoute = $hashType->hash($route);
         $alias = $this->getAlias($hashedRoute);
 
-        if ( empty($alias))
-            HTTP::redirect('contests');
-
-        if ( $sub_action == null)
-            return $model_uri->controllersMap[$alias['type']] . '/' . $alias['id'];
+        if ($sub_action == null)
+            return $model_uri->controllersMap[$alias['type']] . '_' . $model_uri->actionsMap[$model_uri::INDEX] . '/show/' . $alias['id'];
         else
-            return $model_uri->controllersMap[$alias['type']] .'/'. $sub_action . $alias['id'];
+            echo $model_uri->controllersMap[$alias['type']] . '_' . $model_uri->actionsMap[$model_uri::MODIFY] . '/' . $alias['id'] . '/' . $sub_action;
     }
 
 }

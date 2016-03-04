@@ -13,7 +13,7 @@ class Controller_Contests_Action extends Controller_Base_preDispatch
     public function action_delete()
     {
         $user_id = $this->user->id;
-        $contest_id = $this->request->param('contest_id');
+        $contest_id = $this->request->param('id');
 
         if (!empty($contest_id) && !empty($user_id))
         {

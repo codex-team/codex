@@ -8,18 +8,39 @@
 
 class Model_Uri {
 
+    /*
+     *  Modules - Controllers
+     * */
+
     const ARTICLE  = 1;
     const CONTEST  = 2;
     const USER     = 3;
 
+    /*
+     * Actions
+     */
+    const INDEX     = 1;
+    const MODIFY    = 2;
+
     /**
      * Specifies controller to each URI type
      */
+
     public $controllersMap = array(
-        self::ARTICLE => 'article',
-        self::USER    => 'user',
-        self::CONTEST => 'contest'
+        self::ARTICLE   => 'Articles',
+        self::CONTEST   => 'Contests',
+        self::USER      => 'Users',
     );
+
+    public $actionsMap  = array(
+        self::INDEX     => 'Index',
+        self::MODIFY    => 'Modify',
+    );
+
+
+    /**
+     * CLass Methods
+     */
 
     private static $_instance;
     public $hashes = array();

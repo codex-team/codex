@@ -64,24 +64,6 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
             $article->insert();
         }
 
-        /*
-            Здесь, добавляем Алиас в БД для того чтобы роут был таким; &ArticleTitle-Id.
-
-            $hashMaker = new Model_HashUri($article_name);
-            $NewAlias = $hashMaker->generateNewString(); // Возвращает новую сгенерированную строку или ту же строку
-                                                                если в БД ее еще нет
-
-            $NewUri = new Model_Uri();
-            $newUri->setNewAlias($string, $hash, $type, $id);
-
-            String - Сгенерированный роут
-            $hash - хэш сумма этой строки
-            type - Тип (Статья, Контест, Юзер и тд) - в данном случае это Статья, значит - 1
-            id - Ид статьи
-
-            $newUri->setNewAlias($NewAlias, $hashMaker->hash(), 1, $article_id); // Добавляет новый Алиас в БД
-
-         */
         $this->redirect('/article/' . $article->id);
     }
 

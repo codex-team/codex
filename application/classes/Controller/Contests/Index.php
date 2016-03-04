@@ -12,9 +12,9 @@ class Controller_Contests_Index extends Controller_Base_preDispatch
         $this->template->content = View::factory('templates/contests/list', $this->view);
     }
 
-    public function action_showContest()
+    public function action_show()
     {
-        $contestId = $this->request->param('contest_id');
+        $contestId = $this->request->param('id');
 
         $contest = Model_Contests::get($contestId);
         if ($contest->id == 0)
