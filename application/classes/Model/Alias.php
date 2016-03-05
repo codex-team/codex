@@ -108,7 +108,7 @@ class Model_Alias
 
         if ( empty($alias) && $system == false)
             throw new HTTP_Exception_404();
-        
+
         if ($system == true)
         {
             return $model_uri->controllersMap[$systemRouteKey] . '_' . $model_uri->actionsMap[$model_uri::INDEX] . '/showAll/';

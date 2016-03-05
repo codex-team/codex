@@ -3,7 +3,7 @@
 class Controller_Articles_Index extends Controller_Base_preDispatch
 {
 
-    public function action_showAllArticles()
+    public function action_showAll()
     {
         $this->title = "Статьи команды CodeX";
         $this->description = "Здесь собраны заметки о нашем опыте и исследованиях в области веб-разработки, дизайна, маркетинга и организации рабочих процессов";
@@ -12,7 +12,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $this->template->content = View::factory('templates/articles/list', $this->view);
     }
 
-    public function action_showArticle()
+    public function action_show()
     {
         $articleId = $this->request->param('article_id');
 
