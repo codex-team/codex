@@ -3,12 +3,28 @@
 class Controller_Contests_Index extends Controller_Base_preDispatch
 {
 
-    public function action_showAllContests()
+    public function action_showAll()
     {
         $this->title = "Конкурсы команды CodeX";
-        $this->description = "Здесь собраны конкурсы, которые проводятся внутри нашей команды";
+        $this->description = "Небольшие конкурсы, которые мы проводим, чтобы размяться, поработать с новыми технологиями и подходами и просто развлечься.";
 
-        $this->view["contests"]  = Model_Contests::getActiveContests();
+        $contests = Model_Contests::getActiveContests();
+
+        $this->view['contests'] = array(
+            'opened' => array(),
+            'closed' => array(),
+        );
+
+        foreach ($contests as $contest) {
+
+            if ( $contest->dt_close > date("Y-m-d H:m:s") ){
+                $this->view["contests"]['opened'][] = $contest;
+            } else {
+                $this->view["contests"]['closed'][] = $contest;
+            }
+
+        }
+
         $this->template->content = View::factory('templates/contests/list', $this->view);
     }
 
@@ -17,16 +33,23 @@ class Controller_Contests_Index extends Controller_Base_preDispatch
         $contestId = $this->request->param('id');
 
         $contest = Model_Contests::get($contestId);
-        if ($contest->id == 0)
+        if ($contest->id == 0){
             throw new HTTP_Exception_404();
+        }
 
-//        $this->stats->hit(Model_Stats::CONTEST, $contestId);
 
         /** Add remaining days value */
         if ($contest->dt_close){
 
             $remainingTime = strtotime($contest->dt_close) - time();
             $contest->daysRemaining = floor( $remainingTime / Date::DAY );
+        }
+
+        /**
+        * Add winner User information
+        */
+        if ($contest->winner) {
+            $contest->winner = Model_User::get($contest->winner);
         }
 
         $this->view["contest"] = $contest;

@@ -379,6 +379,7 @@ html {
 }
 .page_header h1{
     font-size: 26px;
+    line-height: 1.2em;
 }
 .page_header .description{
     max-width: 500px;
@@ -1112,7 +1113,6 @@ html {
 
 /*** Contests ***/
 .contest{
-    margin: 0 30px;
     padding: 30px 0;
 }
 .contest .disclaimer, .contest_alert a{
@@ -1149,6 +1149,20 @@ html {
         margin-bottom: 70px;
     }
 
+.contest img{
+    max-width: 100%;
+}
+
+.contest .result{
+    padding-top: 80px;
+}
+    .contest .result p,
+    .contest .result h2{
+        margin: 25px 70px;
+    }
+        .contest .result h2{
+            margin-bottom: 2em;
+        }
 
 
 .contest .big_header{
@@ -1176,8 +1190,138 @@ html {
         font-weight: bold;
         line-height: 1.1em;
     }
+.contest .winner{
+    max-width: 300px;
+    margin: 80px auto;
+    text-align: center;
+}
+    .contest .title{
+        color: #aeb5bb;
+        letter-spacing: 1px;
+        font-size: 13px;
+    }
+    .contest .name{
+        margin: 10px 0 7px;
+        color: #495d6f;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .contest .nick{
+        text-decoration: none;
+    }
+        .contest .nick::before,
+        .contest .nick::after{
+            content: '';
+            display: inline-block;
+            margin: 0 4px;
+            width: 55px;
+            height: 26px;
+            background: url('../img/branches.png') no-repeat;
+            vertical-align: top;
+        }
+            .contest .nick::after{
+                background-position: -55px 0;
+            }
+    .contest .toggler{
+        display: inline-block;
+        margin-top: 40px;
+        color: #aeb5bb;
+        text-decoration: none;
+        border-bottom: 1px solid #E9ECF1;
+    }
+        .contest .toggler i{
+            font-size: 12px;
+        }
+
+/*** contest list ***/
+.contests_list {
+    position: relative;
+    margin: 0 30px;
+    border-top: 1px solid #d2dde5;
+}
+    .contests_list::before {
+        display: block;
+        content: attr(data-heading);
+        position: absolute;
+        left: 97px;
+        top: -14px;
+        padding: 3px 15px;
+        background: #fff;
+        color: #b0c4d3;
+        font-variant: small-caps;
+        font-size: 18px;
+        letter-spacing: 1px;
+    }
+
+    .contests_list .item {
+        padding: 50px 0;
+    }
+    .contests_list .date {
+        float: left;
+        width: 60px;
+        color: #a8adb6;
+        text-align: center;
+    }
+        .contests_list time:last-child:before{
+            content: '—';
+            display: block;
+            line-height: .8em
+        }
+
+    .contests_list .icon {
+        width: 79px;
+        height: 52px;
+        margin: 0 30px;
+    }
+        .contests_list .icon img{
+            width: 100%;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: -webkit-optimize-contrast;
+        }
+    .contests_list .title {
+        display: inline-block;
+        margin: 0 0 8px;
+        font-size: 18px;
+        color: inherit;
+        text-decoration: none;
+        font-weight: bold;
+    }
+        .contests_list .title:hover {
+            color: #4888DC;
+        }
+
+
 /*** end of Contests ***/
 
+
+
+.follow_us{
+    width: 33%;
+    margin-top: 27px;
+    margin-left: 50px;
+    color: #7183a1;
+}
+    .follow_us a{
+        display: inline-block;
+        margin-top: 15px;
+        white-space: nowrap;
+    }
+        .follow_us a i{
+            vertical-align: middle;
+            margin-right: 14px;
+        }
+        .follow_us a span{
+            display: inline-block;
+            vertical-align: middle;
+            text-decoration: underline;
+        }
+
+.icon_telegram{
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    background: url('../img/icon_telegram.png') no-repeat;
+}
 
 
 
@@ -1309,6 +1453,9 @@ html {
     .site_header{
         padding: 0 25px;
     }
+    .site_header .icon_link{
+        font-size: 14px;
+    }
     .site_menu{
         margin: 0;
         white-space: nowrap;
@@ -1316,7 +1463,8 @@ html {
     }
         .site_menu a{
             padding: 18px 0;
-            margin-right: 20px;
+            margin-right: 17px;
+            font-size: 15px;
         }
         .site_header .social_buttons{
             display: none;
@@ -1325,7 +1473,17 @@ html {
         .site_header .login{
             margin-right: 0;
         }
-
+        .site_header .profile{
+            padding-left: 0;
+        }
+        .site_header .ava, .site_header .ava > img{
+            width: 16px;
+            height: 16px;
+            vertical-align: middle;
+        }
+            .site_header .ava > img{
+                vertical-align: top;
+            }
     .clarity_page{
         padding: 50px 25px;
     }
@@ -1464,8 +1622,49 @@ html {
     }
     .contest_alert a{
         margin-top: 20px;
-
     }
+    .contest .article_content{
+        padding: 0 30px;
+    }
+    .contest .result p,
+    .contest .result h2{
+        margin: 20px 30px;
+    }
+
+    .contests_list .date,
+    .contests_list .icon{
+        float: none;
+    }
+    .contests_list .date{
+        width: auto;
+    }
+    .contests_list time:last-child:before{
+        display: inline-block;
+        margin: 0 5px 0 2px;
+    }
+    .contests_list::before{
+        left: 50%;
+        width: 50px;
+        padding: 3px 0;
+        margin-left: -25px;
+        text-align: center;
+    }
+    .contests_list .item{
+        padding: 25px 0
+    }
+    .contests_list .icon{
+        display: block;
+        margin: 15px auto 30px;
+    }
+
+    .follow_us{
+        width: auto;
+        float: none;
+        margin: 0 0 50px 0;
+    }
+
+
+
 }
 
 
@@ -1511,5 +1710,17 @@ html {
     .contest .line:before{
         background: #fff url('../img/contest_icon_goblet@2x.png') no-repeat 50% 50%;
         background-size: 18px auto;
+    }
+    .contest .nick::before,
+    .contest .nick::after{
+        background: url('../img/branches@2x.png') no-repeat;
+        background-size: 110px auto;
+    }
+    .contest .nick::after{
+        background-position: -55px 0;
+    }
+    .icon_telegram{
+        background: url('../img/icon_telegram@2x.png') no-repeat;
+        background-size: 28px 28px;
     }
 }

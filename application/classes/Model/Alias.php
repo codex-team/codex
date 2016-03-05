@@ -98,7 +98,7 @@ class Model_Alias
         return $newAlias;
     }
 
-    public function getRealRoute($route, $sub_action = null)
+    public function getRealRoute($route, $sub_action = null, $system = false, $systemRouteKey = null)
     {
         $model_uri = Model_Uri::Instance();
         $hashType = new Sha256();
@@ -106,10 +106,18 @@ class Model_Alias
         $hashedRoute = $hashType->hash($route);
         $alias = $this->getAlias($hashedRoute);
 
+        if ( empty($alias) && $system == false)
+            throw new HTTP_Exception_404();
+        
+        if ($system == true)
+        {
+            return $model_uri->controllersMap[$systemRouteKey] . '_' . $model_uri->actionsMap[$model_uri::INDEX] . '/showAll/';
+        }
+
         if ($sub_action == null)
             return $model_uri->controllersMap[$alias['type']] . '_' . $model_uri->actionsMap[$model_uri::INDEX] . '/show/' . $alias['id'];
         else
-            echo $model_uri->controllersMap[$alias['type']] . '_' . $model_uri->actionsMap[$model_uri::MODIFY] . '/' . $alias['id'] . '/' . $sub_action;
+            return $model_uri->controllersMap[$alias['type']] . '_' . $model_uri->actionsMap[$model_uri::MODIFY] . '/' . $alias['id'] . '/' . $sub_action;
     }
 
 }

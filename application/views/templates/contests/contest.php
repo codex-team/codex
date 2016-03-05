@@ -1,5 +1,5 @@
-<div class="center_side clear">
-    <article class="contest" itemscope itemtype="http://schema.org/CreativeWork ">
+<article class="contest" itemscope itemtype="http://schema.org/CreativeWork ">
+    <div class="center_side clear">
 
         <? if (!empty($contest->dt_update)): ?>
             <meta itemprop="dateModified" content="<?= date(DATE_ISO8601, strtotime($contest->dt_update)) ?>" />";
@@ -20,14 +20,43 @@
                 <td>
                     <? if (!empty($contest->daysRemaining) && $contest->daysRemaining > 0): ?>
                         <?= $methods->num_decline($contest->daysRemaining, 'остался ' . $contest->daysRemaining . ' день', 'осталось ' . $contest->daysRemaining . ' дня', 'осталось ' . $contest->daysRemaining . ' дней'); ?>
-                    <? else: ?>
+                    <? elseif(!$contest->winner): ?>
                         <i class="icon-ok"></i> Скоро результаты
+                    <? else: ?>
+                        <i class="icon-ok"></i> Конкурс завершен
                     <? endif; ?>
                 </td>
             </tr>
         </table>
+
+        <? if ($contest->winner): ?>
+            <div class="winner">
+                <div class="title">победитель определен</div>
+                <div class="name"><?= $contest->winner->name ?></div>
+                <? if ($contest->winner->github_uri): ?>
+                    <a class="nick" href="/user/<?= $contest->winner->id ?>">
+                        <?= '@' . $contest->winner->github_uri ?>
+                    </a>
+                <? endif ?>
+                <? if ($contest->results): ?>
+                    <a class="toggler" href="/contest/<?= $contest->id ?>#results">лучшие работы <i class="icon-down-big"></i></a>
+                <? endif; ?>
+            </div>
+        <? endif ?>
+    </div>
+    <div class="center_side">
         <div class="article_content"  itemprop="contestBody">
             <?= nl2br($contest->text) ?>
         </div>
-    </article>
-</div>
+    </div>
+    <? if ($contest->results): ?>
+        <div class="result" id="results">
+            <div class="center_side">
+                <h2>Результаты</h2>
+            </div>
+            <?= $contest->results ?>
+        </div>
+    <? endif ?>
+
+
+</article>

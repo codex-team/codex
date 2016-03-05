@@ -42,6 +42,7 @@ class Model_Uri {
      * CLass Methods
      */
 
+    public $system = null;
     private static $_instance;
     public $hashes = array();
 
@@ -58,13 +59,10 @@ class Model_Uri {
         return self::$_instance;
     }
 
-    public function getForbiddenAliases()
+    public function getForbiddenAliases($action)
     {
-        $select = Dao_Forbidden::select()->execute();
+        $select = Dao_Forbidden::select()->where('string', '=', $action)->execute();
 
-        foreach($select as $key => $value)
-            $result[] = $value['string'];
-
-        return $result;
+       return Arr::get($select, '0');
     }
 }

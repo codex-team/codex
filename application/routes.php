@@ -23,10 +23,10 @@ Route::set('URI', '<route>(/<subaction>)', array(
 		$action = $params['route'];
 
 		$model_uri = Model_Uri::Instance();
-		$forbidden = $model_uri->getForbiddenAliases();
+		$system = $model_uri->getForbiddenAliases($action);
 
-		if ( in_array($action, $forbidden))
-			return FALSE;
+		if ( count($system) > 0)
+			$model_uri->system = $system['string'];
 
 	})
 	->defaults(array(
