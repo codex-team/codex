@@ -26,6 +26,7 @@ class Controller_Uri extends Controller {
             $realRoute = $model_alias->getRealRoute($route, $sub_action, false, null);
         }
 
+
         echo Request::factory($realRoute)->execute();
     }
 }

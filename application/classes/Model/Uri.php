@@ -9,7 +9,7 @@
 class Model_Uri {
 
     /*
-     *  Modules - Controllers
+     *  Controllers
      * */
 
     const ARTICLE  = 1;
@@ -44,7 +44,6 @@ class Model_Uri {
 
     public $system = null;
     private static $_instance;
-    public $hashes = array();
 
     private function __construct() {
     }
@@ -61,8 +60,8 @@ class Model_Uri {
 
     public function getForbiddenAliases($action)
     {
-        $select = Dao_Forbidden::select()->where('string', '=', $action)->execute();
+        $select = Dao_Forbidden::select()->where('string', '=', $action)->limit(1)->execute();
 
-       return Arr::get($select, '0');
+       return $select;
     }
 }

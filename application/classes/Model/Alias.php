@@ -41,7 +41,7 @@ class Model_Alias
     {
     }
 
-    public static function set($alias)
+    public function set($alias)
     {
         $this->uri          =   $alias['uri'];
         $this->hash         =   $alias['hash'];
@@ -65,29 +65,33 @@ class Model_Alias
     private function getAlias($hash = null)
     {
         $alias  =   Dao_Alias::select()
-                            ->where('hash', '=', $hash);
+                            ->where('hash', '=', $hash)->limit(1);
 
         $alias = $alias->execute();
 
-        $model = new Model_Alias();
-        return Arr::get($alias, '0', '');
+        return $alias;
     }
 
     public function generateAlias($route)
     {
+
         $hashType = new Sha256();
         $hashedRoute = $hashType->hash($route);
 
-        $alias  = $this->getAlias($hashedRoute);
+        $alias  = $this->getAlias($hashedRoute);    // Проверяет хэш алиаса, существует ли такой Алиас в БД
 
-        $newAlias = $route;
+        $newAlias = $route;                         // Устанавливаем передаваемый роут как дефолтный
 
         if ( !empty($alias) )
         {
+            /*
+             * Если в БД есть Алиас похожий на $route, то в цикле перебираем индексы от 1 до бесконечности,
+             * до тех пор, пока не найдем не совпадающий Алиас
+             */
             for($index = 1; ; $index++)
             {
-                $newAlias = $newAlias.'-'.$index;
-                if ( empty($this->getAlias($hashType->hash($newAlias))))
+                $newAlias = $newAlias.'-'.$index;       // Генерируем Алиасы $route'-'$index
+                if ( empty($this->getAlias($hashType->hash($newAlias))))    // Проверка, если нет такого Алиаса, тогда добавляем в БД
                 {
                     return $newAlias;
                     break;
@@ -106,11 +110,15 @@ class Model_Alias
         $hashedRoute = $hashType->hash($route);
         $alias = $this->getAlias($hashedRoute);
 
-        if ( empty($alias) && $system == false)
+        if ( empty($alias) && $system == false)     // Если переданные параметры нет в БД и не являются системными
             throw new HTTP_Exception_404();
 
         if ($system == true)
         {
+            /**
+             * @systemRouteKey - индекс переданного системного роута( из массива ControllersMap )
+             */
+
             return $model_uri->controllersMap[$systemRouteKey] . '_' . $model_uri->actionsMap[$model_uri::INDEX] . '/showAll/';
         }
 
