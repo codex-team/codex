@@ -139,10 +139,6 @@ input[disabled]
   position: absolute; left: 0; top: 0;
 }
 
-.scroll_button:before {
-    font-family: "codex_ic";
-    content: '\e80f';
-}
 
 .scroll_button {
     display: none;
@@ -157,6 +153,16 @@ input[disabled]
     text-align: center; 
     cursor:pointer
 }
+
+    .scroll_button:hover {
+        background-color: #e9edf3;
+        color: #b8beca;
+    }
+
+    .scroll_button:before {
+        font-family: "codex_ic";
+        content: '\e80f';
+    }
 
     .scroll_button.show {
         display: inline-block;

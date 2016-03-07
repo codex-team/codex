@@ -537,3 +537,37 @@ if ( !String.prototype.includes ) {
 
   };
 }
+
+/**
+* Page scroll offset to show scroll-up button
+*/
+const SCROLL_UP_OFFSET = 100;
+
+
+var scrollUp = {
+        
+    button: document.getElementById('scroll_button'),    
+
+    scrollPage : function(){window.scrollTo(0, 0);},        
+
+    windowScrollHandler : function(){ 
+
+        if (window.pageYOffset > SCROLL_UP_OFFSET) {
+
+            scrollUp.button.classList.add('show')
+
+        } else {
+
+            scrollUp.button.classList.remove('show')
+
+        }      
+    }
+    
+}
+
+document.addEventListener("DOMContentLoaded", function(event) { 
+
+    window.addEventListener("scroll", scrollUp.windowScrollHandler);
+    scrollUp.button.addEventListener("click", scrollUp.scrollPage);
+
+});
