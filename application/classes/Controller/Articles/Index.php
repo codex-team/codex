@@ -30,6 +30,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $this->view["randomArticles"] = Model_Article::getRandomArticles($articleId);
 
         $this->title = $article->title;
+        $this->description = $article->description;
 
         $this->template->content = View::factory('templates/articles/article', $this->view);
     }
