@@ -252,10 +252,11 @@ Class Model_Article extends Model
 
         return array_slice($allArticles, 0, $numberOfRandomArticles);
     }
-    
+
     /**
-     * Метод достает все статьи из БД, сортирует их в порядке убывания по популярности,
-     * берет 10 самых популярных статей, мешает их, и возвращает три первые(по умолчанию).
+     * Метод проверяет, есть ли в кеше статьи отсортированные по популярности,
+     * если нет, тогда достает их из базы и сортирует в порядке убывания просмотров и кеширует.
+     * Затем, полученный массив перемешивает, и достает три первых статьи и возвращает их.
      *
      * @param int $currentArticleId - айди статьи, на странице которой выдаетсяблок популярных статей.
      * @param int $numberOfArticles - сколько популярных статей выводить.
@@ -263,18 +264,26 @@ Class Model_Article extends Model
      */
     public static function getPopularArticles($currentArticleId, $numberOfArticles = 3)
     {
-        $allArticles = self::getArticles(false, false, 10);
-        $stats = new Model_Stats();
+        $memcache = Cache::instance('memcache');
 
-        foreach ( $allArticles as $key => $article ){
-            $article->views = $stats->get(Model_Stats::ARTICLE, $article->id);
-            if ( $article->id == $currentArticleId ) unset($allArticles[$key]);
+        if ( $memcache->get('pop_articles') ) {
+            $allArticles = $memcache->get('pop_articles');
+        } else {
+            $allArticles = self::getArticles(false, false, 10);
+            $stats = new Model_Stats();
+
+            foreach ( $allArticles as $key => $article ){
+                $article->views = $stats->get(Model_Stats::ARTICLE, $article->id);
+                if ( $article->id == $currentArticleId ) unset($allArticles[$key]);
+            }
+
+            // сортируем массив статей в порядке убывания по просмотрам
+            usort($allArticles, function($a, $b){
+                return ($a->views < $b->views) ? 1 : -1;
+            });
+
+            $memcache->set('pop_articles', $allArticles, null, 60);
         }
-
-        // сортируем массив статей в порядке убывания по просмотрам
-        usort($allArticles, function($a, $b){
-            return ($a->views < $b->views) ? 1 : -1;
-        });
 
         $mostPopularArticles = array_slice($allArticles, 0, 10);
         shuffle($mostPopularArticles);
