@@ -12,15 +12,14 @@
                 <input type="text" name="title">
             <? endif; ?>
 
-            Содержание:<hr>
-            <textarea name="text" id="codex_editor" cols="30" rows="10">
+            Содержание:
+            <textarea name="article_text" id="codex_editor" cols="30" rows="10">
                 <? if (isset($article)): ?>
                     <?= $article->text ?>
                 <? else: ?>
                     <h2>Введение</h2>
                 <? endif; ?>
             </textarea>
-            <hr>
 
             <div>
                 <? if (isset($article) && $article->is_published): ?>
@@ -34,24 +33,4 @@
 
     </article>
 
-    <!--<div class="article_form_buttons">
-        <button id="codex_editor_export_btn" class="button master">Сохранить</button>
-    </div>-->
-
 </div>
-
-<!--<script src="/public/extensions/codex.editor/ce_interface.js"></script> -->
-<script>
-
-    function ready(f){
-        /in/.test(document.readyState) ? setTimeout(ready,9,f) : f();
-    }
-
-    /** Document is ready */
-    ready(function() {
-        window.cEditor = new ce({
-            tools : ['header']
-        });
-    })
-
-</script>
