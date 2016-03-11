@@ -11,8 +11,8 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
             $this->redirect('/');
         };
 
-        $article_id                  = Arr::get($_POST, 'article_id');
-        $article = Model_Article::get($article_id);
+        $article_id = Arr::get($_POST, 'article_id');
+        $article    = Model_Article::get($article_id);
 
         if ($article->user_id != $user_id && !$this->user->checkAccess(array(Model_User::ROLE_ADMIN)))
             throw new HTTP_Exception_403();
@@ -21,7 +21,7 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
             $article = new Model_Article();
 
         $article->title          = Arr::get($_POST,'title');
-        $article->text           = html_entity_decode(Arr::get($_POST,'text'));
+        $article->text           = html_entity_decode(str_replace('amp;', '', Arr::get($_POST,'text')));
         $article->is_published   = (Arr::get($_POST, 'is_published'))? 1 : 0;
 //        $cover                   = Arr::get($_FILES,'cover');
 
@@ -33,21 +33,19 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
         if ($article->text != '')        { $table_values['text'] = array('value' => $article->text); }
             else { $errors = TRUE; }
 
-//        if (!Upload::valid($cover) or
-//            !Upload::not_empty($cover) or
-//            !Upload::type($cover, array('jpg', 'jpeg', 'png')) or
-//            !Upload::size($cover, '10M'))
-//        {
-//            $table_values['cover'] = TRUE;
-//            $errors = TRUE;
-//        }
+/*       if (!Upload::valid($cover) or
+           !Upload::not_empty($cover) or
+           !Upload::type($cover, array('jpg', 'jpeg', 'png')) or
+           !Upload::size($cover, '10M'))
+       {
+           $table_values['cover'] = TRUE;
+           $errors = TRUE;
+       }
+*/
 
         if ($errors)
         {
-            // $this->view["editor"] = View::factory('templates/articles/editor', array("storedNodes" => $table_values['text']['value']));
-
-            $content = View::factory('templates/articles/create', $this->view);
-
+            $this->template->content = View::factory('templates/articles/create', $this->view);
             return false;
         }
 
@@ -65,6 +63,19 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
         }
 
         $this->redirect('/article/' . $article->id);
+    }
+
+    public function action_edit()
+    {
+        $article_id = $this->request->param('article_id');
+        $article = Model_Article::get($article_id);
+
+        if ($article->author->id == $this->user->id){
+            $this->view['article'] = $article;
+            $this->template->content = View::factory('templates/articles/create', $this->view);
+        } else {
+            throw new HTTP_Exception_403();
+        }
     }
 
     public function action_delete()

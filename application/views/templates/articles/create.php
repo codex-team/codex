@@ -2,7 +2,7 @@
 
     <article class="article">
 
-        <form method="POST" action="/article/addarticle" enctype="multipart/form-data" id="edit_article_form">
+        <form method="POST" action="/article/add" enctype="multipart/form-data" id="edit_article_form">
 
             Заголовок:
             <? if (isset($article)): ?>
@@ -29,18 +29,18 @@
                     <input type="checkbox" name="is_published"> Опубликовать
                 <? endif; ?>
             </div>
-
+            <input type="submit" value="Сохранить" name="submit"/>
         </form>
 
     </article>
 
-    <div class="article_form_buttons">
+    <!--<div class="article_form_buttons">
         <button id="codex_editor_export_btn" class="button master">Сохранить</button>
-    </div>
+    </div>-->
 
 </div>
 
-<script src="/public/extensions/codex.editor/ce_interface.js"></script>
+<!--<script src="/public/extensions/codex.editor/ce_interface.js"></script> -->
 <script>
 
     function ready(f){
