@@ -25,6 +25,19 @@
 
             <?= nl2br($article->text) ?>
 
+            <div class="social_share clearfix">
+                Если вам понравилась статья, опубликуйте ссылку на нее
+                <div class="links">
+                    <a href="#" class="social_button vk">                        
+                        Поделиться
+                    </a>
+                    <a href="#" class="social_button tw">                        
+                    </a>
+                    <a href="#" class="social_button fb">
+                    </a>
+                </div>
+            </div>
+
             <ul class="random_articles">
 
                 <h3>Читайте далее</h3>

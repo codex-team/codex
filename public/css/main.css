@@ -1759,3 +1759,68 @@ html {
 
     }
 }
+
+
+.social_share {
+    background: #f1f5f8;
+    width: 100%;
+    padding: 34px 0px 32px 41px;
+    color: #636473;
+    font-size: 16px;    
+}
+
+.social_share .links {
+    float: right;
+    margin-right: 36px;
+}
+
+    .social_share a.social_button {
+        font-size: 16px;
+        color: #A1ACC1;
+        text-decoration: none;
+        border: 0;
+    }
+
+    .social_share  a.vk {
+        color: #fff;
+        margin-right: 23px;
+    }
+
+        .vk {
+            padding: 9px 13px 9px 12px;
+            background-color: #607CB6;
+            font-size: 16px;
+            border-radius: 18px;
+            box-sizing: border-box;
+            line-height: 1em;    
+        }
+
+            .vk:before {
+                font-size: 18px;
+                font-family: "codex_ic";
+                content: '\e800';
+                padding: 0px 5px 0px 3px;
+             }
+
+
+
+    .social_share  a.tw {
+        margin-right: 16px;
+    }
+
+        .tw:before {
+            font-family: "codex_ic";
+            content: '\e801';
+            font-size: 22px;
+            line-height: 23px;
+            vertical-align: bottom;
+        }
+
+
+.fb:before {
+    font-family: "codex_ic";
+    content: '\e802';
+    font-size: 19px;
+    line-height: 24px;
+    vertical-align: bottom;
+}
