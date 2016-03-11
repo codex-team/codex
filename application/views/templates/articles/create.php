@@ -2,9 +2,9 @@
 
     <article class="article">
 
-        <form method="POST" action="/article/add" enctype="multipart/form-data" id="edit_article_form">
+        <form method="POST" action="/article/add" enctype="multipart/form-data" id="edit_article_form" class="edit_article_form">
 
-            Заголовок:
+            <label for="title">Заголовок:</label>
             <? if (isset($article)): ?>
                 <input type="hidden" name="article_id" value="<?= $article->id; ?>">
                 <input type="text" name="title" value="<?= $article->title; ?>">
@@ -12,7 +12,7 @@
                 <input type="text" name="title">
             <? endif; ?>
 
-            Содержание:
+            <label for="article_text">Содержание:</label>
             <textarea name="article_text" id="codex_editor" cols="30" rows="10">
                 <? if (isset($article)): ?>
                     <?= $article->text ?>
@@ -23,9 +23,9 @@
 
             <div>
                 <? if (isset($article) && $article->is_published): ?>
-                    <input type="checkbox" name="is_published" value="1" checked> Опубликовать
+                    <p><input type="checkbox" name="is_published" value="1" checked> Опубликовать</p>
                 <? else: ?>
-                    <input type="checkbox" name="is_published"> Опубликовать
+                    <p><input type="checkbox" name="is_published"> Опубликовать</p>
                 <? endif; ?>
             </div>
             <input type="submit" value="Сохранить" name="submit"/>
