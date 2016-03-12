@@ -10,7 +10,7 @@ class Model_Uri {
 
     /*
      *  Controllers
-     * */
+     */
 
     const ARTICLE  = 1;
     const CONTEST  = 2;
@@ -36,7 +36,6 @@ class Model_Uri {
         self::INDEX     => 'Index',
         self::MODIFY    => 'Modify',
     );
-
 
     /**
      * CLass Methods
