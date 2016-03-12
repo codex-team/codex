@@ -57,9 +57,11 @@
             <div class="social_buttons">
                 <a class="icon_link social" href="//vk.com/codex_team" target="_blank"><i class="icon-vkontakte"></i></a>
             </div>
-        </div>
+        </div>       
     </header>
-
+     
+    <div id="scroll_button" class="scroll_button"></div>
+    
     <?= $content ?>
 
     <footer class="site_footer">

@@ -230,14 +230,14 @@ Class Model_Article extends Model
     }
 
 
-   /**
-    * Метод достает из БД все статьи, кеширует их на пять минут и выбирает из них три рандомные статьи.
-    * В перспективе этот метод заменит метод, с выборкой трех популярных статей, либо персональных рекомендаций статей.
-    *
-    * @param $currentArticleId - передается айди статьи, на странице которой выводится блок "Читайте далее".
-    * @param $numberOfRandomArticles - сколько рандомных статей выводить.
-    * @return array ModelArticle - массив объектов Article.
-    */
+    /**
+     * Метод достает из БД все статьи, кеширует их на пять минут и выбирает из них три рандомные статьи.
+     * В перспективе этот метод заменит метод, с выборкой трех популярных статей, либо персональных рекомендаций статей.
+     *
+     * @param $currentArticleId - передается айди статьи, на странице которой выводится блок "Читайте далее".
+     * @param $numberOfRandomArticles - сколько рандомных статей выводить.
+     * @return array Model_Article - массив объектов Article.
+     */
     public static function getRandomArticles($currentArticleId, $numberOfRandomArticles = 3)
     {
         //получаем все статьи и кэшируем их на 5 минут
@@ -251,5 +251,42 @@ Class Model_Article extends Model
         shuffle($allArticles);
 
         return array_slice($allArticles, 0, $numberOfRandomArticles);
+    }
+
+    /**
+     * Метод проверяет, есть ли в кеше статьи отсортированные по популярности,
+     * если нет, тогда достает их из базы и сортирует в порядке убывания просмотров и кеширует.
+     * Затем, полученный массив перемешивает, и достает три первых статьи и возвращает их.
+     *
+     * @param int $currentArticleId - айди статьи, на странице которой выдаетсяблок популярных статей.
+     * @param int $numberOfArticles - сколько популярных статей выводить.
+     * @return array of Model_Article - массив объектов Model_Article.
+     */
+    public static function getPopularArticles($currentArticleId, $numberOfArticles = 3)
+    {
+        $memcache = Cache::instance('memcache');
+        $allArticles = $memcache->get('pop_articles');
+
+        if (!$allArticles){
+            $allArticles = self::getArticles(false, false, 10);
+            $stats = new Model_Stats();
+
+            foreach ( $allArticles as $key => $article ){
+                $article->views = $stats->get(Model_Stats::ARTICLE, $article->id);
+                if ( $article->id == $currentArticleId ) unset($allArticles[$key]);
+            }
+
+            // сортируем массив статей в порядке убывания по просмотрам
+            usort($allArticles, function($a, $b){
+                return ($a->views < $b->views) ? 1 : -1;
+            });
+
+            $memcache->set('pop_articles', $allArticles, null, Date::HOUR);
+        }
+
+        $mostPopularArticles = array_slice($allArticles, 0, 10);
+        shuffle($mostPopularArticles);
+
+        return array_slice($mostPopularArticles, 0, $numberOfArticles);
     }
 }
