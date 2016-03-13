@@ -13,13 +13,12 @@
             <? endif; ?>
 
             <label for="article_text">Содержание:</label>
-            <textarea name="article_text" id="codex_editor" cols="30" rows="10">
-                <? if (isset($article)): ?>
-                    <?= $article->text ?>
-                <? else: ?>
-                    <h2>Введение</h2>
-                <? endif; ?>
-            </textarea>
+            <? if (isset($article)): ?>
+                <textarea name="article_text" id="codex_editor" cols="30" rows="10"><?= $article->text ?>      </textarea>
+            <? else: ?>
+                <textarea name="article_text" id="codex_editor" cols="30" rows="10"></textarea>
+            <? endif; ?>
+
 
             <div>
                 <? if (isset($article) && $article->is_published): ?>
