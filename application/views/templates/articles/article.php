@@ -24,7 +24,6 @@
         <div class="article_content"  itemprop="articleBody">
 
             <?= nl2br($article->text) ?>
-
             <ul class="random_articles">
 
                 <h3>Читайте далее</h3>

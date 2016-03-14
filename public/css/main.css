@@ -789,6 +789,18 @@ html {
     padding-left: 30px;
 }
 
+.edit_article_form label {
+    margin: 30px 0 24px 0;
+    display: block;
+}
+.edit_article_form input[type="text"] {
+    margin-bottom: 25px;
+}
+.edit_article_form p {
+    margin: 30px 0;
+    display: block;
+}
+
 .page_block{
     margin-top: 50px;
 }
