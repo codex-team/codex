@@ -19,14 +19,16 @@ Route::set('URI', '<route>(/<subaction>)', array(
 	))
 	->filter(function($route, $params, $request)
 	{
-		$action = $params['route'];
+		$alias = $params['route'];
 
 		$model_uri = Model_Uri::Instance();
-		$system = $model_uri->getForbiddenAliases($action);
+		$system = $model_uri->getForbiddenAliases($alias);
 
-		if ( count($system) > 0)
-			$model_uri->system = $system['uri'];
+        if ( $alias == 'auth')
+            return false;
 
+        if ( count($system) > 0)
+            $model_uri->system = $system['uri'];
 	})
 	->defaults(array(
 		'controller' => 'Uri',
@@ -111,7 +113,7 @@ Route::set('USER_PROFILE', 'user(/<user_id>)', array('user_id' => $DIGIT))->defa
 Route::set('USER_SETTINGS', 'user/settings')->defaults(array(
 	'controller' => 'users_index',
 	'action'     => 'settings'
-));
+));*/
 
 // Scripts for comments
 
@@ -158,7 +160,6 @@ Route::set('ADMIN', 'admin(/<category>(/<list>))', array('category' => 'articles
         'action' => 'index'
     ));
 
-*/
 
 // - viz redaktor -
 
