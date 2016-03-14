@@ -44,20 +44,15 @@ class Model_Alias
 
     public function generateAlias($route)
     {
-        $alias  = $this->getAlias($route);              // Проверяет хэш алиаса, существует ли такой Алиас в БД
-        $newAlias = $route;                             // Устанавливаем передаваемый роут как дефолтный
-
+        $alias  = $this->getAlias($route);
+        $newAlias = $route;
         if ( !empty($alias) )
         {
-            /*
-             * Если в БД есть Алиас похожий на $route, то в цикле перебираем индексы от 1 до бесконечности,
-              до тех пор, пока не найдем несуществующий Алиас
-             */
             for($index = 1; ; $index++)
             {
-                $newAlias = $newAlias.'-'.$index;                       // Генерируем Алиасы $route'-'$index
+                $newAlias = $newAlias.'-'.$index;
 
-                if ( empty($this->getAlias(md5($newAlias, true)) ) )    // Проверка cгенерированного Алиаса
+                if ( empty($this->getAlias(md5($newAlias, true)) ) )
                 {
                     return $newAlias;
                     break;
@@ -65,24 +60,23 @@ class Model_Alias
             }
         }
 
-        return $newAlias;                                               // Возвращает новый Алиас
+        return $newAlias;
     }
 
+    /**
+     *@params $systemRouteKey - индекс переданного системного роута( из массива ControllersMap )
+     */
     public function getRealRoute($route, $sub_action = null, $system = false, $systemRouteKey = null)
     {
         $model_uri = Model_Uri::Instance();
 
         $alias = $this->getAlias($route);
 
-        if ( empty($alias) && $system == false)        // Если переданные параметры нет в БД и не являются системными
+        if ( empty($alias) && $system == false)
             throw new HTTP_Exception_404();
 
         if ($system == true)
         {
-            /**
-             * @systemRouteKey - индекс переданного системного роута( из массива ControllersMap )
-             */
-
             return $model_uri->controllersMap[$systemRouteKey] . '_' . $model_uri->actionsMap[$model_uri::INDEX] . '/showAll/';
         }
 

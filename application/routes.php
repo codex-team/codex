@@ -14,7 +14,6 @@ $QUERY =  '[0-9a-zA-Zа-яёА-ЯЁ\s\-\.]+$';
 /**
  * New URIes
  */
-
 Route::set('URI', '<route>(/<subaction>)', array(
 		'route' => $STRING,
 	))
@@ -26,13 +25,14 @@ Route::set('URI', '<route>(/<subaction>)', array(
 		$system = $model_uri->getForbiddenAliases($action);
 
 		if ( count($system) > 0)
-			$model_uri->system = $system['string'];
+			$model_uri->system = $system['uri'];
 
 	})
 	->defaults(array(
 		'controller' => 'Uri',
 		'action' => 'get',
 	));
+
 
 /**
  * Default Routes
@@ -63,18 +63,9 @@ Route::set('ARTICLE_LIST', 'articles')->defaults(array(
     'action' => 'showAllArticles',
 ));
 
-*/
-
-
-/*
 Route::set('ARTICLE_PAGE', 'article/<article_id>', array('article_id' => $DIGIT))->defaults(array(
     'controller' => 'articles_index',
     'action' => 'showArticle'
-));
-
-Route::set('NEW_ARTICLE_PAGE', 'articles/create')->defaults(array(
-    'controller' => 'articles_index',
-    'action' => 'createArticle'
 ));
 
 Route::set('CONTESTS_LIST', 'contests')->defaults(array(
@@ -92,14 +83,16 @@ Route::set('DEL_CONTEST_SCRIPT', 'contests/delcontest/<contest_id>', array('cont
     'action' => 'delete'
 ));
 
-*/
-
-
 // Scripts for articles
 
-/*Route::set('ADD_ARTICLE_SCRIPT', 'article/addarticle')->defaults(array(
+Route::set('ADD_ARTICLE_SCRIPT', 'article/add')->defaults(array(
     'controller' => 'articles_action',
     'action' => 'add'
+));
+
+Route::set('EDIT_ARTICLE_SCRIPT', 'article/edit/<article_id>', array('article_id' => $DIGIT))->defaults(array(
+    'controller' => 'articles_action',
+    'action' => 'edit'
 ));
 
 Route::set('DEL_ARTICLE_SCRIPT', 'article/delarticle/<article_id>', array('article_id' => $DIGIT))->defaults(array(
@@ -165,6 +158,8 @@ Route::set('ADMIN', 'admin(/<category>(/<list>))', array('category' => 'articles
         'action' => 'index'
     ));
 
+*/
+
 // - viz redaktor -
 
 Route::set('EDITOR_LANDING', 'editor', array())->defaults(array(
@@ -177,19 +172,14 @@ Route::set('ARTICLE_EDITOR_SAVE_IMG', 'editorsaveimg', array())->defaults(array(
     'action' => 'saveEditorImg'
 ));
 
-
-*/
-
-
 /**
 * Core
 */
+
 Route::set('AJAX_FILE_TRANSPORT', 'ajax/transport')->defaults(array(
     'controller'      => 'base_ajax',
     'action'          => 'file_uploader'
 ));
-
-
 
 
 // Defaults
