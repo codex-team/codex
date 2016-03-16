@@ -8,8 +8,12 @@
             <? if (isset($article)): ?>
                 <input type="hidden" name="article_id" value="<?= $article->id; ?>">
                 <input type="text" name="title" value="<?= $article->title; ?>">
+                <label for="description">Описание:</label>
+                <textarea name="description" id="codex_editor" cols="5" rows="5"><?= $article->description ?></textarea>
             <? else: ?>
                 <input type="text" name="title">
+                <label for="description">Описание:</label>
+                <textarea name="description" id="codex_editor" cols="5" rows="5"></textarea>
             <? endif; ?>
 
             <label for="article_text">Содержание:</label>

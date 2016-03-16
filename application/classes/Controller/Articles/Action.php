@@ -20,9 +20,10 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
         if (!$article_id || !$article)
             $article = new Model_Article();
 
-        $article->title          = Arr::get($_POST,'title');
-        $article->text           = Arr::get($_POST,'article_text');
-        $article->is_published   = (Arr::get($_POST, 'is_published'))? 1 : 0;
+        $article->title        = Arr::get($_POST,'title');
+        $article->text         = Arr::get($_POST,'article_text');
+        $article->is_published = Arr::get($_POST, 'is_published')? 1 : 0;
+        $article->description  = Arr::get($_POST,'description');
 
         $errors = FALSE;
         $table_values = array();
@@ -30,6 +31,8 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
         if ($article->title != '')       { $table_values['title'] = array('value' => $article->title); }
             else { $errors = TRUE; }
         if ($article->text != '')        { $table_values['text'] = array('value' => $article->text); }
+            else { $errors = TRUE; }
+        if ($article->description != '') { $table_values['description'] = array('value' => $article->description); }
             else { $errors = TRUE; }
 
         if ($errors) {
