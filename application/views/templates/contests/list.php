@@ -27,7 +27,7 @@
                         <img src="<?= $contest->list_icon ?: '/public/img/contest_icon_default@2x.png' ?>" alt="<?= $contest->title ?>">
                     </div>
                     <div class="constrain">
-                        <a class="title" href="/contest-<?= $contest->id ?>"><?= $contest->title; ?></a>
+                        <a class="title" href="<?= $contest->uri; ?>"><?= $contest->title; ?></a>
                         <div class="description"><?= $contest->description ?></div>
                     </div>
                 </div>

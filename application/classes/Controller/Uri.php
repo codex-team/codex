@@ -17,10 +17,10 @@ class Controller_Uri extends Controller {
         $model_alias = new Model_Alias();
 
 
-        if ($model_uri->system != null)
+        if ($model_uri->systemAlias != null)
         {
-            $keyFromControllersMap = array_search($model_uri->system, $model_uri->controllersMap);
-            $realRoute = $model_alias->getRealRoute($model_uri->system, null, true, $keyFromControllersMap);
+            $keyFromControllersMap = array_search($model_uri->systemAlias, $model_uri->controllersMap);
+            $realRoute = $model_alias->getRealRoute($model_uri->systemAlias, null, true, $keyFromControllersMap);
         }
         else
         {

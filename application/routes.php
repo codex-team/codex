@@ -22,13 +22,13 @@ Route::set('URI', '<route>(/<subaction>)', array(
 		$alias = $params['route'];
 
 		$model_uri = Model_Uri::Instance();
-		$system = $model_uri->getForbiddenAliases($alias);
+		$systemAlias = $model_uri->getForbiddenAliases($alias);
 
         if ( $alias == 'auth')
             return false;
 
-        if ( count($system) > 0)
-            $model_uri->system = $system['uri'];
+        if ( count($systemAlias) > 0)
+            $model_uri->systemAlias = $systemAlias['uri'];
 	})
 	->defaults(array(
 		'controller' => 'Uri',
