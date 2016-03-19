@@ -23,19 +23,19 @@
         </div>
         <div class="article_content"  itemprop="articleBody">
 
-            <?= nl2br($article->text) ?>
+            <?= nl2br($article->text) ?>           
 
-            <div class="social_share clearfix">
-                Если вам понравилась статья, опубликуйте ссылку на нее
-                <div class="links">
-                    <a href="#" class="social_button vk">                        
+            <div class="article-share">
+                <div class="social-button-share clearfix">
+
+                    <div class="share-vkontakte vk" onclick="Share.me(this, 'vk', '<?= $article->user_id ?>', '<?= $article->title ?>', '<?= $article->description ?>')"> 
                         Поделиться
-                    </a>
-                    <a href="#" class="social_button tw">                        
-                    </a>
-                    <a href="#" class="social_button fb">
-                    </a>
-                </div>
+                    </div>
+                    <a class="social-share tw" onclick="Share.me(this, '<?= $article->user_id ?>', '<?= $article->title ?>', '<?= $article->description ?>')"></a>
+                    <a class="social-share fb" onclick="Share.me(this, '<?= $article->user_id ?>', '<?= $article->title ?>', '<?= $article->description ?>')"></a>
+                    
+                </div> 
+                <div class="text">Если вам понравилась статья, опубликуйте ссылку на нее</div> 
             </div>
 
             <ul class="random_articles">
