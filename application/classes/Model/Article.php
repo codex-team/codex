@@ -168,9 +168,9 @@ Class Model_Article extends Model
     /**
      * Получить все активные (опубликованные и не удалённые статьи) в порядке убывания айдишников.
      */
-    public static function getActiveArticles()
+    public static function getActiveArticles($clearCache = false)
     {
-        return Model_Article::getArticles(false, false, Date::MINUTE * 5);
+        return Model_Article::getArticles(false, false, !$clearCache ? Date::MINUTE * 5 : null);
     }
 
 
@@ -204,7 +204,7 @@ Class Model_Article extends Model
         }
 
         if ($cachedTime) {
-            $articlesQuery->cached($cachedTime*Date::MINUTE);
+            $articlesQuery->cached($cachedTime);
         }
 
         $article_rows = $articlesQuery->order_by('id', 'DESC')->execute();
