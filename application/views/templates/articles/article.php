@@ -23,6 +23,7 @@
         </div>
         <div class="article_content"  itemprop="articleBody">
 
+
             <?= nl2br($article->text) ?>           
 
             <div class="article-share">
@@ -38,18 +39,19 @@
                 <div class="text">Если вам понравилась статья, опубликуйте ссылку на нее</div> 
             </div>
 
-            <ul class="random_articles">
-
-                <h3>Читайте далее</h3>
-                <p>Мы расскажем вам о крутых и интересных технологиях и приведём примеры их использования в наших проектах.</p>
-
-                <? foreach ($randomArticles as $randomArticle): ?>
-                    <li><a href="/article/<?= $randomArticle->id ?>"><?= $randomArticle->title; ?></a></li>
-                <? endforeach; ?>
-
-            </ul>
 
         </div>
+
+        <ul class="random_articles">
+
+            <h3>Читайте далее</h3>
+            <p>Мы расскажем вам о крутых и интересных технологиях и приведём примеры их использования в наших проектах.</p>
+
+            <? foreach ($popularArticles as $popularArticle): ?>
+                <li><a href="/article/<?= $popularArticle->id ?>"><?= $popularArticle->title; ?></a></li>
+            <? endforeach; ?>
+
+        </ul>
 
         <? /*
 

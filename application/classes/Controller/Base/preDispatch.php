@@ -81,7 +81,7 @@ class Controller_Base_preDispatch extends Controller_Template
     */
     public function XSSfilter()
     {
-        $exceptions     = array( 'long_desc' , 'blog_text', 'long_description' , 'content' ); // Исключения для полей с визуальным редактором
+        $exceptions     = array( 'long_desc' , 'blog_text', 'long_description' , 'content', 'article_text' ); // Исключения для полей с визуальным редактором
 
         foreach ($_POST as $key => $value){
 
@@ -90,7 +90,7 @@ class Controller_Base_preDispatch extends Controller_Template
             if ( in_array($key, $exceptions) === false ){
                 $_POST[$key] = Security::xss_clean(HTML::chars($value));
             } else {
-                $_POST[$key] = Security::xss_clean( strip_tags(trim($value), '<br><em><del><p><a><b><strong><i><strike><blockquote><ul><li><ol><img><tr><table><td><th><span><h1><h2><h3><iframe>' ));
+                $_POST[$key] = Security::xss_clean( strip_tags(trim($value), '<br><em><del><p><a><b><strong><i><strike><blockquote><ul><li><ol><img><tr><table><td><th><span><h1><h2><h3><iframe><div><code>'));
             }
         }
 

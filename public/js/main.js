@@ -469,28 +469,28 @@ var scrollUp = {
     * Page scroll offset to show scroll-up button
     */
     SCROLL_UP_OFFSET: 100,
-        
-    button: document.getElementById('scroll_button'),    
+
+    button: document.getElementById('scroll_button'),
 
     scrollPage : function(){
 
         window.scrollTo(0, 0);
 
-    },        
+    },
 
-    windowScrollHandler : function(){ 
+    windowScrollHandler : function(){
 
         if (window.pageYOffset > scrollUp.SCROLL_UP_OFFSET) {
 
-            scrollUp.button.classList.add('show')
+            scrollUp.button.classList.add('show');
 
         } else {
 
-            scrollUp.button.classList.remove('show')
+            scrollUp.button.classList.remove('show');
 
-        }      
+        }
     }
-    
+
 }
 
 
@@ -640,5 +640,5 @@ var Share = {
 
 
 
-    
+
 

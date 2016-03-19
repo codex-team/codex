@@ -8,7 +8,12 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $this->title = "Статьи команды CodeX";
         $this->description = "Здесь собраны заметки о нашем опыте и исследованиях в области веб-разработки, дизайна, маркетинга и организации рабочих процессов";
 
-        $this->view["articles"]  = Model_Article::getActiveArticles();
+        /**
+        * Clear cache hook
+        */
+        $needClearCache = Arr::get($_GET, 'clear') == 1;
+
+        $this->view["articles"]  = Model_Article::getActiveArticles($needClearCache);
         $this->template->content = View::factory('templates/articles/list', $this->view);
     }
 
@@ -27,21 +32,12 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $this->stats->hit(Model_Stats::ARTICLE, $articleId);
 
         $this->view["article"]        = $article;
-        $this->view["randomArticles"] = Model_Article::getRandomArticles($articleId);
+        $this->view["popularArticles"] = Model_Article::getPopularArticles($articleId);
 
         $this->title = $article->title;
+        $this->description = $article->description;
 
         $this->template->content = View::factory('templates/articles/article', $this->view);
-    }
-
-    public function action_createArticle()
-    {
-        $article_text = Arr::get($_POST, 'article_text', '');
-        if ($article_text)
-        {
-            echo $article_text;
-        }
-        $this->template->content = View::factory('templates/articles/create', $this->view);
     }
 
 }
