@@ -1367,6 +1367,25 @@ html {
 
 
 
+.random_articles {
+    padding: 35px 0;
+    margin: 0 70px;
+    max-width: 600px;
+}
+    .random_articles a{
+        margin-bottom: 12px;
+        display: inline-block;
+    }
+    .random_articles h3{
+        margin-bottom: 20px;
+        font-size: 1.5em;
+    }
+    .random_articles li{
+        list-style: none;
+    }
+
+
+
 
 @-webkit-keyframes wobble {
     0% { -webkit-transform: translateX(0%); }
@@ -1713,27 +1732,12 @@ html {
         font-size: 12px;
     }
 
+    .random_articles {margin: 0}
+
 
 
 }
 
-
-.random_articles {
-    padding: 35px 0;
-    margin: 0;
-    max-width: 600px;
-}
-    .random_articles a{
-        margin-bottom: 12px;
-        display: inline-block;
-    }
-    .random_articles h3{
-        margin-bottom: 20px;
-        font-size: 1.5em;
-    }
-    .random_articles li{
-        list-style: none;
-    }
 
 
 @media print, (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 1.25dppx), (min-resolution: 120dpi) {
