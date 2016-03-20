@@ -59,6 +59,10 @@ INSERT INTO `ForbiddenAliases` (`id`, `uri`) VALUES
 (7, 'User');
 
 -- --------------------------------------------------------
+ALTER TABLE  `Users` ADD  `uri` VARCHAR( 128 ) NOT NULL AFTER  `id` ;
+ALTER TABLE  `Contests` ADD  `uri` VARCHAR( 128 ) NOT NULL AFTER  `id` ;
+ALTER TABLE  `Articles` ADD  `uri` VARCHAR( 128 ) NOT NULL AFTER  `id` ;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -9,6 +9,7 @@
 Class Model_Contests extends Model
 {
     public $id = 0;
+    public $uri;
     public $title;
     public $text;
     public $description;
@@ -20,9 +21,6 @@ Class Model_Contests extends Model
     public $status;
     public $winner;
     public $list_icon;
-
-    public $uri;
-    public $hash;
 
     /**
      * Пустой конструктор для модели контестов, если нужно получить контест из хранилища, нужно пользоваться статическими
@@ -135,23 +133,6 @@ Class Model_Contests extends Model
         return $model->fillByRow($contest);
     }
 
-    /*
-     *
-     * @param $id - идентификатор контеста
-     * @param $type - тип сущности. Тип контекстов в нашей системе алиасов: 2. см. Model_Alias.
-     * @return возвращает массив: Алиас, хэш, айди, тип и дату создания.
-     */
-    private static function ContestsAlias($id, $type = 2)
-    {
-        $alias = Dao_Alias::select(array('uri', 'hash', 'id'))
-                ->where('id', '=', $id)
-                ->where('type', '=', $type)
-                ->limit(1)
-                ->execute();
-
-        return $alias;
-    }
-
     /**
      * Получить все активные (опубликованные и не удалённые контесты) в порядке убывания айдишников.
      */
@@ -199,13 +180,9 @@ Class Model_Contests extends Model
 
         if (!empty($contest_rows)) {
             foreach ($contest_rows as $contest_row) {
+
                 $contest = new Model_Contests();
-
-                $alias = self::ContestsAlias($contest_row['id'], 2);
-
-                $contest->fillByRow($alias);
                 $contest->fillByRow($contest_row);
-
                 array_push($contests, $contest);
             }
         }

@@ -24,11 +24,9 @@ Route::set('URI', '<route>(/<subaction>)', array(
 		$model_uri = Model_Uri::Instance();
 		$systemAlias = $model_uri->getForbiddenAliases($alias);
 
-        if ( $alias == 'auth')
-            return false;
-
-        if ( count($systemAlias) > 0)
-            $model_uri->systemAlias = $systemAlias['uri'];
+		if ( !empty($systemAlias) ) {
+			return false;
+		}
 	})
 	->defaults(array(
 		'controller' => 'Uri',
@@ -37,8 +35,23 @@ Route::set('URI', '<route>(/<subaction>)', array(
 
 
 /**
- * Default Routes
+ * System Routes
  */
+
+Route::set('AUTH', 'auth/<action>')->defaults(array(
+	'controller' => 'auth',
+	'action' => 'action'
+));
+
+Route::set('ARTICLE_LIST', 'articles')->defaults(array(
+	'controller' => 'Articles_Index',
+	'action' => 'showAll',
+));
+
+Route::set('CONTESTS_LIST', 'contests')->defaults(array(
+	'controller' => 'Contests_Index',
+	'action' => 'showAll',
+));
 
 /*Route::set('INDEX_PAGE', '')->defaults(array(
     'controller' => 'index',
@@ -60,19 +73,10 @@ Route::set('TASK_PAGE', 'task/<who>', array('who' => $STRING))->defaults(array(
     'action' => 'whoSet',
 ));
 
-Route::set('ARTICLE_LIST', 'articles')->defaults(array(
-    'controller' => 'articles_index',
-    'action' => 'showAllArticles',
-));
 
 Route::set('ARTICLE_PAGE', 'article/<article_id>', array('article_id' => $DIGIT))->defaults(array(
     'controller' => 'articles_index',
     'action' => 'showArticle'
-));
-
-Route::set('CONTESTS_LIST', 'contests')->defaults(array(
-	'controller' => 'contests_index',
-	'action' => 'showAllContests',
 ));
 
 Route::set('CONTEST_PAGE', 'contest/<contest_id>', array('contest_id' => $DIGIT))->defaults(array(
@@ -130,11 +134,6 @@ Route::set('DEL_COMMENT_SCRIPT', 'article/delcomment/<comment_id>', array('comme
 Route::set('DESIGN_PREVIEW', 'design/<page>')->defaults(array(
     'controller' => 'index',
     'action' => 'designPreview'
-));
-
-Route::set('AUTH', 'auth/<action>')->defaults(array(
-    'controller' => 'auth',
-    'action' => 'action'
 ));
 
 

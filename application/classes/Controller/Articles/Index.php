@@ -9,6 +9,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $this->description = "Здесь собраны заметки о нашем опыте и исследованиях в области веб-разработки, дизайна, маркетинга и организации рабочих процессов";
 
         $this->view["articles"]  = Model_Article::getActiveArticles();
+
         $this->template->content = View::factory('templates/articles/list', $this->view);
     }
 

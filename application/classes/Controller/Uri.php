@@ -13,35 +13,19 @@ class Controller_Uri extends Controller {
         $route = $this->request->param('route');
         $sub_action = $this->request->param('subaction');
 
-        $model_uri = Model_Uri::Instance();
         $model_alias = new Model_Alias();
 
 
-        if ($model_uri->systemAlias != null)
-        {
-            $keyFromControllersMap = array_search($model_uri->systemAlias, $model_uri->controllersMap);
-            $realRoute = $model_alias->getRealRoute($model_uri->systemAlias, null, true, $keyFromControllersMap);
-        }
-        else
-        {
-            /*
-             * Возвращает $route_MODIFY контроллер, если $sub_action != null. В остальных случаях $route_INDEX и action - Show/
-             */
-            $realRoute = $model_alias->getRealRoute($route, $sub_action, false, null);
-        }
+        $realRoute = $model_alias->getRealRoute( $route, $sub_action);
 
         $this->response->body( Request::factory($realRoute)->execute() );
+
         /*
          Пример создания нового Алиаса.
 
-            $route      = $model_alias->generateAlias($route);
-            $hash       = md5($route, true);
-            $type       = TYPE;
-            $id         = ID;
-            $dt_create  = DATE::$timezone;
+            $id - идентификатор
 
-            $new_alias = new Model_Alias($route, $hash, $type, $id, $dt_create);
-            $new_alias->save();
+            $new_alias = Model_Alias::addAlias($route, Model_Uri::CONTEST, $id);
 
             types :
                 const ARTICLE  = 1;

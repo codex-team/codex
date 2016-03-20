@@ -30,7 +30,7 @@
                 <p>Мы расскажем вам о крутых и интересных технологиях и приведём примеры их использования в наших проектах.</p>
 
                 <? foreach ($popularArticles as $popularArticle): ?>
-                    <li><a href="/article/<?= $popularArticle->id ?>"><?= $popularArticle->title; ?></a></li>
+                    <li><a href="<?= $popularArticle->uri ?>"><?= $popularArticle->title; ?></a></li>
                 <? endforeach; ?>
 
             </ul>

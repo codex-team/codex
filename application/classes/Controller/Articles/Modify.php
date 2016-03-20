@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Articles_Action extends Controller_Base_preDispatch
+class Controller_Articles_Modify extends Controller_Base_preDispatch
 {
 
     public function action_add()
@@ -42,14 +42,26 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
 
         $article->user_id = $user_id;
 
+        /*
+         * Articles Title.
+         */
+
+        $model_methods   = new Model_Methods();
+        $translitedTitle = $model_methods->rus2translit($article->title);
+
         if ($article_id) {
             $article->update();
+            Model_Alias::updateAlias($translitedTitle, Model_Uri::ARTICLE, $article_id);
+
         }
         else {
             $article->insert();
+            Model_Alias::addAlias($translitedTitle, Model_Uri::ARTICLE, $article_id);
         }
 
-        $this->redirect('/article/' . $article->id);
+
+
+        $this->redirect('/'. $article->uri);
     }
 
     public function action_edit()
