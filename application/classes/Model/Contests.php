@@ -43,6 +43,8 @@ Class Model_Contests extends Model
                                 ->set('dt_close',       $this->dt_close)
                                 ->set('status',         $this->status)
                                 ->set('winner',         $this->winner)
+                                ->set('results',        $this->results)
+                                ->set('description',    $this->description)
                                 ->clearcache()
                                 ->execute();
 
@@ -110,6 +112,8 @@ Class Model_Contests extends Model
             ->set('status',         $this->status)
             ->set('winner',         $this->winner)
             ->set('dt_update',      $this->dt_update)
+            ->set('results',        $this->results)
+            ->set('description',    $this->description)
             ->clearcache()
             ->execute();
     }
