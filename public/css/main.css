@@ -1007,6 +1007,14 @@ html {
     .article_content li{
         margin: 0.2em 0;
     }
+    .article_content blockquote{
+        margin: 30px 0;
+        padding: 45px 60px;
+        border-top: 2px solid #EDEFF1;
+        border-bottom: 2px solid #EDEFF1;
+        font-size: 1.2em;
+        line-height: 1.7em;
+    }
 
 .profile_join_requests{
     color: #9A9A9A;
@@ -1367,6 +1375,25 @@ html {
 
 
 
+.random_articles {
+    padding: 35px 0;
+    margin: 0 70px;
+    max-width: 600px;
+}
+    .random_articles a{
+        margin-bottom: 12px;
+        display: inline-block;
+    }
+    .random_articles h3{
+        margin-bottom: 20px;
+        font-size: 1.5em;
+    }
+    .random_articles li{
+        list-style: none;
+    }
+
+
+
 
 @-webkit-keyframes wobble {
     0% { -webkit-transform: translateX(0%); }
@@ -1575,7 +1602,7 @@ html {
 
     .big_header{
         padding: 30px 0;
-        font-size: 40px;
+        font-size: 33px;
     }
     .article_info{
         margin-left: 0;
@@ -1605,7 +1632,11 @@ html {
     .article_content{
         margin: 0;
         font-size: 16px;
-
+    }
+    .article_content blockquote{
+        font-size: 1.1em;
+        line-height: 1.5em;
+        padding: 20px;
     }
 
     .breadcrumb{
@@ -1713,27 +1744,12 @@ html {
         font-size: 12px;
     }
 
+    .random_articles {margin: 0}
+
 
 
 }
 
-
-.random_articles {
-    padding: 35px 0;
-    margin: 0;
-    max-width: 600px;
-}
-    .random_articles a{
-        margin-bottom: 12px;
-        display: inline-block;
-    }
-    .random_articles h3{
-        margin-bottom: 20px;
-        font-size: 1.5em;
-    }
-    .random_articles li{
-        list-style: none;
-    }
 
 
 @media print, (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 1.25dppx), (min-resolution: 120dpi) {
