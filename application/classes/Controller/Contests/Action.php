@@ -14,8 +14,6 @@ class Controller_Contests_Action extends Controller_Base_preDispatch
 
     public function action_add()
     {
-        $user_id = $this->user->id;
-
         $contest_id = Arr::get($_POST, 'contest_id');
         $contest    = Model_Contests::get($contest_id);
 
@@ -42,9 +40,8 @@ class Controller_Contests_Action extends Controller_Base_preDispatch
             return false;
         }
 
-        $contest->dt_update = date('Y-m-d H:i:s');
-
         if ($contest_id) {
+            $contest->dt_update = date('Y-m-d H:i:s');
             $contest->update();
         }
         else {

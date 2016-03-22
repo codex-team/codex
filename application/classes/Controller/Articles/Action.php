@@ -14,8 +14,6 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
 
     public function action_add()
     {
-        $user_id = $this->user->id;
-
         $article_id = Arr::get($_POST, 'article_id');
         $article    = Model_Article::get($article_id);
 
@@ -40,7 +38,7 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
 
         $article->dt_update = date('Y-m-d H:i:s');
         if (!$article->user_id) {
-            $article->user_id = $user_id;
+            $article->user_id = $this->user->id;
         }
 
         if ($article_id) {
