@@ -23,19 +23,19 @@
         </div>
         <div class="article_content"  itemprop="articleBody">
 
-            <?= nl2br($article->text) ?>
-            <ul class="random_articles">
-
-                <h3>Читайте далее</h3>
-                <p>Мы расскажем вам о крутых и интересных технологиях и приведём примеры их использования в наших проектах.</p>
-
-                <? foreach ($popularArticles as $popularArticle): ?>
-                    <li><a href="<?= $popularArticle->uri ?>"><?= $popularArticle->title; ?></a></li>
-                <? endforeach; ?>
-
-            </ul>
+            <?= $article->text ?>
 
         </div>
+
+        <ul class="random_articles">
+            <h3>Читайте далее</h3>
+            <p>Мы расскажем вам о крутых и интересных технологиях и приведём примеры их использования в наших проектах.</p>
+
+            <? foreach ($popularArticles as $popularArticle): ?>
+                <li><a href="<?= $popularArticle->uri ?>"><?= $popularArticle->title; ?></a></li>
+            <? endforeach; ?>
+
+        </ul>
 
         <? /*
 

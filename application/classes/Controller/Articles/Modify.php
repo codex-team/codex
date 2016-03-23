@@ -46,8 +46,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
          * Articles Title.
          */
 
-        $model_methods   = new Model_Methods();
-        $translitedTitle = $model_methods->rus2translit($article->title);
+        $translitedTitle = $this->methods->rus2translit($article->title);
 
         if ($article_id) {
             $article->update();

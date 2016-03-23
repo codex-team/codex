@@ -8,8 +8,12 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $this->title = "Статьи команды CodeX";
         $this->description = "Здесь собраны заметки о нашем опыте и исследованиях в области веб-разработки, дизайна, маркетинга и организации рабочих процессов";
 
-        $this->view["articles"]  = Model_Article::getActiveArticles();
+        /**
+        * Clear cache hook
+        */
+        $needClearCache = Arr::get($_GET, 'clear') == 1;
 
+        $this->view["articles"]  = Model_Article::getActiveArticles($needClearCache);
         $this->template->content = View::factory('templates/articles/list', $this->view);
     }
 

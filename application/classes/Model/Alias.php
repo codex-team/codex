@@ -31,20 +31,23 @@ class Model_Alias
                         ->set('type', $this->type)
                         ->set('id', $this->id)
                         ->set('dt_create', $this->dt_create)
+                        ->clearcache()
                         ->execute();
     }
 
-    public static function getAlias($hash = null)
+    public static function getAlias($route = null)
     {
+        $hashedRoute = md5($route, true);
+
         $alias  =   Dao_Alias::select()
-                ->where('hash', '=', $hash)->limit(1)->execute();
+                ->where('hash', '=', $hashedRoute)->limit(1)->cached(10*Date::MINUTE)->execute();
 
         return $alias;
     }
 
     public static function generateAlias($route)
     {
-        $alias  = self::getAlias( md5($route, true) );
+        $alias  = self::getAlias( $route );
         $newAlias = $route;
 
         if ( !empty($alias) )
@@ -53,10 +56,14 @@ class Model_Alias
             {
                 $newAlias = $newAlias.'-'.$index;
 
-                if ( empty(self::getAlias(md5($newAlias, true)) ) )
+                if ( empty(self::getAlias($newAlias) ) )
                 {
                     return $newAlias;
                     break;
+                }
+                else
+                {
+                    $newAlias = $route;
                 }
             }
         }
@@ -71,9 +78,7 @@ class Model_Alias
     {
         $model_uri = Model_Uri::Instance();
 
-        $hashedUri = md5($route, true);     // Хэшируем в md5 полученный роут.
-
-        $alias = $this->getAlias($hashedUri);
+        $alias = $this->getAlias( $route );
 
         if ( empty($alias) )
             throw new HTTP_Exception_404();
@@ -86,6 +91,9 @@ class Model_Alias
 
     /*
      * Добавляет новый алиас в таблицу Alias и обновляет uri в сущности $type с идентификатором $id
+     * @params $newAlias - сгенерированный алиас, $hash - хэш от алиаса, $dt_create - дата создания.
+     * Создается новый экземпляр класса Model_Alias и передается в конструктор переменные. Метод save() записывает в таблицу данные.
+     * Обновляем в сущности (Articles, Contests, Users) значение поля uri. ( cм. Статический метод updateAlias() )
      */
 
     public static function addAlias($alias, $type, $id)
@@ -102,19 +110,26 @@ class Model_Alias
 
 
     /*
-     * Обновляет в сущности uri.
-     * @params: $alias - новый uri, $type - сущность, $id - идентификатор
+     * Обновляет в сущности (Articles, Contests, Users и тд) поле uri.
+     * @params: $alias - новый uri, $type - тип сущности (см Model_Uri - $controllersMap), $id - идентификатор
      */
 
     public static function updateAlias($alias, $type, $id)
     {
         $model_uri  = Model_Uri::Instance();
+
+        /*
+         * $model_uri->controllersMap[$type] возвращает название сущности.
+         * $type должен соответствовать ключу из массива controllersMap в Model_Uri, а значение с Таблицами в БД
+         * в переменной $Dao получаем строку "Dao_название-сущности" (Dao_Articles, Dao_Contests и тд)
+         */
+
         $Dao = 'Dao_' . $model_uri->controllersMap[$type];
 
         if ( class_exists($Dao) ) {
 
             $DaoClass = new $Dao();
-            $DaoClass->update()->set('uri', $alias)->where('id','=', $id)->execute();
+            $DaoClass->update()->set('uri', $alias)->where('id','=', $id)->clearcache()->execute();
         }
     }
 
