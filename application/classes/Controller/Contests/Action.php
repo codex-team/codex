@@ -14,11 +14,11 @@ class Controller_Contests_Action extends Controller_Base_preDispatch
 
     public function action_save()
     {
-        if ($contest_id = Arr::get($_POST, 'contest_id'))
-            $contest    = Model_Contests::get($contest_id);
-
-        if (!$contest_id || !$contest)
+        if ($contest_id = Arr::get($_POST, 'contest_id')){
+            $contest = Model_Contests::get($contest_id);
+        } else {
             $contest = new Model_Contests();
+        }
 
         $contest->title        = Arr::get($_POST, 'title');
         $contest->text         = Arr::get($_POST, 'contest_text');
@@ -30,12 +30,12 @@ class Controller_Contests_Action extends Controller_Base_preDispatch
 
         $errors = FALSE;
 
-        if ($contest->title == '')       { $errors = TRUE; }
-        if ($contest->text == '')        { $errors = TRUE; }
-        if ($contest->description == '') { $errors = TRUE; }
-        if ($contest->dt_close == '')    { $errors = TRUE; }
+        if ($contest->title == '' || $contest->text == '' || $contest->description == '' || $contest->dt_close == '') {
+            $errors = TRUE;
+        }
 
         if ($errors) {
+            $this->view['contest'] = $contest;
             $this->template->content = View::factory('templates/contests/create', $this->view);
             return false;
         }

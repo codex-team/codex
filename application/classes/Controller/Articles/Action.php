@@ -14,11 +14,11 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
 
     public function action_save()
     {
-        if ($article_id = Arr::get($_POST, 'article_id'))
-            $article    = Model_Article::get($article_id);
-
-        if (!$article_id || !$article)
+        if ($article_id = Arr::get($_POST, 'article_id')) {
+            $article = Model_Article::get($article_id);
+        } else {
             $article = new Model_Article();
+        }
 
         $article->title        = Arr::get($_POST, 'title');
         $article->text         = Arr::get($_POST, 'article_text');
@@ -27,11 +27,10 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
 
         $errors = FALSE;
 
-        if ($article->title == '')       { $errors = TRUE; }
-        if ($article->text == '')        { $errors = TRUE; }
-        if ($article->description == '') { $errors = TRUE; }
+        if ($article->title == '' || $article->text == '' || $article->description == '') { $errors = TRUE; }
 
         if ($errors) {
+            $this->view['article'] = $article;
             $this->template->content = View::factory('templates/articles/create', $this->view);
             return false;
         }
