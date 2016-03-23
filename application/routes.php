@@ -22,9 +22,8 @@ Route::set('URI', '<route>(/<subaction>)', array(
 		$alias = $params['route'];
 
 		$model_uri = Model_Uri::Instance();
-		$systemAlias = $model_uri->getForbiddenAliases($alias);
 
-		if ( !empty($systemAlias) ) {
+		if ( $model_uri->isForbidden($alias) ) {
 			return false;
 		}
 	})

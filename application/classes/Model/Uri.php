@@ -55,9 +55,9 @@ class Model_Uri {
         return self::$_instance;
     }
 
-    public function getForbiddenAliases($action)
+    public function isForbidden($alias)
     {
-        $select = Dao_ForbiddenAliases::select()->where('uri', '=', $action)->limit(1)->cached(5*Date::MINUTE)->execute();
-        return $select;
+        $select = Dao_ForbiddenAliases::select()->where('uri', '=', $alias)->limit(1)->cached(5*Date::MINUTE, 'uri:'. $alias)->execute();
+        return ( empty($select)) ? 0 : 1;
     }
 }
