@@ -2,68 +2,50 @@
 
 class Controller_Articles_Action extends Controller_Base_preDispatch
 {
-
-    public function action_add()
+    /**
+     * this method prevent no admin users visit /article/add, /article/<article_id>/edit
+     */
+    public function before()
     {
-        $user_id = $this->user->id;
-
-        if (empty($user_id)) {
+        parent::before();
+        if (!$this->user->checkAccess(array(Model_User::ROLE_ADMIN)))
             $this->redirect('/');
-        };
-
-        $article_id = Arr::get($_POST, 'article_id');
-        $article    = Model_Article::get($article_id);
-
-        if ($article->user_id != $user_id && !$this->user->checkAccess(array(Model_User::ROLE_ADMIN)))
-            throw new HTTP_Exception_403();
-
-        if (!$article_id || !$article)
-            $article = new Model_Article();
-
-        $article->title        = Arr::get($_POST,'title');
-        $article->text         = Arr::get($_POST,'article_text');
-        $article->is_published = Arr::get($_POST, 'is_published')? 1 : 0;
-        $article->description  = Arr::get($_POST,'description');
-
-        $errors = FALSE;
-        $table_values = array();
-
-        if ($article->title != '')       { $table_values['title'] = array('value' => $article->title); }
-            else { $errors = TRUE; }
-        if ($article->text != '')        { $table_values['text'] = array('value' => $article->text); }
-            else { $errors = TRUE; }
-        if ($article->description != '') { $table_values['description'] = array('value' => $article->description); }
-            else { $errors = TRUE; }
-
-        if ($errors) {
-            $this->template->content = View::factory('templates/articles/create', $this->view);
-            return false;
-        }
-
-        $article->user_id = $user_id;
-
-        if ($article_id) {
-            $article->update();
-        }
-        else {
-            $article->insert();
-        }
-
-        $this->redirect('/article/' . $article->id);
     }
 
-    public function action_edit()
+    public function action_save()
     {
-        $article_id = $this->request->param('article_id');
-        $article = Model_Article::get($article_id);
+        $csrfToken = Arr::get($_POST, 'csrf');
 
-        if ($article->author->id == $this->user->id) {
-            $this->view['article'] = $article;
-            $this->template->content = View::factory('templates/articles/create', $this->view);
+        if ($article_id = $this->request->param('article_id')) {
+            $article = Model_Article::get($article_id);
         } else {
-            throw new HTTP_Exception_403();
+            $article = new Model_Article();
         }
+
+        if (Security::check($csrfToken)) {
+            $article->title        = Arr::get($_POST, 'title');
+            $article->text         = Arr::get($_POST, 'article_text');
+            $article->is_published = Arr::get($_POST, 'is_published')? 1 : 0;
+            $article->description  = Arr::get($_POST, 'description');
+
+            if ($article->title && $article->text && $article->description) {
+                if ($article_id) {
+                    $article->dt_update = date('Y-m-d H:i:s');
+                    $article->update();
+                } else {
+                    $article->user_id = $this->user->id;
+                    $article->insert();
+                }
+                $this->redirect('/article/' . $article->id);
+                return;
+            } else {
+                $this->view['error'] = true;
+            }
+        }
+        $this->view['article'] = $article;
+        $this->template->content = View::factory('templates/articles/create', $this->view);
     }
+
 
     public function action_delete()
     {
