@@ -3,8 +3,7 @@
     <article class="article">
 
         <form method="POST" action="/contest/add" enctype="multipart/form-data" id="edit_article_form" class="edit_article_form">
-            <? if (!isset($contest)) { $contest = new Model_Contests(); } ?>
-
+            <input type="hidden" name="csrf" value="<?= Security::token() ?>" />
             <input type="hidden" name="contest_id" value="<?= $contest->id; ?>">
             <label for="title">Заголовок:</label>
             <input type="text" name="title" value="<?= $contest->title ?: ''; ?>">

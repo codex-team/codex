@@ -3,8 +3,7 @@
     <article class="article">
 
         <form method="POST" action="/article/add" enctype="multipart/form-data" id="edit_article_form" class="edit_article_form">
-            <? if (!isset($article)) { $article = new Model_Article(); } ?>
-
+            <input type="hidden" name="csrf" value="<?= Security::token() ?>" />
             <input type="hidden" name="article_id" value="<?= $article->id ?: ''; ?>">
 
             <label for="title">Заголовок:</label>
