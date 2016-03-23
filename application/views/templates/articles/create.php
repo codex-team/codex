@@ -3,20 +3,20 @@
     <article class="article">
 
         <form method="POST" action="/article/add" enctype="multipart/form-data" id="edit_article_form" class="edit_article_form">
-            <?if (!isset($article)) { $article = new Model_Article(); }?>
+            <? if (!isset($article)) { $article = new Model_Article(); } ?>
 
-            <input type="hidden" name="article_id" value="<?=$article->id ? : '';?>">
+            <input type="hidden" name="article_id" value="<?= $article->id ?: ''; ?>">
 
             <label for="title">Заголовок:</label>
-            <input type="text" name="title" value="<?=$article->title ? : '';?>">
+            <input type="text" name="title" value="<?= $article->title ?: ''; ?>">
 
             <label for="description">Описание:</label>
-            <textarea name="description" id="codex_editor" cols="5" rows="5"><?= $article->description ? : '';?></textarea>
+            <textarea name="description" id="codex_editor" cols="5" rows="5"><?= $article->description ?: ''; ?></textarea>
 
             <label for="article_text">Содержание:</label>
-            <textarea name="article_text" id="codex_editor" cols="30" rows="10"><?= $article->text ? : '';?></textarea>
+            <textarea name="article_text" id="codex_editor" cols="30" rows="10"><?= $article->text ?: ''; ?></textarea>
 
-            <p><input type="checkbox" name="is_published" value="1" <?= $article->is_published ? 'checked' : '';?> > Опубликовать</p>
+            <p><input type="checkbox" name="is_published" value="1" <?= $article->is_published ? 'checked' : ''; ?> > Опубликовать</p>
 
             <input type="submit" value="Сохранить" name="submit"/>
         </form>

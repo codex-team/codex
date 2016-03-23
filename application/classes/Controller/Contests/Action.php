@@ -10,15 +10,12 @@ class Controller_Contests_Action extends Controller_Base_preDispatch
         parent::before();
         if (!$this->user->checkAccess(array(Model_User::ROLE_ADMIN)))
             $this->redirect('/');
-        //$contest = new Model_Contests();
-        //$view['contest'] = $contest;
-        //$this->template->content = View::factory('templates/contests/create', $this->view);
     }
 
-    public function action_add()
+    public function action_save()
     {
-        $contest_id = Arr::get($_POST, 'contest_id');
-        $contest    = Model_Contests::get($contest_id);
+        if ($contest_id = Arr::get($_POST, 'contest_id'))
+            $contest    = Model_Contests::get($contest_id);
 
         if (!$contest_id || !$contest)
             $contest = new Model_Contests();
@@ -46,8 +43,7 @@ class Controller_Contests_Action extends Controller_Base_preDispatch
         if ($contest_id) {
             $contest->dt_update = date('Y-m-d H:i:s');
             $contest->update();
-        }
-        else {
+        } else {
             $contest->insert();
         }
 

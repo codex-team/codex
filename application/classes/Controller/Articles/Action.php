@@ -12,10 +12,10 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
             $this->redirect('/');
     }
 
-    public function action_add()
+    public function action_save()
     {
-        $article_id = Arr::get($_POST, 'article_id');
-        $article    = Model_Article::get($article_id);
+        if ($article_id = Arr::get($_POST, 'article_id'))
+            $article    = Model_Article::get($article_id);
 
         if (!$article_id || !$article)
             $article = new Model_Article();
@@ -24,7 +24,7 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
         $article->text         = Arr::get($_POST, 'article_text');
         $article->is_published = Arr::get($_POST, 'is_published')? 1 : 0;
         $article->description  = Arr::get($_POST, 'description');
-        $this->view['is'] = Arr::get($_POST, 'is_published')? 1 : 0;
+
         $errors = FALSE;
 
         if ($article->title == '')       { $errors = TRUE; }
@@ -36,15 +36,14 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
             return false;
         }
 
-        $article->dt_update = date('Y-m-d H:i:s');
         if (!$article->user_id) {
             $article->user_id = $this->user->id;
         }
 
         if ($article_id) {
+            $article->dt_update = date('Y-m-d H:i:s');
             $article->update();
-        }
-        else {
+        } else {
             $article->insert();
         }
 

@@ -56,7 +56,7 @@ Route::set('DEL_CONTEST_SCRIPT', 'contests/delcontest/<contest_id>', array('cont
 
 Route::set('ADD_CONTEST_SCRIPT', 'contest/add')->defaults(array(
     'controller' => 'contests_action',
-    'action' => 'add'
+    'action' => 'save'
 ));
 
 Route::set('EDIT_CONTEST_SCRIPT', 'contest/edit/<contest_id>', array('contest_id' => $DIGIT))->defaults(array(
@@ -68,7 +68,7 @@ Route::set('EDIT_CONTEST_SCRIPT', 'contest/edit/<contest_id>', array('contest_id
 
 Route::set('ADD_ARTICLE_SCRIPT', 'article/add')->defaults(array(
     'controller' => 'articles_action',
-    'action' => 'add'
+    'action' => 'save'
 ));
 
 Route::set('EDIT_ARTICLE_SCRIPT', 'article/edit/<article_id>', array('article_id' => $DIGIT))->defaults(array(
