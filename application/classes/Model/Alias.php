@@ -31,7 +31,7 @@ class Model_Alias
                         ->set('type', $this->type)
                         ->set('id', $this->id)
                         ->set('dt_create', $this->dt_create)
-                        ->clearcache()
+                        ->clearcache('hash:'. $this->hash)
                         ->execute();
     }
 
@@ -40,7 +40,7 @@ class Model_Alias
         $hashedRoute = md5($route, true);
 
         $alias  =   Dao_Alias::select()
-                ->where('hash', '=', $hashedRoute)->limit(1)->cached(10*Date::MINUTE)->execute();
+                ->where('hash', '=', $hashedRoute)->limit(1)->cached(5*Date::MINUTE, 'hash:' . $hashedRoute)->execute();
 
         return $alias;
     }
@@ -118,6 +118,8 @@ class Model_Alias
     {
         $model_uri  = Model_Uri::Instance();
 
+        $hashedRoute = md5($alias, true);
+
         /*
          * $model_uri->controllersMap[$type] возвращает название сущности.
          * $type должен соответствовать ключу из массива controllersMap в Model_Uri, а значение с Таблицами в БД
@@ -129,7 +131,7 @@ class Model_Alias
         if ( class_exists($Dao) ) {
 
             $DaoClass = new $Dao();
-            $DaoClass->update()->set('uri', $alias)->where('id','=', $id)->clearcache()->execute();
+            $DaoClass->update()->set('uri', $alias)->where('id','=', $id)->clearcache('hash:'. $hashedRoute)->execute();
         }
     }
 

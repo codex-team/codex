@@ -40,8 +40,6 @@ class Model_Uri {
     /**
      * CLass Methods
      */
-
-    public $system = null;
     private static $_instance;
 
     private function __construct() {
@@ -59,7 +57,7 @@ class Model_Uri {
 
     public function getForbiddenAliases($action)
     {
-        $select = Dao_ForbiddenAliases::select()->where('uri', '=', $action)->limit(1)->cached(10*Date::MINUTE)->execute();
+        $select = Dao_ForbiddenAliases::select()->where('uri', '=', $action)->limit(1)->cached(5*Date::MINUTE)->execute();
         return $select;
     }
 }
