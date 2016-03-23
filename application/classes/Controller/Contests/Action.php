@@ -15,14 +15,20 @@ class Controller_Contests_Action extends Controller_Base_preDispatch
     public function action_save()
     {
         $csrfToken = Arr::get($_POST, 'csrf');
-        $contest = new Model_Contests();
+
+        if ($contest_id = $this->request->param('contest_id')) {
+            $contest = Model_Contests::get($contest_id);
+        } else {
+            $contest = new Model_Contests();
+        }
 
         if (!Security::check($csrfToken)) {
             $this->view['contest'] = $contest;
             $this->template->content = View::factory('templates/contests/create', $this->view);
         } else {
-            if ($contest_id = Arr::get($_POST, 'contest_id'))
+            if ($contest_id = Arr::get($_POST, 'contest_id')) {
                 $contest = Model_Contests::get($contest_id);
+            }
 
             $contest->title        = Arr::get($_POST, 'title');
             $contest->text         = Arr::get($_POST, 'contest_text');
@@ -32,13 +38,7 @@ class Controller_Contests_Action extends Controller_Base_preDispatch
             $contest->results      = Arr::get($_POST, 'results_contest');
             $contest->dt_close     = Arr::get($_POST, 'duration');
 
-            $errors = FALSE;
-
             if ($contest->title == '' || $contest->text == '' || $contest->description == '' || $contest->dt_close == '') {
-                $errors = TRUE;
-            }
-
-            if ($errors) {
                 $this->view['contest'] = $contest;
                 $this->template->content = View::factory('templates/contests/create', $this->view);
                 return false;
@@ -55,13 +55,6 @@ class Controller_Contests_Action extends Controller_Base_preDispatch
         }
     }
 
-    public function action_edit()
-    {
-        $contest_id = $this->request->param('contest_id');
-        $contest = Model_Contests::get($contest_id);
-        $this->view['contest'] = $contest;
-        $this->template->content = View::factory('templates/contests/create', $this->view);
-    }
     public function action_delete()
     {
         $user_id = $this->user->id;

@@ -15,25 +15,27 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
     public function action_save()
     {
         $csrfToken = Arr::get($_POST, 'csrf');
-        $article = new Model_Article();
+
+        if ($article_id = $this->request->param('article_id')) {
+            $article = Model_Article::get($article_id);
+        } else {
+            $article = new Model_Article();
+        }
 
         if (!Security::check($csrfToken)) {
             $this->view['article'] = $article;
             $this->template->content = View::factory('templates/articles/create', $this->view);
         } else {
-            if ($article_id = Arr::get($_POST, 'article_id'))
+            if ($article_id = Arr::get($_POST, 'article_id')) {
                 $article = Model_Article::get($article_id);
+            }
 
             $article->title        = Arr::get($_POST, 'title');
             $article->text         = Arr::get($_POST, 'article_text');
             $article->is_published = Arr::get($_POST, 'is_published')? 1 : 0;
             $article->description  = Arr::get($_POST, 'description');
 
-            $errors = FALSE;
-
-            if ($article->title == '' || $article->text == '' || $article->description == '') { $errors = TRUE; }
-
-            if ($errors) {
+            if ($article->title == '' || $article->text == '' || $article->description == '') {
                 $this->view['article'] = $article;
                 $this->template->content = View::factory('templates/articles/create', $this->view);
                 return false;
@@ -49,14 +51,6 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
 
             $this->redirect('/article/' . $article->id);
         }
-    }
-
-    public function action_edit()
-    {
-        $article_id = $this->request->param('article_id');
-        $article = Model_Article::get($article_id);
-        $this->view['article'] = $article;
-        $this->template->content = View::factory('templates/articles/create', $this->view);
     }
 
     public function action_delete()
