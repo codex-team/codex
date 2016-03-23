@@ -114,7 +114,7 @@ Class Model_Contests extends Model
             ->set('dt_update',      $this->dt_update)
             ->set('results',        $this->results)
             ->set('description',    $this->description)
-            ->clearcache()
+            ->clearcache($this->id)
             ->execute();
     }
 
@@ -125,12 +125,19 @@ Class Model_Contests extends Model
      * @return Model_Contests экземпляр модели с указанным идентификатором и заполненными полями, если найден в базе или
      * пустую модель с айдишником равным нулю.
      */
-    public static function get($id = 0)
+    public static function get($id = 0, $needClearCache = false)
     {
         $contest = Dao_Contests::select()
             ->where('id', '=', $id)
-            ->limit(1)
-            ->execute();
+            ->limit(1);
+
+        if ($needClearCache) {
+            $contest->clearcache($id);
+        } else {
+            $contest->cached(Date::MINUTE * 5, $id);
+        }
+
+        $contest = $contest->execute();
 
         $model = new Model_Contests();
 
@@ -140,9 +147,9 @@ Class Model_Contests extends Model
     /**
      * Получить все активные (опубликованные и не удалённые контесты) в порядке убывания айдишников.
      */
-    public static function getActiveContests()
+    public static function getActiveContests($clearCache = false)
     {
-        return Model_Contests::getContests(false, false);
+        return Model_Contests::getContests(false, false, !$clearCache ? Date::MINUTE * 5 : null);
     }
 
 
@@ -161,7 +168,7 @@ Class Model_Contests extends Model
      * @param $add_not_published boolean
      * @return array ModelContests массив моделей, удовлетворяющих запросу
      */
-    private static function getContests($add_not_published = false, $add_removed = false)
+    private static function getContests($add_not_published = false, $add_removed = false, $cachedTime = null)
     {
         $contestsQuery = Dao_Contests::select()->limit(200);        // TODO add pagination.
 
@@ -173,6 +180,9 @@ Class Model_Contests extends Model
             $contestsQuery->where('status', '=', 1);
         }
 
+        if ($cachedTime) {
+            $contestsQuery->cached($cachedTime);
+        }
         $contest_rows = $contestsQuery->order_by('dt_create', 'DESC')->execute();
 
         return self::rowsToModels($contest_rows);

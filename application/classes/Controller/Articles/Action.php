@@ -24,7 +24,7 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
         $article->text         = Arr::get($_POST, 'article_text');
         $article->is_published = Arr::get($_POST, 'is_published')? 1 : 0;
         $article->description  = Arr::get($_POST, 'description');
-
+        $this->view['is'] = Arr::get($_POST, 'is_published')? 1 : 0;
         $errors = FALSE;
 
         if ($article->title == '')       { $errors = TRUE; }

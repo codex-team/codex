@@ -10,6 +10,9 @@ class Controller_Contests_Action extends Controller_Base_preDispatch
         parent::before();
         if (!$this->user->checkAccess(array(Model_User::ROLE_ADMIN)))
             $this->redirect('/');
+        //$contest = new Model_Contests();
+        //$view['contest'] = $contest;
+        //$this->template->content = View::factory('templates/contests/create', $this->view);
     }
 
     public function action_add()
