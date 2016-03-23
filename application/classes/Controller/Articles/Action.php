@@ -22,36 +22,30 @@ class Controller_Articles_Action extends Controller_Base_preDispatch
             $article = new Model_Article();
         }
 
-        if (!Security::check($csrfToken)) {
-            $this->view['article'] = $article;
-            $this->template->content = View::factory('templates/articles/create', $this->view);
-        } else {
-            if ($article_id = Arr::get($_POST, 'article_id')) {
-                $article = Model_Article::get($article_id);
-            }
-
+        if (Security::check($csrfToken)) {
             $article->title        = Arr::get($_POST, 'title');
             $article->text         = Arr::get($_POST, 'article_text');
             $article->is_published = Arr::get($_POST, 'is_published')? 1 : 0;
             $article->description  = Arr::get($_POST, 'description');
 
-            if ($article->title == '' || $article->text == '' || $article->description == '') {
-                $this->view['article'] = $article;
-                $this->template->content = View::factory('templates/articles/create', $this->view);
-                return false;
-            }
-
-            if ($article_id) {
-                $article->dt_update = date('Y-m-d H:i:s');
-                $article->update();
+            if ($article->title && $article->text && $article->description) {
+                if ($article_id) {
+                    $article->dt_update = date('Y-m-d H:i:s');
+                    $article->update();
+                } else {
+                    $article->user_id = $this->user->id;
+                    $article->insert();
+                }
+                $this->redirect('/article/' . $article->id);
+                return;
             } else {
-                $article->user_id = $this->user->id;
-                $article->insert();
+                $this->view['error'] = true;
             }
-
-            $this->redirect('/article/' . $article->id);
         }
+        $this->view['article'] = $article;
+        $this->template->content = View::factory('templates/articles/create', $this->view);
     }
+
 
     public function action_delete()
     {

@@ -22,14 +22,7 @@ class Controller_Contests_Action extends Controller_Base_preDispatch
             $contest = new Model_Contests();
         }
 
-        if (!Security::check($csrfToken)) {
-            $this->view['contest'] = $contest;
-            $this->template->content = View::factory('templates/contests/create', $this->view);
-        } else {
-            if ($contest_id = Arr::get($_POST, 'contest_id')) {
-                $contest = Model_Contests::get($contest_id);
-            }
-
+        if (Security::check($csrfToken)) {
             $contest->title        = Arr::get($_POST, 'title');
             $contest->text         = Arr::get($_POST, 'contest_text');
             $contest->status       = Arr::get($_POST, 'status') ? 1 : 0;
@@ -38,21 +31,21 @@ class Controller_Contests_Action extends Controller_Base_preDispatch
             $contest->results      = Arr::get($_POST, 'results_contest');
             $contest->dt_close     = Arr::get($_POST, 'duration');
 
-            if ($contest->title == '' || $contest->text == '' || $contest->description == '' || $contest->dt_close == '') {
-                $this->view['contest'] = $contest;
-                $this->template->content = View::factory('templates/contests/create', $this->view);
-                return false;
-            }
-
-            if ($contest_id) {
-                $contest->dt_update = date('Y-m-d H:i:s');
-                $contest->update();
+            if ($contest->title && $contest->text && $contest->description && $contest->dt_close) {
+                if ($contest_id) {
+                    $contest->dt_update = date('Y-m-d H:i:s');
+                    $contest->update();
+                } else {
+                    $contest->insert();
+                }
+                $this->redirect('/contest/' . $contest->id);
+                return;
             } else {
-                $contest->insert();
+                $this->view['error'] = true;
             }
-
-            $this->redirect('/contest/' . $contest->id);
         }
+        $this->view['contest'] = $contest;
+        $this->template->content = View::factory('templates/contests/create', $this->view);
     }
 
     public function action_delete()
