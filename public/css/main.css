@@ -992,9 +992,10 @@ html {
         text-decoration: none;
         border-bottom: 1px solid #B2C9F3;
     }
-        .article_content a:hover{
+        .article_content a:not(.social-share):hover {
             color: #2C70F5;
             border-bottom-color: #6E8FEC;
+
         }
     .article_content code{
         display: block;
@@ -1792,3 +1793,100 @@ html {
 
     }
 }
+
+
+/*Social share buttons*/
+
+.article-share {
+    padding: 35px 40px;
+    background-color: #F1F5F8;
+    color: #70727F;
+    font-size: 15px;
+}
+
+    .article-share .text {        
+        margin-right: 50px;
+        font-size: 16px;
+        color: #636473;
+        overflow: hidden;        
+    }
+
+    .article-share 
+    .social-button-share {
+        float:right;
+        vertical-align: middle;
+    }
+
+    .article-share .vk {
+        vertical-align: middle;
+        margin-right: 23px;
+        padding: 9px 13px 9px 12px;
+        display: inline;
+        box-sizing: border-box;
+        line-height: 1em;
+        border-radius: 18px;        
+        font-size: 16px;
+        color: #fff;
+        background-color: #6380b4;
+        cursor: pointer;
+    }
+
+        .article-share .vk:hover {
+            background-color: #617daf;
+            color: #f6f8f9;
+        }
+
+
+        .vk:before {
+            font-family: "codex_ic";
+            content: '\e800';
+            padding: 0px 5px 0px 3px;
+            font-size: 18px;
+        }
+
+
+    .article-share .tw:before {
+        font-family: "codex_ic";
+        content: '\e801';
+        font-size: 22px;
+        line-height: 23px;
+        vertical-align: bottom;
+        }
+
+    .article-share .fb:before {
+        font-family: "codex_ic";
+        content: '\e802';
+        font-size: 19px;
+        line-height: 24px;
+        vertical-align: bottom;
+        }    
+    
+
+    .article-share .social-share{
+        vertical-align: middle;
+        margin-right: 16px;
+        color: #a1acc1;
+        cursor:pointer;
+        font-size: 17px;       
+    }
+
+
+        .article-share .social-share:hover {
+            color: #9ba5b9;
+        }
+
+        .social-share:last-child{
+            margin-right: 0;
+        }
+
+        .social-button-share a {
+            color: #a2adc0;
+            text-decoration: none;
+            border: 0;
+        }
+
+    
+
+    
+    
+

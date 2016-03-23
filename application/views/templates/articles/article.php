@@ -23,7 +23,22 @@
         </div>
         <div class="article_content"  itemprop="articleBody">
 
-            <?= $article->text ?>
+
+            <?= nl2br($article->text) ?>           
+
+            <div class="article-share">
+                <div class="social-button-share clearfix">
+
+                    <div class="share-vkontakte vk" onclick="Share.me(this, 'vk', '<?= $article->user_id ?>', '<?= $article->title ?>', '<?= $article->description ?>')"> 
+                        Поделиться
+                    </div>
+                    <a class="social-share tw" onclick="Share.me(this, '<?= $article->user_id ?>', '<?= $article->title ?>', '<?= $article->description ?>')"></a>
+                    <a class="social-share fb" onclick="Share.me(this, '<?= $article->user_id ?>', '<?= $article->title ?>', '<?= $article->description ?>')"></a>
+                    
+                </div> 
+                <div class="text">Если вам понравилась статья, опубликуйте ссылку на нее</div> 
+            </div>
+
 
         </div>
 
