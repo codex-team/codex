@@ -120,7 +120,7 @@ Class Model_Article extends Model
             ->set('user_id',        $this->user_id)
             ->set('is_published',   $this->is_published)
             ->set('dt_update',      $this->dt_update)      // TODO(#38) remove
-            ->clearcache()
+            ->clearcache($this->id)
             ->execute();
     }
 
@@ -137,13 +137,10 @@ Class Model_Article extends Model
             ->where('id', '=', $id)
             ->limit(1);
 
-        if ($needClearCache)
-        {
+        if ($needClearCache) {
             $article->clearcache($id);
-        }
-        else
-        {
-            $article->cached(Date::MINUTE * 5, $id );
+        } else {
+            $article->cached(Date::MINUTE * 5, $id);
         }
 
         $article = $article->execute();

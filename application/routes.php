@@ -54,17 +54,26 @@ Route::set('DEL_CONTEST_SCRIPT', 'contests/delcontest/<contest_id>', array('cont
     'action' => 'delete'
 ));
 
+Route::set('ADD_CONTEST_SCRIPT', 'contest/add')->defaults(array(
+    'controller' => 'contests_action',
+    'action' => 'save'
+));
+
+Route::set('EDIT_CONTEST_SCRIPT', 'contest/edit/<contest_id>', array('contest_id' => $DIGIT))->defaults(array(
+    'controller' => 'contests_action',
+    'action' => 'save'
+));
 
 // Scripts for articles
 
 Route::set('ADD_ARTICLE_SCRIPT', 'article/add')->defaults(array(
     'controller' => 'articles_action',
-    'action' => 'add'
+    'action' => 'save'
 ));
 
 Route::set('EDIT_ARTICLE_SCRIPT', 'article/edit/<article_id>', array('article_id' => $DIGIT))->defaults(array(
     'controller' => 'articles_action',
-    'action' => 'edit'
+    'action' => 'save'
 ));
 
 Route::set('DEL_ARTICLE_SCRIPT', 'article/delarticle/<article_id>', array('article_id' => $DIGIT))->defaults(array(
