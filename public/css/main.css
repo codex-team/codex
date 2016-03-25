@@ -1377,11 +1377,12 @@ html {
 /*Social share buttons*/
 
 .article_share {
+    margin-top: 50px;
     padding: 27px 35px;
-    background-color: #F1F5F8; 
+    background-color: #F1F5F8;
 }
 
-    .article_share .text {        
+    .article_share .text {
         margin-top: 7px;
         font-size: 16px;
         color: #636473;
@@ -1396,9 +1397,9 @@ html {
         margin-right: 23px;
         padding: 9px 16px 11px 13px;
         line-height: 1em;
-        display: inline-block;    
+        display: inline-block;
         border-radius: 18px;
-        margin-left: 20px;        
+        margin-left: 20px;
         font-size: 16px;
         color: #fff;
         background-color: #6380b4;
@@ -1419,8 +1420,8 @@ html {
     }
 
     .article_share .icon-facebook-squared {
-        font-size: 20px;        
-    }        
+        font-size: 20px;
+    }
 
     .article_share .social_icon {
         vertical-align: middle;
@@ -1438,7 +1439,7 @@ html {
             margin-right: 0;
         }
 
-        .article_share .social_icon {            
+        .article_share .social_icon {
             text-decoration: none;
             border: 0;
         }
@@ -1879,6 +1880,6 @@ html {
 
 
 
-    
-    
+
+
 
