@@ -1394,7 +1394,7 @@ html {
 
     .article_share .vk {
         margin-right: 23px;
-        padding: 11px 16px 12px 13px;
+        padding: 9px 16px 11px 13px;
         line-height: 1em;
         display: inline-block;    
         border-radius: 18px;
@@ -1411,34 +1411,25 @@ html {
         }
 
 
-        .vk:before {
-            font-family: "codex_ic";
-            content: '\e800';
-            padding: 0px 3px;
+        .icon-vkontakte:before {
             font-size: 19px;
         }
 
 
-    .article_share .tw:before {
-        font-family: "codex_ic";
-        content: '\e801';
+    .icon-twitter:before {
         font-size: 22px;
-        vertical-align: middle;
     }
 
-    .article_share .fb:before {
-        font-family: "codex_ic";
-        content: '\e802';
-        font-size: 20px;
-        vertical-align: middle;
+    .icon-facebook-squared:before {
+        font-size: 20px;        
     }    
     
 
     .article_share .social_icon {
         vertical-align: middle;
-        cursor:pointer;
+        cursor: pointer;
         line-height: 1em;
-        margin-right: 16px;
+        margin-right: 10px;
         color: #a2adc0;
     }
 
