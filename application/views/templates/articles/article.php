@@ -25,17 +25,14 @@
 
             <?= $article->text ?>           
 
-            <div class="article_share clearfix">                
-
+            <div class="article_share clearfix">       
                 <div class="social_wrapper">
-
-                    <div class="vk" onclick="Share.me(this, 'vk', '<?= $article->user_id ?>', '<?= $article->title ?>', '<?= $article->description ?>')">
+                    <div class="vk" onclick="share.me(this, 'vk', '<?= $article->user_id ?>', '<?= $article->title ?>', '<?= $article->description ?>')">
                         <i class="icon-vkontakte"></i> 
                         Поделиться
                     </div>
-                    <i class="social_icon icon-twitter" onclick="Share.me(this, '<?= $article->user_id ?>', '<?= $article->title ?>', '<?= $article->description ?>')"></i>
-                    <i class="social_icon icon-facebook-squared" onclick="Share.me(this, '<?= $article->user_id ?>', '<?= $article->title ?>', '<?= $article->description ?>')"></i>
-                    
+                    <i class="social_icon icon-twitter tw" onclick="share.me(this, '<?= $article->user_id ?>', '<?= $article->title ?>', '<?= $article->description ?>')"></i>
+                    <i class="social_icon icon-facebook-squared fb" onclick="share.me(this, '<?= $article->user_id ?>', '<?= $article->title ?>', '<?= $article->description ?>')"></i>                    
                 </div> 
                 <div class="text">Если вам понравилась статья, опубликуйте ссылку на нее</div> 
             </div>

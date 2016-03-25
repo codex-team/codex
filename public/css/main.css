@@ -1414,11 +1414,11 @@ html {
             font-size: 19px;
         }
 
-    .icon-twitter:before {
+    .article_share .icon-twitter {
         font-size: 22px;
     }
 
-    .icon-facebook-squared:before {
+    .article_share .icon-facebook-squared {
         font-size: 20px;        
     }        
 

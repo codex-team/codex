@@ -573,7 +573,7 @@ if ( !String.prototype.includes ) {
 
 /*Social share buttons*/
 
-var Share = {
+var share = {
      
     me: function(button, type, url, title, text) {
                 
@@ -582,11 +582,11 @@ var Share = {
         var thisClassList = button.classList;
         
         if (thisClassList.contains("vk")) {
-            link = Share.vk(url, title, text);
+            link = share.vk(url, title, text);
         } else if (thisClassList.contains("fb")) {
-            link = Share.fb(url, title, text);
+            link = share.fb(url, title, text);
         } else if (thisClassList.contains("tw")) {
-            link = Share.tw(url, title, text);
+            link = share.tw(url, title, text);
         }
         
         window.open(link, "", "toolbar=0, status=0, width=626, height=436");
@@ -607,7 +607,7 @@ var Share = {
     vk: function(purl, ptitle, text) {
 
         url  = 'http://vk.com/share.php?';
-        url += 'url='           + encodeURIComponent(purl);
+        url += 'url='          + encodeURIComponent(purl);
         url += '&title='       + encodeURIComponent(ptitle);
         url += '&description=' + encodeURIComponent(text);
         url += '&noparse=true';
@@ -628,17 +628,3 @@ var Share = {
     }
     
 }
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
