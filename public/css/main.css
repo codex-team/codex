@@ -992,10 +992,9 @@ html {
         text-decoration: none;
         border-bottom: 1px solid #B2C9F3;
     }
-        .article_content a:not(.social_icon):hover {
+        .article_content a:hover{
             color: #2C70F5;
             border-bottom-color: #6E8FEC;
-
         }
     .article_content code{
         display: block;
@@ -1461,6 +1460,9 @@ html {
         list-style: none;
     }
 
+
+
+
 @-webkit-keyframes wobble {
     0% { -webkit-transform: translateX(0%); }
     15% { -webkit-transform: translateX(-1%) rotate(-5deg); }
@@ -1810,22 +1812,7 @@ html {
         font-size: 12px;
     }
 
-    .article_share {padding: 20px;}
-
-        .article_share .text {overflow: auto;}
-
-        .article_share .vk {
-            margin: 0 17px 8px 0;
-        }
-
-        .article_share .social_icon {
-            margin-right: 8px;
-        }
-
-    .social_wrapper {float: none;}
-
-
-    .random_articles {margin: 0;}
+    .random_articles {margin: 0}
 
 
 
@@ -1872,14 +1859,4 @@ html {
         background-size: 28px 28px;
 
     }
-
-
-
 }
-
-
-
-
-
-
-
