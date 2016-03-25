@@ -1410,11 +1410,9 @@ html {
             color: #f6f8f9;
         }
 
-
         .icon-vkontakte:before {
             font-size: 19px;
         }
-
 
     .icon-twitter:before {
         font-size: 22px;
@@ -1422,8 +1420,7 @@ html {
 
     .icon-facebook-squared:before {
         font-size: 20px;        
-    }    
-    
+    }        
 
     .article_share .social_icon {
         vertical-align: middle;
@@ -1432,7 +1429,6 @@ html {
         margin-right: 10px;
         color: #a2adc0;
     }
-
 
         .article_share .social_icon:hover {
             color: #9ba5b9;
@@ -1446,7 +1442,6 @@ html {
             text-decoration: none;
             border: 0;
         }
-
 
 .random_articles {
     padding: 35px 0;
@@ -1464,9 +1459,6 @@ html {
     .random_articles li{
         list-style: none;
     }
-
-
-
 
 @-webkit-keyframes wobble {
     0% { -webkit-transform: translateX(0%); }

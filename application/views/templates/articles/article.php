@@ -23,17 +23,14 @@
         </div>
         <div class="article_content"  itemprop="articleBody">
 
+            <?= $article->text ?>           
 
-            <?= nl2br($article->text) ?>           
-
-            <div class="article_share clearfix">
-
-                
+            <div class="article_share clearfix">                
 
                 <div class="social_wrapper">
 
                     <div class="vk" onclick="Share.me(this, 'vk', '<?= $article->user_id ?>', '<?= $article->title ?>', '<?= $article->description ?>')">
-                    <i class="icon-vkontakte"></i> 
+                        <i class="icon-vkontakte"></i> 
                         Поделиться
                     </div>
                     <i class="social_icon icon-twitter" onclick="Share.me(this, '<?= $article->user_id ?>', '<?= $article->title ?>', '<?= $article->description ?>')"></i>
@@ -42,7 +39,6 @@
                 </div> 
                 <div class="text">Если вам понравилась статья, опубликуйте ссылку на нее</div> 
             </div>
-
 
         </div>
 
