@@ -2,79 +2,59 @@
 
 class Controller_Articles_Modify extends Controller_Base_preDispatch
 {
-
-    public function action_add()
+    /**
+     * this method prevent no admin users visit /article/add, /article/<article_id>/edit
+     */
+    public function before()
     {
-        $user_id = $this->user->id;
-
-        if (empty($user_id)) {
+        parent::before();
+        if (!$this->user->checkAccess(array(Model_User::ROLE_ADMIN)))
             $this->redirect('/');
-        };
+    }
 
-        $article_id = Arr::get($_POST, 'article_id');
-        $article    = Model_Article::get($article_id);
+    public function action_save()
+    {
+        $csrfToken = Arr::get($_POST, 'csrf');
 
-        if ($article->user_id != $user_id && !$this->user->checkAccess(array(Model_User::ROLE_ADMIN)))
-            throw new HTTP_Exception_403();
-
-        if (!$article_id || !$article)
+        if ($article_id = $this->request->param('article_id')) {
+            $article = Model_Article::get($article_id);
+        } else {
             $article = new Model_Article();
-
-        $article->title        = Arr::get($_POST,'title');
-        $article->text         = Arr::get($_POST,'article_text');
-        $article->is_published = Arr::get($_POST, 'is_published')? 1 : 0;
-        $article->description  = Arr::get($_POST,'description');
-
-        $errors = FALSE;
-        $table_values = array();
-
-        if ($article->title != '')       { $table_values['title'] = array('value' => $article->title); }
-            else { $errors = TRUE; }
-        if ($article->text != '')        { $table_values['text'] = array('value' => $article->text); }
-            else { $errors = TRUE; }
-        if ($article->description != '') { $table_values['description'] = array('value' => $article->description); }
-            else { $errors = TRUE; }
-
-        if ($errors) {
-            $this->template->content = View::factory('templates/articles/create', $this->view);
-            return false;
         }
-
-        $article->user_id = $user_id;
 
         /*
          * Articles Title.
          */
+        if (Security::check($csrfToken)) {
+            $article->title        = Arr::get($_POST, 'title');
+            $article->text         = Arr::get($_POST, 'article_text');
+            $article->is_published = Arr::get($_POST, 'is_published')? 1 : 0;
+            $article->description  = Arr::get($_POST, 'description');
 
-        $translitedTitle = $this->methods->rus2translit($article->title);
+            if ($article->title && $article->text && $article->description) {
 
-        if ($article_id) {
-            $article->update();
-            Model_Alias::updateAlias($translitedTitle, Model_Uri::ARTICLE, $article_id);
+                $translitedTitle = $this->methods->rus2translit($article->title);
 
+                if ($article_id) {
+                    $article->dt_update = date('Y-m-d H:i:s');
+                    $article->update();
+                    Model_Alias::updateAlias($translitedTitle, Model_Uri::ARTICLE, $article_id);
+
+                } else {
+                    $article->user_id = $this->user->id;
+                    $article->insert();
+                    Model_Alias::addAlias($translitedTitle, Model_Uri::ARTICLE, $article_id);
+                }
+                $this->redirect('/'. $article->uri);
+                return;
+            } else {
+                $this->view['error'] = true;
+            }
         }
-        else {
-            $article->insert();
-            Model_Alias::addAlias($translitedTitle, Model_Uri::ARTICLE, $article_id);
-        }
-
-
-
-        $this->redirect('/'. $article->uri);
+        $this->view['article'] = $article;
+        $this->template->content = View::factory('templates/articles/create', $this->view);
     }
 
-    public function action_edit()
-    {
-        $article_id = $this->request->param('article_id');
-        $article = Model_Article::get($article_id);
-
-        if ($article->author->id == $this->user->id) {
-            $this->view['article'] = $article;
-            $this->template->content = View::factory('templates/articles/create', $this->view);
-        } else {
-            throw new HTTP_Exception_403();
-        }
-    }
 
     public function action_delete()
     {

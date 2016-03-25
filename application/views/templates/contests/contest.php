@@ -2,7 +2,7 @@
     <div class="center_side clear">
 
         <? if (!empty($contest->dt_update)): ?>
-            <meta itemprop="dateModified" content="<?= date(DATE_ISO8601, strtotime($contest->dt_update)) ?>" />";
+            <meta itemprop="dateModified" content="<?= date(DATE_ISO8601, strtotime($contest->dt_update)) ?>" />
         <? endif; ?>
         <meta itemprop="datePublished" content="<?= date(DATE_ISO8601, strtotime($contest->dt_create)) ?>" />
 

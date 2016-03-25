@@ -107,10 +107,10 @@ class Controller_Auth extends Controller_Base_preDispatch
         {
             $this->generate_auth_error();
         }
-
         $gh = Oauth::instance('github');
+
         if ($gh->login())
-        {
+        { 
             $profile = $gh->get_user();
 
             if ($profile)
@@ -148,8 +148,9 @@ class Controller_Auth extends Controller_Base_preDispatch
         }
         else
         {
-
+           
         }
+        
         Controller::redirect($this->get_return_url());
     }
 

@@ -138,7 +138,6 @@ class Kohana_Oauth_GitHub extends Oauth {
             'response_type' => 'code'
         );
         return self::$config['GET_CODE_URI'].'?'.http_build_query($params);
-
     }
 
     public function get_token()
