@@ -992,9 +992,10 @@ html {
         text-decoration: none;
         border-bottom: 1px solid #B2C9F3;
     }
-        .article_content a:hover{
+        .article_content a:not(.social_icon):hover {
             color: #2C70F5;
             border-bottom-color: #6E8FEC;
+
         }
     .article_content code{
         display: block;
@@ -1373,7 +1374,74 @@ html {
     background: url('../img/icon_telegram.png') no-repeat;
 }
 
+/*Social share buttons*/
 
+.article_share {
+    padding: 27px 35px;
+    background-color: #F1F5F8; 
+}
+
+    .article_share .text {        
+        margin-top: 7px;
+        font-size: 16px;
+        color: #636473;
+        overflow: hidden;
+    }
+
+    .social_wrapper {
+        float:right;
+    }
+
+    .article_share .vk {
+        margin-right: 23px;
+        padding: 9px 16px 11px 13px;
+        line-height: 1em;
+        display: inline-block;    
+        border-radius: 18px;
+        margin-left: 20px;        
+        font-size: 16px;
+        color: #fff;
+        background-color: #6380b4;
+        cursor: pointer;
+    }
+
+        .article_share .vk:hover {
+            background-color: #617daf;
+            color: #f6f8f9;
+        }
+
+        .icon-vkontakte:before {
+            font-size: 19px;
+        }
+
+    .article_share .icon-twitter {
+        font-size: 22px;
+    }
+
+    .article_share .icon-facebook-squared {
+        font-size: 20px;        
+    }        
+
+    .article_share .social_icon {
+        vertical-align: middle;
+        cursor: pointer;
+        line-height: 1em;
+        margin-right: 10px;
+        color: #a2adc0;
+    }
+
+        .article_share .social_icon:hover {
+            color: #9ba5b9;
+        }
+
+        .social_icon:last-child{
+            margin-right: 0;
+        }
+
+        .article_share .social_icon {            
+            text-decoration: none;
+            border: 0;
+        }
 
 .random_articles {
     padding: 35px 0;
@@ -1391,9 +1459,6 @@ html {
     .random_articles li{
         list-style: none;
     }
-
-
-
 
 @-webkit-keyframes wobble {
     0% { -webkit-transform: translateX(0%); }
@@ -1744,7 +1809,22 @@ html {
         font-size: 12px;
     }
 
-    .random_articles {margin: 0}
+    .article_share {padding: 20px;}
+
+        .article_share .text {overflow: auto;}
+
+        .article_share .vk {
+            margin: 0 17px 8px 0;
+        }
+
+        .article_share .social_icon {
+            margin-right: 8px;
+        }
+
+    .social_wrapper {float: none;}
+
+
+    .random_articles {margin: 0;}
 
 
 
@@ -1791,4 +1871,14 @@ html {
         background-size: 28px 28px;
 
     }
+
+
+
 }
+
+
+
+
+    
+    
+
