@@ -23,6 +23,7 @@
         </div>
         <div class="article_content"  itemprop="articleBody">
 
+
             <?= $article->text ?>           
 
             <div class="article_share clearfix">       
@@ -36,6 +37,7 @@
                 </div> 
                 <div class="text">Если вам понравилась статья, опубликуйте ссылку на нее</div> 
             </div>
+
 
         </div>
 
