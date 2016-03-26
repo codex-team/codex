@@ -1410,7 +1410,7 @@ html {
             color: #f6f8f9;
         }
 
-        .icon-vkontakte:before {
+        .article_share .icon-vkontakte {
             font-size: 19px;
         }
 
