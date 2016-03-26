@@ -23,19 +23,7 @@
         </div>
         <div class="article_content"  itemprop="articleBody">
 
-            <?= $article->text ?>           
-
-            <div class="article_share clearfix">       
-                <div class="social_wrapper">
-                    <div class="vk" onclick="share.me(this, 'vk', 'https://ifmo.su/article/<?= $article->id ?>', '<?= $article->title ?>', '<?= $article->description ?>')">
-                        <i class="icon-vkontakte"></i> 
-                        Поделиться
-                    </div>
-                    <i class="social_icon icon-twitter tw" onclick="share.me(this, 'https://ifmo.su/article/<?= $article->id ?>', '<?= $article->title ?>', '<?= $article->description ?>')"></i>
-                    <i class="social_icon icon-facebook-squared fb" onclick="share.me(this, 'https://ifmo.su/article/<?= $article->id ?>', '<?= $article->title ?>', '<?= $article->description ?>')"></i>                    
-                </div> 
-                <div class="text">Если вам понравилась статья, опубликуйте ссылку на нее</div> 
-            </div>
+            <?= $article->text ?>
 
         </div>
 
