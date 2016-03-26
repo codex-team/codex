@@ -9,6 +9,7 @@
 Class Model_Article extends Model
 {
     public $id = 0;
+    public $uri;
     public $title;
     public $text;
     public $description;
@@ -34,6 +35,7 @@ Class Model_Article extends Model
      * Добавляет текущий объект в базу данных и присваивает ему айдишник.
      *
      * @throws Kohana_Exception
+     * @return int inserted id
      */
     public function insert()
     {
@@ -44,7 +46,7 @@ Class Model_Article extends Model
                                 ->set('cover',          $this->cover)
                                 ->set('user_id',        $this->user_id)
                                 ->set('is_published',   $this->is_published)
-                                ->clearcache()
+                                ->clearcache('articles_list')
                                 ->execute();
 
         if ($idAndRowAffected) {
@@ -56,6 +58,8 @@ Class Model_Article extends Model
 
             $this->fillByRow($article);
         }
+
+        return $idAndRowAffected;
     }
 
     /**
@@ -69,6 +73,7 @@ Class Model_Article extends Model
         if (!empty($article_row['id'])) {
 
             $this->id           = $article_row['id'];
+            $this->uri          = $article_row['uri'];
             $this->title        = $article_row['title'];
             $this->text         = $article_row['text'];
             $this->description  = $article_row['description'];
@@ -98,7 +103,7 @@ Class Model_Article extends Model
 
             Dao_Articles::update()->where('id', '=', $this->id)
                 ->set('is_removed', 1)
-                ->clearcache()
+                ->clearcache('articles_list')
                 ->execute();
 
             // Статья удалена
@@ -122,6 +127,8 @@ Class Model_Article extends Model
             ->set('dt_update',      $this->dt_update)      // TODO(#38) remove
             ->clearcache($this->id)
             ->execute();
+
+        return Model_Alias::generateUri( $this->title );
     }
 
     /**
@@ -201,7 +208,7 @@ Class Model_Article extends Model
         }
 
         if ($cachedTime) {
-            $articlesQuery->cached($cachedTime);
+            $articlesQuery->cached($cachedTime, 'articles_list');
         }
 
         $article_rows = $articlesQuery->order_by('id', 'DESC')->execute();

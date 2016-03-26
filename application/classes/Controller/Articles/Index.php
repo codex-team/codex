@@ -19,13 +19,14 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
     public function action_show()
     {
-        $articleId = $this->request->param('article_id');
+        $articleId = $this->request->param('id');
 
         $this->view["id"] = $articleId;
 
         $needClearCache = Arr::get($_GET, 'clear');
 
         $article = Model_Article::get($articleId, $needClearCache);
+
         if ($article->id == 0 || $article->is_removed)
             throw new HTTP_Exception_404();
 

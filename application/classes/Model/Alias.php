@@ -33,6 +33,8 @@ class Model_Alias
                         ->set('dt_create', $this->dt_create)
                         ->clearcache('hash:'. $this->hash)
                         ->execute();
+
+
     }
 
     public static function getAlias($route = null)
@@ -106,6 +108,8 @@ class Model_Alias
         $model_alias->save();
 
         self::updateAlias($newAlias, $type, $id);
+
+        return $model_alias->uri;
     }
 
 
@@ -120,6 +124,12 @@ class Model_Alias
 
         $hashedRoute = md5($alias, true);
 
+        $update = Dao_Alias::update()->set('uri', $alias)
+                                     ->set('hash', $hashedRoute)
+                                     ->where('id', '=', $id)
+                                     ->clearcache('hash')
+                                     ->execute();
+
         /*
          * $model_uri->controllersMap[$type] возвращает название сущности.
          * $type должен соответствовать ключу из массива controllersMap в Model_Uri, а значение с Таблицами в БД
@@ -131,8 +141,56 @@ class Model_Alias
         if ( class_exists($Dao) ) {
 
             $DaoClass = new $Dao();
-            $DaoClass->update()->set('uri', $alias)->where('id','=', $id)->clearcache('hash:'. $hashedRoute)->execute();
+            $DaoClass->update()->set('uri', $alias)->where('id','=', $id)
+                                ->clearcache('hash')->execute();
         }
+    }
+
+    public static function generateUri( $string )
+    {
+        $converter = array(
+                'а' => 'a',   'б' => 'b',   'в' => 'v',
+                'г' => 'g',   'д' => 'd',   'е' => 'e',
+                'ё' => 'e',   'ж' => 'zh',  'з' => 'z',
+                'и' => 'i',   'й' => 'y',   'к' => 'k',
+                'л' => 'l',   'м' => 'm',   'н' => 'n',
+                'о' => 'o',   'п' => 'p',   'р' => 'r',
+                'с' => 's',   'т' => 't',   'у' => 'u',
+                'ф' => 'f',   'х' => 'h',   'ц' => 'c',
+                'ч' => 'ch',  'ш' => 'sh',  'щ' => 'sch',
+                'ь' => "",    'ы' => 'y',   'ъ' => "",
+                'э' => 'e',   'ю' => 'yu',  'я' => 'ya',
+
+                'А' => 'A',   'Б' => 'B',   'В' => 'V',
+                'Г' => 'G',   'Д' => 'D',   'Е' => 'E',
+                'Ё' => 'E',   'Ж' => 'Zh',  'З' => 'Z',
+                'И' => 'I',   'Й' => 'Y',   'К' => 'K',
+                'Л' => 'L',   'М' => 'M',   'Н' => 'N',
+                'О' => 'O',   'П' => 'P',   'Р' => 'R',
+                'С' => 'S',   'Т' => 'T',   'У' => 'U',
+                'Ф' => 'F',   'Х' => 'H',   'Ц' => 'C',
+                'Ч' => 'Ch',  'Ш' => 'Sh',  'Щ' => 'Sch',
+                'Ь' => "",    'Ы' => 'Y',   'Ъ' => "",
+                'Э' => 'E',   'Ю' => 'Yu',  'Я' => 'Ya',
+                ' ' => '-',   '-' => '-',   '-' => '-',    '.' => '-',
+                ',' => '-',   '\'' => '',   '\"' => '',    '(' => '-', ')' => '-',
+                '?' => '-',   '#' => '-',   '$' => '-',    '!' => '-',
+                '@' => '-',   '%' => '-',   '&' => '-',    '*' => '-',
+                '`' => '-',   '\\' => '-',  '/' => '-'//,    '*' => '-'
+            );
+            // translit
+            $tmp = strtr($string, $converter);
+            // remove underline from begin and end of line
+            $tmp = trim($tmp, "_");
+            // replace lines
+            $tmp = strtr($tmp, array(
+                "__"    => "_",
+                "___"   => "_",
+                "____"  => "_",
+                "_____" => "_",
+            ));
+
+            return strtolower( $tmp );
     }
 
 }

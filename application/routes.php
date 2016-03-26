@@ -52,6 +52,16 @@ Route::set('CONTESTS_LIST', 'contests')->defaults(array(
 	'action' => 'showAll',
 ));
 
+Route::set('ADD_ARTICLE_SCRIPT', 'article/add')->defaults(array(
+	'controller' => 'articles_modify',
+	'action' => 'save'
+));
+
+Route::set('ADD_CONTEST_SCRIPT', 'contest/add')->defaults(array(
+	'controller' => 'contests_modify',
+	'action' => 'save'
+));
+
 /*Route::set('INDEX_PAGE', '')->defaults(array(
     'controller' => 'index',
     'action' => 'index',
@@ -72,12 +82,6 @@ Route::set('TASK_PAGE', 'task/<who>', array('who' => $STRING))->defaults(array(
     'action' => 'whoSet',
 ));
 
-
-Route::set('ARTICLE_PAGE', 'article/<article_id>', array('article_id' => $DIGIT))->defaults(array(
-    'controller' => 'articles_index',
-    'action' => 'showArticle'
-));
-
 Route::set('CONTEST_PAGE', 'contest/<contest_id>', array('contest_id' => $DIGIT))->defaults(array(
     'controller' => 'contests_index',
     'action' => 'showContest'
@@ -88,10 +92,6 @@ Route::set('DEL_CONTEST_SCRIPT', 'contests/delcontest/<contest_id>', array('cont
     'action' => 'delete'
 ));
 
-Route::set('ADD_CONTEST_SCRIPT', 'contest/add')->defaults(array(
-    'controller' => 'contests_action',
-    'action' => 'save'
-));
 
 Route::set('EDIT_CONTEST_SCRIPT', 'contest/edit/<contest_id>', array('contest_id' => $DIGIT))->defaults(array(
     'controller' => 'contests_action',
@@ -99,11 +99,6 @@ Route::set('EDIT_CONTEST_SCRIPT', 'contest/edit/<contest_id>', array('contest_id
 ));
 
 // Scripts for articles
-
-Route::set('ADD_ARTICLE_SCRIPT', 'article/add')->defaults(array(
-    'controller' => 'articles_action',
-    'action' => 'save'
-));
 
 Route::set('EDIT_ARTICLE_SCRIPT', 'article/edit/<article_id>', array('article_id' => $DIGIT))->defaults(array(
     'controller' => 'articles_action',
@@ -115,18 +110,18 @@ Route::set('DEL_ARTICLE_SCRIPT', 'article/delarticle/<article_id>', array('artic
     'action' => 'delete'
 ));
 
-
+*/
 // Scripts for users
-
-Route::set('USER_PROFILE', 'user(/<user_id>)', array('user_id' => $DIGIT))->defaults(array(
+Route::set('USER_PROFILE', 'user(/<user_id>)', array('user_id' => $DIGIT))
+	->defaults(array(
 	'controller' => 'users_index',
-	'action'     => 'showUser'
+	'action'     => 'show'
 ));
 
 Route::set('USER_SETTINGS', 'user/settings')->defaults(array(
 	'controller' => 'users_index',
 	'action'     => 'settings'
-));*/
+));
 
 // Scripts for comments
 

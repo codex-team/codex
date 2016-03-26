@@ -16,8 +16,8 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
     {
         $csrfToken = Arr::get($_POST, 'csrf');
 
-        if ($article_id = $this->request->param('article_id')) {
-            $article = Model_Article::get($article_id);
+        if ($article_id = $this->request->param('id')) {
+            $article = Model_Article::get($article_id, true);
         } else {
             $article = new Model_Article();
         }
@@ -33,19 +33,21 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
 
             if ($article->title && $article->text && $article->description) {
 
-                $translitedTitle = $this->methods->rus2translit($article->title);
+                $translitedTitle = Model_Alias::generateUri( $article->title );
 
                 if ($article_id) {
                     $article->dt_update = date('Y-m-d H:i:s');
                     $article->update();
                     Model_Alias::updateAlias($translitedTitle, Model_Uri::ARTICLE, $article_id);
+                    $article->uri = $translitedTitle;
 
                 } else {
                     $article->user_id = $this->user->id;
-                    $article->insert();
-                    Model_Alias::addAlias($translitedTitle, Model_Uri::ARTICLE, $article_id);
+                    $insertedId = $article->insert();
+                    $article->uri = Model_Alias::addAlias($translitedTitle, Model_Uri::ARTICLE, $insertedId);
                 }
-                $this->redirect('/'. $article->uri);
+                echo $article->uri;
+                $this->redirect('/' . $article->uri);
                 return;
             } else {
                 $this->view['error'] = true;

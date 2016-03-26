@@ -58,6 +58,8 @@ Class Model_Contests extends Model
 
             $this->fillByRow($contest);
         }
+
+        return $idAndRowAffected;
     }
 
     /**

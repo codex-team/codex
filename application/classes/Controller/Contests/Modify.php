@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Contests_Action extends Controller_Base_preDispatch
+class Controller_Contests_Modify extends Controller_Base_preDispatch
 {
     /**
      * this method prevent no admin users visit /contest/add, /contest/<contest_id>/edit
@@ -16,7 +16,7 @@ class Controller_Contests_Action extends Controller_Base_preDispatch
     {
         $csrfToken = Arr::get($_POST, 'csrf');
 
-        if ($contest_id = $this->request->param('contest_id')) {
+        if ($contest_id = $this->request->param('id')) {
             $contest = Model_Contests::get($contest_id);
         } else {
             $contest = new Model_Contests();
@@ -31,14 +31,18 @@ class Controller_Contests_Action extends Controller_Base_preDispatch
             $contest->results      = Arr::get($_POST, 'results_contest');
             $contest->dt_close     = Arr::get($_POST, 'duration');
 
+            $translitedTitle = Model_Alias::generateUri( $contest->title );
+
             if ($contest->title && $contest->text && $contest->description && $contest->dt_close) {
                 if ($contest_id) {
                     $contest->dt_update = date('Y-m-d H:i:s');
                     $contest->update();
+                    Model_Alias::updateAlias($translitedTitle, Model_Uri::CONTEST, $contest_id);
                 } else {
-                    $contest->insert();
+                    $insertedId   = $contest->insert();
+                    $contest->uri = Model_Alias::addAlias($translitedTitle, Model_Uri::CONTEST, $insertedId);
                 }
-                $this->redirect('/contest/' . $contest->id);
+                $this->redirect('/' . $contest->uri);
                 return;
             } else {
                 $this->view['error'] = true;
