@@ -571,60 +571,10 @@ if ( !String.prototype.includes ) {
 }
 
 
-/*Social share buttons*/
 
-var share = {
-     
-    me: function(button, type, url, title, text) {
-                
-        var link = '';          
-        
-        var thisClassList = button.classList;
-        
-        if (thisClassList.contains("vk")) {
-            link = share.vk(url, title, text);
-        } else if (thisClassList.contains("fb")) {
-            link = share.fb(url, title, text);
-        } else if (thisClassList.contains("tw")) {
-            link = share.tw(url, title, text);
-        }
-        
-        window.open(link, "", "toolbar=0, status=0, width=626, height=436");
-        
-    },
-    
-    fb: function(purl, ptitle, text) {
-        
-        url  = 'http://www.facebook.com/sharer.php?s=100';
-        url += '&p[title]='     + encodeURIComponent(ptitle);
-        url += '&p[summary]='   + encodeURIComponent(text);
-        url += '&p[url]='       + encodeURIComponent(purl);
-                
-        return url;
-        
-    },
-    
-    vk: function(purl, ptitle, text) {
 
-        url  = 'http://vk.com/share.php?';
-        url += 'url='          + encodeURIComponent(purl);
-        url += '&title='       + encodeURIComponent(ptitle);
-        url += '&description=' + encodeURIComponent(text);
-        url += '&noparse=true';
-        
-        return url;
-        
-    },
-    
-    tw: function(purl, ptitle) {
-        
-        url  = 'http://twitter.com/share?';
-        url += 'text='      + encodeURIComponent(ptitle);
-        url += '&url='      + encodeURIComponent(purl);
-        url += '&counturl=' + encodeURIComponent(purl);
-        
-        return url;
-        
-    }
-    
-}
+
+
+
+
+
