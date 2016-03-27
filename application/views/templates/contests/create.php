@@ -2,7 +2,7 @@
 
     <article class="article">
 
-        <form method="POST" action="/contest/add" enctype="multipart/form-data" id="edit_article_form" class="edit_article_form">
+        <form method="POST" action="/<?= $contest->id && $contest->uri ? $contest->uri . '/save' : 'contest/add' ?>" enctype="multipart/form-data" id="edit_article_form" class="edit_article_form">
             <input type="hidden" name="csrf" value="<?= Security::token() ?>" />
             <input type="hidden" name="contest_id" value="<?= $contest->id; ?>">
             <label for="title">Заголовок:</label>

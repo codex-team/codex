@@ -107,7 +107,7 @@ class Model_Alias
         $model_alias = new Model_Alias($newAlias, $hash, $type, $id, $dt_create);
         $model_alias->save();
 
-        self::updateAlias($newAlias, $type, $id);
+        self::updateAlias(false, $newAlias, $type, $id);
 
         return $model_alias->uri;
     }
@@ -118,7 +118,7 @@ class Model_Alias
      * @params: $alias - новый uri, $type - тип сущности (см Model_Uri - $controllersMap), $id - идентификатор
      */
 
-    public static function updateAlias($alias, $type, $id)
+    public static function updateAlias($oldAlias = null, $alias, $type, $id)
     {
         $model_uri  = Model_Uri::Instance();
 
@@ -127,7 +127,7 @@ class Model_Alias
         $update = Dao_Alias::update()->set('uri', $alias)
                                      ->set('hash', $hashedRoute)
                                      ->where('id', '=', $id)
-                                     ->clearcache('hash')
+                                     ->clearcache('hash:'. md5($oldAlias, true))
                                      ->execute();
 
         /*
@@ -136,13 +136,15 @@ class Model_Alias
          * в переменной $Dao получаем строку "Dao_название-сущности" (Dao_Articles, Dao_Contests и тд)
          */
 
-        $Dao = 'Dao_' . $model_uri->controllersMap[$type];
+        $type = $model_uri->controllersMap[$type];
+
+        $Dao = 'Dao_' . $type;
 
         if ( class_exists($Dao) ) {
 
             $DaoClass = new $Dao();
             $DaoClass->update()->set('uri', $alias)->where('id','=', $id)
-                                ->clearcache('hash')->execute();
+                                ->clearcache( strtolower($type) . '_list')->execute();
         }
     }
 

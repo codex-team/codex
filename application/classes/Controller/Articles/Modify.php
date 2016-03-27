@@ -38,7 +38,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
                 if ($article_id) {
                     $article->dt_update = date('Y-m-d H:i:s');
                     $article->update();
-                    Model_Alias::updateAlias($translitedTitle, Model_Uri::ARTICLE, $article_id);
+                    Model_Alias::updateAlias($article->uri, $translitedTitle, Model_Uri::ARTICLE, $article_id);
                     $article->uri = $translitedTitle;
 
                 } else {
@@ -46,13 +46,14 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
                     $insertedId = $article->insert();
                     $article->uri = Model_Alias::addAlias($translitedTitle, Model_Uri::ARTICLE, $insertedId);
                 }
-                echo $article->uri;
-                $this->redirect('/' . $article->uri);
-                return;
+                $this->redirect( URL::site('articles') );
+                header('location: /'. $article->uri );
+
             } else {
                 $this->view['error'] = true;
             }
         }
+
         $this->view['article'] = $article;
         $this->template->content = View::factory('templates/articles/create', $this->view);
     }
