@@ -17,7 +17,12 @@ class Controller_Uri extends Controller {
 
         $realRoute = $model_alias->getRealRoute( $route, $sub_action);
 
-        $this->response->body( Request::factory($realRoute)->execute() );
+        $request = Request::factory($realRoute, array(
+            'follow' => TRUE
+        ))->execute();
+
+        $this->response->body( $request );
+
 
         /*
          Пример создания нового Алиаса.

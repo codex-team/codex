@@ -58,7 +58,9 @@ class Model_Alias
             {
                 $newAlias = $newAlias.'-'.$index;
 
-                if ( empty(self::getAlias($newAlias) ) )
+                $aliasExist = self::getAlias($newAlias);
+
+                if ( !$aliasExist )
                 {
                     return $newAlias;
                     break;
@@ -127,6 +129,7 @@ class Model_Alias
         $update = Dao_Alias::update()->set('uri', $alias)
                                      ->set('hash', $hashedRoute)
                                      ->where('id', '=', $id)
+                                     ->where('type', '=', $type)
                                      ->clearcache('hash')
                                      ->execute();
 
