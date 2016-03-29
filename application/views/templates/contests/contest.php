@@ -61,7 +61,7 @@
     <div class="center_side">
         <?= View::factory('templates/blocks/share', array('share' => array(
             'offer' => 'Расскажите об этом конкурсе своим подписчикам',
-            'url'   => 'https://ifmo.ru/article/' . $contest->id,
+            'url'   => 'https://' . Arr::get($_SERVER, 'HTTP_HOST', Arr::get($_SERVER, 'SERVER_NAME', 'ifmo.su')) . '/contest/' . $contest->id,
             'title' => htmlspecialchars($contest->title),
             'desc'  => htmlspecialchars($contest->description),
         ))); ?>

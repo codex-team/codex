@@ -30,7 +30,7 @@
         <div class="center_side">
             <?= View::factory('templates/blocks/share', array('share' => array(
                 'offer' => 'Если вам понравилась статья, поделитесь ссылкой на нее',
-                'url'   => 'https://ifmo.ru/article/' . $article->id,
+                'url'   => 'https://' . Arr::get($_SERVER, 'HTTP_HOST', Arr::get($_SERVER, 'SERVER_NAME', 'ifmo.su')) . '/article/' . $article->id,
                 'title' => htmlspecialchars($article->title),
                 'desc'  => htmlspecialchars($article->description),
             ))); ?>
