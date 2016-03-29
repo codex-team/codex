@@ -183,11 +183,11 @@ input[disabled]
 
 @font-face {
   font-family: 'codex_ic';
-  src: url('../fonts/codex_icons/codex_ic.eot?87250635');
-  src: url('../fonts/codex_icons/codex_ic.eot?87250635#iefix') format('embedded-opentype'),
-       url('../fonts/codex_icons/codex_ic.woff?87250635') format('woff'),
-       url('../fonts/codex_icons/codex_ic.ttf?87250635') format('truetype'),
-       url('../fonts/codex_icons/codex_ic.svg?87250635#codex_ic') format('svg');
+  src: url('../fonts/codex_icons/codex_ic.eot?41949633');
+  src: url('../fonts/codex_icons/codex_ic.eot?41949633#iefix') format('embedded-opentype'),
+       url('../fonts/codex_icons/codex_ic.woff?41949633') format('woff'),
+       url('../fonts/codex_icons/codex_ic.ttf?41949633') format('truetype'),
+       url('../fonts/codex_icons/codex_ic.svg?41949633#codex_ic') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -264,6 +264,9 @@ input[disabled]
 .icon-cancel:before { content: '\e81a'; } /* '' */
 .icon-spin4:before { content: '\e81b'; } /* '' */
 .icon-picture:before { content: '\e81c'; } /* '' */
+.icon-cog:before { content: '\e81d'; } /* '' */
+.icon-paper-plane:before { content: '\e81e'; } /* '' */
+.icon-facebook:before { content: '\e81f'; } /* '' */
 
 .error_alert{
     background: #FDF4F4;
@@ -1393,6 +1396,34 @@ html {
 
 
 
+.sharing{
+    margin: 50px 70px 0;
+    padding: 30px 40px;
+    border-radius: 3px;
+    background: #f1f5f8;
+    color: #616C98;
+}
+    .sharing .but{
+        margin-left: 13px;
+        cursor: pointer;
+        color: #a1acc1;
+        font-size: 20px;
+    }
+        .sharing .but:hover{color: #5D75BD;}
+        .sharing .tw:hover{color: #6E98FD;}
+        .sharing .tg:hover{color: #41ADFF;}
+        .sharing .tg{font-size: 17px;}
+
+    .sharing .main_but{
+        margin: -0.6em 12px 0 0;
+        padding: 10px 24px;
+        border-radius: 25px;
+        background: #607cb6;
+        color: #fff;
+    }
+        .sharing .main_but:hover{background: #546fa9;}
+        .sharing .main_but i{margin: 0 4px 0 -5px;}
+
 
 @-webkit-keyframes wobble {
     0% { -webkit-transform: translateX(0%); }
@@ -1744,6 +1775,22 @@ html {
     }
 
     .random_articles {margin: 0}
+
+    .sharing{
+        margin: 30px 0 0;
+        padding:  30px;
+        text-align: center;
+    }
+    .sharing .main_but{
+        float: none;
+        display: block;
+        margin: 0 0 15px;
+    }
+    .sharing .but{
+        display: inline-block;
+        float: none;
+        margin: 0 7px 18px;
+    }
 
 
 
