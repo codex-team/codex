@@ -127,8 +127,6 @@ Class Model_Article extends Model
             ->set('dt_update',      $this->dt_update)      // TODO(#38) remove
             ->clearcache($this->id)
             ->execute();
-
-        return Model_Alias::generateUri( $this->title );
     }
 
     /**

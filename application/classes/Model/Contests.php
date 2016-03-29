@@ -46,7 +46,7 @@ Class Model_Contests extends Model
                                 ->set('winner',         $this->winner)
                                 ->set('results',        $this->results)
                                 ->set('description',    $this->description)
-                                ->clearcache()
+                                ->clearcache('contest_list')
                                 ->execute();
 
         if ($idAndRowAffected) {
@@ -91,7 +91,7 @@ Class Model_Contests extends Model
 
             Dao_Contests::update()->where('id', '=', $this->id)
                 ->set('status', -1)
-                ->clearcache()
+                ->clearcache('contests_list')
                 ->execute();
 
             // Контест удален
@@ -183,7 +183,7 @@ Class Model_Contests extends Model
         }
 
         if ($cachedTime) {
-            $contestsQuery->cached($cachedTime);
+            $contestsQuery->cached($cachedTime, 'contests_list');
         }
         $contest_rows = $contestsQuery->order_by('dt_create', 'DESC')->execute();
 

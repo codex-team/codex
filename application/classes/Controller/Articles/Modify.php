@@ -46,8 +46,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
                     $insertedId = $article->insert();
                     $article->uri = Model_Alias::addAlias($translitedTitle, Model_Uri::ARTICLE, $insertedId);
                 }
-                $this->redirect( URL::site('articles') );
-                header('location: /'. $article->uri );
+                $this->redirect( $article->uri );
 
             } else {
                 $this->view['error'] = true;

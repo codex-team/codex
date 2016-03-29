@@ -34,16 +34,18 @@ class Controller_Contests_Modify extends Controller_Base_preDispatch
             $translitedTitle = Model_Alias::generateUri( $contest->title );
 
             if ($contest->title && $contest->text && $contest->description && $contest->dt_close) {
+
                 if ($contest_id) {
                     $contest->dt_update = date('Y-m-d H:i:s');
                     $contest->update();
                     Model_Alias::updateAlias($contest->uri, $translitedTitle, Model_Uri::CONTEST, $contest_id);
                     $contest->uri = $translitedTitle;
+
                 } else {
                     $insertedId   = $contest->insert();
                     $contest->uri = Model_Alias::addAlias($translitedTitle, Model_Uri::CONTEST, $insertedId);
                 }
-                $this->redirect('/' . $contest->uri);
+                $this->redirect( $contest->uri );
                 return;
             } else {
                 $this->view['error'] = true;

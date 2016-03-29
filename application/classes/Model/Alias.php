@@ -58,7 +58,9 @@ class Model_Alias
             {
                 $newAlias = $newAlias.'-'.$index;
 
-                if ( empty(self::getAlias($newAlias) ) )
+                $aliasExist = self::getAlias($newAlias);
+
+                if ( !$aliasExist )
                 {
                     return $newAlias;
                     break;
@@ -128,6 +130,7 @@ class Model_Alias
                                      ->set('hash', $hashedRoute)
                                      ->where('id', '=', $id)
                                      ->clearcache('hash:'. md5($oldAlias, true))
+                                     ->where('type', '=', $type)
                                      ->execute();
 
         /*

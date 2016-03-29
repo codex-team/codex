@@ -17,21 +17,14 @@ class Controller_Uri extends Controller {
 
         $realRoute = $model_alias->getRealRoute( $route, $sub_action);
 
-        $this->response->body( Request::factory($realRoute)->execute() );
+        $request = Request::factory($realRoute, array(
+            'follow' => TRUE,
+            'strict_redirect' => TRUE
+        ))->execute();
 
-        /*
-         Пример создания нового Алиаса.
 
-            $id - идентификатор
+        $this->response->body( $request );
 
-            $new_alias = Model_Alias::addAlias($route, Model_Uri::CONTEST, $id);
-
-            types :
-                const ARTICLE  = 1;
-                const CONTEST  = 2;
-                const USER     = 3;
-
-        */
     }
 }
 
