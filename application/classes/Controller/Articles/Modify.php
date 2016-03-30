@@ -12,6 +12,10 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             $this->redirect('/');
     }
 
+    public function action_ss()
+    {
+    }
+
     public function action_save()
     {
         $csrfToken = Arr::get($_POST, 'csrf');
@@ -46,8 +50,11 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
                     $insertedId = $article->insert();
                     $article->uri = Model_Alias::addAlias($translitedTitle, Model_Uri::ARTICLE, $insertedId);
                 }
-                $this->redirect( $article->uri );
 
+                $model_alias = new Model_Alias();
+
+               // $this->redirect( $model_alias->getRealRoute( $article->uri ) );
+                HTTP::redirect('/', 302);
             } else {
                 $this->view['error'] = true;
             }

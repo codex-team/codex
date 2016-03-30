@@ -9,28 +9,33 @@
 class Model_Alias
 {
     public $uri;
+    public $hashRaw;
     public $hash;
     public $type;
     public $id;
     public $dt_create;
+    public $deprecated;
 
-    public function __construct($uri = null, $hash = null, $type = null, $id = null, $dt_create = null)
+    public function __construct($uri = null, $type = null, $id = null, $dt_create = null, $deprecated = 0)
     {
         $this->uri          =   $uri;
-        $this->hash         =   $hash;
+        $this->hash         =   md5( $this->uri );
+        $this->hashRaw      =   md5( $this->uri, true);
         $this->type         =   $type;
         $this->id           =   $id;
         $this->dt_create    =   $dt_create;
+        $this->deprecated   =   $deprecated;
     }
 
     public function save()
     {
         $insert = Dao_Alias::insert()
                         ->set('uri', $this->uri)
-                        ->set('hash', $this->hash)
+                        ->set('hash', $this->hashRaw)
                         ->set('type', $this->type)
                         ->set('id', $this->id)
                         ->set('dt_create', $this->dt_create)
+                        ->set('deprecated', $this->deprecated)
                         ->clearcache('hash:'. $this->hash)
                         ->execute();
 
@@ -39,10 +44,14 @@ class Model_Alias
 
     public static function getAlias($route = null)
     {
-        $hashedRoute = md5($route, true);
+        $hashedRouteRaw = md5( $route, true );
+        $hashedRoute    = md5( $route );
 
         $alias  =   Dao_Alias::select()
-                ->where('hash', '=', $hashedRoute)->limit(1)->cached(5*Date::MINUTE, 'hash:' . $hashedRoute)->execute();
+                ->where('hash', '=', $hashedRouteRaw)
+                ->limit(1)
+                ->cached( 5 * Date::MINUTE, 'hash:' . $hashedRoute)
+                ->execute();
 
         return $alias;
     }
@@ -100,16 +109,15 @@ class Model_Alias
      * Обновляем в сущности (Articles, Contests, Users) значение поля uri. ( cм. Статический метод updateAlias() )
      */
 
-    public static function addAlias($alias, $type, $id)
+    public static function addAlias($alias, $type, $id, $deprecated = 0)
     {
         $newAlias    = self::generateAlias($alias);
-        $hash        = md5($newAlias, true);
         $dt_create  = DATE::$timezone;
 
-        $model_alias = new Model_Alias($newAlias, $hash, $type, $id, $dt_create);
+        $model_alias = new Model_Alias($newAlias, $type, $id, $dt_create, $deprecated);
         $model_alias->save();
 
-        self::updateAlias(false, $newAlias, $type, $id);
+        self::updateSubstanceUri( $newAlias, $type, $id );
 
         return $model_alias->uri;
     }
@@ -122,32 +130,37 @@ class Model_Alias
 
     public static function updateAlias($oldAlias = null, $alias, $type, $id)
     {
-        $model_uri  = Model_Uri::Instance();
+        $hashedRouteRaw = md5($alias, true);
+        $hashedRoute    = md5($alias);
 
-        $hashedRoute = md5($alias, true);
+        $hashedOldRouteRaw = md5($oldAlias, true);
+        $hashedOldRoute    = md5($oldAlias);
 
-        $update = Dao_Alias::update()->set('uri', $alias)
-                                     ->set('hash', $hashedRoute)
-                                     ->where('id', '=', $id)
-                                     ->clearcache('hash:'. md5($oldAlias, true))
-                                     ->where('type', '=', $type)
+        $update = Dao_Alias::update()->set('deprecated', 1)
+                                     ->where('hash', '=', $hashedOldRouteRaw)
                                      ->execute();
 
+        self::addAlias($alias, $type, $id);
+        self::updateSubstanceUri( $alias, $type, $id );
+    }
+
+    public static function updateSubstanceUri($alias, $type, $id)
+    {
         /*
          * $model_uri->controllersMap[$type] возвращает название сущности.
          * $type должен соответствовать ключу из массива controllersMap в Model_Uri, а значение с Таблицами в БД
          * в переменной $Dao получаем строку "Dao_название-сущности" (Dao_Articles, Dao_Contests и тд)
          */
 
+        $model_uri  = Model_Uri::Instance();
         $type = $model_uri->controllersMap[$type];
 
         $Dao = 'Dao_' . $type;
 
         if ( class_exists($Dao) ) {
-
             $DaoClass = new $Dao();
             $DaoClass->update()->set('uri', $alias)->where('id','=', $id)
-                                ->clearcache( strtolower($type) . '_list')->execute();
+                ->clearcache( strtolower($type) . '_list')->execute();
         }
     }
 

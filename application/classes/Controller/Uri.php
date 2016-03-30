@@ -15,13 +15,11 @@ class Controller_Uri extends Controller {
 
         $model_alias = new Model_Alias();
 
-        $realRoute = $model_alias->getRealRoute( $route, $sub_action);
+        $realRoute = $model_alias->getRealRoute( $route, $sub_action );
 
-        $request = Request::factory($realRoute, array(
-            'follow' => TRUE,
-            'strict_redirect' => TRUE
+        $request = Request::factory( $realRoute, array(
+            'follow'   => TRUE
         ))->execute();
-
 
         $this->response->body( $request );
 

@@ -46,7 +46,7 @@ Class Model_Contests extends Model
                                 ->set('winner',         $this->winner)
                                 ->set('results',        $this->results)
                                 ->set('description',    $this->description)
-                                ->clearcache('contest_list')
+                                ->clearcache('contests_list')
                                 ->execute();
 
         if ($idAndRowAffected) {

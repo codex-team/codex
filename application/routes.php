@@ -14,18 +14,17 @@ $QUERY =  '[0-9a-zA-Zа-яёА-ЯЁ\s\-\.]+$';
 /**
  * New URIes
  */
+
 Route::set('URI', '<route>(/<subaction>)', array(
 		'route' => $STRING,
-	))
-	->filter(function($route, $params, $request)
+	))->filter(function( $route, $params, Request $request)
 	{
 		$alias = $params['route'];
-
 		$model_uri = Model_Uri::Instance();
-
 		if ( $model_uri->isForbidden($alias) ) {
 			return false;
 		}
+
 	})
 	->defaults(array(
 		'controller' => 'Uri',
