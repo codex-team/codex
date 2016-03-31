@@ -9,7 +9,7 @@
 class Model_Alias
 {
     public $uri;
-    public $hashRaw;
+    public $hash_raw;
     public $hash;
     public $type;
     public $id;
@@ -20,7 +20,7 @@ class Model_Alias
     {
         $this->uri          =   $uri;
         $this->hash         =   md5( $this->uri );
-        $this->hashRaw      =   md5( $this->uri, true);
+        $this->hash_raw     =   md5( $this->uri, true);
         $this->type         =   $type;
         $this->id           =   $id;
         $this->dt_create    =   $dt_create;
@@ -31,7 +31,7 @@ class Model_Alias
     {
         $insert = Dao_Alias::insert()
                         ->set('uri', $this->uri)
-                        ->set('hash', $this->hashRaw)
+                        ->set('hash', $this->hash_raw)
                         ->set('type', $this->type)
                         ->set('id', $this->id)
                         ->set('dt_create', $this->dt_create)
@@ -86,6 +86,7 @@ class Model_Alias
 
     /*
      * Возвращает прямой путь к контроллеру и экшну.
+     * @deprecated use getRealRequestParams() intead
      */
     public function getRealRoute($route, $sub_action = null)
     {
@@ -100,6 +101,36 @@ class Model_Alias
             return $model_uri->controllersMap[$alias['type']] . '_' . $model_uri->actionsMap[$model_uri::INDEX] . '/show/' . $alias['id'];
         else
             return $model_uri->controllersMap[$alias['type']] . '_' . $model_uri->actionsMap[$model_uri::MODIFY] . '/' . $sub_action . '/' . $alias['id'];
+    }
+
+
+
+    /**
+     * Returns Controller, Action and Id by alias
+     * @param $route - alias from uri
+     * @return array with contorller , action and id
+     */
+    public function getRealRequestParams($route, $sub_action = null)
+    {
+        $model_uri = Model_Uri::Instance();
+
+        $alias = $this->getAlias( $route );
+
+        if ( empty($alias) )
+            throw new HTTP_Exception_404();
+
+        if ($sub_action == null)
+            return array(
+                'controller' => 'Controller_' . $model_uri->controllersMap[$alias['type']] . '_' . $model_uri->actionsMap[$model_uri::INDEX],
+                'action'     => 'action_show',
+                'id'         => $alias['id']
+            );
+        else
+            return array(
+                'controller' => 'Controller_' . $model_uri->controllersMap[$alias['type']] . '_' . $model_uri->actionsMap[$model_uri::MODIFY],
+                'action'     => 'action_' . $sub_action ,
+                'id'         => $alias['id']
+            );
     }
 
     /*
