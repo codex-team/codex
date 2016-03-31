@@ -17,7 +17,7 @@ $QUERY =  '[0-9a-zA-Zа-яёА-ЯЁ\s\-\.]+$';
 
 Route::set('URI', '<route>(/<subaction>)', array(
 		'route' => $STRING,
-	))->filter(function( $route, $params, Request $request)
+	))->filter(function(Route $route, $params, Request $request)
 	{
 		$alias = $params['route'];
 		$model_uri = Model_Uri::Instance();

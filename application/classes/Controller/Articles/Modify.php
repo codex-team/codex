@@ -53,8 +53,8 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
 
                 $model_alias = new Model_Alias();
 
-               // $this->redirect( $model_alias->getRealRoute( $article->uri ) );
-                HTTP::redirect('/', 302);
+                $this->redirect( $model_alias->getRealRoute( $article->uri ), 302 );
+
             } else {
                 $this->view['error'] = true;
             }
