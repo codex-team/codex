@@ -58,7 +58,7 @@ class Controller_Contests_Modify extends Controller_Base_preDispatch
     public function action_delete()
     {
         $user_id = $this->user->id;
-        $contest_id = $this->request->param('id');
+        $contest_id = $this->request->query('id');
 
         if (!empty($contest_id) && !empty($user_id))
         {

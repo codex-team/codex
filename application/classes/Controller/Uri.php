@@ -14,15 +14,27 @@ class Controller_Uri extends Controller {
         $sub_action = $this->request->param('subaction');
 
         $model_alias = new Model_Alias();
+        /**
+        * Get Controller, action and ID we looking for
+        */
+        $realRequest = $model_alias->getRealRequestParams( $route, $sub_action );
 
-        $realRoute = $model_alias->getRealRoute( $route, $sub_action );
+        $controller_name = $realRequest['controller'];
+        $action_name     = $realRequest['action'];
 
-        $request = Request::factory( $realRoute, array(
-            'follow'   => TRUE
-        ))->execute();
+        $Controller = new $controller_name( $this->request, $this->response );
+        /**
+        * Set ID as query param
+        * In actions use $this->request->query('id') instead of $this->request->param('id')
+        */
+        $this->request->query('id', $realRequest['id']);
 
-        $this->response->body( $request );
-
+        /**
+        * Now just execute real action in initial Request instance
+        */
+        $Controller->before();
+        $Controller->$action_name();
+        $Controller->after();
     }
 }
 

@@ -9,7 +9,7 @@
 class Model_Alias
 {
     public $uri;
-    public $hashRaw;
+    public $hash_raw;
     public $hash;
     public $type;
     public $id;
@@ -20,7 +20,7 @@ class Model_Alias
     {
         $this->uri          =   $uri;
         $this->hash         =   md5( $this->uri );
-        $this->hashRaw      =   md5( $this->uri, true);
+        $this->hash_raw     =   md5( $this->uri, true);
         $this->type         =   $type;
         $this->id           =   $id;
         $this->dt_create    =   $dt_create;
@@ -31,7 +31,7 @@ class Model_Alias
     {
         $insert = Dao_Alias::insert()
                         ->set('uri', $this->uri)
-                        ->set('hash', $this->hashRaw)
+                        ->set('hash', $this->hash_raw)
                         ->set('type', $this->type)
                         ->set('id', $this->id)
                         ->set('dt_create', $this->dt_create)
@@ -59,7 +59,18 @@ class Model_Alias
     public static function generateAlias($route)
     {
         $alias  = self::getAlias( $route );
+        $hashedRouteRaw = md5( $route, true );
+        $hashedRoute    = md5( $route );
+
+        /*
+         * Setting $newAlias = $route as default until we looking for new unengaged alias.
+         */
         $newAlias = $route;
+
+        if ( $alias['deprecated'] ) {
+            self::deleteAlias($hashedRouteRaw, $hashedRoute);
+            return $newAlias;
+        }
 
         if ( !empty($alias) )
         {
@@ -84,10 +95,16 @@ class Model_Alias
         return $newAlias;
     }
 
-    /*
-     * Возвращает прямой путь к контроллеру и экшну.
+
+    /**
+     * Returns Controller, Action and Id by alias
+     * @param $route - alias from uri
+     * @param $sub_action = null - default value
+     * @return array with contorller , action and id
+     * @throws HTTP_Exception_404
      */
-    public function getRealRoute($route, $sub_action = null)
+
+    public function getRealRequestParams($route, $sub_action = null)
     {
         $model_uri = Model_Uri::Instance();
 
@@ -97,9 +114,17 @@ class Model_Alias
             throw new HTTP_Exception_404();
 
         if ($sub_action == null)
-            return $model_uri->controllersMap[$alias['type']] . '_' . $model_uri->actionsMap[$model_uri::INDEX] . '/show/' . $alias['id'];
+            return array(
+                'controller' => 'Controller_' . $model_uri->controllersMap[$alias['type']] . '_' . $model_uri->actionsMap[$model_uri::INDEX],
+                'action'     => 'action_show',
+                'id'         => $alias['id']
+            );
         else
-            return $model_uri->controllersMap[$alias['type']] . '_' . $model_uri->actionsMap[$model_uri::MODIFY] . '/' . $sub_action . '/' . $alias['id'];
+            return array(
+                'controller' => 'Controller_' . $model_uri->controllersMap[$alias['type']] . '_' . $model_uri->actionsMap[$model_uri::MODIFY],
+                'action'     => 'action_' . $sub_action ,
+                'id'         => $alias['id']
+            );
     }
 
     /*
@@ -138,10 +163,18 @@ class Model_Alias
 
         $update = Dao_Alias::update()->set('deprecated', 1)
                                      ->where('hash', '=', $hashedOldRouteRaw)
+                                     ->clearcache('hash:' .$hashedOldRoute)
                                      ->execute();
 
         self::addAlias($alias, $type, $id);
         self::updateSubstanceUri( $alias, $type, $id );
+    }
+
+    public static function deleteAlias($hash_raw, $hash)
+    {
+        $delete = Dao_Alias::delete()->where('hash', '=', $hash_raw)
+                                    ->clearcache('hash:' . $hash)
+                                    ->execute();
     }
 
     public static function updateSubstanceUri($alias, $type, $id)

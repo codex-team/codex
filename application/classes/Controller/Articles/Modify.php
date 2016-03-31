@@ -16,7 +16,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
     {
         $csrfToken = Arr::get($_POST, 'csrf');
 
-        if ($article_id = $this->request->param('id')) {
+        if ($article_id = $this->request->query('id')) {
             $article = Model_Article::get($article_id, true);
         } else {
             $article = new Model_Article();
@@ -26,6 +26,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
          * Articles Title.
          */
         if (Security::check($csrfToken)) {
+
             $article->title        = Arr::get($_POST, 'title');
             $article->text         = Arr::get($_POST, 'article_text');
             $article->is_published = Arr::get($_POST, 'is_published')? 1 : 0;
@@ -36,20 +37,21 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
                 $translitedTitle = Model_Alias::generateUri( $article->title );
 
                 if ($article_id) {
+
                     $article->dt_update = date('Y-m-d H:i:s');
                     $article->update();
                     Model_Alias::updateAlias($article->uri, $translitedTitle, Model_Uri::ARTICLE, $article_id);
                     $article->uri = $translitedTitle;
 
                 } else {
+
                     $article->user_id = $this->user->id;
                     $insertedId = $article->insert();
                     $article->uri = Model_Alias::addAlias($translitedTitle, Model_Uri::ARTICLE, $insertedId);
+
                 }
 
-                $model_alias = new Model_Alias();
-
-                $this->redirect( $article->uri, 302 );
+                $this->redirect( $article->uri );
 
             } else {
                 $this->view['error'] = true;
@@ -64,7 +66,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
     public function action_delete()
     {
         $user_id = $this->user->id;
-        $article_id = $this->request->param('article_id');
+        $article_id = $this->request->query('id');
 
         if (!empty($article_id) && !empty($user_id)) {
             Model_Article::get($article_id)->remove($user_id);
