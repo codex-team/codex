@@ -110,15 +110,14 @@ class Kohana_Oauth_GitHub extends Oauth {
             ->query($params)
             ->execute();
 
-        parse_str($resp);
-        if (!isset($access_token))
+        parse_str($resp, $result);
+        if (!isset($result['access_token']))
         {
             # TODO: Throw custom Exception for GitHub
             throw new Kohana_Exception('Error: '.$resp->error.' Description: '.$resp->error_description);
         }
 
-        $this->token = $access_token;
-        //Session::instance()->set('gh_token', $access_token); #TODO: Why is it commented?
+        $this->token = $result['access_token'];
         return true;
     }
 
