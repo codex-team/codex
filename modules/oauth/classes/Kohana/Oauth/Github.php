@@ -111,6 +111,7 @@ class Kohana_Oauth_GitHub extends Oauth {
             ->execute();
 
         parse_str($resp, $result);
+
         if (!isset($result['access_token']))
         {
             # TODO: Throw custom Exception for GitHub
