@@ -50,15 +50,20 @@ Route::set('CONTESTS_LIST', 'contests')->defaults(array(
 	'action' => 'showAll',
 ));
 
+
+// Add Substance
+
 Route::set('ADD_ARTICLE_SCRIPT', 'article/add')->defaults(array(
-	'controller' => 'articles_modify',
+	'controller' => 'Articles_modify',
 	'action' => 'save'
 ));
 
 Route::set('ADD_CONTEST_SCRIPT', 'contest/add')->defaults(array(
-	'controller' => 'contests_modify',
+	'controller' => 'Contests_modify',
 	'action' => 'save'
 ));
+
+// Show Substances which doesn't have Uri
 
 Route::set('SHOWARTICLE', 'article(/<id>)')->defaults(array(
 	'controller' => 'Articles_Index',
@@ -69,6 +74,31 @@ Route::set('SHOWCONTEST', 'contest(/<id>)')->defaults(array(
 	'controller' => 'Contests_Index',
 	'action'	 => 'show'
 ));
+
+// Edit Substances
+
+Route::set('EDIT_CONTEST_SCRIPT', 'contest/<id>/edit', array('id' => $DIGIT))->defaults(array(
+	'controller' => 'Contests_Modify',
+	'action' => 'save'
+));
+
+Route::set('EDIT_ARTICLE_SCRIPT', 'article/<id>/edit', array('id' => $DIGIT))
+    ->defaults(array(
+	'controller' => 'Articles_Modify',
+	'action' => 'save'
+));
+
+// delete substances
+Route::set('DEL_ARTICLE_SCRIPT', 'article/delarticle/<article_id>', array('article_id' => $DIGIT))->defaults(array(
+	'controller' => 'Articles_Modify',
+	'action' => 'delete'
+));
+
+Route::set('DEL_CONTEST_SCRIPT', 'contests/delcontest/<contest_id>', array('contest_id' => $DIGIT))->defaults(array(
+	'controller' => 'Contests_Modify',
+	'action' => 'delete'
+));
+
 
 /*Route::set('INDEX_PAGE', '')->defaults(array(
     'controller' => 'index',
@@ -93,29 +123,6 @@ Route::set('TASK_PAGE', 'task/<who>', array('who' => $STRING))->defaults(array(
 Route::set('CONTEST_PAGE', 'contest/<contest_id>', array('contest_id' => $DIGIT))->defaults(array(
     'controller' => 'contests_index',
     'action' => 'showContest'
-));
-
-Route::set('DEL_CONTEST_SCRIPT', 'contests/delcontest/<contest_id>', array('contest_id' => $DIGIT))->defaults(array(
-    'controller' => 'contests_action',
-    'action' => 'delete'
-));
-
-
-Route::set('EDIT_CONTEST_SCRIPT', 'contest/edit/<contest_id>', array('contest_id' => $DIGIT))->defaults(array(
-    'controller' => 'contests_action',
-    'action' => 'save'
-));
-
-// Scripts for articles
-
-Route::set('EDIT_ARTICLE_SCRIPT', 'article/edit/<article_id>', array('article_id' => $DIGIT))->defaults(array(
-    'controller' => 'articles_action',
-    'action' => 'save'
-));
-
-Route::set('DEL_ARTICLE_SCRIPT', 'article/delarticle/<article_id>', array('article_id' => $DIGIT))->defaults(array(
-    'controller' => 'articles_action',
-    'action' => 'delete'
 ));
 
 */

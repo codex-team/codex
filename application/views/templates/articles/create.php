@@ -10,6 +10,9 @@
             <label for="title">Заголовок:</label>
             <input type="text" name="title" value="<?= $article->title ?: ''; ?>">
 
+            <label for="uri">Uri:</label>
+            <input type="text" name="uri" value="<?= $article->uri ?: ''; ?>">
+
             <label for="description">Описание:</label>
             <textarea name="description" id="codex_editor" cols="5" rows="5"><?= $article->description ?: ''; ?></textarea>
 

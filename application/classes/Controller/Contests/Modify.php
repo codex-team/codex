@@ -16,7 +16,11 @@ class Controller_Contests_Modify extends Controller_Base_preDispatch
     {
         $csrfToken = Arr::get($_POST, 'csrf');
 
-        if ($contest_id = $this->request->param('id') ?: $this->request->query('id')) {
+        if ($this->request->post() ){
+            $contest_id = Arr::get($_POST, 'contest_id');
+            $contest = Model_Contests::get($contest_id, true);
+        }
+        else if ($contest_id = $this->request->param('id') ?: $this->request->query('id')) {
             $contest = Model_Contests::get($contest_id);
         } else {
             $contest = new Model_Contests();
@@ -31,19 +35,20 @@ class Controller_Contests_Modify extends Controller_Base_preDispatch
             $contest->results      = Arr::get($_POST, 'results_contest');
             $contest->dt_close     = Arr::get($_POST, 'duration');
 
-            $translitedTitle = Model_Alias::generateUri( $contest->title );
+            $uri = Arr::get($_POST, 'uri');
+            $alias = Model_Alias::generateUri($uri);
 
             if ($contest->title && $contest->text && $contest->description && $contest->dt_close) {
 
                 if ($contest_id) {
                     $contest->dt_update = date('Y-m-d H:i:s');
                     $contest->update();
-                    Model_Alias::updateAlias($contest->uri, $translitedTitle, Model_Uri::CONTEST, $contest_id);
-                    $contest->uri = $translitedTitle;
+                    Model_Alias::updateAlias($contest->uri, $alias, Model_Uri::CONTEST, $contest_id);
+                    $contest->uri = $alias;
 
                 } else {
                     $insertedId   = $contest->insert();
-                    $contest->uri = Model_Alias::addAlias($translitedTitle, Model_Uri::CONTEST, $insertedId);
+                    $contest->uri = Model_Alias::addAlias($alias, Model_Uri::CONTEST, $insertedId);
                 }
                 $this->redirect( $contest->uri );
                 return;
@@ -58,7 +63,7 @@ class Controller_Contests_Modify extends Controller_Base_preDispatch
     public function action_delete()
     {
         $user_id = $this->user->id;
-        $contest_id = $this->request->query('id');
+        $contest_id = $this->request->param('contest_id') ?: $this->request->query('id');
 
         if (!empty($contest_id) && !empty($user_id))
         {

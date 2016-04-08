@@ -166,8 +166,7 @@ class Model_Alias
                                      ->clearcache('hash:' .$hashedOldRoute)
                                      ->execute();
 
-        self::addAlias($alias, $type, $id);
-        self::updateSubstanceUri( $alias, $type, $id );
+        $newAlias = self::addAlias($alias, $type, $id);
     }
 
     public static function deleteAlias($hash_raw, $hash)
@@ -177,7 +176,7 @@ class Model_Alias
                                     ->execute();
     }
 
-    public static function updateSubstanceUri($alias, $type, $id)
+    public static function updateSubstanceUri($newAlias, $type, $id)
     {
         /*
          * $model_uri->controllersMap[$type] возвращает название сущности.
@@ -190,10 +189,11 @@ class Model_Alias
 
         $Dao = 'Dao_' . $type;
 
-        if ( class_exists($Dao) ) {
+        if ( class_exists($Dao) )
+        {
             $DaoClass = new $Dao();
-            $DaoClass->update()->set('uri', $alias)->where('id','=', $id)
-                ->clearcache( strtolower($type) . '_list')->execute();
+            $DaoClass->update()->set('uri', $newAlias)->where('id','=', $id)
+                ->clearcache( strtolower($type) . '_list');
         }
     }
 

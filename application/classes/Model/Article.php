@@ -119,6 +119,7 @@ Class Model_Article extends Model
     {
         Dao_Articles::update()->where('id', '=', $this->id)
             ->set('title',          $this->title)
+            ->set('uri',            $this->uri)
             ->set('text',           $this->text)
             ->set('description',    $this->description)
             ->set('cover',          $this->cover)

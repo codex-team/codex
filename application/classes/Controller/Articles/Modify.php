@@ -16,9 +16,15 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
     {
         $csrfToken = Arr::get($_POST, 'csrf');
 
-        if ($article_id = $this->request->param('id') ?: $this->request->query('id')) {
+        if ( $this->request->post()) {
+            $article_id = Arr::get($_POST, 'article_id');
             $article = Model_Article::get($article_id, true);
-        } else {
+        }
+        else
+        if ( $article_id = $this->request->query('id') ?: $this->request->param('id')) {
+            $article = Model_Article::get($article_id, true);
+        }
+        else {
             $article = new Model_Article();
         }
 
@@ -34,21 +40,21 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
 
             if ($article->title && $article->text && $article->description) {
 
-                $translitedTitle = Model_Alias::generateUri( $article->title );
+                $uri = Arr::get($_POST, 'uri');
+                $alias = Model_Alias::generateUri($uri);
 
                 if ($article_id) {
+                    Model_Alias::updateAlias($article->uri, $alias, Model_Uri::ARTICLE, $article_id);
 
                     $article->dt_update = date('Y-m-d H:i:s');
+                    $article->uri = $alias;
                     $article->update();
-                    Model_Alias::updateAlias($article->uri, $translitedTitle, Model_Uri::ARTICLE, $article_id);
-                    $article->uri = $translitedTitle;
+
 
                 } else {
-
                     $article->user_id = $this->user->id;
                     $insertedId = $article->insert();
-                    $article->uri = Model_Alias::addAlias($translitedTitle, Model_Uri::ARTICLE, $insertedId);
-
+                    $article->uri = Model_Alias::addAlias($alias, Model_Uri::ARTICLE, $insertedId);
                 }
 
                 $this->redirect( $article->uri );
@@ -66,7 +72,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
     public function action_delete()
     {
         $user_id = $this->user->id;
-        $article_id = $this->request->query('id');
+        $article_id = $this->request->param('article_id') ?: $this->request->query('id');
 
         if (!empty($article_id) && !empty($user_id)) {
             Model_Article::get($article_id)->remove($user_id);

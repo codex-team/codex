@@ -9,6 +9,9 @@
             <label for="title">Заголовок:</label>
             <input type="text" name="title" value="<?= $contest->title ?: ''; ?>">
 
+            <label for="uri">Uri:</label>
+            <input type="text" name="uri" value="<?= $contest->uri ?: ''; ?>">
+
             <label for="description">Описание:</label>
             <textarea name="description" id="codex_editor" cols="5" rows="5"><?= $contest->description ?: ''; ?></textarea>
 
