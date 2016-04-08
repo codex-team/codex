@@ -30,7 +30,7 @@ class Controller_Contests_Index extends Controller_Base_preDispatch
 
     public function action_show()
     {
-        $contestId = $this->request->query('id');
+        $contestId = ($this->request->param('id') != null) ? $this->request->param('id') : $this->request->query('id');
 
         $contest = Model_Contests::get($contestId);
 

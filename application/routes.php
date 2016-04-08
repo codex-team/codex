@@ -22,7 +22,7 @@ Route::set('URI', '<route>(/<subaction>)', array(
 		$alias = $params['route'];
 		$model_uri = Model_Uri::Instance();
 		if ( $model_uri->isForbidden($alias) ) {
-			return false;
+            return false;
 		}
 
 	})
@@ -58,6 +58,16 @@ Route::set('ADD_ARTICLE_SCRIPT', 'article/add')->defaults(array(
 Route::set('ADD_CONTEST_SCRIPT', 'contest/add')->defaults(array(
 	'controller' => 'contests_modify',
 	'action' => 'save'
+));
+
+Route::set('SHOWARTICLE', 'article(/<id>)')->defaults(array(
+	'controller' => 'Articles_Index',
+	'action'	 => 'show'
+));
+
+Route::set('SHOWCONTEST', 'contest(/<id>)')->defaults(array(
+	'controller' => 'Contests_Index',
+	'action'	 => 'show'
 ));
 
 /*Route::set('INDEX_PAGE', '')->defaults(array(
