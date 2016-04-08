@@ -16,7 +16,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
     {
         $csrfToken = Arr::get($_POST, 'csrf');
 
-        if ($article_id = $this->request->query('id')) {
+        if ($article_id = $this->request->param('id') ?: $this->request->query('id')) {
             $article = Model_Article::get($article_id, true);
         } else {
             $article = new Model_Article();

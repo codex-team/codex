@@ -16,7 +16,7 @@ class Controller_Contests_Modify extends Controller_Base_preDispatch
     {
         $csrfToken = Arr::get($_POST, 'csrf');
 
-        if ($contest_id = $this->request->param('id')) {
+        if ($contest_id = $this->request->param('id') ?: $this->request->query('id')) {
             $contest = Model_Contests::get($contest_id);
         } else {
             $contest = new Model_Contests();

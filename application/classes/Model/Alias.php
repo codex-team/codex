@@ -209,7 +209,7 @@ class Model_Alias
         $converted_string = trim($converted_string, '-');
 
 
-        return $converted_string;
+        return strtolower( $converted_string );
     }
 
 }

@@ -20,7 +20,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
     public function action_show()
     {
 
-        $articleId = ($this->request->param('id') != null) ? $this->request->param('id') : $this->request->query('id');
+        $articleId = $this->request->param('id') ?: $this->request->query('id');
 
         $this->view["id"] = $articleId;
 

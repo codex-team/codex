@@ -36,7 +36,7 @@
                         Comment<? if ($article->commentsCount != 1){ echo 's'; } ?>
                     </a >*/?>
                 </div>
-                <h2 class="title"><a href="<?= $article->uri ?>"><?= $article->title ?></a></h2>
+                <h2 class="title"><a href="<?= $article->uri ?: 'article/' . $article->id;  ?>"><?= $article->title ?></a></h2>
             </article>
         <? endforeach; ?>
     </div>
