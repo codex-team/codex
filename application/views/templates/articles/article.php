@@ -30,7 +30,7 @@
         <div class="center_side">
             <?= View::factory('templates/blocks/share', array('share' => array(
                 'offer' => 'Если вам понравилась статья, поделитесь ссылкой на нее',
-                'url'   => 'https://' . Arr::get($_SERVER, 'HTTP_HOST', Arr::get($_SERVER, 'SERVER_NAME', 'ifmo.su')) . '/article/' . $article->id,
+                'url'   => 'https://' . Arr::get($_SERVER, 'HTTP_HOST', Arr::get($_SERVER, 'SERVER_NAME', 'ifmo.su')) . '/'. $article->uri ?: 'article/' . $article->id,
                 'title' => html_entity_decode($article->title),
                 'desc'  => html_entity_decode($article->description),
             ))); ?>
@@ -41,7 +41,7 @@
             <p>Мы расскажем вам о крутых и интересных технологиях и приведём примеры их использования в наших проектах.</p>
 
             <? foreach ($popularArticles as $popularArticle): ?>
-                <li><a href="<?= $popularArticle->uri ?>"><?= $popularArticle->title; ?></a></li>
+                <li><a href="<?= $popularArticle->uri  ?: 'article/' . $popularArticle->id; ?>"><?= $popularArticle->title; ?></a></li>
             <? endforeach; ?>
 
         </ul>
