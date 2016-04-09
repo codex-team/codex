@@ -284,7 +284,7 @@ Class Model_Article extends Model
                 return ($a->views < $b->views) ? 1 : -1;
             });
 
-            $memcache->set('pop_articles', $allArticles, null, Date::HOUR);
+            $memcache->set('pop_articles', $allArticles, null, Date::MINUTE);
         }
 
         $mostPopularArticles = array_slice($allArticles, 0, 10);

@@ -12,7 +12,7 @@ class Controller_Users_Index extends Controller_Base_preDispatch
 
     public function action_show()
     {
-        $user_id = $this->request->query('user_id');
+        $user_id = $this->request->param('user_id');
 
 	    if ( !empty($user_id) ){
 		    $viewUser = Model_User::get( $user_id );
@@ -57,12 +57,6 @@ class Controller_Users_Index extends Controller_Base_preDispatch
                 'vk_uri'        => $vk_uri,
                 'instagram_uri' => $instagram_uri,
                 'bio'           => $bio);
-
-            /*
-             * Обновляем Алиас
-             */
-             $model_alias    = new Model_Alias();
-             $model_alias::updateAlias( $this->user->name, $name, Model_Uri::USER, $this->user->id );
 
             /**
              * Занесение данных в модель пользователя и в бд.
