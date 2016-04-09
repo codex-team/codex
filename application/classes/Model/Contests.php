@@ -9,6 +9,7 @@
 Class Model_Contests extends Model
 {
     public $id = 0;
+    public $uri;
     public $title;
     public $text;
     public $description;
@@ -45,7 +46,7 @@ Class Model_Contests extends Model
                                 ->set('winner',         $this->winner)
                                 ->set('results',        $this->results)
                                 ->set('description',    $this->description)
-                                ->clearcache()
+                                ->clearcache('contests_list')
                                 ->execute();
 
         if ($idAndRowAffected) {
@@ -57,6 +58,8 @@ Class Model_Contests extends Model
 
             $this->fillByRow($contest);
         }
+
+        return $idAndRowAffected;
     }
 
     /**
@@ -88,7 +91,7 @@ Class Model_Contests extends Model
 
             Dao_Contests::update()->where('id', '=', $this->id)
                 ->set('status', -1)
-                ->clearcache()
+                ->clearcache('contests_list')
                 ->execute();
 
             // Контест удален
@@ -103,7 +106,7 @@ Class Model_Contests extends Model
     public function update()
     {
         Dao_Contests::update()->where('id', '=', $this->id)
-
+            ->set('uri',            $this->uri)
             ->set('title',          $this->title)
             ->set('text',           $this->text)
             ->set('results',        $this->results)
@@ -140,7 +143,6 @@ Class Model_Contests extends Model
         $contest = $contest->execute();
 
         $model = new Model_Contests();
-
         return $model->fillByRow($contest);
     }
 
@@ -181,7 +183,7 @@ Class Model_Contests extends Model
         }
 
         if ($cachedTime) {
-            $contestsQuery->cached($cachedTime);
+            $contestsQuery->cached($cachedTime, 'contests_list');
         }
         $contest_rows = $contestsQuery->order_by('dt_create', 'DESC')->execute();
 
@@ -194,10 +196,9 @@ Class Model_Contests extends Model
 
         if (!empty($contest_rows)) {
             foreach ($contest_rows as $contest_row) {
+
                 $contest = new Model_Contests();
-
                 $contest->fillByRow($contest_row);
-
                 array_push($contests, $contest);
             }
         }

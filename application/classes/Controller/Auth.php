@@ -107,10 +107,10 @@ class Controller_Auth extends Controller_Base_preDispatch
         {
             $this->generate_auth_error();
         }
-
         $gh = Oauth::instance('github');
+
         if ($gh->login())
-        {
+        { 
             $profile = $gh->get_user();
 
             if ($profile)
@@ -136,6 +136,12 @@ class Controller_Auth extends Controller_Base_preDispatch
                         $inserted_id = $result[0];
                         $new_session = new Model_Sessions();
                         $new_session->save($inserted_id, $token);
+
+                        /*
+                         * Создаем Алиас
+                         */
+                        $model_alias = new Model_Alias();
+                        $model_alias::addAlias( $user->name, Model_Uri::USER, $inserted_id );
                     }
                 }
                 else
@@ -148,8 +154,9 @@ class Controller_Auth extends Controller_Base_preDispatch
         }
         else
         {
-
+           
         }
+        
         Controller::redirect($this->get_return_url());
     }
 

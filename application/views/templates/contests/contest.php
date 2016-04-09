@@ -39,7 +39,7 @@
                     </a>
                 <? endif ?>
                 <? if ($contest->results): ?>
-                    <a class="toggler" href="/contest/<?= $contest->id ?>#results">лучшие работы <i class="icon-down-big"></i></a>
+                    <a class="toggler" href="<?=$contest->uri ?: '/contest/'. $contest->id ?>#results">лучшие работы <i class="icon-down-big"></i></a>
                 <? endif; ?>
             </div>
         <? endif ?>
@@ -61,7 +61,7 @@
     <div class="center_side">
         <?= View::factory('templates/blocks/share', array('share' => array(
             'offer' => 'Расскажите об этом конкурсе своим подписчикам',
-            'url'   => 'https://' . Arr::get($_SERVER, 'HTTP_HOST', Arr::get($_SERVER, 'SERVER_NAME', 'ifmo.su')) . '/contest/' . $contest->id,
+            'url'   => 'https://' . Arr::get($_SERVER, 'HTTP_HOST', Arr::get($_SERVER, 'SERVER_NAME', 'ifmo.su')) . '/'. $contest->uri ?: 'contest/' . $contest->id,
             'title' => htmlspecialchars($contest->title),
             'desc'  => htmlspecialchars($contest->description),
         ))); ?>

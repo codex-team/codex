@@ -3,7 +3,7 @@
 class Controller_Contests_Index extends Controller_Base_preDispatch
 {
 
-    public function action_showAllContests()
+    public function action_showAll()
     {
         $this->title = "Конкурсы команды CodeX";
         $this->description = "Небольшие конкурсы, которые мы проводим, чтобы размяться, поработать с новыми технологиями и подходами и просто развлечься.";
@@ -28,11 +28,12 @@ class Controller_Contests_Index extends Controller_Base_preDispatch
         $this->template->content = View::factory('templates/contests/list', $this->view);
     }
 
-    public function action_showContest()
+    public function action_show()
     {
-        $contestId = $this->request->param('contest_id');
+        $contestId = $this->request->param('id') ?: $this->request->query('id');
 
         $contest = Model_Contests::get($contestId);
+
         if ($contest->id == 0){
             throw new HTTP_Exception_404();
         }
