@@ -39,7 +39,7 @@
                     </a>
                 <? endif ?>
                 <? if ($contest->results): ?>
-                    <a class="toggler" href="<?=$contest->uri ?: '/contest/'. $contest->id ?>#results">лучшие работы <i class="icon-down-big"></i></a>
+                    <a class="toggler" href="<?=URL::base(). $contest->uri ?: 'contest/'. $contest->id ?>#results">лучшие работы <i class="icon-down-big"></i></a>
                 <? endif; ?>
             </div>
         <? endif ?>

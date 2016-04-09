@@ -41,7 +41,7 @@
             <p>Мы расскажем вам о крутых и интересных технологиях и приведём примеры их использования в наших проектах.</p>
 
             <? foreach ($popularArticles as $popularArticle): ?>
-                <li><a href="<?= $popularArticle->uri  ?: 'article/' . $popularArticle->id; ?>"><?= $popularArticle->title; ?></a></li>
+                <li><a href="<?=URL::base().  $popularArticle->uri ?: 'article/' . $popularArticle->id ; ?>"><?= $popularArticle->title; ?></a></li>
             <? endforeach; ?>
 
         </ul>
