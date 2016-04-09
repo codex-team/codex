@@ -106,7 +106,7 @@ Class Model_Contests extends Model
     public function update()
     {
         Dao_Contests::update()->where('id', '=', $this->id)
-
+            ->set('uri',            $this->uri)
             ->set('title',          $this->title)
             ->set('text',           $this->text)
             ->set('results',        $this->results)

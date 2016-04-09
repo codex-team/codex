@@ -32,6 +32,7 @@ class Controller_Uri extends Controller {
         /**
         * Now just execute real action in initial Request instance
         */
+
         $Controller->before();
         $Controller->$action_name();
         $Controller->after();

@@ -16,12 +16,20 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
     {
         $csrfToken = Arr::get($_POST, 'csrf');
 
+        /*
+         * редактирвоание происходит напрямую из роута вида: <controller>/<action>/<id>
+         * так как срабатывает обычный роут, то при отправке формы передается переменная contest_id.
+         * Форма отправляет POST запрос
+         */
         if ( $this->request->post()) {
             $article_id = Arr::get($_POST, 'article_id');
             $article = Model_Article::get($article_id, true);
         }
-        else
-        if ( $article_id = $this->request->query('id') ?: $this->request->param('id')) {
+        /*
+        * Редактирование через Алиас
+        * Здесь сперва запрос получает Controller_Uri, которая будет передавать id сущности через query('id')
+        */
+        elseif ( $article_id = $this->request->query('id') ?: $this->request->param('id')) {
             $article = Model_Article::get($article_id, true);
         }
         else {
@@ -41,15 +49,12 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             if ($article->title && $article->text && $article->description) {
 
                 $uri = Arr::get($_POST, 'uri');
-                $alias = Model_Alias::generateUri($uri);
+                $alias = Model_Alias::generateUri( $uri );
 
                 if ($article_id) {
-                    Model_Alias::updateAlias($article->uri, $alias, Model_Uri::ARTICLE, $article_id);
-
+                    $article->uri = Model_Alias::updateAlias($article->uri, $alias, Model_Uri::ARTICLE, $article_id);
                     $article->dt_update = date('Y-m-d H:i:s');
-                    $article->uri = $alias;
                     $article->update();
-
 
                 } else {
                     $article->user_id = $this->user->id;
@@ -57,7 +62,9 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
                     $article->uri = Model_Alias::addAlias($alias, Model_Uri::ARTICLE, $insertedId);
                 }
 
-                $this->redirect( $article->uri );
+                // Если поле uri пустое, то редиректить на обычный роут /article/id
+                $redirect = ($uri) ? $article->uri : '/article/' . $article->id;
+                $this->redirect( $redirect );
 
             } else {
                 $this->view['error'] = true;

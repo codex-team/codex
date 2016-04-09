@@ -61,26 +61,23 @@ class Model_Alias
         $alias  = self::getAlias( $route );
         $hashedRouteRaw = md5( $route, true );
         $hashedRoute    = md5( $route );
-
         /*
          * Setting $newAlias = $route as default until we looking for new unengaged alias.
          */
         $newAlias = $route;
 
-        if ( $alias['deprecated'] ) {
+        if ( isset( $alias ) && Arr::get($alias, 'deprecated') ) {
             self::deleteAlias($hashedRouteRaw, $hashedRoute);
             return $newAlias;
         }
-
-        if ( !empty($alias) )
+        elseif ( !empty($alias) && !Arr::get($alias, 'deprecated') )
         {
             for($index = 1; ; $index++)
             {
                 $newAlias = $newAlias.'-'.$index;
-
                 $aliasExist = self::getAlias($newAlias);
 
-                if ( !$aliasExist )
+                if ( empty($aliasExist) )
                 {
                     return $newAlias;
                     break;
@@ -91,6 +88,8 @@ class Model_Alias
                 }
             }
         }
+        elseif ( !empty( $alias ) )
+            $newAlias = $route;
 
         return $newAlias;
     }
@@ -129,22 +128,26 @@ class Model_Alias
 
     /*
      * Добавляет новый алиас в таблицу Alias и обновляет uri в сущности $type с идентификатором $id
-     * @params $newAlias - сгенерированный алиас, $hash - хэш от алиаса, $dt_create - дата создания.
+     * @params $alias - алиас, $type - тип, $deprecated - Если сущность меняет свой главный алиас, то предыдущий можно занять.
      * Создается новый экземпляр класса Model_Alias и передается в конструктор переменные. Метод save() записывает в таблицу данные.
      * Обновляем в сущности (Articles, Contests, Users) значение поля uri. ( cм. Статический метод updateAlias() )
      */
 
     public static function addAlias($alias, $type, $id, $deprecated = 0)
     {
-        $newAlias    = self::generateAlias($alias);
-        $dt_create  = DATE::$timezone;
+        if ( !empty($alias) ) {
+            $newAlias = self::generateAlias($alias);
 
-        $model_alias = new Model_Alias($newAlias, $type, $id, $dt_create, $deprecated);
-        $model_alias->save();
 
-        self::updateSubstanceUri( $newAlias, $type, $id );
+            $dt_create = DATE::$timezone;
+            $model_alias = new Model_Alias($newAlias, $type, $id, $dt_create, $deprecated);
+            $model_alias->save();
 
-        return $model_alias->uri;
+            self::updateSubstanceUri($newAlias, $type, $id);
+        }
+
+        // Если алиас не создан, то возвращаем идентификатор добавленной сущности
+        return isset( $model_alias->uri ) ? $model_alias->uri : '';
     }
 
 
@@ -166,7 +169,7 @@ class Model_Alias
                                      ->clearcache('hash:' .$hashedOldRoute)
                                      ->execute();
 
-        $newAlias = self::addAlias($alias, $type, $id);
+        return self::addAlias($alias, $type, $id);
     }
 
     public static function deleteAlias($hash_raw, $hash)
@@ -183,7 +186,6 @@ class Model_Alias
          * $type должен соответствовать ключу из массива controllersMap в Model_Uri, а значение с Таблицами в БД
          * в переменной $Dao получаем строку "Dao_название-сущности" (Dao_Articles, Dao_Contests и тд)
          */
-
         $model_uri  = Model_Uri::Instance();
         $type = $model_uri->controllersMap[$type];
 

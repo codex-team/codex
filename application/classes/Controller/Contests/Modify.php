@@ -16,10 +16,19 @@ class Controller_Contests_Modify extends Controller_Base_preDispatch
     {
         $csrfToken = Arr::get($_POST, 'csrf');
 
+        /*
+         * редактирвоание происходит напрямую из роута вида: <controller>/<action>/<id>
+         * так как срабатывает обычный роут, то при отправке формы передается переменная contest_id.
+         * Форма отправляет POST запрос
+         */
         if ($this->request->post() ){
             $contest_id = Arr::get($_POST, 'contest_id');
             $contest = Model_Contests::get($contest_id, true);
         }
+        /*
+         * Редактирование через Алиас
+         * Здесь сперва запрос получает Controller_Uri, которая будет передавать id сущности через query('id')
+         */
         else if ($contest_id = $this->request->param('id') ?: $this->request->query('id')) {
             $contest = Model_Contests::get($contest_id);
         } else {
@@ -42,16 +51,17 @@ class Controller_Contests_Modify extends Controller_Base_preDispatch
 
                 if ($contest_id) {
                     $contest->dt_update = date('Y-m-d H:i:s');
+                    $contest->uri = Model_Alias::updateAlias($contest->uri, $alias, Model_Uri::CONTEST, $contest_id);
                     $contest->update();
-                    Model_Alias::updateAlias($contest->uri, $alias, Model_Uri::CONTEST, $contest_id);
-                    $contest->uri = $alias;
-
                 } else {
                     $insertedId   = $contest->insert();
                     $contest->uri = Model_Alias::addAlias($alias, Model_Uri::CONTEST, $insertedId);
                 }
-                $this->redirect( $contest->uri );
-                return;
+
+                // Если поле uri пустое, то редиректить на обычный роут /contest/id
+                $redirect = ($uri) ? $contest->uri : '/contest/' . $contest->id;
+                $this->redirect( $redirect );
+
             } else {
                 $this->view['error'] = true;
             }
