@@ -2,9 +2,6 @@
     <div class="landing_page" style="text-align: left !important;">
         <h1>CodeX Editor</h1>
 
-        <button id="codex_editor_export_btn">Сохранить</button>
-        <br>
-        <br>
         <form action="">
 
             <textarea hidden name="" id="codex_editor" cols="30" rows="10" style="width: 100%;height: 300px;">
