@@ -70,108 +70,111 @@
 
 
 /* EDITOR */
-.hidden {display: none !important;}
-.hidden_file {position: absolute; opacity: 0; z-index: -1; left:-99999px; }
 
-.codex_editor button{
-    border: 0;
-    outline: none;
-    background: transparent;
-}
-.codex_editor [contenteditable]{
-    outline: none;
-}
-
-.codex_editor .node{
+.ce_wrapper {
     position: relative;
-    z-index: 5;
-    min-height: 20px;
 }
 
-.codex_editor .add_buttons{
-    color: #3b4352;
-    font-size: 16px;
-    /* margin-left: -42px; */
-    /* margin-top: -50px; */
-    /* margin-bottom: -25px; */
+.ce_redactor {
+    position: relative;
+    outline: none;
+}
+
+.ce_toolbar{
     position: absolute;
-    /* visibility: hidden; */
-    opacity: 0;
-    transition: opacity .15s ease-in-out;
-    top: 0;
-    left: -35px;
-    white-space: nowrap;
-}
+    z-index: 2;
 
-.add_buttons.show {
+    margin-left: -45px;
+
+    overflow: hidden;
+
     background: #fff;
-    z-index: 10;
-    opacity: 1;
-}
-.add_buttons.show .buttons {display:none;}
+    border: 1px solid #e3e7ee;
+    border-radius: 2px;
+    box-shadow: 0 2px 11px rgba(27,39,54,.11);
+    color: #2e394b;
 
-.codex_editor .node.selected + .add_buttons{visibility:visible;}
-
-.add_buttons .buttons {
-    position: absolute;
-    top: 1px;
-    background: wheat;
-    padding: 2px;
-    border-radius: 3px;
     display: none;
+
 }
-.codex_editor .add_buttons button:hover,
-.codex_editor .add_buttons .focused{
-    color: #3770ef;
-}
-.codex_editor .add_buttons button{
-    transition: all 150ms ease-in;
-    transform: translate3d(-50px, 0 , 0);
-    opacity: 0;
-    font-size: 14px;
-}
-.codex_editor .buttons_toggled{
-    background: #fff;
-    z-index: 10;
-    opacity: 1;
-}
-.codex_editor .buttons_toggled button{
-    opacity: 1;
-    transform: translate3d(0,0,0);
-}
+    .ce_toolbar.opened{
+        display: block;
+
+       /*animation-name: bounceIn; animation-duration: 200ms; animation-iteration-count: 1;*/
+    }
 
 
-.codex_editor .toggler{
-    display: inline-block;
-    font-size: 23px;
-    color: #387ff5;
-    transition: transform 100ms ease-in;
-    cursor: pointer;
-}
-
-.codex_editor .toggler .buttons {
-    position: relative;
-    top: -2px;
-}
-.codex_editor .buttons_toggled .toggler{
-    transform: rotate(45deg);
-}
-
-.codex_editor .buttons_toggled .buttons{
-    display: inline;
-}
-
-
+    .ce_toolbar .toggler{
+        color: #3e6dd6
+    }
+    .ce_toolbar .toggler,
+    .ce_toolbar li
+    {
+        display: inline-block;
+        padding: 12px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+        .ce_toolbar .selected,
+        .ce_toolbar li:hover
+        {
+            background: #3e6dd6;
+            color: #e2edff;
+        }
 
 
 /** Typography styles */
-.codex_editor p{
+.ce_redactor p{
     padding: 5px 0;
-    font-size: 17px;
+    font-size: 1em;
+    line-height: 1.7em;
     margin: 0;
 }
+.ce_redactor li{
+    margin: 5px 0;
+}
+.ce_redactor blockquote{
+    font-size: 1.1em;
+    line-height: 1.9em;
+    margin: 2em 0;
+    padding: 2em 3.5em;
+    border-top: 2px solid #EAECF3;
+    border-bottom: 2px solid #EAECF3;
+}
+.ce_redactor code{
+    display: block;
+    margin: 1em 0;
+}
 
-.codex_editor {position: relative;}
+@-webkit-keyframes bounceIn {
+    0% { opacity: 0; -webkit-transform: scale(.3);}
+    50% {opacity: 1; -webkit-transform: scale(1.05);}
+    70% {-webkit-transform: scale(.9);}
+    100% {-webkit-transform: scale(1);}
+}
 
-.codex_editor .ce_content {
+@-moz-keyframes bounceIn {
+    0% {opacity: 0;-moz-transform: scale(.3);}
+    50% {opacity: 1;-moz-transform: scale(1.05);}
+    70% {-moz-transform: scale(.9);}
+    100% {-moz-transform: scale(1);}
+}
+@-o-keyframes bounceIn {
+    0% {opacity: 0;-o-transform: scale(.3);}
+    50% {opacity: 1;-o-transform: scale(1.05);}
+    70% {-o-transform: scale(.9);}
+    100% {-o-transform: scale(1);}
+}
+@keyframes bounceIn {
+    0% {opacity: 0;transform: scale(.3);}
+    50% {opacity: 1;transform: scale(1.07);}
+    70% {transform: scale(.9);}
+    100% {transform: scale(1);}
+}
+
+.bounceIn {
+    -webkit-animation-name: bounceIn; -webkit-animation-duration: 600ms; -webkit-animation-iteration-count: 1;
+    -moz-animation-name: bounceIn; -moz-animation-duration: 600ms; -moz-animation-iteration-count: 1;
+    -o-animation-name: bounceIn; -o-animation-duration: 600ms; -o-animation-iteration-count: 1;
+    animation-name: bounceIn; animation-duration: 600ms; animation-iteration-count: 1;
 }

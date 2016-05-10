@@ -1,13 +1,13 @@
 /**
- * Some UI experiments for CodeX Editor
- * @author Savchenko Peter (vk.com/specc)
- */
+* Some UI experiments for CodeX Editor
+* @author Savchenko Peter (vk.com/specc)
+*/
 
-/*
- * TODO
- * выделение нескольких блоков и нажатие энтера - вместо замены новой стро
- *
- * */
+    /*
+    * TODO
+    * выделение нескольких блоков и нажатие энтера - вместо замены новой стро
+    *
+    * */
 
 
 var ce = function(settings) {
@@ -64,7 +64,7 @@ ce.prototype.key = { TAB: 9, ENTER: 13, BACKSPACE: 8, DELETE: 46, SPACE: 32, ESC
 /**
  * Editor interface drawing
  * calls one time in editor constructor
- */
+*/
 ce.prototype.makeInterface = function () {
 
     var wrapper   = this.make.editorWrapper(),
@@ -101,9 +101,6 @@ ce.prototype.exportHtml = function () {
     this.resultTextarea.innerHTML = this.editableWrapper.innerHTML;
     this.resultTextarea.value     = this.editableWrapper.innerHTML;
 
-    //alert(this.resultTextarea.value);
-    document.getElementById("edit_article_form").submit();
-
     return false;
 };
 
@@ -121,15 +118,15 @@ ce.prototype.importHtml = function () {
     var node, body, i, nodeType, tmp;
 
     /*
-     * Парсим содержимое textarea.
-     * Создаем новый документ, получаем указатель на контенейр body.
-     * */
+    * Парсим содержимое textarea.
+    * Создаем новый документ, получаем указатель на контенейр body.
+    * */
     tmp  = new DOMParser().parseFromString( this.resultTextarea.value, "text/html" );
     body = tmp.getElementsByTagName("body")[0];
 
     /*
-     * Обходим корневые узлы. Проставляем им класс и тип узла.
-     * */
+    * Обходим корневые узлы. Проставляем им класс и тип узла.
+    * */
     for(i = 0; i < body.children.length; i++){
         node = body.children.item(i);
 
@@ -140,7 +137,7 @@ ce.prototype.importHtml = function () {
         switch (node.tagName){
             case "P" :
                 nodeType = "text";
-                break;
+            break;
 
             case "H1" :
             case "H2" :
@@ -149,19 +146,19 @@ ce.prototype.importHtml = function () {
             case "H5" :
             case "H6" :
                 nodeType = "header";
-                break;
+            break;
 
             case "UL" :
                 nodeType = "list";
-                break;
+            break;
 
             case "IMG" :
                 nodeType = "picture";
-                break;
+            break;
 
             case "CODE" :
                 nodeType = "code";
-                break;
+            break;
         }
 
         node.dataset["type"] = nodeType;
@@ -173,17 +170,17 @@ ce.prototype.importHtml = function () {
 
 
 /**
- * All events binds in one place
- */
+* All events binds in one place
+*/
 ce.prototype.bindEvents = function () {
 
     var _this = this,
         selectedNodeClass = "selected";
 
     /*
-     * Экспорт разметки в итоговый textarea по нажатию на кнопку "сохранить".
-     * Кнопка сохранения должна иметь, так же как и textarea, особенный ID.
-     * */
+    * Экспорт разметки в итоговый textarea по нажатию на кнопку "сохранить".
+    * Кнопка сохранения должна иметь, так же как и textarea, особенный ID.
+    * */
     document.getElementById("codex_editor_export_btn").addEventListener('click', function () {
         _this.exportHtml.apply(_this)
     });
@@ -211,7 +208,7 @@ ce.prototype.bindEvents = function () {
 
 /**
  * All window mouseover handles here
- */
+*/
 ce.prototype.globalMouseOverCallback = function (event) {
     var sender = event.target;
 
@@ -227,7 +224,7 @@ ce.prototype.globalMouseOverCallback = function (event) {
 
 /**
  * All window mouseout handles here
- */
+*/
 ce.prototype.globalMouseOutCallback = function (event) {
     var sender = event.target;
 
@@ -242,7 +239,7 @@ ce.prototype.globalMouseOutCallback = function (event) {
 /**
  * Sets focus to node conteneditable child
  * todo depending on node type
- */
+*/
 ce.prototype.focusNode = function (node) {
     node.focus();
 
@@ -263,22 +260,22 @@ ce.prototype.focusNode = function (node) {
 };
 
 /*
- * Определяет, есть ли выделенный текст
- * */
+* Определяет, есть ли выделенный текст
+* */
 ce.prototype.isTextSelected = function(){
     return !!window.getSelection().toString()
 };
 
 /*
- * Определяет, относится ли нажатая кнопка к навигационным
- * */
+* Определяет, относится ли нажатая кнопка к навигационным
+* */
 ce.prototype.isNavigationKey = function(keyCode){
     return keyCode == this.key.LEFT || keyCode == this.key.UP || keyCode == this.key.DOWN || keyCode == this.key.RIGHT
 };
 
 /**
- * All window keydowns handles here
- */
+* All window keydowns handles here
+*/
 ce.prototype.globalKeydownCallback = function (event) {
 
     /**
@@ -296,8 +293,8 @@ ce.prototype.globalKeydownCallback = function (event) {
 
 
 /**
- * Обрабатывает нажатие клавиш при открытой панеле добавления
- */
+* Обрабатывает нажатие клавиш при открытой панеле добавления
+*/
 ce.prototype.processToolBarKeyPressed = function(event){
     if (this.toolbar.isOpened) {
 
@@ -321,8 +318,8 @@ ce.prototype.processToolBarKeyPressed = function(event){
 
 
 /**
- * Closes tool bar (plus btn)
- */
+* Closes tool bar (plus btn)
+*/
 ce.prototype.closeToolBar = function(){
     var _this = this,
         toolbar = this.toolbar;
@@ -341,8 +338,8 @@ ce.prototype.closeToolBar = function(){
 
 
 /**
- * Returns node which is currently focused
- */
+* Returns node which is currently focused
+*/
 ce.prototype.getFocusedNode = function(){
     var sel = window.getSelection();
     return sel.anchorNode.tagName ? sel.anchorNode : sel.focusNode.parentElement;
@@ -350,8 +347,8 @@ ce.prototype.getFocusedNode = function(){
 
 
 /**
- *
- */
+*
+*/
 ce.prototype.tabKeyPressed = function(event) {
 
     // check if currently focused in contenteditable element
@@ -384,8 +381,8 @@ ce.prototype.tabKeyPressed = function(event) {
 };
 
 /**
- * Перемещает фокус на следующую кнопку в панеле добавления (плюс)
- * */
+* Перемещает фокус на следующую кнопку в панеле добавления (плюс)
+* */
 ce.prototype.moveToolBarButtonFocus = function(focusPrev){
     var allButtons = this.toolbarButtons;
 
@@ -416,16 +413,16 @@ ce.prototype.moveToolBarButtonFocus = function(focusPrev){
 };
 
 /**
- * Handle Enter key. Adds new Node;
- */
+* Handle Enter key. Adds new Node;
+*/
 ce.prototype.enterKeyPressed = function(event) {
 
     var _this = this,
         curNode = this.getFocusedNode();
 
     /*
-     * обработка выбранной кнопки тулбара
-     * */
+    * обработка выбранной кнопки тулбара
+    * */
     if (this.toolbar.isOpened) {
 
         switch ( this.focusedToolbarBtn.dataset["type"] ){
@@ -468,9 +465,9 @@ ce.prototype.enterKeyPressed = function(event) {
 
     }
     /*
-     * Перехват создания нового параграфа при нахождении в заголовке.
-     * По-умолчанию создается просто div.
-     * */
+    * Перехват создания нового параграфа при нахождении в заголовке.
+    * По-умолчанию создается просто div.
+    * */
     else {
 
         if (curNode.dataset["type"] == "header" && !this.isTextSelected()) {
@@ -491,8 +488,8 @@ ce.prototype.enterKeyPressed = function(event) {
 };
 
 /**
- * Creates HTML elements
- */
+* Creates HTML elements
+*/
 ce.prototype.make = function () {
     /** Empty toolbar with toggler */
     function toolbar () {
@@ -503,8 +500,8 @@ ce.prototype.make = function () {
 
         /** Toggler button*/
         bar.innerHTML = '<span class="toggler">' +
-            '<i class="plus_btn ce_icon-plus-circled-1"></i>'+
-            '</span>';
+                            '<i class="plus_btn ce_icon-plus-circled-1"></i>'+
+                        '</span>';
         return bar;
 
     }
@@ -541,9 +538,9 @@ ce.prototype.make = function () {
     }
 
     /**
-     * Paragraph node
-     * @todo set unique id with prefix
-     */
+    * Paragraph node
+    * @todo set unique id with prefix
+    */
     function textNode (content){
 
         var node = document.createElement('p');
@@ -557,8 +554,8 @@ ce.prototype.make = function () {
     }
 
     /**
-     * Header node
-     */
+    * Header node
+    */
     function headerNode (content){
 
         var node = document.createElement('h2');
