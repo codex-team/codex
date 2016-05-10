@@ -91,7 +91,7 @@
         </div>
     </footer>
 
-    <div id="utils" class="hidden">
+    <div id="utils" class="hidden" style="display: none">
         <iframe name="transport"></iframe>
         <form class="ajaxfree" id="transportForm" method="post" enctype="multipart/form-data"  target="transport" action="/ajax/transport" accept-charset="utf-8" >
             <input type="file" name="files" id="transportInput"/>
