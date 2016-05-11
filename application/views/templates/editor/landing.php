@@ -1,6 +1,8 @@
 <div class="center_side">
-    <div class="landing_page" style="text-align: left !important;">
-        <h1>CodeX Editor</h1>
+    <article class="article_content" style="text-align: left !important;">
+
+
+        <h1 class="big_header" itemprop="headline">CodeX Editor</h1>
 
         <form action="">
 
@@ -25,7 +27,7 @@
             </textarea>
 
         </form>
-    </div>
+    </article>
 </div>
 
 <script src="/public/extensions/codex.editor/codex-editor.js"></script>
@@ -40,7 +42,7 @@
 
         cEditor.start({
             textareaId: 'codex_editor',
-            tools      : ['header', 'list', 'quote', 'code'],
+            // tools      : ['header', 'list', 'quote', 'code'],
         });
 
     })
