@@ -7,17 +7,18 @@
 
             <input type="hidden" name="article_id" value="<?= $article->id ?: ''; ?>">
 
-            <label for="title">Заголовок:</label>
+            <label for="title">Заголовок</label>
             <input type="text" name="title" value="<?= $article->title ?: ''; ?>">
 
-            <label for="uri">Uri:</label>
+            <label for="uri">URI</label>
             <input type="text" name="uri" value="<?= $article->uri ?: ''; ?>">
 
-            <label for="description">Описание:</label>
-            <textarea name="description" id="codex_editor" cols="5" rows="5"><?= $article->description ?: ''; ?></textarea>
+            <label for="description">Описание статьи</label>
+            <textarea name="description" rows="5"><?= $article->description ?: ''; ?></textarea>
 
-            <label for="article_text">Содержание:</label>
-            <textarea name="article_text" id="codex_editor" cols="30" rows="10"><?= $article->text ?: ''; ?></textarea>
+            <div class="article_content redactor_zone">
+                <textarea name="article_text" id="codex_editor" style="margin: 40px 0" rows="10"><?= $article->text ?: ''; ?></textarea>
+            </div>
 
             <p><input type="checkbox" name="is_published" value="1" <?= $article->is_published ? 'checked' : ''; ?> > Опубликовать</p>
 
@@ -27,3 +28,16 @@
     </article>
 
 </div>
+<script src="/public/extensions/codex.editor/codex-editor.js"></script>
+<script>
+
+    /** Document is ready */
+    docReady(function() {
+
+        cEditor.start({
+            textareaId: 'codex_editor',
+            tools      : ['header', 'list', 'quote', 'code'],
+        });
+
+    })
+</script>

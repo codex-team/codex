@@ -135,7 +135,7 @@ cEditor.core = {
     /**
     * Readable keys map
     */
-    keys : { TAB: 9, ENTER: 13, BACKSPACE: 8, DELETE: 46, SPACE: 32, ESC: 27, CTRL: 17, META: 91, SHIFT: 16, ALT: 18, LEFT: 37, UP: 38, DOWN: 40, RIGHT: 39 },
+    keys : { BACKSPACE: 8, TAB: 9, ENTER: 13, SHIFT: 16, CTRL: 17, ALT: 18, ESC: 27, SPACE: 32, LEFT: 37, UP: 38, DOWN: 40, RIGHT: 39, DELETE: 46, META: 91 },
 
     /**
     * Check object for DOM node
@@ -186,6 +186,7 @@ cEditor.ui = {
         /** Save created ui-elements to static nodes state */
         cEditor.nodes.wrapper  = wrapper;
         cEditor.nodes.toolbar  = toolbar;
+
         cEditor.nodes.redactor = redactor;
 
     },
@@ -217,16 +218,10 @@ cEditor.ui = {
             cEditor.callback.redactorInputEvent(event);
         }, false );
 
+        /** Bind click listeners on toolbar buttons */
         for (button in cEditor.nodes.toolbarButtons){
             cEditor.nodes.toolbarButtons[button].addEventListener('click', function (event) {
-
-                console.log(this.dataset.type);
-
-                cEditor.toolbar.current = this.dataset.type;
-
-                cEditor.toolbar.toolClicked(event);
-                cEditor.toolbar.close();
-
+                cEditor.callback.toolbarButtonClicked(event, this);
             }, false);
         }
 
@@ -310,7 +305,21 @@ cEditor.callback = {
         cEditor.content.workingNodeChanged();
 
         cEditor.toolbar.move();
+
         cEditor.toolbar.open();
+
+    },
+
+    /**
+    * Toolbar button click handler
+    * @param this - cursor to the button
+    */
+    toolbarButtonClicked : function (event, button) {
+
+        cEditor.toolbar.current = button.dataset.type;
+
+        cEditor.toolbar.toolClicked(event);
+        cEditor.toolbar.close();
 
     },
 
@@ -378,7 +387,7 @@ cEditor.content = {
             focused = focused.parentElement;
         }
 
-        console.log('focused' , focused);
+        // console.log('focused' , focused);
 
         if (focused != cEditor.nodes.redactor){
             return focused;
@@ -491,6 +500,8 @@ cEditor.toolbar = {
     /**
     * Margin between focused node and toolbar
     */
+    defaultToolbarHeight : 43,
+
     defaultOffset : 10,
 
     opened : false,
@@ -504,7 +515,6 @@ cEditor.toolbar = {
         }
 
         cEditor.nodes.toolbar.classList.add('opened');
-
         this.opened = true;
 
     },
@@ -593,8 +603,8 @@ cEditor.toolbar = {
             return;
         }
 
-        var newYCoordinate = cEditor.content.currentNode.offsetTop - cEditor.toolbar.defaultOffset -
-                             cEditor.nodes.toolbar.clientHeight;
+        var toolbarHeight = cEditor.nodes.toolbar.clientHeight || cEditor.toolbar.defaultToolbarHeight,
+            newYCoordinate = cEditor.content.currentNode.offsetTop - cEditor.toolbar.defaultOffset - toolbarHeight;
 
         cEditor.nodes.toolbar.style.transform = "translateY(" + newYCoordinate + "px)";
 

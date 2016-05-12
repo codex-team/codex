@@ -123,6 +123,8 @@
         }
 
 
+
+
 /** Typography styles */
 .ce_redactor p{
     padding: 5px 0;
@@ -145,6 +147,11 @@
     display: block;
     margin: 1em 0;
 }
+.ce_redactor img,
+.ce_redactor iframe{
+    max-width: 100%;
+}
+
 
 @-webkit-keyframes bounceIn {
     0% { opacity: 0; -webkit-transform: scale(.3);}

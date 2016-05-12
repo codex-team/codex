@@ -1,4 +1,11 @@
-function r(f){/in/.test(document.readyState) ? setTimeout(r,9,f) : f();}
+/**
+* Document ready event listener
+* @usage docReady(function(){ # code ... } );
+*/
+function docReady(f){
+    /in/.test(document.readyState) ? setTimeout(docReady, 9, f) : f();
+}
+
 
 
 var helpers = (function(helpers) {
@@ -458,7 +465,6 @@ var xhr = (function(xhr){
         return q.join('&');
     }
 
-
     return xhr;
 
 })({});
@@ -470,7 +476,7 @@ var scrollUp = {
     */
     SCROLL_UP_OFFSET: 100,
 
-    button: document.getElementById('scroll_button'),
+    button: null,
 
     scrollPage : function(){
 
@@ -489,6 +495,23 @@ var scrollUp = {
             scrollUp.button.classList.remove('show');
 
         }
+    },
+
+    /**
+    * Init method
+    * Fired after document is ready
+    */
+    init : function () {
+
+        /** Find scroll-up button */
+        this.button = document.getElementById('scroll_button');
+
+        /** Bind click event on scroll-up button */
+        this.button.addEventListener("click", scrollUp.scrollPage);
+
+        /** Global window scroll handler */
+        window.addEventListener("scroll", scrollUp.windowScrollHandler);
+
     }
 
 }
@@ -601,7 +624,9 @@ var sharer = (function( sharer ){
 
 })({});
 
-r(function(){
+docReady(function(){
+
+    console.log('document is ready', document);
 
     var joinBlank = document.getElementById('joinBlank');
     if ( typeof joinBlank != 'undefined' && joinBlank != null ){
@@ -651,16 +676,10 @@ r(function(){
         });
     }
 
-    window.addEventListener("scroll", scrollUp.windowScrollHandler);
-    scrollUp.button.addEventListener("click", scrollUp.scrollPage);
-
-
-
-
+    /** Initialize scroll up button */
+    scrollUp.init();
 
 });
-
-document.documentElement.className = document.documentElement.className.replace("no-js","js");
 
 /**
 * Polyfilling ECMAScript 6 method String.includes
@@ -676,11 +695,6 @@ if ( !String.prototype.includes ) {
 
   };
 }
-
-
-
-
-
 
 
 
