@@ -43,7 +43,9 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
 
             $article->title        = Arr::get($_POST, 'title');
             $article->text         = Arr::get($_POST, 'article_text');
-            $article->is_published = Arr::get($_POST, 'is_published')? 1 : 0;
+            $article->is_published = Arr::get($_POST, 'is_published') ? 1 : 0;
+            $article->marked       = Arr::get($_POST, 'marked') ? 1 : 0;
+            $article->order        = (int) Arr::get($_POST, 'order');
             $article->description  = Arr::get($_POST, 'description');
 
             if ($article->title && $article->text && $article->description) {
