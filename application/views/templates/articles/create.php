@@ -21,6 +21,10 @@
             </div>
 
             <p><input type="checkbox" name="is_published" value="1" <?= $article->is_published ? 'checked' : ''; ?> > Опубликовать</p>
+            <p><input type="checkbox" name="marked" value="1" <?= $article->marked ? 'checked' : ''; ?> > Отметить как важную</p>
+
+            <label for="order">Порядок в списке (если не задавать, будет в порядке убывания даты)</label>
+            <input type="text" name="order" value="<?= $article->order ?: ''; ?>">
 
             <input type="submit" value="Сохранить" name="submit"/>
         </form>

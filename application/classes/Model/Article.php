@@ -20,6 +20,16 @@ Class Model_Article extends Model
     public $is_removed;
     public $is_published;
 
+    /**
+    * @var bool $marked — позволяет выделить важную статью в списке
+    */
+    public $marked = false;
+
+    /**
+    * @var null|int $order — позволяет изменять порядок вывода статей
+    */
+    public $order = null;
+
     public $author;
     public $commentsCount;
 
@@ -45,6 +55,8 @@ Class Model_Article extends Model
                                 ->set('description',    $this->description)
                                 ->set('cover',          $this->cover)
                                 ->set('user_id',        $this->user_id)
+                                ->set('marked',         $this->marked)
+                                ->set('order',          $this->order)
                                 ->set('is_published',   $this->is_published)
                                 ->clearcache('articles_list')
                                 ->execute();
@@ -79,6 +91,8 @@ Class Model_Article extends Model
             $this->description  = $article_row['description'];
             $this->cover        = $article_row['cover'];
             $this->user_id      = $article_row['user_id'];
+            $this->marked       = $article_row['marked'];
+            $this->order        = $article_row['order'];
             $this->dt_create    = $article_row['dt_create'];
             $this->dt_update    = $article_row['dt_update'];
             $this->is_removed   = $article_row['is_removed'];
@@ -123,6 +137,8 @@ Class Model_Article extends Model
             ->set('text',           $this->text)
             ->set('description',    $this->description)
             ->set('cover',          $this->cover)
+            ->set('marked',         $this->marked)
+            ->set('order',          $this->order)
             ->set('user_id',        $this->user_id)
             ->set('is_published',   $this->is_published)
             ->set('dt_update',      $this->dt_update)      // TODO(#38) remove
@@ -173,7 +189,7 @@ Class Model_Article extends Model
      */
     public static function getActiveArticles($clearCache = false)
     {
-        return Model_Article::getArticles(false, false, !$clearCache ? Date::MINUTE * 5 : null);
+        return Model_Article::getArticles(0, false, false, !$clearCache ? Date::MINUTE * 5 : null);
     }
 
 
@@ -182,21 +198,38 @@ Class Model_Article extends Model
      */
     public static function getAllArticles()
     {
-        return Model_Article::getArticles(true, false);
+        return Model_Article::getArticles(0, true, false);
     }
+
+    /**
+     * Получает статьи определенного пользователя
+     * @param int $uid
+     * @param bool $clearCache - позволяет очистить кэш списка
+     */
+    public static function getArticlesByUserId($uid, $clearCache = false)
+    {
+        return Model_Article::getArticles($uid, false, false, !$clearCache ? Date::MINUTE * 5 : null);
+    }
+
+
 
     /**
      * Получить список статей с указанными условиями.
      *
+     * @param int $uid - получить статьи определенного пользователя
      * @param $add_removed boolean добавлять ли удалённые статьи в получаемый список статей
      * @param $add_not_published boolean
      * @param $cacheMinuteTime int на сколько минут кешировать, по умолчанию null,
      * кеш не сбрасывается при добавлении новой статьи.
      * @return array ModelArticle массив моделей, удовлетворяющих запросу
      */
-    private static function getArticles($add_unpublished = false, $add_removed = false, $cachedTime = null)
+    private static function getArticles($uid = 0, $add_unpublished = false, $add_removed = false, $cachedTime = null)
     {
         $articlesQuery = Dao_Articles::select()->limit(200);        // TODO(#40) add pagination.
+
+        if ($uid) {
+            $articlesQuery->where('user_id', '=', $uid);
+        }
 
         if (!$add_removed) {
             $articlesQuery->where('is_removed', '=', false);
@@ -207,10 +240,15 @@ Class Model_Article extends Model
         }
 
         if ($cachedTime) {
-            $articlesQuery->cached($cachedTime, 'articles_list');
+            /** Используем разные ключи кэша для списка статей /articles и статей в профиле пользователя */
+            $cacheKey = !$uid ? 'articles_list' : 'user_articles:' . $uid;
+            $articlesQuery->cached($cachedTime, $cacheKey);
         }
 
-        $article_rows = $articlesQuery->order_by('id', 'DESC')->execute();
+        /**
+        * Сначала сортируем по 'order', затем по дате
+        */
+        $article_rows = $articlesQuery->order_by('order', 'DESC')->order_by('id', 'DESC')->execute();
 
         return self::rowsToModels($article_rows);
     }

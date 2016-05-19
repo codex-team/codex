@@ -22,6 +22,12 @@ class Controller_Users_Index extends Controller_Base_preDispatch
 
         if (!$viewUser->id) $this->redirect('/');
 
+        /**
+        * Clear cache hook
+        */
+        $needClearCache = Arr::get($_GET, 'clear') == 1;
+        $this->view["articles"]  = Model_Article::getArticlesByUserId($viewUser->id, $needClearCache);
+
         $this->view['join_requests'] = $viewUser->getUserRequests();
 
         $this->title = $viewUser->name ?: 'Пользователь #' . $viewUser->id;

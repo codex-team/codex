@@ -35,6 +35,11 @@
                 <a class="logout" href="/auth/logout">Logout</a>
             <? endif; ?>
     </div>
+
+    <? if ($articles): ?>
+        <?= View::factory('templates/articles/list', array( 'articles' => $articles )); ?>
+    <? endif ?>
+
 <? else: ?>
     <div class="no_data">
         <h2>Пользователь не найден</h2>
