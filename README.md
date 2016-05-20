@@ -1,9 +1,17 @@
-Working project for alpha-server
+### CodeX Team
 
-http://alpha.difual.com
+Клуб веб-разработки, дизайна и маркетинга в НИУ ИТМО. Мы строим команду молодых специалистов, способную создавать полноценные проекты в интернете на мировом уровне.
 
-Server : Difual Alpha
-
-CodeX Team
 http://ifmo.su
+
+
+
+##### Подписывайтесь на нас в соцсетях
+
 http://vk.com/codex_team
+
+https://instagram.com/codex_team
+
+А еще у нас есть канал в Телеграме, в котором мы анонсируем новые статьи, конкурсы и другие интересные события. Подписывайтесь!
+
+https://telegram.me/codex_team
