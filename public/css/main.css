@@ -957,6 +957,7 @@ html {
     padding: 0;
     list-style: none;
     text-align: center;
+    font-size: 0;
 }
     .page_menu li{
         position: relative;
