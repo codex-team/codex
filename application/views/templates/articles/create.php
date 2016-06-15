@@ -32,7 +32,7 @@
     </article>
 
 </div>
-<script src="/public/extensions/codex.editor/codex-editor.js"></script>
+<script src="/public/extensions/codex.editor.old/codex-editor.js"></script>
 <script>
 
     /** Document is ready */

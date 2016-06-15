@@ -78,8 +78,6 @@
 .ce_redactor {
     position: relative;
     outline: none;
-    background: #FCFCFC;
-    padding: 1px 0;
 }
 
 .ce_toolbar{
@@ -125,17 +123,14 @@
         }
 
 
-/** Typography styles */
 
+
+/** Typography styles */
 .ce_redactor p{
     padding: 5px 0;
     font-size: 1em;
     line-height: 1.7em;
     margin: 0;
-}
-.ce_redactor ul,
-.ce_redactor ol{
-    list-style-position: inside;
 }
 .ce_redactor li{
     margin: 5px 0;
@@ -150,18 +145,11 @@
 }
 .ce_redactor code{
     display: block;
-    font-family: 'monospace', 'monaco', 'consolas', 'courier';
-    line-height: 1.5em;
-    background: #f8f8fd !important;
-    color: #4a8bd1;
+    margin: 1em 0;
 }
-
-
-.ce_redactor .ce_block{
-    padding: 10px;
-    margin: 5px;
-    border: 1px dotted #ccc;
-    background: #fff;
+.ce_redactor img,
+.ce_redactor iframe{
+    max-width: 100%;
 }
 
 
