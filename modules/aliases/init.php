@@ -6,9 +6,7 @@
  * @author CodeX team team@ifmo.su
  */
 
-$DIGIT = '\d+';
 $STRING = '[-a-z\d]+';
-$QUERY =  '[0-9a-zA-Zа-яёА-ЯЁ\s\-\.]+$';
 
 Route::set('URI', '<route>(/<subaction>)', array(
 
