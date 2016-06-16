@@ -49,7 +49,7 @@ class Model_Alias
             ->execute();
     }
 
-    public static function getAlias($route = null)
+    public function getAlias($route = null)
     {
         $hashedRouteRaw = md5( $route, true );
         $hashedRoute    = md5( $route );
