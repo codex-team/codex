@@ -7,12 +7,12 @@
 
     return array(
         'system' => array(
-            'Auth',
-            'Articles',
-            'Article',
-            'Contests',
-            'Contest',
-            'Admin',
+            'auth',
+            'articles',
+            'article',
+            'contests',
+            'contest',
+            'admin',
         )
     )
 

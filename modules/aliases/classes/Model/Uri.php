@@ -59,6 +59,7 @@ class Model_Uri {
     public function isForbidden($alias)
     {
         $system = Kohana::$config->load('forbidden')['system'];
+        
         return in_array($alias, $system) ? 1 : 0;
     }
 }

@@ -10,7 +10,6 @@ class Controller_Uri extends Controller {
 
     public function action_get()
     {
-
         $route      = $this->request->param('route');
         $sub_action = $this->request->param('subaction');
         

@@ -15,7 +15,7 @@ $QUERY =  '[0-9a-zA-Zа-яёА-ЯЁ\s\-\.]+$';
  * New URIes
  */
 
-Route::set('URI', '<route>(/<subaction>)', array(
+/*Route::set('URI', '<route>(/<subaction>)', array(
 	'route' => $STRING,
 	))->filter(function(Route $route, $params, Request $request)
 	{
@@ -29,7 +29,7 @@ Route::set('URI', '<route>(/<subaction>)', array(
 	->defaults(array(
 		'controller' => 'Uri',
 		'action' => 'get',
-	));
+	));*/
 
 /**
  * System Routes

@@ -29,7 +29,7 @@ class Model_Alias
 
     public function save()
     {
-        $insert = DB::insert('Aliases',
+        $insert = DB::insert('Alias',
             array(
                 'uri',
                 'hash',
@@ -54,7 +54,7 @@ class Model_Alias
         $hashedRouteRaw = md5( $route, true );
         $hashedRoute    = md5( $route );
 
-        $alias = DB::select('*')->from('Aliases')
+        $alias = DB::select('*')->from('Alias')
                                 ->where('hash', '=', $hashedRouteRaw)
                                 ->limit(1)
                                 ->execute();
@@ -180,7 +180,7 @@ class Model_Alias
         $hashedOldRouteRaw = md5($oldAlias, true);
         $hashedOldRoute    = md5($oldAlias);
 
-        $update = DB::update('Alises')->set(array(
+        $update = DB::update('Alias')->set(array(
                 'deprecated' => '1',
             ))
             ->where('hash', '=', $hashedOldRouteRaw)
@@ -191,7 +191,7 @@ class Model_Alias
 
     public static function deleteAlias( $hash_raw, $hash )
     {
-        $delete = DB::delete('Aliases')
+        $delete = DB::delete('Alias')
                 ->where('hash', '=', $hash_raw)
                 ->execute();
 

@@ -8,13 +8,13 @@
 
 $STRING = '[-a-z\d]+';
 
-Route::set('URI', '<route>(/<subaction>)', array(
+Route::prepend('URI', '<route>(/<subaction>)', array(
 
     'route' => $STRING,
 
     ))
     ->filter( function(Route $route, $params, Request $request ) {
-
+        
         $alias = $params['route'];
         $model_uri = Model_Uri::Instance();
 
