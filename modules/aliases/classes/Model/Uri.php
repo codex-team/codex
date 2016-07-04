@@ -1,14 +1,12 @@
 <?php defined('SYSPATH') or die('No direct script access.');
-
 /**
- * Alias System
- * https://ifmo.su/
- * @author CodeX team team@ifmo.su
+ * Created by PhpStorm.
+ * User: Murod's Macbook Pro
+ * Date: 23.02.2016
+ * Time: 13:03
  */
 
 class Model_Uri {
-
-    private static $_instance;
 
     /*
      *  Controllers
@@ -42,6 +40,7 @@ class Model_Uri {
     /**
      * CLass Methods
      */
+    private static $_instance;
 
     private function __construct() {
     }
@@ -58,7 +57,7 @@ class Model_Uri {
 
     public function isForbidden($alias)
     {
-        $system = Kohana::$config->load('forbidden')['system'];
-        return in_array($alias, $system) ? 1 : 0;
+        $select = Dao_ForbiddenAliases::select()->where('uri', '=', $alias)->limit(1)->cached(5*Date::MINUTE, 'uri:'. $alias)->execute();
+        return ( empty($select)) ? 0 : 1;
     }
 }
