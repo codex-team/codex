@@ -57,6 +57,7 @@ class Model_Alias
         $alias = DB::select('*')->from('Alias')
                                 ->where('hash', '=', $hashedRouteRaw)
                                 ->limit(1)
+                                ->cached( 5 * Date::MINUTE, 'hash:' . $hashedRoute)
                                 ->execute();
 
         return Arr::get($alias, '0');
