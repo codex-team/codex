@@ -36,31 +36,31 @@ class Model_Alias
                 'type',
                 'id',
                 'dt_create',
-                'deprecated'
+                'deprecated',
             ))
-            ->values(
+            ->values(array(
                 $this->uri,
                 $this->hash_raw,
                 $this->type,
                 $this->id,
                 $this->dt_create,
                 $this->deprecated
-            )
+            ))
             ->execute();
     }
 
-    public function getAlias($route = null)
+    public static function getAlias($route = null)
     {
         $hashedRouteRaw = md5( $route, true );
         $hashedRoute    = md5( $route );
 
-        $alias = DB::select('*')->from('Alias')
+        $alias = DB::select()->from('Alias')
                                 ->where('hash', '=', $hashedRouteRaw)
                                 ->limit(1)
-                                ->cached( 5 * Date::MINUTE, 'hash:' . $hashedRoute)
+                                ->cached(5 * Date::MINUTE)
                                 ->execute();
 
-        return Arr::get($alias, '0');
+        return $alias->current();
     }
 
     public static function generateAlias($route)
@@ -155,12 +155,10 @@ class Model_Alias
         if ( !empty($alias) ) {
 
             $newAlias = self::generateAlias($alias);
-
             $dt_create = DATE::$timezone;
             $model_alias = new Model_Alias($newAlias, $type, $id, $dt_create, $deprecated);
             $model_alias->save();
 
-            self::updateSubstanceUri($newAlias, $type, $id);
         }
 
         // Если алиас не создан, то возвращаем идентификатор добавленной сущности
@@ -187,6 +185,9 @@ class Model_Alias
             ->where('hash', '=', $hashedOldRouteRaw)
             ->execute();
 
+        /** Clear cache with old alias */
+        DB::select()->from('Alias')->where('hash', '=', $hashedOldRouteRaw)->limit(1)->cached(0)->execute();
+
         return self::addAlias($alias, $type, $id);
     }
 
@@ -195,6 +196,9 @@ class Model_Alias
         $delete = DB::delete('Alias')
                 ->where('hash', '=', $hash_raw)
                 ->execute();
+
+        /** Clear cache */
+        DB::select()->from('Alias')->where('hash', '=', $hash_raw)->limit(1)->cached(0)->execute();
 
         return $delete;
     }
