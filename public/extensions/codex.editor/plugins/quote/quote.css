@@ -43,12 +43,12 @@
 
 .quoteStyle-simple--text {
     padding: 1.2em 2.1em;
-    margin: 2.5em 100px;
+    margin: 2.5em 2em;
     background: #FBFBFB;
 }
 .quoteStyle-withCaption--blockquote
 {
-    margin: 0 100px;
+    margin: 0 1em;
     padding: 1.5em 2.0em !important;
 }
 
@@ -98,7 +98,7 @@
 /** Quote with photo */
 .ce_redactor .quoteStyle-withPhoto--wrapper {
     margin: 0;
-    padding: 4.5em 8.5em !important;
+    padding: 4.5em 4em !important;
 }
 
 .quoteStyle-withPhoto--photo {
@@ -154,7 +154,7 @@
 
 .quoteStyle-withPhoto--quote {
     margin-top: 33px;
-    line-height: 2em;
+    line-height: 1.82em;
     outline: none;
     overflow: hidden;
 }
