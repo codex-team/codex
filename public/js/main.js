@@ -614,17 +614,19 @@ var sharer = (function( sharer ){
 
     };
 
-    if (window.shareData) {
-
-        sharer.init();
-
-    }
+    
 
     return sharer;
 
 })({});
 
 docReady(function(){
+
+    if (window.shareData) {
+
+        sharer.init();
+
+    }
 
     console.log('document is ready', document);
 
