@@ -11,7 +11,7 @@
             <input type="text" name="title" value="<?= $article->title ?: ''; ?>">
 
             <label for="uri">URI</label>
-            <input type="text" name="uri" value="<?= $article->uri ?: ''; ?>">
+            <input type="text" name="uri" value="<?= $article->uri ?: ''; ?>" autocomplete="off">
 
             <label for="description">Описание статьи</label>
             <textarea name="description" rows="5"><?= $article->description ?: ''; ?></textarea>
