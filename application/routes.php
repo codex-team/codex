@@ -179,7 +179,7 @@ Route::set('ADMIN', 'admin(/<category>(/<list>))', array('category' => 'articles
 
 // - viz redaktor -
 
-Route::set('EDITOR_LANDING', 'editor', array())->defaults(array(
+Route::set('EDITOR_LANDING', 'editor(/<action>)', array())->defaults(array(
     'controller' => 'editor',
     'action' => 'landing'
 ));
