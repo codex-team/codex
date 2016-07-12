@@ -18,7 +18,6 @@
 }
 
 .tool-link-panel {
-    width: 50%;
     position: relative;
     margin: 5px 0;
     background: #f8f7ef;
@@ -29,7 +28,7 @@
 .ceditor-tool-link .tool-link-image {
     float:right;
     width: 75px;
-    border-radius: 50%;
+    border-radius: 3px;
 }
 
 .ceditor-tool-link .tool-link-title {
