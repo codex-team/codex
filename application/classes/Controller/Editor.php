@@ -41,7 +41,9 @@ class Controller_Editor extends Controller_Base_preDispatch
 
         );
 
-        echo json_encode($result);
+        $this->auto_render = false;
+        $this->response->headers('Content-Type', 'application/json; charset=utf-8');
+        $this->response->body(@json_encode($result));
 
     }
 
@@ -104,11 +106,10 @@ class Controller_Editor extends Controller_Base_preDispatch
             }
         }
 
-        return [
+        return array(
             'image'         => $image,
             'title'         => $title,
-            'description'   => $description
-        ];
+            'description'   => $description,
+        );
     }
-
 }

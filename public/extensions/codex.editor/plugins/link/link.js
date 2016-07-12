@@ -138,9 +138,7 @@ var linkTool = {
             .then(function (response) {
 
                 if (response.status == "200"){
-
                     return response.json();
-
                 }
                 else {
 
