@@ -1,6 +1,6 @@
 <style>
     .editor_workout{
-        font-size: 16px;
+        font-size: 17px;
         letter-spacing: .1px;
     }
     .editor_workout .ce_block{
@@ -33,6 +33,13 @@
         .editor_workout li{
             margin: 10px 0 !important;
         }
+    .editor_workout code{
+        padding: 5px 10px;
+        font-size: .8em;
+    }
+    .editor_workout .ce_toolbar{
+        margin-left: 104px;
+    }
 
 </style>
 
