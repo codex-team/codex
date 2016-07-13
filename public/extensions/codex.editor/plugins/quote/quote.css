@@ -37,7 +37,7 @@
 .quoteStyle-simple--text,
 .quoteStyle-withCaption--blockquote,
 .quoteStyle-withPhoto--quote {
-    font-size: 1.13em;
+    font-size: 1.04em;
     line-height: 1.9em;
 }
 
@@ -98,7 +98,7 @@
 /** Quote with photo */
 .ce_redactor .quoteStyle-withPhoto--wrapper {
     margin: 0;
-    padding: 4.5em 4em !important;
+    padding: 4.5em 3.6em !important;
 }
 
 .quoteStyle-withPhoto--photo {
@@ -132,10 +132,10 @@
     color: #000;
     outline: none;
     overflow: hidden;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
 }
 .quoteStyle-withPhoto--job {
-    font-size: 1.08em;
+    font-size: 1.04em;
     color: #818BA1;
     outline: none;
     overflow: hidden;

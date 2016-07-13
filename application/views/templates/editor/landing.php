@@ -1,8 +1,25 @@
 <style>
     .editor_workout{
+        margin: 30px;
+        padding-bottom: 120px;
+        border: 1px solid #eceff6;
+        border-radius: 3px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        /*letter-spacing: .1px;*/
         font-size: 17px;
-        letter-spacing: .1px;
     }
+    .editor_workout .big_header{
+        margin-bottom: 0;
+        padding-bottom: 20px;
+    }
+    .disclaimer{
+        margin-bottom: 40px;
+        letter-spacing: 2px;
+        font-variant: small-caps;
+        font-size: .9em;
+        text-align: center;
+    }
+
     .editor_workout .ce_block{
         max-width: 700px;
         margin: 20px auto;
@@ -14,6 +31,11 @@
         .editor_workout [contenteditable]{
             outline: none !important;
         }
+    .editor_workout h2,
+    .editor_workout h3,
+    .editor_workout h4{
+        line-height: 1.4em;
+    }
     .editor_workout h3{
         margin: 1.3em 0 .5em;
         font-size: 1.3em;
@@ -32,6 +54,8 @@
     }
         .editor_workout li{
             margin: 10px 0 !important;
+            list-style: outside;
+            line-height: 1.7em;
         }
     .editor_workout code{
         padding: 5px 10px;
@@ -42,12 +66,12 @@
     }
 
 </style>
-
 <div class="center_side">
     <article class="editor_workout" style="text-align: left !important;">
 
 
         <h1 class="big_header" itemprop="headline">CodeX Editor</h1>
+        <div class="disclaimer">under development</div>
 
         <form action="">
 
@@ -73,7 +97,39 @@
     INPUT.items = [
         {
             paragraph : {
-                text : '<p>На днях я получил очередной проект по разработке личного кабинета. Как обычно, я открыл консоль, чтобы посмотреть историю проекта, ветки и все ли правки закомичены (от слова commit - фиксировать). Однако ничего из этого я не узнал — проект не содержал .git репозитория.</p><p>Эта ситуация в очередной раз заставила задуматься о том, как много разработчиков до сих пор не понимают необходимость контролировать изменения в файлах с исходным кодом. А многие и вовсе не знают что это такое, и как этим пользоваться.</p>'
+                text : '<p>Ladies and gentlemen, prepare yourself for a pivotal moment in the history of web development…</p>'
+            }
+        },
+        {
+            paragraph : {
+                text : '<p><i>[Drumroll begins]</i></p><p>Promises have arrived natively in JavaScript!</p><p><i>[Fireworks explode, glittery paper rains from above, the crowd goes wild]</i></p>'
+            }
+        },
+        {
+            paragraph : {
+                text : 'At this point you fall into one of these categories:'
+            }
+        },
+        {
+            list : {
+                type : 'unordered',
+                items : [
+                    `People are cheering around you, but you're not sure what all the fuss is about. Maybe you're not even sure what a "promise" is. You'd shrug, but the weight of glittery paper is weighing down on your shoulders. If so, don't worry about it, it took me ages to work out why I should care about this stuff. You probably want to begin here`,
+                    `You punch the air! About time right? You've used these Promise things before but it bothers you that all implementations have a slightly different API. What's the API for the official JavaScript version? You probably want to begin here`,
+                    `You knew about this already and you scoff at those who are jumping up and down like it's news to them. Take a moment to bask in your own superiority, then head straight to the API reference`
+                ]
+            }
+
+        },
+        {
+            header : {
+                type : 'H2',
+                text : 'What\'s all the fuss about?',
+            }
+        },
+        {
+            paragraph : {
+                text : 'JavaScript is single threaded, meaning that two bits of script cannot run at the same time, they have to run one after another. In browsers, JavaScript shares a thread with a load of other stuff. What that stuff is differs from browser to browser, but typically JavaScript is in the same queue as painting, updating styles, and handling user actions (such as highlighting text and interacting with form controls). Activity in one of these things delays the others.'
             }
         },
         {
@@ -83,12 +139,6 @@
                 'image'         : 'https://yastatic.net/morda-logo/i/apple-touch-icon/ru-76x76.png',
                 'title'         : 'Яндекс',
                 'description'   : 'Сайт, поисковик, проч.'
-            }
-        },
-        {
-            header : {
-                type : 'H2',
-                text : 'Почему нужно использовать систему контроля версий',
             }
         },
         {
@@ -134,7 +184,7 @@
             link : {
                 'linkUrl'       : 'http://google.com',
                 'linkText'      : 'google.com',
-                'image'         : 'http://2.bp.blogspot.com/-7bZ5EziliZQ/VynIS9F7OAI/AAAAAAAASQ0/BJFntXCAntstZe6hQuo5KTrhi5Dyz9yHgCK4B/s1600/googlelogo_color_200x200.png',
+                'image'         : 'https://2.bp.blogspot.com/-7bZ5EziliZQ/VynIS9F7OAI/AAAAAAAASQ0/BJFntXCAntstZe6hQuo5KTrhi5Dyz9yHgCK4B/s1600/googlelogo_color_200x200.png',
                 'title'         : 'Google',
                 'description'   : 'Поисковик, поисковик, проч.'
             }
