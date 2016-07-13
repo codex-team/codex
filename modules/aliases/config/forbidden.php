@@ -7,12 +7,21 @@
 
     return array(
         'system' => array(
+<<<<<<< HEAD
             'auth',
             'articles',
             'article',
             'contests',
             'contest',
             'admin',
+=======
+            'Auth',
+            'Articles',
+            'Article',
+            'Contests',
+            'Contest',
+            'Admin',
+>>>>>>> master
         )
     )
 

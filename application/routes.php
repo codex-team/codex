@@ -4,12 +4,11 @@
  * defaults for the URI.
  */
 
-
-
 $DIGIT = '\d+';
 $STRING = '[-a-z\d]+';
 $QUERY =  '[0-9a-zA-Zа-яёА-ЯЁ\s\-\.]+$';
 
+<<<<<<< HEAD
 
 /**
  * New URIes
@@ -31,6 +30,8 @@ $QUERY =  '[0-9a-zA-Zа-яёА-ЯЁ\s\-\.]+$';
 		'action' => 'get',
 	));*/
 
+=======
+>>>>>>> master
 /**
  * System Routes
  */
@@ -179,9 +180,9 @@ Route::set('ADMIN', 'admin(/<category>(/<list>))', array('category' => 'articles
 
 // - viz redaktor -
 
-Route::set('EDITOR_LANDING', 'editor', array())->defaults(array(
-    'controller' => 'editor',
-    'action' => 'landing'
+Route::set('EDITOR_LANDING', 'editor(/<action>)', array())->defaults(array(
+	'controller' => 'editor',
+	'action' => 'landing'
 ));
 
 Route::set('ARTICLE_EDITOR_SAVE_IMG', 'editorsaveimg', array())->defaults(array(

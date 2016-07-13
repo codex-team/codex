@@ -11,7 +11,7 @@
             <input type="text" name="title" value="<?= $article->title ?: ''; ?>">
 
             <label for="uri">URI</label>
-            <input type="text" name="uri" value="<?= $article->uri ?: ''; ?>">
+            <input type="text" name="uri" value="<?= $article->uri ?: ''; ?>" autocomplete="off">
 
             <label for="description">Описание статьи</label>
             <textarea name="description" rows="5"><?= $article->description ?: ''; ?></textarea>
@@ -32,7 +32,7 @@
     </article>
 
 </div>
-<script src="/public/extensions/codex.editor/codex-editor.js"></script>
+<script src="/public/extensions/codex.editor.old/codex-editor.js"></script>
 <script>
 
     /** Document is ready */
