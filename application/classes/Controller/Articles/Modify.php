@@ -62,6 +62,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
                     $article->user_id = $this->user->id;
                     $insertedId = $article->insert();
                     $article->uri = Model_Alias::addAlias($alias, Model_Uri::ARTICLE, $insertedId);
+                    $article->update();
                 }
 
                 // Если поле uri пустое, то редиректить на обычный роут /article/id
