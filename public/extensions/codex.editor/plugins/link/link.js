@@ -1,9 +1,10 @@
 /**
-* Link Tool\
-* @author CodeX Team <team@ifmo.su>
-* @version 0.0.1
-*/
+ * Created by nostr on 29.06.16.
+ */
 
+/**
+ * Link tool plugin
+ */
 var linkTool = {
 
     defaultText    : 'Insert link here ...',
@@ -132,13 +133,15 @@ var linkTool = {
                 /* Show loader gif **/
                 block.classList.add(linkTool.elementClasses.loader);
 
-                return fetch('/editor/parseLink?url=' + encodeURI(url));
+                return fetch('/server/?url=' + encodeURI(url));
             })
 
             .then(function (response) {
 
                 if (response.status == "200"){
+
                     return response.json();
+
                 }
                 else {
 
@@ -199,7 +202,7 @@ var linkTool = {
 };
 
 linkTool.ui = {
-
+    
     make : function (json) {
 
         var wrapper = this.wrapper(),
@@ -250,7 +253,7 @@ linkTool.ui = {
         return wrapper;
 
     },
-
+    
     image : function (imageSrc, imageClass) {
 
         var imageTag = document.createElement('img');
@@ -260,7 +263,7 @@ linkTool.ui = {
         imageTag.setAttribute('src', imageSrc);
 
         return imageTag;
-
+        
     },
 
     link : function (linkUrl, linkText) {
