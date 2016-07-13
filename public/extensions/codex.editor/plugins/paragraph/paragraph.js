@@ -1,10 +1,7 @@
 /**
 * Paragraph Plugin\
 * Creates P tag and adds content to this tag
-* @author CodeX Team <team@ifmo.su>
-* @version 0.0.1
 */
-
 var paragraphTool = {
 
     /**

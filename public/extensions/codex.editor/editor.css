@@ -110,7 +110,6 @@
     {
         display: inline-block;
         padding: 12px;
-        margin: 0 !important;
         cursor: pointer;
         font-size: 14px;
     }
@@ -181,6 +180,7 @@
         background: #fbfbfb;
         border-radius: 3px;
     }
+
 /*
 @-webkit-keyframes bounceIn {
     0% { opacity: 0; -webkit-transform: scale(.3);}

@@ -1,8 +1,6 @@
 /**
-* Quote Plugin
-*
-* @author CodeX Team <team@ifmo.su>
-* @version 0.0.1
+* Codex Team
+* @author Khaydarov Murod
 */
 
 var quoteTools = {
@@ -138,10 +136,7 @@ var quoteTools = {
             var parsedOldQuote  = quoteTools.parseBlockQuote(),
                 newStyledQuote  = quoteStyle(parsedOldQuote);
 
-            var wrapper = cEditor.content.composeNewBlock(newStyledQuote, 'quote');
-            wrapper.appendChild(newStyledQuote);
-
-            cEditor.content.replaceBlock(cEditor.content.currentNode, wrapper, 'quote');
+            cEditor.content.replaceBlock(cEditor.content.currentNode, newStyledQuote, 'quote');
 
             /** Close settings after replacing */
             cEditor.toolbar.settings.close();
@@ -165,7 +160,7 @@ var quoteTools = {
 
     makeQuoteWithCaption : function(data) {
 
-        var blockquote  = quoteTools.ui.blockquote(),
+        var wrapper = quoteTools.ui.blockquote(),
             text    = quoteTools.ui.makeBlock('DIV', ['quoteStyle-withCaption--blockquote', 'ce_quote--text']),
             author  = quoteTools.ui.makeBlock('DIV', ['quoteStyle-withCaption--author', 'ce_quote--author']);
 
@@ -180,12 +175,12 @@ var quoteTools = {
             author.textContent = data.author;
 
         /* Appending created components */
-        blockquote.dataset.quoteStyle = 'withCaption';
+        wrapper.dataset.quoteStyle = 'withCaption';
 
-        blockquote.appendChild(text);
-        blockquote.appendChild(author);
+        wrapper.appendChild(text);
+        wrapper.appendChild(author);
 
-        return blockquote;
+        return wrapper;
 
     },
 
@@ -294,12 +289,11 @@ quoteTools.ui = {
                 el.className += ' ' + classList[i];
 
         }
-
         return el;
 
     }
 
-};
+}
 
 cEditor.tools.quote = {
 

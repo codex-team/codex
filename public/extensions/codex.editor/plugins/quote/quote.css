@@ -26,9 +26,10 @@
 }
 .quoteStyle-withCaption--author {
 
-    margin: 0 100px 3em !important;
+    margin: 2.5em 100px !important;
+    margin-top: 25px;
     text-align: right;
-    font-size: 1.16em;
+    font-size: 1.38em;
     font-weight: bold;
     color: #000;
     line-height: 1.5em;
@@ -37,19 +38,16 @@
 .quoteStyle-simple--text,
 .quoteStyle-withCaption--blockquote,
 .quoteStyle-withPhoto--quote {
-    font-size: 1.13em;
+    font-size: 1.3em;
     line-height: 1.9em;
 }
 
-.quoteStyle-simple--text {
-    padding: 1.2em 2.1em;
-    margin: 2.5em 2em;
-    background: #FBFBFB;
-}
+.quoteStyle-simple--text,
 .quoteStyle-withCaption--blockquote
 {
-    margin: 0 1em;
+    margin: 2.5em 100px;
     padding: 1.5em 2.0em !important;
+    background: #FBFBFB;
 }
 
 .quoteStyle-withCaption--blockquote:focus,
@@ -70,8 +68,7 @@
 .quoteStyle-withCaption--author:empty::before
 {
     content : 'Введите имя автора';
-    font-weight: normal;
-    color: #a1a5b3;;
+    color: #A5ABBC;
     opacity: 1;
     transition: opacity 200ms ease;
 }
@@ -98,22 +95,23 @@
 /** Quote with photo */
 .ce_redactor .quoteStyle-withPhoto--wrapper {
     margin: 0;
-    padding: 4.5em 4em !important;
+    padding: 4.5em 8.5em !important;
 }
 
 .quoteStyle-withPhoto--photo {
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
     text-align: center;
-    line-height: 70px;
+    line-height: 80px;
     border-radius: 50%;
     float: left;
-    margin-right: 25px;
-    border: 2px dashed #D7E2EE;
+    margin-right: 35px;
+    border: 3px dashed #D7E2EE;
 }
 .quoteStyle-withPhoto--photo:hover {
     cursor: pointer;
     background: #F0F3F6;
+    border: 3px dashed #D7E2EE;
 }
 
 .quoteStyle-withPhoto--photo:hover::after {
@@ -123,11 +121,11 @@
 .quoteStyle-withPhoto--photo .ce-icon-picture {
     font-family: "codex_editor";
 	font-size: 1.5em;
-	color: #d5dbea;
+	color: #8990AA;
 }
 
 .quoteStyle-withPhoto--author {
-    font-size: 1.36em;
+    font-size: 1.56em;
     font-weight: bold;
     color: #000;
     outline: none;
@@ -135,7 +133,7 @@
     margin-bottom: 6px;
 }
 .quoteStyle-withPhoto--job {
-    font-size: 1.08em;
+    font-size: 1.38em;
     color: #818BA1;
     outline: none;
     overflow: hidden;
@@ -153,8 +151,9 @@
 }
 
 .quoteStyle-withPhoto--quote {
-    margin-top: 33px;
-    line-height: 1.82em;
+    background: #FBFBFB;
+    margin-top: 45px;
+    line-height: 32px;
     outline: none;
     overflow: hidden;
 }
