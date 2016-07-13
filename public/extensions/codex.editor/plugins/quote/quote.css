@@ -95,18 +95,18 @@
 /** Quote with photo */
 .ce_redactor .quoteStyle-withPhoto--wrapper {
     margin: 0;
-    padding: 4.5em 8.5em !important;
+    padding: 4.5em 4em !important;
 }
 
 .quoteStyle-withPhoto--photo {
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
     text-align: center;
-    line-height: 80px;
+    line-height: 70px;
     border-radius: 50%;
     float: left;
-    margin-right: 35px;
-    border: 3px dashed #D7E2EE;
+    margin-right: 25px;
+    border: 2px dashed #D7E2EE;
 }
 .quoteStyle-withPhoto--photo:hover {
     cursor: pointer;
@@ -125,7 +125,7 @@
 }
 
 .quoteStyle-withPhoto--author {
-    font-size: 1.56em;
+    font-size: 1.36em;
     font-weight: bold;
     color: #000;
     outline: none;
@@ -133,7 +133,7 @@
     margin-bottom: 6px;
 }
 .quoteStyle-withPhoto--job {
-    font-size: 1.38em;
+    font-size: 1.08em;
     color: #818BA1;
     outline: none;
     overflow: hidden;
@@ -151,9 +151,8 @@
 }
 
 .quoteStyle-withPhoto--quote {
-    background: #FBFBFB;
-    margin-top: 45px;
-    line-height: 32px;
+    margin-top: 33px;
+    line-height: 1.82em;
     outline: none;
     overflow: hidden;
 }
