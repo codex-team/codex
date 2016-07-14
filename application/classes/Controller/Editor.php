@@ -36,7 +36,7 @@ class Controller_Editor extends Controller_Base_preDispatch
 
             array(
                 'linkUrl'   => $url,
-                'linkText'  => $url_params["host"] . $url_params["path"],
+                'linkText' => $url_params["host"] . isset($url_params["path"])?$url_params["path"]:"",
             )
 
         );
