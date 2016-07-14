@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="/public/css/articles.css?v=<?= filemtime("public/css/articles.css") ?>">
     <link rel="stylesheet" href="/public/css/admin.css?v=<?= filemtime("public/css/admin.css") ?>">
     */ ?>
-    <link rel="stylesheet" href="/public/extensions/codex.editor/editor.css?v=<?= filemtime("public/extensions/codex.editor/editor.css") ?>">
+    <!-- <link rel="stylesheet" href="/public/extensions/codex.editor/editor.css?v=<?= filemtime("public/extensions/codex.editor/editor.css") ?>"> -->
     <link rel="icon" type="image/png" href="/public/img/fav_shield@3x.png?v=985" id="favicon" />
 
     <meta id="metaImage" name="image" property="og:image"  content="https://ifmo.su/public/img/meta_img.png" />
