@@ -614,7 +614,7 @@ var sharer = (function( sharer ){
 
     };
 
-    
+
 
     return sharer;
 
@@ -655,7 +655,7 @@ docReady(function(){
     if (sourcesBlocks.length){
         load.getScript({
             async    : true,
-            url      : '/public/js/simpleCodeStyling.js',
+            url      : '/public/js/simpleCodeStyling.js?v=2',
             instance : 'simpleCodeStyling',
             loadCallback : function(response){
                 simpleCode.init('.article_content code');
