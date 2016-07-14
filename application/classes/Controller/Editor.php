@@ -36,7 +36,7 @@ class Controller_Editor extends Controller_Base_preDispatch
 
             array(
                 'linkUrl'   => $url,
-                'linkText'  => $url_params["host"] . $url_params["path"],
+                'linkText' => Arr::get($url_params, 'host') . Arr::get($url_params, 'path', ''),
             )
 
         );
@@ -72,7 +72,7 @@ class Controller_Editor extends Controller_Base_preDispatch
             return false;
         }
 
-        $url = $_GET['url'];
+        $url = Arr::get($_GET, 'url');
 
         if (filter_var($url, FILTER_VALIDATE_URL) === FALSE) {
             return false;
