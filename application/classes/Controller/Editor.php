@@ -36,7 +36,7 @@ class Controller_Editor extends Controller_Base_preDispatch
 
             array(
                 'linkUrl'   => $url,
-                'linkText' => Arr::get($url_params, 'host') . Arr::get($url_params, 'path'),
+                'linkText' => Arr::get($url_params, 'host') . Arr::get($url_params, 'path', ''),
             )
 
         );
