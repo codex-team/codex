@@ -1,18 +1,21 @@
 <?php defined('SYSPATH') or die('No direct script access.');
+
 /**
- * Created by PhpStorm.
- * Date: 23.02.2016
- * Time: 11:48
+ * Alias System
+ * https://ifmo.su/
+ * @author CodeX team team@ifmo.su
+ * Khaydarov Murod
  */
 
 class Controller_Uri extends Controller {
 
     public function action_get()
     {
-        $route = $this->request->param('route');
+        $route      = $this->request->param('route');
         $sub_action = $this->request->param('subaction');
-
+        
         $model_alias = new Model_Alias();
+
         /**
         * Get Controller, action and ID we looking for
         */
@@ -22,6 +25,7 @@ class Controller_Uri extends Controller {
         $action_name     = $realRequest['action'];
 
         $Controller = new $controller_name( $this->request, $this->response );
+
         /**
         * Set ID as query param
         * In actions use $this->request->query('id') instead of $this->request->param('id')
