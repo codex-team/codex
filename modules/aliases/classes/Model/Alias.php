@@ -51,15 +51,13 @@ class Model_Alias
 
     public static function getAlias($route = null)
     {
-        $hashedRouteRaw = md5( $route, true );
-        $hashedRoute    = md5( $route );
+        $hashedRoute = md5( $route, true );
 
         $alias = DB::select()->from('Alias')
-                                ->where('hash', '=', $hashedRouteRaw)
+                                ->where('hash', '=', $hashedRoute)
                                 ->limit(1)
-                                ->cached(5 * Date::MINUTE)
                                 ->execute();
-
+        
         return $alias->current();
     }
 
@@ -67,8 +65,7 @@ class Model_Alias
     {
         $alias  = self::getAlias( $route );
 
-        $hashedRouteRaw = md5( $route, true );
-        $hashedRoute    = md5( $route );
+        $hashedRoute = md5( $route, true );
 
         /*
          * Setting $newAlias [String] = $route as default until we looking for new unengaged alias.
@@ -78,11 +75,10 @@ class Model_Alias
 
         if ( isset( $alias ) && Arr::get($alias, 'deprecated') ) {
 
-            self::deleteAlias($hashedRouteRaw, $hashedRoute);
+            self::deleteAlias($hashedRoute);
             return $newAlias;
 
-        }
-        elseif ( !empty($alias) && !Arr::get($alias, 'deprecated') ) {
+        } elseif ( !empty($alias) && !Arr::get($alias, 'deprecated') ) {
 
             for($index = 1; ; $index++) {
 
@@ -94,8 +90,7 @@ class Model_Alias
                     return $newAlias;
                     break;
 
-                }
-                else {
+                } else {
 
                     $newAlias = $route;
                 }
@@ -123,7 +118,7 @@ class Model_Alias
     {
         $model_uri = Model_Uri::Instance();
 
-        $alias = $this->getAlias( $route );
+        $alias = self::getAlias( $route );
 
         if ( empty($alias) ) {
 
@@ -173,32 +168,22 @@ class Model_Alias
 
     public static function updateAlias( $oldAlias = null, $alias, $type, $id )
     {
-        $hashedRouteRaw = md5($alias, true);
-        $hashedRoute    = md5($alias);
-
-        $hashedOldRouteRaw = md5($oldAlias, true);
-        $hashedOldRoute    = md5($oldAlias);
+        $hashedOldRoute = md5($oldAlias, true);
 
         $update = DB::update('Alias')->set(array(
                 'deprecated' => '1',
             ))
-            ->where('hash', '=', $hashedOldRouteRaw)
+            ->where('hash', '=', $hashedOldRoute)
             ->execute();
-
-        /** Clear cache with old alias */
-        DB::select()->from('Alias')->where('hash', '=', $hashedOldRouteRaw)->limit(1)->cached(0)->execute();
 
         return self::addAlias($alias, $type, $id);
     }
 
-    public static function deleteAlias( $hash_raw, $hash )
+    public static function deleteAlias( $hash_raw )
     {
         $delete = DB::delete('Alias')
                 ->where('hash', '=', $hash_raw)
                 ->execute();
-
-        /** Clear cache */
-        DB::select()->from('Alias')->where('hash', '=', $hash_raw)->limit(1)->cached(0)->execute();
 
         return $delete;
     }
