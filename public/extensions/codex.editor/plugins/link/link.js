@@ -133,7 +133,7 @@ var linkTool = {
                 /* Show loader gif **/
                 block.classList.add(linkTool.elementClasses.loader);
 
-                return fetch('/server/?url=' + encodeURI(url));
+                return fetch('/editor/parseLink?url=' + encodeURI(url));
             })
 
             .then(function (response) {
