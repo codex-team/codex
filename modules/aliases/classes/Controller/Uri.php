@@ -4,6 +4,7 @@
  * Alias System
  * https://ifmo.su/
  * @author CodeX team team@ifmo.su
+ * Khaydarov Murod
  */
 
 class Controller_Uri extends Controller {
