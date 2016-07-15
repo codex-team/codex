@@ -42,6 +42,7 @@ var listTool = {
 
             newLi.innerHTML = element;
 
+            tag.dataset.type = data.type;
             tag.appendChild(newLi);
 
         });
@@ -53,15 +54,23 @@ var listTool = {
     /**
      * Method to extract JSON data from HTML block
      */
-    save : function (block){
+    save : function (blockContent){
 
-        var data = {
-            text : null
-        };
+        var block = blockContent[0],
+            json  = {
+                type : 'list',
+                data : {
+                    type  : null,
+                    items : [],
+                }
+            };
 
-        data.text = blockData.textContent;
+        for(var index = 0; index < block.childNodes.length; index++)
+            json.data.items[index] = block.childNodes[index].textContent;
 
-        return data;
+        json.data.type = block.dataset.type;
+
+        return json;
 
     },
 
@@ -105,6 +114,7 @@ var listTool = {
             newEditable = listTool.ui.make(blockType),
             oldEditable = currentBlock.querySelector("[contenteditable]");
 
+        newEditable.dataset.type = blockType;
         newEditable.innerHTML = oldEditable.innerHTML;
 
         currentBlock.appendChild(newEditable);
