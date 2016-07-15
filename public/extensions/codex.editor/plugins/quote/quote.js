@@ -45,24 +45,27 @@ var quoteTools = {
         return quoteTools.makeBlockToAppend(data);
     },
 
-    save : function(block) {
+    save : function(blockContent) {
 
         /**
         * Extracts JSON quote data from HTML block
         * @param {Text} text, {Text} author, {Object} photo
         */
-        parsedblock = quoteTools.parseBlockQuote(block);
+        parsedblock = quoteTools.parseBlockQuote(blockContent);
 
-        var data = {
-            type    : 'quote',
-            style   : parsedblock.style,
-            text    : parsedblock.quote,
-            author  : parsedblock.author,
-            job     : parsedblock.job,
-            photo   : parsedblock.photo,
-        };
+        var block = blockContent[0],
+            json  = {
+                type : 'quote',
+                data : {
+                    style  : parsedblock.style,
+                    text   : parsedblock.text,
+                    author : parsedblock.author,
+                    job    : parsedblock.job,
+                    photo  : parsedblock.photo,
+                }
+            };
 
-        return data;
+        return json;
     },
 
     makeSettings : function(data) {
