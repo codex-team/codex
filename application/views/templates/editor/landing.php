@@ -12,11 +12,18 @@
         margin-bottom: 0;
         padding-bottom: 20px;
     }
-    .disclaimer{
+    .editor-landing--disclaimer{
         margin-bottom: 40px;
         letter-spacing: 2px;
         font-variant: small-caps;
         font-size: .9em;
+        text-align: center;
+    }
+    .editor-landing--caption{
+        margin-bottom: 40px;
+        letter-spacing: 2px;
+        font-variant: small-caps;
+        font-size: 1.2em;
         text-align: center;
     }
 
@@ -62,7 +69,7 @@
         font-size: .8em;
     }
     .editor_workout .ce_toolbar{
-        margin-left: 104px;
+        margin-left: 119px;
     }
 
 </style>
@@ -70,8 +77,9 @@
     <article class="editor_workout" style="text-align: left !important;">
 
 
+    <div class="editor-landing--caption">modern block-oriented redactor for media</div>
         <h1 class="big_header" itemprop="headline">CodeX Editor</h1>
-        <div class="disclaimer">under development</div>
+        <div class="editor-landing--disclaimer">under development</div>
 
         <form action="">
 
