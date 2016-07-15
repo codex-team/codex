@@ -19,14 +19,6 @@
         font-size: .9em;
         text-align: center;
     }
-    .editor-landing--caption{
-        margin-bottom: 40px;
-        letter-spacing: 2px;
-        font-variant: small-caps;
-        font-size: 1.2em;
-        text-align: center;
-    }
-
     .editor_workout .ce_block{
         max-width: 700px;
         margin: 20px auto;
@@ -71,13 +63,64 @@
     .editor_workout .ce_toolbar{
         margin-left: 119px;
     }
+    .editor-output-preview{
+        margin: 0 -1px -30px;
+        background: #242835;
+        padding: 50px 0;
+        color: #6c7d98;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    }
+        .editor-output-preview pre{
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: .86em;
+        }
+    .editor-output--header{
+        margin: 40px 0 20px;
+        text-align: center;
+        font-size: 33px;
+        color: #fff;
+        letter-spacing: .4px
+    }
+    .editor-output--description{
+        font-size: 18px;
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    /*.string { color: green; }
+    .number { color: darkorange; }
+    .boolean { color: blue; }
+    .null { color: magenta; }
+    .key { color: red; }
+*/
+    .site_footer{
+        border-top: 0;
+        background: #1a1c29;
+        color: #50586d;
+    }
+        .site_footer h5{
+            color: #9da9cc;
+        }
+        .site_footer a{
+            color: #6581c5;
+        }
+        .site_footer .desclimer{
+            color: #535f7b;
+        }
+        .sc_attr{
+            color: #42cca1;
+        }
+        .sc_toolname{
+            color: #83decb;
+        }
+
+
 
 </style>
 <div class="center_side">
     <article class="editor_workout" style="text-align: left !important;">
 
-
-    <div class="editor-landing--caption">modern block-oriented redactor for media</div>
         <h1 class="big_header" itemprop="headline">CodeX Editor</h1>
         <div class="editor-landing--disclaimer">under development</div>
 
@@ -86,8 +129,18 @@
             <textarea hidden name="" id="codex_editor" cols="30" rows="10" style="width: 100%;height: 300px;"></textarea>
 
         </form>
+
     </article>
 </div>
+
+<div class="editor-output-preview">
+
+    <div class="editor-output--header">Output</div>
+    <div class="editor-output--description">Yeah, it's blocks! Very useful for multiplatform coverage</div>
+
+    <pre id="output"></pre>
+</div>
+
 
 <link rel="stylesheet" href="/public/extensions/codex.editor/editor.css" />
 <script src="/public/extensions/codex.editor/codex-editor.js"></script>
@@ -392,9 +445,123 @@ INPUT.items = [
             data : INPUT
         });
 
-    })
+        function syntaxHighlight(json) {
+            if (typeof json != 'string') {
+                 json = JSON.stringify(json, undefined, 2);
+            }
+            json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+                var cls = 'number';
+                if (/^"/.test(match)) {
+                    if (/:$/.test(match)) {
+                        cls = 'key';
+                    } else {
+                        cls = 'string';
+                    }
+                } else if (/true|false/.test(match)) {
+                    cls = 'boolean';
+                } else if (/null/.test(match)) {
+                    cls = 'null';
+                }
+                return '<span class="' + cls + '">' + match + '</span>';
+            });
+        }
+
+
+        // var output = document.getElementById('output'),
+            // json   = INPUT;
+
+        // json = JSON.stringify( INPUT, null , 2 );
+        // json = syntaxHighlight(json);
+        // json = encodeHTMLentities( json );
+
+        // output.innerHTML = json;
+
+        cPreview.show({
+            data : INPUT,
+            holder : 'output'
+        });
+
+
+
+    });
 
 </script>
+
+<script src="/public/js/simpleCodeStyling.js"></script>
+
+<script>
+
+    var cPreview = (function (cPreview) {
+
+        /**
+        * Data to preview
+        */
+        cPreview.data = {};
+
+        /**
+        * HTML <pre> element that holds preivew code
+        */
+        cPreview.holder = null;
+
+        /**
+        * Shows JSON in pretty preview
+        */
+        cPreview.show = function(params){
+
+            this.data   = params.data;
+            this.holder = document.getElementById(params.holder);
+
+            console.log("this.holder: %o", this.holder);
+
+            var json = this.data;
+
+            /** Make JSON pretty */
+            json = JSON.stringify( json , null , 2 );
+
+            /** Encode HTML entities */
+            json = this.encodeHTMLentities( json );
+
+            /** Stylize! */
+            json = this.stylize( json );
+
+            this.holder.innerHTML = json;
+
+        };
+
+        cPreview.encodeHTMLentities = function (string){
+
+            // return string.replace(/[\u00A0-\u9999<>\&]/gim, function(i) {
+
+            //     return '&#'+i.charCodeAt(0)+';';
+
+            // });
+
+            return string.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+        };
+
+        /**
+        * @uses simpleCodeStyling.js
+        */
+        cPreview.stylize = function (string ){
+
+            string = string.replace(/"(paragraph|quote|list|header|link|code|image)"/g, '"<span class=sc_toolname>$1</span>"');
+
+            string = window.simpleCode.rules.tags( string );
+            string = window.simpleCode.rules.attrs( string );
+
+
+            return string;
+
+        };
+
+        return cPreview;
+
+    })({});
+
+</script>
+
 
 <script src="/public/extensions/codex.editor/plugins/paragraph/paragraph.js"></script>
 <link rel="stylesheet" href="/public/extensions/codex.editor/plugins/paragraph/paragraph.css" />

@@ -651,7 +651,7 @@ docReady(function(){
 
 
     /** <code> highlighting */
-    var sourcesBlocks = document.querySelectorAll(".article_content code");
+    var sourcesBlocks = document.querySelectorAll(".article_content code, .editor-output-preview pre");
     if (sourcesBlocks.length){
         load.getScript({
             async    : true,
