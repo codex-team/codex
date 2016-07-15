@@ -87,7 +87,7 @@
 
 var INPUT = {
     items : [],
-    count : 10,
+    count : 43,
 };
 
 /** Fill with example data */
@@ -188,7 +188,7 @@ INPUT.items = [
         data : {
             type   : 'withCaption',
             text   : "But what does this mean for promises? Well, you can use this return/resume behaviour to write async code that looks like (and is as easy to follow as) synchronous code. Don't worry too much about understanding it line-for-line, but here's a helper function that lets us use 'yield' to wait for promises to settle:",
-            photo  : '',
+            photo  : null,
             author : '— Jake Archibald',
             job    : 'CEO Mozilla Firefox',
         }
