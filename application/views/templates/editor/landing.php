@@ -51,6 +51,9 @@
     .editor_workout ol{
         margin: 3em 0;
     }
+    .editor_workout [data-type="link"]{
+        margin: 45px auto;
+    }
         .editor_workout li{
             margin: 10px 0 !important;
             list-style: outside;
