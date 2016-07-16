@@ -548,7 +548,7 @@ INPUT.items = [
         cPreview.stylize = function (string ){
 
             /** Stylize JSON keys */
-            string = string.replace( /"(\w+)"\s?\:/g , '"<span class=sc_key>$1</span>"');
+            string = string.replace( /"(\w+)"\s?\:/g , '"<span class=sc_key>$1</span>" :');
 
             /** Stylize tool names */
             string = string.replace( /"(paragraph|quote|list|header|link|code|image)"/g , '"<span class=sc_toolname>$1</span>"');
