@@ -497,8 +497,6 @@ INPUT.items = [
 
 </script>
 
-<script src="/public/js/simpleCodeStyling.js"></script>
-
 <script>
 
     /**
