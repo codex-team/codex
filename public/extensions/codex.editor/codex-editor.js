@@ -537,11 +537,11 @@ cEditor.ui = {
         }, false );
 
         /** Bind click listeners on toolbar buttons */
-        for (button in cEditor.nodes.toolbarButtons){
+        for (var button in cEditor.nodes.toolbarButtons){
             cEditor.nodes.toolbarButtons[button].addEventListener('click', function (event) {
                 cEditor.callback.toolbarButtonClicked(event, this);
             }, false);
-        };
+        }
 
     },
 
@@ -1541,7 +1541,7 @@ cEditor.toolbar = {
             if (!cEditor.tools[toolType] || !cEditor.core.isDomNode(cEditor.tools[toolType].settings) ) {
 
                 cEditor.core.log('Wrong tool type', 'warn');
-                cEditor.nodes.blockSettings.innerHTML = 'Настройки для этого плагина еще не созданы';
+                cEditor.nodes.blockSettings.innerHTML = `Плагин «${toolType}» не имеет настроек`;
 
             } else {
 
