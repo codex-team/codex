@@ -11,8 +11,8 @@
     cursor: pointer;
 }
 .ce_plugin_quote--select_button:hover{
-    border-bottom-color: #f6d8da;
-    color: #cc7d74;
+    border-bottom-color: #687da5;
+    color: #8da8dc;
 }
 
 /** Quote Styles */

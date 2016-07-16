@@ -12,14 +12,13 @@
         margin-bottom: 0;
         padding-bottom: 20px;
     }
-    .disclaimer{
+    .editor-landing--disclaimer{
         margin-bottom: 40px;
         letter-spacing: 2px;
         font-variant: small-caps;
         font-size: .9em;
         text-align: center;
     }
-
     .editor_workout .ce_block{
         max-width: 700px;
         margin: 20px auto;
@@ -52,6 +51,9 @@
     .editor_workout ol{
         margin: 3em 0;
     }
+    .editor_workout [data-type="link"]{
+        margin: 45px auto;
+    }
         .editor_workout li{
             margin: 10px 0 !important;
             list-style: outside;
@@ -62,24 +64,90 @@
         font-size: .8em;
     }
     .editor_workout .ce_toolbar{
-        margin-left: 104px;
+        margin-left: 119px;
     }
+    .editor-output-preview{
+        margin: 0 -1px -30px;
+        background: #242835;
+        padding: 50px 0;
+        color: #6c7d98;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    }
+        .editor-output-preview pre{
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: .86em;
+        }
+    .editor-output--header{
+        margin: 40px 0 30px;
+        text-align: center;
+        font-size: 33px;
+        color: #fff;
+        letter-spacing: .4px
+    }
+    .editor-output--description{
+        font-size: 18px;
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    .site_footer{
+        border-top: 0;
+        background: #1a1c29;
+        color: #50586d;
+    }
+        .site_footer h5{
+            color: #9da9cc;
+        }
+        .site_footer a{
+            color: #6581c5;
+        }
+        .site_footer .desclimer{
+            color: #535f7b;
+        }
+
+    /**
+    * Code highlighting
+    */
+    .sc_attr{
+        color: #728cbd;
+    }
+    .sc_toolname{
+        color: #83decb;
+    }
+    .sc_tag{
+        color: #a9b6de;
+    }
+    .sc_key{
+        color: #42cca1;
+    }
+
+
 
 </style>
 <div class="center_side">
     <article class="editor_workout" style="text-align: left !important;">
 
-
         <h1 class="big_header" itemprop="headline">CodeX Editor</h1>
-        <div class="disclaimer">under development</div>
+        <div class="editor-landing--disclaimer">under development</div>
 
         <form action="">
 
             <textarea hidden name="" id="codex_editor" cols="30" rows="10" style="width: 100%;height: 300px;"></textarea>
 
         </form>
+
     </article>
 </div>
+
+<div class="editor-output-preview">
+
+    <div class="editor-output--header">Output</div>
+    <div class="editor-output--description">Yeah, it's blocks! Very useful for multiplatform coverage.</div>
+
+    <pre id="output"></pre>
+</div>
+
 
 <link rel="stylesheet" href="/public/extensions/codex.editor/editor.css" />
 <script src="/public/extensions/codex.editor/codex-editor.js"></script>
@@ -180,7 +248,16 @@ INPUT.items = [
     {
         type : 'code',
         data : {
-            text : "var promise = new Promise(function(resolve, reject) { // do a thing, possibly async, then… if (/* everything turned out fine */) { resolve('Stuff worked!''); } else  reject(Error('It broke')); } });",
+            text : `<pre>var promise = new Promise(function(resolve, reject) {
+
+    // do a thing, possibly async, then…
+    if (/* everything turned out fine */) {
+
+        resolve('Stuff worked!'');
+
+    } else reject(Error('It broke')); }
+
+});</pre>`,
         }
     },
     {
@@ -274,139 +351,132 @@ INPUT.items = [
             text : "…but also tell the user if something went wrong along the way. We'll want to stop the spinner at that point too, else it'll keep on spinning, get dizzy, and crash into some other UI. Of course, you wouldn't use JavaScript to deliver a story, serving as HTML is faster, but this pattern is pretty common when dealing with APIs: Multiple data fetches, then do something when it's all done.",
         }
     },
-    {
-        type : 'header',
-        data : {
-            type : 'H2',
-            text : "Queuing asynchronous actions",
-        }
-    },
-    {
-        type : 'paragraph',
-        data : {
-            text : "You can also chain 'thens' to run async actions in sequence.When you return something from a 'then' callback, it's a bit magic. If you return a value, the next 'then' is called with that value. However, if you return something promise-like, the next 'then' waits on it, and is only called when that promise settles (succeeds/fails). For example:",
-        }
-    },
-    {
-        type : 'quote',
-        data : {
-            type : 'simple',
-            text  : "This is the first time we've seen Promise.resolve, which creates a promise that resolves to whatever value you give it. If you pass it an instance of Promise it'll simply return it (note: this is a change to the spec that some implementations don't yet follow). If you pass it something promise-like (has a 'then' method), it creates a genuine Promise that fulfills/rejects in the same way. If you pass in any other value, eg Promise.resolve('Hello'), it creates a promise that fulfills with that value. If you call it with no value, as above, it fulfills with 'ndefined'",
-        }
-    },
-    {
-        type : 'paragraph',
-        data : {
-            text : "There's also Promise.reject(val), which creates a promise that rejects with the value you give it (or undefined). We can tidy up the above code using array.reduce:",
-        }
-    },
-    {
-        type : 'header',
-        data : {
-            type : 'H2',
-            text : "Promise API Reference",
-        }
-    },
-    {
-        type : 'paragraph',
-        data : {
-            text : "All methods work in Chrome, Opera, Firefox, Microsoft Edge, and Safari unless otherwise noted. The polyfill provides the below for all browers.",
-        }
-    },
-    {
-        type : 'header',
-        data : {
-            type : 'H2',
-            text : "Static Methods",
-        }
-    },
-    {
-        type : 'header',
-        data : {
-            type : 'H3',
-            text : 'Promise.resolve(promise);',
-        }
-    },
-    {
-        type : 'paragraph',
-        data : {
-            text : "Returns promise (only if promise.constructor == Promise)",
-        }
-    },
-    {
-        type : 'header',
-        data : {
-            type : 'H3',
-            text : 'Promise.resolve(thenable);',
-        }
-    },
-    {
-        type : 'paragraph',
-        data : {
-            text : "Make a new promise from the thenable. A thenable is promise-like in as far as it has a 'then' method.",
-        }
-    },
-    {
-        type : 'header',
-        data : {
-            type : 'H3',
-            text : 'Promise.resolve(obj);',
-        }
-    },
-    {
-        type : 'paragraph',
-        data : {
-            text : "Make a promise that fulfills to obj. in this situation.",
-        }
-    },
-    {
-        type : 'header',
-        data : {
-            type : 'H3',
-            text : 'Promise.all(array);',
-        }
-    },
-    {
-        type : 'paragraph',
-        data : {
-            text : "Make a promise that rejects to obj. For consistency and debugging (e.g. stack traces), obj should be an instanceof Error.",
-        }
-    },
-    {
-        type : 'header',
-        data : {
-            type : 'H3',
-            text : 'Promise.race(array);',
-        }
-    },
-    {
-        type : 'paragraph',
-        data : {
-            text : "Make a Promise that fulfills as soon as any item fulfills, or rejects as soon as any item rejects, whichever happens first.",
-        }
-    },
-    {
-        type : 'header',
-        data : {
-            type : 'H2',
-            text : 'Conclution',
-        }
-    },
-    {
-        type : 'paragraph',
-        data : {
-            text : "promise.then(onFulfilled, onRejected)'onFulfilled is called when/if 'promise' resolves. onRejected is called when/if 'promise' rejects. Both are optional, if either/both are omitted the next <b>onFulfilled/onRejected</b> in the chain is called. Both callbacks have a single parameter, the fulfillment value or rejection reason. 'then' returns a new promise equivalent to the value you return from <b>onFulfilled/onRejected</b> after being passed through Promise.resolve. If an error is thrown in the callback, the returned promise rejects with that <b>error.promise.catch(onRejected)</b> Sugar for promise.then(undefined, onRejected). Many thanks to Anne van Kesteren, Domenic Denicola, Tom Ashworth, Remy Sharp, Addy Osmani, Arthur Evans, and Yutaka Hirano who proofread this and made <b>corrections/recommendations</b>. Also, thanks to Mathias Bynens for updating various parts of the article.",
-        }
-    }
+    // {
+    //     type : 'header',
+    //     data : {
+    //         type : 'H2',
+    //         text : "Queuing asynchronous actions",
+    //     }
+    // },
+    // {
+    //     type : 'paragraph',
+    //     data : {
+    //         text : "You can also chain 'thens' to run async actions in sequence.When you return something from a 'then' callback, it's a bit magic. If you return a value, the next 'then' is called with that value. However, if you return something promise-like, the next 'then' waits on it, and is only called when that promise settles (succeeds/fails). For example:",
+    //     }
+    // },
+    // {
+    //     type : 'quote',
+    //     data : {
+    //         type : 'simple',
+    //         text  : "This is the first time we've seen Promise.resolve, which creates a promise that resolves to whatever value you give it. If you pass it an instance of Promise it'll simply return it (note: this is a change to the spec that some implementations don't yet follow). If you pass it something promise-like (has a 'then' method), it creates a genuine Promise that fulfills/rejects in the same way. If you pass in any other value, eg Promise.resolve('Hello'), it creates a promise that fulfills with that value. If you call it with no value, as above, it fulfills with 'ndefined'",
+    //     }
+    // },
+    // {
+    //     type : 'paragraph',
+    //     data : {
+    //         text : "There's also Promise.reject(val), which creates a promise that rejects with the value you give it (or undefined). We can tidy up the above code using array.reduce:",
+    //     }
+    // },
+    // {
+    //     type : 'header',
+    //     data : {
+    //         type : 'H2',
+    //         text : "Promise API Reference",
+    //     }
+    // },
+    // {
+    //     type : 'paragraph',
+    //     data : {
+    //         text : "All methods work in Chrome, Opera, Firefox, Microsoft Edge, and Safari unless otherwise noted. The polyfill provides the below for all browers.",
+    //     }
+    // },
+    // {
+    //     type : 'header',
+    //     data : {
+    //         type : 'H2',
+    //         text : "Static Methods",
+    //     }
+    // },
+    // {
+    //     type : 'header',
+    //     data : {
+    //         type : 'H3',
+    //         text : 'Promise.resolve(promise);',
+    //     }
+    // },
+    // {
+    //     type : 'paragraph',
+    //     data : {
+    //         text : "Returns promise (only if promise.constructor == Promise)",
+    //     }
+    // },
+    // {
+    //     type : 'header',
+    //     data : {
+    //         type : 'H3',
+    //         text : 'Promise.resolve(thenable);',
+    //     }
+    // },
+    // {
+    //     type : 'paragraph',
+    //     data : {
+    //         text : "Make a new promise from the thenable. A thenable is promise-like in as far as it has a 'then' method.",
+    //     }
+    // },
+    // {
+    //     type : 'header',
+    //     data : {
+    //         type : 'H3',
+    //         text : 'Promise.resolve(obj);',
+    //     }
+    // },
+    // {
+    //     type : 'paragraph',
+    //     data : {
+    //         text : "Make a promise that fulfills to obj. in this situation.",
+    //     }
+    // },
+    // {
+    //     type : 'header',
+    //     data : {
+    //         type : 'H3',
+    //         text : 'Promise.all(array);',
+    //     }
+    // },
+    // {
+    //     type : 'paragraph',
+    //     data : {
+    //         text : "Make a promise that rejects to obj. For consistency and debugging (e.g. stack traces), obj should be an instanceof Error.",
+    //     }
+    // },
+    // {
+    //     type : 'header',
+    //     data : {
+    //         type : 'H3',
+    //         text : 'Promise.race(array);',
+    //     }
+    // },
+    // {
+    //     type : 'paragraph',
+    //     data : {
+    //         text : "Make a Promise that fulfills as soon as any item fulfills, or rejects as soon as any item rejects, whichever happens first.",
+    //     }
+    // },
+    // {
+    //     type : 'header',
+    //     data : {
+    //         type : 'H2',
+    //         text : 'Conclution',
+    //     }
+    // },
+    // {
+    //     type : 'paragraph',
+    //     data : {
+    //         text : "promise.then(onFulfilled, onRejected)'onFulfilled is called when/if 'promise' resolves. onRejected is called when/if 'promise' rejects. Both are optional, if either/both are omitted the next <b>onFulfilled/onRejected</b> in the chain is called. Both callbacks have a single parameter, the fulfillment value or rejection reason. 'then' returns a new promise equivalent to the value you return from <b>onFulfilled/onRejected</b> after being passed through Promise.resolve. If an error is thrown in the callback, the returned promise rejects with that <b>error.promise.catch(onRejected)</b> Sugar for promise.then(undefined, onRejected). Many thanks to Anne van Kesteren, Domenic Denicola, Tom Ashworth, Remy Sharp, Addy Osmani, Arthur Evans, and Yutaka Hirano who proofread this and made <b>corrections/recommendations</b>. Also, thanks to Mathias Bynens for updating various parts of the article.",
+    //     }
+    // }
 
 ];
-
-    /**
-     * @todo uncomment and append all text to items
-     * .....
-     *
-     * <p><code>$ <span class="sc_keyword">git</span> status</code></p>              <p>В консоли появится список измененных файлов.</p>              <p>Добавьте файлы, изменения в которых вы хотите зафиксировать:</p>              <p><code>$ <span class="sc_keyword">git</span> add file_name_a.php</code></p>              <p>Файлы можно указывать через пробел. Все файлы в данной папке и ее подпаках можно добавить командой:</p>              <p><code>$ <span class="sc_keyword">git</span> add .</code></p>              <p>Будьте внимательны, эта команда не добавит новые файлы в индекс. Добавятся только модифицированные старые файлы и удаленные. Новые файлы можно добавить явно указав имя.&nbsp;</p>              <p>Добавить все новые и измененные файлы можно командой:</p>              <p><code>$ <span class="sc_keyword">git</span> add -A</code></p>              <p>Изменения стоит фиксировать логическими блоками, то есть в одном коммите должны быть файлы связанные с решением одной конкретной ошибки или одной конкретной новой задачи.</p>              <p>Если вы добавили файл из другого логического блока, удалите его из индекса командой:</p>              <p><code>$ <span class="sc_keyword">git</span> reset file_name_b.php</code></p>              <p>Зафиксируйте эти изменения в другом коммите. Так будет удобнее при просмотре истории изменений и отмене изменений.</p>              <p>Если вы случайно изменили не тот файл - верните его к последнему зафиксированному состоянию командой:</p>              <p><code>$ <span class="sc_keyword">git</span> checkout file_name_c.php</code></p>              <p>Отменить изменения всех, ранее существующих, файлах в данной и вложенных папках можно командой:</p>              <p><code>$ <span class="sc_keyword">git</span> checkout -- .</code></p>              <p>Ненужные новые файлы достаточно просто удалить. Или это можно сделать командой:</p>              <p><code>$ <span class="sc_keyword">git</span> reset --hard HEAD</code></p>              <p>Проект будет полностью приведен к последнему зафиксированному состоянию.</p>              <p>Теперь зафиксируйте изменения добавленные в индекс:</p>              <p><code>$ <span class="sc_keyword">git</span> commit</code></p>              <p>Откроется текстовый редактор по-умолчанию для того, чтобы добавить комментарий к коммиту. Распишите, что и зачем вы меняли. Но не перечисляйте список измененных файлов — гит сделает это за вас. Комментарий должен коротким и понятным, например:</p>              <p><code>fix| order price</code></p>              <p><code>now price includes vat</code></p>              <p>Комментарии лучше писать на английском языке, в первую очередь потому, консоль может не поддерживать кириллицу и вместо описания будут кракозяблики.</p>              <p>Первая строка самая важная и должна включать суть коммита в нескольких словах. Дальше можете не жалеть строк и расписать подробно что, зачем и почему было изменено (речь про логику, а не про файлы).</p>              <p>Теперь можно посмотреть историю изменений, ваш коммит должен в ней отобразиться:</p>              <p><code>$ <span class="sc_keyword">git</span> log</code></p>              <h2>Заключение</h2>              <p>Как видите, ничего сложного.</p>              <p>Конечно это далеко не все, что может гит, но именно этого мне не хватало в свое время для того, чтобы начать пользоваться системой контроля версий.</p>        </div>
-     */
 
 
     function ready(f){
@@ -418,13 +488,91 @@ INPUT.items = [
 
         cEditor.start({
             textareaId: 'codex_editor',
-            // tools      : ['header', 'list', 'quote', 'code'],
             data : INPUT
         });
 
-    })
+        cPreview.show({
+            data : INPUT,
+            holder : 'output'
+        });
+
+    });
 
 </script>
+
+<script>
+
+    /**
+    * Module to compose output JSON preview
+    */
+    var cPreview = (function (cPreview) {
+
+        /**
+        * HTML <pre> element that holds preivew code
+        */
+        cPreview.holder = null;
+
+        /**
+        * Shows JSON in pretty preview
+        * @param {object} 'data' and 'holder'
+        */
+        cPreview.show = function(params){
+
+
+            this.holder = document.getElementById(params.holder);
+
+            var output = params.data;
+
+            /** Make JSON pretty */
+            output = JSON.stringify( output , null , 4 );
+
+            /** Encode HTML entities */
+            output = this.encodeHTMLentities( output );
+
+            /** Stylize! */
+            output = this.stylize( output );
+
+            this.holder.innerHTML = output;
+
+        };
+
+        /**
+        * Converts '>', '<', '&' symbols to entities
+        */
+        cPreview.encodeHTMLentities = function (string){
+
+            return string.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+        };
+
+        /**
+        * Some styling magic
+        */
+        cPreview.stylize = function (string ){
+
+            /** Stylize JSON keys */
+            string = string.replace( /"(\w+)"\s?\:/g , '"<span class=sc_key>$1</span>" :');
+
+            /** Stylize tool names */
+            string = string.replace( /"(paragraph|quote|list|header|link|code|image)"/g , '"<span class=sc_toolname>$1</span>"');
+
+            /** Stylize HTML tags */
+            string = string.replace( /(&lt;[\/a-z]+(&gt;)?)/gi , '<span class=sc_tag>$1</span>' );
+
+            /** Stylize strings */
+            string = string.replace( /"([^"]+)"/gi , '"<span class=sc_attr>$1</span>"' );
+
+
+            return string;
+
+        };
+
+        return cPreview;
+
+    })({});
+
+</script>
+
 
 <script src="/public/extensions/codex.editor/plugins/paragraph/paragraph.js"></script>
 <link rel="stylesheet" href="/public/extensions/codex.editor/plugins/paragraph/paragraph.css" />

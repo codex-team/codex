@@ -146,8 +146,8 @@ input[disabled]
     left: 30px;
     padding: 32px 27px;
     border-radius: 2px;
-    background: #eef2f5;
-    color: #bec4d2;
+    background: rgba(93, 104, 156, 0.08);
+    color: rgba(85, 97, 125, 0.6);
     font-size: 18px;
     text-align: center;
     cursor: pointer;
@@ -156,8 +156,7 @@ input[disabled]
 }
 
     .scroll_button:hover {
-        background-color: #e9edf3;
-        color: #b8beca;
+        background: rgba(93, 104, 156, 0.15);
     }
 
     .scroll_button:before {
