@@ -655,7 +655,7 @@ docReady(function(){
     if (sourcesBlocks.length){
         load.getScript({
             async    : true,
-            url      : '/public/js/simpleCodeStyling.js?v=2',
+            url      : '/public/js/simpleCodeStyling.js?v=3',
             instance : 'simpleCodeStyling',
             loadCallback : function(response){
                 simpleCode.init('.article_content code');
