@@ -56,7 +56,7 @@
     }
         .editor_workout li{
             margin: 10px 0 !important;
-            list-style: outside;
+            list-style-position: outside;
             line-height: 1.7em;
         }
     .editor_workout code{
