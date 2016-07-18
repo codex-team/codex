@@ -1150,9 +1150,6 @@ cEditor.content = {
         /** Save new Inputs when block is changed */
         cEditor.ui.saveInputs();
 
-        /** Add event listeners */
-        //cEditor.ui.addBlockHandlers(newBlockComposed);
-
     },
 
 
