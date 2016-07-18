@@ -253,9 +253,13 @@ INPUT.items = [
     // do a thing, possibly async, then…
     if (/* everything turned out fine */) {
 
-        resolve('Stuff worked!'');
+        resolve('Stuff worked!');
 
-    } else reject(Error('It broke')); }
+    } else {
+
+        reject(Error('It broke'));
+
+    }
 
 });</pre>`,
         }
@@ -494,6 +498,15 @@ INPUT.items = [
         cPreview.show({
             data : INPUT,
             holder : 'output'
+        });
+
+        load.getScript({
+            async    : true,
+            url      : '/public/js/simpleCodeStyling.js?v=2',
+            instance : 'simpleCodeStyling',
+            loadCallback : function(response){
+                simpleCode.init('.editor_workout code');
+            }
         });
 
     });

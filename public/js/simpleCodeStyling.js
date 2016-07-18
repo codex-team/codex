@@ -6,6 +6,12 @@ var simpleCode = (function(simpleCode) {
 
     simpleCode.rules = {
 
+        comments: function(str){
+            return str.replace(/(\/\*([^*]|[\r\n]|(\*+([^*\/]|[\r\n])))*\*\/)/g,'<span class=sc_comment>$1</span>');
+        },
+        comments_inline: function(str){
+            return str.replace(/(\/\/[^\n]+)/g,'<span class=sc_comment>$1</span>');
+        },
         tags : function (str) {
             return str.replace( /(&lt;[\/a-z]+(&gt;)?)/gi , '<span class=sc_tag>$1</span>' );
         },
@@ -16,7 +22,7 @@ var simpleCode = (function(simpleCode) {
             return str.replace( /'([^']+)'/gi , '\'<span class=sc_attr>$1</span>\'' );
         },
         keywords : function (str) {
-            return str.replace(/\b(var|function|typeof|return|endif|endforeach|foreach|if|for|in|while|break|do|continue|switch|case|int|void|python|from|import|install|def|virtualenv|source|sudo|git)([^a-z0-9\$_])/g, '<span class=sc_keyword>$1</span>$2');
+            return str.replace(/\b(var|const|function|typeof|return|endif|endforeach|foreach|if|for|in|while|break|continue|switch|case|int|void|python|from|import|install|def|virtualenv|source|sudo|git)([^a-z0-9\$_])/g, '<span class=sc_keyword>$1</span>$2');
         },
         digits : function (str) {
             return str.replace(/\b(\d+)\b/g, '<span class=sc_digt>$1</span>');
@@ -50,6 +56,7 @@ var simpleCode = (function(simpleCode) {
                     '.sc_keyword{color: #C97AC1;}' +
                     '.sc_digt{color: #37D755;}'+
                     '.sc_var{color: #8199C6;}' +
+                    '.sc_comment{color: #acb1bd;}' +
                     '.sc_color{display: inline-block;line-height: 1em;border-bottom-width:2px;border-bottom-style:solid;}';
 
         if (!style) {
