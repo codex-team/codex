@@ -10,7 +10,7 @@ var simpleCode = (function(simpleCode) {
             return str.replace(/(\/\*([^*]|[\r\n]|(\*+([^*\/]|[\r\n])))*\*\/)/g,'<span class=sc_comment>$1</span>');
         },
         comments_inline: function(str){
-            return str.replace(/(\/\/[^\n]+)/g,'<span class=sc_comment>$1</span>');
+            return str.replace(/[^\w:](\/\/[^\n]+)/g,'<span class=sc_comment>$1</span>');
         },
         tags : function (str) {
             return str.replace( /(&lt;[\/a-z]+(&gt;)?)/gi , '<span class=sc_tag>$1</span>' );
