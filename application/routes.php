@@ -156,6 +156,12 @@ Route::set('ADMIN', 'admin(/<category>(/<list>))', array('category' => 'articles
 
 // - viz redaktor -
 
+Route::set('EDITOR_FILE_TRANSORT', 'editor/transport', array())
+    ->defaults(array(
+        'controller' => 'transport',
+        'action' => 'file_uploader'
+    ));
+
 Route::set('EDITOR_LANDING', 'editor(/<action>)', array())->defaults(array(
 	'controller' => 'editor',
 	'action' => 'landing'

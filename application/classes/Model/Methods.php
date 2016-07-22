@@ -6,6 +6,13 @@ class Model_Methods extends Model
 	*	Site Methods Model
 	*/
 
+    public $IMAGE_SIZES_CONFIG = array(
+        // первый параметр - вырезать квадрат (true) или просто ресайзить с сохранением пропрорций (false)
+        'o'  => array(false , 1500, 1500 ),
+        'b'  => array(true , 200 ),
+        'm'  => array(true , 100 ),
+        's'  => array(true , 50  ),
+    );
 
     /**
     * Склонение существительных после числительных
@@ -56,49 +63,52 @@ class Model_Methods extends Model
      * @param int $maxFileSize - макс размер файла в байтах. По умолчанию 2Mb
      * @param array $fileTypes - допустимые разширения файлов. По умолчанию не проверяется
      */
-    function saveImage($inputName, $dir = "", $fileTypes = array('jpg', 'jpeg', 'png'), $maxFileSize = 2097152){
-        // check 4 file was uploaded
-        if ( (!$file = Arr::get($_FILES, $inputName) ) || ($file["error"] == 4) )
-            return null;
+    public function saveImage( $file , $path )
+    {
+        /**
+         *   Проверки на  Upload::valid($file) OR Upload::not_empty($file) OR Upload::size($file, '8M') делаются в контроллере.
+         */
+        if (!Upload::type($file, array('jpg', 'jpeg', 'png', 'gif'))) return FALSE;
 
-        // todo get from config
-        $uploaddir    = '/upload/' . ($dir ? $dir  : "");
-        $uploaddirPhp = $_SERVER['DOCUMENT_ROOT'] . $uploaddir;
+        if (!is_dir($path)) mkdir($path);
 
-        // check 4 exists
-        if (!file_exists($uploaddirPhp))
-            $this->CreateDirRec($uploaddirPhp);
+        if ( $file = Upload::save($file, NULL, $path) ){
 
-        // Validate size
-        if ($file['size'] > $maxFileSize)
-            return null;
+            $filename = uniqid("", false).'.jpg';
+            $image = Image::factory($file);
+            $image->save($path . $filename);
 
-        $fileParts = pathinfo($file['name']);
-        $extension = mb_strtolower($fileParts['extension']);
-
-        // Validate the file type
-        if (!in_array($extension, $fileTypes)) {
-            return null;
+            // Delete the temporary file
+            unlink($file);
+            return $filename;
         }
+        return FALSE;
+    }
 
-        // translit name
-        $name = basename($file['name'], "." . $extension);
-        $name = $this->rus2translit( $name ) . "_" . time() . "." . $extension; // time() - 4 unigue same name files
-        $uploadfileHtml = $uploaddir . $name;
-        $uploadfilePhp  = $uploaddirPhp . $name;
+    /** Saving uploaded file to database */
+    public function newFile( $fields )
+    {
+        return current(DB::insert( 'files' , array_keys($fields) )->values(array_values($fields))->execute());
+    }
 
-        if ($res = move_uploaded_file($file['tmp_name'], $uploadfilePhp)){
-            return $uploadfileHtml;
-        }
-
-        return null;
+    public static function getUriByTitle($string)
+    {
+        // заменяем все кириллические символы на латиницу
+        $converted_string = self::rus2translit($string);
+        // заменяем все не цифры и не буквы на дефисы
+        $converted_string = preg_replace("/[^0-9a-zA-Z]/", "-", $converted_string);
+        // заменяем несколько дефисов на один
+        $converted_string = preg_replace('/-{2,}/', '-', $converted_string);
+        // отсекаем лишние дефисы по краям
+        $converted_string = trim($converted_string, '-');
+        return $converted_string;
     }
 
     /**
      * Транслитерация кириллицы
      * @param string $string - строка с киррилицей
      */
-    function rus2translit($string) {
+    public static function rus2translit($string) {
         $converter = array(
             'а' => 'a',   'б' => 'b',   'в' => 'v',
             'г' => 'g',   'д' => 'd',   'е' => 'e',
@@ -142,6 +152,11 @@ class Model_Methods extends Model
         ));
 
         return $tmp;
+    }
+
+    public static function isAjax()
+    {
+        return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest');
     }
 
 

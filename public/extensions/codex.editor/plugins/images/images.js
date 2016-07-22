@@ -35,7 +35,23 @@ var ceImage = {
 
 	uploadButtonClicked : function(event){
 
-		cEditor.transport.selectAndUpload();
+        var callback = {
+
+            success : function(result) {
+                var parsed   = JSON.parse(result),
+                    filename = parsed.filename;
+
+                /**
+                * Создать пустой IMG тэг и присвоить src путь к файлу с именем
+                */
+            },
+
+            error : function(result) {
+                console.log('error');
+            }
+        }
+
+		cEditor.transport.selectAndUpload(callback);
 
 	},
 

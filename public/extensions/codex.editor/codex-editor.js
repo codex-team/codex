@@ -13,7 +13,7 @@ var cEditor = (function (cEditor) {
 
         // First-level tags viewing as separated blocks. Other'll be inserted as child
         blockTags       : ['P','BLOCKQUOTE','UL','CODE','OL','H1','H2','H3','H4','H5','H6'],
-        uploadImagesUrl : '/upload/save.php',
+        uploadImagesUrl : '/editor/transport/',
     };
 
     // Static nodes
@@ -1591,6 +1591,8 @@ cEditor.transport = {
 
     input : null,
 
+    callback : null,
+
     prepare : function(){
 
         var input = document.createElement('INPUT');
@@ -1614,25 +1616,19 @@ cEditor.transport = {
             file,
             i;
 
-        for (i = 0; i < filesLength; i++) {
-
-            file = files[i];
-
-            /**
-            * Uncomment if need file type checking
-            * if (!file.type.match('image.*')) {
-            *     continue;
-            * }
-            */
-
-            formdData.append('files[]', file, file.name);
-        }
+        formdData.append('files', files[0], files[0].name);
 
         cEditor.transport.ajax({
-            data : formdData
+            data : formdData,
+            success : function(result) {
+                cEditor.transport.callback.success(result);
+            },
+            error : function(result) {
+                cEditor.transport.callback.error(result);
+            }
         });
 
-        console.log("files: %o", files);
+        // console.log("files: %o", files);
 
     },
 
@@ -1641,6 +1637,7 @@ cEditor.transport = {
     */
     selectAndUpload : function (callback) {
 
+        this.callback = callback;
         this.input.click();
 
     },
@@ -1660,7 +1657,7 @@ cEditor.transport = {
 
         xhr.onload = function () {
             if (xhr.status === 200) {
-                console.log("success request: %o", xhr);
+                // console.log("success request: %o", xhr);
                 success(xhr.responseText);
             } else {
                 console.log("request error: %o", xhr);
