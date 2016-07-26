@@ -412,7 +412,7 @@ cEditor.saver = {
 cEditor.ui = {
 
     /**
-    * @const BLOCK_CLASSNAME {string} - redactor blocks name
+    * @const {string} BLOCK_CLASSNAME - redactor blocks name
     */
     BLOCK_CLASSNAME : 'ce_block',
     /**
@@ -1593,7 +1593,7 @@ cEditor.transport = {
     input : null,
 
     /**
-    * @var arguments {Object} keep plugin settings and defined callbacks
+    * @property {Object} arguments - keep plugin settings and defined callbacks
     */
     arguments : null,
 
@@ -1624,12 +1624,8 @@ cEditor.transport = {
 
         cEditor.transport.ajax({
             data : formdData,
-            success : function(result) {
-                cEditor.transport.arguments.success(result);
-            },
-            error : function(result) {
-                cEditor.transport.arguments.error(result);
-            }
+            success : cEditor.transport.arguments.success,
+            error   : cEditor.transport.arguments.error,
         });
 
     },
@@ -1661,9 +1657,7 @@ cEditor.transport = {
             if (xhr.status === 200) {
                 success(xhr.responseText);
             } else {
-                console.log("request error: %o", xhr);
-                /** When we have troubles with uploading */
-                cEditor.notifications.errorThrown();
+                console.log("request error: %o", xhr);    
             }
         };
 

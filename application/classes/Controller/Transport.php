@@ -7,7 +7,6 @@ class Controller_Transport extends Controller_Base_preDispatch {
 	);
 
 	private $type  = null;
-
     private $files = null;
 
     /**

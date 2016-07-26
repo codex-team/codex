@@ -6,7 +6,7 @@
 */
 var ceImage = {
 
-    /** Default file path */
+    /** Default path to redactors images */
     path : '/upload/redactor_images/',
 
 	make : function ( data ) {
@@ -15,31 +15,11 @@ var ceImage = {
         * If we can't find image or we've got some problems with image path, we show plugin uploader
         */
         if (!data || !data.filename || !data.path) {
-
-    		var holder       = ceImage.ui.holder(),
-    			uploadButton = ceImage.ui.uploadButton(),
-    			input        = ceImage.ui.input();
-
-    		input.placeholder = 'Past image URL or file';
-
-    		holder.appendChild(uploadButton);
-    		holder.appendChild(input);
-
-    		uploadButton.addEventListener('click', ceImage.uploadButtonClicked, false );
-
+            holder = ceImage.ui.form();
         } else {
-
-            var filename = data.filename,
-                path     = data.path,
-                type     = data.type,
-                image    = cEditor.draw.block('IMG', '');
-
-            image.classList.add('ce-plugin-image__wrapper');
-            image.src = path + filename;
-
-            holder = image;
+            holder = ceImage.ui.image(data);
         }
-        /** Return plugin uploader or image */
+
 		return holder;
 
 	},
@@ -60,26 +40,19 @@ var ceImage = {
 
             var parsed   = JSON.parse(result),
                 filename = parsed.filename,
-                image    = cEditor.draw.block('IMG', ''),
-                selection   = window.getSelection(),
-                imageHolder = selection.anchorNode;
+                image    = ceImage.ui.imageHolder(ceImage.path + filename, 'ce-plugin-image__wrapper');
 
-            image.classList.add('ce-plugin-image__wrapper');
-            image.src = ceImage.path + filename;
+            /** Replace plugin form with image */
+            var wrapper = cEditor.content.composeNewBlock(image, 'image'),
+                nodeToReplace = cEditor.content.currentNode;
 
-            /** Getting plugin selector block */
-            while (!imageHolder.classList.contains(cEditor.ui.BLOCK_CLASSNAME)) {
-                imageHolder = imageHolder.parentNode;
-            }
-
-            /** Replace plugin selector block to image */
-            var wrapper = cEditor.content.composeNewBlock(image, 'image');
-            cEditor.content.replaceBlock(imageHolder, wrapper, 'image');
+            cEditor.content.replaceBlock(nodeToReplace, wrapper, 'image');
 
         }
 
         var error = function(result) {
             console.log('Choosen file is not image or image is corrupted');
+            cEditor.notifications.errorThrown();
         }
 
         /** Define callbacks */
@@ -122,6 +95,50 @@ var ceImage = {
 
 		},
 
+        /**
+        * @param {string} source - file path
+        * @param {string} style - css class
+        */
+        imageHolder : function(source, style) {
+
+            var image = document.createElement('IMG');
+
+            image.classList.add(style);
+            image.src = source;
+
+            return image;
+        },
+
+        /**
+        * Draws form for image upload
+        */
+        form : function() {
+
+            var holder       = ceImage.ui.holder(),
+                uploadButton = ceImage.ui.uploadButton(),
+                input        = ceImage.ui.input();
+
+            input.placeholder = 'Paste image URL or file';
+
+            holder.appendChild(uploadButton);
+            holder.appendChild(input);
+
+            uploadButton.addEventListener('click', ceImage.uploadButtonClicked, false );
+
+            return holder;
+
+        },
+
+        image : function(data) {
+
+            var filename = data.filename,
+                path     = data.path,
+                type     = data.type,
+                source   = path + filename;
+                image    = ceImage.ui.imageHolder(source, 'ce-plugin-image__wrapper');
+
+            return image;
+        }
 	}
 
 };
