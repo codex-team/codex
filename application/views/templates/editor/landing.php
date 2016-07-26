@@ -179,6 +179,14 @@ INPUT.items = [
         }
     },
     {
+        type : 'image',
+        data : {
+            type : 'simple',
+            path : '/upload/redactor_images/',
+            filename : '5797b3737b7b0.jpg',
+        }
+    },
+    {
         type : 'list',
         data : {
             type : 'unordered',

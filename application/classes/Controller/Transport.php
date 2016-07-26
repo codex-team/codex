@@ -36,14 +36,6 @@ class Controller_Transport extends Controller_Base_preDispatch {
 
 		if ($filename) {
 			$this->transportResponse['success'] = 1;
-//			$title = $this->methods->getUriByTitle($this->files['name']);
-			$saved_id = $this->methods->newFile(array(
-				'filename'  => $filename,
-				'size'      => Arr::get($this->files, 'size', 0) / 1000,
-				'extension' => strtolower(pathinfo($filename, PATHINFO_EXTENSION)),
-				'type'      => $this->type,
-			));
-			$this->transportResponse['id']       = $saved_id;
 			$this->transportResponse['filename'] = $filename;
 		}
 

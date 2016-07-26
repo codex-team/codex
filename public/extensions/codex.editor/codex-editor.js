@@ -411,9 +411,10 @@ cEditor.saver = {
 
 cEditor.ui = {
 
-    /** Blocks name. */
+    /**
+    * @const BLOCK_CLASSNAME {string} - redactor blocks name
+    */
     BLOCK_CLASSNAME : 'ce_block',
-
     /**
     * Making main interface
     */
@@ -1591,6 +1592,9 @@ cEditor.transport = {
 
     input : null,
 
+    /**
+    * @var arguments {Object} keep plugin settings and defined callbacks
+    */
     arguments : null,
 
     prepare : function(){
@@ -1609,42 +1613,29 @@ cEditor.transport = {
     */
     fileSelected : function(event){
 
-        var selection   = window.getSelection(),
-            imageHolder = selection.anchorNode,
-            input       = this,
+        var input       = this,
             files       = input.files,
             filesLength = files.length,
             formdData   = new FormData(),
             file,
             i;
 
-        while (!imageHolder.classList.contains(cEditor.ui.BLOCK_CLASSNAME)) {
-            imageHolder = imageHolder.parentNode;
-        }
-
         formdData.append('files', files[0], files[0].name);
 
         cEditor.transport.ajax({
             data : formdData,
             success : function(result) {
-
-                var image = cEditor.transport.arguments.success(result),
-                    wrapper = cEditor.content.composeNewBlock(image, 'image');
-
-                cEditor.content.replaceBlock(imageHolder, wrapper, 'image');
-
+                cEditor.transport.arguments.success(result);
             },
             error : function(result) {
-
                 cEditor.transport.arguments.error(result);
-                cEditor.notifications.errorThrown();
             }
         });
 
     },
 
     /**
-    * @todo use callback for success and error
+    * Use plugin callbacks
     */
     selectAndUpload : function (args) {
 
@@ -1668,10 +1659,11 @@ cEditor.transport = {
 
         xhr.onload = function () {
             if (xhr.status === 200) {
-                // console.log("success request: %o", xhr);
                 success(xhr.responseText);
             } else {
                 console.log("request error: %o", xhr);
+                /** When we have troubles with uploading */
+                cEditor.notifications.errorThrown();
             }
         };
 
