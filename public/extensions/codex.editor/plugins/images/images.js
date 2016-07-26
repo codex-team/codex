@@ -35,23 +35,28 @@ var ceImage = {
 
 	uploadButtonClicked : function(event){
 
-        var callback = {
+        var success = function(result) {
 
-            success : function(result) {
-                var parsed   = JSON.parse(result),
-                    filename = parsed.filename;
+            var parsed   = JSON.parse(result),
+                filename = parsed.filename,
+                img      = cEditor.draw.block('IMG', '');
 
-                /**
-                * Создать пустой IMG тэг и присвоить src путь к файлу с именем
-                */
-            },
+            img.classList.add('ce-plugin-image__wrapper');
+            img.src = '/upload/redactor_images/' + filename;
 
-            error : function(result) {
-                console.log('error');
-            }
+            return img;
+
         }
 
-		cEditor.transport.selectAndUpload(callback);
+        var error = function(result) {
+            console.log('Choosen file is not image or image is corrupted');
+        }
+
+        /** Plugin callbacks */
+		cEditor.transport.selectAndUpload({
+            success,
+            error,
+        });
 
 	},
 
@@ -85,7 +90,7 @@ var ceImage = {
 
 			return button;
 
-		}
+		},
 
 	}
 

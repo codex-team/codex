@@ -45,3 +45,8 @@
 	.ce-plugin-image__button:hover{
 		color: #393F52;
 	}
+
+.ce-plugin-image__wrapper {
+    width: 700px;
+    height: 500px;;
+}

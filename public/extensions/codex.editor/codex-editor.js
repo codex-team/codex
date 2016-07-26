@@ -1140,7 +1140,7 @@ cEditor.content = {
         var oldBlockEditable = blockToReplace.querySelector('[contenteditable]');
 
         /** Saving content */
-        newBlock.innerHTML = oldBlockEditable.innerHTML;
+        newBlock.innerHTML   = oldBlockEditable.innerHTML;
 
         var newBlockComposed = cEditor.content.composeNewBlock(newBlock, blockType);
 
@@ -1591,7 +1591,7 @@ cEditor.transport = {
 
     input : null,
 
-    callback : null,
+    arguments : null,
 
     prepare : function(){
 
@@ -1609,35 +1609,46 @@ cEditor.transport = {
     */
     fileSelected : function(event){
 
-        var input = this,
-            files = input.files,
+        var selection   = window.getSelection(),
+            imageHolder = selection.anchorNode,
+            input       = this,
+            files       = input.files,
             filesLength = files.length,
             formdData   = new FormData(),
             file,
             i;
+
+        while (!imageHolder.classList.contains(cEditor.ui.BLOCK_CLASSNAME)) {
+            imageHolder = imageHolder.parentNode;
+        }
 
         formdData.append('files', files[0], files[0].name);
 
         cEditor.transport.ajax({
             data : formdData,
             success : function(result) {
-                cEditor.transport.callback.success(result);
+
+                var image = cEditor.transport.arguments.success(result),
+                    wrapper = cEditor.content.composeNewBlock(image, 'image');
+
+                cEditor.content.replaceBlock(imageHolder, wrapper, 'image');
+
             },
             error : function(result) {
-                cEditor.transport.callback.error(result);
+
+                cEditor.transport.arguments.error(result);
+                cEditor.notifications.errorThrown();
             }
         });
-
-        // console.log("files: %o", files);
 
     },
 
     /**
     * @todo use callback for success and error
     */
-    selectAndUpload : function (callback) {
+    selectAndUpload : function (args) {
 
-        this.callback = callback;
+        this.arguments = args;
         this.input.click();
 
     },
