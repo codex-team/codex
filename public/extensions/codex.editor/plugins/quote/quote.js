@@ -5,6 +5,9 @@
 
 var quoteTools = {
 
+    /** Default path to redactors images */
+    path : '/upload/redactor_images/',
+
     /**
     * Make Quote from JSON datasets
     */
@@ -201,6 +204,8 @@ var quoteTools = {
             var icon = quoteTools.ui.makeBlock('SPAN', ['ce-icon-picture']);
             photo.appendChild(icon);
 
+            photo.addEventListener('click', quoteTools.fileUploadClicked, false);
+
             /* make author block contentEditable */
             author.contentEditable = 'true';
             author.textContent = data.author;
@@ -261,6 +266,34 @@ var quoteTools = {
         return data;
     },
 
+    fileUploadClicked : function() {
+
+        var success = function(result) {
+
+            var parsed   = JSON.parse(result),
+                filename = parsed.filename,
+                uploadImageIcon = cEditor.content.currentNode.querySelector('.quoteStyle-withPhoto--photo'),
+                authorsPhoto = quoteTools.ui.img('quoteStyle-withPhoto--photo');
+
+            authorsPhoto.src = quoteTools.path + filename;
+
+            /**
+            * @todo Replace block 
+            */
+        }
+
+        var error = function(result) {
+            console.log('Can\'t upload an image');
+            cEditor.notifications.errorThrown();
+        }
+
+        cEditor.transport.selectAndUpload({
+            success,
+            error,
+        });
+
+    }
+
 };
 
 quoteTools.ui = {
@@ -281,6 +314,13 @@ quoteTools.ui = {
 
         return el;
 
+    },
+
+    img : function(attribute) {
+        var imageTag = document.createElement('IMG');
+        imageTag.classList.add(attribute);
+
+        return imageTag;
     },
 
     makeBlock : function(tag, classList) {

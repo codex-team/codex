@@ -14,7 +14,7 @@ var ceImage = {
         /**
         * If we can't find image or we've got some problems with image path, we show plugin uploader
         */
-        if (!data || !data.filename || !data.path) {
+        if (!data || !data.file.url) {
             holder = ceImage.ui.form();
         } else {
             holder = ceImage.ui.image(data);
@@ -131,11 +131,9 @@ var ceImage = {
 
         image : function(data) {
 
-            var filename = data.filename,
-                path     = data.path,
+            var file = data.file.url,
                 type     = data.type,
-                source   = path + filename;
-                image    = ceImage.ui.imageHolder(source, 'ce-plugin-image__wrapper');
+                image    = ceImage.ui.imageHolder(file, 'ce-plugin-image__wrapper');
 
             return image;
         }

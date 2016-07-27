@@ -181,9 +181,18 @@ INPUT.items = [
     {
         type : 'image',
         data : {
-            type : 'simple',
-            path : '/upload/redactor_images/',
-            filename : '5797b3737b7b0.jpg',
+            background : false,
+            border : false,
+            isStrech : false,
+            file : {
+                url:  'http://codexk.localhost/upload/redactor_images/5797b3737b7b0.jpg',
+                bigUrl : null,
+                width : null,
+                height : null,
+                additionalData : null,
+            },
+            caption : 'TEXT',
+            cover : null,
         }
     },
     {
