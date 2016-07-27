@@ -17,8 +17,8 @@ class Controller_Editor extends Controller_Base_preDispatch
     /**
      * parses link by ajax request
      */
-    public function action_parseLink() {
-
+    public function action_parseLink()
+    {
         $url = $this->get_url();
         $url_params = parse_url($url);
 

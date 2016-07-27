@@ -13,7 +13,7 @@ var cEditor = (function (cEditor) {
 
         // First-level tags viewing as separated blocks. Other'll be inserted as child
         blockTags       : ['P','BLOCKQUOTE','UL','CODE','OL','H1','H2','H3','H4','H5','H6'],
-        uploadImagesUrl : '/upload/save.php',
+        uploadImagesUrl : '/editor/transport/',
     };
 
     // Static nodes
@@ -411,9 +411,10 @@ cEditor.saver = {
 
 cEditor.ui = {
 
-    /** Blocks name. */
+    /**
+    * @const {string} BLOCK_CLASSNAME - redactor blocks name
+    */
     BLOCK_CLASSNAME : 'ce_block',
-
     /**
     * Making main interface
     */
@@ -1140,7 +1141,7 @@ cEditor.content = {
         var oldBlockEditable = blockToReplace.querySelector('[contenteditable]');
 
         /** Saving content */
-        newBlock.innerHTML = oldBlockEditable.innerHTML;
+        newBlock.innerHTML   = oldBlockEditable.innerHTML;
 
         var newBlockComposed = cEditor.content.composeNewBlock(newBlock, blockType);
 
@@ -1591,6 +1592,11 @@ cEditor.transport = {
 
     input : null,
 
+    /**
+    * @property {Object} arguments - keep plugin settings and defined callbacks
+    */
+    arguments : null,
+
     prepare : function(){
 
         var input = document.createElement('INPUT');
@@ -1607,40 +1613,29 @@ cEditor.transport = {
     */
     fileSelected : function(event){
 
-        var input = this,
-            files = input.files,
+        var input       = this,
+            files       = input.files,
             filesLength = files.length,
             formdData   = new FormData(),
             file,
             i;
 
-        for (i = 0; i < filesLength; i++) {
-
-            file = files[i];
-
-            /**
-            * Uncomment if need file type checking
-            * if (!file.type.match('image.*')) {
-            *     continue;
-            * }
-            */
-
-            formdData.append('files[]', file, file.name);
-        }
+        formdData.append('files', files[0], files[0].name);
 
         cEditor.transport.ajax({
-            data : formdData
+            data : formdData,
+            success : cEditor.transport.arguments.success,
+            error   : cEditor.transport.arguments.error,
         });
-
-        console.log("files: %o", files);
 
     },
 
     /**
-    * @todo use callback for success and error
+    * Use plugin callbacks
     */
-    selectAndUpload : function (callback) {
+    selectAndUpload : function (args) {
 
+        this.arguments = args;
         this.input.click();
 
     },
@@ -1660,10 +1655,9 @@ cEditor.transport = {
 
         xhr.onload = function () {
             if (xhr.status === 200) {
-                console.log("success request: %o", xhr);
                 success(xhr.responseText);
             } else {
-                console.log("request error: %o", xhr);
+                console.log("request error: %o", xhr);    
             }
         };
 

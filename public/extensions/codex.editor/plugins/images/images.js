@@ -6,36 +6,60 @@
 */
 var ceImage = {
 
+    /** Default path to redactors images */
+    path : '/upload/redactor_images/',
+
 	make : function ( data ) {
 
-		var holder       = ceImage.ui.holder(),
-			uploadButton = ceImage.ui.uploadButton(),
-			input        = ceImage.ui.input();
-
-		input.placeholder = 'Past image URL or file';
-
-		holder.appendChild(uploadButton);
-		holder.appendChild(input);
-
-		uploadButton.addEventListener('click', ceImage.uploadButtonClicked, false );
+        /**
+        * If we can't find image or we've got some problems with image path, we show plugin uploader
+        */
+        if (!data || !data.filename || !data.path) {
+            holder = ceImage.ui.form();
+        } else {
+            holder = ceImage.ui.image(data);
+        }
 
 		return holder;
 
 	},
 
-	render : function( data ){
+	render : function( data ) {
 
 		return this.make(data);
 
 	},
 
-	save : function ( block ){
+	save : function ( block ) {
 
 	},
 
 	uploadButtonClicked : function(event){
 
-		cEditor.transport.selectAndUpload();
+        var success = function(result) {
+
+            var parsed   = JSON.parse(result),
+                filename = parsed.filename,
+                image    = ceImage.ui.imageHolder(ceImage.path + filename, 'ce-plugin-image__wrapper');
+
+            /** Replace plugin form with image */
+            var wrapper = cEditor.content.composeNewBlock(image, 'image'),
+                nodeToReplace = cEditor.content.currentNode;
+
+            cEditor.content.replaceBlock(nodeToReplace, wrapper, 'image');
+
+        }
+
+        var error = function(result) {
+            console.log('Choosen file is not image or image is corrupted');
+            cEditor.notifications.errorThrown();
+        }
+
+        /** Define callbacks */
+		cEditor.transport.selectAndUpload({
+            success,
+            error,
+        });
 
 	},
 
@@ -69,11 +93,53 @@ var ceImage = {
 
 			return button;
 
-		}
+		},
 
+        /**
+        * @param {string} source - file path
+        * @param {string} style - css class
+        */
+        imageHolder : function(source, style) {
+
+            var image = document.createElement('IMG');
+
+            image.classList.add(style);
+            image.src = source;
+
+            return image;
+        },
+
+        /**
+        * Draws form for image upload
+        */
+        form : function() {
+
+            var holder       = ceImage.ui.holder(),
+                uploadButton = ceImage.ui.uploadButton(),
+                input        = ceImage.ui.input();
+
+            input.placeholder = 'Paste image URL or file';
+
+            holder.appendChild(uploadButton);
+            holder.appendChild(input);
+
+            uploadButton.addEventListener('click', ceImage.uploadButtonClicked, false );
+
+            return holder;
+
+        },
+
+        image : function(data) {
+
+            var filename = data.filename,
+                path     = data.path,
+                type     = data.type,
+                source   = path + filename;
+                image    = ceImage.ui.imageHolder(source, 'ce-plugin-image__wrapper');
+
+            return image;
+        }
 	}
-
-
 
 };
 
