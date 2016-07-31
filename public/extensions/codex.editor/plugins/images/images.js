@@ -32,6 +32,30 @@ var ceImage = {
 
 	save : function ( block ) {
 
+        var data = block[0],
+            image = data.getElementsByTagName('img')[0],
+            caption = data.getElementsByTagName('div')[0];
+
+        var json = {
+            type : 'image',
+            data : {
+                background : false,
+                border : false,
+                isStrech : false,
+                file : {
+                    url : image.src,
+                    bigUrl : null,
+                    width  : image.width,
+                    height : image.height,
+                    additionalData :null,
+                },
+                caption : caption.textContent,
+                cover : null,
+            }
+        }
+
+        return json;
+
 	},
 
 	uploadButtonClicked : function(event){
@@ -40,10 +64,15 @@ var ceImage = {
 
             var parsed   = JSON.parse(result),
                 filename = parsed.filename,
-                image    = ceImage.ui.imageHolder(ceImage.path + filename, 'ce-plugin-image__wrapper');
+                image    = ceImage.ui.imageHolder(ceImage.path + filename, 'ce-plugin-image__wrapper'),
+                caption  = ceImage.ui.caption(),
+                img_wrapper = document.createElement('div');
+
+            img_wrapper.appendChild(image);
+            img_wrapper.appendChild(caption);
 
             /** Replace plugin form with image */
-            var wrapper = cEditor.content.composeNewBlock(image, 'image'),
+            var wrapper = cEditor.content.composeNewBlock(img_wrapper, 'image'),
                 nodeToReplace = cEditor.content.currentNode;
 
             cEditor.content.replaceBlock(nodeToReplace, wrapper, 'image');
@@ -109,6 +138,16 @@ var ceImage = {
             return image;
         },
 
+        caption : function() {
+
+            var div = document.createElement('div');
+
+            div.classList.add('ce-plugin-image--caption');
+            div.contentEditable = true;
+
+            return div;
+        },
+
         /**
         * Draws form for image upload
         */
@@ -132,10 +171,19 @@ var ceImage = {
         image : function(data) {
 
             var file = data.file.url,
+                text = data.caption,
                 type     = data.type,
-                image    = ceImage.ui.imageHolder(file, 'ce-plugin-image__wrapper');
+                image    = ceImage.ui.imageHolder(file, 'ce-plugin-image__wrapper'),
+                caption  = ceImage.ui.caption(),
+                wrapper  = document.createElement('div');
 
-            return image;
+            caption.textContent = text;
+
+            /** Appeding to the wrapper */
+            wrapper.appendChild(image);
+            wrapper.appendChild(caption);
+
+            return wrapper;
         }
 	}
 

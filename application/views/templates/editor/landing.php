@@ -191,7 +191,7 @@ INPUT.items = [
                 height : null,
                 additionalData : null,
             },
-            caption : 'TEXT',
+            caption : 'knew about this already and you scoff',
             cover : null,
         }
     },

@@ -50,3 +50,21 @@
     width: 700px;
     height: 500px;;
 }
+
+.ce-plugin-image--caption {
+    margin-top: 8px;
+    text-align: center;
+    font-weight: bold;
+}
+
+    .ce-plugin-image--caption:empty::before {
+        content : 'Подпись';
+        font-weight: normal;
+        color: #a1a5b3;;
+        opacity: 1;
+        transition: opacity 200ms ease;
+    }
+
+    .ce-plugin-image--caption:focus::before {
+        opacity: .1;
+    }
