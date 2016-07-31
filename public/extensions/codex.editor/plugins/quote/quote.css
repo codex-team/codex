@@ -107,14 +107,25 @@
     margin-right: 25px;
     border: 2px dashed #D7E2EE;
 }
-.quoteStyle-withPhoto--photo:hover {
-    cursor: pointer;
-    background: #F0F3F6;
-}
+    .quoteStyle-withPhoto--photo:hover {
+        cursor: pointer;
+        background: #F0F3F6;
+    }
 
-.quoteStyle-withPhoto--photo:hover::after {
-    display: block;
-}
+    .quoteStyle-withPhoto--photo:hover::after {
+        display: block;
+    }
+
+    .authorsPhoto {
+        width : 100%;
+        height: 100%;
+        border-radius: 50%;
+        z-index: 10;
+    }
+
+    .authorsPhotophoto-wrapper {
+        border: 0 !important;
+    }
 
 .quoteStyle-withPhoto--photo .ce-icon-picture {
     font-family: "codex_editor";

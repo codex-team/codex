@@ -272,14 +272,17 @@ var quoteTools = {
 
             var parsed   = JSON.parse(result),
                 filename = parsed.filename,
-                uploadImageIcon = cEditor.content.currentNode.querySelector('.quoteStyle-withPhoto--photo'),
-                authorsPhoto = quoteTools.ui.img('quoteStyle-withPhoto--photo');
+                uploadImageWrapper = cEditor.content.currentNode.querySelector('.quoteStyle-withPhoto--photo'),
+                authorsPhoto = quoteTools.ui.img('authorsPhoto');
 
             authorsPhoto.src = quoteTools.path + filename;
 
-            /**
-            * @todo Replace block 
-            */
+            /** Remove icon from image wrapper */
+            uploadImageWrapper.childNodes[0].remove();
+
+            /** Appending uploaded image */
+            uploadImageWrapper.classList.add('authorsPhotophoto-wrapper');
+            uploadImageWrapper.appendChild(authorsPhoto);
         }
 
         var error = function(result) {
