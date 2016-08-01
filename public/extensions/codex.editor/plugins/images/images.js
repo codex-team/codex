@@ -145,8 +145,6 @@ var ceImage = {
 
             var div = document.createElement('div');
 
-            div.classList.add('ce-plugin-image__block');
-
             return div;
         },
 

@@ -46,12 +46,10 @@
 		color: #393F52;
 	}
 
-.ce-plugin-image__block {
-    margin: 0 auto;
-}
-
 .ce-plugin-image__uploaded {
     max-width: 700px;
+    display:block;
+    margin: 0 auto;
 }
 
 .ce-plugin-image--caption {
