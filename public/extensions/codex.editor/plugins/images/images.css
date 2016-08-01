@@ -48,13 +48,13 @@
 
 .ce-plugin-image__wrapper {
     width: 700px;
-    height: 500px;;
+    height: 400px;;
 }
 
 .ce-plugin-image--caption {
-    margin-top: 8px;
+    margin-top: 1em;
     text-align: center;
-    font-weight: bold;
+    color: #898a8c;
 }
 
     .ce-plugin-image--caption:empty::before {

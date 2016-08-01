@@ -185,7 +185,7 @@ INPUT.items = [
             border : false,
             isStrech : false,
             file : {
-                url:  'http://codexk.localhost/upload/redactor_images/5797b3737b7b0.jpg',
+                url:  'https://ifmo.su/public/img/meta_img.png',
                 bigUrl : null,
                 width : null,
                 height : null,
