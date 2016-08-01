@@ -64,7 +64,7 @@ var ceImage = {
 
             var parsed   = JSON.parse(result),
                 filename = parsed.filename,
-                image    = ceImage.ui.imageHolder(ceImage.path + filename, 'ce-plugin-image__wrapper'),
+                image    = ceImage.ui.imageHolder(ceImage.path + filename, 'ce-plugin-image__uploaded'),
                 caption  = ceImage.ui.caption(),
                 img_wrapper = ceImage.ui.imageWrapper();
 
@@ -145,6 +145,8 @@ var ceImage = {
 
             var div = document.createElement('div');
 
+            div.classList.add('ce-plugin-image__block');
+
             return div;
         },
 
@@ -183,9 +185,9 @@ var ceImage = {
             var file = data.file.url,
                 text = data.caption,
                 type     = data.type,
-                image    = ceImage.ui.imageHolder(file, 'ce-plugin-image__wrapper'),
+                image    = ceImage.ui.imageHolder(file, 'ce-plugin-image__uploaded'),
                 caption  = ceImage.ui.caption(),
-                wrapper  = document.createElement('div');
+                wrapper  = ceImage.ui.imageWrapper();
 
             caption.textContent = text;
 
