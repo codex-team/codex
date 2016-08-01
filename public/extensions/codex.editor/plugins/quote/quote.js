@@ -281,7 +281,7 @@ var quoteTools = {
             uploadImageWrapper.childNodes[0].remove();
 
             /** Appending uploaded image */
-            uploadImageWrapper.classList.add('authorsPhotophoto-wrapper');
+            uploadImageWrapper.classList.add('authorsPhoto-wrapper');
             uploadImageWrapper.appendChild(authorsPhoto);
         }
 
