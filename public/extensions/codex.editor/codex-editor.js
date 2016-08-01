@@ -1545,7 +1545,7 @@ cEditor.toolbar = {
 
     },
 
-    /** stop.propoganation
+    /**
     * Block settings methods
     */
     settings : {

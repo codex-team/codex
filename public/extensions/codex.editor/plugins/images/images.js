@@ -66,7 +66,7 @@ var ceImage = {
                 filename = parsed.filename,
                 image    = ceImage.ui.imageHolder(ceImage.path + filename, 'ce-plugin-image__wrapper'),
                 caption  = ceImage.ui.caption(),
-                img_wrapper = document.createElement('div');
+                img_wrapper = ceImage.ui.imageWrapper();
 
             img_wrapper.appendChild(image);
             img_wrapper.appendChild(caption);
@@ -136,6 +136,16 @@ var ceImage = {
             image.src = source;
 
             return image;
+        },
+
+        /**
+        * Wrapper for image
+        */
+        imageWrapper : function() {
+
+            var div = document.createElement('div');
+
+            return div;
         },
 
         caption : function() {
