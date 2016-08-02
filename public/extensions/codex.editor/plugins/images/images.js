@@ -133,7 +133,7 @@ var ceImage = {
             var image = document.createElement('IMG');
 
             image.classList.add(style);
-            
+
             image.src = source;
 
             return image;

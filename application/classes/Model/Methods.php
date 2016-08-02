@@ -74,6 +74,7 @@ class Model_Methods extends Model
                 $width    = $sizes[1];
                 $height   = !$isSquare ? $sizes[2] : $width;
                 $image->background('#fff');
+
                 // Вырезание квадрата
                 if ( $isSquare ){
                     if ( $image->width >= $image->height ) {
@@ -82,12 +83,6 @@ class Model_Methods extends Model
                         $image->resize( $width , NULL, true );
                     }
                     $image->crop( $width, $height );
-                    /**
-                     *   Для работы с этим методом нужно перекомпилировать php c bundled GD
-                     *   http://www.maxiwebs.co.uk/gd-bundled/compilation.php
-                     *   http://www.howtoforge.com/recompiling-php5-with-bundled-support-for-gd-on-ubuntu
-                     */
-                    // $image->sharpen(1.5);
                 } else {
                     if ( $image->width > $width || $image->height > $height  ) {
                         $image->resize( $width , $height , true );
