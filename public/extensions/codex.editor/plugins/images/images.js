@@ -184,20 +184,30 @@ ceImage.callbacks = {
 
     success : function(result) {
 
-        var parsed   = JSON.parse(result),
-            filename = parsed.filename,
-            image    = ceImage.ui.image(ceImage.path + 'o_' + filename, 'ce-plugin-image__uploaded'),
-            caption  = ceImage.ui.caption(),
-            img_wrapper = ceImage.ui.wrapper();
+        var parsed = JSON.parse(result),
+            data,
+            image;
 
-        img_wrapper.appendChild(image);
-        img_wrapper.appendChild(caption);
+        data = {
+            background : false,
+            border : false,
+            file : {
+                url    : ceImage.path + 'o_' + parsed.filename,
+                bigUrl : null,
+                width  : null,
+                height : null,
+                additionalData : null,
+            },
+            caption : '',
+            cover : null,
+        };
 
-        /** Replace plugin form with image */
-        var wrapper = cEditor.content.composeNewBlock(img_wrapper, 'image'),
-            nodeToReplace = cEditor.content.currentNode;
+        image = ceImage.make(data);
 
-        cEditor.content.replaceBlock(nodeToReplace, wrapper, 'image');
+        /** Replace form to image */
+        var form = cEditor.content.currentNode.childNodes[0];
+
+        cEditor.content.switchBlock(form, image, 'image');
 
     },
 

@@ -1075,11 +1075,13 @@ cEditor.content = {
             return;
         }
 
-        /** Add redactor block classname to new block */
-        // newBlock.classList.add(cEditor.ui.BLOCK_CLASSNAME);
-
         /** Store block type */
         newBlock.dataset.type = newBlockType;
+
+        /** If didn't get main ce_block */
+        while(!targetBlock.classList.contains(cEditor.ui.BLOCK_CLASSNAME)) {
+            targetBlock = targetBlock.parentNode;
+        }
 
         /** Replacing */
         cEditor.nodes.redactor.replaceChild(newBlock, targetBlock);
@@ -1153,7 +1155,9 @@ cEditor.content = {
         var oldBlockEditable = blockToReplace.querySelector('[contenteditable]');
 
         /** Saving content */
-        newBlock.innerHTML   = oldBlockEditable.innerHTML;
+        if (oldBlockEditable) {
+            newBlock.innerHTML = oldBlockEditable.innerHTML;
+        }
 
         var newBlockComposed = cEditor.content.composeNewBlock(newBlock, blockType);
 
@@ -1244,7 +1248,7 @@ cEditor.content = {
     },
 
     /**
-    * @protected
+    * @private
     */
     composeNewBlock : function (block, blockType) {
 
