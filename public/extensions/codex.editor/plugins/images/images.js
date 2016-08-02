@@ -9,7 +9,7 @@ var ceImage = {
     /** Default path to redactors images */
     path : '/upload/redactor_images/',
 
-	make : function ( data ) {
+    make : function ( data ) {
 
         /**
         * If we can't find image or we've got some problems with image path, we show plugin uploader
@@ -89,7 +89,6 @@ var ceImage = {
             success,
             error,
         });
-
 	}
 };
 
