@@ -97,20 +97,6 @@ class Model_Methods extends Model
         return FALSE;
     }
 
-    public function saveFile( $file , $path )
-    {
-        /**
-         *   Проверки на  Upload::valid($file) OR Upload::not_empty($file) OR Upload::size($file, '8M') делаются в контроллере.
-         */
-        if (!is_dir($path)) mkdir($path);
-        $ext      = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-        $filename = bin2hex(openssl_random_pseudo_bytes(16)) . '.' . $ext;
-        if ( $file = Upload::save($file, $filename, $path) ){
-            return $filename;
-        }
-        return FALSE;
-    }
-
     /** Saving uploaded file to database */
     public function newFile( $fields )
     {
