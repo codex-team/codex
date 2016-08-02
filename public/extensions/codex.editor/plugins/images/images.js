@@ -27,7 +27,7 @@ var ceImage = {
 
         return this.make(data);
 
-	},
+    },
 
     save : function ( block ) {
 
@@ -54,10 +54,9 @@ var ceImage = {
         };
 
         return json;
+    },
 
-	},
-
-	uploadButtonClicked : function(event){
+    uploadButtonClicked : function(event) {
 
         var success = ceImage.callbacks.success,
             error   = ceImage.callbacks.error;
