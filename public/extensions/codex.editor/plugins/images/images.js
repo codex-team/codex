@@ -205,7 +205,7 @@ ceImage.callbacks = {
         image = ceImage.make(data);
 
         /** Replace form to image */
-        var form = cEditor.content.currentNode.querySelector('div');
+        var form = cEditor.content.currentNode.querySelector('.ce-plugin-image__holder');
 
         cEditor.content.switchBlock(form, image, 'image');
 

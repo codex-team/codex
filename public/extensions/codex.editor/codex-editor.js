@@ -1078,7 +1078,7 @@ cEditor.content = {
         /** Store block type */
         newBlock.dataset.type = newBlockType;
 
-        /** If didn't get main ce_block */
+        /** if targetBlock is not a block with class name ce_block, we should find editors block of targetBlock */
         while(!targetBlock.classList.contains(cEditor.ui.BLOCK_CLASSNAME)) {
             targetBlock = targetBlock.parentNode;
         }
