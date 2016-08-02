@@ -64,7 +64,7 @@ var ceImage = {
 
             var parsed   = JSON.parse(result),
                 filename = parsed.filename,
-                image    = ceImage.ui.imageHolder(ceImage.path + filename, 'ce-plugin-image__uploaded'),
+                image    = ceImage.ui.imageHolder(ceImage.path + 'o_' + filename, 'ce-plugin-image__uploaded'),
                 caption  = ceImage.ui.caption(),
                 img_wrapper = ceImage.ui.imageWrapper();
 
@@ -133,6 +133,7 @@ var ceImage = {
             var image = document.createElement('IMG');
 
             image.classList.add(style);
+            
             image.src = source;
 
             return image;

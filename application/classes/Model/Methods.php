@@ -55,31 +55,62 @@ class Model_Methods extends Model
     }
 
 
-    /**
-     * Сохраняем файл загруженный через форму
-     * @param string $inputName - название инпута с файлом
-     * @param string $dir - путь относительно каталога /upload/. Должен начинаться без слеша и заканчиваться слешом, например "covers/"
-     * Создается рекурсивно если не существует.
-     * @param int $maxFileSize - макс размер файла в байтах. По умолчанию 2Mb
-     * @param array $fileTypes - допустимые разширения файлов. По умолчанию не проверяется
-     */
     public function saveImage( $file , $path )
     {
         /**
          *   Проверки на  Upload::valid($file) OR Upload::not_empty($file) OR Upload::size($file, '8M') делаются в контроллере.
          */
         if (!Upload::type($file, array('jpg', 'jpeg', 'png', 'gif'))) return FALSE;
-
         if (!is_dir($path)) mkdir($path);
 
         if ( $file = Upload::save($file, NULL, $path) ){
 
-            $filename = uniqid("", false).'.jpg';
+            $filename = bin2hex(openssl_random_pseudo_bytes(16)) . '.jpg';
             $image = Image::factory($file);
-            $image->save($path . $filename);
 
+            foreach ($this->IMAGE_SIZES_CONFIG as $prefix => $sizes) {
+
+                $isSquare = !!$sizes[0];
+                $width    = $sizes[1];
+                $height   = !$isSquare ? $sizes[2] : $width;
+                $image->background('#fff');
+                // Вырезание квадрата
+                if ( $isSquare ){
+                    if ( $image->width >= $image->height ) {
+                        $image->resize( NULL , $height, true );
+                    } else {
+                        $image->resize( $width , NULL, true );
+                    }
+                    $image->crop( $width, $height );
+                    /**
+                     *   Для работы с этим методом нужно перекомпилировать php c bundled GD
+                     *   http://www.maxiwebs.co.uk/gd-bundled/compilation.php
+                     *   http://www.howtoforge.com/recompiling-php5-with-bundled-support-for-gd-on-ubuntu
+                     */
+                    // $image->sharpen(1.5);
+                } else {
+                    if ( $image->width > $width || $image->height > $height  ) {
+                        $image->resize( $width , $height , true );
+                    }
+                }
+                $image->save($path . $prefix . '_' . $filename);
+            }
             // Delete the temporary file
             unlink($file);
+            return $filename;
+        }
+        return FALSE;
+    }
+
+    public function saveFile( $file , $path )
+    {
+        /**
+         *   Проверки на  Upload::valid($file) OR Upload::not_empty($file) OR Upload::size($file, '8M') делаются в контроллере.
+         */
+        if (!is_dir($path)) mkdir($path);
+        $ext      = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+        $filename = bin2hex(openssl_random_pseudo_bytes(16)) . '.' . $ext;
+        if ( $file = Upload::save($file, $filename, $path) ){
             return $filename;
         }
         return FALSE;

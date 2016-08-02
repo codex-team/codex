@@ -275,7 +275,7 @@ var quoteTools = {
                 uploadImageWrapper = cEditor.content.currentNode.querySelector('.quoteStyle-withPhoto--photo'),
                 authorsPhoto = quoteTools.ui.img('authorsPhoto');
 
-            authorsPhoto.src = quoteTools.path + filename;
+            authorsPhoto.src = quoteTools.path + 'b_' + filename;
 
             /** Remove icon from image wrapper */
             uploadImageWrapper.childNodes[0].remove();
