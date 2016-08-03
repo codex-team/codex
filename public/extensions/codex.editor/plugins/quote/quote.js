@@ -282,9 +282,11 @@ var quoteTools = {
 
 quoteTools.styles = {
 
-    quoteText   : 'ce_quote--text',
-    quoteAuthor : 'ce_quote--author',
-    authorsJob  : 'ce_quote--job',
+    quoteText    : 'ce_quote--text',
+    quoteAuthor  : 'ce_quote--author',
+    authorsJob   : 'ce_quote--job',
+    authorsPhoto : 'authorsPhoto',
+    authorsPhotoWrapper : 'authorsPhoto-wrapper',
 
     simple : {
         text : 'quoteStyle-simple--text',
@@ -357,23 +359,28 @@ quoteTools.ui = {
 
 quoteTools.photoUploadingCallbacks = {
 
+    /**
+    * Success callbacks for uploaded photo.
+    * Replace upload icon with uploaded photo
+    */
     success : function(result) {
 
         var parsed   = JSON.parse(result),
             filename = parsed.filename,
             uploadImageWrapper = cEditor.content.currentNode.querySelector('.' + quoteTools.styles.withPhoto.photo),
-            authorsPhoto = quoteTools.ui.img('authorsPhoto');
+            authorsPhoto = quoteTools.ui.img(quoteTools.styles.authorsPhoto);
 
         authorsPhoto.src = quoteTools.path + 'b_' + filename;
 
         /** Remove icon from image wrapper */
-        uploadImageWrapper.childNodes[0].remove();
+        uploadImageWrapper.innerHTML = '';
 
         /** Appending uploaded image */
-        uploadImageWrapper.classList.add('authorsPhoto-wrapper');
+        uploadImageWrapper.classList.add(quoteTools.styles.authorsPhotoWrapper);
         uploadImageWrapper.appendChild(authorsPhoto);
     },
 
+    /** Error callback. Sends notification to user that something happend or plugin doesn't supports method */
     error : function(result) {
 
         console.log('Can\'t upload an image');

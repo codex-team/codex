@@ -191,12 +191,17 @@ ceImage.ui = {
 
 ceImage.photoUploadingCallbacks = {
 
+    /** Photo was uploaded successfully */
     success : function(result) {
 
         var parsed = JSON.parse(result),
             data,
             image;
 
+        /**
+        * Preparing {Object} data to draw an image
+        * @uses ceImage.make method
+        */
         data = {
             background : false,
             border : false,
@@ -220,6 +225,7 @@ ceImage.photoUploadingCallbacks = {
 
     },
 
+    /** Error callback. Sends notification to user that something happend or plugin doesn't supports method */
     error : function(result) {
         console.log('Choosen file is not image or image is corrupted');
         cEditor.notifications.errorThrown();
