@@ -2,9 +2,18 @@
 * Image plugin for codex-editor
 * @author CodeX Team <team@ifmo.su>
 *
-* @version 0.0.1
+* @version 0.0.2
 */
 var ceImage = {
+
+    elementClasses : {
+        uploadedImage : 'ce-plugin-image__uploaded',
+        imageCaption  : 'ce-plugin-image--caption',
+        imageWrapper  : 'ce-plugin-image__wrapper',
+        formHolder    : 'ce-plugin-image__holder',
+        uploadButton  : 'ce-plugin-image__button',
+
+    },
 
     /** Default path to redactors images */
     path : '/upload/redactor_images/',
@@ -32,8 +41,8 @@ var ceImage = {
     save : function ( block ) {
 
         var data = block[0],
-            image = data.querySelector('.ce-plugin-image__uploaded'),
-            caption = data.querySelector('.ce-plugin-image--caption');
+            image = data.querySelector('.' + ceImage.elementClasses.uploadedImage),
+            caption = data.querySelector('.' + ceImage.elementClasses.imageCaption);
 
         var json = {
             type : 'image',
@@ -75,7 +84,7 @@ ceImage.ui = {
 
         var element = document.createElement('DIV');
 
-        element.classList.add('ce-plugin-image__holder');
+        element.classList.add(ceImage.elementClasses.formHolder);
 
         return element;
     },
@@ -92,7 +101,7 @@ ceImage.ui = {
 
         var button = document.createElement('SPAN');
 
-        button.classList.add('ce-plugin-image__button');
+        button.classList.add(ceImage.elementClasses.uploadButton);
 
         button.innerHTML = '<i class="ce-icon-picture"></i>';
 
@@ -120,7 +129,7 @@ ceImage.ui = {
 
         var div = document.createElement('div');
 
-        div.classList.add('ce-plugin-image__wrapper');
+        div.classList.add(ceImage.elementClasses.imageWrapper);
 
         return div;
     },
@@ -129,7 +138,7 @@ ceImage.ui = {
 
         var div = document.createElement('div');
 
-        div.classList.add('ce-plugin-image--caption');
+        div.classList.add(ceImage.elementClasses.imageCaption);
 
         div.contentEditable = true;
 
@@ -165,7 +174,7 @@ ceImage.ui = {
         var file = data.file.url,
             text = data.caption,
             type     = data.type,
-            image    = ceImage.ui.image(file, 'ce-plugin-image__uploaded'),
+            image    = ceImage.ui.image(file, ceImage.elementClasses.uploadedImage),
             caption  = ceImage.ui.caption(),
             wrapper  = ceImage.ui.wrapper();
 
@@ -205,7 +214,7 @@ ceImage.callbacks = {
         image = ceImage.make(data);
 
         /** Replace form to image */
-        var form = cEditor.content.currentNode.querySelector('.ce-plugin-image__holder');
+        var form = cEditor.content.currentNode.querySelector('.' + ceImage.elementClasses.formHolder);
 
         cEditor.content.switchBlock(form, image, 'image');
 

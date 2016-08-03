@@ -36,8 +36,8 @@ var quoteTools = {
 
             tag.dataset.quoteStyle = 'simple';
 
-            tag.classList.add('ce_quote--text');
-            tag.classList.add('quoteStyle-simple--text');
+            tag.classList.add(quoteTools.styles.quoteText);
+            tag.classList.add(quoteTools.styles.simple.text);
 
         }
 
@@ -82,11 +82,11 @@ var quoteTools = {
             selectTypeButton;
 
         /** Add holder classname */
-        holder.className = 'ce_plugin_quote--settings'
+        holder.className = quoteTools.styles.settings.holder,
 
         /** Add settings helper caption */
         caption.textContent = 'Настройки цитат';
-        caption.className   = 'ce_plugin_quote--caption';
+        caption.className   = quoteTools.styles.settings.caption;
 
         holder.appendChild(caption);
 
@@ -97,7 +97,7 @@ var quoteTools = {
 
             selectTypeButton.textContent = types[type];
 
-            selectTypeButton.className   = 'ce_plugin_quote--select_button';
+            selectTypeButton.className   = quoteTools.styles.settings.buttons;
 
             var quoteStyle = quoteTools.selectTypeQuoteStyle(type);
             quoteTools.addSelectTypeClickListener(selectTypeButton, quoteStyle);
@@ -155,7 +155,7 @@ var quoteTools = {
 
     makeSimpleQuote : function(data) {
 
-        var wrapper = quoteTools.ui.makeBlock('BLOCKQUOTE', ['quoteStyle-simple--text', 'ce_quote--text']);
+        var wrapper = quoteTools.ui.makeBlock('BLOCKQUOTE', [quoteTools.styles.simple.text, quoteTools.styles.quoteText]);
 
         wrapper.innerHTML = data.text || '';
 
@@ -169,8 +169,8 @@ var quoteTools = {
     makeQuoteWithCaption : function(data) {
 
         var wrapper = quoteTools.ui.blockquote(),
-            text    = quoteTools.ui.makeBlock('DIV', ['quoteStyle-withCaption--blockquote', 'ce_quote--text']),
-            author  = quoteTools.ui.makeBlock('DIV', ['quoteStyle-withCaption--author', 'ce_quote--author']);
+            text    = quoteTools.ui.makeBlock('DIV', [quoteTools.styles.withCaption.blockquote, quoteTools.styles.quoteText]),
+            author  = quoteTools.ui.makeBlock('DIV', [quoteTools.styles.withCaption.author, quoteTools.styles.quoteAuthor]);
 
             /* make text block ontentEditable */
             text.contentEditable = 'true';
@@ -195,10 +195,10 @@ var quoteTools = {
     makeQuoteWithPhoto : function(data) {
 
         var wrapper  = quoteTools.ui.blockquote();
-            photo    = quoteTools.ui.makeBlock('DIV', ['quoteStyle-withPhoto--photo']),
-            author   = quoteTools.ui.makeBlock('DIV', ['quoteStyle-withPhoto--author', 'ce_quote--author']),
-            job      = quoteTools.ui.makeBlock('DIV', ['quoteStyle-withPhoto--job', 'ce_quote--job']),
-            quote    = quoteTools.ui.makeBlock('DIV', ['quoteStyle-withPhoto--quote', 'ce_quote--text'])
+            photo    = quoteTools.ui.makeBlock('DIV', [quoteTools.styles.withPhoto.photo]),
+            author   = quoteTools.ui.makeBlock('DIV', [quoteTools.styles.withPhoto.author, quoteTools.styles.quoteAuthor]),
+            job      = quoteTools.ui.makeBlock('DIV', [quoteTools.styles.withPhoto.job, quoteTools.styles.authorsJob]),
+            quote    = quoteTools.ui.makeBlock('DIV', [quoteTools.styles.withPhoto.quote, quoteTools.styles.quoteText])
 
             /* Default Image src */
             var icon = quoteTools.ui.makeBlock('SPAN', ['ce-icon-picture']);
@@ -214,7 +214,7 @@ var quoteTools = {
             job.contentEditable = 'true';
             job.textContent = data.job;
 
-        var authorsWrapper = quoteTools.ui.makeBlock('DIV', ['quoteStyle-withPhoto--authorWrapper']);
+        var authorsWrapper = quoteTools.ui.makeBlock('DIV', [quoteTools.styles.withPhoto.authorHolder]);
             authorsWrapper.appendChild(author);
             authorsWrapper.appendChild(job);
 
@@ -222,7 +222,7 @@ var quoteTools = {
             quote.contentEditable = 'true';
             quote.innerHTML = data.text;
 
-        wrapper.classList.add('quoteStyle-withPhoto--wrapper');
+        wrapper.classList.add(quoteTools.styles.withPhoto.wrapper);
         wrapper.dataset.quoteStyle = 'withPhoto';
 
         wrapper.appendChild(photo);
@@ -236,15 +236,15 @@ var quoteTools = {
 
         var currentNode = block || cEditor.content.currentNode,
             photo       = currentNode.getElementsByTagName('img')[0],
-            author      = currentNode.querySelector('.ce_quote--author'),
-            job         = currentNode.querySelector('.ce_quote--job'),
+            author      = currentNode.querySelector('.' + quoteTools.styles.quoteAuthor),
+            job         = currentNode.querySelector('.' + quoteTools.styles.authorsJob),
             quote ;
 
         /** Simple quote text placed in Blockquote tag*/
         if ( currentNode.dataset.quoteStyle == 'simple' )
             quote = currentNode.textContent;
         else
-            quote = currentNode.querySelector('.ce_quote--text').textContent;
+            quote = currentNode.querySelector('.' + quoteTools.styles.quoteText).textContent;
 
         if (job)
             job = job.textContent;
@@ -268,27 +268,8 @@ var quoteTools = {
 
     fileUploadClicked : function() {
 
-        var success = function(result) {
-
-            var parsed   = JSON.parse(result),
-                filename = parsed.filename,
-                uploadImageWrapper = cEditor.content.currentNode.querySelector('.quoteStyle-withPhoto--photo'),
-                authorsPhoto = quoteTools.ui.img('authorsPhoto');
-
-            authorsPhoto.src = quoteTools.path + 'b_' + filename;
-
-            /** Remove icon from image wrapper */
-            uploadImageWrapper.childNodes[0].remove();
-
-            /** Appending uploaded image */
-            uploadImageWrapper.classList.add('authorsPhoto-wrapper');
-            uploadImageWrapper.appendChild(authorsPhoto);
-        }
-
-        var error = function(result) {
-            console.log('Can\'t upload an image');
-            cEditor.notifications.errorThrown();
-        }
+        var success = quoteTools.callbacks.success,
+            error   = quoteTools.callbacks.error;
 
         cEditor.transport.selectAndUpload({
             success,
@@ -298,6 +279,37 @@ var quoteTools = {
     }
 
 };
+
+quoteTools.styles = {
+
+    quoteText   : 'ce_quote--text',
+    quoteAuthor : 'ce_quote--author',
+    authorsJob  : 'ce_quote--job',
+
+    simple : {
+        text : 'quoteStyle-simple--text',
+    },
+
+    withCaption : {
+        blockquote : 'quoteStyle-withCaption--blockquote',
+        author     : 'quoteStyle-withCaption--author',
+    },
+
+    withPhoto : {
+        photo   : 'quoteStyle-withPhoto--photo',
+        author  : 'quoteStyle-withPhoto--author',
+        job     : 'quoteStyle-withPhoto--job',
+        quote   : 'quoteStyle-withPhoto--quote',
+        wrapper : 'quoteStyle-withPhoto--wrapper',
+        authorHolder : 'quoteStyle-withPhoto--authorWrapper',
+    },
+
+    settings  : {
+        holder  : 'ce_plugin_quote--settings',
+        caption : 'ce_plugin_quote--caption',
+        buttons : 'ce_plugin_quote--select_button',
+    },
+}
 
 quoteTools.ui = {
 
@@ -341,7 +353,35 @@ quoteTools.ui = {
 
     }
 
-}
+};
+
+quoteTools.callbacks = {
+
+    success : function(result) {
+
+        var parsed   = JSON.parse(result),
+            filename = parsed.filename,
+            uploadImageWrapper = cEditor.content.currentNode.querySelector('.' + quoteTools.styles.withPhoto.photo),
+            authorsPhoto = quoteTools.ui.img('authorsPhoto');
+
+        authorsPhoto.src = quoteTools.path + 'b_' + filename;
+
+        /** Remove icon from image wrapper */
+        uploadImageWrapper.childNodes[0].remove();
+
+        /** Appending uploaded image */
+        uploadImageWrapper.classList.add('authorsPhoto-wrapper');
+        uploadImageWrapper.appendChild(authorsPhoto);
+    },
+
+    error : function(result) {
+
+        console.log('Can\'t upload an image');
+        cEditor.notifications.errorThrown();
+
+    }
+
+};
 
 cEditor.tools.quote = {
 
