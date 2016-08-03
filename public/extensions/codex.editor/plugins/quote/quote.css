@@ -100,6 +100,7 @@
 .quoteStyle-withPhoto--photo {
     width: 70px;
     height: 70px;
+    overflow: hidden;
     text-align: center;
     line-height: 70px;
     border-radius: 50%;
@@ -107,14 +108,23 @@
     margin-right: 25px;
     border: 2px dashed #D7E2EE;
 }
-.quoteStyle-withPhoto--photo:hover {
-    cursor: pointer;
-    background: #F0F3F6;
-}
+    .quoteStyle-withPhoto--photo:hover {
+        cursor: pointer;
+        background: #F0F3F6;
+    }
 
-.quoteStyle-withPhoto--photo:hover::after {
-    display: block;
-}
+    .quoteStyle-withPhoto--photo:hover::after {
+        display: block;
+    }
+
+    .authorsPhoto {
+        height: 110%;
+        vertical-align: top;
+    }
+
+    .authorsPhoto-wrapper {
+        border: 0 !important;
+    }
 
 .quoteStyle-withPhoto--photo .ce-icon-picture {
     font-family: "codex_editor";

@@ -47,6 +47,28 @@
 	}
 
 .ce-plugin-image__wrapper {
-    width: 700px;
-    height: 500px;;
+    margin : 3em 0;
 }
+.ce-plugin-image__uploaded {
+    max-width: 700px;
+    display:block;
+    margin: 0 auto;
+}
+
+.ce-plugin-image__caption {
+    margin-top: 1em;
+    text-align: center;
+    color: #898a8c;
+}
+
+    .ce-plugin-image--caption:empty::before {
+        content : 'Подпись';
+        font-weight: normal;
+        color: #a1a5b3;;
+        opacity: 1;
+        transition: opacity 200ms ease;
+    }
+
+    .ce-plugin-image--caption:focus::before {
+        opacity: .1;
+    }

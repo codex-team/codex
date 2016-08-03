@@ -181,9 +181,18 @@ INPUT.items = [
     {
         type : 'image',
         data : {
-            type : 'simple',
-            path : '/upload/redactor_images/',
-            filename : '5797b3737b7b0.jpg',
+            background : false,
+            border : false,
+            isStrech : false,
+            file : {
+                url:  'https://ifmo.su/public/img/meta_img.png',
+                bigUrl : null,
+                width : null,
+                height : null,
+                additionalData : null,
+            },
+            caption : 'knew about this already and you scoff',
+            cover : null,
         }
     },
     {
