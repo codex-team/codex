@@ -1078,7 +1078,7 @@ cEditor.content = {
         /** Store block type */
         newBlock.dataset.type = newBlockType;
 
-        /** if targetBlock is not first-level block */
+        /** if targetBlock is not first-level block then we iterate parents to find first-level */
         while(!targetBlock.classList.contains(cEditor.ui.BLOCK_CLASSNAME)) {
             targetBlock = targetBlock.parentNode;
         }

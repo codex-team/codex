@@ -268,8 +268,8 @@ var quoteTools = {
 
     fileUploadClicked : function() {
 
-        var success = quoteTools.callbacks.success,
-            error   = quoteTools.callbacks.error;
+        var success = quoteTools.photoUploadingCallbacks.success,
+            error   = quoteTools.photoUploadingCallbacks.error;
 
         cEditor.transport.selectAndUpload({
             success,
@@ -355,7 +355,7 @@ quoteTools.ui = {
 
 };
 
-quoteTools.callbacks = {
+quoteTools.photoUploadingCallbacks = {
 
     success : function(result) {
 

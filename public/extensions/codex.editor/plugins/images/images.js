@@ -8,7 +8,7 @@ var ceImage = {
 
     elementClasses : {
         uploadedImage : 'ce-plugin-image__uploaded',
-        imageCaption  : 'ce-plugin-image--caption',
+        imageCaption  : 'ce-plugin-image__caption',
         imageWrapper  : 'ce-plugin-image__wrapper',
         formHolder    : 'ce-plugin-image__holder',
         uploadButton  : 'ce-plugin-image__button',
@@ -67,8 +67,8 @@ var ceImage = {
 
     uploadButtonClicked : function(event) {
 
-        var success = ceImage.callbacks.success,
-            error   = ceImage.callbacks.error;
+        var success = ceImage.photoUploadingCallbacks.success,
+            error   = ceImage.photoUploadingCallbacks.error;
 
         /** Define callbacks */
         cEditor.transport.selectAndUpload({
@@ -189,7 +189,7 @@ ceImage.ui = {
 
 };
 
-ceImage.callbacks = {
+ceImage.photoUploadingCallbacks = {
 
     success : function(result) {
 
