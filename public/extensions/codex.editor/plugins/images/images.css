@@ -49,11 +49,19 @@
 .ce-plugin-image__wrapper {
     margin : 3em 0;
 }
-.ce-plugin-image__uploaded {
+.ce-plugin-image__uploaded--centered {
     max-width: 700px;
     display:block;
     margin: 0 auto;
 }
+
+.ce-plugin-image__uploaded--stretched {
+	width: 100%;
+}
+	.ce-plugin-image--stretch {
+		margin: 0 !important;
+		max-width: 100% !important;
+	}
 
 .ce-plugin-image__caption {
     margin-top: 1em;
@@ -71,4 +79,21 @@
 
     .ce-plugin-image--caption:focus::before {
         opacity: .1;
+    }
+
+/** Settings */
+.ce_plugin_image--settings{
+    white-space: nowrap;
+    /*padding-right: 10px;    */
+}
+.ce_plugin_image--select_button{
+    display: inline-block;
+    margin-left: 40px;
+    border-bottom: 1px solid #475588;
+    color: #6881e6;
+    cursor: pointer;
+}
+    .ce_plugin_image--select_button:hover{
+        border-bottom-color: #687da5;
+        color: #8da8dc;
     }

@@ -7,7 +7,11 @@
 var ceImage = {
 
     elementClasses : {
-        uploadedImage : 'ce-plugin-image__uploaded',
+        uploadedImage : {
+                centered  : 'ce-plugin-image__uploaded--centered',
+                stretched : 'ce-plugin-image__uploaded--stretched',
+        },
+        stretch       : 'ce-plugin-image--stretch',
         imageCaption  : 'ce-plugin-image__caption',
         imageWrapper  : 'ce-plugin-image__wrapper',
         formHolder    : 'ce-plugin-image__holder',
@@ -26,10 +30,82 @@ var ceImage = {
         if (!data || !data.file.url) {
             holder = ceImage.ui.formView();
         } else {
-            holder = ceImage.ui.imageView(data);
+
+            if ( !data.isStretch) {
+                holder = ceImage.ui.centeredImage(data);
+            } else {
+                holder = ceImage.ui.stretchedImage(data);
+            }
         }
 
         return holder;
+    },
+
+    /**
+    * Settings panel content
+    * @return {Element} element contains all settings
+    */
+    makeSettings : function () {
+
+        var holder  = document.createElement('DIV'),
+            caption = document.createElement('SPAN'),
+            types   = {
+                        centered  : 'По центру',
+                        stretched : 'На всю ширину',
+                    },
+            selectTypeButton;
+
+        /** Add holder classname */
+        holder.className = 'ce_plugin_image--settings';
+
+        /** Add settings helper caption */
+        caption.textContent = 'Настройки плагина';
+        caption.className   = 'ce_plugin_image--caption';
+
+        holder.appendChild(caption);
+
+        /** Now add type selectors */
+        for (var type in types){
+
+            selectTypeButton = document.createElement('SPAN');
+
+            selectTypeButton.textContent = types[type];
+            selectTypeButton.className   = 'ce_plugin_image--select_button';
+
+            this.addSelectTypeClickListener(selectTypeButton, type);
+
+            holder.appendChild(selectTypeButton);
+
+        }
+
+        return holder;
+
+    },
+
+    addSelectTypeClickListener : function(el, type) {
+
+        el.addEventListener('click', function() {
+
+            ceImage.selectTypeClicked(type);
+
+        }, false);
+
+    },
+
+    selectTypeClicked : function(type) {
+
+        var current = cEditor.content.currentNode;
+
+        if (type == 'stretched') {
+
+            current.classList.add(ceImage.elementClasses.stretch);
+
+        } else if (type == 'centered') {
+
+            current.classList.remove(ceImage.elementClasses.stretch);
+
+        }
+
     },
 
     render : function( data ) {
@@ -40,8 +116,9 @@ var ceImage = {
 
     save : function ( block ) {
 
-        var data = block[0],
-            image = data.querySelector('.' + ceImage.elementClasses.uploadedImage),
+        var data    = block[0],
+            image   = data.querySelector('.' + ceImage.elementClasses.uploadedImage.centered) ||
+                      data.querySelector('.' + ceImage.elementClasses.uploadedImage.stretched),
             caption = data.querySelector('.' + ceImage.elementClasses.imageCaption);
 
         var json = {
@@ -49,7 +126,7 @@ var ceImage = {
             data : {
                 background : false,
                 border : false,
-                isStrech : false,
+                isStrech : data.dataset.stretched,
                 file : {
                     url : image.src,
                     bigUrl : null,
@@ -169,22 +246,48 @@ ceImage.ui = {
     * @param {object} data - image information
     * @return wrapped block with image and caption
     */
-    imageView : function(data) {
+    centeredImage : function(data) {
 
         var file = data.file.url,
             text = data.caption,
             type     = data.type,
-            image    = ceImage.ui.image(file, ceImage.elementClasses.uploadedImage),
+            image    = ceImage.ui.image(file, ceImage.elementClasses.uploadedImage.centered),
             caption  = ceImage.ui.caption(),
             wrapper  = ceImage.ui.wrapper();
 
         caption.textContent = text;
 
+        wrapper.dataset.stretched = 'false',
         /** Appeding to the wrapper */
         wrapper.appendChild(image);
         wrapper.appendChild(caption);
 
         return wrapper;
+    },
+
+    /**
+    * wraps image and caption
+    * @param {object} data - image information
+    * @return stretched image
+    */
+    stretchedImage : function(data) {
+
+        var file = data.file.url,
+            text = data.caption,
+            type     = data.type,
+            image    = ceImage.ui.image(file, ceImage.elementClasses.uploadedImage.stretched),
+            caption  = ceImage.ui.caption(),
+            wrapper  = ceImage.ui.wrapper();
+
+        caption.textContent = text;
+
+        wrapper.dataset.stretched = 'true',
+        /** Appeding to the wrapper */
+        wrapper.appendChild(image);
+        wrapper.appendChild(caption);
+
+        return wrapper;
+
     }
 
 };
@@ -204,7 +307,8 @@ ceImage.photoUploadingCallbacks = {
         */
         data = {
             background : false,
-            border : false,
+            border   : false,
+            isStrech : false,
             file : {
                 url    : ceImage.path + 'o_' + parsed.filename,
                 bigUrl : null,
@@ -242,6 +346,7 @@ cEditor.tools.image = {
     type           : 'image',
     iconClassname  : 'ce-icon-picture',
     make           : ceImage.make,
+    settings       : ceImage.makeSettings(),
     render         : ceImage.render,
     save           : ceImage.save
 

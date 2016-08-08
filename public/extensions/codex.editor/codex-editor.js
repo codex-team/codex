@@ -12,8 +12,8 @@ var cEditor = (function (cEditor) {
         textareaId : 'codex-editor',
 
         // First-level tags viewing as separated blocks. Other'll be inserted as child
-        blockTags       : ['P','BLOCKQUOTE','UL','CODE','OL','H1','H2','H3','H4','H5','H6'],
-        uploadImagesUrl : '/editor/transport/',
+        blockTags: ['P', 'BLOCKQUOTE', 'UL', 'CODE', 'OL', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6'],
+        uploadImagesUrl: '/editor/transport/'
     };
 
     // Static nodes
@@ -25,14 +25,14 @@ var cEditor = (function (cEditor) {
         showSettingsButton : null,
         blockSettings      : null,
         toolbarButtons     : {}, // { type : DomEl, ... }
-        redactor           : null,
+        redactor           : null
     };
 
     // Current editor state
     cEditor.state = {
-        jsonOutput   : [],
+        jsonOutput  : [],
         blocks      : [],
-        inputs      : [],
+        inputs      : []
     };
 
     /**
