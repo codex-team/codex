@@ -58,9 +58,9 @@
 .ce-plugin-image__uploaded--stretched {
 	width: 100%;
 }
-	.ce-plugin-image--stretch {
+	.ce-plugin-image__firstlevel--stretch {
 		margin: 0 !important;
-		max-width: 100% !important;
+		max-width: none !important;
 	}
 
 .ce-plugin-image__caption {

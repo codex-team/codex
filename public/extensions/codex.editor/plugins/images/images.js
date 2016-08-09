@@ -11,7 +11,7 @@ var ceImage = {
                 centered  : 'ce-plugin-image__uploaded--centered',
                 stretched : 'ce-plugin-image__uploaded--stretched',
         },
-        stretch       : 'ce-plugin-image--stretch',
+        stretch       : 'ce-plugin-image__firstlevel--stretch',
         imageCaption  : 'ce-plugin-image__caption',
         imageWrapper  : 'ce-plugin-image__wrapper',
         formHolder    : 'ce-plugin-image__holder',
@@ -32,9 +32,9 @@ var ceImage = {
         } else {
 
             if ( !data.isStretch) {
-                holder = ceImage.ui.centeredImage(data);
+                holder = ceImage.ui.imageView(data, ceImage.elementClasses.uploadedImage.centered, 'false');
             } else {
-                holder = ceImage.ui.stretchedImage(data);
+                holder = ceImage.ui.imageView(data, ceImage.elementClasses.uploadedImage.stretched, 'true');
             }
         }
 
@@ -96,16 +96,17 @@ var ceImage = {
 
         var current = cEditor.content.currentNode;
 
-        if (type == 'stretched') {
+        /** Clear classList */
+        current.className = '';
+
+        /** Add important first-level class ce_block */
+        current.classList.add(cEditor.ui.BLOCK_CLASSNAME);
+
+        if (type === 'stretched') {
 
             current.classList.add(ceImage.elementClasses.stretch);
 
-        } else if (type == 'centered') {
-
-            current.classList.remove(ceImage.elementClasses.stretch);
-
         }
-
     },
 
     render : function( data ) {
@@ -244,6 +245,33 @@ ceImage.ui = {
     /**
     * wraps image and caption
     * @param {object} data - image information
+    * @param {string} imageTypeClass - plugin's style
+    * @param {boolean} stretched - stretched or not
+    * @return wrapped block with image and caption
+    */
+    imageView : function(data, imageTypeClass, stretched) {
+
+        var file = data.file.url,
+            text = data.caption,
+            type     = data.type,
+            image    = ceImage.ui.image(file, imageTypeClass),
+            caption  = ceImage.ui.caption(),
+            wrapper  = ceImage.ui.wrapper();
+
+        caption.textContent = text;
+
+        wrapper.dataset.stretched = stretched,
+        /** Appeding to the wrapper */
+        wrapper.appendChild(image);
+        wrapper.appendChild(caption);
+
+        return wrapper;
+    },
+
+    /**
+    * wraps image and caption
+    * @deprecated
+    * @param {object} data - image information
     * @return wrapped block with image and caption
     */
     centeredImage : function(data) {
@@ -267,6 +295,7 @@ ceImage.ui = {
 
     /**
     * wraps image and caption
+    * @deprecated
     * @param {object} data - image information
     * @return stretched image
     */
