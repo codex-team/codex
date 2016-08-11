@@ -94,18 +94,25 @@ var ceImage = {
 
     selectTypeClicked : function(type) {
 
-        var current = cEditor.content.currentNode;
+        var current = cEditor.content.currentNode,
+            image   = ceImage.ui.getImage(current);
 
         /** Clear classList */
         current.className = '';
+        image.className   = '';
 
         /** Add important first-level class ce_block */
         current.classList.add(cEditor.ui.BLOCK_CLASSNAME);
 
         if (type === 'stretched') {
 
+            image.classList.add(ceImage.elementClasses.uploadedImage.stretched);
             current.classList.add(ceImage.elementClasses.stretch);
 
+        } else if (type === 'centered') {
+
+            image.classList.add(ceImage.elementClasses.uploadedImage.centered);
+            
         }
     },
 
@@ -118,8 +125,7 @@ var ceImage = {
     save : function ( block ) {
 
         var data    = block[0],
-            image   = data.querySelector('.' + ceImage.elementClasses.uploadedImage.centered) ||
-                      data.querySelector('.' + ceImage.elementClasses.uploadedImage.stretched),
+            image   = ceImage.ui.getImage(data),
             caption = data.querySelector('.' + ceImage.elementClasses.imageCaption);
 
         var json = {
@@ -269,6 +275,17 @@ ceImage.ui = {
     },
 
     /**
+    * @param {HTML} data - Rendered block with image
+    */
+    getImage : function(data) {
+
+        var image = data.querySelector('.' + ceImage.elementClasses.uploadedImage.centered) ||
+                    data.querySelector('.' + ceImage.elementClasses.uploadedImage.stretched);
+
+        return image;
+    },
+
+    /**
     * wraps image and caption
     * @deprecated
     * @param {object} data - image information
@@ -360,7 +377,7 @@ ceImage.photoUploadingCallbacks = {
 
     /** Error callback. Sends notification to user that something happend or plugin doesn't supports method */
     error : function(result) {
-        console.log('Choosen file is not image or image is corrupted');
+        console.log('Choosen file is not an image or image is corrupted');
         cEditor.notifications.errorThrown();
     },
 

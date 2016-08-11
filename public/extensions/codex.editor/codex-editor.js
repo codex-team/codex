@@ -1013,6 +1013,12 @@ cEditor.content = {
         var selection = window.getSelection(),
             focused;
 
+        /**
+        * getSelection doesn't work with image
+        * it returns null when an image is clicked.
+        * @todo figure out
+        */
+
         if (selection.anchorNode === null) {
             return null;
         }
