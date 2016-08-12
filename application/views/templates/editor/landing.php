@@ -183,7 +183,7 @@ INPUT.items = [
         data : {
             background : false,
             border : false,
-            isStrech : false,
+            isStretch : false,
             file : {
                 url:  'https://ifmo.su/public/img/meta_img.png',
                 bigUrl : null,
