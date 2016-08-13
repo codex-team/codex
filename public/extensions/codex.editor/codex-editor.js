@@ -245,9 +245,9 @@ cEditor.renderer = {
             .then(function(blockData){
 
                 /**
-                * blockData has 'block' and 'type' information
+                * blockData has 'block', 'type' and 'stretched' information
                 */
-                cEditor.content.insertBlock(blockData.block, blockData.type);
+                cEditor.content.insertBlock(blockData.block, blockData.type, blockData.stretched);
 
                 /** Pass created block to next step */
                 return blockData.block;
@@ -313,10 +313,14 @@ cEditor.renderer = {
         /** Fire the render method with data */
         // var block = cEditor.tools[pluginName].render(blockData[pluginName]);
 
+        /** stretched first-level block */
+        var stretched = cEditor.tools[pluginName].isStretched || false;
+
         /** Retrun type and block */
         return {
-            type  : pluginName,
-            block : block
+            type      : pluginName,
+            block     : block,
+            stretched : stretched
         };
 
     },
@@ -421,6 +425,11 @@ cEditor.saver = {
 */
 
 cEditor.ui = {
+
+    /**
+    * @const {String} BLOCK_STRETCHED - makes block stretched
+    */
+    BLOCK_STRETCHED : 'ce_block--stretched',
 
     /**
     * @const {string} BLOCK_CLASSNAME - redactor blocks name
@@ -1114,11 +1123,11 @@ cEditor.content = {
     * Wrapps block into a DIV with BLOCK_CLASSNAME class
     * @protected
     */
-    insertBlock : function(newBlockContent, blockType) {
+    insertBlock : function(newBlockContent, blockType, isStretched) {
 
         var workingBlock = cEditor.content.currentNode;
 
-        var newBlock = cEditor.content.composeNewBlock(newBlockContent, blockType);
+        var newBlock = cEditor.content.composeNewBlock(newBlockContent, blockType, isStretched);
 
         if (workingBlock) {
 
@@ -1256,11 +1265,15 @@ cEditor.content = {
     /**
     * @private
     */
-    composeNewBlock : function (block, blockType) {
+    composeNewBlock : function (block, blockType, isStretched) {
 
         newBlock = cEditor.draw.block('DIV');
 
         newBlock.classList.add(cEditor.ui.BLOCK_CLASSNAME);
+
+        if (isStretched) {
+            newBlock.classList.add(cEditor.ui.BLOCK_STRETCHED);
+        }
         newBlock.dataset.type = blockType;
 
         newBlock.appendChild(block);
