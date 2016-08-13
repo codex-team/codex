@@ -111,14 +111,14 @@ var ceImage = {
             current.classList.add(ceImage.elementClasses.stretch);
 
             /** Setting dataset for saver */
-            wrapper.dataset.stretched = "true";
+            wrapper.dataset.stretched = true;
 
         } else if (type === 'centered') {
 
             image.classList.add(ceImage.elementClasses.uploadedImage.centered);
 
             /** Setting dataset for saver */
-            wrapper.dataset.stretched = "false";
+            wrapper.dataset.stretched = false;
         }
     },
 

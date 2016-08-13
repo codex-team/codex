@@ -247,7 +247,7 @@ cEditor.renderer = {
                 /**
                 * blockData has 'block', 'type' and 'stretched' information
                 */
-                cEditor.content.insertBlock(blockData.block, blockData.type, blockData.stretched);
+                cEditor.content.insertBlock(blockData);
 
                 /** Pass created block to next step */
                 return blockData.block;
@@ -313,7 +313,7 @@ cEditor.renderer = {
         /** Fire the render method with data */
         // var block = cEditor.tools[pluginName].render(blockData[pluginName]);
 
-        /** stretched first-level block */
+        /** is first-level block stretched */
         var stretched = cEditor.tools[pluginName].isStretched || false;
 
         /** Retrun type and block */
@@ -1124,9 +1124,12 @@ cEditor.content = {
     * Wrapps block into a DIV with BLOCK_CLASSNAME class
     * @protected
     */
-    insertBlock : function(newBlockContent, blockType, isStretched) {
+    insertBlock : function(blockData) {
 
-        var workingBlock = cEditor.content.currentNode;
+        var workingBlock    = cEditor.content.currentNode,
+            newBlockContent = blockData.block,
+            blockType       = blockData.type,
+            isStretched     = blockData.stretched;
 
         var newBlock = cEditor.content.composeNewBlock(newBlockContent, blockType, isStretched);
 
