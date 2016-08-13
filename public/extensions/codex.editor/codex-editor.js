@@ -1022,6 +1022,7 @@ cEditor.content = {
         var selection = window.getSelection(),
             focused;
 
+
         /**
         * getSelection doesn't work with image
         * it returns null when an image is clicked.
