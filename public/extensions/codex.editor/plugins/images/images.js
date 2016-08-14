@@ -11,7 +11,7 @@ var ceImage = {
                 centered  : 'ce-plugin-image__uploaded--centered',
                 stretched : 'ce-plugin-image__uploaded--stretched',
         },
-        stretch       : 'ce-plugin-image__firstlevel--stretch',
+        stretch       : 'ce_block--stretched',
         imageCaption  : 'ce-plugin-image__caption',
         imageWrapper  : 'ce-plugin-image__wrapper',
         formHolder    : 'ce-plugin-image__holder',
@@ -95,7 +95,8 @@ var ceImage = {
     selectTypeClicked : function(type) {
 
         var current = cEditor.content.currentNode,
-            image   = ceImage.ui.getImage(current);
+            image   = ceImage.ui.getImage(current),
+            wrapper = current.querySelector('.' + ceImage.elementClasses.imageWrapper);
 
         /** Clear classList */
         current.className = '';
@@ -109,10 +110,15 @@ var ceImage = {
             image.classList.add(ceImage.elementClasses.uploadedImage.stretched);
             current.classList.add(ceImage.elementClasses.stretch);
 
+            /** Setting dataset for saver */
+            wrapper.dataset.stretched = true;
+
         } else if (type === 'centered') {
 
             image.classList.add(ceImage.elementClasses.uploadedImage.centered);
-            
+
+            /** Setting dataset for saver */
+            wrapper.dataset.stretched = false;
         }
     },
 
@@ -394,6 +400,7 @@ cEditor.tools.image = {
     make           : ceImage.make,
     settings       : ceImage.makeSettings(),
     render         : ceImage.render,
-    save           : ceImage.save
+    save           : ceImage.save,
+    isStretched    : true
 
 };

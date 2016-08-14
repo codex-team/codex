@@ -245,9 +245,9 @@ cEditor.renderer = {
             .then(function(blockData){
 
                 /**
-                * blockData has 'block' and 'type' information
+                * blockData has 'block', 'type' and 'stretched' information
                 */
-                cEditor.content.insertBlock(blockData.block, blockData.type);
+                cEditor.content.insertBlock(blockData);
 
                 /** Pass created block to next step */
                 return blockData.block;
@@ -313,10 +313,14 @@ cEditor.renderer = {
         /** Fire the render method with data */
         // var block = cEditor.tools[pluginName].render(blockData[pluginName]);
 
+        /** is first-level block stretched */
+        var stretched = cEditor.tools[pluginName].isStretched || false;
+
         /** Retrun type and block */
         return {
-            type  : pluginName,
-            block : block
+            type      : pluginName,
+            block     : block,
+            stretched : stretched
         };
 
     },
@@ -421,6 +425,11 @@ cEditor.saver = {
 */
 
 cEditor.ui = {
+
+    /**
+    * @const {String} BLOCK_STRETCHED - makes block stretched
+    */
+    BLOCK_STRETCHED : 'ce_block--stretched',
 
     /**
     * @const {string} BLOCK_CLASSNAME - redactor blocks name
@@ -1013,6 +1022,7 @@ cEditor.content = {
         var selection = window.getSelection(),
             focused;
 
+
         /**
         * getSelection doesn't work with image
         * it returns null when an image is clicked.
@@ -1114,11 +1124,14 @@ cEditor.content = {
     * Wrapps block into a DIV with BLOCK_CLASSNAME class
     * @protected
     */
-    insertBlock : function(newBlockContent, blockType) {
+    insertBlock : function(blockData) {
 
-        var workingBlock = cEditor.content.currentNode;
+        var workingBlock    = cEditor.content.currentNode,
+            newBlockContent = blockData.block,
+            blockType       = blockData.type,
+            isStretched     = blockData.stretched;
 
-        var newBlock = cEditor.content.composeNewBlock(newBlockContent, blockType);
+        var newBlock = cEditor.content.composeNewBlock(newBlockContent, blockType, isStretched);
 
         if (workingBlock) {
 
@@ -1256,11 +1269,15 @@ cEditor.content = {
     /**
     * @private
     */
-    composeNewBlock : function (block, blockType) {
+    composeNewBlock : function (block, blockType, isStretched) {
 
         newBlock = cEditor.draw.block('DIV');
 
         newBlock.classList.add(cEditor.ui.BLOCK_CLASSNAME);
+
+        if (isStretched) {
+            newBlock.classList.add(cEditor.ui.BLOCK_STRETCHED);
+        }
         newBlock.dataset.type = blockType;
 
         newBlock.appendChild(block);

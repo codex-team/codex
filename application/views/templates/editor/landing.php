@@ -30,6 +30,12 @@
         .editor_workout [contenteditable]{
             outline: none !important;
         }
+
+        .ce_block--stretched {
+            margin: 0 !important;
+            max-width: none !important;
+        }
+
     .editor_workout h2,
     .editor_workout h3,
     .editor_workout h4{
@@ -183,7 +189,7 @@ INPUT.items = [
         data : {
             background : false,
             border : false,
-            isStretch : false,
+            isStretch : true,
             file : {
                 url:  'https://ifmo.su/public/img/meta_img.png',
                 bigUrl : null,
