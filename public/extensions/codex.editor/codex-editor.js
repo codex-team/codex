@@ -1122,7 +1122,7 @@ cEditor.content = {
     /**
     * Inserts new block to redactor
     * Wrapps block into a DIV with BLOCK_CLASSNAME class
-    * @protected
+    * @private
     */
     insertBlock : function(blockData) {
 
@@ -1522,10 +1522,18 @@ cEditor.toolbar = {
             tool             = cEditor.tools[cEditor.toolbar.current],
             workingNode      = cEditor.content.currentNode,
             appendCallback,
-            newBlockContent;
+            newBlockContent,
+            blockData;
 
         /** Make block from plugin */
         newBlockContent = tool.make();
+
+        /** information about block */
+        blockData = {
+            block     : newBlockContent,
+            type      : tool.type,
+            stretched : false
+        };
 
         /** Can replace? */
         if (REPLACEBLE_TOOLS.indexOf(tool.type) != -1 && workingNode) {
@@ -1537,7 +1545,7 @@ cEditor.toolbar = {
         } else {
 
             /** Insert new Block from plugin */
-            cEditor.content.insertBlock(newBlockContent, tool.type);
+            cEditor.content.insertBlock(blockData);
 
         }
 
