@@ -717,21 +717,19 @@ cEditor.callback = {
 
     redactorClicked : function (event) {
 
-        if ( cEditor.parser.isFirstLevelBlock(event.target) ) {
+        cEditor.content.workingNodeChanged(event.target);
 
-            /** If clicked on editor first-level block, set event target*/
-            cEditor.content.workingNodeChanged(event.target);
+        if (cEditor.content.currentNode === null) {
+
+            return;
 
         } else {
 
-            /** Otherwise get current node from selection */
-            cEditor.content.workingNodeChanged();
+            cEditor.toolbar.move();
+
+            cEditor.toolbar.open();
+            cEditor.toolbar.settings.close();
         }
-
-        cEditor.toolbar.move();
-
-        cEditor.toolbar.open();
-        cEditor.toolbar.settings.close();
 
     },
 
@@ -1053,17 +1051,13 @@ cEditor.content = {
 
     },
 
+    /**
+    * @deprecated
+    */
     getNodeFocused : function() {
 
         var selection = window.getSelection(),
             focused;
-
-
-        /**
-        * getSelection doesn't work with image
-        * it returns null when an image is clicked.
-        * @todo figure out
-        */
 
         if (selection.anchorNode === null) {
             return null;
@@ -1096,17 +1090,39 @@ cEditor.content = {
     },
 
     /**
-    * Trigger this event when working node changed
+    * Finds first-level block
+    * @param {Element} node - selected or clicked in redactors area node
     */
-    workingNodeChanged : function (setCurrent) {
+    getFirstLevelBlock : function(node) {
 
-        var nodeWithSelection = this.getNodeFocused();
+        if (node === cEditor.nodes.redactor) {
 
-        if (!setCurrent && !nodeWithSelection) {
+            return null;
+
+        } else {
+
+            while(!node.classList.contains(cEditor.ui.BLOCK_CLASSNAME)) {
+                node = node.parentNode;
+            }
+
+            return node;
+        }
+
+
+    },
+
+    /**
+    * Trigger this event when working node changed
+    * @param {Element} targetNode - first-level of this node will be current
+    * If targetNode is first-level then we set it as current else we look for parents to find first-level
+    */
+    workingNodeChanged : function (targetNode) {
+
+        if (!targetNode) {
             return;
         }
 
-        this.currentNode = setCurrent || nodeWithSelection;
+        this.currentNode = this.getFirstLevelBlock(targetNode);
 
     },
 
