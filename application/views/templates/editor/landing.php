@@ -382,7 +382,7 @@ INPUT.items = [
 ];
 
 /**
-* Empty redactor preivew
+* Empty redactor preview
 */
 INPUT.items = [];
 

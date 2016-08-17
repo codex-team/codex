@@ -185,7 +185,7 @@ cEditor.renderer = {
         */
         if (!cEditor.state.blocks.length) {
 
-            cEditor.ui.addFirstParagraph();
+            cEditor.ui.addInitialBlock();
             return;
 
         }
@@ -614,26 +614,26 @@ cEditor.ui = {
     },
 
     /**
-    * Adds first paragraph on empty redactor
+    * Adds first initial block on empty redactor
     */
-    addFirstParagraph : function(){
+    addInitialBlock : function(){
 
-        var firstBlockType = cEditor.settings.initialBlockPlugin,
-            firstBlock;
+        var initialBlockType = cEditor.settings.initialBlockPlugin,
+            initialBlock;
 
-        if ( !cEditor.tools[firstBlockType] ){
-            cEditor.core.log('Plugin %o was not implemented and can\'t be used as initial block', 'warn', firstBlockType);
+        if ( !cEditor.tools[initialBlockType] ){
+            cEditor.core.log('Plugin %o was not implemented and can\'t be used as initial block', 'warn', initialBlockType);
             return;
         }
 
-        firstBlock = cEditor.tools[firstBlockType].render();
+        initialBlock = cEditor.tools[initialBlockType].render();
 
         cEditor.content.insertBlock({
-            type  : firstBlockType,
-            block : firstBlock
+            type  : initialBlockType,
+            block : initialBlock
         });
 
-        cEditor.content.workingNodeChanged(firstBlock);
+        cEditor.content.workingNodeChanged(initialBlock);
 
     }
 
