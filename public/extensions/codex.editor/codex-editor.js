@@ -1055,7 +1055,7 @@ cEditor.content = {
 
     /**
     * Finds first-level block
-    * @param {Element} node - selected or cliced in redactors area node
+    * @param {Element} node - selected or clicked in redactors area node
     */
     getFirstLevelBlock : function(node) {
 
@@ -1077,14 +1077,15 @@ cEditor.content = {
 
     /**
     * Trigger this event when working node changed
+    * @param {Element} setToNode - first-level of this node will be current
     */
-    workingNodeChanged : function (setCurrent) {
+    workingNodeChanged : function (setToNode) {
 
-        if (!setCurrent) {
+        if (!setToNode) {
             return;
         }
 
-        this.currentNode = this.getFirstLevelBlock(setCurrent);
+        this.currentNode = this.getFirstLevelBlock(setToNode);
 
     },
 
