@@ -1,0 +1,12 @@
+/**
+* Empty paragraph placeholder
+*/
+.ce-paragraph:empty::before{
+    content : 'Write your story...';
+    color: #818BA1;
+    opacity: .7;
+    transition: opacity 200ms ease;
+}
+.ce-paragraph:focus::before{
+	opacity: .1;
+}

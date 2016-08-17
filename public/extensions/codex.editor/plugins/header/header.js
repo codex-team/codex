@@ -34,6 +34,7 @@ var headerTool = {
             tag.textContent = data.text;
         }
 
+        tag.classList.add('ce-header');
         tag.contentEditable = true;
 
         return tag;
