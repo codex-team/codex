@@ -1114,8 +1114,7 @@ cEditor.content = {
     /**
     * Trigger this event when working node changed
     * @param {Element} targetNode - first-level of this node will be current
-    * If targetNode is first-level then we set it as current else we look for parents
-    * to find first-level
+    * If targetNode is first-level then we set it as current else we look for parents to find first-level
     */
     workingNodeChanged : function (targetNode) {
 
