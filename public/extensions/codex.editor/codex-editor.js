@@ -13,7 +13,10 @@ var cEditor = (function (cEditor) {
 
         // First-level tags viewing as separated blocks. Other'll be inserted as child
         blockTags: ['P', 'BLOCKQUOTE', 'UL', 'CODE', 'OL', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6'],
-        uploadImagesUrl: '/editor/transport/'
+        uploadImagesUrl: '/editor/transport/',
+
+        // Type of block showing on empty editor
+        initialBlockPlugin : "paragraph"
     };
 
     // Static nodes
@@ -177,6 +180,15 @@ cEditor.renderer = {
     */
     makeBlocksFromData : function () {
 
+        /**
+        * If redactor is empty, add first paragraph to start writing
+        */
+        if (!cEditor.state.blocks.length) {
+
+            cEditor.ui.addInitialBlock();
+            return;
+
+        }
 
         Promise.resolve()
 
@@ -598,6 +610,30 @@ cEditor.ui = {
             cEditor.state.inputs = redactor.querySelectorAll('[contenteditable]');
 
         }, 10);
+
+    },
+
+    /**
+    * Adds first initial block on empty redactor
+    */
+    addInitialBlock : function(){
+
+        var initialBlockType = cEditor.settings.initialBlockPlugin,
+            initialBlock;
+
+        if ( !cEditor.tools[initialBlockType] ){
+            cEditor.core.log('Plugin %o was not implemented and can\'t be used as initial block', 'warn', initialBlockType);
+            return;
+        }
+
+        initialBlock = cEditor.tools[initialBlockType].render();
+
+        cEditor.content.insertBlock({
+            type  : initialBlockType,
+            block : initialBlock
+        });
+
+        cEditor.content.workingNodeChanged(initialBlock);
 
     }
 
@@ -1432,7 +1468,7 @@ cEditor.toolbar = {
     */
     defaultToolbarHeight : 43,
 
-    defaultOffset : 10,
+    defaultOffset : 20,
 
     opened : false,
 

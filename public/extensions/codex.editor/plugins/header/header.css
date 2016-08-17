@@ -17,3 +17,17 @@
         border-bottom-color: #687da5;
         color: #8da8dc;
     }
+
+
+/**
+* Empty header placeholder
+*/
+.ce-header:empty::before{
+    content : 'This part\'s purpose';
+    color: #818BA1;
+    opacity: .7;
+    transition: opacity 200ms ease;
+}
+.ce-header:focus::before{
+    opacity: .1;
+}
