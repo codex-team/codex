@@ -1077,15 +1077,15 @@ cEditor.content = {
 
     /**
     * Trigger this event when working node changed
-    * @param {Element} setToNode - first-level of this node will be current
+    * @param {Element} targetNode - first-level of this node will be current
     */
-    workingNodeChanged : function (setToNode) {
+    workingNodeChanged : function (targetNode) {
 
-        if (!setToNode) {
+        if (!targetNode) {
             return;
         }
 
-        this.currentNode = this.getFirstLevelBlock(setToNode);
+        this.currentNode = this.getFirstLevelBlock(targetNode);
 
     },
 
