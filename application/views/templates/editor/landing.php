@@ -378,133 +378,13 @@ INPUT.items = [
             text : "…but also tell the user if something went wrong along the way. We'll want to stop the spinner at that point too, else it'll keep on spinning, get dizzy, and crash into some other UI. Of course, you wouldn't use JavaScript to deliver a story, serving as HTML is faster, but this pattern is pretty common when dealing with APIs: Multiple data fetches, then do something when it's all done.",
         }
     },
-    // {
-    //     type : 'header',
-    //     data : {
-    //         type : 'H2',
-    //         text : "Queuing asynchronous actions",
-    //     }
-    // },
-    // {
-    //     type : 'paragraph',
-    //     data : {
-    //         text : "You can also chain 'thens' to run async actions in sequence.When you return something from a 'then' callback, it's a bit magic. If you return a value, the next 'then' is called with that value. However, if you return something promise-like, the next 'then' waits on it, and is only called when that promise settles (succeeds/fails). For example:",
-    //     }
-    // },
-    // {
-    //     type : 'quote',
-    //     data : {
-    //         type : 'simple',
-    //         text  : "This is the first time we've seen Promise.resolve, which creates a promise that resolves to whatever value you give it. If you pass it an instance of Promise it'll simply return it (note: this is a change to the spec that some implementations don't yet follow). If you pass it something promise-like (has a 'then' method), it creates a genuine Promise that fulfills/rejects in the same way. If you pass in any other value, eg Promise.resolve('Hello'), it creates a promise that fulfills with that value. If you call it with no value, as above, it fulfills with 'ndefined'",
-    //     }
-    // },
-    // {
-    //     type : 'paragraph',
-    //     data : {
-    //         text : "There's also Promise.reject(val), which creates a promise that rejects with the value you give it (or undefined). We can tidy up the above code using array.reduce:",
-    //     }
-    // },
-    // {
-    //     type : 'header',
-    //     data : {
-    //         type : 'H2',
-    //         text : "Promise API Reference",
-    //     }
-    // },
-    // {
-    //     type : 'paragraph',
-    //     data : {
-    //         text : "All methods work in Chrome, Opera, Firefox, Microsoft Edge, and Safari unless otherwise noted. The polyfill provides the below for all browers.",
-    //     }
-    // },
-    // {
-    //     type : 'header',
-    //     data : {
-    //         type : 'H2',
-    //         text : "Static Methods",
-    //     }
-    // },
-    // {
-    //     type : 'header',
-    //     data : {
-    //         type : 'H3',
-    //         text : 'Promise.resolve(promise);',
-    //     }
-    // },
-    // {
-    //     type : 'paragraph',
-    //     data : {
-    //         text : "Returns promise (only if promise.constructor == Promise)",
-    //     }
-    // },
-    // {
-    //     type : 'header',
-    //     data : {
-    //         type : 'H3',
-    //         text : 'Promise.resolve(thenable);',
-    //     }
-    // },
-    // {
-    //     type : 'paragraph',
-    //     data : {
-    //         text : "Make a new promise from the thenable. A thenable is promise-like in as far as it has a 'then' method.",
-    //     }
-    // },
-    // {
-    //     type : 'header',
-    //     data : {
-    //         type : 'H3',
-    //         text : 'Promise.resolve(obj);',
-    //     }
-    // },
-    // {
-    //     type : 'paragraph',
-    //     data : {
-    //         text : "Make a promise that fulfills to obj. in this situation.",
-    //     }
-    // },
-    // {
-    //     type : 'header',
-    //     data : {
-    //         type : 'H3',
-    //         text : 'Promise.all(array);',
-    //     }
-    // },
-    // {
-    //     type : 'paragraph',
-    //     data : {
-    //         text : "Make a promise that rejects to obj. For consistency and debugging (e.g. stack traces), obj should be an instanceof Error.",
-    //     }
-    // },
-    // {
-    //     type : 'header',
-    //     data : {
-    //         type : 'H3',
-    //         text : 'Promise.race(array);',
-    //     }
-    // },
-    // {
-    //     type : 'paragraph',
-    //     data : {
-    //         text : "Make a Promise that fulfills as soon as any item fulfills, or rejects as soon as any item rejects, whichever happens first.",
-    //     }
-    // },
-    // {
-    //     type : 'header',
-    //     data : {
-    //         type : 'H2',
-    //         text : 'Conclution',
-    //     }
-    // },
-    // {
-    //     type : 'paragraph',
-    //     data : {
-    //         text : "promise.then(onFulfilled, onRejected)'onFulfilled is called when/if 'promise' resolves. onRejected is called when/if 'promise' rejects. Both are optional, if either/both are omitted the next <b>onFulfilled/onRejected</b> in the chain is called. Both callbacks have a single parameter, the fulfillment value or rejection reason. 'then' returns a new promise equivalent to the value you return from <b>onFulfilled/onRejected</b> after being passed through Promise.resolve. If an error is thrown in the callback, the returned promise rejects with that <b>error.promise.catch(onRejected)</b> Sugar for promise.then(undefined, onRejected). Many thanks to Anne van Kesteren, Domenic Denicola, Tom Ashworth, Remy Sharp, Addy Osmani, Arthur Evans, and Yutaka Hirano who proofread this and made <b>corrections/recommendations</b>. Also, thanks to Mathias Bynens for updating various parts of the article.",
-    //     }
-    // }
 
 ];
 
+/**
+* Empty redactor preview
+*/
+INPUT.items = [];
 
     function ready(f){
         /in/.test(document.readyState) ? setTimeout(ready,9,f) : f();

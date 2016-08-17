@@ -13,6 +13,8 @@ var paragraphTool = {
 
         var tag = document.createElement('DIV');
 
+        tag.classList.add('ce-paragraph');
+
         if (data && data.text) {
             tag.innerHTML = data.text;
         }
