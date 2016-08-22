@@ -569,11 +569,7 @@ cEditor.ui = {
         }, false );
 
         /** All Clicks to Remove tool in toolbar */
-        cEditor.nodes.removeBlockButton.addEventListener('click', function(event) {
-
-            cEditor.callback.removeBlock(event)
-
-        }, false);
+        cEditor.nodes.removeBlockButton.addEventListener('click', cEditor.callback.removeBlock, false);
 
         /**
          *  @deprecated;

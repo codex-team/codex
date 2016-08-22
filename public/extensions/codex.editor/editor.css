@@ -114,6 +114,7 @@
         background: #34384a;
         color: #ff5c59;
         cursor: pointer;
+        border-radius: 3px 0 0 3px;
     }
 
     .ce_toolbar .toggler,
