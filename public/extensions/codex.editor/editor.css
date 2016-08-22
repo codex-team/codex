@@ -112,6 +112,7 @@
 
     .ce_toolbar .trash-toggler {
         background: #34384a;
+        color: #ff5c59;
         cursor: pointer;
     }
 
@@ -133,12 +134,15 @@
             color: #85aeff;
         }
         .ce_toolbar .trash-toggler:hover {
-            background: #d93c3c;
+            background: #FF5959;
             color: #fff;
         }
         .trash-active {
-            background: #d93c3c !important;
+            background: #FD4E4E !important;
             color: #fff !important;
+        }
+        .trash-active:hover {
+            background: #E22C2C !important;
         }
 
         .ce_toolbar .remove_btn {

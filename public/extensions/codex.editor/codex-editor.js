@@ -784,7 +784,8 @@ cEditor.callback = {
     removeBlock : function(event) {
 
         var current             = cEditor.content.currentNode,
-            removeBlockButton   = cEditor.nodes.removeBlockButton;
+            removeBlockButton   = cEditor.nodes.removeBlockButton,
+            firstLevelBlocks;
 
         /**
         * If block doesn't have 'removing-request' class then we add it
@@ -800,6 +801,20 @@ cEditor.callback = {
 
             /** If block has 'removing-request' class then remove this block from DOM tree */
             current.remove();
+
+            firstLevelBlocks = cEditor.nodes.redactor.childNodes.length;
+
+            /**
+            * If all blocks are removed
+            */
+            if (firstLevelBlocks === 0) {
+
+                /** update currentNode variable */
+                cEditor.content.currentNode = null;
+
+                /** Inserting new empty initial block */
+                cEditor.ui.addInitialBlock();
+            }
 
             /** Close toolbar */
             cEditor.toolbar.close();
