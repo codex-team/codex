@@ -25,6 +25,7 @@ var cEditor = (function (cEditor) {
         wrapper  : null,
         toolbar  : null,
         notifications      : null,
+        removeBlockButton  : null,
         showSettingsButton : null,
         blockSettings      : null,
         toolbarButtons     : {}, // { type : DomEl, ... }
@@ -459,7 +460,8 @@ cEditor.ui = {
             redactor,
             notifications,
             blockSettings,
-            showSettingsButton;
+            showSettingsButton,
+            showRemoveBlockButton;
 
         /** Make editor wrapper */
         wrapper = cEditor.draw.wrapper();
@@ -468,15 +470,17 @@ cEditor.ui = {
         cEditor.core.insertAfter(cEditor.nodes.textarea, wrapper);
 
         /** Append block with notifications to the document */
-        notifications      = cEditor.draw.alertsHolder();
+        notifications = cEditor.draw.alertsHolder();
         cEditor.nodes.notifications = document.body.appendChild(notifications);
 
         /** Make toolbar and content-editable redactor */
-        toolbar            = cEditor.draw.toolbar();
-        showSettingsButton = cEditor.draw.settingsButton();
-        blockSettings      = cEditor.draw.blockSettings();
-        redactor           = cEditor.draw.redactor();
+        toolbar                 = cEditor.draw.toolbar();
+        showRemoveBlockButton   = cEditor.draw.removeBlockButton();
+        showSettingsButton      = cEditor.draw.settingsButton();
+        blockSettings           = cEditor.draw.blockSettings();
+        redactor                = cEditor.draw.redactor();
 
+        toolbar.appendChild(showRemoveBlockButton);
         toolbar.appendChild(showSettingsButton);
         toolbar.appendChild(blockSettings);
 
@@ -486,8 +490,9 @@ cEditor.ui = {
         /** Save created ui-elements to static nodes state */
         cEditor.nodes.wrapper  = wrapper;
         cEditor.nodes.toolbar  = toolbar;
+        cEditor.nodes.removeBlockButton   = showRemoveBlockButton;
         cEditor.nodes.blockSettings       = blockSettings;
-        cEditor.nodes.showSettingsButton = showSettingsButton;
+        cEditor.nodes.showSettingsButton  = showSettingsButton;
 
         cEditor.nodes.redactor = redactor;
 
@@ -562,6 +567,9 @@ cEditor.ui = {
             cEditor.callback.showSettingsButtonClicked(event);
 
         }, false );
+
+        /** All Clicks to Remove tool in toolbar */
+        cEditor.nodes.removeBlockButton.addEventListener('click', cEditor.callback.removeBlock, false);
 
         /**
          *  @deprecated;
@@ -763,6 +771,51 @@ cEditor.callback = {
             cEditor.content.sync();
 
         }, 500);
+
+    },
+
+    /**
+    * Sets block to removed state or if block's state is removed function deletes it from stream (DOM tree)
+    */
+    removeBlock : function(event) {
+
+        var current             = cEditor.content.currentNode,
+            removeBlockButton   = cEditor.nodes.removeBlockButton,
+            firstLevelBlocksCount;
+
+        /**
+        * If block doesn't have 'removing-request' class then we add it
+        */
+        if (!current.classList.contains('removing-request')) {
+
+            current.classList.add('removing-request');
+
+            /** Make trash tool active */
+            removeBlockButton.classList.add('trash-active');
+
+        } else {
+
+            /** If block has 'removing-request' class then remove this block from DOM tree */
+            current.remove();
+
+            firstLevelBlocksCount = cEditor.nodes.redactor.childNodes.length;
+
+            /**
+            * If all blocks are removed
+            */
+            if (firstLevelBlocksCount === 0) {
+
+                /** update currentNode variable */
+                cEditor.content.currentNode = null;
+
+                /** Inserting new empty initial block */
+                cEditor.ui.addInitialBlock();
+            }
+
+            /** Close toolbar */
+            cEditor.toolbar.close();
+
+        }
 
     },
 
@@ -977,14 +1030,31 @@ cEditor.callback = {
 
     backspacePressed: function (block) {
 
-        cEditor.ui.saveInputs();
-
-        if (block.textContent.trim()) return;
+        if (block.textContent.trim()) {
+            return;
+        }
 
         block.remove();
 
+        var firstLevelBlocksCount = cEditor.nodes.redactor.childNodes.length;
+
+        /**
+        * If all blocks are removed
+        */
+        if (firstLevelBlocksCount === 0) {
+
+            /** update currentNode variable */
+            cEditor.content.currentNode = null;
+
+            /** Inserting new empty initial block */
+            cEditor.ui.addInitialBlock();
+        }
+
         cEditor.toolbar.close();
         cEditor.toolbar.move();
+
+        /** Updating inputs state */
+        cEditor.ui.saveInputs();
 
         event.preventDefault();
 
@@ -1494,6 +1564,16 @@ cEditor.toolbar = {
     * @protected
     */
     open : function (){
+
+        var current             = cEditor.content.currentNode,
+            removeBlockButton   = cEditor.nodes.removeBlockButton;
+
+        /** Set trash state before we open the block */
+        if (current.classList.contains('removing-request')) {
+            removeBlockButton.classList.add('trash-active');
+        } else {
+            removeBlockButton.classList.remove('trash-active');
+        }
 
         if (this.opened) {
             return;
@@ -2071,6 +2151,18 @@ cEditor.draw = {
         settings.className += 'ce_block_settings';
 
         return settings;
+    },
+
+    removeBlockButton : function() {
+
+        var toggler = document.createElement('span');
+
+        toggler.className = 'trash-toggler';
+
+        toggler.innerHTML = '<i class="remove_btn ce-icon-trash"></i>';
+
+        return toggler;
+
     },
 
     /**

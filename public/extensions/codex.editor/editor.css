@@ -107,9 +107,17 @@
         /*color: #6485d0;*/
         color: #05ff9b;
         cursor: pointer;
-        border-radius: 3px 0 0 3px
+        /*border-radius: 3px 0 0 3px*/
     }
+
+    .ce_toolbar .trash-toggler {
+        background: #34384a;
+        cursor: pointer;
+        border-radius: 3px 0 0 3px;
+    }
+
     .ce_toolbar .toggler,
+    .ce_toolbar .trash-toggler,
     .ce_toolbar li
     {
         display: inline-block;
@@ -125,8 +133,24 @@
             background: #36374e;
             color: #85aeff;
         }
+        .ce_toolbar .trash-toggler:hover {
+            color: #ff5c59;
+        }
+        .trash-active {
+            background: #FF5959 !important;
+            color: #fff !important;
+        }
+        .trash-active:hover {
+            background: #E22C2C !important;
+        }
+        .removing-request {
+            opacity: .1;
+        }
+        .ce_toolbar .remove_btn {
+            font-size: 1.1em;
+        }
 
-        .ce_toolbar .settings_btn{
+        .ce_toolbar .settings_btn {
             font-size: 1.1em;
         }
 
@@ -212,7 +236,6 @@
     animation-name: bounceIn; animation-duration: 600ms; animation-iteration-count: 1;
 }
 */
-
 
 /** Alerts */
 .ce_notifications-block {
