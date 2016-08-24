@@ -1030,14 +1030,31 @@ cEditor.callback = {
 
     backspacePressed: function (block) {
 
-        cEditor.ui.saveInputs();
-
-        if (block.textContent.trim()) return;
+        if (block.textContent.trim()) {
+            return;
+        }
 
         block.remove();
 
+        var firstLevelBlocksCount = cEditor.nodes.redactor.childNodes.length;
+
+        /**
+        * If all blocks are removed
+        */
+        if (firstLevelBlocksCount === 0) {
+
+            /** update currentNode variable */
+            cEditor.content.currentNode = null;
+
+            /** Inserting new empty initial block */
+            cEditor.ui.addInitialBlock();
+        }
+
         cEditor.toolbar.close();
         cEditor.toolbar.move();
+
+        /** Updating inputs state */
+        cEditor.ui.saveInputs();
 
         event.preventDefault();
 

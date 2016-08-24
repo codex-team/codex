@@ -112,7 +112,6 @@
 
     .ce_toolbar .trash-toggler {
         background: #34384a;
-        color: #ff5c59;
         cursor: pointer;
         border-radius: 3px 0 0 3px;
     }
@@ -135,17 +134,18 @@
             color: #85aeff;
         }
         .ce_toolbar .trash-toggler:hover {
-            background: #FF5959;
-            color: #fff;
+            color: #ff5c59;
         }
         .trash-active {
-            background: #FD4E4E !important;
+            background: #FF5959 !important;
             color: #fff !important;
         }
         .trash-active:hover {
             background: #E22C2C !important;
         }
-
+        .removing-request {
+            opacity: .1;
+        }
         .ce_toolbar .remove_btn {
             font-size: 1.1em;
         }
@@ -236,11 +236,6 @@
     animation-name: bounceIn; animation-duration: 600ms; animation-iteration-count: 1;
 }
 */
-
-.removing-request {
-    opacity: .1;
-}
-
 
 /** Alerts */
 .ce_notifications-block {
