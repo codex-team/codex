@@ -1,6 +1,12 @@
 /**
 * Empty paragraph placeholder
 */
+
+.ce-paragraph {
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 0 !important;
+}
 .ce-paragraph:empty::before{
     content : 'Write your story...';
     color: #818BA1;

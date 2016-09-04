@@ -24,6 +24,8 @@ var listTool = {
         li.appendChild(br);
         tag.appendChild(li);
 
+        // tag.classList.add('ce-list');
+
         return tag;
 
     },
@@ -116,6 +118,7 @@ var listTool = {
 
         newEditable.dataset.type = blockType;
         newEditable.innerHTML = oldEditable.innerHTML;
+        // newEditable.classList.add('ce-list');
 
         currentBlock.appendChild(newEditable);
         oldEditable.remove();

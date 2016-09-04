@@ -153,6 +153,7 @@ var headerTool = {
 
         new_header.innerHTML = old_header.innerHTML;
         new_header.contentEditable = true;
+        new_header.classList.add('ce-header');
 
         cEditor.content.switchBlock(old_header, new_header, 'header');
 

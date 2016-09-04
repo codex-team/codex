@@ -1,3 +1,8 @@
+.ce-list {
+    max-width: 700px;
+    margin: 20px auto !important;
+}
+
 .ce_plugin_list--settings{
     white-space: nowrap;
 }

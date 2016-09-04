@@ -7,6 +7,8 @@
 var ceImage = {
 
     elementClasses : {
+
+        ce_image      : 'ce-image',
         uploadedImage : {
                 centered  : 'ce-plugin-image__uploaded--centered',
                 stretched : 'ce-plugin-image__uploaded--stretched',
@@ -28,7 +30,10 @@ var ceImage = {
         * If we can't find image or we've got some problems with image path, we show plugin uploader
         */
         if (!data || !data.file.url) {
+
             holder = ceImage.ui.formView();
+            holder.classList.add(ceImage.elementClasses.ce_image);
+
         } else {
 
             if ( !data.isStretch) {
