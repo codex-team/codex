@@ -1120,6 +1120,8 @@ cEditor.callback = {
             return;
         }
 
+        var currentInputIndex = cEditor.caret.getCurrentInputIndex();
+
         block.remove();
 
         var firstLevelBlocksCount = cEditor.nodes.redactor.childNodes.length;
@@ -1134,6 +1136,21 @@ cEditor.callback = {
 
             /** Inserting new empty initial block */
             cEditor.ui.addInitialBlock();
+
+            /** Updating inputs state after deleting last block */
+            cEditor.ui.saveInputs();
+
+            /** Set to current appended block */
+            setTimeout(function () {
+
+                cEditor.caret.setToPreviousBlock(1);
+
+            }, 10);
+
+        } else {
+
+            cEditor.caret.setToPreviousBlock(currentInputIndex);
+
         }
 
         cEditor.toolbar.close();
@@ -1141,6 +1158,7 @@ cEditor.callback = {
 
         /** Updating inputs state */
         cEditor.ui.saveInputs();
+
 
         event.preventDefault();
 
@@ -1597,8 +1615,6 @@ cEditor.caret = {
 
         var inputs = cEditor.state.inputs,
             nextInput = inputs[index + 1];
-
-        console.log(inputs.length);
 
         /**
         * When new Block created or deleted content of input
