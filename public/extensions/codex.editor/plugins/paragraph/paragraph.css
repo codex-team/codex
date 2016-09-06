@@ -8,7 +8,7 @@
     padding: 0 !important;
 }
 .ce-paragraph:empty::before{
-    content : 'Write your story...';
+    content : attr(data-placeholder);
     color: #818BA1;
     opacity: .7;
     transition: opacity 200ms ease;

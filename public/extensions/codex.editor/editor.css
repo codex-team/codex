@@ -90,7 +90,7 @@
     position: absolute;
 
     width: 100%;
-    margin-left: -1px;
+    margin-left: -4px;
 
     border-radius: 3px;
     color: #bab9d8;
@@ -116,17 +116,20 @@
 
 
     .ce_toolbar .toggler{
-        /*background: #f8f9fd;*/
-        background: #34384a;
+        /*background: #34384a;*/
+        background: #414758;
         color: #bab9d8;
-        /*color: #05ff9b;*/
+
         cursor: pointer;
         padding: 6px 8px 6px 13px;
-        border-radius: 50px;
+
+        border-top-left-radius: 50px;
+        border-bottom-left-radius: 50px;
     }
 
     .ce_toolbar .trash-toggler {
-        background: #34384a;
+        /*background: #34384a;*/
+        background: #414758;
         cursor: pointer;
         padding: 6px 13px 6px 8px;
         border-top-right-radius: 50px;
@@ -140,7 +143,7 @@
         display: inline-block;
         margin: 0 !important;
         cursor: pointer;
-        font-size: 13px;
+        font-size: 12px;
         vertical-align: middle;
     }
 
@@ -180,7 +183,7 @@
 /** Plus button */
 .ce_redactor_plusButton {
     position: absolute;
-    left: 6%;
+    left: 8%;
     margin-top: 8px;
 
     text-align: center;
@@ -204,7 +207,6 @@
 
     .ce_redactor_plusButton--clicked {
         transform: rotate(45deg);
-        background: #2b3e4c !important;
         color: rgb(156, 156, 156);
     }
 
@@ -212,12 +214,10 @@
 .ce_block_blockButtons {
 
     position: absolute;
-    right: 100px;
-
-    background: #34384a;
+    top: 6px;
+    right: 18px;
     border-radius: 50px;
 
-    /*border:2px solid red;*/
     z-index: 2;
 }
 
@@ -235,15 +235,24 @@
 
     border: 3px solid #fff;
     border-radius: 50px;
-
-    overflow: hidden;
 }
+
+    .ce_redactor_tools li {
+        line-height: 1em;
+        padding: 15px 10px;
+    }
 
     .ce_redactor_tools li:first-child{
         padding-left: 20px;
+
+        border-top-left-radius: 50px;
+        border-bottom-left-radius: 50px;
     }
     .ce_redactor_tools li:last-child {
         padding-right: 20px;
+
+        border-top-right-radius: 50px;
+        border-bottom-right-radius: 50px;
     }
 
 
@@ -254,20 +263,24 @@
 /** Block settings panel */
 .ce_block_settings {
     position: absolute;
-    right: -5px;
+    right: 0;
+    margin-top: 8px;
+
+    min-width: 320px;
+    text-align: center;
 
     z-index: 999;
-    padding: 20px 30px;
+    padding: 15px 25px;
 
-    background: #32384c !important;
+    background: #414758;
     color: #81839e;
 
     overflow: hidden;
 
-    border-radius: 3px;
+    border-radius: 50px;
     border: 3px solid #fff;
 
-    font-size: 14px;
+    font-size: 12px;
 
     display: none;
 }

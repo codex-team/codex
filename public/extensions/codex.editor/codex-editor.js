@@ -488,7 +488,9 @@ cEditor.ui = {
         toolbox                 = cEditor.draw.toolbox();
         redactor                = cEditor.draw.redactor();
 
-        /** Make blocks buttons */
+        /** Make blocks buttons
+        * This block contains settings button and remove block button
+        */
         blockButtons.appendChild(showSettingsButton);
         blockButtons.appendChild(blockSettings);
         blockButtons.appendChild(showRemoveBlockButton);
@@ -664,6 +666,8 @@ cEditor.ui = {
 
         initialBlock = cEditor.tools[initialBlockType].render();
 
+        initialBlock.setAttribute('data-placeholder', 'Write your story...');
+
         cEditor.content.insertBlock({
             type  : initialBlockType,
             block : initialBlock
@@ -711,25 +715,65 @@ cEditor.callback = {
         }
 
         event.preventDefault();
-
     },
 
+    /**
+    * ENTER key handler
+    * Makes new paragraph block
+    */
     enterKeyPressed : function(event){
 
         cEditor.content.workingNodeChanged();
 
-        var index = cEditor.caret.getCurrentInputIndex();
-        var isEnterPressedOnToolbar = cEditor.toolbar.opened &&
-                               cEditor.toolbar.current &&
-                               event.target == cEditor.state.inputs[index];
+        var currentInputIndex       = cEditor.caret.getCurrentInputIndex(),
+            isEnterPressedOnToolbar = cEditor.toolbar.opened &&
+                                      cEditor.toolbar.current &&
+                                      event.target == cEditor.state.inputs[currentInputIndex];
 
+        var NEW_BLOCK_TYPE = 'paragraph';
+
+        /**
+        * When toolbar is opened, select tool instead of making new paragraph
+        */
         if ( isEnterPressedOnToolbar ) {
+
             event.preventDefault();
 
             cEditor.toolbar.toolClicked(event);
             cEditor.toolbar.close();
 
+            return;
+
         }
+
+        /**
+        * Allow making new <p> in same block by SHIFT+ENTER
+        */
+        if ( event.shiftKey ){
+            return;
+        }
+
+        event.preventDefault();
+
+        /**
+        * Make new paragraph
+        */
+        cEditor.content.insertBlock({
+            type  : NEW_BLOCK_TYPE,
+            block : cEditor.tools[NEW_BLOCK_TYPE].render()
+        });
+
+        /** get all inputs after new appending block */
+        cEditor.ui.saveInputs();
+
+        setTimeout(function () {
+
+            /** Setting to the new input */
+            cEditor.caret.setToNextBlock(currentInputIndex);
+
+            cEditor.toolbar.move();
+
+        }, 10);
 
     },
 
@@ -1554,6 +1598,8 @@ cEditor.caret = {
         var inputs = cEditor.state.inputs,
             nextInput = inputs[index + 1];
 
+        console.log(inputs.length);
+
         /**
         * When new Block created or deleted content of input
         * We should add some text node to set caret
@@ -1597,9 +1643,9 @@ cEditor.toolbar = {
     /**
     * Margin between focused node and toolbar
     */
-    defaultToolbarHeight : 43,
+    defaultToolbarHeight : 49,
 
-    defaultOffset : 20,
+    defaultOffset : 12.5,
 
     opened : false,
 
@@ -1778,12 +1824,15 @@ cEditor.toolbar = {
     */
     move : function() {
 
+        /** Close Toolbox when we move toolbar */
+        cEditor.toolbar.closeToolbox();
+
         if (!cEditor.content.currentNode) {
             return;
         }
 
         var toolbarHeight = cEditor.nodes.toolbar.clientHeight || cEditor.toolbar.defaultToolbarHeight,
-            newYCoordinate = cEditor.content.currentNode.offsetTop - cEditor.toolbar.defaultOffset + (toolbarHeight / 5);
+            newYCoordinate = cEditor.content.currentNode.offsetTop - (cEditor.toolbar.defaultToolbarHeight / 2) + cEditor.toolbar.defaultOffset;
 
         cEditor.nodes.toolbar.style.transform = "translateY(" + newYCoordinate + "px)";
 
