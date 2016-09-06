@@ -480,7 +480,7 @@ cEditor.ui = {
 
         /** Make toolbar and content-editable redactor */
         toolbar                 = cEditor.draw.toolbar();
-        showPlusButton          = cEditor.draw.plusButton();
+        plusButton              = cEditor.draw.plusButton();
         showRemoveBlockButton   = cEditor.draw.removeBlockButton();
         showSettingsButton      = cEditor.draw.settingsButton();
         blockSettings           = cEditor.draw.blockSettings();
@@ -497,7 +497,7 @@ cEditor.ui = {
         toolbar.appendChild(blockButtons);
 
         /** Append plus button */
-        toolbar.appendChild(showPlusButton);
+        toolbar.appendChild(plusButton);
 
         /** Appending toolbar tools */
         toolbar.appendChild(toolbox);
@@ -508,7 +508,7 @@ cEditor.ui = {
         /** Save created ui-elements to static nodes state */
         cEditor.nodes.wrapper  = wrapper;
         cEditor.nodes.toolbar  = toolbar;
-        cEditor.nodes.plusButton          = showPlusButton;
+        cEditor.nodes.plusButton          = plusButton;
         cEditor.nodes.toolbox             = toolbox;
         cEditor.nodes.removeBlockButton   = showRemoveBlockButton;
         cEditor.nodes.blockSettings       = blockSettings;
@@ -1783,7 +1783,7 @@ cEditor.toolbar = {
         }
 
         var toolbarHeight = cEditor.nodes.toolbar.clientHeight || cEditor.toolbar.defaultToolbarHeight,
-            newYCoordinate = cEditor.content.currentNode.offsetTop - cEditor.toolbar.defaultOffset + 10;
+            newYCoordinate = cEditor.content.currentNode.offsetTop - cEditor.toolbar.defaultOffset + (toolbarHeight / 5);
 
         cEditor.nodes.toolbar.style.transform = "translateY(" + newYCoordinate + "px)";
 
