@@ -1804,21 +1804,21 @@ cEditor.toolbar = {
             stretched : false
         };
 
-        /** Can replace?
-        * @deprecated This variant will be in settings.
+        /**
+        * if block is empty, then we can replace current block with tool plugins block
         */
-        // if (REPLACEBLE_TOOLS.indexOf(tool.type) != -1 && workingNode) {
+        if (workingNode.textContent.trim() === '') {
 
             /** Replace current block */
-            // cEditor.content.switchBlock(workingNode, newBlockContent, tool.type);
+            cEditor.content.switchBlock(workingNode, newBlockContent, tool.type);
 
 
-        // } else {
+        } else {
 
-        /** Insert new Block from plugin */
-        cEditor.content.insertBlock(blockData);
+            /** Insert new Block from plugin */
+            cEditor.content.insertBlock(blockData);
 
-        // }
+        }
 
         /** Fire tool append callback  */
         appendCallback = cEditor.tools[cEditor.toolbar.current].appendCallback;
