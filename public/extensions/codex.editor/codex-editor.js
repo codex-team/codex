@@ -1400,13 +1400,6 @@ cEditor.content = {
     */
     switchBlock : function(blockToReplace, newBlock, blockType){
 
-        var oldBlockEditable = blockToReplace.querySelector('[contenteditable]');
-
-        /** Saving content */
-        if (oldBlockEditable) {
-            newBlock.innerHTML = oldBlockEditable.innerHTML;
-        }
-
         var newBlockComposed = cEditor.content.composeNewBlock(newBlock, blockType);
 
         /** Replacing */
