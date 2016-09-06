@@ -1827,11 +1827,13 @@ cEditor.toolbar = {
             appendCallback.call();
         }
 
-        setTimeout(function () {
-            /** Save new changes */
-            cEditor.ui.saveInputs();
-        }, 50);
+        /** @todo Set caret to contentEditable element after inserting block */
+        var currentInputIndex = cEditor.caret.inputIndex;
 
+        /** @deprecated Set caret to new appended block */
+        setTimeout(function () {
+            // cEditor.caret.setToNextBlock(currentInputIndex);
+        }, 10);
     },
 
 
