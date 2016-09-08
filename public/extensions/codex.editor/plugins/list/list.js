@@ -116,13 +116,11 @@ var listTool = {
             newEditable = listTool.ui.make(blockType),
             oldEditable = currentBlock.querySelector("[contenteditable]");
 
-        newEditable.dataset.type = blockType;
-        newEditable.innerHTML = oldEditable.innerHTML;
-        newEditable.classList.add('ce-list');
+            newEditable.dataset.type = blockType;
+            newEditable.innerHTML = oldEditable.innerHTML;
+            newEditable.classList.add('ce-list');
 
-        currentBlock.appendChild(newEditable);
-        oldEditable.remove();
-
+            cEditor.content.switchBlock(currentBlock, newEditable, cEditor.tools.list.type);
     },
 
 };

@@ -726,10 +726,15 @@ cEditor.callback = {
         cEditor.content.workingNodeChanged();
 
         var currentInputIndex       = cEditor.caret.getCurrentInputIndex(),
+            workingNode             = cEditor.content.currentNode,
             isEnterPressedOnToolbar = cEditor.toolbar.opened &&
                                       cEditor.toolbar.current &&
                                       event.target == cEditor.state.inputs[currentInputIndex];
 
+        /** The list of tools which needs the default browser behaviour */
+        var DISABLE_PREVENTDEFAULT = ['list'];
+
+        /** This type of block creates when enter is pressed */
         var NEW_BLOCK_TYPE = 'paragraph';
 
         /**
@@ -747,9 +752,9 @@ cEditor.callback = {
         }
 
         /**
-        * Allow making new <p> in same block by SHIFT+ENTER
+        * Allow making new <p> in same block by SHIFT+ENTER and forbids to prevent default browser behaviour
         */
-        if ( event.shiftKey ){
+        if ( event.shiftKey || DISABLE_PREVENTDEFAULT.indexOf(workingNode.dataset.type) != -1){
             return;
         }
 
@@ -1780,7 +1785,10 @@ cEditor.toolbar = {
     */
     toolClicked : function() {
 
-        var REPLACEBLE_TOOLS = ['paragraph', 'header', 'code'],
+        /**
+        * UNREPLACEBLE_TOOLS this types of tools are forbidden to replace even they are empty
+        */
+        var UNREPLACEBLE_TOOLS = ['image', 'link', 'list'],
             tool             = cEditor.tools[cEditor.toolbar.current],
             workingNode      = cEditor.content.currentNode,
             appendCallback,
@@ -1800,7 +1808,7 @@ cEditor.toolbar = {
         /**
         * if block is empty, then we can replace current block with tool plugins block
         */
-        if (workingNode.textContent.trim() === '') {
+        if (workingNode && UNREPLACEBLE_TOOLS.indexOf(workingNode.dataset.type) === -1 && workingNode.textContent.trim() === '') {
 
             /** Replace current block */
             cEditor.content.switchBlock(workingNode, newBlockContent, tool.type);
@@ -1820,13 +1828,11 @@ cEditor.toolbar = {
             appendCallback.call();
         }
 
-        /** @todo Set caret to contentEditable element after inserting block */
-        var currentInputIndex = cEditor.caret.inputIndex;
+        /**
+        * Changing current Node
+        */
+        cEditor.content.workingNodeChanged();
 
-        /** @deprecated Set caret to new appended block */
-        setTimeout(function () {
-            // cEditor.caret.setToNextBlock(currentInputIndex);
-        }, 10);
     },
 
 
