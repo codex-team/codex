@@ -84,6 +84,7 @@
     position: relative;
     outline: none;
     padding: 1px 0;
+    min-height: 350px;
 }
 
 .ce_toolbar{

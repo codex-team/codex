@@ -160,13 +160,24 @@
 <script src="/public/extensions/codex.editor/codex-editor.js"></script>
 <script>
 
+/**
+* Redactor input
+*/
 var INPUT = {
     items : [],
-    count : 43,
+    count : 0,
+};
+
+/**
+* Old input with content
+*/
+var _INPUT = {
+    items : [],
+    count : 23,
 };
 
 /** Fill with example data */
-INPUT.items = [
+_INPUT.items = [
     {
         type : 'paragraph',
         data : {
@@ -400,7 +411,7 @@ INPUT.items = [];
         });
 
         cPreview.show({
-            data : INPUT,
+            data : _INPUT,
             holder : 'output'
         });
 
