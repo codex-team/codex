@@ -20,9 +20,9 @@
         text-align: center;
     }
     .editor_workout .ce_block{
-        max-width: 700px;
-        margin: 20px auto;
-        padding: 0 !important;
+        /*max-width: 700px;*/
+        /*margin: 20px auto;*/
+        /*padding: 0 !important;*/
     }
         .editor_workout .ce_block[data-type="paragraph"]{
             line-height: 1.7em;
@@ -34,6 +34,7 @@
         .ce_block--stretched {
             margin: 0 !important;
             max-width: none !important;
+            padding: 0 !important;
         }
 
     .editor_workout h2,
@@ -70,7 +71,7 @@
         font-size: .8em;
     }
     .editor_workout .ce_toolbar{
-        margin-left: 119px;
+        /*margin-left: 119px;*/
     }
     .editor-output-preview{
         margin: 0 -1px -30px;
@@ -159,13 +160,24 @@
 <script src="/public/extensions/codex.editor/codex-editor.js"></script>
 <script>
 
+/**
+* Redactor input
+*/
 var INPUT = {
     items : [],
-    count : 43,
+    count : 0,
+};
+
+/**
+* Old input with content
+*/
+var _INPUT = {
+    items : [],
+    count : 23,
 };
 
 /** Fill with example data */
-INPUT.items = [
+_INPUT.items = [
     {
         type : 'paragraph',
         data : {
@@ -399,7 +411,7 @@ INPUT.items = [];
         });
 
         cPreview.show({
-            data : INPUT,
+            data : _INPUT,
             holder : 'output'
         });
 

@@ -4,6 +4,11 @@
 *
 * @version 0.0.1
 */
+.ce-image {
+    max-width: 700px;
+    margin: 20px auto !important;
+}
+
 .ce-plugin-image__holder{
 	position: relative;
 	background: #FEFEFE;
@@ -61,6 +66,7 @@
 	.ce-plugin-image__firstlevel--stretch {
 		margin: 0 !important;
 		max-width: none !important;
+		padding: 0 !important;
 	}
 
 .ce-plugin-image__caption {
@@ -88,12 +94,10 @@
 }
 .ce_plugin_image--select_button{
     display: inline-block;
-    margin-left: 40px;
-    border-bottom: 1px solid #475588;
+    margin-left: 15px;
     color: #6881e6;
     cursor: pointer;
 }
     .ce_plugin_image--select_button:hover{
-        border-bottom-color: #687da5;
         color: #8da8dc;
     }
