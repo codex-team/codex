@@ -207,7 +207,7 @@
     }
 
     .ce_redactor_plusButton--clicked {
-        transform: rotate(45deg);
+        transform: rotate(145deg);
         color: rgb(156, 156, 156);
     }
 
