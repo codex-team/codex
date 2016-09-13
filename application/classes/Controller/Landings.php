@@ -3,7 +3,7 @@
 class Controller_Landings extends Controller_Base_preDispatch
 {
 
-    /** Action for index page */
+    /** Codex Bot Landing page  in https://ifmo.su/ */
     public function action_show()
     {
         $this->title = 'CodeX Bot';
