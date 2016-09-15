@@ -30,6 +30,10 @@
         .site_footer .desclimer {
             color: #96b5ff;
         }
+    .scroll_button{
+        background: rgba(149, 192, 255, 0.22);
+        color: #fff;
+    }
 
 
     /**
