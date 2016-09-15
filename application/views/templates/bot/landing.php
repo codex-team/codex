@@ -1,245 +1,175 @@
 <style type="text/css">
 
+    /**
+    * Site styles overlay
+    */
     body {
         background-color: #107AEA;
     }
-
     .site_header {
         border-bottom: 1px solid #3590f1;
         background-color: #107AEA;
     }
-
-    .site_header a, 
-    .site_footer a, 
-    .site_footer, 
-    .site_footer .desclimer {
-        color: #fff;
+    .site_header a,
+    .site_footer a{
+        color: #d0e6ff;
     }
-
-    .site_footer {
+        .site_header a:hover,
+        .site_footer a:hover,
+        .site_header .icon_link{
+            color: #fff;
+        }
+    .site_footer{
+        color: #bad1ff;
         border-top: 1px solid #3590f1;
         background-color: #107AEA;
     }
-    
-    .bot_wrapper {
-        background-color: #107aea;
+        .site_footer h5{
+            color: #fff;
+        }
+        .site_footer .desclimer {
+            color: #96b5ff;
+        }
+
+
+    /**
+    * Landing page styles
+    */
+    .landing {
         padding-bottom: 60px;
-    }
-    .bot_wrapper h1 {        
-        padding: 100px 140px 0px;
-        margin-bottom: 15px;
+        background: #107aea;
+        text-align: center;
         color: #fff;
-        font-size: 54px;
-        line-height: 1.2em;
-        text-align: center;
-    } 
-    .bot_wrapper .description {
-        color: #fff;
-        font-size: 20px;
-        text-align: center;
     }
-
-    .bot_wrapper .integration {
-        height: 90px;
-        margin-top: 90px;
-        margin-bottom: 65px;
+    .landing__header {
+        margin: 150px 0 15px;
+        font-size: 73px;
+        line-height: 1.3em;
     }
-
-    .bot_wrapper .integration .title {        
-        width: 100%;
-        text-align: center;
+    .landing__description {
+        font-size: 25px;
+        line-height: 1.4em
+    }
+    .landing__integration {
+        margin: 60px 0;
         color: #a4c9ff;
-        font-size: 19px;        
+        font-size: 18px;
+    }
+    .landing__integration_github,
+    .landing__integration_yandex{
+        margin: 10px 10px 0;
+        vertical-align: bottom;
     }
 
-    .bot_wrapper .integration img {
-        margin: 10px 15px;
-    }
+    /**
+    * Chat demo
+    */
 
-    .bot_wrapper .yandex {
-        height: 43px;
-        width: 50%; 
-        float: left;
-    }
-
-    .bot_wrapper .yandex > img {
-        height: 43px;
-        float: right;
-    }
-
-    .bot_wrapper .github {
-        height: 43px;
-        width: 50%; 
-        float: right;
-    }
-
-    .bot_wrapper .github > img {
-        margin-top: 27px;
-    }
-
-    .bot_wrapper .demo {       
-        width: 400px;
-        height: 350px;
-        display: block;
-        position: relative;
+    .chat {
+        max-width: 400px;
         margin: 0 auto;
+        border-radius: 3px;
+        text-align: left;
         background-color: #fff;
+        color: #000;
     }
-
-    .bot_wrapper .demo .photo {        
+    .chat__messages{
+        overflow: hidden;
+    }
+    .chat__message,
+    .chat__input{
+        padding: 20px;
+    }
+    .chat__empty_holder{
+        min-height: 180px;
+    }
+    .chat__message{
+        min-height: 90px;
+    }
+    .chat__message_text,
+    .chat__message_name{
+        padding-left: 70px;
+    }
+    .chat__message_photo{
+        float: left;
         width: 50px;
         height: 50px;
-        display: inline-block;
-        margin-right: 20px;
-        margin-left: 20px;
         border-radius: 50%;
-        background-color: #eee;
+        background: #eee;
     }
-
-    .bot_wrapper .demo .msg {
-       display: inline-block;
-    }
-
-    .bot_wrapper .demo .name {
-        color: #ba619a; 
+    .chat__message_name{
+        margin-top: 2px;
+        font-size: 1.04em;
         font-weight: bold;
+        color: #B85D97;
     }
-
-    .bot_wrapper .demo .msg .command {
+    .chat__message_text_highlighted{
         color: #2b74c9;
-    }
-
-    .bot_wrapper .demo_content {
-        height: 99px;
-        width: 100%;
-        display: flex;
-        align-items: center;        
-        margin-top: 200px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid #e5e9f1;
-    }
-
-    .bot_wrapper .write {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        padding: 15px 18px;        
         cursor: pointer;
-        color: #838aa5;
     }
-
-    .bot_wrapper .send {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        padding: 15px 18px;        
+        .chat__message_text_highlighted:hover{
+            text-decoration: underline;
+        }
+    .chat__input{
+        border-top: 1px solid #E5E9F1;
+        color: #7E86A2;
+    }
+    .chat__input_textarea{
+        width: 85%;
+        background: transparent;
+        padding: 0;
+        vertical-align: bottom;
+        resize: none;
+        color: #000;
+    }
+        .chat__input_textarea:focus{
+            background: transparent;
+        }
+    .chat__send{
+        float: right;
+        color: #2A8BE5;
         cursor: pointer;
-        color: #2e8de6;
     }
 
     @media all and (max-width: 800px) {
-        
-        .bot_wrapper {
-            padding-bottom: 40px;
+        .landing {
+            padding: 20px
+        }
+        .landing__header{
+            margin-top: 50px;
+            font-size: 35px;
+        }
+        .landing__description{
+            font-size: 16px;
         }
 
-        .bot_wrapper h1 {            
-            padding: 30px 0 10px 0;
-            margin-bottom: 0;
-            font-size: 44px; 
-        }
-
-        .bot_wrapper .description {            
-            padding-right: 10px;
-            padding-left: 10px;
-            text-align: center;
-            font-size: 18px;
-        }
-
-        .bot_wrapper .demo {
-            height: 280px;
-            max-width: 90%;
-            margin-right: auto;
-            margin-left: auto;            
-        }
-
-        .bot_wrapper .integration {
-            margin-top: 45px;
-            margin-bottom: 15px;
-        }
-
-        .bot_wrapper .integration .title {
-            font-size: 18px;
-        }
-
-        .bot_wrapper .yandex {
-            height: 35px;
-        }
-
-        .bot_wrapper .yandex > img {
-            height: 35px;
-        }
-
-        .bot_wrapper .github {
-            height: 35px;
-        }
-
-        .bot_wrapper .github > img {            
-            height: 24px;
-            margin-top: 20px;
-        }
-
-        .bot_wrapper .demo_content {
-            margin-top: 133px;
-            padding-bottom: 0;
-        }
-
-        .bot_wrapper .demo .msg {
-            font-size: 14px;
-            white-space: nowrap;
-        }
-
-        .bot_wrapper .demo .name {
-            font-size: 15px;
-        }
-        
-        .bot_wrapper .demo .photo {
-            margin-right: 15px;
-        }
-
-        .bot_wrapper .write, .bot_wrapper .send {            
-            padding: 13px 18px;
-            font-size: 14px;
-        }
     }
     </style>
-<div class="center_side ">
-<div class="bot_wrapper">
-    <h1 itemprop="headline">CodeX Bot</h1>
-    <p class="description">Telegram bot-platform for developers and managers</p>
-    <div class="integration">
-        <div class="title">Easy integration with</div>
-        <div class="github">
-            <img src="/public/img/bot-landing__github.svg">
+<div class="center_side">
+    <div class="landing">
+        <h1 class="landing__header">CodeX Bot</h1>
+        <p class="landing__description">Telegram bot-platform for developers and managers</p>
+        <div class="landing__integration">
+            Easy integration with <br/>
+            <img class="landing__integration_github" src="/public/img/landings/bot/logo-github.svg">
+            <img class="landing__integration_yandex" src="/public/img/landings/bot/logo-yandex.svg">
         </div>
-        <div class="yandex">
-            <img src="/public/img/Yandex.svg">
-        </div>         
-    </div>
-    <div class="demo clearfix">
-        <div class="demo_content">
-            <div class="photo"></div>        
-             <div class="msg">
-                 <div class="name">CodeX Bot</div>
-                 Press <span class="command">/help</span> to view menu
-             </div>
-        </div>        
-        <div class="write">
-            Write a message...
+        <div class="chat">
+            <div class="chat__messages">
+                <div class="chat__empty_holder"></div>
+                <div class="chat__message">
+                    <img class="chat__message_photo" src="/public/img/logo160.png" alt="CodeX Bot">
+                    <div class="chat__message_name">Codex Bot</div>
+                    <div class="chat__message_text">
+                        Press <span class="chat__message_text_highlighted">/help</span> to view menu
+                    </div>
+                </div>
+            </div>
+            <div class="chat__input">
+                <div class="chat__send">Send</div>
+                <textarea class="chat__input_textarea" placeholder="Write a message..." rows="1"></textarea>
+            </div>
         </div>
-        <div class="send">Send
-        </div>        
+
     </div>
-     
-</div>
 </div>
