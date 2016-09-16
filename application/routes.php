@@ -172,6 +172,13 @@ Route::set('ARTICLE_EDITOR_SAVE_IMG', 'editorsaveimg', array())->defaults(array(
     'action' => 'saveEditorImg'
 ));
 
+// bot 
+
+Route::set('BOT_LANDING', 'bot', array())->defaults(array(
+    'controller' => 'landings',
+    'action' => 'show'
+));
+
 /**
 * Core
 */
