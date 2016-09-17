@@ -21,8 +21,8 @@ hr {
 .hide{display: none;}
 .block{display: block;  }
 .p_rel{position: relative;}
-a{color: #6091c8;}
-a:hover{color: #3A81D2;}
+a{color: #4e88d6;}
+a:hover{color: #d25555;}
 a:hover{text-decoration: underline;}
 
 
@@ -295,9 +295,10 @@ input[disabled]
 
 
 html {
-    font-size: 1em;
-    line-height: 1.4em;
-    font-family: 'PT Sans', sans-serif, Arial;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    line-height: 1.5em;
+    letter-spacing: .1px;
 }
 .center_side{
     max-width: 1000px;
@@ -317,15 +318,22 @@ html {
     .site_menu{
         margin: 0 12px;
         font-size: 0;
+        letter-spacing: 0;
     }
         .site_menu a,
         .site_header .profile{
-            text-decoration: none;
-            font-size: 16px;
             padding: 18px;
             position: relative;
             display: inline-block;
+
         }
+            .site_menu a,
+            .site_header .profile,
+            .site_header .login{
+                text-decoration: none;
+                font-size: 14px;
+                letter-spacing: .2px;
+            }
             .site_header .profile{
                 padding-right: 0;
                 margin-right: 30px;
@@ -333,18 +341,20 @@ html {
             .site_menu .current{
                 font-weight: bold;
             }
+
     .site_header .icon_link{
         display: inline-block;
-        font-size: 22px;
         margin-top: 17px;
         vertical-align: middle;
     }
     .site_header .login{
-        text-decoration: none;
         margin-right: 30px;
     }
+        .site_header .login i{
+            vertical-align: middle;
+            font-size: 1.36em;
+        }
         .site_header .login .text{
-            font-size: 15px;
             vertical-align: middle;
         }
     .site_header .social_buttons{
@@ -353,6 +363,7 @@ html {
         width: 150px;
         margin-left: -75px;
         text-align: center;
+        font-size: 22px;
     }
 
     .site_header .ava{
@@ -374,6 +385,7 @@ html {
     border-top: 1px solid #eceff6;
     padding: 30px 0;
     margin-top: 30px;
+    font-size: 13px;
 }
     .site_footer section{
         max-width: 400px;
@@ -388,7 +400,6 @@ html {
         .site_footer section ul{
             list-style: none;
             padding-left: 0;
-            font-size: 14px;
             line-height: 1.8em;
         }
         .site_footer section a{
@@ -396,10 +407,9 @@ html {
         }
     .site_footer h5{
         margin: 0 0 10px;
-        font-size: 15px;
+        font-size: 1.02em;
     }
     .site_footer p{
-        font-size: 14px;
         margin: 0;
     }
     .site_footer .desclimer{
@@ -410,8 +420,9 @@ html {
     padding: 60px 30px;
 }
 .page_header h1{
-    font-size: 26px;
+    font-size: 1.68em;
     line-height: 1.2em;
+    letter-spacing: .2px;
 }
 .page_header .description{
     max-width: 500px;
@@ -421,6 +432,7 @@ html {
 /** Blog list */
 .articles_list{
     font-size: 0;
+    letter-spacing: 0;
     text-align: center;
 }
 
@@ -442,7 +454,8 @@ html {
     .blog_item .title{
         display: block;
         margin: 20px 0 30px;
-        font-size: 1.7em;
+        font-size: 1.82em;
+        letter-spacing: .2px;
         line-height: 1.3em;
         word-wrap: break-word;
         text-decoration: none;
@@ -472,7 +485,7 @@ html {
         max-width: 80px;
         margin: 10px auto 0;
         word-wrap: break-word;
-        font-size: 0.9em;
+        font-size: 0.78em;
         line-height: 1.17em
     }
 
@@ -491,7 +504,6 @@ html {
         }
         .blog_item_big .author .name{
             margin-top: 13px;
-            font-size: 1em;
             line-height: 1.2em;
         }
 
@@ -963,11 +975,12 @@ html {
     list-style: none;
     text-align: center;
     font-size: 0;
+    letter-spacing: 0;
 }
     .page_menu li{
         position: relative;
         display: inline-block;
-        font-size: 17px;
+        font-size: 15px;
     }
         .page_menu li:after{
             content: '・';
@@ -1022,10 +1035,11 @@ html {
         }
 
 .article_content{
-    font-size: 17px;
-    line-height: 1.55em;
-    margin: 0 100px;
+    font-size: 1.1em;
+    line-height: 1.75em;
+    margin: 0 130px;
     word-wrap: break-word;
+    letter-spacing: 0;
 }
     .article_content h2{
         margin: 50px 0 30px;
@@ -1217,8 +1231,8 @@ html {
     text-align: center;
     color: #988e8e;
     font-variant: small-caps;
-    font-size: 18px;
-    letter-spacing: 2px;
+    font-size: 14px;
+    letter-spacing: 1.4px;
 }
 
 .contest .line, .contest_alert .line{
@@ -1423,7 +1437,7 @@ html {
 
 .random_articles {
     padding: 35px 0;
-    margin: 0 100px;
+    margin: 0 130px;
     max-width: 600px;
 }
     .random_articles a{
@@ -1431,7 +1445,7 @@ html {
         border-bottom: 1px solid #d8e5f1;
         text-decoration: none;
         letter-spacing: 0.2px;
-        font-size: 1.21em;
+        font-size: 1.31em;
     }
     .random_articles h3{
         margin-bottom: 20px;
@@ -1464,7 +1478,7 @@ html {
         .sharing .tg{font-size: 17px;}
 
     .sharing .main_but{
-        margin: -0.6em 12px 0 0;
+        margin: -0.66em 12px 0 0;
         padding: 10px 24px;
         border-radius: 25px;
         background: #607cb6;
@@ -1638,8 +1652,8 @@ html {
     }
         .site_menu a{
             padding: 18px 0;
-            margin-right: 17px;
-            font-size: 15px;
+            margin-right: 10px;
+            font-size: 14px;
         }
         .site_header .social_buttons{
             display: none;
@@ -1651,14 +1665,9 @@ html {
         .site_header .profile{
             padding-left: 0;
         }
-        .site_header .ava, .site_header .ava > img{
-            width: 16px;
-            height: 16px;
-            vertical-align: middle;
+        .site_header .ava{
+            display: none;
         }
-            .site_header .ava > img{
-                vertical-align: top;
-            }
     .clarity_page{
         padding: 50px 25px;
     }
