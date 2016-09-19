@@ -1618,9 +1618,9 @@ cEditor.caret = {
 
     /**
     * @protected
-    * @return current index of input and saves it in caret object
+    * updates index of input and saves it in caret object
     */
-    getCurrentInputIndex : function () {
+    updateCurrentInputIndex : function () {
 
         /** Index of Input that we paste sanitized content */
         var selection   = window.getSelection(),
@@ -1646,11 +1646,18 @@ cEditor.caret = {
         }
 
         this.inputIndex = editableElementIndex;
+    },
+
+    /**
+    * Returns current input index (caret object)
+    *
+    */
+    getCurrentInputIndex : function() {
         return this.inputIndex;
     },
 
     /**
-    * @param {int} index - index of first-level block
+    * @param {int} index - index of first-level block after that we set caret into next input
     */
     setToNextBlock : function(index) {
 
