@@ -584,12 +584,25 @@ cEditor.ui = {
 
         }, false );
 
-        /** Clicks to plus */
-        cEditor.nodes.plusButton.addEventListener('click', function(event) {
+        /**
+        * Mouse over to plus to plus
+        * @deprecated
+        */
+        cEditor.nodes.plusButton.addEventListener('mouseover', function(event) {
 
-            cEditor.callback.plusButtonClicked();
+            cEditor.callback.plusButtonActive();
 
         }, false );
+
+        /**
+        * @deprecated
+        * @todo Comment
+        */
+        cEditor.nodes.plusButton.addEventListener('click', function(event) {
+
+            cEditor.callback.plusButtonDeactived();
+
+        }, false);
 
         /** Clicks to SETTINGS button in toolbar */
         cEditor.nodes.showSettingsButton.addEventListener('click', function (event) {
@@ -818,7 +831,7 @@ cEditor.callback = {
         cEditor.content.workingNodeChanged(event.target);
 
         if (event.target.contentEditable == 'true') {
-            cEditor.caret.getCurrentInputIndex();
+            cEditor.caret.updateCurrentInputIndex();
         }
 
         if (cEditor.content.currentNode === null) {
@@ -884,13 +897,19 @@ cEditor.callback = {
     },
 
     /** Show toolbox when plus button is clicked */
-    plusButtonClicked : function() {
+    plusButtonActive : function() {
 
         if (!cEditor.nodes.toolbox.classList.contains('opened')) {
 
             cEditor.toolbar.toolbox.open();
 
-        } else {
+        }
+    },
+
+    /** Hide toolbox */
+    plusButtonDeactived : function() {
+
+        if (cEditor.nodes.toolbox.classList.contains('opened')) {
 
             cEditor.toolbar.toolbox.close();
 
@@ -939,6 +958,8 @@ cEditor.callback = {
             cEditor.toolbar.close();
 
         }
+
+        cEditor.ui.saveInputs();
 
     },
 
@@ -1911,6 +1932,11 @@ cEditor.toolbar = {
         * Changing current Node
         */
         cEditor.content.workingNodeChanged();
+
+        /**
+        * Move toolbar when node is changed
+        */
+        cEditor.toolbar.move();
 
     },
 
