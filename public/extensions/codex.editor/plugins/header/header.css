@@ -15,7 +15,7 @@
 .ce_plugin_header--select_button{
     display: inline-block;
     margin-left: 15px;
-    color: #6881e6;
+    color: #70a1ff;
     cursor: pointer;
 }
     .ce_plugin_header--select_button:hover{
@@ -27,7 +27,7 @@
 * Empty header placeholder
 */
 .ce-header:empty::before{
-    content : 'This part\'s purpose';
+    content : attr(data-placeholder);
     color: #818BA1;
     opacity: .7;
     transition: opacity 200ms ease;

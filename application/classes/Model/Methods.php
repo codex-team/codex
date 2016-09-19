@@ -63,6 +63,10 @@ class Model_Methods extends Model
         if (!Upload::type($file, array('jpg', 'jpeg', 'png', 'gif'))) return FALSE;
         if (!is_dir($path)) mkdir($path);
 
+//        echo Debug::vars($file);
+//        move_uploaded_file($file['tmp_name'], 'upload/redactor_images/' . $file['name']);
+//        exit;
+
         if ( $file = Upload::save($file, NULL, $path) ){
 
             $filename = bin2hex(openssl_random_pseudo_bytes(16)) . '.jpg';
@@ -96,6 +100,43 @@ class Model_Methods extends Model
         }
         return FALSE;
     }
+
+    /**
+     * @param array $sizes - array of keys in IMAGE_SIZES_CONFIG that need to be cropped
+     * @param array $forcedSizes - new size config looks like IMAGE_SIZES_CONFIG
+     */
+    public function saveImageByUrl( $url, $path, $sizes = null, $forcedSizes = null )
+    {
+        $file = $this->getFiles($url);
+
+        if ($file) {
+
+            if (!Upload::type($file, array('jpg', 'jpeg', 'png', 'gif'))) return FALSE;
+            if (!is_dir($path)) mkdir($path);
+            return $this->saveImage($file, $path, $sizes, $forcedSizes);
+        }
+
+        return false;
+    }
+
+    public function getFiles($url)
+    {
+        $tempName = tempnam('/tmp', 'tmp_files');
+        $originalName = basename(parse_url($url, PHP_URL_PATH));
+
+        $imgRawData = @file_get_contents($url);
+
+        if (!$imgRawData) return false;
+        file_put_contents($tempName, $imgRawData);
+        return array(
+            'name' => $originalName,
+            'type' => mime_content_type($tempName),
+            'tmp_name' => $tempName,
+            'error' => 0,
+            'size' => strlen($imgRawData),
+        );
+    }
+
 
     /** Saving uploaded file to database */
     public function newFile( $fields )
