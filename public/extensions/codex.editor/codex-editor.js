@@ -645,7 +645,7 @@ cEditor.ui = {
         setTimeout(function () {
 
             /** Save all inputs in global variable state */
-            cEditor.state.inputs = redactor.querySelectorAll('[contenteditable]');
+            cEditor.state.inputs = redactor.querySelectorAll('[contenteditable], input');
 
         }, 10);
 
@@ -710,6 +710,10 @@ cEditor.callback = {
 
         if ( !cEditor.toolbar.opened ) {
             cEditor.toolbar.open();
+        }
+
+        if (cEditor.toolbar.opened && !cEditor.toolbar.toolbox.opened) {
+            cEditor.toolbar.toolbox.open();
         } else {
             cEditor.toolbar.leaf();
         }
@@ -725,7 +729,7 @@ cEditor.callback = {
 
         cEditor.content.workingNodeChanged();
 
-        var currentInputIndex       = cEditor.caret.getCurrentInputIndex(),
+        var currentInputIndex       = cEditor.caret.inputIndex,
             workingNode             = cEditor.content.currentNode,
             isEnterPressedOnToolbar = cEditor.toolbar.opened &&
                                       cEditor.toolbar.current &&
@@ -745,6 +749,7 @@ cEditor.callback = {
             event.preventDefault();
 
             cEditor.toolbar.toolClicked(event);
+            cEditor.toolbar.toolbox.close();
             cEditor.toolbar.close();
 
             return;
@@ -757,6 +762,7 @@ cEditor.callback = {
         if ( event.shiftKey || DISABLE_PREVENTDEFAULT.indexOf(workingNode.dataset.type) != -1){
             return;
         }
+
 
         event.preventDefault();
 
@@ -771,6 +777,7 @@ cEditor.callback = {
         /** get all inputs after new appending block */
         cEditor.ui.saveInputs();
 
+
         setTimeout(function () {
 
             /** Setting to the new input */
@@ -778,13 +785,19 @@ cEditor.callback = {
 
             cEditor.toolbar.move();
 
-        }, 10);
+            cEditor.toolbar.open();
+
+        }, 50);
 
     },
 
     escapeKeyPressed : function(event){
 
+        /** Close all toolbar */
         cEditor.toolbar.close();
+
+        /** Close toolbox */
+        cEditor.toolbar.toolbox.close();
 
         event.preventDefault();
 
@@ -804,16 +817,35 @@ cEditor.callback = {
 
         cEditor.content.workingNodeChanged(event.target);
 
+        if (event.target.contentEditable == 'true') {
+            cEditor.caret.getCurrentInputIndex();
+        }
+
         if (cEditor.content.currentNode === null) {
 
-            return;
+            /** Set caret to the last input */
+            var indexOfLastInput = cEditor.state.inputs.length;
+            cEditor.caret.setToPreviousBlock(indexOfLastInput);
 
-        } else {
-
+            /**
+            * Move toolbar to the right position and open
+            */
             cEditor.toolbar.move();
 
             cEditor.toolbar.open();
+
+        } else {
+
+            /**
+            * Move toolbar to the right position and open
+            */
+            cEditor.toolbar.move();
+
+            cEditor.toolbar.open();
+
+            /** Close all panels */
             cEditor.toolbar.settings.close();
+            cEditor.toolbar.toolbox.close();
         }
 
     },
@@ -856,11 +888,11 @@ cEditor.callback = {
 
         if (!cEditor.nodes.toolbox.classList.contains('opened')) {
 
-            cEditor.toolbar.openToolbox();
+            cEditor.toolbar.toolbox.open();
 
         } else {
 
-            cEditor.toolbar.closeToolbox();
+            cEditor.toolbar.toolbox.close();
 
         }
     },
@@ -1125,8 +1157,6 @@ cEditor.callback = {
             return;
         }
 
-        var currentInputIndex = cEditor.caret.getCurrentInputIndex();
-
         block.remove();
 
         var firstLevelBlocksCount = cEditor.nodes.redactor.childNodes.length;
@@ -1154,12 +1184,15 @@ cEditor.callback = {
 
         } else {
 
-            cEditor.caret.setToPreviousBlock(currentInputIndex);
+            cEditor.caret.setToPreviousBlock(cEditor.caret.inputIndex);
 
         }
 
-        cEditor.toolbar.close();
         cEditor.toolbar.move();
+
+        if (!cEditor.toolbar.opened) {
+            cEditor.toolbar.open();
+        }
 
         /** Updating inputs state */
         cEditor.ui.saveInputs();
@@ -1204,7 +1237,7 @@ cEditor.callback = {
         cEditor.toolbar.settings.toggle(currentToolType);
 
         /** Close toolbox when settings button is active */
-        cEditor.toolbar.closeToolbox();
+        cEditor.toolbar.toolbox.close();
 
     }
 
@@ -1558,6 +1591,12 @@ cEditor.caret = {
 
         }
 
+        /** If Element is INPUT */
+        if (el.tagName == 'INPUT') {
+            el.focus();
+            return;
+        }
+
         if (cEditor.core.isDomNode(nodeToSet)) {
 
             nodeToSet = cEditor.content.getDeepestTextNodeFromPosition(nodeToSet, nodeToSet.childNodes.length);
@@ -1579,15 +1618,19 @@ cEditor.caret = {
 
     /**
     * @protected
-    * @return current index of input and saves it in caret object
+    * updates index of input and saves it in caret object
     */
-    getCurrentInputIndex : function () {
+    updateCurrentInputIndex : function () {
 
         /** Index of Input that we paste sanitized content */
         var selection   = window.getSelection(),
             inputs      = cEditor.state.inputs,
             focusedNode = selection.anchorNode,
             focusedNodeHolder;
+
+        if (!cEditor.core.isDomNode(focusedNode)) {
+            return;
+        }
 
         /** Looking for parent contentEditable block */
         while (focusedNode.contentEditable != 'true') {
@@ -1603,11 +1646,18 @@ cEditor.caret = {
         }
 
         this.inputIndex = editableElementIndex;
+    },
+
+    /**
+    * Returns current input index (caret object)
+    *
+    */
+    getCurrentInputIndex : function() {
         return this.inputIndex;
     },
 
     /**
-    * @param {Element} block - element from which we take next block
+    * @param {int} index - index of first-level block after that we set caret into next input
     */
     setToNextBlock : function(index) {
 
@@ -1623,13 +1673,15 @@ cEditor.caret = {
             nextInput.appendChild(emptyTextElement);
         }
 
-        cEditor.caret.inputIndex = nextInput;
+        cEditor.caret.inputIndex = index + 1;
         cEditor.caret.set(nextInput, 0, 0);
         cEditor.content.workingNodeChanged(nextInput);
 
     },
 
     setToPreviousBlock : function(index) {
+
+        index = index || 0;
 
         var inputs = cEditor.state.inputs,
             previousInput = inputs[index - 1];
@@ -1645,8 +1697,7 @@ cEditor.caret = {
             var emptyTextElement = document.createTextNode('');
             previousInput.appendChild(emptyTextElement);
         }
-
-        cEditor.caret.inputIndex = previousInput;
+        cEditor.caret.inputIndex = index - 1;
         cEditor.caret.set(previousInput, previousInput.childNodes.length - 1, lengthOfLastChildNode);
         cEditor.content.workingNodeChanged(inputs[index - 1]);
     },
@@ -1703,7 +1754,7 @@ cEditor.toolbar = {
         }
 
         /** Close toolbox when toolbar is not displayed */
-        cEditor.toolbar.closeToolbox();
+        cEditor.toolbar.toolbox.close();
 
     },
 
@@ -1721,30 +1772,45 @@ cEditor.toolbar = {
 
     },
 
-    /** Show tools */
-    openToolbox : function() {
+    /**
+    * Panel which wrappes all User defined plugins (tools)
+    */
+    toolbox : {
 
-        /** Close setting if toolbox is opened */
-        if (cEditor.toolbar.settings.opened) {
-            cEditor.toolbar.settings.close();
-        }
+        opened : false,
 
-        /** display toolbox */
-        cEditor.nodes.toolbox.classList.add('opened');
+        /** Shows toolbox */
+        open : function() {
 
-        /** Animate plus button */
-        cEditor.nodes.plusButton.classList.add('ce_redactor_plusButton--clicked');
+            /** Close setting if toolbox is opened */
+            if (cEditor.toolbar.settings.opened) {
+                cEditor.toolbar.settings.close();
+            }
 
-    },
+            /** display toolbox */
+            cEditor.nodes.toolbox.classList.add('opened');
 
-    /** Closes toolbox */
-    closeToolbox : function() {
+            /** Animate plus button */
+            cEditor.nodes.plusButton.classList.add('ce_redactor_plusButton--clicked');
 
-        /** Makes toolbox disapear */
-        cEditor.nodes.toolbox.classList.remove('opened');
+            /** toolbox state */
+            cEditor.toolbar.toolbox.opened = true;
 
-        /** Rotate plus button */
-        cEditor.nodes.plusButton.classList.remove('ce_redactor_plusButton--clicked');
+        },
+
+        /** Closes toolbox */
+        close : function() {
+
+            /** Makes toolbox disapear */
+            cEditor.nodes.toolbox.classList.remove('opened');
+
+            /** Rotate plus button */
+            cEditor.nodes.plusButton.classList.remove('ce_redactor_plusButton--clicked');
+
+            /** toolbox state */
+            cEditor.toolbar.toolbox.opened = false;
+
+        },
 
     },
 
@@ -1792,6 +1858,7 @@ cEditor.toolbar = {
             tool             = cEditor.tools[cEditor.toolbar.current],
             workingNode      = cEditor.content.currentNode,
             appendCallback,
+            currentInputIndex = cEditor.caret.inputIndex,
             newBlockContent,
             blockData;
 
@@ -1813,11 +1880,23 @@ cEditor.toolbar = {
             /** Replace current block */
             cEditor.content.switchBlock(workingNode, newBlockContent, tool.type);
 
+            setTimeout(function () {
+
+                cEditor.caret.setToPreviousBlock(currentInputIndex + 1);
+
+            }, 10);
 
         } else {
 
             /** Insert new Block from plugin */
             cEditor.content.insertBlock(blockData);
+
+            /** Set caret to the next inserted block */
+            setTimeout(function () {
+
+                cEditor.caret.setToNextBlock(currentInputIndex);
+
+            }, 10);
 
         }
 
@@ -1842,7 +1921,7 @@ cEditor.toolbar = {
     move : function() {
 
         /** Close Toolbox when we move toolbar */
-        cEditor.toolbar.closeToolbox();
+        cEditor.toolbar.toolbox.close();
 
         if (!cEditor.content.currentNode) {
             return;

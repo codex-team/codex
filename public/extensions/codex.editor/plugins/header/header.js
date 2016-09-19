@@ -35,6 +35,7 @@ var headerTool = {
         }
 
         tag.classList.add('ce-header');
+        tag.setAttribute('data-placeholder', 'Heading');
         tag.contentEditable = true;
 
         return tag;
@@ -153,6 +154,7 @@ var headerTool = {
 
         new_header.innerHTML = old_header.innerHTML;
         new_header.contentEditable = true;
+        new_header.setAttribute('data-placeholder', 'Heading');
         new_header.classList.add('ce-header');
 
         cEditor.content.switchBlock(old_header, new_header, 'header');
