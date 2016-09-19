@@ -708,7 +708,6 @@ cEditor.callback = {
 
     tabKeyPressed : function(event){
 
-        console.log(cEditor.toolbar.toolbox.opened);
         if ( !cEditor.toolbar.opened ) {
             cEditor.toolbar.open();
         }
@@ -764,6 +763,7 @@ cEditor.callback = {
             return;
         }
 
+
         event.preventDefault();
 
         /**
@@ -787,7 +787,7 @@ cEditor.callback = {
 
             cEditor.toolbar.open();
 
-        }, 30);
+        }, 50);
 
     },
 
@@ -823,14 +823,29 @@ cEditor.callback = {
 
         if (cEditor.content.currentNode === null) {
 
-            return;
+            /** Set caret to the last input */
+            var indexOfLastInput = cEditor.state.inputs.length;
+            cEditor.caret.setToPreviousBlock(indexOfLastInput);
 
-        } else {
-
+            /**
+            * Move toolbar to the right position and open
+            */
             cEditor.toolbar.move();
 
             cEditor.toolbar.open();
+
+        } else {
+
+            /**
+            * Move toolbar to the right position and open
+            */
+            cEditor.toolbar.move();
+
+            cEditor.toolbar.open();
+
+            /** Close all panels */
             cEditor.toolbar.settings.close();
+            cEditor.toolbar.toolbox.close();
         }
 
     },
@@ -1142,8 +1157,6 @@ cEditor.callback = {
             return;
         }
 
-        var currentInputIndex = cEditor.caret.getCurrentInputIndex();
-
         block.remove();
 
         var firstLevelBlocksCount = cEditor.nodes.redactor.childNodes.length;
@@ -1171,11 +1184,15 @@ cEditor.callback = {
 
         } else {
 
-            cEditor.caret.setToPreviousBlock(currentInputIndex);
+            cEditor.caret.setToPreviousBlock(cEditor.caret.inputIndex);
 
         }
 
         cEditor.toolbar.move();
+
+        if (!cEditor.toolbar.opened) {
+            cEditor.toolbar.open();
+        }
 
         /** Updating inputs state */
         cEditor.ui.saveInputs();
@@ -1633,7 +1650,7 @@ cEditor.caret = {
     },
 
     /**
-    * @param {Element} block - element from which we take next block
+    * @param {int} index - index of first-level block
     */
     setToNextBlock : function(index) {
 
@@ -1748,11 +1765,14 @@ cEditor.toolbar = {
 
     },
 
+    /**
+    * Panel which wrappes all User defined plugins (tools)
+    */
     toolbox : {
 
         opened : false,
 
-        /** Show tools */
+        /** Shows toolbox */
         open : function() {
 
             /** Close setting if toolbox is opened */
@@ -1824,9 +1844,6 @@ cEditor.toolbar = {
     */
     toolClicked : function() {
 
-        /** Save index of input */
-        cEditor.caret.getCurrentInputIndex();
-
         /**
         * UNREPLACEBLE_TOOLS this types of tools are forbidden to replace even they are empty
         */
@@ -1847,7 +1864,6 @@ cEditor.toolbar = {
             type      : tool.type,
             stretched : false
         };
-
 
         /**
         * if block is empty, then we can replace current block with tool plugins block
