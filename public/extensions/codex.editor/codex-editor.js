@@ -585,22 +585,16 @@ cEditor.ui = {
         }, false );
 
         /**
-        * Mouse over to plus to plus
-        * @deprecated
+        * Mouse over to plus button
         */
-        cEditor.nodes.plusButton.addEventListener('mouseover', function(event) {
-
-            cEditor.callback.plusButtonActive();
-
-        }, false );
+        cEditor.nodes.plusButton.addEventListener('mouseover', cEditor.toolbar.toolbox.open, false );
 
         /**
-        * @deprecated
-        * @todo Comment
+        * Clicks to plus button
         */
         cEditor.nodes.plusButton.addEventListener('click', function(event) {
 
-            cEditor.callback.plusButtonDeactived();
+            cEditor.callback.plusButtonClicked();
 
         }, false);
 
@@ -655,12 +649,8 @@ cEditor.ui = {
         var redactor = cEditor.nodes.redactor,
             elements = [];
 
-        setTimeout(function () {
-
-            /** Save all inputs in global variable state */
-            cEditor.state.inputs = redactor.querySelectorAll('[contenteditable], input');
-
-        }, 10);
+        /** Save all inputs in global variable state */
+        cEditor.state.inputs = redactor.querySelectorAll('[contenteditable], input');
 
     },
 
@@ -896,20 +886,14 @@ cEditor.callback = {
 
     },
 
-    /** Show toolbox when plus button is clicked */
-    plusButtonActive : function() {
+    /** Show or Hide toolbox when plus button is clicked */
+    plusButtonClicked : function() {
 
         if (!cEditor.nodes.toolbox.classList.contains('opened')) {
 
             cEditor.toolbar.toolbox.open();
 
-        }
-    },
-
-    /** Hide toolbox */
-    plusButtonDeactived : function() {
-
-        if (cEditor.nodes.toolbox.classList.contains('opened')) {
+        } else {
 
             cEditor.toolbar.toolbox.close();
 

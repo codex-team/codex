@@ -207,8 +207,9 @@
     }
 
     .ce_redactor_plusButton--clicked {
-        transform: rotate(145deg);
+        transform: rotate(180deg);
         color: rgb(156, 156, 156);
+        background: #475159;
     }
 
 /** First-level block buttons */

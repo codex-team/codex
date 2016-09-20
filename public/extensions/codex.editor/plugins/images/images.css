@@ -77,7 +77,7 @@
 }
 
     .ce-plugin-image__caption:empty::before {
-        content: 'Подпись';
+        content: 'Введите подпись';
         text-align: center;
         font-weight: normal;
         color: #a1a5b3;;
