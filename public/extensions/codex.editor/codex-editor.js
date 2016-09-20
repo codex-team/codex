@@ -833,7 +833,7 @@ cEditor.callback = {
             /** If input is empty, then we set caret to the last input */
             if (cEditor.state.inputs[indexOfLastInput].textContent === '') {
 
-                cEditor.caret.setAtInputIndex(indexOfLastInput);
+                cEditor.caret.setToBlock(indexOfLastInput);
 
             } else {
 
@@ -1707,7 +1707,7 @@ cEditor.caret = {
     * @param {int} index - index of target input.
     * Sets caret to input with this index
     */
-    setAtInputIndex : function(index) {
+    setToBlock : function(index) {
 
         var inputs = cEditor.state.inputs,
             targetInput = inputs[index];
