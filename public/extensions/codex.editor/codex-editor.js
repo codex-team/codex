@@ -828,10 +828,10 @@ cEditor.callback = {
         if (cEditor.content.currentNode === null) {
 
             /** Set caret to the last input */
-            var indexOfLastInput = cEditor.state.inputs.length;
+            var indexOfLastInput = cEditor.state.inputs.length - 1;
 
             /** If input is empty, then we set caret to the last input */
-            if (cEditor.state.inputs[indexOfLastInput - 1].textContent === '') {
+            if (cEditor.state.inputs[indexOfLastInput].textContent === '') {
 
                 cEditor.caret.setToPreviousBlock(indexOfLastInput);
 
@@ -846,7 +846,7 @@ cEditor.callback = {
                 });
 
                 /** Set caret to this appended input */
-                cEditor.caret.setToNextBlock(indexOfLastInput - 1);
+                cEditor.caret.setToNextBlock(indexOfLastInput);
 
             }
 
