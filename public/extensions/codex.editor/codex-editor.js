@@ -584,12 +584,19 @@ cEditor.ui = {
 
         }, false );
 
-        /** Clicks to plus */
+        /**
+        * Mouse over to plus button
+        */
+        cEditor.nodes.plusButton.addEventListener('mouseover', cEditor.toolbar.toolbox.open, false );
+
+        /**
+        * Clicks to plus button
+        */
         cEditor.nodes.plusButton.addEventListener('click', function(event) {
 
             cEditor.callback.plusButtonClicked();
 
-        }, false );
+        }, false);
 
         /** Clicks to SETTINGS button in toolbar */
         cEditor.nodes.showSettingsButton.addEventListener('click', function (event) {
@@ -642,12 +649,8 @@ cEditor.ui = {
         var redactor = cEditor.nodes.redactor,
             elements = [];
 
-        setTimeout(function () {
-
-            /** Save all inputs in global variable state */
-            cEditor.state.inputs = redactor.querySelectorAll('[contenteditable], input');
-
-        }, 10);
+        /** Save all inputs in global variable state */
+        cEditor.state.inputs = redactor.querySelectorAll('[contenteditable], input');
 
     },
 
@@ -818,7 +821,7 @@ cEditor.callback = {
         cEditor.content.workingNodeChanged(event.target);
 
         if (event.target.contentEditable == 'true') {
-            cEditor.caret.getCurrentInputIndex();
+            cEditor.caret.updateCurrentInputIndex();
         }
 
         if (cEditor.content.currentNode === null) {
@@ -883,7 +886,7 @@ cEditor.callback = {
 
     },
 
-    /** Show toolbox when plus button is clicked */
+    /** Show or Hide toolbox when plus button is clicked */
     plusButtonClicked : function() {
 
         if (!cEditor.nodes.toolbox.classList.contains('opened')) {
@@ -939,6 +942,8 @@ cEditor.callback = {
             cEditor.toolbar.close();
 
         }
+
+        cEditor.ui.saveInputs();
 
     },
 
@@ -1911,6 +1916,11 @@ cEditor.toolbar = {
         * Changing current Node
         */
         cEditor.content.workingNodeChanged();
+
+        /**
+        * Move toolbar when node is changed
+        */
+        cEditor.toolbar.move();
 
     },
 

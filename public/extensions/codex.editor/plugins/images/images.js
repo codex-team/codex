@@ -281,10 +281,9 @@ ceImage.ui = {
 
     caption : function() {
 
-        var div = document.createElement('div');
+        var div  = document.createElement('div');
 
         div.classList.add(ceImage.elementClasses.imageCaption);
-
         div.contentEditable = true;
 
         return div;
