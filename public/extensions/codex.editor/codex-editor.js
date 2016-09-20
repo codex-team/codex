@@ -734,7 +734,7 @@ cEditor.callback = {
         cEditor.content.workingNodeChanged();
 
         /** Update input index */
-        cEditor.caret.updateCurrentInputIndex();
+        cEditor.caret.saveCurrentInputIndex();
 
         var currentInputIndex       = cEditor.caret.getCurrentInputIndex(),
             workingNode             = cEditor.content.currentNode,
@@ -847,7 +847,7 @@ cEditor.callback = {
         /** Update current input index in memory when caret focused into existed input */
         if (event.target.contentEditable == 'true') {
 
-            cEditor.caret.updateCurrentInputIndex();
+            cEditor.caret.saveCurrentInputIndex();
 
         }
 
@@ -1670,7 +1670,7 @@ cEditor.caret = {
     * @protected
     * updates index of input and saves it in caret object
     */
-    updateCurrentInputIndex : function () {
+    saveCurrentInputIndex : function () {
 
         /** Index of Input that we paste sanitized content */
         var selection   = window.getSelection(),
