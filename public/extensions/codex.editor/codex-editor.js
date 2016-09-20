@@ -820,6 +820,7 @@ cEditor.callback = {
 
         cEditor.content.workingNodeChanged(event.target);
 
+        /** Update current input index in memory when caret focused into existed input */
         if (event.target.contentEditable == 'true') {
             cEditor.caret.updateCurrentInputIndex();
         }
@@ -827,8 +828,27 @@ cEditor.callback = {
         if (cEditor.content.currentNode === null) {
 
             /** Set caret to the last input */
-            var indexOfLastInput = cEditor.state.inputs.length;
-            cEditor.caret.setToPreviousBlock(indexOfLastInput);
+            var indexOfLastInput = cEditor.state.inputs.length - 1;
+
+            /** If input is empty, then we set caret to the last input */
+            if (cEditor.state.inputs[indexOfLastInput].textContent === '') {
+
+                cEditor.caret.setToBlock(indexOfLastInput);
+
+            } else {
+
+                /** Create new input when caret clicked in redactors area */
+                var NEW_BLOCK_TYPE = 'paragraph';
+
+                cEditor.content.insertBlock({
+                    type  : NEW_BLOCK_TYPE,
+                    block : cEditor.tools[NEW_BLOCK_TYPE].render()
+                });
+
+                /** Set caret to this appended input */
+                cEditor.caret.setToNextBlock(indexOfLastInput);
+
+            }
 
             /**
             * Move toolbar to the right position and open
@@ -1655,7 +1675,6 @@ cEditor.caret = {
 
     /**
     * Returns current input index (caret object)
-    *
     */
     getCurrentInputIndex : function() {
         return this.inputIndex;
@@ -1684,6 +1703,33 @@ cEditor.caret = {
 
     },
 
+    /**
+    * @param {int} index - index of target input.
+    * Sets caret to input with this index
+    */
+    setToBlock : function(index) {
+
+        var inputs = cEditor.state.inputs,
+            targetInput = inputs[index];
+
+        /**
+        * When new Block created or deleted content of input
+        * We should add some text node to set caret
+        */
+        if (!targetInput.childNodes.length) {
+            var emptyTextElement = document.createTextNode('');
+            targetInput.appendChild(emptyTextElement);
+        }
+
+        cEditor.caret.inputIndex = index;
+        cEditor.caret.set(targetInput, 0, 0);
+        cEditor.content.workingNodeChanged(targetInput);
+
+    },
+
+    /**
+    * @param {int} index - index of input
+    */
     setToPreviousBlock : function(index) {
 
         index = index || 0;
