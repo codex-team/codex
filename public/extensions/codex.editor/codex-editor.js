@@ -730,9 +730,13 @@ cEditor.callback = {
     */
     enterKeyPressed : function(event){
 
+        /** Set current node */
         cEditor.content.workingNodeChanged();
 
-        var currentInputIndex       = cEditor.caret.inputIndex,
+        /** Update input index */
+        cEditor.caret.updateCurrentInputIndex();
+
+        var currentInputIndex       = cEditor.caret.getCurrentInputIndex(),
             workingNode             = cEditor.content.currentNode,
             isEnterPressedOnToolbar = cEditor.toolbar.opened &&
                                       cEditor.toolbar.current &&
@@ -770,17 +774,35 @@ cEditor.callback = {
         event.preventDefault();
 
         /**
-        * Make new paragraph
+        * Divide block into two components - a part which is before caret and a part after.
+        * first part we put into current node, and second to new one
+        */
+        var selection   = window.getSelection(),
+            nodeText    = selection.anchorNode.textContent,
+            caretOffset = selection.anchorOffset,
+            textBeforeCaret,
+            textAfterCaret;
+
+        textBeforeCaret = nodeText.substring(0, caretOffset);
+        textAfterCaret  = nodeText.substring(caretOffset);
+
+        /** set current input with HTML text before caret */
+        cEditor.state.inputs[currentInputIndex].innerHTML = textBeforeCaret.trim();
+
+        /**
+        * Make new paragraph with text after caret
         */
         cEditor.content.insertBlock({
             type  : NEW_BLOCK_TYPE,
-            block : cEditor.tools[NEW_BLOCK_TYPE].render()
+            block : cEditor.tools[NEW_BLOCK_TYPE].render({
+                text : textAfterCaret.trim(),
+            })
         });
 
         /** get all inputs after new appending block */
         cEditor.ui.saveInputs();
 
-
+        /** Timeout for browsers execution */
         setTimeout(function () {
 
             /** Setting to the new input */
@@ -790,7 +812,7 @@ cEditor.callback = {
 
             cEditor.toolbar.open();
 
-        }, 50);
+        }, 10);
 
     },
 
@@ -820,9 +842,13 @@ cEditor.callback = {
 
         cEditor.content.workingNodeChanged(event.target);
 
+        cEditor.ui.saveInputs();
+
         /** Update current input index in memory when caret focused into existed input */
         if (event.target.contentEditable == 'true') {
+
             cEditor.caret.updateCurrentInputIndex();
+
         }
 
         if (cEditor.content.currentNode === null) {
@@ -1363,7 +1389,6 @@ cEditor.content = {
         }
 
         this.currentNode = this.getFirstLevelBlock(targetNode);
-
     },
 
     /**
@@ -1652,10 +1677,6 @@ cEditor.caret = {
             inputs      = cEditor.state.inputs,
             focusedNode = selection.anchorNode,
             focusedNodeHolder;
-
-        if (!cEditor.core.isDomNode(focusedNode)) {
-            return;
-        }
 
         /** Looking for parent contentEditable block */
         while (focusedNode.contentEditable != 'true') {
