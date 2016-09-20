@@ -833,7 +833,7 @@ cEditor.callback = {
             /** If input is empty, then we set caret to the last input */
             if (cEditor.state.inputs[indexOfLastInput].textContent === '') {
 
-                cEditor.caret.setToPreviousBlock(indexOfLastInput);
+                cEditor.caret.setAtInputIndex(indexOfLastInput);
 
             } else {
 
@@ -1675,7 +1675,6 @@ cEditor.caret = {
 
     /**
     * Returns current input index (caret object)
-    *
     */
     getCurrentInputIndex : function() {
         return this.inputIndex;
@@ -1704,6 +1703,33 @@ cEditor.caret = {
 
     },
 
+    /**
+    * @param {int} index - index of target input.
+    * Sets caret to input with this index
+    */
+    setAtInputIndex : function(index) {
+
+        var inputs = cEditor.state.inputs,
+            targetInput = inputs[index];
+
+        /**
+        * When new Block created or deleted content of input
+        * We should add some text node to set caret
+        */
+        if (!targetInput.childNodes.length) {
+            var emptyTextElement = document.createTextNode('');
+            targetInput.appendChild(emptyTextElement);
+        }
+
+        cEditor.caret.inputIndex = index;
+        cEditor.caret.set(targetInput, 0, 0);
+        cEditor.content.workingNodeChanged(targetInput);
+
+    },
+
+    /**
+    * @param {int} index - index of input
+    */
     setToPreviousBlock : function(index) {
 
         index = index || 0;
