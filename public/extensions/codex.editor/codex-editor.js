@@ -820,6 +820,7 @@ cEditor.callback = {
 
         cEditor.content.workingNodeChanged(event.target);
 
+        /** Update current input index in memory when caret focused into existed input */
         if (event.target.contentEditable == 'true') {
             cEditor.caret.updateCurrentInputIndex();
         }
@@ -828,7 +829,26 @@ cEditor.callback = {
 
             /** Set caret to the last input */
             var indexOfLastInput = cEditor.state.inputs.length;
-            cEditor.caret.setToPreviousBlock(indexOfLastInput);
+
+            /** If input is empty, then we set caret to the last input */
+            if (cEditor.state.inputs[indexOfLastInput - 1].textContent === '') {
+
+                cEditor.caret.setToPreviousBlock(indexOfLastInput);
+
+            } else {
+
+                /** Create new input when caret clicked in redactors area */
+                var NEW_BLOCK_TYPE = 'paragraph';
+
+                cEditor.content.insertBlock({
+                    type  : NEW_BLOCK_TYPE,
+                    block : cEditor.tools[NEW_BLOCK_TYPE].render()
+                });
+
+                /** Set caret to this appended input */
+                cEditor.caret.setToNextBlock(indexOfLastInput - 1);
+
+            }
 
             /**
             * Move toolbar to the right position and open
