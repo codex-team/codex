@@ -17,6 +17,7 @@ var bot = (function(bot) {
 
         bot.sendButton = document.getElementsByClassName("chat__send")[0];
         bot.sendTextarea = document.getElementsByClassName("chat__input_textarea")[0];
+        bot.chatBox = document.getElementsByClassName("chat__messages")[0]
 
         bot.cmdHelp = bot.createCmdObject("/help");
         bot.cmdStart = bot.createCmdObject("/start");
@@ -58,6 +59,7 @@ var bot = (function(bot) {
         messages.appendChild(bot.response(cmd));
 
         bot.sendTextarea.value = "";
+        bot.chatBox.scrollTop = bot.chatBox.scrollHeight;
 
     };
 
@@ -75,7 +77,7 @@ var bot = (function(bot) {
         }
         messageText.classList.add("chat__message_text");
 
-        messageImage.setAttribute("src", "D:/dev/codex/public/img/logo160.png");
+        messageImage.setAttribute("src", "/public/img/logo160.png");
         messageImage.setAttribute("alt", "You");
 
         if (typeof selfMessage == "boolean") {

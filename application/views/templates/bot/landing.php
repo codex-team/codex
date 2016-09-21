@@ -79,6 +79,8 @@
     }
     .chat__messages{
         overflow: hidden;
+        overflow-y: scroll;
+        height:280px;
     }
     .chat__message,
     .chat__input{
@@ -93,6 +95,9 @@
     .chat__message_text,
     .chat__message_name{
         padding-left: 70px;
+    }
+    .chat__message_name_self{
+        color: #7aba7b !important;
     }
     .chat__message_photo{
         float: left;
@@ -177,3 +182,5 @@
 
     </div>
 </div>
+
+<script src="/public/js/bot.js?v=1468920212"></script>
