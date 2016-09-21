@@ -8,12 +8,12 @@ var cEditor = (function (cEditor) {
 
     // Default settings
     cEditor.settings = {
-        tools      : ['paragraph', 'header', 'picture', 'list', 'quote', 'code', 'twitter', 'instagram', 'smile'],
-        textareaId : 'codex-editor',
+        tools              : ['paragraph', 'header', 'picture', 'list', 'quote', 'code', 'twitter', 'instagram', 'smile'],
+        textareaId         : 'codex-editor',
 
         // First-level tags viewing as separated blocks. Other'll be inserted as child
-        blockTags: ['P', 'BLOCKQUOTE', 'UL', 'CODE', 'OL', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6'],
-        uploadImagesUrl: '/editor/transport/',
+        blockTags          : ['P', 'BLOCKQUOTE', 'UL', 'CODE', 'OL', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6'],
+        uploadImagesUrl    : '/editor/transport/',
 
         // Type of block showing on empty editor
         initialBlockPlugin : "paragraph"
@@ -21,9 +21,9 @@ var cEditor = (function (cEditor) {
 
     // Static nodes
     cEditor.nodes = {
-        textarea : null,
-        wrapper  : null,
-        toolbar  : null,
+        textarea           : null,
+        wrapper            : null,
+        toolbar            : null,
         toolbox            : null,
         notifications      : null,
         plusButton         : null,
@@ -36,9 +36,9 @@ var cEditor = (function (cEditor) {
 
     // Current editor state
     cEditor.state = {
-        jsonOutput  : [],
-        blocks      : [],
-        inputs      : []
+        jsonOutput : [],
+        blocks     : [],
+        inputs     : []
     };
 
     /**
@@ -89,7 +89,7 @@ cEditor.core = {
     */
     prepare : function (userSettings) {
 
-        return new Promise(function(resolve, reject){
+        return new Promise(function(resolve, reject) {
 
             if ( userSettings ) {
 
@@ -479,14 +479,14 @@ cEditor.ui = {
         cEditor.nodes.notifications = document.body.appendChild(notifications);
 
         /** Make toolbar and content-editable redactor */
-        toolbar                 = cEditor.draw.toolbar();
-        plusButton              = cEditor.draw.plusButton();
-        showRemoveBlockButton   = cEditor.draw.removeBlockButton();
-        showSettingsButton      = cEditor.draw.settingsButton();
-        blockSettings           = cEditor.draw.blockSettings();
-        blockButtons            = cEditor.draw.blockButtons();
-        toolbox                 = cEditor.draw.toolbox();
-        redactor                = cEditor.draw.redactor();
+        toolbar               = cEditor.draw.toolbar();
+        plusButton            = cEditor.draw.plusButton();
+        showRemoveBlockButton = cEditor.draw.removeBlockButton();
+        showSettingsButton    = cEditor.draw.settingsButton();
+        blockSettings         = cEditor.draw.blockSettings();
+        blockButtons          = cEditor.draw.blockButtons();
+        toolbox               = cEditor.draw.toolbox();
+        redactor              = cEditor.draw.redactor();
 
         /** Make blocks buttons
         * This block contains settings button and remove block button
@@ -508,13 +508,13 @@ cEditor.ui = {
         wrapper.appendChild(redactor);
 
         /** Save created ui-elements to static nodes state */
-        cEditor.nodes.wrapper  = wrapper;
-        cEditor.nodes.toolbar  = toolbar;
-        cEditor.nodes.plusButton          = plusButton;
-        cEditor.nodes.toolbox             = toolbox;
-        cEditor.nodes.removeBlockButton   = showRemoveBlockButton;
-        cEditor.nodes.blockSettings       = blockSettings;
-        cEditor.nodes.showSettingsButton  = showSettingsButton;
+        cEditor.nodes.wrapper            = wrapper;
+        cEditor.nodes.toolbar            = toolbar;
+        cEditor.nodes.plusButton         = plusButton;
+        cEditor.nodes.toolbox            = toolbox;
+        cEditor.nodes.removeBlockButton  = showRemoveBlockButton;
+        cEditor.nodes.blockSettings      = blockSettings;
+        cEditor.nodes.showSettingsButton = showSettingsButton;
 
         cEditor.nodes.redactor = redactor;
 
@@ -777,27 +777,27 @@ cEditor.callback = {
         * Divide block into two components - a part which is before caret and a part after.
         * first part we put into current node, and second to new one
         */
-        var selection   = window.getSelection(),
-            nodeText    = selection.anchorNode.textContent,
-            caretOffset = selection.anchorOffset,
-            textBeforeCaret,
-            textAfterCaret;
 
-        textBeforeCaret = nodeText.substring(0, caretOffset);
-        textAfterCaret  = nodeText.substring(caretOffset);
-
-        /** set current input with HTML text before caret */
-        cEditor.state.inputs[currentInputIndex].innerHTML = textBeforeCaret.trim();
+        currentblock = cEditor.content.currentNode.querySelector('[contentEditable]');
 
         /**
-        * Make new paragraph with text after caret
+        * Split blocks when input has several nodes
         */
-        cEditor.content.insertBlock({
-            type  : NEW_BLOCK_TYPE,
-            block : cEditor.tools[NEW_BLOCK_TYPE].render({
-                text : textAfterCaret.trim(),
-            })
-        });
+        if (currentblock.childNodes.length !== 0) {
+
+            cEditor.content.splitBlock(currentInputIndex);
+
+        } else {
+
+            /**
+            * Make new paragraph
+            */
+            cEditor.content.insertBlock({
+                type  : NEW_BLOCK_TYPE,
+                block : cEditor.tools[NEW_BLOCK_TYPE].render()
+            });
+
+        }
 
         /** get all inputs after new appending block */
         cEditor.ui.saveInputs();
@@ -1235,8 +1235,17 @@ cEditor.callback = {
 
         } else {
 
-            cEditor.caret.setToPreviousBlock(cEditor.caret.inputIndex);
+            if (cEditor.caret.inputIndex !== 0) {
 
+                /** Target block is not first */
+                cEditor.caret.setToPreviousBlock(cEditor.caret.inputIndex);
+
+            } else {
+
+                /** If we try to delete first block */
+                cEditor.caret.setToNextBlock(cEditor.caret.inputIndex);
+
+            }
         }
 
         cEditor.toolbar.move();
@@ -1248,7 +1257,7 @@ cEditor.callback = {
         /** Updating inputs state */
         cEditor.ui.saveInputs();
 
-
+        /** Prevent default browser behaviour */
         event.preventDefault();
 
     },
@@ -1594,7 +1603,96 @@ cEditor.content = {
 
         return newBlock;
 
-    }
+    },
+
+    /**
+    * Divides block in two blocks (after and before caret)
+    * @private
+    * @param {Int} inputIndex - target input index
+    */
+    splitBlock : function(inputIndex) {
+
+        var selection      = window.getSelection(),
+            anchorNode     = selection.anchorNode,
+            anchorNodeText = anchorNode.textContent,
+            caretOffset    = selection.anchorOffset,
+            textBeforeCaret,
+            textNodeBeforeCaret,
+            textAfterCaret,
+            textNodeAfterCaret;
+
+
+        textBeforeCaret     = anchorNodeText.substring(0, caretOffset);
+        textAfterCaret      = anchorNodeText.substring(caretOffset);
+
+        textNodeBeforeCaret = document.createTextNode(textBeforeCaret);
+
+        if (textAfterCaret) {
+            textNodeAfterCaret  = document.createTextNode(textAfterCaret);
+        }
+
+        var previousChilds = [],
+            nextChilds     = [],
+            reachedCurrent = false;
+
+        if (textNodeAfterCaret) {
+            nextChilds.push(textNodeAfterCaret);
+        }
+
+        for ( var i = 0, child; !!(child = currentblock.childNodes[i]); i++) {
+
+            if ( child != anchorNode ) {
+                if ( !reachedCurrent ){
+                    previousChilds.push(child);
+                } else {
+                    nextChilds.push(child);
+                }
+            } else {
+                reachedCurrent = true;
+            }
+
+        }
+
+        /** Clear current input */
+        cEditor.state.inputs[inputIndex].innerHTML = '';
+
+        /**
+        * Append all childs founded before anchorNode
+        */
+        var previousChildsLength = previousChilds.length;
+
+        for(var i = 0; i < previousChildsLength; i++) {
+            cEditor.state.inputs[inputIndex].appendChild(previousChilds[i]);
+        }
+
+        cEditor.state.inputs[inputIndex].appendChild(textNodeBeforeCaret);
+
+        /**
+        * Append text node which is after caret
+        */
+        var nextChildsLength = nextChilds.length;
+            newNode          = document.createElement('div');
+
+        for(var i = 0; i < nextChildsLength; i++) {
+            newNode.appendChild(nextChilds[i]);
+        }
+
+        newNode = newNode.innerHTML;
+
+        /** This type of block creates when enter is pressed */
+        var NEW_BLOCK_TYPE = 'paragraph';
+
+        /**
+        * Make new paragraph with text after caret
+        */
+        cEditor.content.insertBlock({
+            type  : NEW_BLOCK_TYPE,
+            block : cEditor.tools[NEW_BLOCK_TYPE].render({
+                text : newNode,
+            })
+        });
+
+    },
 
 };
 
