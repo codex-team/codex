@@ -17,7 +17,7 @@ var bot = (function(bot) {
 
         bot.sendButton = document.getElementsByClassName("chat__send")[0];
         bot.sendTextarea = document.getElementsByClassName("chat__input_textarea")[0];
-        bot.chatBox = document.getElementsByClassName("chat__messages")[0]
+        bot.chatBox = document.getElementsByClassName("chat__messages")[0];
 
         bot.cmdHelp = bot.createCmdObject("/help");
         bot.cmdStart = bot.createCmdObject("/start");
@@ -26,7 +26,7 @@ var bot = (function(bot) {
         for(var i = 0; i < anchors.length; i++) {
 
             var anchor = anchors[i];
-            anchor.addEventListener("click", bot.clickEvent);
+            anchor.addEventListener("click", bot.commandClicked);
 
         }
 
@@ -35,8 +35,11 @@ var bot = (function(bot) {
 
     };
 
-    bot.clickEvent = function (event) {
-        bot.sendCommand(event.target.innerHTML);
+    bot.commandClicked = function (event) {
+        var commandElement = event.target,
+            commandName = commandElement.textContent;
+
+        bot.sendCommand(commandName);
     };
 
     bot.sendClickEvent = function (event) {
@@ -51,11 +54,11 @@ var bot = (function(bot) {
             return false;
         }
 
-        messages = document.getElementsByClassName("chat__messages")[0];
+        var messages = document.getElementsByClassName("chat__messages")[0];
 
-        selfMessage = bot.highlightCommands(cmd);
+        var selfMessageWithLink = bot.createCmdLink(cmd);
 
-        messages.appendChild(bot.buildMessage("You", cmd, selfMessage));
+        messages.appendChild(bot.buildMessage("You", cmd, selfMessageWithLink));
         messages.appendChild(bot.response(cmd));
 
         bot.sendTextarea.value = "";
@@ -96,15 +99,15 @@ var bot = (function(bot) {
         return messageBox;
     };
 
-    bot.highlightCommands = function (message) {
+    bot.createCmdLink = function (cmd) {
 
         span = document.createElement( 'span' );
         span.classList.add("chat__message_text_highlighted");
-        span.innerHTML = message;
-        span.addEventListener("click", bot.clickEvent);
+        span.innerHTML = cmd;
+        span.addEventListener("click", bot.commandClicked);
 
-        if (message == "/help") { return span; }
-        if (message == "/start") { return span; }
+        if (cmd == "/help") { return span; }
+        if (cmd == "/start") { return span; }
 
         return false;
     };
@@ -124,7 +127,7 @@ var bot = (function(bot) {
         span = document.createElement( 'span' );
         span.classList.add("chat__message_text_highlighted");
         span.innerHTML = message;
-        span.addEventListener("click", bot.clickEvent);
+        span.addEventListener("click", bot.commandClicked);
         return span;
     };
 
