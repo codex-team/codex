@@ -19,54 +19,63 @@ var bot = (function(bot) {
         bot.sendTextarea = document.getElementsByClassName("chat__input_textarea")[0];
         bot.chatBox = document.getElementsByClassName("chat__messages")[0];
 
-        bot.cmdHelp = bot.createCmdObject("/help");
-        bot.cmdStart = bot.createCmdObject("/start");
+        bot.cmdList = ["/start", "/help"];
 
         var anchors = document.getElementsByClassName('chat__message_text_highlighted');
         for(var i = 0; i < anchors.length; i++) {
 
             var anchor = anchors[i];
-            anchor.addEventListener("click", bot.commandClicked);
+            anchor.addEventListener("click", bot.commandClickedEvent);
 
         }
 
-        bot.sendButton.addEventListener("click", bot.sendClickEvent);
-        bot.sendTextarea.addEventListener("keypress", bot.keyPress);
+        bot.sendButton.addEventListener("click", bot.sendClickedEvent);
+        bot.sendTextarea.addEventListener("keypress", bot.keyPressEvent);
 
     };
 
-    bot.commandClicked = function (event) {
+    // Events
+
+    bot.commandClickedEvent = function (event) {
         var commandElement = event.target,
             commandName = commandElement.textContent;
 
         bot.sendCommand(commandName);
     };
 
-    bot.sendClickEvent = function (event) {
+    bot.keyPressEvent = function (event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            bot.sendCommand(bot.sendTextarea.value);
+        }
+    };
+
+    bot.sendClickedEvent = function (event) {
         bot.sendCommand(bot.sendTextarea.value);
     };
 
+    // Functions
+
     bot.sendCommand = function (cmd) {
 
-        console.log("Send command: " + cmd);
+        console.log("Send command: %s", cmd);
 
         if (cmd.length == 0) {
             return false;
         }
 
-        var messages = document.getElementsByClassName("chat__messages")[0];
+        var selfMessage = bot.buildSelfMessage(cmd),
+            botAnswer = bot.buildBotAnswer(cmd);
 
-        var selfMessageWithLink = bot.createCmdLink(cmd);
-
-        messages.appendChild(bot.buildMessage("You", cmd, selfMessageWithLink));
-        messages.appendChild(bot.response(cmd));
+        bot.chatBox.appendChild(selfMessage);
+        bot.chatBox.appendChild(botAnswer);
 
         bot.sendTextarea.value = "";
         bot.chatBox.scrollTop = bot.chatBox.scrollHeight;
 
     };
 
-    bot.buildMessage = function (name, message, selfMessage) {
+    bot.buildMessage = function (name, message) {
         var messageBox      = document.createElement( 'div' ),
             messageImage    = document.createElement( 'img' ),
             messageName     = document.createElement( 'div' ),
@@ -77,18 +86,12 @@ var bot = (function(bot) {
         messageName.classList.add("chat__message_name");
         if (name ==  "You") {
             messageName.classList.add("chat__message_name_self");
+            messageImage.setAttribute("alt", "You");
         }
         messageText.classList.add("chat__message_text");
-
         messageImage.setAttribute("src", "/public/img/logo160.png");
-        messageImage.setAttribute("alt", "You");
 
-        if (typeof selfMessage == "boolean") {
-            messageText.innerHTML = message;
-        }
-        else {
-            messageText.appendChild(selfMessage);
-        }
+        messageText.appendChild(message);
 
         messageName.innerHTML = name;
 
@@ -99,44 +102,32 @@ var bot = (function(bot) {
         return messageBox;
     };
 
-    bot.createCmdLink = function (cmd) {
+    bot.buildSelfMessage = function (message) {
 
-        span = document.createElement( 'span' );
-        span.classList.add("chat__message_text_highlighted");
-        span.innerHTML = cmd;
-        span.addEventListener("click", bot.commandClicked);
+        var span = document.createElement( 'span' );
+        span.textContent = message;
 
-        if (cmd == "/help") { return span; }
-        if (cmd == "/start") { return span; }
-
-        return false;
-    };
-
-    bot.response = function (cmd) {
-
-        message = "Что-то я даже и не знаю, что тебе на это сказать.";
-        if (cmd == "/help") {
-            message = "С радостью помогу. Просто пиши сообщения.";
+        if (bot.cmdList.indexOf(message) != -1) {
+            span.classList.add("chat__message_text_highlighted");
+            span.addEventListener("click", bot.commandClickedEvent);
         }
 
-        return bot.buildMessage("Codex Bot", message, false);
+        return bot.buildMessage("You", span)
 
     };
 
-    bot.createCmdObject = function (message, event) {
-        span = document.createElement( 'span' );
-        span.classList.add("chat__message_text_highlighted");
-        span.innerHTML = message;
-        span.addEventListener("click", bot.commandClicked);
-        return span;
-    };
+    bot.buildBotAnswer = function (message) {
 
-    bot.keyPress = function (event) {
-        if (event.keyCode == 13) {
-            console.log("Enter pressed.");
-            event.preventDefault();
-            bot.sendCommand(bot.sendTextarea.value);
+        var answer = "Что-то я даже и не знаю, что тебе на это сказать.";
+        if (message == "/help") {
+            answer = "С радостью помогу. Просто пиши сообщения.";
         }
+
+        var span = document.createElement( 'span' );
+        span.textContent = answer;
+
+        return bot.buildMessage("Codex Bot", span);
+
     };
 
     return bot;
