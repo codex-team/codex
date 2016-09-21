@@ -21,6 +21,12 @@ class Controller_Transport extends Controller_Base_preDispatch {
 	{
 		$this->files = Arr::get($_FILES, 'files');
 
+		if (isset($_GET['files'])) {
+			$url = Arr::get($_GET, 'files');
+			$filename = $this->methods->saveImageByUrl($url, 'upload/redactor_images/');
+			goto finish;
+		}
+
 		if ( !$this->files || !Upload::not_empty($this->files) || !Upload::valid($this->files) ){
 			$this->transportResponse['message'] = 'File is missing or damaged';
 			goto finish;

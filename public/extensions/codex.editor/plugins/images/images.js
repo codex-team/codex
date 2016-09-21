@@ -170,7 +170,57 @@ var ceImage = {
             success,
             error,
         });
-    }
+    },
+
+    pastedImageURL : function(event) {
+
+        var clipboardData = event.clipboardData || window.clipboardData,
+            pastedData    = clipboardData.getData('Text'),
+            block         = event.target.parentNode;
+
+        ceImage.renderURL(pastedData, block);
+
+        event.stopPropagation();
+    },
+
+    renderURL : function(pastedData, block) {
+
+        Promise.resolve()
+
+            .then(function() {
+                return pastedData;
+            })
+
+            .then(ceImage.urlify)
+
+            .then(function(url) {
+
+                /* Show loader gif **/
+                // block.classList.add(linkTool.elementClasses.loader);
+
+                return fetch('/editor/transport?files=' + encodeURI(url))
+            })
+
+            .then(function(response) {
+                console.log(response);
+            });
+
+    },
+
+    urlify : function (text) {
+
+        var urlRegex = /(https?:\/\/\S+)/g;
+
+        var links = text.match(urlRegex);
+
+        if (links) {
+            console.log(links[0]);
+            return links[0];
+        }
+
+        return Promise.reject(Error("Url is not matched"));
+
+    },
 };
 
 ceImage.ui = {
@@ -231,10 +281,9 @@ ceImage.ui = {
 
     caption : function() {
 
-        var div = document.createElement('div');
+        var div  = document.createElement('div');
 
         div.classList.add(ceImage.elementClasses.imageCaption);
-
         div.contentEditable = true;
 
         return div;
@@ -253,6 +302,8 @@ ceImage.ui = {
 
         holder.appendChild(uploadButton);
         holder.appendChild(input);
+
+        input.addEventListener('paste', ceImage.pastedImageURL, false);
 
         uploadButton.addEventListener('click', ceImage.uploadButtonClicked, false );
 

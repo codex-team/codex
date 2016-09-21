@@ -84,6 +84,7 @@
     position: relative;
     outline: none;
     padding: 1px 0;
+    padding-bottom: 120px;
     min-height: 350px;
 }
 
@@ -207,8 +208,9 @@
     }
 
     .ce_redactor_plusButton--clicked {
-        transform: rotate(45deg);
+        transform: rotate(180deg);
         color: rgb(156, 156, 156);
+        background: #475159;
     }
 
 /** First-level block buttons */
@@ -309,12 +311,10 @@
 
 
 .ce_redactor .ce_block{
-    /*padding: 10px;*/
-    /*margin: -1px;*/
-    /*border: 1px dotted #ccc;*/
     background: #fff;
     outline: none;
 }
+
     .ce_redactor .ce_block:focus{
         background: #fbfbfb;
         border-radius: 3px;

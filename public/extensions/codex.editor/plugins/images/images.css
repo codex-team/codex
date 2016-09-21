@@ -70,21 +70,24 @@
 	}
 
 .ce-plugin-image__caption {
-    margin-top: 1em;
+    max-width: 700px;
+    margin: 1em auto;
     text-align: center;
     color: #898a8c;
 }
 
-    .ce-plugin-image--caption:empty::before {
-        content : 'Подпись';
+    .ce-plugin-image__caption:empty::before {
+        content: 'Введите подпись';
+        text-align: center;
         font-weight: normal;
         color: #a1a5b3;;
-        opacity: 1;
+        opacity: .9;
         transition: opacity 200ms ease;
     }
 
-    .ce-plugin-image--caption:focus::before {
+    .ce-plugin-image__caption:focus::before {
         opacity: .1;
+        text-align: center;
     }
 
 /** Settings */
@@ -95,7 +98,7 @@
 .ce_plugin_image--select_button{
     display: inline-block;
     margin-left: 15px;
-    color: #6881e6;
+    color: #70a1ff;
     cursor: pointer;
 }
     .ce_plugin_image--select_button:hover{

@@ -20,6 +20,7 @@ var paragraphTool = {
         }
 
         tag.contentEditable = true;
+        tag.setAttribute('data-placeholder', 'New paragraph');
 
         return tag;
 
