@@ -181,6 +181,7 @@ Route::set('BOT_LANDING', 'bot', array())->defaults(array(
 
 // bot 
 
+Route::set('ORG_LANDING', 'org', array())->defaults(array(
     'controller' => 'landings',
     'action' => 'show_org'
 ));
