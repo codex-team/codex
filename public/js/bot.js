@@ -68,7 +68,11 @@ var bot = (function(bot) {
             botAnswer = bot.buildBotAnswer(cmd);
 
         bot.chatBox.appendChild(selfMessage);
-        bot.chatBox.appendChild(botAnswer);
+
+        setTimeout(function() {
+            bot.chatBox.appendChild(botAnswer);
+            bot.chatBox.scrollTop = bot.chatBox.scrollHeight;
+        }, 1500);
 
         bot.sendTextarea.value = "";
         bot.chatBox.scrollTop = bot.chatBox.scrollHeight;
@@ -108,8 +112,7 @@ var bot = (function(bot) {
         span.textContent = message;
 
         if (bot.cmdList.indexOf(message) != -1) {
-            span.classList.add("chat__message_text_highlighted");
-            span.addEventListener("click", bot.commandClickedEvent);
+            span = bot.buildCommand(message)
         }
 
         return bot.buildMessage("You", span)
@@ -118,17 +121,55 @@ var bot = (function(bot) {
 
     bot.buildBotAnswer = function (message) {
 
-        var answer = "Что-то я даже и не знаю, что тебе на это сказать.";
-        if (message == "/help") {
-            answer = "С радостью помогу. Просто пиши сообщения.";
-        }
-
         var span = document.createElement( 'span' );
-        span.textContent = answer;
+
+        if (message == "/help") {
+            span.appendChild(document.createTextNode("С радостью помогу. Я умею управлять модулями "));
+            span.appendChild(bot.buildCommand("/github"));
+            span.appendChild(document.createTextNode(" и "));
+            span.appendChild(bot.buildCommand("/yandex"));
+        }
+        else if (message == "/start") {
+            span.appendChild(document.createTextNode("Для начала можете ознакомиться со справкой, введя команду "));
+            span.appendChild(bot.buildCommand("/help"));
+        }
+        else if (message == "/github") {
+            span.appendChild(document.createTextNode("Модуль GitHub подключен. Оповещения о новых коммитах, pull-реквестах и issues будут приходить сюда."));
+            bot.sendReplyFromGithub();
+        }
+        else {
+            span.appendChild(document.createTextNode("Что-то я даже и не знаю, что тебе на это сказать."));
+        }
 
         return bot.buildMessage("Codex Bot", span);
 
     };
+
+    bot.buildCommand = function (message) {
+
+        var span = document.createElement( 'span' );
+        span.textContent = message;
+        span.classList.add("chat__message_text_highlighted");
+        span.addEventListener("click", bot.commandClickedEvent);
+
+        return span;
+
+    };
+
+    bot.sendReplyFromGithub = function () {
+
+        window.setTimeout(function () {
+
+            var span = document.createElement( 'span' );
+            span.appendChild(document.createTextNode("У вас 10 новых коммитов."));
+
+            var message = bot.buildMessage("Codex. GitHub Notification", span);
+            bot.chatBox.appendChild(message);
+            bot.chatBox.scrollTop = bot.chatBox.scrollHeight;
+
+        }, 3000);
+
+    }
 
     return bot;
 
