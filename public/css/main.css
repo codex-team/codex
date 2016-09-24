@@ -18,7 +18,7 @@ hr {
 .fl_r{float: right;}
 .constrain{overflow: hidden;}
 .pointer{cursor: pointer ;}
-.hide{display: none;}
+.hide{display: none !important;}
 .block{display: block;  }
 .p_rel{position: relative;}
 a{color: #4e88d6;}
@@ -918,29 +918,6 @@ html {
         margin: 15px auto;
     }
 
-.double_sections{
-    padding: 30px;
-}
-    .double_sections .constrain{
-        border-left: 2px solid #e8ecf1;
-    }
-
-.cdx_news{
-    border-left: 3px solid #e8ecf1;
-    padding: 15px 35px;
-}
-    .cdx_news h3{
-        margin: 0 0 20px;
-    }
-    .cdx_news .item{
-        margin-top: 15px;
-    }
-    .cdx_news time{
-        display: block;
-        font-size: 15px;
-        font-weight: bold;
-    }
-
 
 
 .landing_page{
@@ -1219,8 +1196,6 @@ html {
 
 }
 
-/*** end of New Year landing styles *******************/
-
 
 /*** Contests ***/
 .contest{
@@ -1402,8 +1377,6 @@ html {
         }
 
 
-/*** end of Contests ***/
-
 
 
 .follow_us{
@@ -1509,6 +1482,62 @@ html {
     }
 
 
+
+
+
+/**
+* News
+*/
+.news{
+    display: inline-block;
+    max-width: 500px;
+    border-top: 1px solid #eceff6;
+    padding: 50px 0;
+    margin: 50px 0 0;
+    text-align: left;
+}
+    .news__list_item{
+        position: relative;
+        padding: 5px 0;
+        list-style: none;
+        line-height: 1.6em;
+    }
+    .news__list_item:before{
+        content: attr(data-time);
+        position: absolute;
+        left: -70px;
+        width: 50px;
+        text-align: right;
+        color: #8B8E99;
+    }
+    .news__bage{
+        display: inline-block;
+        margin-right: .8em;
+        color: #B33232;
+        letter-spacing: 2px;
+        font-size: 1.1em;
+        font-variant: small-caps;
+    }
+    .news__showmore{
+        display: inline-block;
+        margin-top: 1.5em;
+        border-bottom: 1px solid #dae1ec;
+        padding-bottom: 1px;
+        cursor: pointer;
+        color: #768293;
+    }
+        .news__showmore:hover{
+            color: #d25555;
+            border-color: #f5dfdf;
+        }
+
+
+
+
+
+/**
+* End
+*/
 
 
 
@@ -1892,6 +1921,24 @@ html {
         margin: 0 7px 18px;
     }
 
+    /**
+    * News
+    */
+    .news{
+        padding: 30px 0;
+        margin: 30px 0;
+    }
+    .news__list_item:before{
+        position: static;
+        display: block;
+        text-align: left;
+        margin: 1em 0 .6em;
+    }
+
+    /**
+    * End of mobile viewport
+    */
+
 
 
 }
@@ -1899,6 +1946,7 @@ html {
 
 
 @media print, (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 1.25dppx), (min-resolution: 120dpi) {
+
     .m_logo_wrap .m_logo, .clarity_page .cdx_logo{
         background: url('../img/logo224@2x.png') no-repeat;
         background-size: 224px 224px;
@@ -1937,4 +1985,10 @@ html {
         background-size: 28px 28px;
 
     }
+
+
+    /**
+    * End of Retina viewport
+    */
+
 }

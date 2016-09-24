@@ -17,26 +17,20 @@
         <div class="cdx_logo"></div>
         <p>CodeX — это новый клуб в НИУ ИТМО, объединяющий студентов и выпускников, интересующихся веб-разработкой, дизайном и изучением новых технологий на практике.</p>
         <p>Наша цель — собрать команду молодых специалистов с горящими глазами и идеалистическим настроем.</p>
+
+        <ul class="news">
+            <li class="news__list_item" data-time="25 sep">
+                <span class="news__bage">release</span>
+                Визуальный редактор для медиа <a href="/editor">CodeX Editor</a>
+            </li>
+            <li class="news__list_item" data-time="22 sep">
+                <span class="news__bage">release</span>
+                <a href="/bot">@codex_bot</a> — Облачная платформа для интегарции сервисов в Telegram. Модули по работе с GitHub и Yandex.Metrika
+            </li>
+            <li class="news__list_item" data-time="15 jul">
+                Новая статья: «<a href="/alias-system">Система алиасов</a>»
+            </li>
+            <span class="news__showmore" onclick="codex.content.showMoreNews( this );">Показать больше новостей</span>
+        </ul>
     </div>
 </div>
-<? /*
-<div class="center_side">
-    <div class="double_sections clearfix">
-        <section class="fl_l">
-            <div class="cdx_news">
-                <h3>Последние новости</h3>
-                <div class="item">
-                    <time>13 ноя</time>
-                    <a href="">Конкурс на стикеры (и звание техлида)</a>
-                </div>
-                <div class="item">
-                    <time>12 сен</time>
-                    <a href="">Набор в клуб завершен</a>
-                </div>
-            </div>
-        </section>
-        <section class="constrain">
-        </section>
-    </div>
-</div>
-*/ ?>

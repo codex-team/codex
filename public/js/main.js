@@ -1,10 +1,340 @@
+var codex = (function(codex){
+
+    codex.settings = {};
+
+    /**
+    * Preparation method
+    */
+    codex.init = function(settings){
+
+        /** Save settings or use defaults */
+        for (var set in settings ){
+            this.settings[set] = settings[set] || this.settings[set] || null;
+        }
+
+    };
+
+    return codex;
+
+
+})({});
+
 /**
 * Document ready event listener
-* @usage docReady(function(){ # code ... } );
+* @usage codex.docReady(function(){ # code ... } );
 */
-function docReady(f){
-    /in/.test(document.readyState) ? setTimeout(docReady, 9, f) : f();
-}
+codex.docReady = function(f){
+    return /in/.test(document.readyState) ? setTimeout(codex.docReady,9,f) : f();
+};
+
+/**
+* System methods and helpers
+*/
+codex.core = {
+
+    /**
+    * Native ajax method.
+    */
+    ajax : function (data) {
+
+        if (!data || !data.url){
+            return;
+        }
+
+        var XMLHTTP          = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP"),
+            success_function = function(){};
+
+        data.async           = true;
+        data.type            = data.type || 'GET';
+        data.data            = data.data || '';
+        data['content-type'] = data['content-type'] || 'application/json; charset=utf-8';
+        success_function     = data.success || success_function ;
+
+        if (data.type == 'GET' && data.data) {
+            data.url = /\?/.test(data.url) ? data.url + '&' + data.data : data.url + '?' + data.data;
+        }
+
+        if (data.withCredentials) {
+            XMLHTTP.withCredentials = true;
+        }
+
+        if (data.beforeSend && typeof data.beforeSend == 'function') {
+            data.beforeSend.call();
+        }
+
+        XMLHTTP.open( data.type, data.url, data.async );
+        XMLHTTP.setRequestHeader("Content-type", data['content-type'] );
+        XMLHTTP.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+        XMLHTTP.onreadystatechange = function() {
+            if (XMLHTTP.readyState == 4 && XMLHTTP.status == 200) {
+                success_function(XMLHTTP.responseText);
+            }
+        };
+
+        XMLHTTP.send(data.data);
+
+    },
+
+    showException : function ( message ){
+
+        var wrapper = document.querySelector('.exceptionWrapper'),
+            notify;
+
+        if (!wrapper) {
+
+            wrapper = document.createElement('div');
+            wrapper.classList.add('exceptionWrapper');
+
+            document.body.appendChild(wrapper);
+
+        }
+
+        notify = document.createElement('div');
+        notify.classList.add('clientException');
+
+        notify.innerHTML = message;
+
+        wrapper.appendChild(notify);
+
+        notify.classList.add('bounceIn');
+
+        setTimeout(function(){
+            notify.remove();
+        }, 8000);
+
+    }
+
+},
+
+
+
+
+codex.content = {
+
+    /**
+    * Module uses for toggle custom checkboxes
+    * that has 'js-custom-checkbox' class and input[type="checkbox"] included
+    * Example:
+    * <span class="js-custom-checkbox">
+    *    <input type="checkbox" name="" value="1"/>
+    * </span>
+    */
+    customCheckboxes : {
+
+        /**
+        * This class specifies checked custom-checkbox
+        * You may set it on serverisde
+        */
+        CHECKED_CLASS : 'checked',
+
+        init : function(){
+
+            var checkboxes = document.getElementsByClassName('js-custom-checkbox');
+
+            if (checkboxes.length) for (var i = checkboxes.length - 1; i >= 0; i--) {
+                checkboxes[i].addEventListener('click', codex.content.customCheckboxes.clicked , false);
+            }
+        },
+
+        clicked : function(){
+
+            var checkbox  = this,
+                input     = this.querySelector('input'),
+                isChecked = this.classList.contains(codex.content.customCheckboxes.CHECKED_CLASS);
+
+            checkbox.classList.toggle(codex.content.customCheckboxes.CHECKED_CLASS);
+
+            if (isChecked) {
+                input.removeAttribute('checked');
+            } else {
+                input.setAttribute('checked', 'checked');
+            }
+
+        }
+
+    },
+
+    /**
+    * Helper for 'show more news' button
+    * @param {Element} button   - appender button
+    */
+    showMoreNews : function( button ){
+
+        var PORTION = 5;
+
+        var news = document.querySelectorAll('.news__list_item'),
+            hided = [];
+
+        for (var i = 0, newsItem; !!(newsItem = news[i]); i++) {
+            if ( newsItem.classList.contains('hide') ){
+                hided.push(newsItem);
+            }
+        }
+
+        hided.splice(0, PORTION).map(function(item){
+            item.classList.remove('hide');
+        });
+
+        if (!hided.length) {
+            button.classList.add('hide');
+        }
+
+    }
+
+
+};
+
+
+codex.scrollUp = {
+
+    /**
+    * Page scroll offset to show scroll-up button
+    */
+    SCROLL_UP_OFFSET: 100,
+
+    button: null,
+
+    scrollPage : function(){
+
+        window.scrollTo(0, 0);
+
+    },
+
+    windowScrollHandler : function(){
+
+        if (window.pageYOffset > codex.scrollUp.SCROLL_UP_OFFSET) {
+
+            codex.scrollUp.button.classList.add('show');
+
+        } else {
+
+            codex.scrollUp.button.classList.remove('show');
+
+        }
+    },
+
+    /**
+    * Init method
+    * Fired after document is ready
+    */
+    init : function () {
+
+        /** Find scroll-up button */
+        this.button = document.getElementById('scroll_button');
+
+        /** Bind click event on scroll-up button */
+        this.button.addEventListener("click", codex.scrollUp.scrollPage);
+
+        /** Global window scroll handler */
+        window.addEventListener("scroll", codex.scrollUp.windowScrollHandler);
+
+    }
+
+};
+
+codex.sharer = (function( sharer ){
+
+    sharer.vkontakte = function(data) {
+
+        var link  = 'https://vk.com/share.php?';
+
+        link += 'url='          + data.url;
+        link += '&title='       + data.title;
+        link += '&description=' + data.desc;
+        link += '&image='       + data.img;
+        link += '&noparse=true';
+
+        sharer.popup( link, 'vkontakte'  );
+    };
+
+    sharer.facebook = function(data) {
+
+        var FB_APP_ID = 1740455756240878,
+            link      = 'https://www.facebook.com/dialog/share?display=popup';
+
+        link += '&app_id='       + FB_APP_ID;
+        link += '&href='         + data.url;
+        link += '&redirect_uri=' + document.location.href;
+
+        sharer.popup( link , 'facebook' );
+
+    };
+    sharer.twitter = function(data) {
+
+        var link = 'https://twitter.com/share?';
+
+        link += 'text='      + data.title;
+        link += '&url='      + data.url;
+        link += '&counturl=' + data.url;
+
+        sharer.popup( link , 'twitter' );
+    };
+
+    sharer.telegram = function(data) {
+
+        var link  = 'https://telegram.me/share/url';
+
+        link += '?text=' + data.title;
+        link += '&url='  + data.url;
+
+        sharer.popup( link, 'telegram' );
+
+    };
+
+    sharer.popup = function( url , social_type ) {
+
+        window.open( url , '' , 'toolbar=0,status=0,width=626,height=436' );
+
+        /**
+        * Write analytics goal
+        */
+        if ( window.yaCounter32652805 ){
+            window.yaCounter32652805.reachGoal('article-share', function(){} , this, {type: social_type, url: url});
+        }
+
+    };
+
+    sharer.init = function () {
+
+        var shareButtons = document.querySelectorAll('.sharing .but, .sharing .main_but');
+
+        for (var i = shareButtons.length - 1; i >= 0; i--) {
+
+            shareButtons[i].addEventListener('click', sharer.click, true);
+        }
+
+    };
+
+    sharer.click = function (event) {
+
+        /**
+        * Social provider stores in data 'shareType' attribute on share-button
+        * But click may be fired on child-element in button, so we need to handle it.
+        */
+        var type = event.target.dataset.shareType || event.target.parentNode.dataset.shareType;
+
+        if (!sharer[type]) return;
+
+        /**
+        * Sanitize share params
+        * @todo test for taint strings
+        */
+        // for (key in window.shareData){
+        //      window.shareData[key] = encodeURIComponent(window.shareData[key]);
+        // }
+
+        /**
+        * Fire click handler
+        */
+        sharer[type](window.shareData);
+
+    };
+
+
+
+    return sharer;
+
+})({});
 
 
 
@@ -242,10 +572,10 @@ var callbacks = (function(callbacks) {
                         checker.className = checker.className.replace('bounceIn', '');
                     }
 
-                };
+                }
             }
-        })
-    }
+        });
+    };
 
     callbacks.saveProfilePhoto = {
 
@@ -259,7 +589,7 @@ var callbacks = (function(callbacks) {
 
         }
 
-    }
+    };
 
     return callbacks;
 
@@ -469,166 +799,17 @@ var xhr = (function(xhr){
 
 })({});
 
-var scrollUp = {
 
-    /**
-    * Page scroll offset to show scroll-up button
-    */
-    SCROLL_UP_OFFSET: 100,
+codex.docReady(function(){
 
-    button: null,
-
-    scrollPage : function(){
-
-        window.scrollTo(0, 0);
-
-    },
-
-    windowScrollHandler : function(){
-
-        if (window.pageYOffset > scrollUp.SCROLL_UP_OFFSET) {
-
-            scrollUp.button.classList.add('show');
-
-        } else {
-
-            scrollUp.button.classList.remove('show');
-
-        }
-    },
-
-    /**
-    * Init method
-    * Fired after document is ready
-    */
-    init : function () {
-
-        /** Find scroll-up button */
-        this.button = document.getElementById('scroll_button');
-
-        /** Bind click event on scroll-up button */
-        this.button.addEventListener("click", scrollUp.scrollPage);
-
-        /** Global window scroll handler */
-        window.addEventListener("scroll", scrollUp.windowScrollHandler);
-
-    }
-
-}
-
-var sharer = (function( sharer ){
-
-    sharer.vkontakte = function(data) {
-
-        var link  = 'https://vk.com/share.php?';
-
-        link += 'url='          + data.url;
-        link += '&title='       + data.title;
-        link += '&description=' + data.desc;
-        link += '&image='       + data.img;
-        link += '&noparse=true';
-
-        sharer.popup( link, 'vkontakte'  );
-    };
-
-    sharer.facebook = function(data) {
-
-        var FB_APP_ID = 1740455756240878,
-            link      = 'https://www.facebook.com/dialog/share?display=popup';
-
-        link += '&app_id='       + FB_APP_ID;
-        link += '&href='         + data.url;
-        link += '&redirect_uri=' + document.location.href;
-
-        sharer.popup( link , 'facebook' );
-
-    };
-    sharer.twitter = function(data) {
-
-        var link = 'https://twitter.com/share?';
-
-        link += 'text='      + data.title;
-        link += '&url='      + data.url;
-        link += '&counturl=' + data.url;
-
-        sharer.popup( link , 'twitter' );
-    };
-
-    sharer.telegram = function(data) {
-
-        var link  = 'https://telegram.me/share/url';
-
-        link += '?text=' + data.title;
-        link += '&url='  + data.url;
-
-        sharer.popup( link, 'telegram' );
-
-    };
-
-    sharer.popup = function( url , social_type ) {
-
-        window.open( url , '' , 'toolbar=0,status=0,width=626,height=436' );
-
-        /**
-        * Write analytics goal
-        */
-        if ( window.yaCounter32652805 ){
-            window.yaCounter32652805.reachGoal('article-share', function(){} , this, {type: social_type, url: url});
-        }
-
-    };
-
-    sharer.init = function () {
-
-        var shareButtons = document.querySelectorAll('.sharing .but, .sharing .main_but');
-
-        for (var i = shareButtons.length - 1; i >= 0; i--) {
-
-            shareButtons[i].addEventListener('click', sharer.click, true);
-        }
-
-    };
-
-    sharer.click = function (event) {
-
-        /**
-        * Social provider stores in data 'shareType' attribute on share-button
-        * But click may be fired on child-element in button, so we need to handle it.
-        */
-        var type = event.target.dataset.shareType || event.target.parentNode.dataset.shareType;
-
-        if (!sharer[type]) return;
-
-        /**
-        * Sanitize share params
-        * @todo test for taint strings
-        */
-        // for (key in window.shareData){
-        //      window.shareData[key] = encodeURIComponent(window.shareData[key]);
-        // }
-
-        /**
-        * Fire click handler
-        */
-        sharer[type](window.shareData);
-
-    };
-
-
-
-    return sharer;
-
-})({});
-
-docReady(function(){
+    console.log('document is ready', document);
 
     if (window.shareData) {
 
-        sharer.init();
+        codex.sharer.init();
 
     }
 
-    console.log('document is ready', document);
 
     var joinBlank = document.getElementById('joinBlank');
     if ( typeof joinBlank != 'undefined' && joinBlank != null ){
@@ -679,7 +860,7 @@ docReady(function(){
     }
 
     /** Initialize scroll up button */
-    scrollUp.init();
+    codex.scrollUp.init();
 
 });
 
