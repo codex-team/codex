@@ -27,6 +27,7 @@ var headerTool = {
         } else {
 
             tag = document.createElement( 'H2' );
+            tag.dataset.headerData = 'H2';
 
         }
 
@@ -156,6 +157,8 @@ var headerTool = {
         new_header.contentEditable = true;
         new_header.setAttribute('data-placeholder', 'Heading');
         new_header.classList.add('ce-header');
+
+        new_header.dataset.headerData = type;
 
         cEditor.content.switchBlock(old_header, new_header, 'header');
 

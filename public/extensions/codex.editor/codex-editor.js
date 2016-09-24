@@ -186,7 +186,7 @@ cEditor.renderer = {
         /**
         * If redactor is empty, add first paragraph to start writing
         */
-        if (!cEditor.state.blocks.length) {
+        if (!cEditor.state.blocks.items.length) {
 
             cEditor.ui.addInitialBlock();
             return;
@@ -353,7 +353,10 @@ cEditor.saver = {
     saveBlocks : function () {
 
         /** Save html content of redactor to memory */
-        // cEditor.state.html = cEditor.nodes.redactor.innerHTML;
+        cEditor.state.html = cEditor.nodes.redactor.innerHTML;
+
+        /** Empty jsonOutput state */
+        cEditor.state.jsonOutput = [];
 
         Promise.resolve()
 

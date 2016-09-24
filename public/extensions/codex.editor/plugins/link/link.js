@@ -54,6 +54,7 @@ var linkTool = {
         var block = linkTool.ui.mainBlock(),
             tag   = linkTool.ui.make(json);
 
+        block.classList.add('ce-link');
         block.appendChild(tag);
 
         return block;

@@ -98,6 +98,26 @@
         margin-bottom: 50px;
     }
 
+    .editor_output__buttons {
+        margin-left: 119px;
+    }
+        .editor_output__buttons button {
+            outline: none;
+            border: 0;
+            padding: 6px 25px;
+            font-size: .85em;
+            color: #fff;
+        }
+
+        .button_output {
+            background: #40c1a4 !important;
+        }
+
+        .button_save {
+            margin-left: 20px;
+            background: #2172c5 !important;
+        }
+
     .site_footer{
         border-top: 0;
         background: #1a1c29;
@@ -144,6 +164,11 @@
 
         </form>
 
+        <div class="editor_output__buttons">
+            <button id="jsonPreviewerButton" class="button_output">View Output</button>
+            <button id="" class="button_save">Save and Preview</button>
+        </div>
+
     </article>
 </div>
 
@@ -154,7 +179,6 @@
 
     <pre id="output"></pre>
 </div>
-
 
 <link rel="stylesheet" href="/public/extensions/codex.editor/editor.css" />
 <script src="/public/extensions/codex.editor/codex-editor.js"></script>
@@ -394,6 +418,42 @@ _INPUT.items = [
 ];
 
 /**
+ * Save all blocks and Preview JSON
+ */
+var jsonPreviewerButton = document.getElementById('jsonPreviewerButton');
+
+jsonPreviewerButton.addEventListener('click', function() {
+
+    /** Empty INPUTS items */
+    INPUT.items = [];
+
+    /**
+     * Save blocks
+     */
+    cEditor.saver.saveBlocks();
+
+    setTimeout(function() {
+
+        /**
+         * Fill in INPUT items
+         */
+        INPUT.items = cEditor.state.jsonOutput;
+        INPUT.count = INPUT.items.length;
+
+        /**
+         * View JSON data
+         */
+        cPreview.show({
+            data : INPUT,
+            holder : 'output'
+        });
+
+    }, 100);
+
+}, false);
+
+
+/**
 * Empty redactor preview
 */
 INPUT.items = [];
@@ -407,7 +467,7 @@ INPUT.items = [];
 
         cEditor.start({
             textareaId: 'codex_editor',
-            data : INPUT
+            data : _INPUT
         });
 
         cPreview.show({
@@ -449,6 +509,7 @@ INPUT.items = [];
 
             this.holder = document.getElementById(params.holder);
 
+            /** getting INPUT JSON */
             var output = params.data;
 
             /** Make JSON pretty */
