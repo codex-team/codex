@@ -133,6 +133,7 @@ listTool.ui = {
 
         var wrapper = this.block(blockType || 'UL', listTool.baseClass);
 
+        wrapper.dataset.type    = 'ul';
         wrapper.contentEditable = true;
 
         return wrapper;

@@ -14,6 +14,42 @@ class Controller_Editor extends Controller_Base_preDispatch
         $this->template->content = View::factory('templates/editor/landing', $this->view);
     }
 
+    public function action_saveArticle()
+    {
+        $html = Arr::get($_POST, 'html');
+        $json = Arr::get($_POST, 'json');
+
+
+        $article = new Model_Article();
+
+        $article->text = $html;
+        $article->json = $json;
+
+        $article->title        = Arr::get($_POST, 'title', 'Тестовая статья');
+        $article->is_published = Arr::get($_POST, 'is_published') ? 1 : 0;
+        $article->marked       = Arr::get($_POST, 'marked') ? 1 : 0;
+        $article->order        = (int) Arr::get($_POST, 'order', '0');
+        $article->description  = Arr::get($_POST, 'description', 'desc');
+        $article->user_id = 30;
+        $article->insert();
+
+        $blocks = json_decode($article->json);
+
+        for($i = 0; $i < count($blocks); $i++)
+        {
+            $render[] = View::factory('templates/editor/plugins/' . $blocks[$i]->type, array('block' => $blocks[$i]->data))
+                        ->render();
+        }
+
+        $this->template->content = View::factory('templates/editor/article',
+            array(
+                'render'  => $render,
+                'article' => $article
+            ));
+
+//        $this->auto_render = false;
+    }
+
     /**
      * parses link by ajax request
      */
