@@ -158,7 +158,7 @@
         <h1 class="big_header" itemprop="headline">CodeX Editor</h1>
         <div class="editor-landing--disclaimer">under development</div>
 
-        <form action="/editor/saveArticle" method="POST">
+        <form action="/editor/preview" method="POST">
 
             <textarea hidden name="html" id="codex_editor" cols="30" rows="10" style="width: 100%;height: 300px;"></textarea>
             <textarea hidden name="json" id="json_result" cols="30" rows="10" style="width: 100%;height: 300px;"></textarea>
