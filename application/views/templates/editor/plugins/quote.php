@@ -1,0 +1,3 @@
+<blockquote>
+    <?=$block->text; ?>
+</blockquote>
