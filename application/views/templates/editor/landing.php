@@ -74,7 +74,7 @@
         /*margin-left: 119px;*/
     }
     .editor-output-preview{
-        margin: 0 -1px -30px;
+        margin: 0 0px -30px;
         background: #242835;
         padding: 50px 0;
         color: #6c7d98;
