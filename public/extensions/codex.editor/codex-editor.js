@@ -366,6 +366,10 @@ cEditor.saver = {
                     /** Making a sequence from separate blocks */
                     .then(cEditor.saver.makeQueue)
 
+                    .then(function() {
+                        cEditor.nodes.textarea.innerHTML = cEditor.state.html;
+                    })
+
                     .catch( function(error) {
                         console.log('Something happend');
                     });

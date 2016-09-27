@@ -52,6 +52,7 @@ Class Model_Article extends Model
         $idAndRowAffected = Dao_Articles::insert()
                                 ->set('title',          $this->title)
                                 ->set('text',           $this->text)
+                                ->set('json',           $this->json)
                                 ->set('description',    $this->description)
                                 ->set('cover',          $this->cover)
                                 ->set('user_id',        $this->user_id)

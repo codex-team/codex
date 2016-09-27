@@ -74,7 +74,7 @@
         /*margin-left: 119px;*/
     }
     .editor-output-preview{
-        margin: 0 -1px -30px;
+        margin: 0 0px -30px;
         background: #242835;
         padding: 50px 0;
         color: #6c7d98;
@@ -158,16 +158,17 @@
         <h1 class="big_header" itemprop="headline">CodeX Editor</h1>
         <div class="editor-landing--disclaimer">under development</div>
 
-        <form action="">
+        <form action="/editor/preview" method="POST">
 
-            <textarea hidden name="" id="codex_editor" cols="30" rows="10" style="width: 100%;height: 300px;"></textarea>
+            <textarea hidden name="html" id="codex_editor" cols="30" rows="10" style="width: 100%;height: 300px;"></textarea>
+            <textarea hidden name="json" id="json_result" cols="30" rows="10" style="width: 100%;height: 300px;"></textarea>
+
+            <div class="editor_output__buttons">
+                <button type="button" id="jsonPreviewerButton" class="button_output">View Output</button>
+                <button type="submit" id="saveButton" class="button_save">Save and Preview</button>
+            </div>
 
         </form>
-
-        <div class="editor_output__buttons">
-            <button id="jsonPreviewerButton" class="button_output">View Output</button>
-            <button id="" class="button_save">Save and Preview</button>
-        </div>
 
     </article>
 </div>
@@ -440,6 +441,8 @@ jsonPreviewerButton.addEventListener('click', function() {
         INPUT.items = cEditor.state.jsonOutput;
         INPUT.count = INPUT.items.length;
 
+        document.getElementById('json_result').innerHTML = JSON.stringify(cEditor.state.jsonOutput);
+
         /**
          * View JSON data
          */
@@ -448,9 +451,50 @@ jsonPreviewerButton.addEventListener('click', function() {
             holder : 'output'
         });
 
-    }, 100);
+
+    }, 10);
 
 }, false);
+
+/**
+ * Native ajax method.
+ */
+function ajax(data) {
+
+        if (!data || !data.url){
+            return;
+        }
+        var XMLHTTP          = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP"),
+            success_function = function(){};
+        data.async           = true;
+        data.type            = data.type || 'GET';
+        data.data            = data.data || '';
+        data['content-type'] = data['content-type'] || 'application/json; charset=utf-8';
+        success_function     = data.success || success_function ;
+
+        if (data.type == 'GET' && data.data) {
+            data.url = /\?/.test(data.url) ? data.url + '&' + data.data : data.url + '?' + data.data;
+        }
+
+        if (data.withCredentials) {
+            XMLHTTP.withCredentials = true;
+        }
+
+        if (data.beforeSend && typeof data.beforeSend == 'function') {
+            data.beforeSend.call();
+        }
+
+        XMLHTTP.open( data.type, data.url, data.async );
+        XMLHTTP.setRequestHeader("Content-type", data['content-type'] );
+        XMLHTTP.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+        XMLHTTP.onreadystatechange = function() {
+        if (XMLHTTP.readyState == 4 && XMLHTTP.status == 200) {
+                success_function(XMLHTTP.responseText);
+            }
+        };
+
+        XMLHTTP.send(data.data);
+}
 
 
 /**
@@ -467,11 +511,11 @@ INPUT.items = [];
 
         cEditor.start({
             textareaId: 'codex_editor',
-            data : _INPUT
+            data : INPUT
         });
 
         cPreview.show({
-            data : _INPUT,
+            data : INPUT,
             holder : 'output'
         });
 
