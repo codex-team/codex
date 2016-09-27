@@ -19,7 +19,7 @@ var bot = (function(bot) {
         bot.sendTextarea = document.getElementsByClassName("chat__input_textarea")[0];
         bot.chatBox = document.getElementsByClassName("chat__messages")[0];
 
-        bot.cmdList = ["/start", "/help"];
+        bot.cmdList = ["/start", "/help", "/github", "/metrika", "/today", "/weekly", "/monthly"];
 
         var anchors = document.getElementsByClassName('chat__message_text_highlighted');
         for(var i = 0; i < anchors.length; i++) {
@@ -127,7 +127,7 @@ var bot = (function(bot) {
             span.appendChild(document.createTextNode("С радостью помогу. Я умею управлять модулями "));
             span.appendChild(bot.buildCommand("/github"));
             span.appendChild(document.createTextNode(" и "));
-            span.appendChild(bot.buildCommand("/yandex"));
+            span.appendChild(bot.buildCommand("/metrika"));
         }
         else if (message == "/start") {
             span.appendChild(document.createTextNode("Для начала можете ознакомиться со справкой, введя команду "));
@@ -136,6 +136,24 @@ var bot = (function(bot) {
         else if (message == "/github") {
             span.appendChild(document.createTextNode("Модуль GitHub подключен. Оповещения о новых коммитах, pull-реквестах и issues будут приходить сюда."));
             bot.sendReplyFromGithub();
+        }
+        else if (message == "/metrika") {
+            span.appendChild(document.createTextNode("Для того, чтобы узнать статистику посещаемости вашего сайта введите команды "));
+            span.appendChild(bot.buildCommand("/today"));
+            span.appendChild(document.createTextNode(", "));
+            span.appendChild(bot.buildCommand("/weekly"));
+            span.appendChild(document.createTextNode(", "));
+            span.appendChild(bot.buildCommand("/monthly"));
+            bot.sendReplyFromMetrika();
+        }
+        else if (message == "/today") {
+            span.appendChild(document.createTextNode("Сегодня ваш сайт ifmo.su посетили 30 уникальных пользователей, зафиксировано 133 просмотра."));
+        }
+        else if (message == "/weekly") {
+            span.appendChild(document.createTextNode("Статистика за текущую неделю: 94 уникальных посетителя, 780 просмотров."));
+        }
+        else if (message == "/monthly") {
+            span.appendChild(document.createTextNode("Данные за текущий месяц. 879 уникальных посетителей. 4815 просмотров."));
         }
         else {
             span.appendChild(document.createTextNode("Что-то я даже и не знаю, что тебе на это сказать."));
@@ -169,7 +187,22 @@ var bot = (function(bot) {
 
         }, 3000);
 
-    }
+    };
+
+    bot.sendReplyFromMetrika = function () {
+
+        window.setTimeout(function () {
+
+            var span = document.createElement( 'span' );
+            span.appendChild(document.createTextNode("Яндекс.Метрика успешно подключена для вашего сайта ifmo.su."));
+
+            var message = bot.buildMessage("Codex. Metrika Notification", span);
+            bot.chatBox.appendChild(message);
+            bot.chatBox.scrollTop = bot.chatBox.scrollHeight;
+
+        }, 3000);
+
+    };
 
     return bot;
 
