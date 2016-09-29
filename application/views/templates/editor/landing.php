@@ -99,25 +99,12 @@
     }
 
     .editor_output__buttons {
-        margin-left: 119px;
+        text-align: center;
     }
-        .editor_output__buttons button {
-            outline: none;
-            border: 0;
-            padding: 6px 25px;
-            font-size: .85em;
-            color: #fff;
+        .editor_output__buttons .button{
+            margin-right: 20px;
+            font-size: .9em;
         }
-
-        .button_output {
-            background: #40c1a4 !important;
-        }
-
-        .button_save {
-            margin-left: 20px;
-            background: #2172c5 !important;
-        }
-
     .site_footer{
         border-top: 0;
         background: #1a1c29;
@@ -158,14 +145,14 @@
         <h1 class="big_header" itemprop="headline">CodeX Editor</h1>
         <div class="editor-landing--disclaimer">under development</div>
 
-        <form action="/editor/preview" method="POST">
+        <form name="editor-demo" action="/editor/preview" method="POST">
 
             <textarea hidden name="html" id="codex_editor" cols="30" rows="10" style="width: 100%;height: 300px;"></textarea>
             <textarea hidden name="json" id="json_result" cols="30" rows="10" style="width: 100%;height: 300px;"></textarea>
 
             <div class="editor_output__buttons">
-                <button type="button" id="jsonPreviewerButton" class="button_output">View Output</button>
-                <button type="submit" id="saveButton" class="button_save">Save and Preview</button>
+                <a href="#output" id="jsonPreviewerButton" class="button">View Output</a>
+                <span id="saveButton" class="button master">Save and Preview</span>
             </div>
 
         </form>
@@ -455,6 +442,44 @@ jsonPreviewerButton.addEventListener('click', function() {
     }, 10);
 
 }, false);
+
+
+
+/**
+ * Preview button handler
+ */
+var saveButton = document.getElementById('saveButton');
+
+saveButton.addEventListener('click', function() {
+
+    var form = document.forms['editor-demo'],
+        JSONinput = document.getElementById('json_result');
+
+    /**
+     * Save blocks
+     */
+    cEditor.saver.saveBlocks();
+
+    setTimeout(function() {
+
+        /**
+         * Fill in INPUT items
+         */
+        INPUT.items = cEditor.state.jsonOutput;
+        INPUT.count = INPUT.items.length;
+
+        JSONinput.innerHTML = JSON.stringify(cEditor.state.jsonOutput);
+
+        /**
+         * Send form
+         */
+         form.submit();
+
+
+    }, 10);
+
+}, false);
+
 
 /**
  * Native ajax method.
