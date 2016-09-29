@@ -124,17 +124,28 @@ var bot = (function(bot) {
         var span = document.createElement( 'span' );
 
         if (message == "/help") {
-            span.appendChild(document.createTextNode("С радостью помогу. Я умею управлять модулями "));
-            span.appendChild(bot.buildCommand("/github"));
-            span.appendChild(document.createTextNode(" и "));
-            span.appendChild(bot.buildCommand("/metrika"));
+            span = bot.mergeTextAndCommands(span, [
+                "Инструкция по работе с ботом. Выберите раздел для просмотра доступных команд.",
+                "<br>", "<br>",
+                "/github",
+                " — Модуль GitHub. Может присылать уведомления о новых коммитах, pull-реквестах и открытии Issues.",
+                "<br>",
+                "/metrika",
+                " — Модуль Яндекс.Метрики. Умеет присылать статистику за день и неделю."
+            ]);
         }
         else if (message == "/start") {
             span.appendChild(document.createTextNode("Для начала можете ознакомиться со справкой, введя команду "));
             span.appendChild(bot.buildCommand("/help"));
         }
         else if (message == "/github") {
-            span.appendChild(document.createTextNode("Модуль GitHub подключен. Оповещения о новых коммитах, pull-реквестах и issues будут приходить сюда."));
+            span = bot.mergeTextAndCommands(span, [
+                "Модуль для работы с сервисом GitHub.", "<br>", "<br>",
+                " - Оповещения о новых Push-событиях", "<br>",
+                " - Оповещения о создании Pull-реквестов", "<br>",
+                " - Оповещения о создании Issues", "<br>", "<br>",
+                "Модуль активирован для сайта ifmo.su"
+            ]);
             bot.sendReplyFromGithub();
         }
         else if (message == "/metrika") {
@@ -203,6 +214,26 @@ var bot = (function(bot) {
         }, 3000);
 
     };
+
+    bot.mergeTextAndCommands = function (span, texts) {
+
+        texts.forEach(function(text) {
+
+            if (text == "<br>") {
+                span.appendChild(document.createElement('br'));
+            }
+            else if (text[0] == "/") {
+                span.appendChild(bot.buildCommand(text));
+            }
+            else {
+                span.appendChild(document.createTextNode(text));
+            }
+
+        });
+
+        return span;
+
+    }
 
     return bot;
 
