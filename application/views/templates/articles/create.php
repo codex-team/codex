@@ -13,7 +13,7 @@
             <input type="text" name="title" value="<?= $article->title ?: ''; ?>">
 
             <div class="article_content redactor_zone">
-                <textarea name="article_json" id="codex_editor" rows="10" hidden><?= $article->text ?: ''; ?></textarea>
+                <textarea name="article_json" id="codex_editor" rows="10" hidden><?= $article->json ?: ''; ?></textarea>
             </div>
 
             <label for="uri">URI</label>
@@ -40,8 +40,26 @@
     /** Document is ready */
     docReady(function() {
 
+        var submit  = document.getElementById('submitButton'),
+            form    = document.forms['codex_article'],
+            article = document.getElementById('codex_editor');
+
+        /** If we want to edit article */
+        if (article.textContent != '') {
+
+            /** get content that was written before and render with Codex.Editor */
+            json = JSON.parse(article.textContent);
+
+        } else {
+
+            /** for new article */
+            json = [];
+
+        }
+
+
         var INPUT = {
-            items : [],
+            items : json,
             count : 0,
         };
 
@@ -49,11 +67,6 @@
             textareaId: 'codex_editor',
             data : INPUT
         });
-
-
-        var submit  = document.getElementById('submitButton'),
-            form    = document.forms['codex_article'],
-            article = document.getElementById('codex_editor');
 
         /** Save redactors block and submit form */
         submit.addEventListener('click', function() {
