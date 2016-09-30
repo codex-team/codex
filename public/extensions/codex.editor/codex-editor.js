@@ -9,11 +9,11 @@ cEditor = (function (cEditor) {
 
     // Default settings
     cEditor.settings = {
-        tools: ['paragraph', 'header', 'picture', 'list', 'quote', 'code', 'twitter', 'instagram', 'smile'],
+        tools     : ['paragraph', 'header', 'picture', 'list', 'quote', 'code', 'twitter', 'instagram', 'smile'],
         textareaId: 'codex-editor',
 
         // First-level tags viewing as separated blocks. Other'll be inserted as child
-        blockTags: ['P', 'BLOCKQUOTE', 'UL', 'CODE', 'OL', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6'],
+        blockTags      : ['P', 'BLOCKQUOTE', 'UL', 'CODE', 'OL', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6'],
         uploadImagesUrl: '/editor/transport/',
 
         // Type of block showing on empty editor
@@ -22,24 +22,24 @@ cEditor = (function (cEditor) {
 
     // Static nodes
     cEditor.nodes = {
-        textarea: null,
-        wrapper: null,
-        toolbar: null,
-        toolbox: null,
-        notifications: null,
-        plusButton: null,
-        removeBlockButton: null,
+        textarea          : null,
+        wrapper           : null,
+        toolbar           : null,
+        toolbox           : null,
+        notifications     : null,
+        plusButton        : null,
+        removeBlockButton : null,
         showSettingsButton: null,
-        blockSettings: null,
-        toolbarButtons: {}, // { type : DomEl, ... }
-        redactor: null
+        blockSettings     : null,
+        toolbarButtons    : {}, // { type : DomEl, ... }
+        redactor          : null
     };
 
     // Current editor state
     cEditor.state = {
         jsonOutput: [],
-        blocks: [],
-        inputs: []
+        blocks    : [],
+        inputs    : []
     };
 
     /**
