@@ -28,7 +28,7 @@
             <label for="order">Порядок в списке (если не задавать, будет в порядке убывания даты)</label>
             <input type="text" name="order" value="<?= $article->order ?: ''; ?>">
 
-            <span id="submitButton" class="btn-submit">Отправить</span>
+            <span id="submitButton" class="button master" style="margin: 40px 119px 40px">Отправить</span>
         </form>
 
     </article>

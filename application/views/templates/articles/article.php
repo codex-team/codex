@@ -24,8 +24,8 @@
         <div class="article_content"  itemprop="articleBody">
 
             <!-- For articles where Codex.Editor is used -->
-            <? for($i = 0; $i < count($render); $i++) : ?>
-                <?= $render[$i]; ?>
+            <? for($i = 0; $i < count($article->blocks); $i++) : ?>
+                <?= $article->blocks[$i]; ?>
             <? endfor; ?>
 
             <!-- For old articles -->
