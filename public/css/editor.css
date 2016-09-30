@@ -251,3 +251,53 @@
 .editor_wrapper #html_result {
     height: 350px;
 }*/
+
+/**
+ *  Article creation page
+ *  Redactors zone and editor plugins style
+ */
+.ce_block [contenteditable="true"] {
+    outline: none !important;
+}
+
+.article p, .article label {
+    max-width: 700px;
+    margin: 20px auto;
+}
+
+.article input[type="text"], textarea {
+    max-width: 700px;
+    margin: 0 auto;
+    display: block;
+}
+
+.btn-submit {
+    -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
+    border-radius: 30px;
+    border: 0;
+    display: inline-block;
+    padding: 12px 24px;
+    color: #fff;
+    vertical-align: top;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: inherit;
+    background: #5c95cf;
+    line-height: 1em;
+    margin: 40px 119px 40px;
+}
+
+/** Plugins */
+.ce-plugin-image__uploaded--stretched {
+    margin: 0 !important;
+}
+
+.ce-plugin-image__uploaded--centered {
+    max-width: 700px !important;
+    margin: 0 auto !important;
+}
+
+.authorsPhoto {
+    margin: 0px !important;
+}
+

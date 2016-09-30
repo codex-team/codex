@@ -42,13 +42,13 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         if (Security::check($csrfToken)) {
 
             $article->title        = Arr::get($_POST, 'title');
-            $article->text         = Arr::get($_POST, 'article_text');
+            $article->json         = Arr::get($_POST, 'article_json');
             $article->is_published = Arr::get($_POST, 'is_published') ? 1 : 0;
             $article->marked       = Arr::get($_POST, 'marked') ? 1 : 0;
             $article->order        = (int) Arr::get($_POST, 'order');
             $article->description  = Arr::get($_POST, 'description');
-
-            if ($article->title && $article->text && $article->description) {
+            
+            if ($article->title && $article->json && $article->description) {
 
                 $uri = Arr::get($_POST, 'uri');
                 $alias = Model_Alias::generateUri( $uri );

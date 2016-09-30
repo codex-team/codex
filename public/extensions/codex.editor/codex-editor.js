@@ -1,60 +1,61 @@
 /**
-* CodeX Editor
-* https://ifmo.su/editor
-* @author CodeX team team@ifmo.su
-*/
+ * CodeX Editor
+ * https://ifmo.su/editor
+ * @author CodeX team team@ifmo.su
+ */
 
-var cEditor = (function (cEditor) {
+var cEditor;
+cEditor = (function (cEditor) {
 
     // Default settings
     cEditor.settings = {
-        tools              : ['paragraph', 'header', 'picture', 'list', 'quote', 'code', 'twitter', 'instagram', 'smile'],
-        textareaId         : 'codex-editor',
+        tools: ['paragraph', 'header', 'picture', 'list', 'quote', 'code', 'twitter', 'instagram', 'smile'],
+        textareaId: 'codex-editor',
 
         // First-level tags viewing as separated blocks. Other'll be inserted as child
-        blockTags          : ['P', 'BLOCKQUOTE', 'UL', 'CODE', 'OL', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6'],
-        uploadImagesUrl    : '/editor/transport/',
+        blockTags: ['P', 'BLOCKQUOTE', 'UL', 'CODE', 'OL', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6'],
+        uploadImagesUrl: '/editor/transport/',
 
         // Type of block showing on empty editor
-        initialBlockPlugin : "paragraph"
+        initialBlockPlugin: "paragraph"
     };
 
     // Static nodes
     cEditor.nodes = {
-        textarea           : null,
-        wrapper            : null,
-        toolbar            : null,
-        toolbox            : null,
-        notifications      : null,
-        plusButton         : null,
-        removeBlockButton  : null,
-        showSettingsButton : null,
-        blockSettings      : null,
-        toolbarButtons     : {}, // { type : DomEl, ... }
-        redactor           : null
+        textarea: null,
+        wrapper: null,
+        toolbar: null,
+        toolbox: null,
+        notifications: null,
+        plusButton: null,
+        removeBlockButton: null,
+        showSettingsButton: null,
+        blockSettings: null,
+        toolbarButtons: {}, // { type : DomEl, ... }
+        redactor: null
     };
 
     // Current editor state
     cEditor.state = {
-        jsonOutput : [],
-        blocks     : [],
-        inputs     : []
+        jsonOutput: [],
+        blocks: [],
+        inputs: []
     };
 
     /**
-    * Initialization
-    * @uses Promise cEditor.core.prepare
-    * @param {} userSettings are :
-    *          - tools [],
-    *          - textareaId String
-    *          ...
-    */
+     * Initialization
+     * @uses Promise cEditor.core.prepare
+     * @param {} userSettings are :
+     *          - tools [],
+     *          - textareaId String
+     *          ...
+     */
     cEditor.start = function (userSettings) {
 
         // Prepare editor settings
         this.core.prepare(userSettings)
 
-            // If all ok, make UI, bind events and parse initial-content
+        // If all ok, make UI, bind events and parse initial-content
             .then(this.ui.make)
             .then(this.ui.addTools)
             .then(this.ui.bindEvents)
@@ -349,6 +350,7 @@ cEditor.saver = {
 
     /**
     * Saves blocks
+    * @private
     */
     saveBlocks : function () {
 
@@ -367,7 +369,7 @@ cEditor.saver = {
                     .then(cEditor.saver.makeQueue)
 
                     .then(function() {
-                        cEditor.nodes.textarea.innerHTML = cEditor.state.html;
+                        // cEditor.nodes.textarea.innerHTML = cEditor.state.html;
                     })
 
                     .catch( function(error) {
@@ -433,6 +435,29 @@ cEditor.saver = {
             savedData    = cEditor.tools[pluginName].save(blockContent);
 
         cEditor.state.jsonOutput.push(savedData);
+    },
+
+    /**
+    * Returns Stringified JSON
+    */
+    getJSON : function() {
+
+        cEditor.saver.saveBlocks();
+    },
+
+    /**
+    * Returns JSON as string
+    */
+    getJSONString : function() {
+
+        cEditor.saver.saveBlocks();
+
+        setTimeout(function() {
+
+            return cEditor.state.jsonOutput;
+
+        }, 100);
+
     }
 
 };
@@ -1329,7 +1354,7 @@ cEditor.content = {
         /**
         * Put it to the textarea
         */
-        cEditor.nodes.textarea.value = cEditor.state.html;
+        // cEditor.nodes.textarea.value = cEditor.state.html;
 
     },
 
