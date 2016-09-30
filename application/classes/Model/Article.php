@@ -12,6 +12,7 @@ Class Model_Article extends Model
     public $uri;
     public $title;
     public $text;
+    public $json;
     public $description;
     public $cover;
     public $user_id;
@@ -89,6 +90,7 @@ Class Model_Article extends Model
             $this->uri          = $article_row['uri'];
             $this->title        = $article_row['title'];
             $this->text         = $article_row['text'];
+            $this->json         = $article_row['json'];
             $this->description  = $article_row['description'];
             $this->cover        = $article_row['cover'];
             $this->user_id      = $article_row['user_id'];
@@ -136,6 +138,7 @@ Class Model_Article extends Model
             ->set('title',          $this->title)
             ->set('uri',            $this->uri)
             ->set('text',           $this->text)
+            ->set('json',           $this->json)
             ->set('description',    $this->description)
             ->set('cover',          $this->cover)
             ->set('marked',         $this->marked)

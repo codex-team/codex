@@ -23,7 +23,15 @@
         </div>
         <div class="article_content"  itemprop="articleBody">
 
-            <?= $article->text ?>
+            <!-- For articles where Codex.Editor is used -->
+            <? for($i = 0; $i < count($article->blocks); $i++) : ?>
+                <?= $article->blocks[$i]; ?>
+            <? endfor; ?>
+
+            <!-- For old articles -->
+            <? if (!empty($article->text)) : ?>
+                <?=$article->text; ?>
+            <? endif; ?>
 
         </div>
 
