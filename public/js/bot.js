@@ -72,7 +72,7 @@ var bot = (function(bot) {
         setTimeout(function() {
             bot.chatBox.appendChild(botAnswer);
             bot.chatBox.scrollTop = bot.chatBox.scrollHeight;
-        }, 1500);
+        }, 750);
 
         bot.sendTextarea.value = "";
         bot.chatBox.scrollTop = bot.chatBox.scrollHeight;
@@ -158,13 +158,28 @@ var bot = (function(bot) {
             bot.sendReplyFromMetrika();
         }
         else if (message == "/today") {
-            span.appendChild(document.createTextNode("Сегодня ваш сайт ifmo.su посетили 30 уникальных пользователей, зафиксировано 133 просмотра."));
+            span = bot.mergeTextAndCommands(span, [
+                bot.buildDate(), "<br>", "<br>",
+                "CodeX:", "<br>",
+                "66 уникальных посетителей", "<br>",
+                "361 просмотров"
+            ]);
         }
         else if (message == "/weekly") {
-            span.appendChild(document.createTextNode("Статистика за текущую неделю: 94 уникальных посетителя, 780 просмотров."));
+            span = bot.mergeTextAndCommands(span, [
+                "С понедельника по сегодняшний день.", "<br>", "<br>",
+                "CodeX:", "<br>",
+                "242 уникальных посетителей", "<br>",
+                "1030 просмотров"
+            ]);
         }
         else if (message == "/monthly") {
-            span.appendChild(document.createTextNode("Данные за текущий месяц. 879 уникальных посетителей. 4815 просмотров."));
+            span = bot.mergeTextAndCommands(span, [
+                "Данные за текущий месяц.", "<br>", "<br>",
+                "CodeX:", "<br>",
+                "1006 уникальных посетителей", "<br>",
+                "5502 просмотров"
+            ]);
         }
         else {
             span.appendChild(document.createTextNode("Что-то я даже и не знаю, что тебе на это сказать."));
@@ -196,7 +211,7 @@ var bot = (function(bot) {
             bot.chatBox.appendChild(message);
             bot.chatBox.scrollTop = bot.chatBox.scrollHeight;
 
-        }, 3000);
+        }, 1500);
 
     };
 
@@ -211,7 +226,7 @@ var bot = (function(bot) {
             bot.chatBox.appendChild(message);
             bot.chatBox.scrollTop = bot.chatBox.scrollHeight;
 
-        }, 3000);
+        }, 1500);
 
     };
 
@@ -233,6 +248,30 @@ var bot = (function(bot) {
 
         return span;
 
+    }
+
+    bot.buildDate = function () {
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1;
+        var hh = today.getHours();
+        var minmin = today.getMinutes();
+
+        var yyyy = today.getFullYear();
+        if(dd<10){
+            dd='0'+dd;
+        }
+        if(mm<10){
+            mm='0'+mm;
+        }
+        if(hh<10){
+            hh='0'+hh;
+        }
+        if(minmin<10){
+            minmin='0'+minmin;
+        }
+        var today = dd+'/'+mm+'/'+yyyy;
+        return "Сегодня " + dd + "." + mm + "." + yyyy + ". Данные к " + hh + ":" + minmin;
     }
 
     return bot;
