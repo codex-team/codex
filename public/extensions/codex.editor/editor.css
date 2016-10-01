@@ -311,12 +311,9 @@
 
 
 .ce_redactor .ce_block{
-    /*padding: 10px;*/
-    /*margin: -1px;*/
-    /*border: 1px dotted #ccc;*/
-    background: #fff;
     outline: none;
 }
+
     .ce_redactor .ce_block:focus{
         background: #fbfbfb;
         border-radius: 3px;

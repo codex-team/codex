@@ -31,9 +31,26 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         if ($article->id == 0 || $article->is_removed)
             throw new HTTP_Exception_404();
 
+        /**
+         * @var $blocks - Array of JSON objects.
+         * Each object contains:
+         *  type - plugins type
+         *  data - plugins content
+         */
+        $blocks = json_decode($article->json) ?: Array();
+
+        /**
+         * Using PHP renderer for Articles
+         */
+        for($i = 0; $i < count($blocks); $i++)
+        {
+            $article->blocks[] = View::factory('templates/editor/plugins/' . $blocks[$i]->type, array('block' => $blocks[$i]->data))
+                ->render();
+        }
+
         $this->stats->hit(Model_Stats::ARTICLE, $articleId);
 
-        $this->view["article"]        = $article;
+        $this->view["article"]         = $article;
         $this->view["popularArticles"] = Model_Article::getPopularArticles($articleId);
 
         $this->title = $article->title;

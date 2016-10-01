@@ -38,6 +38,8 @@ var listTool = {
         var type = data.type == 'ordered' ? 'OL' : 'UL',
             tag  = listTool.ui.make(type);
 
+        tag.classList.add('ce-list');
+
         data.items.forEach(function (element, index, array) {
 
             var newLi = listTool.ui.block("li", listTool.elementClasses.li);
@@ -131,6 +133,7 @@ listTool.ui = {
 
         var wrapper = this.block(blockType || 'UL', listTool.baseClass);
 
+        wrapper.dataset.type    = 'ul';
         wrapper.contentEditable = true;
 
         return wrapper;

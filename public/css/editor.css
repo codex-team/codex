@@ -251,3 +251,37 @@
 .editor_wrapper #html_result {
     height: 350px;
 }*/
+
+/**
+ *  Article creation page
+ *  Redactors zone and editor plugins style
+ */
+.ce_block [contenteditable="true"] {
+    outline: none !important;
+}
+
+.article p, .article label {
+    max-width: 700px;
+    margin: 20px auto;
+}
+
+.article input[type="text"], textarea {
+    max-width: 700px;
+    margin: 0 auto;
+    display: block;
+}
+
+/** Plugins */
+.ce-plugin-image__uploaded--stretched {
+    margin: 0 !important;
+}
+
+.ce-plugin-image__uploaded--centered {
+    max-width: 700px !important;
+    margin: 0 auto !important;
+}
+
+.authorsPhoto {
+    margin: 0px !important;
+}
+

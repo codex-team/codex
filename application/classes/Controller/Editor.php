@@ -14,6 +14,30 @@ class Controller_Editor extends Controller_Base_preDispatch
         $this->template->content = View::factory('templates/editor/landing', $this->view);
     }
 
+    public function action_preview()
+    {
+        $html = Arr::get($_POST, 'html');
+        $json = Arr::get($_POST, 'json');
+
+        $article = new Model_Article();
+        $article->title = 'Codex Editor';
+
+        $blocks = json_decode($json);
+
+        for($i = 0; $i < count($blocks); $i++)
+        {
+            $render[] = View::factory('templates/editor/plugins/' . $blocks[$i]->type, array('block' => $blocks[$i]->data))
+                        ->render();
+        }
+
+        $this->template->content = View::factory('templates/editor/article',
+            array(
+                'render'  => $render,
+                'article' => $article
+            ));
+
+    }
+
     /**
      * parses link by ajax request
      */

@@ -1070,7 +1070,7 @@ html {
     }
     .article_content blockquote{
         margin: 30px 0;
-        padding: 45px 60px;
+        /*padding: 45px 60px;*/
         border-top: 2px solid #EDEFF1;
         border-bottom: 2px solid #EDEFF1;
         font-size: 1.2em;
@@ -1491,8 +1491,6 @@ html {
 
 /** Redactor zone styles */
 .redactor_zone{
-    background: #FFF8F8;
-    padding: 30px 70px;
     margin: 0px;
 }
     .redactor_zone textarea{
