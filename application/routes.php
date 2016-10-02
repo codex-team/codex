@@ -75,6 +75,15 @@ Route::set('DEL_CONTEST_SCRIPT', 'contests/delcontest/<contest_id>', array('cont
 ));
 
 
+/**
+* Join page
+*/
+Route::set('JOIN_PAGE', 'join')->defaults(array(
+    'controller' => 'pages',
+    'action' => 'join',
+));
+
+
 /*Route::set('INDEX_PAGE', '')->defaults(array(
     'controller' => 'index',
     'action' => 'index',
@@ -172,7 +181,7 @@ Route::set('ARTICLE_EDITOR_SAVE_IMG', 'editorsaveimg', array())->defaults(array(
     'action' => 'saveEditorImg'
 ));
 
-// bot 
+// bot
 
 Route::set('BOT_LANDING', 'bot', array())->defaults(array(
     'controller' => 'landings',
