@@ -37,7 +37,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
          *  type - plugins type
          *  data - plugins content
          */
-        $blocks = json_decode($article->json) ?: Array();
+        $blocks = json_decode($article->json) ?: array();
 
         /**
          * Using PHP renderer for Articles
@@ -47,6 +47,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
             $article->blocks[] = View::factory('templates/editor/plugins/' . $blocks[$i]->type, array('block' => $blocks[$i]->data))
                 ->render();
         }
+        $article->blocks = $article->blocks ?: array();
 
         $this->stats->hit(Model_Stats::ARTICLE, $articleId);
 

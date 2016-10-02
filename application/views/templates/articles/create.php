@@ -45,7 +45,7 @@
             article = document.getElementById('codex_editor');
 
         /** If we want to edit article */
-        if (article.textContent != '') {
+        if (!article.textContent) {
 
             /** get content that was written before and render with Codex.Editor */
             json = JSON.parse(article.textContent);
@@ -56,7 +56,6 @@
             json = [];
 
         }
-
 
         var INPUT = {
             items : json,
