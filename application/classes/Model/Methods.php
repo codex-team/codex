@@ -266,7 +266,7 @@ class Model_Methods extends Model
 
     public static function telegram_send_error($err)
     {
-        $telegramConfig = Kohana::$config->load('telegrambot.default');        
+        $telegramConfig = Kohana::$config->load('telegrambot.default');
 
         $text = $err;
 
@@ -304,5 +304,25 @@ class Model_Methods extends Model
         } else {
             return $parsed_url;
         }
+    }
+
+    /**
+    * Saves user join-request
+    * @param array $fields  skills, wishes, uid, email, name
+    */
+    public function saveJoinRequest( $fields )
+    {
+        $saving = Dao_Requests::insert();
+
+        foreach ($fields as $fieldName => $value) {
+            $saving->set($fieldName, $value);
+        }
+
+        if (!empty($fields['uid'])) {
+            $saving->clearcache($fields['uid']);
+        }
+
+        return $saving->execute();
+
     }
 }
