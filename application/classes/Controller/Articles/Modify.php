@@ -35,14 +35,14 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         else {
             $article = new Model_Article();
         }
-
+        
         /*
          * Articles Title.
          */
         if (Security::check($csrfToken)) {
 
             $article->title        = Arr::get($_POST, 'title');
-            $article->json         = Arr::get($_POST, 'article_json');
+            $article->json         = Arr::get($_POST, 'article_json', '');
             $article->is_published = Arr::get($_POST, 'is_published') ? 1 : 0;
             $article->marked       = Arr::get($_POST, 'marked') ? 1 : 0;
             $article->order        = (int) Arr::get($_POST, 'order');

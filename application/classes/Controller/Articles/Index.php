@@ -48,6 +48,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
                 ->render();
         }
         $article->blocks = $article->blocks ?: array();
+        $article->json   = $article->json ?: '';
 
         $this->stats->hit(Model_Stats::ARTICLE, $articleId);
 

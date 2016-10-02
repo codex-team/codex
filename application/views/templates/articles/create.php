@@ -42,10 +42,11 @@
 
         var submit  = document.getElementById('submitButton'),
             form    = document.forms['codex_article'],
-            article = document.getElementById('codex_editor');
+            article = document.getElementById('codex_editor'),
+            json;
 
         /** If we want to edit article */
-        if (!article.textContent) {
+        if (article.textContent != '') {
 
             /** get content that was written before and render with Codex.Editor */
             json = JSON.parse(article.textContent);
@@ -59,7 +60,7 @@
 
         var INPUT = {
             items : json,
-            count : 0,
+            count : json.length,
         };
 
         cEditor.start({
