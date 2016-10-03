@@ -297,7 +297,9 @@ input[disabled]
     text-align: center;
 }
 .success_alert.compact{
+    margin-top: 2em;
     padding: 30px;
+    font-size: 14px;
 }
 
 

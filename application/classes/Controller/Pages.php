@@ -16,6 +16,8 @@ class Controller_Pages extends Controller_Base_preDispatch
 
         }
 
+        $this->view['request'] = $this->user->getUserRequests();
+
     	$this->title = 'Набор в команду CodeX';
     	$this->template->content = View::factory('templates/join/index', $this->view);
     }
