@@ -15,9 +15,9 @@ var quoteTools = {
 
         var tag;
 
-        if (data && data.type) {
+        if (data && data.style) {
 
-            switch (data.type) {
+            switch (data.style) {
                 case 'simple':
                     tag = quoteTools.makeSimpleQuote(data);
                     break;

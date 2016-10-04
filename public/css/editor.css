@@ -285,3 +285,7 @@
     margin: 0px !important;
 }
 
+.article_content blockquote {
+    border: 0 !important;
+}
+

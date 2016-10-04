@@ -56,3 +56,5 @@
 
     </article>
 </div>
+
+<link rel="stylesheet" href="/public/css/plugins.css">

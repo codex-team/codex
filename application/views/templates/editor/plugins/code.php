@@ -1,3 +1,1 @@
-<pre>
-    <code><?=$block->text; ?></code>
-</pre>
+<code><?=$block->text; ?></code>
