@@ -155,7 +155,7 @@ Route::set('ADMIN_EDIT_ARTICLE', 'article/<article_id>/edit', array('article_id'
 ));
 
 
-Route::set('ADMIN', 'admin(/<category>(/<list>))', array('category' => 'articles|users|contests',
+Route::set('ADMIN', 'admin(/<category>(/<list>))', array('category' => 'articles|users|contests|requests',
                                                                 'list' => 'unpublished|deleted'))
   ->defaults(array(
         'controller' => 'admin',
