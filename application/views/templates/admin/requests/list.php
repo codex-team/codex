@@ -40,10 +40,10 @@
                             <? endif ?>
                         </td>
                         <td class="">
-                            <?= $request['skills']; ?>
+                            <?= nl2br($request['skills']); ?>
                         </td>
                           <td class="">
-                            <?= $request['wishes']; ?>
+                            <?= nl2br($request['wishes']); ?>
                         </td>
                     </tr>
             <? endforeach; ?>
