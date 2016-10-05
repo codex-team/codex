@@ -264,7 +264,7 @@ class Model_Methods extends Model
         return $comments_table_rebuild;
     }
 
-    public static function send_bot_notification($text)
+    public static function sendBotNotification($text)
     {
         $telegramConfig = Kohana::$config->load('telegram-notification');
 

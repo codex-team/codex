@@ -70,7 +70,7 @@ class Controller_Pages extends Controller_Base_preDispatch
 
         if ($this->view['success'])
         {
-            Model_Methods::send_bot_notification('Зарегистрирована новая заявка на вступление в клуб.');
+            Model_Methods::sendBotNotification('Зарегистрирована новая заявка на вступление в клуб.');
         }
 
     }
