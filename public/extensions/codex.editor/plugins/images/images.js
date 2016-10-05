@@ -35,7 +35,6 @@ var ceImage = {
             holder.classList.add(ceImage.elementClasses.ce_image);
 
         } else {
-
             if ( !data.isStretch) {
                 holder = ceImage.ui.imageView(data, ceImage.elementClasses.uploadedImage.centered, 'false');
             } else {
@@ -144,7 +143,7 @@ var ceImage = {
             data : {
                 background : false,
                 border : false,
-                isStrech : data.dataset.stretched,
+                isStretch : data.dataset.stretched,
                 file : {
                     url : image.src,
                     bigUrl : null,

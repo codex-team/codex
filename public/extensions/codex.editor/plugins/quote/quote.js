@@ -203,8 +203,20 @@ var quoteTools = {
             quote    = quoteTools.ui.makeBlock('DIV', [quoteTools.styles.withPhoto.quote, quoteTools.styles.quoteText])
 
             /* Default Image src */
-            var icon = quoteTools.ui.makeBlock('SPAN', ['ce-icon-picture']);
-            photo.appendChild(icon);
+            if (!data.photo) {
+
+                var icon = quoteTools.ui.makeBlock('SPAN', ['ce-icon-picture']);
+                photo.appendChild(icon);
+
+            } else {
+
+                var authorsPhoto = quoteTools.ui.img(quoteTools.styles.authorsPhoto);
+                authorsPhoto.src = data.photo;
+
+                photo.classList.add(quoteTools.styles.authorsPhotoWrapper);
+                photo.appendChild(authorsPhoto);
+            }
+
 
             photo.addEventListener('click', quoteTools.fileUploadClicked, false);
 

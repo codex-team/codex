@@ -121,9 +121,6 @@
         transform: rotate(45deg);
     }
 
-
-
-
 /** Typography styles */
 .codex_editor p{
     margin: 30px 0;
@@ -133,159 +130,250 @@
 
 
 
-
-/*
-.editor_content {}
-.editor_content label {display:block;margin-bottom:10px;}
-.editor_content input[type=file]{}
-.editor_content textarea{}
-*/
-/*
-.editor_content button#btn_save{
-    padding: 5px 15px;
-    float: right;
-}
-.editor_content .cover{
-    border: 1px solid gray;
-    width: 96%;
-    display: block;
-    margin: 5px 0 15px 0;
-    padding: 2%;
-}
-.editor_content .cover img{max-width: 100%;margin: auto;display: block;}
-
-.editor_content .cover .actions {
-    text-align: center;
-}
-.editor_content .cover .actions a{
-    margin:  0 10px;
-    border-bottom: 1px dashed;
-}
-.editor_content .cover .actions a:hover{
-    text-decoration:none;
-}
-
-.editor_content .actions span{
-
-    color: #6091c8;
-
-    margin-right: 15px;
-
-    border-bottom: 1px dashed;
-
-    cursor: pointer;
-}
-
-
-.editor_content .add_buttons{
-    width: 300px;
-    margin: 21px auto;
-    padding: 10px 0;
-    text-align: center;
-    background: #F2F2F6;
-    position: relative;
-}
-.editor_content .add_buttons:before{
-    content: "";
-    background: no-repeat url(/public/img/editor_buttons.png) -135px 0px;
-    position: absolute;
-    padding: 10px;
-    left: 140px;
-    top: 17px;
-}
-.editor_content .add_buttons:hover:before{background-image: none;}
-.editor_content .add_buttons:hover button{
-    visibility: visible;
-    z-index: 0;
-}
-.editor_content .add_buttons button {
-    float: none;
-    padding: 5px;
-    margin: 0px 0px;
-    width: 35px;
-    height: 35px;
-    border: none;
-    position: relative;
-    visibility: hidden;
-    z-index: -1;
-    background: transparent;
-}
-.editor_content .add_buttons button:before {
-    content: "";
-    background: no-repeat url(/public/img/editor_buttons.png?) 0;
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    left: 8px;
-    top: 8px;
-}
-.editor_content .add_buttons .paragraph:before{
-    background-position: -156px -1px;
-}
-.editor_content .add_buttons .img:before{
-    background-position: -27px 0;
-    width: 22px;
-    left: 7px;
-}
-.editor_content .add_buttons .list:before{
-    background-position: -56px 0;
-    width: 21px;
-}
-.editor_content .node{
-    border: 1px dashed;
-    padding: 5px;
-    margin: 20px 0;
-}
-.editor_content .node .content{}
-.editor_content .node .content p{min-height: 25px;}
-.editor_content .node .action_buttons{
-    border-top: 1px dashed;
-    text-align: right;
-    padding: 5px  0 0;
-}
-.editor_content .node .action_buttons button{
-    width: 35px;
-    height: 35px;
-}
-
-.editor_wrapper #html_result {
-    height: 350px;
-}*/
-
-/**
- *  Article creation page
- *  Redactors zone and editor plugins style
- */
-.ce_block [contenteditable="true"] {
-    outline: none !important;
-}
-
-.article p, .article label {
+/** Article Create or Edit */
+.article input[type="text"],
+.article label,
+.article p {
     max-width: 700px;
     margin: 20px auto;
+    display: block;
 }
 
-.article input[type="text"], textarea {
+.article textarea[name="description"] {
     max-width: 700px;
     margin: 0 auto;
     display: block;
 }
 
-/** Plugins */
-.ce-plugin-image__uploaded--stretched {
-    margin: 0 !important;
+.article_content [contenteditable="true"] {
+    outline: none;
 }
 
-.ce-plugin-image__uploaded--centered {
-    max-width: 700px !important;
-    margin: 0 auto !important;
+
+/**
+  * Article styles with editor plugins
+  */
+
+/** Paragraph styles */
+.article_content p,
+.article_content h1,
+.article_content h2,
+.article_content h3,
+.article_content h4,
+.article_content h5,
+.article_content h6,
+.article_content ul,
+.article_content ol,
+.article_content code,
+.article_content blockquote {
+    max-width: 700px;
 }
 
-.authorsPhoto {
-    margin: 0px !important;
+
+.article_content p {
+    margin: 15px auto;
+}
+
+.article_content ul,
+.article_content ol {
+    margin: 0 auto;
+}
+
+.article_content h1,
+.article_content h2,
+.article_content h3,
+.article_content h4,
+.article_content h5,
+.article_content h6 {
+    margin: 30px auto;
+}
+
+.article_content code {
+    margin: 0 auto;
+}
+
+.article_content img {
+    display: block;
+    margin: 20px auto;
+    max-width: 700px;
 }
 
 .article_content blockquote {
-    border: 0 !important;
+    max-width: 700px;
+    margin: 40px auto;
+    border: 0;
+    outline: none;
 }
 
+/** Image styles */
+.article_content img.ce-plugin-image__uploaded--centered {
+    max-width: 700px !important;
+    margin: 0 auto !important;
+    display: block;
+}
+
+.article_content img.ce-plugin-image__uploaded--stretched {
+    margin: 0 !important;
+    max-width: 100%;
+}
+
+    .article_content .ce-plugin-image__caption {
+        max-width: 700px;
+        margin: 1em auto;
+        text-align: center;
+        color: #898a8c;
+    }
+
+/** Quote styles */
+.quoteStyle-simple--text {
+    padding: 1.2em 2.1em;
+    margin: 2.5em 2em;
+    background: #FBFBFB;
+}
+
+    .quoteStyle-withCaption--blockquote {
+        margin: 0 1em;
+        padding: 1.5em 2.0em !important;
+    }
+
+    .quoteStyle-withCaption--author {
+        margin: 0 100px 3em !important;
+        text-align: right;
+        font-size: 1.16em;
+        font-weight: bold;
+        color: #000;
+        line-height: 1.5em;
+    }
+
+    .quoteStyle-withPhoto--wrapper {
+        margin: 0;
+        padding: 1.5em 3.6em !important;
+    }
+
+    .quoteStyle-withPhoto--photo {
+        width: 70px;
+        height: 70px;
+        overflow: hidden;
+        text-align: center;
+        line-height: 70px;
+        border-radius: 50%;
+        float: left;
+        margin-right: 25px;
+        border: 2px dashed #D7E2EE;
+    }
+    .authorsPhoto {
+        height: 110%;
+        vertical-align: top;
+        margin: 0 !important;
+    }
+
+    .authorsPhoto-wrapper {
+        border: 0 !important;
+    }
+
+    .quoteStyle-withPhoto--author {
+        font-size: 1.36em;
+        font-weight: bold;
+        color: #000;
+        outline: none;
+        overflow: hidden;
+        margin-bottom: 8px;
+    }
+    .quoteStyle-withPhoto--job {
+        font-size: 1.04em;
+        color: #818BA1;
+        outline: none;
+        overflow: hidden;
+    }
+    .quoteStyle-withPhoto--quote {
+        margin-top: 33px;
+        line-height: 1.82em;
+        outline: none;
+        overflow: hidden;
+    }
+
+    .quoteStyle-withPhoto--authorWrapper {
+        margin-top: 10px;
+    }
+
+/** Link tool */
+.ce-link {
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 0 !important;
+}
+
+    .clearfix:after {
+        visibility: hidden;
+        display: block;
+        font-size: 0;
+        content: " ";
+        clear: both;
+        height: 0;
+    }
+
+    .ceditor-tool-link-input {
+        outline: none;
+        border: 0;
+        width: 100%;
+        background: transparent;
+        font-size: 1em;
+        padding: 8px 25px;
+        transition: background 200ms;
+        border-left: 3px solid #65d8b3;
+    }
+
+    .tool-link-panel {
+        position: relative;
+        margin: 5px 0;
+        background: #f8f7ef;
+        border: 1px solid transparent;
+        padding: 25px 30px;
+    }
+
+    .tool-link-image {
+        float:right;
+        width: 75px;
+        border-radius: 3px;
+    }
+
+    .tool-link-title {
+        display: block;
+        width: 340px;
+        margin-bottom: 4px;
+        line-height: 1.2em;
+        font-size: 20px;
+        font-weight: 700;
+        color: #000;
+    }
+
+    .tool-link-description {
+        display: block;
+        margin-top: 10px;
+        font-size: 14px;
+        color: #000;
+    }
+
+    .tool-link-link {
+        width: 360px;
+        font-size: 10px;
+        margin-bottom: 4px;
+        letter-spacing: 1px;
+        overflow: hidden;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: rgba(165,156,86,.8);
+    }
+
+    .tool-link-loader {
+        background: url("loading.gif") !important;
+        opacity: 0.1;
+    }
+
+    .tool-link-error {
+        background: rgb(255, 241, 241);
+        color: #bf4747;
+    }
+    .tool-link-error .ceditor-tool-link-input {
+        border-left-color: #d86b6b
+    }

@@ -1051,13 +1051,9 @@ html {
 .article_content{
     font-size: 1.1em;
     line-height: 1.75em;
-    /*margin: 0 130px;*/
     word-wrap: break-word;
     letter-spacing: 0;
 }
-    .article_content h2{
-        /*margin: 50px 0 30px;*/
-    }
     .article_content img{
         max-width: 100%;
         margin: 30px 0;

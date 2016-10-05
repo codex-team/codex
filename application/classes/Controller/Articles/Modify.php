@@ -35,7 +35,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         else {
             $article = new Model_Article();
         }
-        
+
         /*
          * Articles Title.
          */

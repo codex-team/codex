@@ -1,6 +1,6 @@
 <?php
 
-    switch ($block->isStrech) {
+    switch ($block->isStretch) {
         case 'true':
             $class = 'ce-plugin-image__uploaded--stretched';
             break;
