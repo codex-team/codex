@@ -66,9 +66,12 @@ class Controller_Pages extends Controller_Base_preDispatch
             $fields['uid'] = $this->user->id;
         }
 
-        Model_Methods::bot_notification('Новая заявка на вступление в клуб!');
-
         $this->view['success'] = $this->methods->saveJoinRequest($fields);
+
+        if ($this->view['success'])
+        {
+            Model_Methods::send_bot_notification('Зарегистрирована новая заявка на вступление в клуб!');
+        }
 
     }
 

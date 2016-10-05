@@ -264,11 +264,11 @@ class Model_Methods extends Model
         return $comments_table_rebuild;
     }
 
-    public static function bot_notification($text)
+    public static function send_bot_notification($text)
     {
         $telegramConfig = Kohana::$config->load('telegram-notification');
 
-				$url = $telegramConfig->url;
+        $url = $telegramConfig->url;
 
         $params = array(
             'message' => $text
