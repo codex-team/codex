@@ -264,17 +264,14 @@ class Model_Methods extends Model
         return $comments_table_rebuild;
     }
 
-    public static function telegram_send_error($err)
+    public static function bot_notification($text)
     {
-        $telegramConfig = Kohana::$config->load('telegrambot.default');
+        $telegramConfig = Kohana::$config->load('telegram-notification');
 
-        $text = $err;
-
-        $url = 'https://api.telegram.org/bot' . $telegramConfig['token'] . '/sendMessage';
+				$url = $telegramConfig->url;
 
         $params = array(
-            'chat_id' => $telegramConfig['chatId'],
-            'text' => $text
+            'message' => $text
         );
 
         $ch = curl_init($url);
