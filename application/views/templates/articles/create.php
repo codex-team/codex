@@ -2,36 +2,38 @@
 
 <div class="center_side clear">
 
-    <article class="article">
-
         <form name="codex_article" method="POST" action="/<?= $article->id && $article->uri ? $article->uri . '/save' : 'article/add' ?>" enctype="multipart/form-data" id="edit_article_form" class="edit_article_form">
-            <input type="hidden" name="csrf" value="<?= Security::token() ?>" />
 
-            <input type="hidden" name="article_id" value="<?= $article->id ?: ''; ?>">
+            <section class="article_form__part_1">
+                <input type="hidden" name="csrf" value="<?= Security::token() ?>" />
 
-            <label for="title">Заголовок</label>
-            <input type="text" name="title" value="<?= $article->title ?: ''; ?>">
+                <input type="hidden" name="article_id" value="<?= $article->id ?: ''; ?>">
+
+                <label for="title">Заголовок</label>
+                <input type="text" name="title" value="<?= $article->title ?: ''; ?>">
+            </section>
 
             <div class="article_content redactor_zone">
+                <textarea name="article_text" rows="10"><?= $article->text ?: ''; ?></textarea>
                 <textarea name="article_json" id="codex_editor" rows="10" hidden><?= $article->json ?: ''; ?></textarea>
             </div>
 
-            <label for="uri">URI</label>
-            <input type="text" name="uri" value="<?= $article->uri ?: ''; ?>" autocomplete="off">
+            <section class="article_form__part_2">
+                <label for="uri">URI</label>
+                <input type="text" name="uri" value="<?= $article->uri ?: ''; ?>" autocomplete="off">
 
-            <label for="description">Описание статьи</label>
-            <textarea name="description" rows="5"><?= $article->description ?: ''; ?></textarea>
+                <label for="description">Описание статьи</label>
+                <textarea name="description" rows="5"><?= $article->description ?: ''; ?></textarea>
 
-            <p><input type="checkbox" name="is_published" value="1" <?= $article->is_published ? 'checked' : ''; ?> > Опубликовать</p>
-            <p><input type="checkbox" name="marked" value="1" <?= $article->marked ? 'checked' : ''; ?> > Отметить как важную</p>
+                <input type="checkbox" name="is_published" value="1" <?= $article->is_published ? 'checked' : ''; ?> > Опубликовать <br>
+                <input type="checkbox" name="marked" value="1" <?= $article->marked ? 'checked' : ''; ?> > Отметить как важную
 
-            <label for="order">Порядок в списке (если не задавать, будет в порядке убывания даты)</label>
-            <input type="text" name="order" value="<?= $article->order ?: ''; ?>">
+                <label for="order">Порядок в списке (если не задавать, будет в порядке убывания даты)</label>
+                <input type="text" name="order" value="<?= $article->order ?: ''; ?>">
+            </section>
 
             <span id="submitButton" class="button master" style="margin: 40px 119px 40px">Отправить</span>
         </form>
-
-    </article>
 
 </div>
 

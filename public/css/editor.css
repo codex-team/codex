@@ -131,28 +131,20 @@
 
 
 /** Article Create or Edit */
-.article input[type="text"],
-.article label,
-.article p {
-    max-width: 700px;
-    margin: 20px auto;
-    display: block;
-}
-
-.article textarea[name="description"] {
+.article_form__part_1,
+.article_form__part_2 {
     max-width: 700px;
     margin: 0 auto;
-    display: block;
-}
-
-.article_content [contenteditable="true"] {
-    outline: none;
 }
 
 
 /**
   * Article styles with editor plugins
   */
+
+.article_content [contenteditable="true"] {
+    outline: none;
+}
 
 /** Paragraph styles */
 .article_content p,
