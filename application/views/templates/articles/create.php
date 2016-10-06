@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="/public/css/editor.css">
-
 <div class="center_side clear">
 
         <form name="codex_article" method="POST" action="/<?= $article->id && $article->uri ? $article->uri . '/save' : 'article/add' ?>" enctype="multipart/form-data" id="edit_article_form" class="edit_article_form">

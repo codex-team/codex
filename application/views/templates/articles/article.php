@@ -56,5 +56,3 @@
 
     </article>
 </div>
-
-<link rel="stylesheet" href="/public/css/editor.css">
