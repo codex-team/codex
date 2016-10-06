@@ -6,7 +6,6 @@
 
             <section class="article_form__part_1">
                 <input type="hidden" name="csrf" value="<?= Security::token() ?>" />
-
                 <input type="hidden" name="article_id" value="<?= $article->id ?: ''; ?>">
 
                 <label for="title">Заголовок</label>
@@ -14,7 +13,6 @@
             </section>
 
             <div class="article_content redactor_zone">
-                <textarea name="article_text" rows="10"><?= $article->text ?: ''; ?></textarea>
                 <textarea name="article_json" id="codex_editor" rows="10" hidden><?= $article->json ?: ''; ?></textarea>
             </div>
 
