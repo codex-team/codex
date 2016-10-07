@@ -157,7 +157,8 @@
 .article_content ul,
 .article_content ol,
 .article_content code,
-.article_content blockquote {
+.article_content blockquote,
+.article_content img {
     max-width: 700px;
 }
 
@@ -187,30 +188,25 @@
 .article_content img {
     display: block;
     margin: 20px auto;
-    max-width: 700px;
 }
 
 .article_content blockquote {
-    max-width: 700px;
-    margin: 40px auto;
-    border: 0;
-    outline: none;
+    padding: 1.7em 40px;
+    margin: 2em auto !important;
 }
 
 /** Image styles */
-.article_content img.ce-plugin-image__uploaded--centered {
-    max-width: 700px !important;
+.article_content .ce-plugin-image__uploaded--centered {
     margin: 0 auto !important;
     display: block;
 }
 
-.article_content img.ce-plugin-image__uploaded--stretched {
-    margin: 0 !important;
+.article_content .ce-plugin-image__uploaded--stretched {
+    margin: 0;
     max-width: 100%;
 }
 
     .article_content .ce-plugin-image__caption {
-        max-width: 700px;
         margin: 1em auto;
         text-align: center;
         color: #898a8c;
@@ -225,11 +221,10 @@
 
     .quoteStyle-withCaption--blockquote {
         margin: 0 1em;
-        padding: 1.5em 2.0em !important;
+        padding: 1.5em 2.0em;
     }
 
     .quoteStyle-withCaption--author {
-        margin: 0 100px 3em !important;
         text-align: right;
         font-size: 1.16em;
         font-weight: bold;
@@ -239,7 +234,7 @@
 
     .quoteStyle-withPhoto--wrapper {
         margin: 0;
-        padding: 1.5em 3.6em !important;
+        padding: 1.5em 3.6em;
     }
 
     .quoteStyle-withPhoto--photo {
@@ -260,7 +255,7 @@
     }
 
     .authorsPhoto-wrapper {
-        border: 0 !important;
+        border: 0;
     }
 
     .quoteStyle-withPhoto--author {
@@ -282,10 +277,6 @@
         line-height: 1.82em;
         outline: none;
         overflow: hidden;
-    }
-
-    .quoteStyle-withPhoto--authorWrapper {
-        margin-top: 10px;
     }
 
 /** Link tool */
@@ -355,11 +346,6 @@
         text-transform: uppercase;
         text-decoration: none;
         color: rgba(165,156,86,.8);
-    }
-
-    .tool-link-loader {
-        background: url("loading.gif") !important;
-        opacity: 0.1;
     }
 
     .tool-link-error {
