@@ -2,7 +2,7 @@
 
         <form name="codex_article" method="POST" action="/<?= $article->id && $article->uri ? $article->uri . '/save' : 'article/add' ?>" enctype="multipart/form-data" id="edit_article_form" class="edit_article_form">
 
-            <section class="article_form__part_1">
+            <section class="article_form__inputs">
                 <input type="hidden" name="csrf" value="<?= Security::token() ?>" />
                 <input type="hidden" name="article_id" value="<?= $article->id ?: ''; ?>">
 
@@ -14,7 +14,7 @@
                 <textarea name="article_json" id="codex_editor" rows="10" hidden><?= $article->json ?: ''; ?></textarea>
             </div>
 
-            <section class="article_form__part_2">
+            <section class="article_form__inputs">
                 <label for="uri">URI</label>
                 <input type="text" name="uri" value="<?= $article->uri ?: ''; ?>" autocomplete="off">
 

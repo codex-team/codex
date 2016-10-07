@@ -1351,11 +1351,6 @@ cEditor.content = {
         */
         cEditor.state.html = cEditor.nodes.redactor.innerHTML;
 
-        /**
-        * Put it to the textarea
-        */
-        // cEditor.nodes.textarea.value = cEditor.state.html;
-
     },
 
     /**

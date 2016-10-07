@@ -1,19 +1,19 @@
 <? if ($block->style == 'simple'): ?>
     <!-- Simple quote -->
-    <blockquote class="quoteStyle-simple--text ce-quote">
+    <blockquote class="quoteStyle-simple--text">
         <?=$block->text; ?>
     </blockquote>
 
 <? elseif ($block->style == 'withCaption') : ?>
     <!-- Quote with caption -->
-    <blockquote data-quote-style="withCaption" class="ce-quote">
+    <blockquote data-quote-style="withCaption">
         <div class=" quoteStyle-withCaption--blockquote ce_quote--text"><?=$block->text; ?></div>
         <div class=" quoteStyle-withCaption--author ce_quote--author"><?=$block->author; ?></div>
     </blockquote>
 
 <? elseif ($block->style == 'withPhoto') : ?>
     <!-- Quote with Photo -->
-    <blockquote class="ce-quote quoteStyle-withPhoto--wrapper" data-quote-style="withPhoto">
+    <blockquote class="quoteStyle-withPhoto--wrapper" data-quote-style="withPhoto">
         <div class=" quoteStyle-withPhoto--photo authorsPhoto-wrapper">
             <img class="authorsPhoto" src="/upload/redactor_images/b_eb37d60ecf6598a0deb1c8749098c69e.jpg">
         </div>
