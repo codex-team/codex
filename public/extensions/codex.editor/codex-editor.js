@@ -438,7 +438,6 @@ cEditor.saver = {
     },
 
     /**
-    * @deprecated
     * Returns Stringified JSON
     */
     getJSON : function() {
@@ -447,7 +446,6 @@ cEditor.saver = {
     },
 
     /**
-    * @deprecated
     * Returns JSON as string
     */
     getJSONString : function() {
@@ -777,7 +775,7 @@ cEditor.callback = {
                                       event.target == cEditor.state.inputs[currentInputIndex];
 
         /** The list of tools which needs the default browser behaviour */
-        var PREVENTDEFAULT = ['paragraph', 'header'];
+        var DISABLE_PREVENTDEFAULT = ['list'];
 
         /** This type of block creates when enter is pressed */
         var NEW_BLOCK_TYPE = 'paragraph';
@@ -800,7 +798,7 @@ cEditor.callback = {
         /**
         * Allow making new <p> in same block by SHIFT+ENTER and forbids to prevent default browser behaviour
         */
-        if ( event.shiftKey || PREVENTDEFAULT.indexOf(workingNode.dataset.type) == -1){
+        if ( event.shiftKey || DISABLE_PREVENTDEFAULT.indexOf(workingNode.dataset.type) != -1){
             return;
         }
 
@@ -888,11 +886,10 @@ cEditor.callback = {
         if (cEditor.content.currentNode === null) {
 
             /** Set caret to the last input */
-            var indexOfLastInput = cEditor.state.inputs.length - 1,
-                firstLevelBlock  = cEditor.content.getFirstLevelBlock(cEditor.state.inputs[indexOfLastInput]);
+            var indexOfLastInput = cEditor.state.inputs.length - 1;
 
             /** If input is empty, then we set caret to the last input */
-            if (cEditor.state.inputs[indexOfLastInput].textContent === '' && firstLevelBlock.dataset.type == 'paragraph') {
+            if (cEditor.state.inputs[indexOfLastInput].textContent === '') {
 
                 cEditor.caret.setToBlock(indexOfLastInput);
 
@@ -1240,20 +1237,7 @@ cEditor.callback = {
     backspacePressed: function (block) {
 
         if (block.textContent.trim()) {
-
-            var range  = cEditor.content.getRange(),
-                length = range.endOffset - range.startOffset;
-
-            if (cEditor.caret.position.beginning() && !length) {
-
-                var currentInputIndex = cEditor.caret.getCurrentInputIndex();
-                cEditor.content.mergeBlock(currentInputIndex);
-
-            } else {
-
-                return;
-
-            }
+            return;
         }
 
         block.remove();
@@ -1412,10 +1396,6 @@ cEditor.content = {
     * @param {Element} node - selected or clicked in redactors area node
     */
     getFirstLevelBlock : function(node) {
-
-        if (!cEditor.core.isDomNode(node)) {
-            node = node.parentNode;
-        }
 
         if (node === cEditor.nodes.redactor) {
 
@@ -1653,16 +1633,6 @@ cEditor.content = {
     },
 
     /**
-    * Returns Range object of current selection
-    */
-    getRange : function() {
-
-        var selection = window.getSelection().getRangeAt(0);
-
-        return selection;
-    },
-
-    /**
     * Divides block in two blocks (after and before caret)
     * @private
     * @param {Int} inputIndex - target input index
@@ -1750,21 +1720,6 @@ cEditor.content = {
         });
 
     },
-
-    /**
-    * Merges two blocks — target and previous
-    */
-    mergeBlock : function(inputIndex) {
-
-        if (inputIndex === 0) {
-            return;
-        }
-
-        var previousInput      = cEditor.state.inputs[inputIndex - 1],
-            targetInputContent = cEditor.state.inputs[inputIndex].innerHTML;
-
-        previousInput.innerHTML += targetInputContent;
-    }
 
 };
 
@@ -1943,41 +1898,6 @@ cEditor.caret = {
         cEditor.caret.set(previousInput, previousInput.childNodes.length - 1, lengthOfLastChildNode);
         cEditor.content.workingNodeChanged(inputs[index - 1]);
     },
-
-    position : {
-
-        beginning : function() {
-
-            var selection       = window.getSelection(),
-                anchorOffset    = selection.anchorOffset,
-                anchorNode      = selection.anchorNode,
-                firstLevelBlock = cEditor.content.getFirstLevelBlock(anchorNode),
-                pluginsRender   = firstLevelBlock.childNodes[0];
-
-            var isFirstNode  = anchorNode === pluginsRender.childNodes[0],
-                isOffsetZero = anchorOffset === 0;
-
-            if (isFirstNode && isOffsetZero) {
-                return true;
-            } else {
-                return false;
-            }
-        },
-
-        end : function() {
-
-            var selection    = window.getSelection(),
-                anchorOffset = selection.anchorOffset,
-                anchorNode   = selection.anchorNode;
-
-            /** Caret is at the end of input */
-            if (anchorOffset === anchorNode.length) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-    }
 };
 
 cEditor.toolbar = {
