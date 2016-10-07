@@ -772,12 +772,13 @@ cEditor.callback = {
 
         var currentInputIndex       = cEditor.caret.getCurrentInputIndex(),
             workingNode             = cEditor.content.currentNode,
+            tool                    = workingNode.dataset.type,
             isEnterPressedOnToolbar = cEditor.toolbar.opened &&
                                       cEditor.toolbar.current &&
                                       event.target == cEditor.state.inputs[currentInputIndex];
 
         /** The list of tools which needs the default browser behaviour */
-        var PREVENTDEFAULT = ['paragraph', 'header'];
+        var enableLineBreaks = cEditor.tools[tool].enableLineBreaks;
 
         /** This type of block creates when enter is pressed */
         var NEW_BLOCK_TYPE = 'paragraph';
@@ -800,7 +801,7 @@ cEditor.callback = {
         /**
         * Allow making new <p> in same block by SHIFT+ENTER and forbids to prevent default browser behaviour
         */
-        if ( event.shiftKey || PREVENTDEFAULT.indexOf(workingNode.dataset.type) == -1){
+        if ( event.shiftKey || enableLineBreaks){
             return;
         }
 
@@ -1241,13 +1242,13 @@ cEditor.callback = {
 
         if (block.textContent.trim()) {
 
-            var range  = cEditor.content.getRange(),
-                length = range.endOffset - range.startOffset;
+            var range           = cEditor.content.getRange(),
+                selectionLength = range.endOffset - range.startOffset;
 
-            if (cEditor.caret.position.beginning() && !length) {
+            if (cEditor.caret.position.atStart() && !selectionLength) {
 
                 var currentInputIndex = cEditor.caret.getCurrentInputIndex();
-                cEditor.content.mergeBlock(currentInputIndex);
+                cEditor.content.mergeBlocks(currentInputIndex);
 
             } else {
 
@@ -1752,18 +1753,30 @@ cEditor.content = {
     },
 
     /**
-    * Merges two blocks — target and previous
+    * Merges two blocks — current and target
+    * If target index is not exist, then previous will be as target
     */
-    mergeBlock : function(inputIndex) {
+    mergeBlocks : function(currentInputIndex, targetInputIndex) {
 
-        if (inputIndex === 0) {
+        /** If current input index is zero, then prevent method execution */
+        if (currentInputIndex === 0) {
             return;
         }
 
-        var previousInput      = cEditor.state.inputs[inputIndex - 1],
-            targetInputContent = cEditor.state.inputs[inputIndex].innerHTML;
+        var targetInput,
+            currentInputContent = cEditor.state.inputs[currentInputIndex].innerHTML;
 
-        previousInput.innerHTML += targetInputContent;
+        if (!targetInputIndex) {
+
+            targetInput = cEditor.state.inputs[currentInputIndex - 1];
+
+        } else {
+
+            targetInput = cEditor.state.inputs[targetInputIndex];
+
+        }
+
+        targetInput.innerHTML += currentInputContent;
     }
 
 };
@@ -1946,7 +1959,7 @@ cEditor.caret = {
 
     position : {
 
-        beginning : function() {
+        atStart : function() {
 
             var selection       = window.getSelection(),
                 anchorOffset    = selection.anchorOffset,
@@ -1964,7 +1977,7 @@ cEditor.caret = {
             }
         },
 
-        end : function() {
+        atTheEnd : function() {
 
             var selection    = window.getSelection(),
                 anchorOffset = selection.anchorOffset,

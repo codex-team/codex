@@ -450,12 +450,13 @@ ceImage.photoUploadingCallbacks = {
 */
 cEditor.tools.image = {
 
-    type           : 'image',
-    iconClassname  : 'ce-icon-picture',
-    make           : ceImage.make,
-    settings       : ceImage.makeSettings(),
-    render         : ceImage.render,
-    save           : ceImage.save,
-    isStretched    : true
+    type             : 'image',
+    iconClassname    : 'ce-icon-picture',
+    make             : ceImage.make,
+    settings         : ceImage.makeSettings(),
+    render           : ceImage.render,
+    save             : ceImage.save,
+    isStretched      : true,
+    enableLineBreaks : false
 
 };

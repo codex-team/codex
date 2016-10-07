@@ -408,12 +408,13 @@ quoteTools.photoUploadingCallbacks = {
 
 cEditor.tools.quote = {
 
-    type            : 'quote',
-    iconClassname   : 'ce-icon-quote',
-    make            : quoteTools.makeBlockToAppend,
-    appendCallback  : null,
-    settings        : quoteTools.makeSettings(),
-    render          : quoteTools.render,
-    save            : quoteTools.save,
+    type             : 'quote',
+    iconClassname    : 'ce-icon-quote',
+    make             : quoteTools.makeBlockToAppend,
+    appendCallback   : null,
+    settings         : quoteTools.makeSettings(),
+    render           : quoteTools.render,
+    save             : quoteTools.save,
+    enableLineBreaks : true
 
 };
