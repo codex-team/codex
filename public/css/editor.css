@@ -461,6 +461,7 @@
         font-weight: bold;
         color: #000;
         line-height: 1.5em;
+        margin-top: 20px;
     }
 
     .quoteStyle-withPhoto--wrapper {
