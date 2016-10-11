@@ -35,7 +35,9 @@ var ceImage = {
             holder.classList.add(ceImage.elementClasses.ce_image);
 
         } else {
-            if ( data.isStretch !== true) {
+
+            console.log(data.isStretch);
+            if ( data.isStretch !== 'true') {
                 holder = ceImage.ui.imageView(data, ceImage.elementClasses.uploadedImage.centered, 'false');
             } else {
                 holder = ceImage.ui.imageView(data, ceImage.elementClasses.uploadedImage.stretched, 'true');
