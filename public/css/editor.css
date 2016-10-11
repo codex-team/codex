@@ -349,3 +349,137 @@
     .tool-link-error .ceditor-tool-link-input {
         border-left-color: #d86b6b
     }
+
+/** For small devices */
+@media all and (max-width: 800px) {
+
+    .article {
+        margin: 0;
+        border: 0;
+    }
+
+    .article_info {
+        margin-left: 0;
+        font-size: 15px;
+    }
+
+    .article_info time {
+        display: block;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .article_info .list_user_ava {
+        margin: 0 10px 0 0;
+        vertical-align: text-bottom;
+    }
+
+    .article_info .list_user_ava,
+    .article_info .list_user_ava > img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .article_info .list_user_ava > img {
+        vertical-align: top;
+    }
+
+    .article_info time,
+    .article_info .list_user_name {
+        position: static;
+    }
+
+    .article_content {
+        margin: 0 20px;
+        font-size: 16px;
+
+    }
+
+    .article_content img {
+        max-width: 100%;
+    }
+
+    .article_content blockquote {
+        font-size: 1.1em;
+        line-height: 1.5em;
+        padding: 20px ;
+    }
+
+    .article_content code {
+        padding: 10px;
+        font-size: .7em;
+        line-height: 1.5em;
+    }
+
+    .article_content h2 {
+        line-height: 1.45em;
+    }
+
+    /** Quote styles */
+    .quoteStyle-simple--text {
+        padding: 1.2em 2.1em;
+        margin: 2.5em 2em;
+        background: #FBFBFB;
+    }
+
+    .quoteStyle-withCaption--blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    .quoteStyle-withCaption--author {
+        text-align: right;
+        font-size: 1.16em;
+        font-weight: bold;
+        color: #000;
+        line-height: 1.5em;
+    }
+
+    .quoteStyle-withPhoto--wrapper {
+        margin: 0;
+        padding: 1.5em 3.6em;
+    }
+
+    .quoteStyle-withPhoto--photo {
+        width: 70px;
+        height: 70px;
+        overflow: hidden;
+        text-align: center;
+        line-height: 70px;
+        border-radius: 50%;
+        float: left;
+        margin-right: 25px;
+        border: 2px dashed #D7E2EE;
+    }
+    .authorsPhoto {
+        height: 110%;
+        vertical-align: top;
+        margin: 0 !important;
+    }
+
+    .authorsPhoto-wrapper {
+        border: 0;
+    }
+
+    .quoteStyle-withPhoto--author {
+        font-size: 1.36em;
+        font-weight: bold;
+        color: #000;
+        outline: none;
+        overflow: hidden;
+        margin-bottom: 8px;
+    }
+    .quoteStyle-withPhoto--job {
+        font-size: 1.04em;
+        color: #818BA1;
+        outline: none;
+        overflow: hidden;
+    }
+    .quoteStyle-withPhoto--quote {
+        margin-top: 33px;
+        line-height: 1.82em;
+        outline: none;
+        overflow: hidden;
+    }
+
+}
