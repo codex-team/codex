@@ -345,7 +345,7 @@ ceImage.photoUploadingCallbacks = {
          * If current block is empty, we can replace it to uploaded image
          * Or insert new block
          */
-        if (currentBlock.textContent) {
+        if (!currentBlock.textContent) {
             cEditor.content.switchBlock(currentBlock, image, 'image');
 
             /** Remove temporary holder which should have been used for replacing by image */

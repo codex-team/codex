@@ -2141,13 +2141,6 @@ cEditor.toolbar = {
     */
     toolClicked : function() {
 
-        /** Fire tool append callback  */
-        var appendCallback = cEditor.tools[cEditor.toolbar.current].appendCallback;
-
-        if (appendCallback && typeof appendCallback == 'function') {
-            appendCallback.call(event);
-        }
-
         /**
         * UNREPLACEBLE_TOOLS this types of tools are forbidden to replace even they are empty
         */
@@ -2156,6 +2149,7 @@ cEditor.toolbar = {
             workingNode      = cEditor.content.currentNode,
             currentInputIndex = cEditor.caret.inputIndex,
             newBlockContent,
+            appendCallback,
             blockData;
 
         /** Make block from plugin */
@@ -2194,6 +2188,13 @@ cEditor.toolbar = {
 
             }, 10);
 
+        }
+
+        /** Fire tool append callback  */
+        var appendCallback = cEditor.tools[cEditor.toolbar.current].appendCallback;
+
+        if (appendCallback && typeof appendCallback == 'function') {
+            appendCallback.call(event);
         }
 
         /**
