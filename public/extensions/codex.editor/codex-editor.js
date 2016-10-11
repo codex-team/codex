@@ -2141,13 +2141,19 @@ cEditor.toolbar = {
     */
     toolClicked : function() {
 
+        /** Fire tool append callback  */
+        var appendCallback = cEditor.tools[cEditor.toolbar.current].appendCallback;
+
+        if (appendCallback && typeof appendCallback == 'function') {
+            appendCallback.call(event);
+        }
+
         /**
         * UNREPLACEBLE_TOOLS this types of tools are forbidden to replace even they are empty
         */
         var UNREPLACEBLE_TOOLS = ['image', 'link', 'list'],
             tool             = cEditor.tools[cEditor.toolbar.current],
             workingNode      = cEditor.content.currentNode,
-            appendCallback,
             currentInputIndex = cEditor.caret.inputIndex,
             newBlockContent,
             blockData;
@@ -2188,13 +2194,6 @@ cEditor.toolbar = {
 
             }, 10);
 
-        }
-
-        /** Fire tool append callback  */
-        appendCallback = cEditor.tools[cEditor.toolbar.current].appendCallback;
-
-        if (appendCallback && typeof appendCallback == 'function') {
-            appendCallback.call();
         }
 
         /**

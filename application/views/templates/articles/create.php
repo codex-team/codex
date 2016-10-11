@@ -106,5 +106,5 @@
 <script src="/public/extensions/codex.editor/plugins/list/list.js"></script>
 <link rel="stylesheet" href="/public/extensions/codex.editor/plugins/list/list.css" />
 
-<script src="/public/extensions/codex.editor/plugins/images/images.js"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/images/images.css" />
+<script src="/public/extensions/codex.editor/plugins/image/image.js"></script>
+<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/image/image.css" />
