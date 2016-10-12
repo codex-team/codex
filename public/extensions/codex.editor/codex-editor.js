@@ -2380,8 +2380,8 @@ cEditor.transport = {
             }
         };
 
-        this.clearInput();
         xhr.send(params.data);
+        this.clearInput();
 
     }
 
