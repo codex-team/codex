@@ -389,14 +389,25 @@
         position: static;
     }
 
-    .article_content {
-        margin: 0 20px;
-        font-size: 16px;
-
+    .article_content p,
+    .article_content h1,
+    .article_content h2,
+    .article_content h3,
+    .article_content h4,
+    .article_content h5,
+    .article_content h6,
+    .article_content ul,
+    .article_content ol,
+    .article_content code,
+    .article_content blockquote,
+    .article_content img {
+        max-width: 90%;
     }
 
-    .article_content img {
+    .article_content {
         max-width: 100%;
+        font-size: 16px;
+
     }
 
     .article_content blockquote {
