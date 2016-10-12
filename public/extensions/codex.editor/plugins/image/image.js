@@ -9,6 +9,7 @@ var ceImage = {
     elementClasses : {
 
         ce_image      : 'ce-image',
+        loading       : 'ce-plugin-image__loader',
         uploadedImage : {
                 centered  : 'ce-plugin-image__uploaded--centered',
                 stretched : 'ce-plugin-image__uploaded--stretched',
@@ -16,29 +17,35 @@ var ceImage = {
         stretch       : 'ce_block--stretched',
         imageCaption  : 'ce-plugin-image__caption',
         imageWrapper  : 'ce-plugin-image__wrapper',
+        formHolder    : 'ce-plugin-image__holder',
         uploadButton  : 'ce-plugin-image__button',
 
     },
 
-    holder : document.createElement('div'),
+    holder : null,
 
     /** Default path to redactors images */
     path : '/upload/redactor_images/',
 
     make : function ( data ) {
 
+        var holder;
+
         if (data) {
 
             if ( data.isStretch !== 'true') {
-                holder = ceImage.ui.imageView(data, ceImage.elementClasses.uploadedImage.centered, 'false');
+                holder = ceImage.ui.makeImage(data, ceImage.elementClasses.uploadedImage.centered, 'false');
             } else {
-                holder = ceImage.ui.imageView(data, ceImage.elementClasses.uploadedImage.stretched, 'true');
+                holder = ceImage.ui.makeImage(data, ceImage.elementClasses.uploadedImage.stretched, 'true');
             }
 
             return holder;
 
         } else {
-            return ceImage.holder;
+
+            holder = ceImage.ui.makeForm();
+
+            return holder;
         }
     },
 
@@ -46,9 +53,6 @@ var ceImage = {
      * this tool works when tool is clicked in toolbox
      */
     appendCallback : function(event) {
-
-        /** Prepare input file */
-        cEditor.transport.prepare()
 
         /** Upload image and call success callback*/
         ceImage.uploadButtonClicked(event);
@@ -170,11 +174,13 @@ var ceImage = {
 
     uploadButtonClicked : function(event) {
 
-        var success = ceImage.photoUploadingCallbacks.success,
-            error   = ceImage.photoUploadingCallbacks.error;
+        var beforeSend = ceImage.photoUploadingCallbacks.beforeSend,
+            success    = ceImage.photoUploadingCallbacks.success,
+            error      = ceImage.photoUploadingCallbacks.error;
 
         /** Define callbacks */
         cEditor.transport.selectAndUpload({
+            beforeSend,
             success,
             error,
         });
@@ -183,6 +189,29 @@ var ceImage = {
 };
 
 ceImage.ui = {
+
+    holder : function(){
+
+        var element = document.createElement('DIV');
+
+        element.classList.add(ceImage.elementClasses.formHolder);
+        element.classList.add(ceImage.elementClasses.ce_image);
+
+        return element;
+    },
+
+    uploadButton : function(){
+
+        var button = document.createElement('SPAN');
+
+        button.classList.add(ceImage.elementClasses.uploadButton);
+
+        button.innerHTML = '<i class="ce-icon-picture"> </i>';
+        button.innerHTML += 'Загрузить фотографию';
+
+        return button;
+
+    },
 
     /**
     * @param {string} source - file path
@@ -218,6 +247,23 @@ ceImage.ui = {
 
         return div;
     },
+    /**
+    * Draws form for image upload
+    */
+    makeForm : function() {
+
+        var holder       = ceImage.ui.holder(),
+            uploadButton = ceImage.ui.uploadButton();
+
+        holder.appendChild(uploadButton);
+
+        uploadButton.addEventListener('click', ceImage.uploadButtonClicked, false );
+
+        ceImage.holder = holder;
+
+        return holder;
+    },
+
 
     /**
     * wraps image and caption
@@ -226,7 +272,7 @@ ceImage.ui = {
     * @param {boolean} stretched - stretched or not
     * @return wrapped block with image and caption
     */
-    imageView : function(data, imageTypeClass, stretched) {
+    makeImage : function(data, imageTypeClass, stretched) {
 
         var file = data.file.url,
             text = data.caption,
@@ -312,6 +358,11 @@ ceImage.ui = {
 
 ceImage.photoUploadingCallbacks = {
 
+    /** Before sending ajax request */
+    beforeSend : function() {
+        ceImage.holder.classList.add(ceImage.elementClasses.loading);
+    },
+
     /** Photo was uploaded successfully */
     success : function(result) {
 
@@ -345,17 +396,7 @@ ceImage.photoUploadingCallbacks = {
          * If current block is empty, we can replace it to uploaded image
          * Or insert new block
          */
-        if (!currentBlock.textContent) {
-            cEditor.content.switchBlock(currentBlock, image, 'image');
-
-            /** Remove temporary holder which should have been used for replacing by image */
-            var holder = cEditor.content.getFirstLevelBlock(ceImage.holder);
-            holder.remove();
-
-        } else {
-            cEditor.content.switchBlock(ceImage.holder, image, 'image');
-        }
-
+        cEditor.content.switchBlock(ceImage.holder, image, 'image');
     },
 
     /** Error callback. Sends notification to user that something happend or plugin doesn't supports method */
