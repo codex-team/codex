@@ -20,7 +20,11 @@ var paragraphTool = {
         }
 
         tag.contentEditable = true;
-        tag.setAttribute('data-placeholder', 'New paragraph');
+
+        /**
+         * if plugin need to add placeholder
+         * tag.setAttribute('data-placeholder', 'placehoder');
+         */
 
         return tag;
 
