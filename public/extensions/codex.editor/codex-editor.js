@@ -486,6 +486,11 @@ cEditor.ui = {
     BLOCK_CLASSNAME : 'ce_block',
 
     /**
+    * @const {String} BLOCK_BACKGROUND - adds background
+    */
+    BLOCK_BACKGROUND : 'ce-block__background',
+
+    /**
     * @private
     * Making main interface
     */
@@ -937,6 +942,9 @@ cEditor.callback = {
             cEditor.toolbar.settings.close();
             cEditor.toolbar.toolbox.close();
         }
+
+        /** Mark current block*/
+        cEditor.content.markBlock();
 
     },
 
@@ -1414,6 +1422,25 @@ cEditor.content = {
     },
 
     /**
+    * Appends background to the block
+    */
+    markBlock : function() {
+
+        cEditor.content.currentNode.classList.add(cEditor.ui.BLOCK_BACKGROUND);
+    },
+
+    /**
+    * Clear background
+    */
+    clearMark : function() {
+
+        if (cEditor.content.currentNode) {
+            cEditor.content.currentNode.classList.remove(cEditor.ui.BLOCK_BACKGROUND);
+        }
+
+    },
+
+    /**
     * Finds first-level block
     * @param {Element} node - selected or clicked in redactors area node
     */
@@ -1445,6 +1472,9 @@ cEditor.content = {
     * If targetNode is first-level then we set it as current else we look for parents to find first-level
     */
     workingNodeChanged : function (targetNode) {
+
+        /** Clear background from previous marked block before we change */
+        cEditor.content.clearMark();
 
         if (!targetNode) {
             return;
@@ -2005,7 +2035,7 @@ cEditor.toolbar = {
     */
     defaultToolbarHeight : 49,
 
-    defaultOffset : 12.5,
+    defaultOffset : 24,
 
     opened : false,
 
