@@ -726,6 +726,7 @@ cEditor.callback = {
             case cEditor.core.keys.TAB   : this.tabKeyPressed(event);       break;
             case cEditor.core.keys.ENTER : this.enterKeyPressed(event);     break;
             case cEditor.core.keys.ESC   : this.escapeKeyPressed(event);    break;
+            default                      : this.defaultKeyPressed(event);    break;
         }
 
     },
@@ -870,6 +871,11 @@ cEditor.callback = {
         cEditor.toolbar.close();
         cEditor.toolbar.move();
 
+    },
+
+    defaultKeyPressed : function(event) {
+
+        cEditor.toolbar.close();
     },
 
     redactorClicked : function (event) {
