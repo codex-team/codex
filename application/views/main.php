@@ -19,6 +19,8 @@
 
     <link rel="stylesheet" href="/public/css/normalize.css">
     <link rel="stylesheet" href="/public/css/main.css?v=<?= filemtime("public/css/main.css") ?>">
+    <link rel="stylesheet" href="/public/css/editor.css?v=<?= filemtime("public/css/editor.css") ?>">
+    
     <? /*
     <link rel="stylesheet" href="/public/css/articles.css?v=<?= filemtime("public/css/articles.css") ?>">
     <link rel="stylesheet" href="/public/css/admin.css?v=<?= filemtime("public/css/admin.css") ?>">

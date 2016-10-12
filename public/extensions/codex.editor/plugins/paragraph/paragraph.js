@@ -61,12 +61,13 @@ var paragraphTool = {
 */
 cEditor.tools.paragraph = {
 
-    type           : 'paragraph',
-    iconClassname  : 'ce-icon-paragraph',
-    make           : paragraphTool.make,
-    appendCallback : null,
-    settings       : null,
-    render         : paragraphTool.render,
-    save           : paragraphTool.save
+    type             : 'paragraph',
+    iconClassname    : 'ce-icon-paragraph',
+    make             : paragraphTool.make,
+    appendCallback   : null,
+    settings         : null,
+    render           : paragraphTool.render,
+    save             : paragraphTool.save,
+    enableLineBreaks : false
 
 };

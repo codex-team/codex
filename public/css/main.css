@@ -1051,13 +1051,9 @@ html {
 .article_content{
     font-size: 1.1em;
     line-height: 1.75em;
-    margin: 0 130px;
     word-wrap: break-word;
     letter-spacing: 0;
 }
-    .article_content h2{
-        margin: 50px 0 30px;
-    }
     .article_content img{
         max-width: 100%;
         margin: 30px 0;
@@ -1745,57 +1741,8 @@ html {
         }
 
     .big_header{
-        padding: 30px 0;
+        padding: 30px;
         font-size: 33px;
-    }
-
-    .article{
-        margin: 0;
-        border: 0;
-    }
-    .article_info{
-        margin-left: 0;
-        font-size: 15px;
-    }
-        .article_info time{
-            display: block;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-        .article_info .list_user_ava{
-            margin: 0 10px 0 0;
-            vertical-align: text-bottom;
-        }
-        .article_info .list_user_ava,
-        .article_info .list_user_ava > img{
-            width: 20px;
-            height: 20px;
-        }
-        .article_info .list_user_ava > img{
-            vertical-align: top;
-        }
-        .article_info time,
-        .article_info .list_user_name{
-            position: static;
-        }
-
-    .article_content{
-        margin: 0 20px;
-        font-size: 16px;
-
-    }
-    .article_content blockquote{
-        font-size: 1.1em;
-        line-height: 1.5em;
-        padding: 20px;
-    }
-    .article_content code{
-        padding: 10px;
-        font-size: .7em;
-        line-height: 1.5em;
-    }
-    .article_content h2{
-        line-height: 1.45em;
     }
 
     .breadcrumb{

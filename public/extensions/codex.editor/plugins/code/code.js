@@ -64,12 +64,13 @@ var codeTool = {
  */
 cEditor.tools.code = {
 
-    type           : 'code',
-    iconClassname  : 'ce-icon-code',
-    make           : codeTool.make,
-    appendCallback : null,
-    settings       : null,
-    render         : codeTool.render,
-    save           : codeTool.save
+    type             : 'code',
+    iconClassname    : 'ce-icon-code',
+    make             : codeTool.make,
+    appendCallback   : null,
+    settings         : null,
+    render           : codeTool.render,
+    save             : codeTool.save,
+    enableLineBreaks : true
 
 };
