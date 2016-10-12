@@ -2154,13 +2154,6 @@ cEditor.toolbar = {
         /** Make block from plugin */
         newBlockContent = tool.make();
 
-        /** Fire tool append callback  */
-        var appendCallback = tool.appendCallback;
-
-        if (appendCallback && typeof appendCallback == 'function') {
-            appendCallback.call(event);
-        }
-
         /** information about block */
         blockData = {
             block     : newBlockContent,
@@ -2184,6 +2177,13 @@ cEditor.toolbar = {
             /** increase input index */
             currentInputIndex++;
 
+        }
+
+        /** Fire tool append callback  */
+        var appendCallback = tool.appendCallback;
+
+        if (appendCallback && typeof appendCallback == 'function') {
+            appendCallback.call(event);
         }
 
         setTimeout(function() {
@@ -2312,6 +2312,16 @@ cEditor.transport = {
 
     },
 
+    /** Clear input when files is uploaded */
+    clearInput : function() {
+
+        /** Remove old input */
+        this.input = null;
+
+        /** Prepare new one */
+        this.prepare();
+    },
+
     /**
     * Callback for file selection
     */
@@ -2324,22 +2334,14 @@ cEditor.transport = {
             file,
             i;
 
-        /** If file is not selected */
-        if (files[0]) {
+        formdData.append('files', files[0], files[0].name);
 
-            formdData.append('files', files[0], files[0].name);
-
-            cEditor.transport.ajax({
-                data : formdData,
-                beforeSend : cEditor.transport.arguments.beforeSend,
-                success    : cEditor.transport.arguments.success,
-                error      : cEditor.transport.arguments.error,
-            });
-
-        } else {
-            return;
-        }
-
+        cEditor.transport.ajax({
+            data : formdData,
+            beforeSend : cEditor.transport.arguments.beforeSend,
+            success    : cEditor.transport.arguments.success,
+            error      : cEditor.transport.arguments.error,
+        });
     },
 
     /**
@@ -2378,6 +2380,7 @@ cEditor.transport = {
             }
         };
 
+        this.clearInput();
         xhr.send(params.data);
 
     }

@@ -2,7 +2,7 @@
 * Image plugin for codex-editor
 * @author CodeX Team <team@ifmo.su>
 *
-* @version 1.0.0
+* @version 1.1.2
 */
 var ceImage = {
 
