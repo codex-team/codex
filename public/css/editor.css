@@ -401,7 +401,7 @@
     .article_content code,
     .article_content blockquote,
     .article_content img {
-        max-width: 90%;
+        max-width: 88%;
     }
 
     .article_content {
@@ -428,7 +428,7 @@
 
     /** Link styles */
     .ce-link {
-        max-width: 100%;
+        max-width: 88%;
         margin: 20px auto;
         padding: 0 !important;
     }
