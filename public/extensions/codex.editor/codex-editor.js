@@ -685,7 +685,6 @@ cEditor.ui = {
 
         /** Save all inputs in global variable state */
         cEditor.state.inputs = redactor.querySelectorAll('[contenteditable], input');
-
     },
 
     /**
@@ -1519,20 +1518,21 @@ cEditor.content = {
             cEditor.nodes.redactor.appendChild(newBlock);
 
         }
+
+        /**
+         * Block handler
+         */
+        cEditor.ui.addBlockHandlers(newBlock)
+
+        /**
+         * Set new node as current
+         */
+        cEditor.content.workingNodeChanged(newBlock)
+
         /**
         * Save changes
         */
         cEditor.ui.saveInputs();
-
-        /**
-        * Block handler
-        */
-        cEditor.ui.addBlockHandlers(newBlock);
-
-        /**
-        * Set new node as current
-        */
-        cEditor.content.workingNodeChanged(newBlock);
 
     },
 
@@ -1552,7 +1552,6 @@ cEditor.content = {
 
         /** Save new Inputs when block is changed */
         cEditor.ui.saveInputs();
-
     },
 
 
@@ -2147,9 +2146,9 @@ cEditor.toolbar = {
         var UNREPLACEBLE_TOOLS = ['image', 'link', 'list'],
             tool             = cEditor.tools[cEditor.toolbar.current],
             workingNode      = cEditor.content.currentNode,
-            appendCallback,
             currentInputIndex = cEditor.caret.inputIndex,
             newBlockContent,
+            appendCallback,
             blockData;
 
         /** Make block from plugin */
@@ -2162,40 +2161,38 @@ cEditor.toolbar = {
             stretched : false
         };
 
-        /**
-        * if block is empty, then we can replace current block with tool plugins block
-        */
-        if (workingNode && UNREPLACEBLE_TOOLS.indexOf(workingNode.dataset.type) === -1 && workingNode.textContent.trim() === '') {
+        if (workingNode
+            && UNREPLACEBLE_TOOLS.indexOf(workingNode.dataset.type) === -1
+            && workingNode.textContent.trim() === ''
+        ) {
 
             /** Replace current block */
-            cEditor.content.switchBlock(workingNode, newBlockContent, tool.type);
-
-            setTimeout(function () {
-
-                cEditor.caret.setToPreviousBlock(currentInputIndex + 1);
-
-            }, 10);
+            cEditor.content.switchBlock(workingNode, newBlockContent, tool.type)
 
         } else {
 
             /** Insert new Block from plugin */
             cEditor.content.insertBlock(blockData);
 
-            /** Set caret to the next inserted block */
-            setTimeout(function () {
-
-                cEditor.caret.setToNextBlock(currentInputIndex);
-
-            }, 10);
+            /** increase input index */
+            currentInputIndex++;
 
         }
 
         /** Fire tool append callback  */
-        appendCallback = cEditor.tools[cEditor.toolbar.current].appendCallback;
+        var appendCallback = tool.appendCallback;
 
         if (appendCallback && typeof appendCallback == 'function') {
-            appendCallback.call();
+            appendCallback.call(event);
         }
+
+        setTimeout(function() {
+
+            /** Set caret to current block */
+            cEditor.caret.setToBlock(currentInputIndex);
+
+        }, 10);
+
 
         /**
         * Changing current Node
@@ -2206,9 +2203,7 @@ cEditor.toolbar = {
         * Move toolbar when node is changed
         */
         cEditor.toolbar.move();
-
     },
-
 
     /**
     * Moving toolbar to the specified node
@@ -2317,6 +2312,16 @@ cEditor.transport = {
 
     },
 
+    /** Clear input when files is uploaded */
+    clearInput : function() {
+
+        /** Remove old input */
+        this.input = null;
+
+        /** Prepare new one */
+        this.prepare();
+    },
+
     /**
     * Callback for file selection
     */
@@ -2333,10 +2338,10 @@ cEditor.transport = {
 
         cEditor.transport.ajax({
             data : formdData,
-            success : cEditor.transport.arguments.success,
-            error   : cEditor.transport.arguments.error,
+            beforeSend : cEditor.transport.arguments.beforeSend,
+            success    : cEditor.transport.arguments.success,
+            error      : cEditor.transport.arguments.error,
         });
-
     },
 
     /**
@@ -2356,8 +2361,11 @@ cEditor.transport = {
     ajax : function(params){
 
         var xhr = new XMLHttpRequest(),
-            success = typeof params.success == 'function' ? params.success : function(){},
-            error   = typeof params.error   == 'function' ? params.error   : function(){};
+            beforeSend = typeof params.success == 'function' ? params.beforeSend : function(){},
+            success    = typeof params.success == 'function' ? params.success : function(){},
+            error      = typeof params.error   == 'function' ? params.error   : function(){};
+
+        beforeSend();
 
         xhr.open('POST', cEditor.settings.uploadImagesUrl, true);
 
@@ -2368,10 +2376,12 @@ cEditor.transport = {
                 success(xhr.responseText);
             } else {
                 console.log("request error: %o", xhr);
+                error();
             }
         };
 
         xhr.send(params.data);
+        this.clearInput();
 
     }
 
