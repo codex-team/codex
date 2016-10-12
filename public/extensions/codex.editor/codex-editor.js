@@ -726,6 +726,7 @@ cEditor.callback = {
             case cEditor.core.keys.TAB   : this.tabKeyPressed(event);       break;
             case cEditor.core.keys.ENTER : this.enterKeyPressed(event);     break;
             case cEditor.core.keys.ESC   : this.escapeKeyPressed(event);    break;
+            default                      : cEditor.toolbar.close();         break;
         }
 
     },
