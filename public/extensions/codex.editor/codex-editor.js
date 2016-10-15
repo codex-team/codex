@@ -475,20 +475,24 @@ cEditor.saver = {
 
 cEditor.ui = {
 
-    /**
-    * @const {String} BLOCK_STRETCHED - makes block stretched
-    */
-    BLOCK_STRETCHED : 'ce_block--stretched',
+    className : {
 
-    /**
-    * @const {string} BLOCK_CLASSNAME - redactor blocks name
-    */
-    BLOCK_CLASSNAME : 'ce_block',
+        /**
+        * @const {String} BLOCK_STRETCHED - makes block stretched
+        */
+        BLOCK_STRETCHED : 'ce_block--stretched',
 
-    /**
-    * @const {String} BLOCK_BACKGROUND - adds background
-    */
-    BLOCK_BACKGROUND : 'ce-block__highlighted',
+        /**
+        * @const {string} BLOCK_CLASSNAME - redactor blocks name
+        */
+        BLOCK_CLASSNAME : 'ce_block',
+
+        /**
+        * @const {String} BLOCK_HIGHLIGHTED - adds background
+        */
+        BLOCK_HIGHLIGHTED : 'ce-block__highlighted',
+
+    },
 
     /**
     * @private
@@ -943,8 +947,6 @@ cEditor.callback = {
             cEditor.toolbar.toolbox.close();
         }
 
-        console.log("BLOCK_BACKGROUND: %o", cEditor.ui.BLOCK_BACKGROUND);
-
         /** Mark current block*/
         cEditor.content.markBlock();
 
@@ -1239,7 +1241,7 @@ cEditor.callback = {
             var newBlock = cEditor.draw.block('p');
 
             newBlock.contentEditable = "true";
-            newBlock.classList.add(cEditor.ui.BLOCK_CLASSNAME);
+            newBlock.classList.add(cEditor.ui.className.BLOCK_CLASSNAME);
 
             /** Add event listeners (Keydown) for new created block */
             cEditor.ui.addBlockHandlers(newBlock);
@@ -1428,7 +1430,7 @@ cEditor.content = {
     */
     markBlock : function() {
 
-        cEditor.content.currentNode.classList.add(cEditor.ui.BLOCK_BACKGROUND);
+        cEditor.content.currentNode.classList.add(cEditor.ui.className.BLOCK_HIGHLIGHTED);
     },
 
     /**
@@ -1437,7 +1439,7 @@ cEditor.content = {
     clearMark : function() {
 
         if (cEditor.content.currentNode) {
-            cEditor.content.currentNode.classList.remove(cEditor.ui.BLOCK_BACKGROUND);
+            cEditor.content.currentNode.classList.remove(cEditor.ui.className.BLOCK_HIGHLIGHTED);
         }
 
     },
@@ -1458,7 +1460,7 @@ cEditor.content = {
 
         } else {
 
-            while(!node.classList.contains(cEditor.ui.BLOCK_CLASSNAME)) {
+            while(!node.classList.contains(cEditor.ui.className.BLOCK_CLASSNAME)) {
                 node = node.parentNode;
             }
 
@@ -1506,7 +1508,7 @@ cEditor.content = {
         newBlock.dataset.type = newBlockType;
 
         /** If target-block is not a frist-level block, then we iterate parents to find it */
-        while(!targetBlock.classList.contains(cEditor.ui.BLOCK_CLASSNAME)) {
+        while(!targetBlock.classList.contains(cEditor.ui.className.BLOCK_CLASSNAME)) {
             targetBlock = targetBlock.parentNode;
         }
 
@@ -1677,10 +1679,10 @@ cEditor.content = {
 
         newBlock = cEditor.draw.block('DIV');
 
-        newBlock.classList.add(cEditor.ui.BLOCK_CLASSNAME);
+        newBlock.classList.add(cEditor.ui.className.BLOCK_CLASSNAME);
 
         if (isStretched) {
-            newBlock.classList.add(cEditor.ui.BLOCK_STRETCHED);
+            newBlock.classList.add(cEditor.ui.className.BLOCK_STRETCHED);
         }
         newBlock.dataset.type = blockType;
 
@@ -2644,7 +2646,7 @@ cEditor.parser = {
     isFirstLevelBlock : function (node) {
 
         return node.nodeType == cEditor.core.nodeTypes.TAG &&
-               node.classList.contains(cEditor.ui.BLOCK_CLASSNAME);
+               node.classList.contains(cEditor.ui.className.BLOCK_CLASSNAME);
 
     }
 
