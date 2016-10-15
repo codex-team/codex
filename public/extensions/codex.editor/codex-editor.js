@@ -478,14 +478,14 @@ cEditor.ui = {
     className : {
 
         /**
-        * @const {String} BLOCK_STRETCHED - makes block stretched
-        */
-        BLOCK_STRETCHED : 'ce_block--stretched',
-
-        /**
         * @const {string} BLOCK_CLASSNAME - redactor blocks name
         */
         BLOCK_CLASSNAME : 'ce_block',
+
+        /**
+        * @const {String} BLOCK_STRETCHED - makes block stretched
+        */
+        BLOCK_STRETCHED : 'ce_block--stretched',
 
         /**
         * @const {String} BLOCK_HIGHLIGHTED - adds background
