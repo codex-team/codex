@@ -168,7 +168,7 @@
     <pre id="output"></pre>
 </div>
 
-<link rel="stylesheet" href="/public/extensions/codex.editor/editor.css" />
+<link rel="stylesheet" href="/public/extensions/codex.editor/codex-editor.css" />
 <script src="/public/extensions/codex.editor/codex-editor.js"></script>
 <script>
 

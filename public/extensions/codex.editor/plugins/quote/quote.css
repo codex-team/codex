@@ -1,6 +1,6 @@
 .ce-quote {
     max-width: 700px;
-    margin: 20px auto !important;
+    margin: 2em auto !important;
 }
 
 /** Quote - settings */
@@ -25,7 +25,7 @@
 }
 .quoteStyle-withCaption--author {
 
-    margin: 0 100px 3em !important;
+    margin: 0 100px 2em !important;
     text-align: right;
     font-size: 1.16em;
     font-weight: bold;
@@ -47,7 +47,7 @@
 }
 
 .quoteStyle-withCaption--blockquote {
-    margin: 0 1em;
+    margin: 0;
     padding: 1.5em 2.0em !important;
 }
 
