@@ -120,9 +120,9 @@
     .codex_editor .buttons_toggled .toggler{
         transform: rotate(45deg);
     }
-    
+
     .ce-block__background {
-        background: #efefef;
+        background: #f9f9fb;
     }
 
 /** Typography styles */

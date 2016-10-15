@@ -58,7 +58,6 @@
 /** Uploaded image */
 .ce-plugin-image__wrapper {
     margin : 0;
-    padding: 0 1.2em;
 }
 .ce-plugin-image__uploaded--centered {
     max-width: 700px;

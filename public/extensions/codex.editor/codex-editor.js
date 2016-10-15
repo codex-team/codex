@@ -488,7 +488,7 @@ cEditor.ui = {
     /**
     * @const {String} BLOCK_BACKGROUND - adds background
     */
-    BLOCK_BACKGROUND : 'ce-block__background',
+    BLOCK_BACKGROUND : 'ce-block__highlighted',
 
     /**
     * @private
@@ -942,6 +942,8 @@ cEditor.callback = {
             cEditor.toolbar.settings.close();
             cEditor.toolbar.toolbox.close();
         }
+
+        console.log("BLOCK_BACKGROUND: %o", cEditor.ui.BLOCK_BACKGROUND);
 
         /** Mark current block*/
         cEditor.content.markBlock();
@@ -2035,7 +2037,7 @@ cEditor.toolbar = {
     */
     defaultToolbarHeight : 49,
 
-    defaultOffset : 24,
+    defaultOffset : 34,
 
     opened : false,
 
