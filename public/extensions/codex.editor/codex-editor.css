@@ -35,10 +35,10 @@
     display: inline-block;
     width: 12px;
     height: 12px;
-    background: url('/public/fonts/codex_editor/icon-plus.svg') no-repeat;
+    background: url('fonts/icon-plus.svg') no-repeat;
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 9px;
+    left: 9px;
 }
 .ce-icon-instagram:before { content: '\e800'; } /* '' */
 .ce-icon-picture:before { content: '\e801'; } /* '' */
@@ -97,11 +97,11 @@
 }
     .ce_toolbar_tools--title {
         text-transform: capitalize;
-        margin-left: 6px;
         vertical-align: middle;
     }
     .ce_redactor_tools i {
         vertical-align: middle;
+        margin-right: .2em;
     }
 
     .ce_toolbar.opened{
@@ -147,7 +147,7 @@
         .ce_toolbar li:hover
         {
             background: #fcfcfd;
-            color: #3c6cff;
+            color: #5779e0;
         }
         .ce_toolbar .trash-toggler:hover {
             color: #ff5c59;
@@ -209,14 +209,14 @@
 
     z-index: 2;
 
-    transition: transform 100ms linear;
+    transition: transform 80ms linear;
 }
     .ce_redactor_plusButton:hover {
         cursor: pointer;
     }
 
     .ce_redactor_plusButton--clicked {
-        transform: rotate(180deg);
+        transform: rotate(45deg);
     }
 
 /** First-level block buttons */
@@ -239,13 +239,12 @@
     max-width: 700px;
     margin-left: 119px;
     border-radius: 50px;
-
-    margin-top: -7px;
 }
 
     .ce_redactor_tools li {
         line-height: 1em;
         padding: 15px 10px;
+        margin: 1px 0 !important;
     }
 
     .ce_redactor_tools li:first-child{
@@ -266,11 +265,17 @@
         display: block;
     }
 
+.ce_redactor_tools,
+.ce_block_settings{
+    margin-top: -7px;
+}
+
 /** Block settings panel */
 .ce_block_settings {
     position: absolute;
-    right: 0;
-    margin-top: 8px;
+    top: 0;
+    right: 100%;
+    margin-right: 15px;
 
     min-width: 320px;
     text-align: center;
