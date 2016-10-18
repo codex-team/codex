@@ -675,13 +675,6 @@ cEditor.ui = {
         if (!block) return;
 
         /**
-        * Highlight first-level block by mouseover
-        */
-        block.addEventListener('mouseover', function() {
-            // console.log('here');
-        }, false);
-
-        /**
         * Block keydowns
         */
         block.addEventListener('keydown', function(event) {
