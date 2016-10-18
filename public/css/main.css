@@ -1232,44 +1232,6 @@ html {
 /*** end of New Year landing styles *******************/
 
 /**
-* Event promo block
-*/
-.event_alert{
-    padding: 80px 0px;
-    max-width: 700px;
-    margin: 0 auto;
-    border-bottom: 1px solid #ebe8e8;
-    text-align: center;
-    font-size: 1.8em;
-
-}
-    .event_alert__day{
-        min-width: 70px;
-        line-height: 1.3em;
-        letter-spacing: 1.2px;
-        font-size: 2.3em;
-    }
-    .event_alert__month{
-        letter-spacing: 2px;
-    }
-    .event_alert__title{
-        margin-top: 1.4em;
-        font-size: .62em;
-    }
-    .event_alert__description{
-        margin-top: 1em;
-        font-size: .64em;
-    }
-    .event_alert__link{
-        display: inline-block;
-        text-decoration: none;
-        color: inherit;
-    }
-        .event_alert__link:hover{
-            text-decoration: none;
-        }
-
-/**
 * Branches
 */
 .branchy{
@@ -1609,6 +1571,50 @@ html {
     color: #e04545;
 }
 
+
+
+
+/**
+* Event promo block
+*/
+.event_alert{
+    padding: 80px 0px;
+    max-width: 700px;
+    margin: 0 auto;
+    border-bottom: 1px solid #ebe8e8;
+    text-align: center;
+    font-size: 1.8em;
+
+}
+    .event_alert__day{
+        min-width: 70px;
+        line-height: 1.3em;
+        letter-spacing: 1.2px;
+        font-size: 2.3em;
+    }
+    .event_alert__month{
+        letter-spacing: 2px;
+    }
+    .event_alert__title{
+        margin-top: 1.4em;
+        font-size: .62em;
+        color: #ea6e6e;
+    }
+    .event_alert__description{
+        margin-top: 1em;
+        font-size: .64em;
+    }
+    .event_alert__link{
+        display: inline-block;
+        text-decoration: none;
+        color: inherit;
+    }
+        .event_alert__link:hover{
+            text-decoration: none;
+        }
+    .event_alert__icon_delimiter{
+        font-size: .7em;
+    }
 
 
 @-webkit-keyframes wobble {
