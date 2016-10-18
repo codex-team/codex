@@ -674,12 +674,23 @@ cEditor.ui = {
 
         if (!block) return;
 
-        block.addEventListener('keydown', function(event) {
-
-            cEditor.callback.blockKeydown(event, block);
-
+        /**
+        * Highlight first-level block by mouseover
+        */
+        block.addEventListener('mouseover', function() {
+            // console.log('here');
         }, false);
 
+        /**
+        * Block keydowns
+        */
+        block.addEventListener('keydown', function(event) {
+            cEditor.callback.blockKeydown(event, block);
+        }, false);
+
+        /**
+        * Pasting content from another source
+        */
         block.addEventListener('paste', function (event) {
             cEditor.callback.blockPaste(event, block);
         }, false);
@@ -1330,21 +1341,61 @@ cEditor.callback = {
 
     blockPaste: function(event, block) {
 
-        var clipboardData, pastedData, nodeContent;
+        var clipboardData,
+            pastedData,
+            nodeContent,
+            currentNode       = cEditor.content.currentNode,
+            currentInputIndex = cEditor.caret.getCurrentInputIndex(),
+            i;
 
         /** Prevent Default Browser behaviour */
         event.preventDefault();
 
         clipboardData = event.clipboardData || window.clipboardData;
-        pastedData = clipboardData.getData('Text');
+        pastedData    = clipboardData.getData('Text');
 
-        nodeContent = document.createTextNode(pastedData);
+        if (cEditor.caret.position.atStart() || !currentNode.textContent) {
 
-        var index = cEditor.caret.getCurrentInputIndex();
+            /** This type of block creates when enter is pressed */
+            var NEW_BLOCK_TYPE = 'paragraph';
 
-        /** Insert parsed content to the editable block */
-        var editableElement = cEditor.state.inputs[index];
-        editableElement.appendChild(nodeContent);
+            /** getting content */
+            blocks = pastedData.split('\n');
+
+            for(i = 0; i < blocks.length; i++){
+
+                /** Blocks content is not empty */
+                if (blocks[i]) {
+                    /**
+                    * Make new paragraph with text after caret
+                    */
+                    cEditor.content.insertBlock({
+                        type  : NEW_BLOCK_TYPE,
+                        block : cEditor.tools[NEW_BLOCK_TYPE].render({
+                            text : blocks[i],
+                        })
+                    });
+                }
+            }
+
+            /** Remove block were we pasted data */
+            currentNode.remove();
+
+            /** Setting caret to the input index */
+            cEditor.caret.setToBlock(currentInputIndex + 1);
+
+        } else {
+
+            /** Add to the end of input */
+            cEditor.state.inputs[currentInputIndex].innerHTML += pastedData;
+
+            /**
+             * setting caret at the end of target (current) input
+             * setToPreviousBlock set caret to the end of input.
+             */
+            cEditor.caret.setToPreviousBlock(currentInputIndex + 1);
+
+        }
     },
 
     /**
