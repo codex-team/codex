@@ -1352,42 +1352,16 @@ cEditor.callback = {
         event.preventDefault();
 
         clipboardData = event.clipboardData || window.clipboardData;
-        pastedData    = clipboardData.getData('Text');
+        pastedData    = clipboardData.getData('text/plain');
+
+        cEditor.parser.insertPastedContent(pastedData);
 
         if (cEditor.caret.position.atStart() || !currentNode.textContent) {
-
-            /** This type of block creates when enter is pressed */
-            var NEW_BLOCK_TYPE = 'paragraph';
-
-            /** getting content */
-            blocks = pastedData.split('\n');
-
-            for(i = 0; i < blocks.length; i++){
-
-                /** Blocks content is not empty */
-                if (blocks[i]) {
-                    /**
-                    * Make new paragraph with text after caret
-                    */
-                    cEditor.content.insertBlock({
-                        type  : NEW_BLOCK_TYPE,
-                        block : cEditor.tools[NEW_BLOCK_TYPE].render({
-                            text : blocks[i],
-                        })
-                    });
-                }
-            }
-
-            /** Remove block were we pasted data */
-            currentNode.remove();
 
             /** Setting caret to the input index */
             cEditor.caret.setToBlock(currentInputIndex + 1);
 
         } else {
-
-            /** Add to the end of input */
-            cEditor.state.inputs[currentInputIndex].innerHTML += pastedData;
 
             /**
              * setting caret at the end of target (current) input
@@ -1396,6 +1370,7 @@ cEditor.callback = {
             cEditor.caret.setToPreviousBlock(currentInputIndex + 1);
 
         }
+
     },
 
     /**
@@ -2483,6 +2458,39 @@ cEditor.transport = {
 * Content parsing module
 */
 cEditor.parser = {
+
+    /**
+    * Splits content by `\n` and returns blocks
+    */
+    getSeparatedTextFromContent : function(content) {
+        return content.split('\n');
+    },
+
+    /** inserting text */
+    insertPastedContent : function(content) {
+
+        var blocks = this.getSeparatedTextFromContent(content);
+
+        /** This type of block creates when enter is pressed */
+        var NEW_BLOCK_TYPE = 'paragraph';
+
+        for(i = 0; i < blocks.length; i++){
+
+            /** Blocks content is not empty */
+            if (blocks[i]) {
+
+                /**
+                * Make new paragraph with text after caret
+                */
+                cEditor.content.insertBlock({
+                    type  : NEW_BLOCK_TYPE,
+                    block : cEditor.tools[NEW_BLOCK_TYPE].render({
+                        text : blocks[i],
+                    })
+                });
+            }
+        }
+    },
 
     /**
     * Asynchronously parses textarea input string to HTML editor blocks
