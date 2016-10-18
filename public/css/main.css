@@ -1231,18 +1231,81 @@ html {
 
 /*** end of New Year landing styles *******************/
 
+/**
+* Event promo block
+*/
+.event_alert{
+    padding: 80px 0px;
+    max-width: 700px;
+    margin: 0 auto;
+    border-bottom: 1px solid #ebe8e8;
+    text-align: center;
+    font-size: 1.8em;
+
+}
+    .event_alert__day{
+        min-width: 70px;
+        line-height: 1.3em;
+        letter-spacing: 1.2px;
+        font-size: 2.3em;
+    }
+    .event_alert__month{
+        letter-spacing: 2px;
+    }
+    .event_alert__title{
+        margin-top: 1.4em;
+        font-size: .62em;
+    }
+    .event_alert__description{
+        margin-top: 1em;
+        font-size: .64em;
+    }
+    .event_alert__link{
+        display: inline-block;
+        text-decoration: none;
+        color: inherit;
+    }
+        .event_alert__link:hover{
+            text-decoration: none;
+        }
+
+/**
+* Branches
+*/
+.branchy{
+    text-decoration: none;
+}
+    .branchy::before,
+    .branchy::after{
+        content: '';
+        display: inline-block;
+        margin: 0 4px;
+        width: 55px;
+        height: 26px;
+        background: url('../img/branches.png') no-repeat;
+        vertical-align: top;
+    }
+        .branchy::after{
+            background-position: -55px 0;
+        }
+
 
 /*** Contests ***/
 .contest{
     padding: 30px 0;
 }
-.contest .disclaimer, .contest_alert a{
-    margin: 40px;
-    text-align: center;
+.contest .disclaimer,
+.contest_alert a,
+.event_alert__title{
     color: #988e8e;
     font-variant: small-caps;
-    font-size: 14px;
     letter-spacing: 1.4px;
+}
+.contest .disclaimer,
+.contest_alert a{
+    font-size: 14px;
+    margin: 40px;
+    text-align: center;
 }
 
 .contest .line, .contest_alert .line{
@@ -1251,7 +1314,8 @@ html {
     height: 1px;
     background: #ebe8e8;
 }
-    .contest .line:before, .contest_alert .line:before{
+    .contest .line:before,
+    .contest_alert .line:before{
         content: '';
         position: absolute;
         left: 50%;

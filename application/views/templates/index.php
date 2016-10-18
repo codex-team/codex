@@ -2,6 +2,10 @@
     /** New Year Landing */
     // include 'landings/new_year.php';
 ?>
+<?
+    /** Joining meetup */
+    include 'landings/meetup.php';
+?>
 <div class="clarity_page">
     <div class="center_side">
 
