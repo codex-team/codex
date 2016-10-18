@@ -1347,7 +1347,7 @@ cEditor.callback = {
         clipboardData = event.clipboardData || window.clipboardData;
         pastedData    = clipboardData.getData('text/plain');
 
-        cEditor.parser.insertPastedContent(pastedData);
+        cEditor.parser.insertPastedContent(currentInputIndex, pastedData);
 
         if (cEditor.caret.position.atStart() || !currentNode.textContent) {
 
@@ -2460,29 +2460,43 @@ cEditor.parser = {
     },
 
     /** inserting text */
-    insertPastedContent : function(content) {
+    insertPastedContent : function(inputIndex, content) {
 
-        var blocks = this.getSeparatedTextFromContent(content);
+        var blocks = this.getSeparatedTextFromContent(content),
+            i,
+            textNode,
+            parsedTextContent,
+            toolType;
 
-        /** This type of block creates when enter is pressed */
-        var NEW_BLOCK_TYPE = 'paragraph';
+        toolType = cEditor.content.currentNode.dataset.type;
 
-        for(i = 0; i < blocks.length; i++){
+        if (cEditor.tools[toolType].enableLineBreaks) {
 
-            /** Blocks content is not empty */
-            if (blocks[i]) {
+            cEditor.state.inputs[inputIndex].innerHTML = '';
 
-                /**
-                * Make new paragraph with text after caret
-                */
-                cEditor.content.insertBlock({
-                    type  : NEW_BLOCK_TYPE,
-                    block : cEditor.tools[NEW_BLOCK_TYPE].render({
-                        text : blocks[i],
-                    })
-                });
+            for(i = 0; i < blocks.length; i++) {
+
+                blocks[i].trim();
+
+                if (blocks[i]) {
+                    parsedTextContent = cEditor.draw.block('p', blocks[i]);
+                    cEditor.state.inputs[inputIndex].appendChild(parsedTextContent);
+                }
+            }
+
+        } else {
+
+            for(i = 0; i < blocks.length; i++) {
+
+                blocks[i].trim();
+
+                if (blocks[i]) {
+                    var data = cEditor.draw.pluginsRender('paragraph', blocks[i]);
+                    cEditor.content.insertBlock(data)
+                }
             }
         }
+
     },
 
     /**
@@ -2492,7 +2506,7 @@ cEditor.parser = {
 
         var initialContent = cEditor.nodes.textarea.value;
 
-        if ( initialContent.trim().length === 0 ) return true;
+        if ( iniitialContent.trim().length === 0 ) return true;
 
 
         cEditor.parser
@@ -2869,6 +2883,16 @@ cEditor.draw = {
 
         return node;
 
+    },
+
+    pluginsRender : function(type, content) {
+
+        return {
+            type  : type,
+            block : cEditor.tools[type].render({
+                text : content
+            })
+        }
     }
 
 };
