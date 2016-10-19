@@ -1862,7 +1862,7 @@ cEditor.content = {
             }
         }
 
-        target.innerHTML = div.innerHTML;
+        // target.innerHTML = div.innerHTML;
     }
 
 };
