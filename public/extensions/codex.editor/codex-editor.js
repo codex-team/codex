@@ -1334,35 +1334,40 @@ cEditor.callback = {
 
     blockPaste: function(event, block) {
 
-        var clipboardData,
-            pastedData,
-            nodeContent,
-            currentNode       = cEditor.content.currentNode,
-            currentInputIndex = cEditor.caret.getCurrentInputIndex(),
-            i;
+        // var clipboardData,
+        //     pastedData,
+        //     nodeContent,
+        //     currentNode       = cEditor.content.currentNode,
+        //     currentInputIndex = cEditor.caret.getCurrentInputIndex(),
+        //     i;
+        //
+        // /** Prevent Default Browser behaviour */
+        // event.preventDefault();
+        //
+        // clipboardData = event.clipboardData || window.clipboardData;
+        // pastedData    = clipboardData.getData('text/plain');
+        //
+        // cEditor.parser.insertPastedContent(currentInputIndex, pastedData);
+        //
+        // if (cEditor.caret.position.atStart() || !currentNode.textContent) {
+        //
+        //     /** Setting caret to the input index */
+        //     cEditor.caret.setToBlock(currentInputIndex + 1);
+        //
+        // } else {
+        //
+        //     /**
+        //      * setting caret at the end of target (current) input
+        //      * setToPreviousBlock set caret to the end of input.
+        //      */
+        //     cEditor.caret.setToPreviousBlock(currentInputIndex + 1);
+        //
+        // }
+        var currentInputIndex = cEditor.caret.getCurrentInputIndex();
 
-        /** Prevent Default Browser behaviour */
-        event.preventDefault();
-
-        clipboardData = event.clipboardData || window.clipboardData;
-        pastedData    = clipboardData.getData('text/plain');
-
-        cEditor.parser.insertPastedContent(currentInputIndex, pastedData);
-
-        if (cEditor.caret.position.atStart() || !currentNode.textContent) {
-
-            /** Setting caret to the input index */
-            cEditor.caret.setToBlock(currentInputIndex + 1);
-
-        } else {
-
-            /**
-             * setting caret at the end of target (current) input
-             * setToPreviousBlock set caret to the end of input.
-             */
-            cEditor.caret.setToPreviousBlock(currentInputIndex + 1);
-
-        }
+        setTimeout(function () {
+            cEditor.content.sanitize(currentInputIndex);
+        }, 1);
 
     },
 
@@ -1835,6 +1840,29 @@ cEditor.content = {
         }
 
         targetInput.innerHTML += currentInputContent;
+    },
+
+    sanitize : function(inputInput) {
+
+        var target = cEditor.state.inputs[inputInput],
+            child,
+            i,
+            div;
+
+        div = cEditor.draw.block('div');
+
+        for(i = 0; i < target.childNodes.length; i++) {
+
+            child = target.childNodes[i];
+            if (child.tagName === 'P') {
+
+                var tag = cEditor.draw.block('P', child.innerHTML);
+                div.appendChild(tag);
+
+            }
+        }
+
+        target.innerHTML = div.innerHTML;
     }
 
 };
