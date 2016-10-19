@@ -118,6 +118,19 @@ input[disabled]
         color: #fff;
     }
 
+.button-green{
+    background: #00AD7C;
+    color: #fff;
+}
+    .button-green:hover{
+        background: #0D936D;
+        color: #fff;
+    }
+    .button-indexpage{
+        margin-top: 1.5em;
+        padding: 16px 30px;
+        font-size: 1.2em;
+    }
 
 .fileinput{position: relative; cursor: pointer; overflow: hidden;}
 .fileinput input{
@@ -278,14 +291,15 @@ input[disabled]
 .success_alert{
     background: #F2F5FB;
     color: #6F809A;
+    line-height: 1.6em;
     font-size: 16px;
     padding: 100px 200px;
     text-align: center;
-    border-radius: 2px;
-    margin-top: 40px;
 }
 .success_alert.compact{
+    margin-top: 2em;
     padding: 30px;
+    font-size: 14px;
 }
 
 
@@ -1037,13 +1051,9 @@ html {
 .article_content{
     font-size: 1.1em;
     line-height: 1.75em;
-    margin: 0 130px;
     word-wrap: break-word;
     letter-spacing: 0;
 }
-    .article_content h2{
-        margin: 50px 0 30px;
-    }
     .article_content img{
         max-width: 100%;
         margin: 30px 0;
@@ -1070,7 +1080,7 @@ html {
     }
     .article_content blockquote{
         margin: 30px 0;
-        padding: 45px 60px;
+        /*padding: 45px 60px;*/
         border-top: 2px solid #EDEFF1;
         border-bottom: 2px solid #EDEFF1;
         font-size: 1.2em;
@@ -1221,18 +1231,43 @@ html {
 
 /*** end of New Year landing styles *******************/
 
+/**
+* Branches
+*/
+.branchy{
+    text-decoration: none;
+}
+    .branchy::before,
+    .branchy::after{
+        content: '';
+        display: inline-block;
+        margin: 0 4px;
+        width: 55px;
+        height: 26px;
+        background: url('../img/branches.png') no-repeat;
+        vertical-align: top;
+    }
+        .branchy::after{
+            background-position: -55px 0;
+        }
+
 
 /*** Contests ***/
 .contest{
     padding: 30px 0;
 }
-.contest .disclaimer, .contest_alert a{
-    margin: 40px;
-    text-align: center;
+.contest .disclaimer,
+.contest_alert a,
+.event_alert__title{
     color: #988e8e;
     font-variant: small-caps;
-    font-size: 14px;
     letter-spacing: 1.4px;
+}
+.contest .disclaimer,
+.contest_alert a{
+    font-size: 14px;
+    margin: 40px;
+    text-align: center;
 }
 
 .contest .line, .contest_alert .line{
@@ -1241,7 +1276,8 @@ html {
     height: 1px;
     background: #ebe8e8;
 }
-    .contest .line:before, .contest_alert .line:before{
+    .contest .line:before,
+    .contest_alert .line:before{
         content: '';
         position: absolute;
         left: 50%;
@@ -1491,8 +1527,6 @@ html {
 
 /** Redactor zone styles */
 .redactor_zone{
-    background: #FFF8F8;
-    padding: 30px 70px;
     margin: 0px;
 }
     .redactor_zone textarea{
@@ -1509,10 +1543,78 @@ html {
     }
 
 
+.join-page{
+    line-height: 1.64em;
+}
+
+/**
+* Authored user block on /join page
+*/
+.user-link{
+    font-size: 1.1em;
+    margin-bottom: 1.5em;
+}
+.user-link__photo{
+    width: 26px;
+    height: 26px;
+    border-radius: 13px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+.user-link__name{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.error-message{
+    margin: 15px 0;
+    color: #e04545;
+}
 
 
 
 
+/**
+* Event promo block
+*/
+.event_alert{
+    padding: 80px 0px;
+    max-width: 700px;
+    margin: 0 auto;
+    border-bottom: 1px solid #ebe8e8;
+    text-align: center;
+    font-size: 1.8em;
+
+}
+    .event_alert__day{
+        min-width: 70px;
+        line-height: 1.3em;
+        letter-spacing: 1.2px;
+        font-size: 2.3em;
+    }
+    .event_alert__month{
+        letter-spacing: 2px;
+    }
+    .event_alert__title{
+        margin-top: 1.4em;
+        font-size: .62em;
+        color: #ea6e6e;
+    }
+    .event_alert__description{
+        margin-top: 1em;
+        font-size: .64em;
+    }
+    .event_alert__link{
+        display: inline-block;
+        text-decoration: none;
+        color: inherit;
+    }
+        .event_alert__link:hover{
+            text-decoration: none;
+        }
+    .event_alert__icon_delimiter{
+        font-size: .7em;
+    }
 
 
 @-webkit-keyframes wobble {
@@ -1709,57 +1811,8 @@ html {
         }
 
     .big_header{
-        padding: 30px 0;
+        padding: 30px;
         font-size: 33px;
-    }
-
-    .article{
-        margin: 0;
-        border: 0;
-    }
-    .article_info{
-        margin-left: 0;
-        font-size: 15px;
-    }
-        .article_info time{
-            display: block;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-        .article_info .list_user_ava{
-            margin: 0 10px 0 0;
-            vertical-align: text-bottom;
-        }
-        .article_info .list_user_ava,
-        .article_info .list_user_ava > img{
-            width: 20px;
-            height: 20px;
-        }
-        .article_info .list_user_ava > img{
-            vertical-align: top;
-        }
-        .article_info time,
-        .article_info .list_user_name{
-            position: static;
-        }
-
-    .article_content{
-        margin: 0 20px;
-        font-size: 16px;
-
-    }
-    .article_content blockquote{
-        font-size: 1.1em;
-        line-height: 1.5em;
-        padding: 20px;
-    }
-    .article_content code{
-        padding: 10px;
-        font-size: .7em;
-        line-height: 1.5em;
-    }
-    .article_content h2{
-        line-height: 1.45em;
     }
 
     .breadcrumb{
@@ -1892,7 +1945,13 @@ html {
         margin: 0 7px 18px;
     }
 
-
+    .event_alert{
+        font-size: 1.5em;
+    }
+    .event_alert__description:before,
+    .event_alert__description:after{
+        display: none;
+    }
 
 }
 

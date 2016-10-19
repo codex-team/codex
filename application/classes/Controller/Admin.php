@@ -26,6 +26,9 @@ class Controller_Admin extends Controller_Base_preDispatch
             case 'contests' :
                 $pageContent = self::contests();
                 break;
+            case 'requests'    :
+                $pageContent = self::requests();
+                break;
             default         :
                 $pageContent = View::factory("templates/admin/dashboard");
                 break;
@@ -53,7 +56,7 @@ class Controller_Admin extends Controller_Base_preDispatch
     public function articles()
     {
 
-        $articles = Model_Article::getAllArticles(); 
+        $articles = Model_Article::getAllArticles();
 
         foreach ($articles as $article) {
             $article->views = $this->stats->get(Model_Stats::ARTICLE, $article->id);
@@ -77,7 +80,7 @@ class Controller_Admin extends Controller_Base_preDispatch
     public function contests()
     {
 
-        $contests = Model_Contests::getAllContests(); 
+        $contests = Model_Contests::getAllContests();
 
         foreach ($contests as $contest)
         {
@@ -87,6 +90,32 @@ class Controller_Admin extends Controller_Base_preDispatch
         $this->view["contests"] = $contests;
 
         return View::factory('templates/admin/contests/list', $this->view);
+
+    }
+
+    public function requests()
+    {
+
+        $requests = Dao_Requests::select()->execute();
+
+        $request_list = [];
+
+        foreach ($requests as $request)
+        {
+            if ($request['uid'])
+            {
+              $request['user'] = Model_User::get((int)$request['uid']);
+            } else {
+              $request['user'] = new Model_User();
+              $request['user']->name = $request['name'];
+            }
+
+            $request_list[] = $request;
+        }
+
+        $this->view["requests"] = $request_list;
+
+        return View::factory('templates/admin/requests/list', $this->view);
 
     }
 

@@ -54,6 +54,7 @@ var linkTool = {
         var block = linkTool.ui.mainBlock(),
             tag   = linkTool.ui.make(json);
 
+        block.classList.add('ce-link');
         block.appendChild(tag);
 
         return block;
@@ -311,12 +312,13 @@ linkTool.ui = {
 
 cEditor.tools.link = {
 
-    type           : 'link',
-    iconClassname  : 'ce-icon-link',
-    make           : linkTool.makeNewBlock,
-    appendCallback : linkTool.appendCallback,
-    render         : linkTool.render,
-    // settings       : linkTool.makeSettings(),
-    save           : linkTool.save
+    type             : 'link',
+    iconClassname    : 'ce-icon-link',
+    make             : linkTool.makeNewBlock,
+    appendCallback   : linkTool.appendCallback,
+    render           : linkTool.render,
+    // settings      : linkTool.makeSettings(),
+    save             : linkTool.save,
+    enableLineBreaks : true
 
 };

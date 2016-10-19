@@ -4,8 +4,8 @@
 
 .ce-paragraph {
     max-width: 700px;
-    margin: 20px auto;
-    padding: 0 !important;
+    margin: 0 auto;
+    padding: 0.7em 0 !important;
 }
 .ce-paragraph:empty::before{
     content : attr(data-placeholder);
