@@ -264,17 +264,14 @@ class Model_Methods extends Model
         return $comments_table_rebuild;
     }
 
-    public static function telegram_send_error($err)
+    public static function sendBotNotification($text)
     {
-        $telegramConfig = Kohana::$config->load('telegrambot.default');        
+        $telegramConfig = Kohana::$config->load('telegram-notification');
 
-        $text = $err;
-
-        $url = 'https://api.telegram.org/bot' . $telegramConfig['token'] . '/sendMessage';
+        $url = $telegramConfig->url;
 
         $params = array(
-            'chat_id' => $telegramConfig['chatId'],
-            'text' => $text
+            'message' => $text
         );
 
         $ch = curl_init($url);
@@ -304,5 +301,25 @@ class Model_Methods extends Model
         } else {
             return $parsed_url;
         }
+    }
+
+    /**
+    * Saves user join-request
+    * @param array $fields  skills, wishes, uid, email, name
+    */
+    public function saveJoinRequest( $fields )
+    {
+        $saving = Dao_Requests::insert();
+
+        foreach ($fields as $fieldName => $value) {
+            $saving->set($fieldName, $value);
+        }
+
+        if (!empty($fields['uid'])) {
+            $saving->clearcache($fields['uid']);
+        }
+
+        return $saving->execute();
+
     }
 }

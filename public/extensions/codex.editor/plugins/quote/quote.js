@@ -15,9 +15,9 @@ var quoteTools = {
 
         var tag;
 
-        if (data && data.type) {
+        if (data && data.style) {
 
-            switch (data.type) {
+            switch (data.style) {
                 case 'simple':
                     tag = quoteTools.makeSimpleQuote(data);
                     break;
@@ -203,8 +203,20 @@ var quoteTools = {
             quote    = quoteTools.ui.makeBlock('DIV', [quoteTools.styles.withPhoto.quote, quoteTools.styles.quoteText])
 
             /* Default Image src */
-            var icon = quoteTools.ui.makeBlock('SPAN', ['ce-icon-picture']);
-            photo.appendChild(icon);
+            if (!data.photo) {
+
+                var icon = quoteTools.ui.makeBlock('SPAN', ['ce-icon-picture']);
+                photo.appendChild(icon);
+
+            } else {
+
+                var authorsPhoto = quoteTools.ui.img(quoteTools.styles.authorsPhoto);
+                authorsPhoto.src = data.photo;
+
+                photo.classList.add(quoteTools.styles.authorsPhotoWrapper);
+                photo.appendChild(authorsPhoto);
+            }
+
 
             photo.addEventListener('click', quoteTools.fileUploadClicked, false);
 
@@ -396,12 +408,13 @@ quoteTools.photoUploadingCallbacks = {
 
 cEditor.tools.quote = {
 
-    type            : 'quote',
-    iconClassname   : 'ce-icon-quote',
-    make            : quoteTools.makeBlockToAppend,
-    appendCallback  : null,
-    settings        : quoteTools.makeSettings(),
-    render          : quoteTools.render,
-    save            : quoteTools.save,
+    type             : 'quote',
+    iconClassname    : 'ce-icon-quote',
+    make             : quoteTools.makeBlockToAppend,
+    appendCallback   : null,
+    settings         : quoteTools.makeSettings(),
+    render           : quoteTools.render,
+    save             : quoteTools.save,
+    enableLineBreaks : true
 
 };

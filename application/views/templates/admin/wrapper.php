@@ -4,6 +4,7 @@
         <li><a href="/admin/users">Users</a></li>
         <li><a href="/admin/articles">Articles</a></li>
         <li><a href="/admin/contests">Contests</a></li>
+        <li><a href="/admin/requests">Requests</a></li>
     </ul>
 </div>
 <?= $content ?>

@@ -172,12 +172,13 @@ listTool.ui = {
  */
 cEditor.tools.list = {
 
-    type           : 'list',
-    iconClassname  : 'ce-icon-list-bullet',
-    make           : listTool.make,
-    appendCallback : null,
-    settings       : listTool.makeSettings(),
-    render         : listTool.render,
-    save           : listTool.save
+    type             : 'list',
+    iconClassname    : 'ce-icon-list-bullet',
+    make             : listTool.make,
+    appendCallback   : null,
+    settings         : listTool.makeSettings(),
+    render           : listTool.render,
+    save             : listTool.save,
+    enableLineBreaks : true
 
 };

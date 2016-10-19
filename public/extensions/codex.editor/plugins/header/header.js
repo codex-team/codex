@@ -175,12 +175,13 @@ var headerTool = {
 */
 cEditor.tools.header = {
 
-    type           : 'header',
-    iconClassname  : 'ce-icon-header',
-    make           : headerTool.make,
-    appendCallback : headerTool.appendCallback,
-    settings       : headerTool.makeSettings(),
-    render         : headerTool.render,
-    save           : headerTool.save
+    type             : 'header',
+    iconClassname    : 'ce-icon-header',
+    make             : headerTool.make,
+    appendCallback   : headerTool.appendCallback,
+    settings         : headerTool.makeSettings(),
+    render           : headerTool.render,
+    save             : headerTool.save,
+    enableLineBreaks : false
 
 };

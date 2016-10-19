@@ -2,13 +2,14 @@
 * Image plugin for codex-editor
 * @author CodeX Team <team@ifmo.su>
 *
-* @version 0.0.2
+* @version 1.1.2
 */
 var ceImage = {
 
     elementClasses : {
 
         ce_image      : 'ce-image',
+        loading       : 'ce-plugin-image__loader',
         uploadedImage : {
                 centered  : 'ce-plugin-image__uploaded--centered',
                 stretched : 'ce-plugin-image__uploaded--stretched',
@@ -21,29 +22,41 @@ var ceImage = {
 
     },
 
+    holder : null,
+
     /** Default path to redactors images */
     path : '/upload/redactor_images/',
 
     make : function ( data ) {
 
-        /**
-        * If we can't find image or we've got some problems with image path, we show plugin uploader
-        */
-        if (!data || !data.file.url) {
+        var holder;
 
-            holder = ceImage.ui.formView();
-            holder.classList.add(ceImage.elementClasses.ce_image);
+        if (data) {
+
+            if ( data.isStretch !== 'true') {
+                holder = ceImage.ui.makeImage(data, ceImage.elementClasses.uploadedImage.centered, 'false');
+            } else {
+                holder = ceImage.ui.makeImage(data, ceImage.elementClasses.uploadedImage.stretched, 'true');
+            }
+
+            return holder;
 
         } else {
 
-            if ( data.isStretch !== 'true') {
-                holder = ceImage.ui.imageView(data, ceImage.elementClasses.uploadedImage.centered, 'false');
-            } else {
-                holder = ceImage.ui.imageView(data, ceImage.elementClasses.uploadedImage.stretched, 'true');
-            }
-        }
+            holder = ceImage.ui.makeForm();
 
-        return holder;
+            return holder;
+        }
+    },
+
+    /**
+     * this tool works when tool is clicked in toolbox
+     */
+    appendCallback : function(event) {
+
+        /** Upload image and call success callback*/
+        ceImage.uploadButtonClicked(event);
+
     },
 
     /**
@@ -130,7 +143,6 @@ var ceImage = {
     render : function( data ) {
 
         return this.make(data);
-
     },
 
     save : function ( block ) {
@@ -162,65 +174,18 @@ var ceImage = {
 
     uploadButtonClicked : function(event) {
 
-        var success = ceImage.photoUploadingCallbacks.success,
-            error   = ceImage.photoUploadingCallbacks.error;
+        var beforeSend = ceImage.photoUploadingCallbacks.beforeSend,
+            success    = ceImage.photoUploadingCallbacks.success,
+            error      = ceImage.photoUploadingCallbacks.error;
 
         /** Define callbacks */
         cEditor.transport.selectAndUpload({
+            beforeSend,
             success,
             error,
         });
     },
 
-    pastedImageURL : function(event) {
-
-        var clipboardData = event.clipboardData || window.clipboardData,
-            pastedData    = clipboardData.getData('Text'),
-            block         = event.target.parentNode;
-
-        ceImage.renderURL(pastedData, block);
-
-        event.stopPropagation();
-    },
-
-    renderURL : function(pastedData, block) {
-
-        Promise.resolve()
-
-            .then(function() {
-                return pastedData;
-            })
-
-            .then(ceImage.urlify)
-
-            .then(function(url) {
-
-                /* Show loader gif **/
-                // block.classList.add(linkTool.elementClasses.loader);
-
-                return fetch('/editor/transport?files=' + encodeURI(url))
-            })
-
-            .then(function(response) {
-                console.log(response);
-            });
-
-    },
-
-    urlify : function (text) {
-
-        var urlRegex = /(https?:\/\/\S+)/g;
-
-        var links = text.match(urlRegex);
-
-        if (links) {
-            console.log(links[0]);
-            return links[0];
-        }
-
-        return Promise.reject(Error("Url is not matched"));
-
-    },
 };
 
 ceImage.ui = {
@@ -230,16 +195,9 @@ ceImage.ui = {
         var element = document.createElement('DIV');
 
         element.classList.add(ceImage.elementClasses.formHolder);
+        element.classList.add(ceImage.elementClasses.ce_image);
 
         return element;
-    },
-
-    input : function(){
-
-        var input = document.createElement('INPUT');
-
-        return input;
-
     },
 
     uploadButton : function(){
@@ -248,7 +206,8 @@ ceImage.ui = {
 
         button.classList.add(ceImage.elementClasses.uploadButton);
 
-        button.innerHTML = '<i class="ce-icon-picture"></i>';
+        button.innerHTML = '<i class="ce-icon-picture"> </i>';
+        button.innerHTML += 'Загрузить фотографию';
 
         return button;
 
@@ -288,27 +247,23 @@ ceImage.ui = {
 
         return div;
     },
-
     /**
     * Draws form for image upload
     */
-    formView : function() {
+    makeForm : function() {
 
         var holder       = ceImage.ui.holder(),
-            uploadButton = ceImage.ui.uploadButton(),
-            input        = ceImage.ui.input();
-
-        input.placeholder = 'Paste image URL or file';
+            uploadButton = ceImage.ui.uploadButton();
 
         holder.appendChild(uploadButton);
-        holder.appendChild(input);
-
-        input.addEventListener('paste', ceImage.pastedImageURL, false);
 
         uploadButton.addEventListener('click', ceImage.uploadButtonClicked, false );
 
+        ceImage.holder = holder;
+
         return holder;
     },
+
 
     /**
     * wraps image and caption
@@ -317,7 +272,7 @@ ceImage.ui = {
     * @param {boolean} stretched - stretched or not
     * @return wrapped block with image and caption
     */
-    imageView : function(data, imageTypeClass, stretched) {
+    makeImage : function(data, imageTypeClass, stretched) {
 
         var file = data.file.url,
             text = data.caption,
@@ -365,6 +320,7 @@ ceImage.ui = {
         caption.textContent = text;
 
         wrapper.dataset.stretched = 'false',
+
         /** Appeding to the wrapper */
         wrapper.appendChild(image);
         wrapper.appendChild(caption);
@@ -402,11 +358,17 @@ ceImage.ui = {
 
 ceImage.photoUploadingCallbacks = {
 
+    /** Before sending ajax request */
+    beforeSend : function() {
+        ceImage.holder.classList.add(ceImage.elementClasses.loading);
+    },
+
     /** Photo was uploaded successfully */
     success : function(result) {
 
         var parsed = JSON.parse(result),
             data,
+            currentBlock = cEditor.content.currentNode,
             image;
 
         /**
@@ -430,11 +392,11 @@ ceImage.photoUploadingCallbacks = {
 
         image = ceImage.make(data);
 
-        /** Replace form to image */
-        var form = cEditor.content.currentNode.querySelector('.' + ceImage.elementClasses.formHolder);
-
-        cEditor.content.switchBlock(form, image, 'image');
-
+        /**
+         * If current block is empty, we can replace it to uploaded image
+         * Or insert new block
+         */
+        cEditor.content.switchBlock(ceImage.holder, image, 'image');
     },
 
     /** Error callback. Sends notification to user that something happend or plugin doesn't supports method */
@@ -454,6 +416,7 @@ cEditor.tools.image = {
     type             : 'image',
     iconClassname    : 'ce-icon-picture',
     make             : ceImage.make,
+    appendCallback   : ceImage.appendCallback,
     settings         : ceImage.makeSettings(),
     render           : ceImage.render,
     save             : ceImage.save,

@@ -168,7 +168,7 @@
     <pre id="output"></pre>
 </div>
 
-<link rel="stylesheet" href="/public/extensions/codex.editor/editor.css" />
+<link rel="stylesheet" href="/public/extensions/codex.editor/codex-editor.css" />
 <script src="/public/extensions/codex.editor/codex-editor.js"></script>
 <script>
 
@@ -650,5 +650,5 @@ INPUT.items = [];
 <script src="/public/extensions/codex.editor/plugins/list/list.js"></script>
 <link rel="stylesheet" href="/public/extensions/codex.editor/plugins/list/list.css" />
 
-<script src="/public/extensions/codex.editor/plugins/images/images.js"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/images/images.css" />
+<script src="/public/extensions/codex.editor/plugins/image/image.js"></script>
+<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/image/image.css" />

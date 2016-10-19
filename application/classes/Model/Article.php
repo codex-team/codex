@@ -13,6 +13,7 @@ Class Model_Article extends Model
     public $title;
     public $text;
     public $json;
+    public $blocks;
     public $description;
     public $cover;
     public $user_id;
