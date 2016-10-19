@@ -64,13 +64,33 @@
         margin: 10px 10px 0;
         vertical-align: bottom;
     }
+    .landing__call{
+        font-size: 3em;
+        margin-top: 3em;
+        line-height: 1.3em;
+    }
+    .landing__repo_link{
+        display: inline-block;
+        margin-top: 8em;
+        cursor: pointer;
+        color: #fff;
+        text-decoration: none;
+        font-size: 1.2em;
+    }
+        .landing__repo_link:hover{
+            color: #fff;
+        }
+        .landing__repo_link i{
+            font-size: 2em;
+            vertical-align: text-bottom;
+        }
 
     /**
     * Chat demo
     */
 
     .chat {
-        max-width: 400px;
+        max-width: 500px;
         margin: 0 auto;
         border-radius: 3px;
         text-align: left;
@@ -80,24 +100,25 @@
     .chat__messages{
         overflow: hidden;
         overflow-y: scroll;
-        height:280px;
+        padding: 10px 0;
+        max-height: 320px;
+        word-wrap: break-word;
     }
-    .chat__message,
+    .chat__message{
+        padding: 10px 20px;
+    }
     .chat__input{
         padding: 20px;
     }
     .chat__empty_holder{
-        min-height: 180px;
+        min-height: 220px;
     }
     .chat__message{
-        min-height: 90px;
+        min-height: 70px;
     }
     .chat__message_text,
     .chat__message_name{
         padding-left: 70px;
-    }
-    .chat__message_name_self{
-        color: #7aba7b !important;
     }
     .chat__message_photo{
         float: left;
@@ -112,6 +133,9 @@
         font-weight: bold;
         color: #B85D97;
     }
+    .chat__message_name_self{
+        color: #08cc87;
+    }
     .chat__message_text_highlighted{
         color: #2b74c9;
         cursor: pointer;
@@ -121,10 +145,10 @@
         }
     .chat__input{
         border-top: 1px solid #E5E9F1;
-        color: #7E86A2;
+        letter-spacing: .1px;
     }
     .chat__input_textarea{
-        width: 85%;
+        width: 84%;
         background: transparent;
         padding: 0;
         vertical-align: bottom;
@@ -134,11 +158,33 @@
         .chat__input_textarea:focus{
             background: transparent;
         }
+        .chat__input_textarea::-webkit-input-placeholder {
+            color: #7E86A2 !important;
+        }
+
     .chat__send{
         float: right;
         color: #2A8BE5;
         cursor: pointer;
+        font-size: 1.1em;
     }
+
+    .button__green_cta{
+        padding: 22px 40px;
+        border-radius: 50px;
+        background: #2EFF10;
+        color: #012700;
+        font-size: 2em;
+        letter-spacing: .2px;
+        font-weight: bold;
+    }
+        .button__green_cta:hover{
+            background: #001C32;
+            color: #BEE2FF;
+        }
+        .button__green_cta i{
+            margin: 0 .16em 0 -.4em ;
+        }
 
     @media all and (max-width: 800px) {
         .landing {
@@ -150,6 +196,10 @@
         }
         .landing__description{
             font-size: 16px;
+        }
+        .landing__call{
+            font-size: 2em;
+
         }
 
     }
@@ -170,7 +220,7 @@
                     <img class="chat__message_photo" src="/public/img/logo160.png" alt="CodeX Bot">
                     <div class="chat__message_name">Codex Bot</div>
                     <div class="chat__message_text">
-                        Press <span class="chat__message_text_highlighted">/help</span> to view menu
+                        Используйте команду <span class="chat__message_text_highlighted">/help</span>, чтобы посмотреть примеры работы бота
                     </div>
                 </div>
             </div>
@@ -179,7 +229,10 @@
                 <textarea class="chat__input_textarea" placeholder="Write a message..." rows="1"></textarea>
             </div>
         </div>
+        <p class="landing__call">Simply add and enjoy</p>
+        <a class="button button__green_cta" target="_blank" href="https://telegram.me/codex_bot"><i class="icon-paper-plane"></i> codex_bot</a> <br>
 
+        <a class="landing__repo_link" target="_blank" href="https://github.com/codex-team/codex.bot"><i class="icon-github-circled"></i>View on GitHub</a>
     </div>
 </div>
 

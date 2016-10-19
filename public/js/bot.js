@@ -11,9 +11,11 @@ docReady(
 
 var bot = (function(bot) {
 
-    bot.bindEvents = function (){
+    bot.chatBox      = null;
+    bot.sendButton   = null;
+    bot.sendTextarea = null;
 
-        console.log("bindEvents");
+    bot.bindEvents = function (){
 
         bot.sendButton = document.getElementsByClassName("chat__send")[0];
         bot.sendTextarea = document.getElementsByClassName("chat__input_textarea")[0];
@@ -21,46 +23,140 @@ var bot = (function(bot) {
 
         bot.cmdList = ["/start", "/help", "/github", "/metrika", "/today", "/weekly", "/monthly"];
 
-        var anchors = document.getElementsByClassName('chat__message_text_highlighted');
-        for(var i = 0; i < anchors.length; i++) {
 
-            var anchor = anchors[i];
-            anchor.addEventListener("click", bot.commandClickedEvent);
+        /**
+        * Delegate 'click' event to all commands
+        */
+        delegateEvent_(document, '.chat__message_text_highlighted', 'click', commandClickedEvent_ );
 
-        }
+        bot.sendButton.addEventListener("click", sendClickedEvent_ );
+        bot.sendTextarea.addEventListener("keypress", keyPressEvent_ );
 
-        bot.sendButton.addEventListener("click", bot.sendClickedEvent);
-        bot.sendTextarea.addEventListener("keypress", bot.keyPressEvent);
+        /**
+        * Start random GitHub notification
+        */
+        setTimeout(function() {
+            setInterval( sendGitHubNofify_, 15000);
+        }, 10000);
+
 
     };
 
-    // Events
+    /**
+    * @private
+    *
+    * Attach event to Element in parent
+    *
+    * @param {Element} parentNode    - Element that holds event
+    * @param {string} targetSelector - selector to filter target
+    * @param {string} eventName      - name of event
+    * @param {function} callback     - callback function
+    */
+    function delegateEvent_ (parentNode, targetSelector, eventName, callback ) {
 
-    bot.commandClickedEvent = function (event) {
+        parentNode.addEventListener(eventName, function(event) {
+
+            var el = event.target, matched;
+
+            while ( el && !matched ){
+
+                matched = el.matches(targetSelector);
+
+                if ( !matched ) el = el.parentElement;
+            }
+
+            if (matched) {
+
+                callback.call( event.target, event, el );
+
+            }
+
+        }, true);
+
+    }
+
+
+    /**
+    * @private
+    *
+    * Returns random {int} between numbers
+    */
+    function random_ (min, max) {
+
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+
+    }
+
+    function sendGitHubNofify_ (){
+
+        var randomDelay = random_(100, 1000);
+
+        setTimeout(appendGitHubNofify_, randomDelay);
+
+    }
+
+    function appendGitHubNofify_ (){
+
+        var wrapper = document.createElement('DIV'),
+            message = MESSAGES_.gitHubEvent(),
+            answer;
+
+        wrapper.innerHTML = message;
+
+        answer = bot.buildMessage("CodeX Bot", wrapper);
+
+        appendMessage_(answer);
+
+    }
+
+
+    /**
+    * @private
+    */
+    function commandClickedEvent_ (event) {
+
         var commandElement = event.target,
             commandName = commandElement.textContent;
 
         bot.sendCommand(commandName);
-    };
+    }
 
-    bot.keyPressEvent = function (event) {
-        if (event.keyCode == 13) {
-            event.preventDefault();
-            bot.sendCommand(bot.sendTextarea.value);
+    /**
+    * @private
+    */
+    function keyPressEvent_ (event) {
+
+        if ( event.keyCode != 13 ) {
+            return;
         }
-    };
 
-    bot.sendClickedEvent = function (event) {
+        event.preventDefault();
         bot.sendCommand(bot.sendTextarea.value);
-    };
+    }
+
+    /**
+    * @private
+    */
+    function sendClickedEvent_ (event) {
+        bot.sendCommand(bot.sendTextarea.value);
+    }
+
+    /**
+    * @private
+    * @param {Element} message
+    */
+    function appendMessage_ ( message ) {
+
+        bot.chatBox.appendChild(message);
+        bot.chatBox.scrollTop = bot.chatBox.scrollHeight;
+
+    }
 
     // Functions
 
     bot.sendCommand = function (cmd) {
 
-        console.log("Send command: %s", cmd);
-
-        if (cmd.length == 0) {
+        if (!cmd.length) {
             return false;
         }
 
@@ -70,8 +166,7 @@ var bot = (function(bot) {
         bot.chatBox.appendChild(selfMessage);
 
         setTimeout(function() {
-            bot.chatBox.appendChild(botAnswer);
-            bot.chatBox.scrollTop = bot.chatBox.scrollHeight;
+            appendMessage_(botAnswer);
         }, 750);
 
         bot.sendTextarea.value = "";
@@ -88,6 +183,7 @@ var bot = (function(bot) {
         messageBox.classList.add("chat__message");
         messageImage.classList.add("chat__message_photo");
         messageName.classList.add("chat__message_name");
+
         if (name ==  "You") {
             messageName.classList.add("chat__message_name_self");
             messageImage.setAttribute("alt", "You");
@@ -112,166 +208,240 @@ var bot = (function(bot) {
         span.textContent = message;
 
         if (bot.cmdList.indexOf(message) != -1) {
-            span = bot.buildCommand(message)
+            span = buildCommand_(message);
         }
 
-        return bot.buildMessage("You", span)
-
-    };
-
-    bot.buildBotAnswer = function (message) {
-
-        var span = document.createElement( 'span' );
-
-        if (message == "/help") {
-            span = bot.mergeTextAndCommands(span, [
-                "Инструкция по работе с ботом. Выберите раздел для просмотра доступных команд.",
-                "<br>", "<br>",
-                "/github",
-                " — Модуль GitHub. Может присылать уведомления о новых коммитах, pull-реквестах и открытии Issues.",
-                "<br>",
-                "/metrika",
-                " — Модуль Яндекс.Метрики. Умеет присылать статистику за день и неделю."
-            ]);
-        }
-        else if (message == "/start") {
-            span.appendChild(document.createTextNode("Для начала можете ознакомиться со справкой, введя команду "));
-            span.appendChild(bot.buildCommand("/help"));
-        }
-        else if (message == "/github") {
-            span = bot.mergeTextAndCommands(span, [
-                "Модуль для работы с сервисом GitHub.", "<br>", "<br>",
-                " - Оповещения о новых Push-событиях", "<br>",
-                " - Оповещения о создании Pull-реквестов", "<br>",
-                " - Оповещения о создании Issues", "<br>", "<br>",
-                "Модуль активирован для сайта ifmo.su"
-            ]);
-            bot.sendReplyFromGithub();
-        }
-        else if (message == "/metrika") {
-            span.appendChild(document.createTextNode("Для того, чтобы узнать статистику посещаемости вашего сайта введите команды "));
-            span.appendChild(bot.buildCommand("/today"));
-            span.appendChild(document.createTextNode(", "));
-            span.appendChild(bot.buildCommand("/weekly"));
-            span.appendChild(document.createTextNode(", "));
-            span.appendChild(bot.buildCommand("/monthly"));
-            bot.sendReplyFromMetrika();
-        }
-        else if (message == "/today") {
-            span = bot.mergeTextAndCommands(span, [
-                bot.buildDate(), "<br>", "<br>",
-                "CodeX:", "<br>",
-                "66 уникальных посетителей", "<br>",
-                "361 просмотров"
-            ]);
-        }
-        else if (message == "/weekly") {
-            span = bot.mergeTextAndCommands(span, [
-                "С понедельника по сегодняшний день.", "<br>", "<br>",
-                "CodeX:", "<br>",
-                "242 уникальных посетителей", "<br>",
-                "1030 просмотров"
-            ]);
-        }
-        else if (message == "/monthly") {
-            span = bot.mergeTextAndCommands(span, [
-                "Данные за текущий месяц.", "<br>", "<br>",
-                "CodeX:", "<br>",
-                "1006 уникальных посетителей", "<br>",
-                "5502 просмотров"
-            ]);
-        }
-        else {
-            span.appendChild(document.createTextNode("Что-то я даже и не знаю, что тебе на это сказать."));
-        }
-
-        return bot.buildMessage("Codex Bot", span);
+        return bot.buildMessage("You", span);
 
     };
 
-    bot.buildCommand = function (message) {
+    function buildCommand_ (message) {
 
         var span = document.createElement( 'span' );
         span.textContent = message;
         span.classList.add("chat__message_text_highlighted");
-        span.addEventListener("click", bot.commandClickedEvent);
-
-        return span;
-
-    };
-
-    bot.sendReplyFromGithub = function () {
-
-        window.setTimeout(function () {
-
-            var span = document.createElement( 'span' );
-            span.appendChild(document.createTextNode("У вас 10 новых коммитов."));
-
-            var message = bot.buildMessage("Codex. GitHub Notification", span);
-            bot.chatBox.appendChild(message);
-            bot.chatBox.scrollTop = bot.chatBox.scrollHeight;
-
-        }, 1500);
-
-    };
-
-    bot.sendReplyFromMetrika = function () {
-
-        window.setTimeout(function () {
-
-            var span = document.createElement( 'span' );
-            span.appendChild(document.createTextNode("Яндекс.Метрика успешно подключена для вашего сайта ifmo.su."));
-
-            var message = bot.buildMessage("Codex. Metrika Notification", span);
-            bot.chatBox.appendChild(message);
-            bot.chatBox.scrollTop = bot.chatBox.scrollHeight;
-
-        }, 1500);
-
-    };
-
-    bot.mergeTextAndCommands = function (span, texts) {
-
-        texts.forEach(function(text) {
-
-            if (text == "<br>") {
-                span.appendChild(document.createElement('br'));
-            }
-            else if (text[0] == "/") {
-                span.appendChild(bot.buildCommand(text));
-            }
-            else {
-                span.appendChild(document.createTextNode(text));
-            }
-
-        });
 
         return span;
 
     }
 
-    bot.buildDate = function () {
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth()+1;
-        var hh = today.getHours();
-        var minmin = today.getMinutes();
+    bot.buildBotAnswer = function (command) {
 
-        var yyyy = today.getFullYear();
-        if(dd<10){
-            dd='0'+dd;
+        var wrapper = document.createElement('DIV'),
+            message,
+            answer;
+
+        switch (command){
+            case '/start'   :  message = MESSAGES_.start(); break;
+            case '/help'   :  message = MESSAGES_.help(); break;
+            case '/github' :  message = MESSAGES_.gitHubHelp(); break;
+            case '/metrika':  message = MESSAGES_.metrikaHelp(); break;
+            case '/today':    message = MESSAGES_.today(); break;
+            case '/weekly':   message = MESSAGES_.weekly(); break;
+            case '/monthly':  message = MESSAGES_.monthly(); break;
+            default :         message = MESSAGES_.default(); break;
         }
-        if(mm<10){
-            mm='0'+mm;
+
+        wrapper.innerHTML = message;
+
+        return bot.buildMessage("CodeX Bot", wrapper);
+
+    };
+
+    /**
+    * @private
+    *
+    * Returns random element from arrat
+    */
+    function randomFrom_ (arr){
+
+        return arr[random_(0, arr.length - 1)];
+
+    }
+
+
+    /**
+    * @private
+    *
+    * All bot replies
+    */
+    var MESSAGES_ = {
+
+        default : function(){
+
+            var answers = [
+                'Уже работаем над этим!',
+                'Я так не умею',
+                'Клево!',
+                'Потрясающе',
+                'Продолжайте',
+                'Не понял',
+                'Используйте команду <span class="chat__message_text_highlighted">/help</span>'
+            ];
+
+            return randomFrom_(answers);
+
+        },
+
+        start : function(){
+            return 'Для начала можете ознакомиться со справкой, введя команду ' +
+                    '<span class="chat__message_text_highlighted">/help</span>';
+        },
+
+        help : function(){
+
+            return ''.concat(
+                'Инструкция по работе с ботом. Выберите раздел для просмотра доступных команд.', '<br>',
+                '<br>',
+                '<span class="chat__message_text_highlighted">/metrika</span>',
+                ' — Модуль Яндекс.Метрики. Умеет присылать статистику за день и неделю.',
+                '<br>',
+                '<br>',
+                '<span class="chat__message_text_highlighted">/github</span>',
+                ' — Модуль GitHub. Может присылать уведомления о новых коммитах, pull-реквестах и открытии Issues.', '<br>'
+            );
+
+        },
+
+        gitHubHelp : function(){
+
+            return ''.concat(
+                'Модуль для работы с сервисом GitHub.', '<br>',
+                '<br>',
+                ' - Оповещения о новых Push-событиях', '<br>',
+                ' - Оповещения о создании Pull-реквестов', '<br>',
+                ' - Оповещения о создании Issues', '<br>',
+                '<br>',
+                'Модуль активирован для сайта ifmo.su'
+            );
+        },
+
+        gitHubEvent : function () {
+
+            var users = ['@neSpecc', '@guryn', '@khaydarovm', '@dn0str', '@polinashneider'],
+                branches = [ 'master', 'master', 'master', 'redesign', 'client-updates', 'new-editor'],
+                repos = ['ifmo.su', 'codex.editor', 'codex.bot', 'kohana.aliases', 'codex.special'],
+                commits = [
+                    '* meet up land mobile view improved',
+                    '* styles imroved <br> * mobile view updated',
+                    '* minor fixes',
+                    '* next version pre-release',
+                    '* fixes',
+                    '* now you can write faster'
+                ],
+                files = [
+                    'public/css/main.css',
+                    'public/css/codex.js',
+                    'public/extestions/codex-editor/codex-editor.js <br> public/extestions/codex-editor/codex-editor.css',
+                    'application/views/templates/index.php',
+                    'application/classes/Controller/Base/preDispatch.php',
+                    'application/classes/Controller/Users/Index.php <br> application/classes/Controller/Users/Modify.php',
+                ];
+
+            return ''.concat(
+                randomFrom_(users), ' pushed commit to ' , randomFrom_(branches) , ' [codex-team/', randomFrom_(repos), ']',
+                '<br/>','<br/>',
+                randomFrom_(commits), '<br/>',
+                '<br/>',
+                'Modified files:',
+                '<br/>',
+                randomFrom_(files),'<br/>',
+                '<br/>',
+                '<a>https://github.com/codex-team/codex/compare/' , random_(1111,9999) ,'dbdb34ae...0c0153afc00e<a>'
+            );
+
+        },
+
+        metrikaHelp : function (){
+
+            return ''.concat(
+                '<span class="chat__message_text_highlighted">/today</span> — Получить значения счетчиков за день.',
+                '<br>',
+                '<span class="chat__message_text_highlighted">/weekly</span> — Показатели за неделю.',
+                '<br>',
+                '<span class="chat__message_text_highlighted">/monthly</span> — Показатели за месяц.'
+            );
+
+        },
+
+        metrikaSuccessConnection : function(){
+
+            return 'Яндекс.Метрика успешно подключена для сайта <mono>ifmo.su</i>.';
+
+        },
+
+        today : function(){
+
+            return ''.concat(
+                buildDate_(), '<br>',
+                '<br>',
+                'ifmo.su:', '<br>',
+                '637 уникальных посетителей', '<br>',
+                '2 048 просмотров'
+            );
+
+        },
+
+        weekly : function(){
+
+            return ''.concat(
+                'С понедельника по сегодняшний день','<br>',
+                '<br>',
+                'ifmo.su:', '<br>',
+                '2 452 уникальных посетителя', '<br>',
+                '10 348 просмотров'
+            );
+
+        },
+
+        monthly : function(){
+
+            return ''.concat(
+                'Данные за текущий месяц',
+                '<br>',
+                '<br>',
+                'ifmo.su:', '<br>',
+                '24 132 уникальных посетителя', '<br>',
+                '49 939 просмотров'
+            );
+
         }
-        if(hh<10){
-            hh='0'+hh;
+
+    };
+
+    /**
+    * @private
+    */
+    function buildDate_ () {
+
+        var date    = new Date(),
+            dd      = date.getDate(),
+            mm      = date.getMonth() + 1,
+            hh      = date.getHours(),
+            minmin  = date.getMinutes(),
+            yyyy    = date.getFullYear(),
+            today;
+
+        if ( dd < 10 ){
+            dd = '0' + dd;
         }
-        if(minmin<10){
-            minmin='0'+minmin;
+
+        if ( mm < 10 ){
+            mm = '0' + mm;
         }
-        var today = dd+'/'+mm+'/'+yyyy;
+
+        if ( hh < 10 ){
+            hh = '0' + hh;
+        }
+
+        if ( minmin < 10 ){
+            minmin = '0' + minmin;
+        }
+
+        today = dd + '/' + mm + '/' + yyyy;
+
         return "Сегодня " + dd + "." + mm + "." + yyyy + ". Данные к " + hh + ":" + minmin;
+
     }
 
     return bot;
