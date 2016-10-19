@@ -188,11 +188,16 @@ Route::set('BOT_LANDING', 'bot', array())->defaults(array(
     'action' => 'show_bot'
 ));
 
-// bot 
+// bot
 
 Route::set('ORG_LANDING', 'org', array())->defaults(array(
     'controller' => 'landings',
     'action' => 'show_org'
+));
+
+Route::set('SPECIAL_LANDING', 'special', array())->defaults(array(
+    'controller' => 'landings',
+    'action' => 'show_special'
 ));
 
 /**

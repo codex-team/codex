@@ -3,7 +3,7 @@
 class Controller_Landings extends Controller_Base_preDispatch
 {
 
-    /** Codex Bot Landing page  in https://ifmo.su/ */
+    /** Codex Bot Landing page in https://ifmo.su/ */
     public function action_show_bot()
     {
         $this->title = 'CodeX Bot';
@@ -11,12 +11,20 @@ class Controller_Landings extends Controller_Base_preDispatch
         $this->template->content = View::factory('templates/bot/landing', $this->view);
     }
 
-    /** Codex Org Landing page  in https://ifmo.su/ */
+    /** Codex Org Landing page in https://ifmo.su/ */
     public function action_show_org()
     {
         $this->title = 'CodeX Org';
         $this->description = 'Description for CodeX Org';
         $this->template->content = View::factory('templates/org/landing', $this->view);
+    }
+
+    /** Codex Special Landing page in https://ifmo.su/special */
+    public function action_show_special()
+    {
+        $this->title = 'CodeX Special';
+        $this->description = 'Description for CodeX Special';
+        $this->template->content = View::factory('templates/special/landing', $this->view);
     }
 
 }
