@@ -160,7 +160,7 @@
         <p class="landing__description">Модуль для создания контрастной версии сайта</p>
         <div class="landing__tryout"></div><br/>
         <div class="landing__special_toolbar" id="js-codex-special"></div><br/>
-        <a class="landing__repo_link" target="_blank" href="https://github.com/codex-team/codex.bot"><i class="icon-github-circled"></i>Get it for free</a>
+        <a class="landing__repo_link" target="_blank" href="https://github.com/codex-team/codex.special"><i class="icon-github-circled"></i>Get it for free</a>
     </div>
 </div>
 
