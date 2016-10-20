@@ -19,8 +19,8 @@ var codexSpecial = (function() {
         },
 
         en : {
-            increaseSize : 'Increase size',
-            decreaseSize : 'Decrease size'
+            increaseSize : 'Increase text size',
+            decreaseSize : 'Decrease text size'
         }
 
     };
