@@ -133,18 +133,18 @@
             font-size: 16px;
         }
         html body .codex-special__toolbar{
-            font-size: 14px !important;
+            font-size: 17px !important;
         }
         .codex-special__circle {
-            width: 5px;
-            height: 5px;
-            border-width: 5px;
+            width: 11px;
+            height: 11px;
+            border-width: 6px;
             float: none;
         }
         .codex-special__circle:hover {
-            width: 5px;
-            height: 5px;
-            border-width: 5px;
+            width: 15px;
+            height: 15px;
+            border-width: 4px;
         }
         .landing__repo_link{
             margin-top: 50px;
