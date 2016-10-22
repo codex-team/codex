@@ -257,9 +257,9 @@ var quoteTools = {
 
         /** Simple quote text placed in Blockquote tag*/
         if ( currentNode.dataset.quoteStyle == 'simple' )
-            quote = currentNode.textContent;
+            quote = currentNode.innerHTML;
         else
-            quote = currentNode.querySelector('.' + quoteTools.styles.quoteText).textContent;
+            quote = currentNode.querySelector('.' + quoteTools.styles.quoteText).innerHTML;
 
         if (job)
             job = job.textContent;

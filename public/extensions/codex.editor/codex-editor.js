@@ -831,7 +831,7 @@ cEditor.callback = {
         /**
         * Split blocks when input has several nodes
         */
-        if (currentblock.childNodes.length !== 0) {
+        if (currentblock.childNodes.length !== 0 && currentblock.childNodes[0].nodeType == cEditor.core.nodeTypes.TEXT) {
 
             cEditor.content.splitBlock(currentInputIndex);
 
@@ -1261,14 +1261,14 @@ cEditor.callback = {
 
     backspacePressed: function (block) {
 
+        var currentInputIndex = cEditor.caret.getCurrentInputIndex();
+
         if (block.textContent.trim()) {
 
             var range           = cEditor.content.getRange(),
                 selectionLength = range.endOffset - range.startOffset;
 
             if (cEditor.caret.position.atStart() && !selectionLength) {
-
-                var currentInputIndex = cEditor.caret.getCurrentInputIndex();
                 cEditor.content.mergeBlocks(currentInputIndex);
 
             } else {
@@ -1278,7 +1278,10 @@ cEditor.callback = {
             }
         }
 
-        block.remove();
+        if (!selectionLength && currentInputIndex != 0) {
+            block.remove();
+        }
+
 
         var firstLevelBlocksCount = cEditor.nodes.redactor.childNodes.length;
 
@@ -2511,40 +2514,21 @@ cEditor.parser = {
     },
 
     /** inserting text */
-    insertPastedContent : function(inputIndex, content) {
+    insertPastedContent : function(content) {
 
         var blocks = this.getSeparatedTextFromContent(content),
             i,
+            inputIndex = cEditor.caret.getCurrentInputIndex(),
             textNode,
-            parsedTextContent,
-            toolType;
+            parsedTextContent;
 
-        toolType = cEditor.content.currentNode.dataset.type;
+        for(i = 0; i < blocks.length; i++) {
 
-        if (cEditor.tools[toolType].enableLineBreaks) {
+            blocks[i].trim();
 
-            cEditor.state.inputs[inputIndex].innerHTML = '';
-
-            for(i = 0; i < blocks.length; i++) {
-
-                blocks[i].trim();
-
-                if (blocks[i]) {
-                    parsedTextContent = cEditor.draw.block('p', blocks[i]);
-                    cEditor.state.inputs[inputIndex].appendChild(parsedTextContent);
-                }
-            }
-
-        } else {
-
-            for(i = 0; i < blocks.length; i++) {
-
-                blocks[i].trim();
-
-                if (blocks[i]) {
-                    var data = cEditor.draw.pluginsRender('paragraph', blocks[i]);
-                    cEditor.content.insertBlock(data)
-                }
+            if (blocks[i]) {
+                var data = cEditor.draw.pluginsRender('paragraph', blocks[i]);
+                cEditor.content.insertBlock(data)
             }
         }
 
