@@ -685,7 +685,7 @@ cEditor.ui = {
         * Pasting content from another source
         */
         block.addEventListener('paste', function (event) {
-            cEditor.callback.blockPaste(event, block);
+            cEditor.callback.blockPaste(event);
         }, false);
 
     },
@@ -1332,43 +1332,26 @@ cEditor.callback = {
 
     },
 
-    blockPaste: function(event, block) {
+    blockPaste: function(event) {
 
-        // var clipboardData,
-        //     pastedData,
-        //     nodeContent,
-        //     currentNode       = cEditor.content.currentNode,
-        //     currentInputIndex = cEditor.caret.getCurrentInputIndex(),
-        //     i;
-        //
-        // /** Prevent Default Browser behaviour */
-        // event.preventDefault();
-        //
-        // clipboardData = event.clipboardData || window.clipboardData;
-        // pastedData    = clipboardData.getData('text/plain');
-        //
-        // cEditor.parser.insertPastedContent(currentInputIndex, pastedData);
-        //
-        // if (cEditor.caret.position.atStart() || !currentNode.textContent) {
-        //
-        //     /** Setting caret to the input index */
-        //     cEditor.caret.setToBlock(currentInputIndex + 1);
-        //
-        // } else {
-        //
-        //     /**
-        //      * setting caret at the end of target (current) input
-        //      * setToPreviousBlock set caret to the end of input.
-        //      */
-        //     cEditor.caret.setToPreviousBlock(currentInputIndex + 1);
-        //
-        // }
         var currentInputIndex = cEditor.caret.getCurrentInputIndex();
 
-        setTimeout(function () {
-            cEditor.content.sanitize(currentInputIndex);
-        }, 1);
+        /**
+         * create an observer instance
+         */
+        var observer = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            cEditor.content.sanitize(mutation.addedNodes)
+          });
+        });
 
+        /**
+         * configuration of the observer:
+         */
+        var config = { attributes: true, childList: true, characterData: true };
+
+        // pass in the target node, as well as the observer options
+        observer.observe(cEditor.state.inputs[currentInputIndex], config);
     },
 
     /**
@@ -1842,28 +1825,68 @@ cEditor.content = {
         targetInput.innerHTML += currentInputContent;
     },
 
-    sanitize : function(inputInput) {
+    /**
+     * @private
+     *
+     * Sanitizes HTML content
+     * @uses DFS function for deep searching
+     */
+    sanitize : function(target) {
 
-        var target = cEditor.state.inputs[inputInput],
-            child,
-            i,
-            div;
+        var node = target[0],
+            i;
 
-        div = cEditor.draw.block('div');
+        if (cEditor.core.isDomNode(node)) {
 
-        for(i = 0; i < target.childNodes.length; i++) {
+            this.clearStyles(node);
+            for(i = 0; i < node.childNodes.length; i++) {
+                this.dfs(node.childNodes[i])
+            }
 
-            child = target.childNodes[i];
-            if (child.tagName === 'P') {
+        }
+    },
 
-                var tag = cEditor.draw.block('P', child.innerHTML);
-                div.appendChild(tag);
+    /**
+     * Clears styles
+     */
+    clearStyles : function(target) {
 
+        var href;
+
+        if (cEditor.core.isDomNode(target)) {
+
+            /** keep href attributes of tag A */
+            if (target.tagName == 'A') {
+                href = target.getAttribute('href');
+            }
+
+            /** Remove all tags */
+            while(target.attributes.length > 0) {
+                target.removeAttribute(target.attributes[0].name);
+            }
+
+            /** return href */
+            if (href) {
+                target.setAttribute('href', href);
+            }
+
+        }
+    },
+
+    /**
+     * Depth-first search Algorithm
+     * returns all childs
+     */
+    dfs : function(el) {
+
+        if (cEditor.core.isDomNode(el)) {
+            this.clearStyles(el);
+            for(var i = 0; i < el.childNodes.length; i++) {
+                this.dfs(el.childNodes[i]);
             }
         }
 
-        // target.innerHTML = div.innerHTML;
-    }
+    },
 
 };
 
