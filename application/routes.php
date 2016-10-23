@@ -82,6 +82,15 @@ Route::set('JOIN_PAGE', 'join')->defaults(array(
     'controller' => 'pages',
     'action' => 'join',
 ));
+Route::set('TASK_LIST', 'task')->defaults(array(
+    'controller' => 'pages',
+    'action' => 'All',
+));
+
+Route::set('TASK_PAGE', 'task/<who>', array('who' => $STRING))->defaults(array(
+    'controller' => 'pages',
+    'action' => 'whoSet',
+));
 
 
 /*Route::set('INDEX_PAGE', '')->defaults(array(
@@ -94,15 +103,6 @@ Route::set('JOIN_PAGE', 'join')->defaults(array(
     'action' => 'index',
 ));
 
-Route::set('TASK_LIST', 'task')->defaults(array(
-    'controller' => 'pages',
-    'action' => 'All',
-));
-
-Route::set('TASK_PAGE', 'task/<who>', array('who' => $STRING))->defaults(array(
-    'controller' => 'pages',
-    'action' => 'whoSet',
-));
 
 Route::set('CONTEST_PAGE', 'contest/<contest_id>', array('contest_id' => $DIGIT))->defaults(array(
     'controller' => 'contests_index',

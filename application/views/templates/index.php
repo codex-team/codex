@@ -4,7 +4,7 @@
 ?>
 <?
     /** Joining meetup */
-    include 'landings/meetup.php';
+    // include 'landings/meetup.php';
 ?>
 <div class="clarity_page">
     <div class="center_side">
