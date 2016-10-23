@@ -2,12 +2,9 @@
  * Created by dsnos on 20.09.2016.
  */
 
-docReady(
-    function(){
-        console.log("docReady");
-        bot.bindEvents();
-    }
-);
+codex.docReady(function(){
+    bot.bindEvents();
+});
 
 var bot = (function(bot) {
 
