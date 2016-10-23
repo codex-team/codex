@@ -74,7 +74,7 @@
         /*margin-left: 119px;*/
     }
     .editor-output-preview{
-        margin: 0 -1px -30px;
+        margin: 0 0px -30px;
         background: #242835;
         padding: 50px 0;
         color: #6c7d98;
@@ -98,6 +98,13 @@
         margin-bottom: 50px;
     }
 
+    .editor_output__buttons {
+        text-align: center;
+    }
+        .editor_output__buttons .button{
+            margin-right: 20px;
+            font-size: .9em;
+        }
     .site_footer{
         border-top: 0;
         background: #1a1c29;
@@ -138,9 +145,15 @@
         <h1 class="big_header" itemprop="headline">CodeX Editor</h1>
         <div class="editor-landing--disclaimer">under development</div>
 
-        <form action="">
+        <form name="editor-demo" action="/editor/preview" method="POST">
 
-            <textarea hidden name="" id="codex_editor" cols="30" rows="10" style="width: 100%;height: 300px;"></textarea>
+            <textarea hidden name="html" id="codex_editor" cols="30" rows="10" style="width: 100%;height: 300px;"></textarea>
+            <textarea hidden name="json" id="json_result" cols="30" rows="10" style="width: 100%;height: 300px;"></textarea>
+
+            <div class="editor_output__buttons">
+                <a href="#output" id="jsonPreviewerButton" class="button">View Output</a>
+                <span id="saveButton" class="button master">Save and Preview</span>
+            </div>
 
         </form>
 
@@ -155,8 +168,7 @@
     <pre id="output"></pre>
 </div>
 
-
-<link rel="stylesheet" href="/public/extensions/codex.editor/editor.css" />
+<link rel="stylesheet" href="/public/extensions/codex.editor/codex-editor.css" />
 <script src="/public/extensions/codex.editor/codex-editor.js"></script>
 <script>
 
@@ -394,6 +406,123 @@ _INPUT.items = [
 ];
 
 /**
+ * Save all blocks and Preview JSON
+ */
+var jsonPreviewerButton = document.getElementById('jsonPreviewerButton');
+
+jsonPreviewerButton.addEventListener('click', function() {
+
+    /** Empty INPUTS items */
+    INPUT.items = [];
+
+    /**
+     * Save blocks
+     */
+    cEditor.saver.saveBlocks();
+
+    setTimeout(function() {
+
+        /**
+         * Fill in INPUT items
+         */
+        INPUT.items = cEditor.state.jsonOutput;
+        INPUT.count = INPUT.items.length;
+
+        document.getElementById('json_result').innerHTML = JSON.stringify(cEditor.state.jsonOutput);
+
+        /**
+         * View JSON data
+         */
+        cPreview.show({
+            data : INPUT,
+            holder : 'output'
+        });
+
+
+    }, 10);
+
+}, false);
+
+
+
+/**
+ * Preview button handler
+ */
+var saveButton = document.getElementById('saveButton');
+
+saveButton.addEventListener('click', function() {
+
+    var form = document.forms['editor-demo'],
+        JSONinput = document.getElementById('json_result');
+
+    /**
+     * Save blocks
+     */
+    cEditor.saver.saveBlocks();
+
+    setTimeout(function() {
+
+        /**
+         * Fill in INPUT items
+         */
+        INPUT.items = cEditor.state.jsonOutput;
+        INPUT.count = INPUT.items.length;
+
+        JSONinput.innerHTML = JSON.stringify(cEditor.state.jsonOutput);
+
+        /**
+         * Send form
+         */
+         form.submit();
+
+
+    }, 10);
+
+}, false);
+
+
+/**
+ * Native ajax method.
+ */
+function ajax(data) {
+
+        if (!data || !data.url){
+            return;
+        }
+        var XMLHTTP          = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP"),
+            success_function = function(){};
+        data.async           = true;
+        data.type            = data.type || 'GET';
+        data.data            = data.data || '';
+        data['content-type'] = data['content-type'] || 'application/json; charset=utf-8';
+        success_function     = data.success || success_function ;
+
+        if (data.type == 'GET' && data.data) {
+            data.url = /\?/.test(data.url) ? data.url + '&' + data.data : data.url + '?' + data.data;
+        }
+
+        if (data.withCredentials) {
+            XMLHTTP.withCredentials = true;
+        }
+
+        if (data.beforeSend && typeof data.beforeSend == 'function') {
+            data.beforeSend.call();
+        }
+
+        XMLHTTP.open( data.type, data.url, data.async );
+        XMLHTTP.setRequestHeader("Content-type", data['content-type'] );
+        XMLHTTP.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+        XMLHTTP.onreadystatechange = function() {
+        if (XMLHTTP.readyState == 4 && XMLHTTP.status == 200) {
+                success_function(XMLHTTP.responseText);
+            }
+        };
+
+        XMLHTTP.send(data.data);
+}
+
+
+/**
 * Empty redactor preview
 */
 INPUT.items = [];
@@ -411,7 +540,7 @@ INPUT.items = [];
         });
 
         cPreview.show({
-            data : _INPUT,
+            data : INPUT,
             holder : 'output'
         });
 
@@ -449,6 +578,7 @@ INPUT.items = [];
 
             this.holder = document.getElementById(params.holder);
 
+            /** getting INPUT JSON */
             var output = params.data;
 
             /** Make JSON pretty */
@@ -520,5 +650,5 @@ INPUT.items = [];
 <script src="/public/extensions/codex.editor/plugins/list/list.js"></script>
 <link rel="stylesheet" href="/public/extensions/codex.editor/plugins/list/list.css" />
 
-<script src="/public/extensions/codex.editor/plugins/images/images.js"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/images/images.css" />
+<script src="/public/extensions/codex.editor/plugins/image/image.js"></script>
+<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/image/image.css" />

@@ -27,6 +27,7 @@ var headerTool = {
         } else {
 
             tag = document.createElement( 'H2' );
+            tag.dataset.headerData = 'H2';
 
         }
 
@@ -157,6 +158,8 @@ var headerTool = {
         new_header.setAttribute('data-placeholder', 'Heading');
         new_header.classList.add('ce-header');
 
+        new_header.dataset.headerData = type;
+
         cEditor.content.switchBlock(old_header, new_header, 'header');
 
         /** Close settings after replacing */
@@ -172,12 +175,13 @@ var headerTool = {
 */
 cEditor.tools.header = {
 
-    type           : 'header',
-    iconClassname  : 'ce-icon-header',
-    make           : headerTool.make,
-    appendCallback : headerTool.appendCallback,
-    settings       : headerTool.makeSettings(),
-    render         : headerTool.render,
-    save           : headerTool.save
+    type             : 'header',
+    iconClassname    : 'ce-icon-header',
+    make             : headerTool.make,
+    appendCallback   : headerTool.appendCallback,
+    settings         : headerTool.makeSettings(),
+    render           : headerTool.render,
+    save             : headerTool.save,
+    enableLineBreaks : false
 
 };

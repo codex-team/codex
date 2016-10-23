@@ -75,6 +75,24 @@ Route::set('DEL_CONTEST_SCRIPT', 'contests/delcontest/<contest_id>', array('cont
 ));
 
 
+/**
+* Join page
+*/
+Route::set('JOIN_PAGE', 'join')->defaults(array(
+    'controller' => 'pages',
+    'action' => 'join',
+));
+Route::set('TASK_LIST', 'task')->defaults(array(
+    'controller' => 'pages',
+    'action' => 'All',
+));
+
+Route::set('TASK_PAGE', 'task/<who>', array('who' => $STRING))->defaults(array(
+    'controller' => 'pages',
+    'action' => 'whoSet',
+));
+
+
 /*Route::set('INDEX_PAGE', '')->defaults(array(
     'controller' => 'index',
     'action' => 'index',
@@ -85,15 +103,6 @@ Route::set('JOIN_PAGE', 'join')->defaults(array(
     'action' => 'index',
 ));
 
-Route::set('TASK_LIST', 'task')->defaults(array(
-    'controller' => 'pages',
-    'action' => 'All',
-));
-
-Route::set('TASK_PAGE', 'task/<who>', array('who' => $STRING))->defaults(array(
-    'controller' => 'pages',
-    'action' => 'whoSet',
-));
 
 Route::set('CONTEST_PAGE', 'contest/<contest_id>', array('contest_id' => $DIGIT))->defaults(array(
     'controller' => 'contests_index',
@@ -146,7 +155,7 @@ Route::set('ADMIN_EDIT_ARTICLE', 'article/<article_id>/edit', array('article_id'
 ));
 
 
-Route::set('ADMIN', 'admin(/<category>(/<list>))', array('category' => 'articles|users|contests',
+Route::set('ADMIN', 'admin(/<category>(/<list>))', array('category' => 'articles|users|contests|requests',
                                                                 'list' => 'unpublished|deleted'))
   ->defaults(array(
         'controller' => 'admin',
@@ -172,11 +181,14 @@ Route::set('ARTICLE_EDITOR_SAVE_IMG', 'editorsaveimg', array())->defaults(array(
     'action' => 'saveEditorImg'
 ));
 
-// bot 
 
-Route::set('BOT_LANDING', 'bot', array())->defaults(array(
-    'controller' => 'landings',
-    'action' => 'show'
+/**
+* Landing pages
+*/
+Route::set('LANDINGS', '<action>', array(
+   'actions' => 'bot|org|special'
+))->defaults(array(
+   'controller' => 'landings'
 ));
 
 /**

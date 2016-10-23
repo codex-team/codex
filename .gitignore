@@ -14,7 +14,7 @@ sftp-config.json
 application/config/database.php*
 application/config/oauth.php*
 application/config/redis.php*
-application/config/telegrambot.php*
+application/config/telegram-notification.php*
 public/img/covers/*
 /nbproject/private/
 *~

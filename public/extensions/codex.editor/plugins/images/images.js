@@ -36,7 +36,7 @@ var ceImage = {
 
         } else {
 
-            if ( !data.isStretch) {
+            if ( data.isStretch !== 'true') {
                 holder = ceImage.ui.imageView(data, ceImage.elementClasses.uploadedImage.centered, 'false');
             } else {
                 holder = ceImage.ui.imageView(data, ceImage.elementClasses.uploadedImage.stretched, 'true');
@@ -144,7 +144,7 @@ var ceImage = {
             data : {
                 background : false,
                 border : false,
-                isStrech : data.dataset.stretched,
+                isStretch : data.dataset.stretched,
                 file : {
                     url : image.src,
                     bigUrl : null,
@@ -451,12 +451,13 @@ ceImage.photoUploadingCallbacks = {
 */
 cEditor.tools.image = {
 
-    type           : 'image',
-    iconClassname  : 'ce-icon-picture',
-    make           : ceImage.make,
-    settings       : ceImage.makeSettings(),
-    render         : ceImage.render,
-    save           : ceImage.save,
-    isStretched    : true
+    type             : 'image',
+    iconClassname    : 'ce-icon-picture',
+    make             : ceImage.make,
+    settings         : ceImage.makeSettings(),
+    render           : ceImage.render,
+    save             : ceImage.save,
+    isStretched      : true,
+    enableLineBreaks : false
 
 };

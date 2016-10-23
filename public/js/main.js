@@ -508,7 +508,6 @@ var callbacks = (function(callbacks) {
     callbacks.checkUserCanEdit = function (event) {
 
         var textarea       = event.target,
-            isUserLogon    = helpers.getCookie('uid'),
             blankAuthBlock = document.getElementById('blankAuthBlock'),
             emailInput     = document.getElementById('blankEmailInput');
 
@@ -516,7 +515,7 @@ var callbacks = (function(callbacks) {
         //     blankWishesTextarea = document.getElementById('blankWishesTextarea'),
         //     blankSendButton     = document.getElementById('blankSendButton');
 
-        if (!isUserLogon && !emailInput.value.length ) {
+        if (blankAuthBlock && !emailInput.value.length ) {
 
             if (!blankAuthBlock.className.includes('wobble')) {
                 blankAuthBlock.className += ' wobble';
@@ -526,7 +525,7 @@ var callbacks = (function(callbacks) {
 
                 textarea.value = '';
 
-            };
+            }
 
         }
 
@@ -536,7 +535,7 @@ var callbacks = (function(callbacks) {
         // };
 
 
-    }
+    };
 
     callbacks.showAdditionalFields = function (event) {
 
