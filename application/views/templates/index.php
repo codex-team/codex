@@ -25,7 +25,7 @@
             </li>
             <li class="news__list_item" data-time="22 sep">
                 <span class="news__bage">release</span>
-                <a href="/bot">@codex_bot</a> — Облачная платформа для интегарции сервисов в Telegram. Модули по работе с GitHub и Yandex.Metrika
+                <a href="/bot">@codex_bot</a> — Облачная платформа для интеграции сервисов в Telegram. Модули по работе с GitHub и Yandex.Metrika
             </li>
             <li class="news__list_item" data-time="15 jul">
                 Новая статья: «<a href="/alias-system">Система алиасов</a>»
