@@ -9,5 +9,6 @@ return array(
 		*/
 		'Cache.SerializerPath' => APPPATH.'cache',
 		'Filter.YouTube'       => true,
+		'HTML.Allowed' => 'a[href]',
 	),
 );

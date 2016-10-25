@@ -11,9 +11,6 @@ cEditor = (function (cEditor) {
     cEditor.settings = {
         tools     : ['paragraph', 'header', 'picture', 'list', 'quote', 'code', 'twitter', 'instagram', 'smile'],
         textareaId: 'codex-editor',
-
-        // First-level tags viewing as separated blocks. Other'll be inserted as child
-        blockTags      : ['P', 'BLOCKQUOTE', 'UL', 'CODE', 'OL', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6'],
         uploadImagesUrl: '/editor/transport/',
 
         // Type of block showing on empty editor
@@ -1342,11 +1339,7 @@ cEditor.callback = {
         /**
          * create an observer instance
          */
-        var observer = new MutationObserver(function(mutations) {
-          mutations.forEach(function(mutation) {
-            cEditor.content.sanitize(mutation.addedNodes)
-          });
-        });
+        var observer = new MutationObserver(cEditor.callback.handlePasteEvents);
 
         /**
          * configuration of the observer:
@@ -1355,6 +1348,13 @@ cEditor.callback = {
 
         // pass in the target node, as well as the observer options
         observer.observe(cEditor.state.inputs[currentInputIndex], config);
+    },
+
+    /**
+     * Sends all mutations to paste handler
+     */
+    handlePasteEvents : function(mutations) {
+        mutations.forEach(cEditor.content.paste);
     },
 
     /**
@@ -1831,7 +1831,43 @@ cEditor.content = {
     /**
      * @private
      *
+     * Callback for HTML Mutations
+     * @param {Array} mutation - Mutation Record
+     */
+    paste : function(mutation) {
+
+        var workingNode = cEditor.content.currentNode,
+            tool        = workingNode.dataset.type;
+
+        if (cEditor.tools[tool].allowedToPaste) {
+            cEditor.content.sanitize(mutation.addedNodes);
+        } else {
+            cEditor.content.pasteTextContent(mutation.addedNodes)
+        }
+
+    },
+
+    /**
+     * @private
+     *
+     * gets only text/plain content of node
+     * @param {Element} target - HTML node
+     */
+    pasteTextContent : function(nodes) {
+
+        var node     = nodes[0],
+            textNode = document.createTextNode(node.textContent);
+
+        if (cEditor.core.isDomNode(node)) {
+            node.parentNode.replaceChild(textNode, node);
+        }
+    },
+
+    /**
+     * @private
+     *
      * Sanitizes HTML content
+     * @param {Element} target - inserted element
      * @uses DFS function for deep searching
      */
     sanitize : function(target) {
@@ -1839,13 +1875,12 @@ cEditor.content = {
         var node = target[0],
             i;
 
-        if (cEditor.core.isDomNode(node)) {
+        if (!cEditor.core.isDomNode(node))
+            return;
 
-            this.clearStyles(node);
-            for(i = 0; i < node.childNodes.length; i++) {
-                this.dfs(node.childNodes[i])
-            }
-
+        var sanitized = this.clearStyles(node);
+        for(i = 0; i < sanitized.childNodes.length; i++) {
+            this.dfs(sanitized.childNodes[i])
         }
     },
 
@@ -1854,26 +1889,48 @@ cEditor.content = {
      */
     clearStyles : function(target) {
 
-        var href;
+        var href,
+            newNode = null,
+            blockTags   = ['P', 'BLOCKQUOTE', 'UL', 'CODE', 'OL', 'LI', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'DIV', 'PRE', 'HEADER', 'SECTION'];
+            allowedTags = ['P', 'B', 'I', 'A', 'U'],
+            needReplace = !allowedTags.includes(target.tagName),
+            isInline    = !blockTags.includes(target.tagName);
 
-        if (cEditor.core.isDomNode(target)) {
+        if (!cEditor.core.isDomNode(target))
+            return;
 
-            /** keep href attributes of tag A */
-            if (target.tagName == 'A') {
-                href = target.getAttribute('href');
+        if (needReplace) {
+
+            if (!isInline) {
+
+                newNode = document.createElement('P');
+                newNode.innerHTML = target.innerHTML;
+                target.parentNode.replaceChild(newNode, target);
+                target = newNode;
+
+            } else {
+                newNode = document.createTextNode(target.textContent);
+                target.parentNode.replaceChild(newNode, target);
             }
-
-            /** Remove all tags */
-            while(target.attributes.length > 0) {
-                target.removeAttribute(target.attributes[0].name);
-            }
-
-            /** return href */
-            if (href) {
-                target.setAttribute('href', href);
-            }
-
         }
+
+        /** keep href attributes of tag A */
+        if (target.tagName == 'A') {
+            href = target.getAttribute('href');
+        }
+
+        /** Remove all tags */
+        while(target.attributes.length > 0) {
+            target.removeAttribute(target.attributes[0].name);
+        }
+
+        /** return href */
+        if (href) {
+            target.setAttribute('href', href);
+        }
+
+        return target;
+
     },
 
     /**
@@ -1882,11 +1939,12 @@ cEditor.content = {
      */
     dfs : function(el) {
 
-        if (cEditor.core.isDomNode(el)) {
-            this.clearStyles(el);
-            for(var i = 0; i < el.childNodes.length; i++) {
-                this.dfs(el.childNodes[i]);
-            }
+        if (!cEditor.core.isDomNode(el))
+            return;
+
+        var sanitized = this.clearStyles(el);
+        for(var i = 0; i < sanitized.childNodes.length; i++) {
+            this.dfs(sanitized.childNodes[i]);
         }
 
     },
@@ -2509,7 +2567,7 @@ cEditor.parser = {
     /**
     * Splits content by `\n` and returns blocks
     */
-    getSeparatedTextFromContent : function(content) {
+    getSeparatedTexttSeparatedTextFromContent : function(content) {
         return content.split('\n');
     },
 

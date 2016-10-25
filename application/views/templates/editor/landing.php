@@ -145,10 +145,10 @@
         <h1 class="big_header" itemprop="headline">CodeX Editor</h1>
         <div class="editor-landing--disclaimer">under development</div>
 
-        <form name="editor-demo" action="/editor/preview" method="POST">
+        <form name="editor-demo" action="/editor/preview" method="POST" enctype="multipart/form-data">
 
             <textarea hidden name="html" id="codex_editor" cols="30" rows="10" style="width: 100%;height: 300px;"></textarea>
-            <textarea hidden name="json" id="json_result" cols="30" rows="10" style="width: 100%;height: 300px;"></textarea>
+            <textarea hidden name="article_json" id="json_result" cols="30" rows="10" style="width: 100%;height: 300px;"></textarea>
 
             <div class="editor_output__buttons">
                 <a href="#output" id="jsonPreviewerButton" class="button">View Output</a>
@@ -469,6 +469,7 @@ saveButton.addEventListener('click', function() {
         INPUT.count = INPUT.items.length;
 
         JSONinput.innerHTML = JSON.stringify(cEditor.state.jsonOutput);
+        console.log(JSONinput);
 
         /**
          * Send form
@@ -476,7 +477,7 @@ saveButton.addEventListener('click', function() {
          form.submit();
 
 
-    }, 10);
+    }, 100);
 
 }, false);
 

@@ -415,6 +415,7 @@ cEditor.tools.quote = {
     settings         : quoteTools.makeSettings(),
     render           : quoteTools.render,
     save             : quoteTools.save,
-    enableLineBreaks : true
+    enableLineBreaks : true,
+    allowedToPaste   : true
 
 };
