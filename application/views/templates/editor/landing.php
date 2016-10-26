@@ -469,7 +469,6 @@ saveButton.addEventListener('click', function() {
         INPUT.count = INPUT.items.length;
 
         JSONinput.innerHTML = JSON.stringify(cEditor.state.jsonOutput);
-        console.log(JSONinput);
 
         /**
          * Send form

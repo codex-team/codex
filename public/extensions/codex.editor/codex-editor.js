@@ -1346,7 +1346,7 @@ cEditor.callback = {
         /**
          * configuration of the observer:
          */
-        var config = { attributes: true, childList: true, characterData: true };
+        var config = { attributes: true, childList: true, characterData: false };
 
         // pass in the target node, as well as the observer options
         observer.observe(cEditor.state.inputs[currentInputIndex], config);
@@ -1923,7 +1923,7 @@ cEditor.content = {
             blockTags   = ['P', 'BLOCKQUOTE', 'UL', 'CODE', 'OL', 'LI', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'DIV', 'PRE', 'HEADER', 'SECTION'],
             allowedTags = ['P', 'B', 'I', 'A', 'U'],
             needReplace = !allowedTags.includes(target.tagName),
-            isInline    = !blockTags.includes(target.tagName);
+            isDisplayedAsBlock = blockTags.includes(target.tagName);
 
         if (!cEditor.core.isDomNode(target)){
             return;
@@ -1931,7 +1931,7 @@ cEditor.content = {
 
         if (needReplace) {
 
-            if (!isInline) {
+            if (isDisplayedAsBlock) {
 
                 newNode = document.createElement('P');
                 newNode.innerHTML = target.innerHTML;
