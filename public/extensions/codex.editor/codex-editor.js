@@ -1931,7 +1931,7 @@ cEditor.content = {
         var href,
             newNode = null,
             blockTags   = ['P', 'BLOCKQUOTE', 'UL', 'CODE', 'OL', 'LI', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'DIV', 'PRE', 'HEADER', 'SECTION'],
-            allowedTags = ['P', 'B', 'I', 'A', 'U'],
+            allowedTags = ['P', 'B', 'I', 'A', 'U', 'BR'],
             needReplace = !allowedTags.includes(target.tagName),
             isDisplayedAsBlock = blockTags.includes(target.tagName);
 
@@ -1952,7 +1952,7 @@ cEditor.content = {
                 target.parentNode.replaceChild(newNode, target);
                 target = newNode;
 
-            } else if ( target.tagName != 'BR' ) {
+            } else {
 
                 newNode = document.createTextNode(` ${target.textContent} `);
                 newNode.textContent = newNode.textContent.replace(/\s{2,}/g, ' ');
