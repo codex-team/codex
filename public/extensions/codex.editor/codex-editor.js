@@ -1277,7 +1277,7 @@ cEditor.callback = {
             }
         }
 
-        if (!selectionLength && currentInputIndex !== 0) {
+        if (!selectionLength) {
             block.remove();
         }
 
