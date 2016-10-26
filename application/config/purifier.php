@@ -8,6 +8,6 @@ return array(
 		* Use the application cache for HTML Purifier
 		*/
 		'Cache.SerializerPath' => APPPATH.'cache',
-		'Filter.YouTube'       => true,
+		'Filter.YouTube'       => true
 	),
 );

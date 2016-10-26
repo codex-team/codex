@@ -2,7 +2,7 @@
 * Image plugin for codex-editor
 * @author CodeX Team <team@ifmo.su>
 *
-* @version 1.1.2
+* @version 1.1.3
 */
 var ceImage = {
 
@@ -121,7 +121,7 @@ var ceImage = {
         image.className   = '';
 
         /** Add important first-level class ce_block */
-        current.classList.add(cEditor.ui.BLOCK_CLASSNAME);
+        current.classList.add(cEditor.ui.className.BLOCK_CLASSNAME);
 
         if (type === 'stretched') {
 

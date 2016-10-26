@@ -108,7 +108,7 @@ var ceImage = {
         image.className   = '';
 
         /** Add important first-level class ce_block */
-        current.classList.add(cEditor.ui.BLOCK_CLASSNAME);
+        current.classList.add(cEditor.ui.className.BLOCK_CLASSNAME);
 
         if (type === 'stretched') {
 

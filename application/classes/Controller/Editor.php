@@ -17,11 +17,11 @@ class Controller_Editor extends Controller_Base_preDispatch
     public function action_preview()
     {
         $html = Arr::get($_POST, 'html');
-        $json = Arr::get($_POST, 'json');
+        $json = Arr::get($_POST, 'article_json');
 
         $article = new Model_Article();
         $article->title = 'Codex Editor';
-
+        
         $blocks = json_decode($json);
 
         for($i = 0; $i < count($blocks); $i++)
