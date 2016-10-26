@@ -804,23 +804,34 @@ cEditor.callback = {
             return;
         }
 
-        var currentBlock = cEditor.content.currentNode.querySelector('[contentEditable]');
+        var isLastTextNode = false,
+            currentSelection = window.getSelection(),
+            currentSelectedNode = currentSelection.anchorNode,
+            caretAtTheEndOfText = cEditor.caret.position.atTheEnd(),
+            isTextNodeHasParentBetweenContenteditable = false;
+
+        /**
+        * Workaround situation when caret at the Text node that has some wrapper Elements
+        * Split block cant handle this.
+        * We need to save default behavior
+        */
+        isTextNodeHasParentBetweenContenteditable = currentSelectedNode && currentSelectedNode.parentNode.contentEditable != "true";
 
         /**
         * Split blocks when input has several nodes and caret placed in textNode
         */
-        if (currentBlock.childNodes.length !== 0 && currentBlock.childNodes[0].nodeType == cEditor.core.nodeTypes.TEXT) {
+        if (
+            currentSelectedNode.nodeType == cEditor.core.nodeTypes.TEXT &&
+            !isTextNodeHasParentBetweenContenteditable
+        ){
 
             event.preventDefault();
+
+            cEditor.core.log('Splitting Text node...');
 
             cEditor.content.splitBlock(currentInputIndex);
 
         } else {
-
-            var isLastTextNode = false,
-                currentSelection = window.getSelection(),
-                currentSelectedNode = currentSelection.anchorNode,
-                caretAtTheEndOfText = cEditor.caret.position.atTheEnd();
 
             if ( currentSelectedNode && currentSelectedNode.parentNode) {
 
@@ -1899,17 +1910,21 @@ cEditor.content = {
         var node = target[0],
             i;
 
-        if (!cEditor.core.isDomNode(node))
-            return;
+        this.dfs(node);
 
-        var sanitized = this.clearStyles(node);
-        for(i = 0; i < sanitized.childNodes.length; i++) {
-            this.dfs(sanitized.childNodes[i]);
-        }
+        // if (!cEditor.core.isDomNode(node))
+        //     return;
+
+        // var sanitized = this.clearStyles(node);
+
+        // for (i = 0; i < sanitized.childNodes.length; i++) {
+        //     this.dfs(sanitized.childNodes[i]);
+        // }
     },
 
     /**
      * Clears styles
+     * @param {Element|Text}
      */
     clearStyles : function(target) {
 
@@ -1921,7 +1936,11 @@ cEditor.content = {
             isDisplayedAsBlock = blockTags.includes(target.tagName);
 
         if (!cEditor.core.isDomNode(target)){
-            return;
+            return target;
+        }
+
+        if (!target.parentNode){
+            return target;
         }
 
         if (needReplace) {
@@ -1933,9 +1952,12 @@ cEditor.content = {
                 target.parentNode.replaceChild(newNode, target);
                 target = newNode;
 
-            } else {
-                newNode = document.createTextNode(target.textContent);
+            } else if ( target.tagName != 'BR' ) {
+
+                newNode = document.createTextNode(` ${target.textContent} `);
+                newNode.textContent = newNode.textContent.replace(/\s{2,}/g, ' ');
                 target.parentNode.replaceChild(newNode, target);
+
             }
         }
 
@@ -1961,6 +1983,7 @@ cEditor.content = {
     /**
      * Depth-first search Algorithm
      * returns all childs
+     * @param {Element}
      */
     dfs : function(el) {
 
@@ -1968,6 +1991,7 @@ cEditor.content = {
             return;
 
         var sanitized = this.clearStyles(el);
+
         for(var i = 0; i < sanitized.childNodes.length; i++) {
             this.dfs(sanitized.childNodes[i]);
         }
