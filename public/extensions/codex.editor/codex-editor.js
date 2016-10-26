@@ -1342,6 +1342,19 @@ cEditor.callback = {
 
     blockPaste: function(event) {
 
+        var currentInputIndex = cEditor.caret.getCurrentInputIndex(),
+            node = cEditor.state.inputs[currentInputIndex];
+
+        setTimeout(function() {
+
+            cEditor.content.sanitize(node);
+
+        }, 0);
+
+    },
+
+    _blockPaste: function(event) {
+
         var currentInputIndex = cEditor.caret.getCurrentInputIndex();
 
         /**
@@ -1907,19 +1920,9 @@ cEditor.content = {
      */
     sanitize : function(target) {
 
-        var node = target[0],
-            i;
-
-        this.dfs(node);
-
-        // if (!cEditor.core.isDomNode(node))
-        //     return;
-
-        // var sanitized = this.clearStyles(node);
-
-        // for (i = 0; i < sanitized.childNodes.length; i++) {
-        //     this.dfs(sanitized.childNodes[i]);
-        // }
+        for (var i = 0; i < target.childNodes.length; i++) {
+            this.dfs(target.childNodes[i]);
+        }
     },
 
     /**
