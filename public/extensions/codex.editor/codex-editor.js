@@ -782,11 +782,6 @@ cEditor.callback = {
         /** This type of block creates when enter is pressed */
         var NEW_BLOCK_TYPE = 'paragraph';
 
-        console.log("isEnterPressedOnToolbar: %o", isEnterPressedOnToolbar);
-
-        console.log("event.target: %o", event.target);
-        console.log("cEditor.state.inputs[currentInputIndex]: %o", cEditor.state.inputs[currentInputIndex]);
-
         /**
         * When toolbar is opened, select tool instead of making new paragraph
         */
