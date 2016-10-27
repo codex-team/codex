@@ -170,6 +170,46 @@
             font-size: 1.1em;
         }
 
+.ce_toolbar-inline {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-top: -10px;
+    background: #545353;
+    border-radius: 5px;
+}
+    .ce_toolbar-inline.opened {
+        display: block;
+    }
+
+    .ce_toolbar-inline li:first-child {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+
+        border-left: 0;
+    }
+
+    .ce_toolbar-inline li:last-child {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+    .ce_toolbar-inline li {
+        display: inline-block;
+        font-size: 12px;
+        padding: 10px;
+        margin: 0 !important;
+        color: #fff;
+
+        border-left: 1px solid rgba(148, 4, 4, 0.08);
+    }
+    
+    .ce_toolbar-inline li:hover {
+        cursor: pointer;
+        background: #e08080;
+    }
+
+
 /**
 * Base block highlighted
 */

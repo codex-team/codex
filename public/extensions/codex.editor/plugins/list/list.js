@@ -175,6 +175,7 @@ cEditor.tools.list = {
     type             : 'list',
     iconClassname    : 'ce-icon-list-bullet',
     make             : listTool.make,
+    toolbar          : 'block',
     appendCallback   : null,
     settings         : listTool.makeSettings(),
     render           : listTool.render,

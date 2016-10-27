@@ -67,6 +67,7 @@ cEditor.tools.paragraph = {
 
     type             : 'paragraph',
     iconClassname    : 'ce-icon-paragraph',
+    toolbar          : 'block',
     make             : paragraphTool.make,
     appendCallback   : null,
     settings         : null,

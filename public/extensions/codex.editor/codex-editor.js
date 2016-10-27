@@ -26,6 +26,7 @@ var cEditor = (function (cEditor){
         textarea          : null,
         wrapper           : null,
         toolbar           : null,
+        inlineToolbar     : null,
         toolbox           : null,
         notifications     : null,
         plusButton        : null,
@@ -503,11 +504,11 @@ cEditor.ui = {
 
         var wrapper,
             toolbar,
+            inlineToolbar,
             redactor,
             notifications,
             blockButtons,
             blockSettings,
-            showPlusButton,
             showSettingsButton,
             showRemoveBlockButton,
             toolbox,
@@ -525,6 +526,7 @@ cEditor.ui = {
 
         /** Make toolbar and content-editable redactor */
         toolbar               = cEditor.draw.toolbar();
+        inlineToolbar         = cEditor.draw.inlineToolbar();
         plusButton            = cEditor.draw.plusButton();
         showRemoveBlockButton = cEditor.draw.removeBlockButton();
         showSettingsButton    = cEditor.draw.settingsButton();
@@ -563,6 +565,9 @@ cEditor.ui = {
 
         cEditor.nodes.redactor = redactor;
 
+        /** Append to redactor new inline block */
+        cEditor.nodes.inlineToolbar = cEditor.nodes.wrapper.appendChild(inlineToolbar);
+
     },
 
     /**
@@ -589,12 +594,29 @@ cEditor.ui = {
                 continue;
             }
 
-            tool_button = cEditor.draw.toolbarButton(name, tool.iconClassname);
+            /**
+             * if tools is for toolbox
+             */
+            if (tool.toolbar == 'block') {
 
-            cEditor.nodes.toolbox.appendChild(tool_button);
+                tool_button = cEditor.draw.toolbarButton(name, tool.iconClassname);
 
-            /** Save tools to static nodes */
-            cEditor.nodes.toolbarButtons[name] = tool_button;
+                cEditor.nodes.toolbox.appendChild(tool_button);
+
+                /** Save tools to static nodes */
+                cEditor.nodes.toolbarButtons[name] = tool_button;
+
+            }
+            /**
+             * tools which will be used in inline toolbar
+             */
+            else {
+
+                tool_button = cEditor.draw.toolbarButtonInline(name, tool.iconClassname);
+
+                cEditor.nodes.inlineToolbar.appendChild(tool_button);
+
+            }
 
         }
 
@@ -673,6 +695,10 @@ cEditor.ui = {
         block.addEventListener('paste', function (event) {
             cEditor.callback.blockPaste(event);
         }, false);
+
+        block.addEventListener('mouseup', function(){
+            cEditor.toolbar.inline.show();
+        }, false)
 
     },
 
@@ -888,6 +914,7 @@ cEditor.callback = {
     defaultKeyPressed : function(event) {
 
         cEditor.toolbar.close();
+        cEditor.toolbar.inline.close();
     },
 
     redactorClicked : function (event) {
@@ -895,6 +922,12 @@ cEditor.callback = {
         cEditor.content.workingNodeChanged(event.target);
 
         cEditor.ui.saveInputs();
+
+        var selectedText = cEditor.toolbar.inline.getSelectionText();
+
+        if (selectedText.length === 0) {
+            cEditor.toolbar.inline.close();
+        }
 
         /** Update current input index in memory when caret focused into existed input */
         if (event.target.contentEditable == 'true') {
@@ -2385,9 +2418,9 @@ cEditor.toolbar = {
         * UNREPLACEBLE_TOOLS this types of tools are forbidden to replace even they are empty
         */
         var UNREPLACEBLE_TOOLS = ['image', 'link', 'list'],
-            tool             = cEditor.tools[cEditor.toolbar.current],
-            workingNode      = cEditor.content.currentNode,
-            currentInputIndex = cEditor.caret.inputIndex,
+            tool               = cEditor.tools[cEditor.toolbar.current],
+            workingNode        = cEditor.content.currentNode,
+            currentInputIndex  = cEditor.caret.inputIndex,
             newBlockContent,
             appendCallback,
             blockData;
@@ -2525,6 +2558,169 @@ cEditor.toolbar = {
 
             }
 
+        },
+
+    },
+
+    /**
+     * This is a inline toolbar that works with selected word.
+     * Ex: Wraps text to B, U, I tags and so on.
+     * Also this toolbar will be used for making text a link
+     */
+    inline : {
+
+        wrappersOffset : {
+            top  : null,
+            left : null,
+        },
+
+        /**
+         * @protected
+         *
+         * Open inline toobar
+         */
+        show : function() {
+
+            var selectedText = this.getSelectionText(),
+                toolbar      = cEditor.nodes.inlineToolbar;
+
+            if (selectedText.length > 0) {
+
+                /** Move toolbar and open */
+                cEditor.toolbar.inline.move();
+                toolbar.classList.add('opened');
+            }
+
+        },
+
+        /**
+         * @protected
+         *
+         * Closes inline toolbar
+         */
+        close : function() {
+            var toolbar = cEditor.nodes.inlineToolbar;
+            toolbar.classList.remove('opened');
+        },
+
+        /**
+         * @private
+         *
+         * Moving toolbar
+         */
+        move : function() {
+
+            if (!this.wrappersOffset.top && !this.wrappersOffset.left) {
+                this.saveWrappersOffset();
+            }
+
+            var coords          = this.getSelectionCoords(),
+                defaultOffset   = 0,
+                toolbar         = cEditor.nodes.inlineToolbar,
+                newCoordinateX,
+                newCoordinateY;
+
+            if (toolbar.offsetHeight === 0) {
+                defaultOffset = 40;
+            }
+
+            newCoordinateX = coords.x - this.wrappersOffset.left;
+            newCoordinateY = coords.y + window.scrollY - this.wrappersOffset.top - defaultOffset - toolbar.offsetHeight;
+
+            toolbar.style.transform = `translateX(${newCoordinateX}px) translateY(${newCoordinateY}px)`;
+
+        },
+
+        /**
+         * @private
+         *
+         * Saving wrappers offset in DOM
+         */
+        saveWrappersOffset : function() {
+
+            var wrapper = cEditor.nodes.wrapper,
+                offset  = this.getOffset(wrapper);
+
+            this.wrappersOffset.top  = offset.top;
+            this.wrappersOffset.left = offset.left;
+
+        },
+
+        /**
+         * @protected
+         *
+         * Calculates offset of DOM element
+         *
+         * @param el
+         * @returns {{top: number, left: number}}
+         */
+        getOffset : function ( el ) {
+
+            var _x = 0;
+            var _y = 0;
+
+            while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
+                _x += (el.offsetLeft + el.clientLeft);
+                _y += (el.offsetTop + el.clientTop);
+                el = el.offsetParent;
+            }
+            return { top: _y, left: _x };
+        },
+
+        /**
+         * @private
+         *
+         * Calculates position of selected text
+         * @returns {{x: number, y: number}}
+         */
+        getSelectionCoords : function() {
+
+            var sel = document.selection, range;
+            var x = 0, y = 0;
+
+            if (sel) {
+
+                if (sel.type != "Control") {
+                    range = sel.createRange();
+                    range.collapse(true);
+                    x = range.boundingLeft;
+                    y = range.boundingTop;
+                }
+
+            } else if (window.getSelection) {
+
+                sel = window.getSelection();
+
+                if (sel.rangeCount) {
+
+                    range = sel.getRangeAt(0).cloneRange();
+                    if (range.getClientRects) {
+                        range.collapse(true);
+                        var rect = range.getClientRects()[0];
+                        x = rect.left;
+                        y = rect.top;
+                    }
+
+                }
+            }
+            return { x: x, y: y };
+        },
+
+        /**
+         * @private
+         *
+         * Returns selected text as String
+         * @returns {string}
+         */
+        getSelectionText : function getSelectionText(){
+
+            var selectedText = ""
+
+            if (window.getSelection){ // all modern browsers and IE9+
+                selectedText = window.getSelection().toString()
+            }
+
+            return selectedText;
         },
 
     }
@@ -2925,6 +3121,16 @@ cEditor.draw = {
         return bar;
     },
 
+    inlineToolbar : function() {
+
+        var bar = document.createElement('div');
+
+        bar.className += 'ce_toolbar-inline';
+
+        return bar;
+
+    },
+
     /**
     * Block with notifications
     */
@@ -3014,8 +3220,14 @@ cEditor.draw = {
     },
 
     /**
-    * Toolbar button
-    */
+     * @protected
+     *
+     * Draws tool buttons for toolbox
+     *
+     * @param {String} type
+     * @param {String} classname
+     * @returns {Element}
+     */
     toolbarButton : function (type, classname) {
 
         var button     = document.createElement("li"),
@@ -3034,6 +3246,26 @@ cEditor.draw = {
 
         return button;
 
+    },
+
+    /**
+     * @protected
+     *
+     * Draws tools for inline toolbar
+     *
+     * @param {String} type
+     * @param {String} classname
+     */
+    toolbarButtonInline : function(type, classname) {
+        var button     = document.createElement("li"),
+            tool_icon  = document.createElement("i");
+
+        button.dataset.type = type;
+        tool_icon.classList.add(classname);
+
+        button.appendChild(tool_icon);
+
+        return button;
     },
 
     /**

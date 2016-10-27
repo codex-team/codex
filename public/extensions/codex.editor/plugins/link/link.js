@@ -314,10 +314,10 @@ cEditor.tools.link = {
 
     type             : 'link',
     iconClassname    : 'ce-icon-link',
+    toolbar          : 'block',
     make             : linkTool.makeNewBlock,
     appendCallback   : linkTool.appendCallback,
     render           : linkTool.render,
-    // settings      : linkTool.makeSettings(),
     save             : linkTool.save,
     enableLineBreaks : true
 

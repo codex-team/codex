@@ -415,6 +415,7 @@ cEditor.tools.image = {
 
     type             : 'image',
     iconClassname    : 'ce-icon-picture',
+    toolbar          : 'block',
     make             : ceImage.make,
     appendCallback   : ceImage.appendCallback,
     settings         : ceImage.makeSettings(),
