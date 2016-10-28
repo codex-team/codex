@@ -66,7 +66,7 @@ var ceImage = {
     makeSettings : function () {
 
         var holder  = document.createElement('DIV'),
-            caption = document.createElement('SPAN'),
+            // caption = document.createElement('SPAN'),
             types   = {
                         centered  : 'По центру',
                         stretched : 'На всю ширину',
@@ -77,10 +77,10 @@ var ceImage = {
         holder.className = 'ce_plugin_image--settings';
 
         /** Add settings helper caption */
-        caption.textContent = 'Настройки плагина';
-        caption.className   = 'ce_plugin_image--caption';
+        // caption.textContent = 'Настройки плагина';
+        // caption.className   = 'ce_plugin_image--caption';
 
-        holder.appendChild(caption);
+        // holder.appendChild(caption);
 
         /** Now add type selectors */
         for (var type in types){
@@ -283,7 +283,7 @@ ceImage.ui = {
 
         caption.textContent = text;
 
-        wrapper.dataset.stretched = stretched,
+        wrapper.dataset.stretched = stretched;
         /** Appeding to the wrapper */
         wrapper.appendChild(image);
         wrapper.appendChild(caption);
@@ -319,7 +319,7 @@ ceImage.ui = {
 
         caption.textContent = text;
 
-        wrapper.dataset.stretched = 'false',
+        wrapper.dataset.stretched = 'false';
 
         /** Appeding to the wrapper */
         wrapper.appendChild(image);
@@ -345,7 +345,7 @@ ceImage.ui = {
 
         caption.textContent = text;
 
-        wrapper.dataset.stretched = 'true',
+        wrapper.dataset.stretched = 'true';
         /** Appeding to the wrapper */
         wrapper.appendChild(image);
         wrapper.appendChild(caption);
@@ -405,7 +405,7 @@ ceImage.photoUploadingCallbacks = {
         cEditor.notifications.errorThrown();
     },
 
-}
+};
 
 
 /**

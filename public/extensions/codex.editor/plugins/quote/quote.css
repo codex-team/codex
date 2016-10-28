@@ -1,6 +1,6 @@
 .ce-quote {
     max-width: 700px;
-    margin: 2em auto !important;
+    margin: 1em auto !important;
 }
 
 /** Quote - settings */
@@ -8,24 +8,24 @@
     white-space: nowrap;
     /*padding-right: 10px;    */
 }
+
 .ce_plugin_quote--select_button{
     display: inline-block;
     margin-left: 15px;
-    color: #70a1ff;
+    color: #1780e0;
+    border-bottom: 1px dashed #a4b3dc;
     cursor: pointer;
 }
     .ce_plugin_quote--select_button:hover{
-        color: #8da8dc;
+        color: #e25252;
+        border-color: #f79e9e;
     }
-
 /** Quote Styles */
 
 .quoteStyle-withCaption--author:empty {
     direction: rtl;
 }
 .quoteStyle-withCaption--author {
-
-    margin: 0 100px 2em !important;
     text-align: right;
     font-size: 1.16em;
     font-weight: bold;
@@ -36,8 +36,8 @@
 .quoteStyle-simple--text,
 .quoteStyle-withCaption--blockquote,
 .quoteStyle-withPhoto--quote {
-    font-size: 1.04em;
-    line-height: 1.9em;
+    font-size: 1.32em;
+    line-height: 1.74em;
 }
 
 .quoteStyle-simple--text {
@@ -46,9 +46,10 @@
     background: #FBFBFB;
 }
 
-.quoteStyle-withCaption--blockquote {
-    margin: 0;
-    padding: 1.5em 2.0em !important;
+.quoteStyle-withCaption--blockquote,
+.quoteStyle-withCaption--author{
+    margin: 0 auto;
+    max-width: 70%;
 }
 
 .quoteStyle-withCaption--blockquote:focus,

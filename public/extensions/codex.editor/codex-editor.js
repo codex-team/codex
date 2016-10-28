@@ -508,7 +508,7 @@ cEditor.ui = {
             blockButtons,
             blockSettings,
             showPlusButton,
-            showSettingsButton,
+            // showSettingsButton,
             showRemoveBlockButton,
             toolbox,
             plusButton;
@@ -527,17 +527,17 @@ cEditor.ui = {
         toolbar               = cEditor.draw.toolbar();
         plusButton            = cEditor.draw.plusButton();
         showRemoveBlockButton = cEditor.draw.removeBlockButton();
-        showSettingsButton    = cEditor.draw.settingsButton();
+        // showSettingsButton    = cEditor.draw.settingsButton();
         blockSettings         = cEditor.draw.blockSettings();
         blockButtons          = cEditor.draw.blockButtons();
         toolbox               = cEditor.draw.toolbox();
         redactor              = cEditor.draw.redactor();
 
-        /** Make blocks buttons
+        /**
+        * Make blocks buttons
         * This block contains settings button and remove block button
         */
-        blockButtons.appendChild(showSettingsButton);
-        blockButtons.appendChild(blockSettings);
+        // blockButtons.appendChild(showSettingsButton);
         blockButtons.appendChild(showRemoveBlockButton);
 
         /** Appending first-level block buttons */
@@ -546,7 +546,8 @@ cEditor.ui = {
         /** Append plus button */
         toolbar.appendChild(plusButton);
 
-        /** Appending toolbar tools */
+        /** Appending setting and toolbox */
+        toolbar.appendChild(blockSettings);
         toolbar.appendChild(toolbox);
 
         wrapper.appendChild(toolbar);
@@ -559,7 +560,7 @@ cEditor.ui = {
         cEditor.nodes.toolbox            = toolbox;
         cEditor.nodes.removeBlockButton  = showRemoveBlockButton;
         cEditor.nodes.blockSettings      = blockSettings;
-        cEditor.nodes.showSettingsButton = showSettingsButton;
+        // cEditor.nodes.showSettingsButton = showSettingsButton;
 
         cEditor.nodes.redactor = redactor;
 
@@ -636,7 +637,7 @@ cEditor.ui = {
         /**
         * Clicks to SETTINGS button in toolbar
         */
-        cEditor.nodes.showSettingsButton.addEventListener('click', cEditor.callback.showSettingsButtonClicked, false );
+        // cEditor.nodes.showSettingsButton.addEventListener('click', cEditor.callback.showSettingsButtonClicked, false );
 
         /**
         * All clicks to Remove tool in toolbar
@@ -946,8 +947,8 @@ cEditor.callback = {
             cEditor.toolbar.open();
 
             /** Close all panels */
-            cEditor.toolbar.settings.close();
-            cEditor.toolbar.toolbox.close();
+            // cEditor.toolbar.settings.close();
+            // cEditor.toolbar.toolbox.close();
         }
 
         /** Mark current block*/
@@ -1379,6 +1380,7 @@ cEditor.callback = {
     },
 
     /**
+    * @deprecated
     * Clicks on block settings button
     */
     showSettingsButtonClicked : function(){
@@ -1461,6 +1463,10 @@ cEditor.content = {
     */
     markBlock : function() {
 
+        if (!cEditor.content.currentNode) {
+            return;
+        }
+
         cEditor.content.currentNode.classList.add(cEditor.ui.className.BLOCK_HIGHLIGHTED);
     },
 
@@ -1469,9 +1475,11 @@ cEditor.content = {
     */
     clearMark : function() {
 
-        if (cEditor.content.currentNode) {
-            cEditor.content.currentNode.classList.remove(cEditor.ui.className.BLOCK_HIGHLIGHTED);
+        if (!cEditor.content.currentNode) {
+            return;
         }
+
+        cEditor.content.currentNode.classList.remove(cEditor.ui.className.BLOCK_HIGHLIGHTED);
 
     },
 
@@ -1516,6 +1524,18 @@ cEditor.content = {
         }
 
         this.currentNode = this.getFirstLevelBlock(targetNode);
+
+        if ( !this.currentNode ) {
+            return;
+        }
+
+        var currentToolType = cEditor.content.currentNode.dataset.type;
+        cEditor.toolbar.settings.fill(currentToolType);
+
+        /** Close toolbox when settings button is active */
+        // cEditor.toolbar.toolbox.close();
+
+        cEditor.content.markBlock();
     },
 
     /**
@@ -2459,8 +2479,8 @@ cEditor.toolbar = {
             return;
         }
 
-        var toolbarHeight = cEditor.nodes.toolbar.clientHeight || cEditor.toolbar.defaultToolbarHeight,
-            newYCoordinate = cEditor.content.currentNode.offsetTop - (cEditor.toolbar.defaultToolbarHeight / 2) + cEditor.toolbar.defaultOffset;
+        var toolbarHeight  = cEditor.nodes.toolbar.clientHeight || cEditor.toolbar.defaultToolbarHeight,
+            newYCoordinate = cEditor.content.currentNode.offsetTop + cEditor.content.currentNode.offsetHeight;
 
         cEditor.nodes.toolbar.style.transform = "translateY(" + newYCoordinate + "px)";
 
@@ -2471,9 +2491,41 @@ cEditor.toolbar = {
     */
     settings : {
 
+        /**
+        * @deprecated with 'fill' method
+        */
         opened : false,
 
         /**
+        * Append block settings
+        */
+        fill : function(toolType){
+
+            console.assert(cEditor.tools[toolType], 'toolbar.settings.fill: Wrong tool type passed :', toolType);
+
+            /**
+            * Append settings content
+            * It's stored in tool.settings
+            */
+            if (!cEditor.core.isDomNode(cEditor.tools[toolType].settings) ) {
+
+                cEditor.nodes.blockSettings.classList.add('empty');
+                cEditor.nodes.blockSettings.textContent = `Плагин «${toolType}» не имеет настроек`;
+
+            } else {
+
+                cEditor.nodes.blockSettings.classList.remove('empty');
+
+                cEditor.nodes.blockSettings.innerHTML = '';
+                cEditor.nodes.blockSettings.appendChild(cEditor.tools[toolType].settings);
+
+            }
+
+        },
+
+
+        /**
+        * @deprecated with 'fill' method
         * Append and open settings
         */
         open : function(toolType){
@@ -2500,6 +2552,7 @@ cEditor.toolbar = {
 
         /**
         * Close and clear settings
+        * @deprecated with 'fill' method
         */
         close : function(){
 
@@ -2511,6 +2564,7 @@ cEditor.toolbar = {
         },
 
         /**
+        * @deprecated with 'fill' method
         * @param {string} toolType - plugin type
         */
         toggle : function( toolType ){

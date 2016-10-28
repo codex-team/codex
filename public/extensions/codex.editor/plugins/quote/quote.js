@@ -74,7 +74,7 @@ var quoteTools = {
     makeSettings : function(data) {
 
         var holder  = document.createElement('DIV'),
-            caption = document.createElement('SPAN'),
+            // caption = document.createElement('SPAN'),
             types   = {
                         simple      : 'Простая цитата',
                         withCaption : 'Цитата с подписью',
@@ -83,13 +83,13 @@ var quoteTools = {
             selectTypeButton;
 
         /** Add holder classname */
-        holder.className = quoteTools.styles.settings.holder,
+        holder.className = quoteTools.styles.settings.holder;
 
         /** Add settings helper caption */
-        caption.textContent = 'Настройки цитат';
-        caption.className   = quoteTools.styles.settings.caption;
+        // caption.textContent = 'Настройки цитат';
+        // caption.className   = quoteTools.styles.settings.caption;
 
-        holder.appendChild(caption);
+        // holder.appendChild(caption);
 
         /** Now add type selectors */
         for (var type in types){
@@ -196,11 +196,11 @@ var quoteTools = {
 
     makeQuoteWithPhoto : function(data) {
 
-        var wrapper  = quoteTools.ui.blockquote();
+        var wrapper  = quoteTools.ui.blockquote(),
             photo    = quoteTools.ui.makeBlock('DIV', [quoteTools.styles.withPhoto.photo]),
             author   = quoteTools.ui.makeBlock('DIV', [quoteTools.styles.withPhoto.author, quoteTools.styles.quoteAuthor]),
             job      = quoteTools.ui.makeBlock('DIV', [quoteTools.styles.withPhoto.job, quoteTools.styles.authorsJob]),
-            quote    = quoteTools.ui.makeBlock('DIV', [quoteTools.styles.withPhoto.quote, quoteTools.styles.quoteText])
+            quote    = quoteTools.ui.makeBlock('DIV', [quoteTools.styles.withPhoto.quote, quoteTools.styles.quoteText]);
 
             /* Default Image src */
             if (!data.photo) {

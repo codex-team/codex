@@ -78,6 +78,7 @@
 
 .ce_wrapper {
     position: relative;
+    padding: 30px 0;
 }
 
 .ce_redactor {
@@ -93,6 +94,7 @@
     position: absolute;
     z-index: 2;
     width: 100%;
+    margin-top: 3px;
 
 }
     .ce_toolbar_tools--title {
@@ -111,19 +113,14 @@
     }
 
 
-    .ce_toolbar .toggler{
+    .ce_toolbar .trash-toggler{
         cursor: pointer;
-        padding: 6px 8px 6px 13px;
-
-        border-top-left-radius: 50px;
-        border-bottom-left-radius: 50px;
+        padding: 6px 7px 6px 8px;
+        border-radius: 3px;
     }
 
     .ce_toolbar .trash-toggler {
         cursor: pointer;
-        padding: 6px 13px 6px 8px;
-        border-top-right-radius: 50px;
-        border-bottom-right-radius: 50px;
     }
 
     .ce_toolbar .toggler,
@@ -146,8 +143,8 @@
         .ce_toolbar .toggler:hover,
         .ce_toolbar li:hover
         {
-            background: #fcfcfd;
-            color: #5779e0;
+            background: #ffffff;
+            color: #030304;
         }
         .ce_toolbar .trash-toggler:hover {
             color: #ff5c59;
@@ -170,14 +167,6 @@
             font-size: 1.1em;
         }
 
-/**
-* Base block highlighted
-*/
-.ce-block__highlighted {
-    background: #f9f9fb;
-}
-
-
 
 
 /**
@@ -186,17 +175,19 @@
 .ce_redactor_plusButton,
 .ce_block_blockButtons,
 .ce_redactor_tools,
-.ce_block_settings {
-    background: #fff;
-    border: 1px solid #b4b6c5;
-    color: #2b304a;
+.ce_block_settings{
+    /*background: #fff;*/
+    /*border: 1px solid rgba(13, 17, 47, 0.06);*/
+    color: #16171d;
 }
 
 
 /** Plus button */
 .ce_redactor_plusButton {
+    /*display: none;*/
     position: absolute;
-    left: 8%;
+    left: 130px;
+    bottom: 5px;
 
     text-align: center;
     line-height: 32px;
@@ -211,19 +202,17 @@
 
     transition: transform 80ms linear;
 }
-    .ce_redactor_plusButton:hover {
-        cursor: pointer;
-    }
 
-    .ce_redactor_plusButton--clicked {
+/*    .ce_redactor_plusButton--clicked {
         transform: rotate(45deg);
     }
-
+*/
 /** First-level block buttons */
 .ce_block_blockButtons {
 
     position: absolute;
-    right: 18px;
+    right: 128px;
+    bottom: 5px;
     border-radius: 50px;
 
     z-index: 2;
@@ -231,14 +220,8 @@
 
 /** Tools */
 .ce_redactor_tools {
-    position: absolute;
-    top: 100%;
-
-    display: none;
-
-    max-width: 700px;
-    margin-left: 119px;
-    border-radius: 50px;
+    /*display: none;*/
+    border-radius: 0 0 3px 3px;
 }
 
     .ce_redactor_tools li {
@@ -247,62 +230,40 @@
         margin: 1px 0 !important;
     }
 
-    .ce_redactor_tools li:first-child{
-        padding-left: 20px;
-
-        border-top-left-radius: 50px;
-        border-bottom-left-radius: 50px;
-    }
-    .ce_redactor_tools li:last-child {
-        padding-right: 20px;
-
-        border-top-right-radius: 50px;
-        border-bottom-right-radius: 50px;
-    }
-
-
-    .ce_redactor_tools.opened {
+    /*.ce_redactor_tools.opened {
         display: block;
-    }
-
-.ce_redactor_tools,
-.ce_block_settings{
-    margin-top: -7px;
-}
+    }*/
 
 /** Block settings panel */
 .ce_block_settings {
-    position: absolute;
-    top: 0;
-    right: 100%;
-    margin-right: 15px;
-
-    min-width: 320px;
-    text-align: center;
-
-    z-index: 999;
     padding: 15px 25px;
-
     overflow: hidden;
-
-    border-radius: 50px;
-
-    font-size: 13px;
-
-    display: none;
+    border-radius: 3px 3px 0 0;
+    font-size: 13.4px;
+    /*display: none;*/
 }
-    .ce_block_settings.opened{
-        display: block;
+    .ce_block_settings.empty{
+        display: none;
     }
-
+    /* .ce_block_settings.opened{
+        display: block;
+    }*/
+.ce_redactor_tools,
+.ce_block_settings{
+    position: relative;
+    max-width: 700px;
+    margin-left: 119px;
+    text-align: center;
+}
 
 /** Typography styles */
+
 
 .ce_redactor p{
     padding: 5px 0;
     font-size: 1em;
     line-height: 1.7em;
-    margin: 0;
+    margin: 1px 0;
 }
 .ce_redactor ul,
 .ce_redactor ol{
@@ -403,3 +364,45 @@
       backface-visibility: visible !important;
       animation-name: flipInX;
     }
+
+
+/**
+* Plugin overrides
+*/
+.ce_redactor .ce-paragraph,
+.ce_redactor .ce-header {
+    background: #fff;
+    border-radius: 3px;
+    padding: 11px 18px !important;
+}
+
+.ce_redactor .ce-paragraph{
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+.ce_redactor .ce-code{
+    max-width: 664px;
+}
+
+
+
+
+/**
+* Base block highlighted
+*/
+.ce-block__highlighted {
+    /*background: #eaecf7;*/
+}
+.ce-block__highlighted .ce-paragraph,
+.ce-block__highlighted .ce-header,
+.ce-block__highlighted .ce-code,
+.ce-block__highlighted .ce-quote,
+.ce_redactor_plusButton,
+.ce_block_blockButtons,
+.ce_redactor_tools,
+.ce_block_settings{
+    background: #eff3f9;
+    /*box-shadow: inset 0 0 0 1px rgba(146, 165, 226, 0.3);*/
+    /*box-shadow: 0 0 10px -3px rgba(113, 163, 255, 0.68), inset 0 0 0 1px rgba(146, 165, 226, 0.3);*/
+}
+
