@@ -597,27 +597,36 @@ cEditor.ui = {
             /**
              * if tools is for toolbox
              */
-            if (tool.toolbar == 'block') {
+            tool_button = cEditor.draw.toolbarButton(name, tool.iconClassname);
 
-                tool_button = cEditor.draw.toolbarButton(name, tool.iconClassname);
+            cEditor.nodes.toolbox.appendChild(tool_button);
 
-                cEditor.nodes.toolbox.appendChild(tool_button);
+            /** Save tools to static nodes */
+            cEditor.nodes.toolbarButtons[name] = tool_button;
+        }
 
-                /** Save tools to static nodes */
-                cEditor.nodes.toolbarButtons[name] = tool_button;
+        /**
+         * Add inline toolbar tools
+         */
+        cEditor.ui.addInlineToolbarTools();
 
-            }
+
+    },
+
+    addInlineToolbarTools : function() {
+
+        var tools = ['bold', 'italic', 'link', 'unlink'],
+            toolButton;
+
+        for(var tool in tools) {
+
+            toolButton = cEditor.draw.toolbarButtonInline(tools[tool], 'ce-icon-' + tools[tool]);
+            cEditor.nodes.inlineToolbar.appendChild(toolButton);
+
             /**
-             * tools which will be used in inline toolbar
+             * Add callbacks to this buttons
              */
-            else {
-
-                tool_button = cEditor.draw.toolbarButtonInline(name, tool.iconClassname);
-
-                cEditor.nodes.inlineToolbar.appendChild(tool_button);
-
-            }
-
+            cEditor.ui.inlineToolbarButtonBehaviour(toolButton, tools[tool]);
         }
 
     },
@@ -736,6 +745,15 @@ cEditor.ui = {
 
         cEditor.content.workingNodeChanged(initialBlock);
 
+    },
+
+    inlineToolbarButtonBehaviour : function(button, type) {
+
+        button.addEventListener('mousedown', function(event) {
+
+            cEditor.toolbar.inline.toolClicked(event, type);
+
+        }, false);
     }
 
 };
@@ -1000,6 +1018,17 @@ cEditor.callback = {
 
         cEditor.toolbar.toolClicked(event);
         cEditor.toolbar.close();
+
+    },
+
+    /**
+     * @protected
+     *
+     * Clicks to inline toolbar buttons
+     */
+    inlineToolbarButtonClicked : function(event) {
+
+        cEditor.toolbar.inline.toolClicked(event);
 
     },
 
@@ -2634,6 +2663,21 @@ cEditor.toolbar = {
         /**
          * @private
          *
+         * Tool Clicked
+         */
+        toolClicked : function(event, type) {
+
+            /**
+             * For simple tools we use default browser function
+             * For more complicated tools, we should write our own behavior
+             */
+            document.execCommand(type, false, null);
+
+        },
+
+        /**
+         * @private
+         *
          * Saving wrappers offset in DOM
          */
         saveWrappersOffset : function() {
@@ -3257,9 +3301,10 @@ cEditor.draw = {
      * @param {String} classname
      */
     toolbarButtonInline : function(type, classname) {
-        var button     = document.createElement("li"),
+        var button     = document.createElement("button"),
             tool_icon  = document.createElement("i");
 
+        button.type = "button";
         button.dataset.type = type;
         tool_icon.classList.add(classname);
 

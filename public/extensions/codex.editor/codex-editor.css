@@ -178,23 +178,27 @@
     margin-top: -10px;
     background: #545353;
     border-radius: 5px;
+
+    transition: transform .2s ease-out;
 }
     .ce_toolbar-inline.opened {
         display: block;
     }
 
-    .ce_toolbar-inline li:first-child {
+    .ce_toolbar-inline button:first-child {
         border-top-left-radius: 5px;
         border-bottom-left-radius: 5px;
 
         border-left: 0;
     }
 
-    .ce_toolbar-inline li:last-child {
+    .ce_toolbar-inline button:last-child {
         border-top-right-radius: 5px;
         border-bottom-right-radius: 5px;
     }
-    .ce_toolbar-inline li {
+    .ce_toolbar-inline button {
+        border: 0;
+        background: 0 0;
         display: inline-block;
         font-size: 12px;
         padding: 10px;
@@ -203,8 +207,15 @@
 
         border-left: 1px solid rgba(148, 4, 4, 0.08);
     }
-    
-    .ce_toolbar-inline li:hover {
+
+    .ce_toolbar-inline button:focus {
+        border: 0;
+        outline: 0;
+    }
+
+    .ce_toolbar-inline button:hover {
+        border: 0;
+        outline: 0;
         cursor: pointer;
         background: #e08080;
     }
