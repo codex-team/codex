@@ -26,7 +26,11 @@ var cEditor = (function (cEditor){
         textarea          : null,
         wrapper           : null,
         toolbar           : null,
-        inlineToolbar     : null,
+        inlineToolbar     : {
+            wrapper : null,
+            buttons : null,
+            actions : null
+        },
         toolbox           : null,
         notifications     : null,
         plusButton        : null,
@@ -566,7 +570,17 @@ cEditor.ui = {
         cEditor.nodes.redactor = redactor;
 
         /** Append to redactor new inline block */
-        cEditor.nodes.inlineToolbar = cEditor.nodes.wrapper.appendChild(inlineToolbar);
+        cEditor.nodes.inlineToolbar.wrapper = cEditor.nodes.wrapper.appendChild(inlineToolbar);
+
+        /** Draw toolbar buttons */
+        cEditor.nodes.inlineToolbar.buttons = cEditor.draw.inlineToolbarButtons();
+
+        /** Buttons action or settings */
+        cEditor.nodes.inlineToolbar.actions = cEditor.draw.inlineToolbarActions();
+
+        /** Append to inline toolbar buttons as part of it */
+        cEditor.nodes.inlineToolbar.wrapper.appendChild(cEditor.nodes.inlineToolbar.buttons);
+        cEditor.nodes.inlineToolbar.wrapper.appendChild(cEditor.nodes.inlineToolbar.actions);
 
     },
 
@@ -621,8 +635,8 @@ cEditor.ui = {
         for(var tool in tools) {
 
             toolButton = cEditor.draw.toolbarButtonInline(tools[tool], 'ce-icon-' + tools[tool]);
-            cEditor.nodes.inlineToolbar.appendChild(toolButton);
 
+            cEditor.nodes.inlineToolbar.buttons.appendChild(toolButton);
             /**
              * Add callbacks to this buttons
              */
@@ -932,7 +946,10 @@ cEditor.callback = {
     defaultKeyPressed : function(event) {
 
         cEditor.toolbar.close();
-        cEditor.toolbar.inline.close();
+
+        if (!cEditor.toolbar.inline.actionsOpened) {
+            cEditor.toolbar.inline.close();
+        }
     },
 
     redactorClicked : function (event) {
@@ -2598,10 +2615,19 @@ cEditor.toolbar = {
      */
     inline : {
 
+        buttonsOpened : null,
+        actionsOpened : null,
+
         wrappersOffset : {
             top  : null,
             left : null,
         },
+
+        /**
+         * saving selection that need for execCommand for styling
+         *
+         */
+        storedSelection : null,
 
         /**
          * @protected
@@ -2611,13 +2637,19 @@ cEditor.toolbar = {
         show : function() {
 
             var selectedText = this.getSelectionText(),
-                toolbar      = cEditor.nodes.inlineToolbar;
+                toolbar      = cEditor.nodes.inlineToolbar.wrapper,
+                buttons      = cEditor.nodes.inlineToolbar.buttons;
 
             if (selectedText.length > 0) {
 
                 /** Move toolbar and open */
                 cEditor.toolbar.inline.move();
+
+                /** Open inline toolbar */
                 toolbar.classList.add('opened');
+
+                /** show buttons of inline toolbar */
+                cEditor.toolbar.inline.openButtons();
             }
 
         },
@@ -2628,7 +2660,7 @@ cEditor.toolbar = {
          * Closes inline toolbar
          */
         close : function() {
-            var toolbar = cEditor.nodes.inlineToolbar;
+            var toolbar = cEditor.nodes.inlineToolbar.wrapper;
             toolbar.classList.remove('opened');
         },
 
@@ -2645,7 +2677,7 @@ cEditor.toolbar = {
 
             var coords          = this.getSelectionCoords(),
                 defaultOffset   = 0,
-                toolbar         = cEditor.nodes.inlineToolbar,
+                toolbar         = cEditor.nodes.inlineToolbar.wrapper,
                 newCoordinateX,
                 newCoordinateY;
 
@@ -2658,6 +2690,10 @@ cEditor.toolbar = {
 
             toolbar.style.transform = `translateX(${newCoordinateX}px) translateY(${newCoordinateY}px)`;
 
+            /** Close everything */
+            cEditor.toolbar.inline.closeButtons();
+            cEditor.toolbar.inline.closeAction();
+
         },
 
         /**
@@ -2668,12 +2704,54 @@ cEditor.toolbar = {
 
         toolClicked : function(event, type) {
 
+            var action;
+
             /**
              * For simple tools we use default browser function
              * For more complicated tools, we should write our own behavior
              */
-            document.execCommand(type, false, null);
+            if (type == 'link') {
 
+                /** Create input and close buttons */
+                action = cEditor.draw.inputForLink();
+                cEditor.nodes.inlineToolbar.actions.appendChild(action);
+
+                cEditor.toolbar.inline.closeButtons();
+                cEditor.toolbar.inline.openAction();
+
+                var editable        = cEditor.content.currentNode,
+                    storedSelection = cEditor.toolbar.inline.storedSelection;
+
+                storedSelection = cEditor.toolbar.inline.saveSelection(editable);
+
+                /** Callback to link action */
+                action.addEventListener('keydown', function(event){
+
+                    if (event.keyCode == cEditor.core.keys.ENTER) {
+
+                        cEditor.toolbar.inline.restoreSelection(editable, storedSelection);
+                        cEditor.toolbar.inline.setURL(action.value);
+
+                        event.preventDefault();
+                        event.stopImmediatePropagation();
+
+                        cEditor.toolbar.inline.clearRange();
+                    }
+
+                }, false);
+
+
+            } else {
+
+                document.execCommand(type, false, null);
+
+            }
+
+            /**
+             * highlight buttons
+             * after making some action
+             */
+            cEditor.nodes.inlineToolbar.buttons.childNodes.forEach(cEditor.toolbar.inline.hightlight);
         },
 
         /**
@@ -2767,6 +2845,173 @@ cEditor.toolbar = {
 
             return selectedText;
         },
+
+        /** Opens buttons block */
+        openButtons : function() {
+
+            var buttons = cEditor.nodes.inlineToolbar.buttons;
+            buttons.classList.add('opened');
+
+            cEditor.toolbar.inline.buttonsOpened = true;
+
+            /** highlight buttons */
+            cEditor.nodes.inlineToolbar.buttons.childNodes.forEach(cEditor.toolbar.inline.hightlight);
+
+        },
+
+        /** Makes buttons disappear */
+        closeButtons : function() {
+            var buttons = cEditor.nodes.inlineToolbar.buttons;
+            buttons.classList.remove('opened');
+
+            cEditor.toolbar.inline.buttonsOpened = false;
+        },
+
+        /** Open buttons defined action if exist */
+        openAction : function() {
+            var action = cEditor.nodes.inlineToolbar.actions;
+            action.classList.add('opened');
+
+            cEditor.toolbar.inline.actionsOpened = true;
+        },
+
+        /** Close actions block */
+        closeAction : function() {
+            var action = cEditor.nodes.inlineToolbar.actions;
+            action.innerHTML = '';
+            action.classList.remove('opened');
+            cEditor.toolbar.inline.actionsOpened = false;
+        },
+
+        /**
+         * @private
+         *
+         * Sets URL
+         *
+         * @param {String} url - URL
+         */
+        setURL : function(url) {
+
+            document.execCommand('createLink', false, url);
+
+            /** Close after URL inserting */
+            cEditor.toolbar.inline.closeAction();
+        },
+
+        /**
+         * @private
+         *
+         * Saves selection
+         */
+        saveSelection : function(containerEl) {
+
+            var range = window.getSelection().getRangeAt(0),
+                preSelectionRange = range.cloneRange(),
+                start;
+
+            preSelectionRange.selectNodeContents(containerEl);
+            preSelectionRange.setEnd(range.startContainer, range.startOffset);
+
+            start = preSelectionRange.toString().length;
+
+            return {
+                start: start,
+                end: start + range.toString().length
+            }
+        },
+
+        /**
+         * @private
+         *
+         * Sets to previous selection (Range)
+         *
+         * @param {Element} containerEl - editable element where we restore range
+         * @param {Object} savedSel - range basic information to restore
+         */
+        restoreSelection : function(containerEl, savedSel) {
+
+            var range     = document.createRange(),
+                charIndex = 0;
+
+            range.setStart(containerEl, 0);
+            range.collapse(true);
+
+            var nodeStack = [containerEl],
+                node,
+                foundStart = false,
+                stop = false,
+                nextCharIndex;
+
+            while (!stop && (node = nodeStack.pop())) {
+
+                if (node.nodeType == 3) {
+
+                    nextCharIndex = charIndex + node.length;
+
+                    if (!foundStart && savedSel.start >= charIndex && savedSel.start <= nextCharIndex) {
+                        range.setStart(node, savedSel.start - charIndex);
+                        foundStart = true;
+                    }
+                    if (foundStart && savedSel.end >= charIndex && savedSel.end <= nextCharIndex) {
+                        range.setEnd(node, savedSel.end - charIndex);
+                        stop = true;
+                    }
+                    charIndex = nextCharIndex;
+                } else {
+                    var i = node.childNodes.length;
+                    while (i--) {
+                        nodeStack.push(node.childNodes[i]);
+                    }
+                }
+            }
+
+            var sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+        },
+
+        /**
+         * @private
+         *
+         * Removes all ranges from window selection
+         */
+        clearRange : function() {
+            var selection = window.getSelection();
+            selection.removeAllRanges();
+        },
+
+        /**
+         * @private
+         *
+         * sets or removes hightlight
+         */
+        hightlight : function(tool) {
+            var dataType = tool.dataset.type;
+
+            if (document.queryCommandState(dataType)) {
+                cEditor.toolbar.inline.setButtonHighlighted(tool);
+            } else {
+                cEditor.toolbar.inline.removeButtonsHighLight(tool);
+            }
+        },
+
+        /**
+         * @private
+         *
+         * Mark button if text is already executed
+         */
+        setButtonHighlighted : function(button) {
+            button.classList.add('hightlighted');
+        },
+
+        /**
+         * @private
+         *
+         * Removes hightlight
+         */
+        removeButtonsHighLight : function(button) {
+            button.classList.remove('hightlighted');
+        }
 
     }
 
@@ -3166,13 +3411,56 @@ cEditor.draw = {
         return bar;
     },
 
+    /**
+     * Inline toolbar
+     */
     inlineToolbar : function() {
 
-        var bar = document.createElement('div');
+        var bar = document.createElement('DIV');
 
         bar.className += 'ce_toolbar-inline';
 
         return bar;
+
+    },
+
+    /**
+     * Wrapper for inline toobar buttons
+     */
+    inlineToolbarButtons : function() {
+
+        var wrapper = document.createElement('DIV');
+
+        wrapper.className += 'ce_toolbar-inline--buttons';
+
+        return wrapper;
+    },
+
+    /**
+     * For some actions
+     */
+    inlineToolbarActions : function() {
+
+        var wrapper = document.createElement('DIV');
+
+        wrapper.className += 'ce_toolbar-inline--actions';
+
+        return wrapper;
+
+    },
+
+    inputForLink : function() {
+
+        var input = document.createElement('INPUT');
+
+        input.type        = 'input';
+        input.className  += 'inputForLink';
+        input.placeholder = 'Type URL ...';
+        input.setAttribute('form', 'defaultForm');
+
+        input.setAttribute('autofocus', 'autofocus');
+
+        return input;
 
     },
 

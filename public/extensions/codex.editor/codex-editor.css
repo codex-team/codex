@@ -185,38 +185,66 @@
         display: block;
     }
 
-    .ce_toolbar-inline button:first-child {
-        border-top-left-radius: 5px;
-        border-bottom-left-radius: 5px;
-
-        border-left: 0;
+    .ce_toolbar-inline--buttons {
+        display: none;
     }
 
-    .ce_toolbar-inline button:last-child {
-        border-top-right-radius: 5px;
-        border-bottom-right-radius: 5px;
-    }
-    .ce_toolbar-inline button {
-        border: 0;
-        background: none;
-        display: inline-block;
-        font-size: 12px;
-        padding: 10px 12px;
-        margin: 0 !important;
-        color: #fff;
+    .ce_toolbar-inline--buttons.opened {
+        display: block;
     }
 
-    .ce_toolbar-inline button:focus {
-        border: 0;
-        outline: 0;
+        .ce_toolbar-inline--buttons button:first-child {
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+
+            border-left: 0;
+        }
+
+        .ce_toolbar-inline--buttons button:last-child {
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+        .ce_toolbar-inline--buttons button {
+            border: 0;
+            background: none;
+            display: inline-block;
+            font-size: 12px;
+            padding: 10px 12px;
+            margin: 0 !important;
+            color: #fff;
+        }
+            .ce_toolbar-inline--buttons .hightlighted {
+                color: #47b4f9;
+            }
+
+        .ce_toolbar-inline--buttons button:focus {
+            border: 0;
+            outline: 0;
+        }
+
+        .ce_toolbar-inline--buttons button:hover {
+            border: 0;
+            outline: 0;
+            cursor: pointer;
+            background: #2678f3;
+        }
+
+    .ce_toolbar-inline--actions {
+        padding: 10px;
+        display: none;
     }
 
-    .ce_toolbar-inline button:hover {
-        border: 0;
-        outline: 0;
-        cursor: pointer;
-        background: #2678f3;
-    }
+        .ce_toolbar-inline--actions.opened {
+            display: block;
+        }
+
+        .inputForLink {
+            border: 0;
+            outline: 0;
+            background: #1D1C35;
+            padding: 5px;
+            color: #fff;
+        }
 
 
 /**
