@@ -176,7 +176,7 @@
     top: 0;
     left: 0;
     margin-top: -10px;
-    background: #545353;
+    background: #242533;
     border-radius: 5px;
 
     transition: transform .2s ease-out;
@@ -198,14 +198,12 @@
     }
     .ce_toolbar-inline button {
         border: 0;
-        background: 0 0;
+        background: none;
         display: inline-block;
         font-size: 12px;
-        padding: 10px;
+        padding: 10px 12px;
         margin: 0 !important;
         color: #fff;
-
-        border-left: 1px solid rgba(148, 4, 4, 0.08);
     }
 
     .ce_toolbar-inline button:focus {
@@ -217,7 +215,7 @@
         border: 0;
         outline: 0;
         cursor: pointer;
-        background: #e08080;
+        background: #2678f3;
     }
 
 

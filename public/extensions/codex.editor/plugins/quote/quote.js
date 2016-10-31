@@ -410,7 +410,6 @@ cEditor.tools.quote = {
 
     type             : 'quote',
     iconClassname    : 'ce-icon-quote',
-    toolbar          : 'inline',
     make             : quoteTools.makeBlockToAppend,
     appendCallback   : null,
     settings         : quoteTools.makeSettings(),

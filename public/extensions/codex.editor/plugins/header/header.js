@@ -177,7 +177,6 @@ cEditor.tools.header = {
 
     type             : 'header',
     iconClassname    : 'ce-icon-header',
-    toolbar          : 'inline',
     make             : headerTool.make,
     appendCallback   : headerTool.appendCallback,
     settings         : headerTool.makeSettings(),

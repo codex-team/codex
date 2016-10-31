@@ -2665,6 +2665,7 @@ cEditor.toolbar = {
          *
          * Tool Clicked
          */
+
         toolClicked : function(event, type) {
 
             /**
@@ -2691,7 +2692,7 @@ cEditor.toolbar = {
         },
 
         /**
-         * @protected
+         * @private
          *
          * Calculates offset of DOM element
          *
@@ -3301,8 +3302,8 @@ cEditor.draw = {
      * @param {String} classname
      */
     toolbarButtonInline : function(type, classname) {
-        var button     = document.createElement("button"),
-            tool_icon  = document.createElement("i");
+        var button     = document.createElement("BUTTON"),
+            tool_icon  = document.createElement("I");
 
         button.type = "button";
         button.dataset.type = type;

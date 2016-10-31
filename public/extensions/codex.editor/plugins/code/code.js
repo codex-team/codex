@@ -66,7 +66,6 @@ cEditor.tools.code = {
 
     type             : 'code',
     iconClassname    : 'ce-icon-code',
-    toolbar          : 'block',
     make             : codeTool.make,
     appendCallback   : null,
     settings         : null,
