@@ -15,11 +15,13 @@
 .ce_plugin_header--select_button{
     display: inline-block;
     margin-left: 15px;
-    color: #70a1ff;
+    color: #1780e0;
+    border-bottom: 1px dashed #a4b3dc;
     cursor: pointer;
 }
     .ce_plugin_header--select_button:hover{
-        color: #8da8dc;
+        color: #e25252;
+        border-color: #f79e9e;
     }
 
 
