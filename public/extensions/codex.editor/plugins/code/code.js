@@ -4,7 +4,7 @@
  */
 var codeTool = {
 
-    baseClass : "tool-code",
+    baseClass : "ce-tool-code",
 
     /**
      * Make initial header block

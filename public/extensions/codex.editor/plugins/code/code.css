@@ -3,10 +3,16 @@
     margin: .4em auto !important;
 }
 
-.tool-code {
+.ce-tool-code {
     display: block;
     font-family: 'monospace', 'monaco', 'consolas', 'courier';
-    line-height: 1.5em;
+    line-height: 1.44em;
     background: #f8f8fd !important;
     color: #304f77;
+    font-size: .84em;
+}
+.ce-tool-code p{
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: inherit !important;
 }
