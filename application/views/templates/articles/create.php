@@ -36,7 +36,7 @@
 <script>
 
     /** Document is ready */
-    docReady(function() {
+    codex.docReady(function() {
 
         var submit  = document.getElementById('submitButton'),
             form    = document.forms['codex_article'],
