@@ -570,7 +570,7 @@ cEditor.ui = {
         cEditor.nodes.redactor = redactor;
 
         /** Append to redactor new inline block */
-        cEditor.nodes.inlineToolbar.wrapper = cEditor.nodes.wrapper.appendChild(inlineToolbar);
+        cEditor.nodes.inlineToolbar.wrapper = inlineToolbar;
 
         /** Draw toolbar buttons */
         cEditor.nodes.inlineToolbar.buttons = cEditor.draw.inlineToolbarButtons();
@@ -581,6 +581,8 @@ cEditor.ui = {
         /** Append to inline toolbar buttons as part of it */
         cEditor.nodes.inlineToolbar.wrapper.appendChild(cEditor.nodes.inlineToolbar.buttons);
         cEditor.nodes.inlineToolbar.wrapper.appendChild(cEditor.nodes.inlineToolbar.actions);
+
+        cEditor.nodes.wrapper.appendChild(cEditor.nodes.inlineToolbar.wrapper);
 
     },
 
@@ -629,18 +631,43 @@ cEditor.ui = {
 
     addInlineToolbarTools : function() {
 
-        var tools = ['bold', 'italic', 'link', 'unlink'],
-            toolButton;
+        var tools = {
 
-        for(var tool in tools) {
+            bold: {
+                icon    : 'ce-icon-bold',
+                command : 'bold'
+            },
 
-            toolButton = cEditor.draw.toolbarButtonInline(tools[tool], 'ce-icon-' + tools[tool]);
+            italic: {
+                icon    : 'ce-icon-italic',
+                command : 'italic'
+            },
+
+            link: {
+                icon    : 'ce-icon-link',
+                command : 'createLink',
+            },
+
+            unlink: {
+                icon    : 'ce-icon-unlink',
+                commamd : ''
+            }
+        };
+
+        var toolButton,
+            tool;
+
+        for(var name in tools) {
+
+            var tool = tools[name];
+
+            toolButton = cEditor.draw.toolbarButtonInline(name, tool.icon);
 
             cEditor.nodes.inlineToolbar.buttons.appendChild(toolButton);
             /**
              * Add callbacks to this buttons
              */
-            cEditor.ui.inlineToolbarButtonBehaviour(toolButton, tools[tool]);
+            cEditor.ui.setInlineToolbarButtonBehaviour(toolButton, tool.command);
         }
 
     },
@@ -761,7 +788,7 @@ cEditor.ui = {
 
     },
 
-    inlineToolbarButtonBehaviour : function(button, type) {
+    setInlineToolbarButtonBehaviour : function(button, type) {
 
         button.addEventListener('mousedown', function(event) {
 
@@ -1035,17 +1062,6 @@ cEditor.callback = {
 
         cEditor.toolbar.toolClicked(event);
         cEditor.toolbar.close();
-
-    },
-
-    /**
-     * @protected
-     *
-     * Clicks to inline toolbar buttons
-     */
-    inlineToolbarButtonClicked : function(event) {
-
-        cEditor.toolbar.inline.toolClicked(event);
 
     },
 
@@ -2649,7 +2665,7 @@ cEditor.toolbar = {
                 toolbar.classList.add('opened');
 
                 /** show buttons of inline toolbar */
-                cEditor.toolbar.inline.openButtons();
+                cEditor.toolbar.inline.showButtons();
             }
 
         },
@@ -2676,6 +2692,8 @@ cEditor.toolbar = {
             }
 
             var coords          = this.getSelectionCoords(),
+                offsetTop       = this.getWrappersTopOffset(),
+                offsetLeft      = this.getWrappersLeftOffset(),
                 defaultOffset   = 0,
                 toolbar         = cEditor.nodes.inlineToolbar.wrapper,
                 newCoordinateX,
@@ -2685,8 +2703,8 @@ cEditor.toolbar = {
                 defaultOffset = 40;
             }
 
-            newCoordinateX = coords.x - this.wrappersOffset.left;
-            newCoordinateY = coords.y + window.scrollY - this.wrappersOffset.top - defaultOffset - toolbar.offsetHeight;
+            newCoordinateX = coords.x - offsetLeft;
+            newCoordinateY = coords.y + window.scrollY - offsetTop - defaultOffset - toolbar.offsetHeight;
 
             toolbar.style.transform = `translateX(${newCoordinateX}px) translateY(${newCoordinateY}px)`;
 
@@ -2704,47 +2722,13 @@ cEditor.toolbar = {
 
         toolClicked : function(event, type) {
 
-            var action;
-
             /**
              * For simple tools we use default browser function
              * For more complicated tools, we should write our own behavior
              */
-            if (type == 'link') {
-
-                /** Create input and close buttons */
-                action = cEditor.draw.inputForLink();
-                cEditor.nodes.inlineToolbar.actions.appendChild(action);
-
-                cEditor.toolbar.inline.closeButtons();
-                cEditor.toolbar.inline.openAction();
-
-                var editable        = cEditor.content.currentNode,
-                    storedSelection = cEditor.toolbar.inline.storedSelection;
-
-                storedSelection = cEditor.toolbar.inline.saveSelection(editable);
-
-                /** Callback to link action */
-                action.addEventListener('keydown', function(event){
-
-                    if (event.keyCode == cEditor.core.keys.ENTER) {
-
-                        cEditor.toolbar.inline.restoreSelection(editable, storedSelection);
-                        cEditor.toolbar.inline.setURL(action.value);
-
-                        event.preventDefault();
-                        event.stopImmediatePropagation();
-
-                        cEditor.toolbar.inline.clearRange();
-                    }
-
-                }, false);
-
-
-            } else {
-
-                document.execCommand(type, false, null);
-
+            switch (type) {
+                case 'createLink' : cEditor.toolbar.inline.createLinkAction(type); break;
+                default           : cEditor.toolbar.inline.defaultToolAction(type); break;
             }
 
             /**
@@ -2767,6 +2751,24 @@ cEditor.toolbar = {
             this.wrappersOffset.top  = offset.top;
             this.wrappersOffset.left = offset.left;
 
+        },
+
+        /**
+         * @protected
+         *
+         * @returns {Int} wrappersOffset - top offset
+         */
+        getWrappersTopOffset : function() {
+            return this.wrappersOffset.top;
+        },
+
+        /**
+         * @protected
+         *
+         * @returns {Int} wrappersOffset - left offset
+         */
+        getWrappersLeftOffset : function() {
+            return this.wrappersOffset.left;
         },
 
         /**
@@ -2847,7 +2849,7 @@ cEditor.toolbar = {
         },
 
         /** Opens buttons block */
-        openButtons : function() {
+        showButtons : function() {
 
             var buttons = cEditor.nodes.inlineToolbar.buttons;
             buttons.classList.add('opened');
@@ -2868,7 +2870,7 @@ cEditor.toolbar = {
         },
 
         /** Open buttons defined action if exist */
-        openAction : function() {
+        showActions : function() {
             var action = cEditor.nodes.inlineToolbar.actions;
             action.classList.add('opened');
 
@@ -2883,6 +2885,44 @@ cEditor.toolbar = {
             cEditor.toolbar.inline.actionsOpened = false;
         },
 
+        /** Action for link creation or for setting anchor */
+        createLinkAction : function() {
+
+            /** Create input and close buttons */
+            var action = cEditor.draw.inputForLink();
+            cEditor.nodes.inlineToolbar.actions.appendChild(action);
+
+            cEditor.toolbar.inline.closeButtons();
+            cEditor.toolbar.inline.showActions();
+
+            var editable        = cEditor.content.currentNode,
+                storedSelection = cEditor.toolbar.inline.storedSelection;
+
+            storedSelection = cEditor.toolbar.inline.saveSelection(editable);
+
+            /** Callback to link action */
+            action.addEventListener('keydown', function(event){
+
+                if (event.keyCode == cEditor.core.keys.ENTER) {
+
+                    cEditor.toolbar.inline.restoreSelection(editable, storedSelection);
+                    cEditor.toolbar.inline.setAnchor(action.value);
+
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+
+                    cEditor.toolbar.inline.clearRange();
+                }
+
+            }, false);
+
+        },
+
+        /** default action behavior of tool */
+        defaultToolAction : function(type) {
+            document.execCommand(type, false, null);
+        },
+
         /**
          * @private
          *
@@ -2890,7 +2930,7 @@ cEditor.toolbar = {
          *
          * @param {String} url - URL
          */
-        setURL : function(url) {
+        setAnchor : function(url) {
 
             document.execCommand('createLink', false, url);
 
@@ -2987,7 +3027,7 @@ cEditor.toolbar = {
          */
         hightlight : function(tool) {
             var dataType = tool.dataset.type;
-
+            
             if (document.queryCommandState(dataType)) {
                 cEditor.toolbar.inline.setButtonHighlighted(tool);
             } else {
