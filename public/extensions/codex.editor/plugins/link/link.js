@@ -317,7 +317,6 @@ cEditor.tools.link = {
     make             : linkTool.makeNewBlock,
     appendCallback   : linkTool.appendCallback,
     render           : linkTool.render,
-    // settings      : linkTool.makeSettings(),
     save             : linkTool.save,
     enableLineBreaks : true
 
