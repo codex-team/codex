@@ -76,3 +76,5 @@ cEditor.tools.paragraph = {
     allowedToPaste   : true
 
 };
+
+cEditor.ui.leftToLoad--;

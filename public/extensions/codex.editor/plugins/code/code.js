@@ -74,3 +74,5 @@ cEditor.tools.code = {
     enableLineBreaks : true
 
 };
+
+cEditor.ui.leftToLoad--;

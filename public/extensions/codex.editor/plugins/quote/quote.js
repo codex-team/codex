@@ -419,3 +419,5 @@ cEditor.tools.quote = {
     allowedToPaste   : true
 
 };
+
+cEditor.ui.leftToLoad--;

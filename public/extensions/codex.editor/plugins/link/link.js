@@ -321,3 +321,5 @@ cEditor.tools.link = {
     enableLineBreaks : true
 
 };
+
+cEditor.ui.leftToLoad--;

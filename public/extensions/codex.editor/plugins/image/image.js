@@ -424,3 +424,5 @@ cEditor.tools.image = {
     enableLineBreaks : false
 
 };
+
+cEditor.ui.leftToLoad--;

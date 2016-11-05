@@ -169,7 +169,7 @@
 </div>
 
 <link rel="stylesheet" href="/public/extensions/codex.editor/codex-editor.css" />
-<script src="/public/extensions/codex.editor/codex-editor.js"></script>
+<script src="/public/extensions/codex.editor/codex-editor.js?<?= filemtime("public/extensions/codex.editor/codex-editor.js")  ?>"></script>
 <script>
 
 /**
@@ -527,33 +527,42 @@ function ajax(data) {
 */
 INPUT.items = [];
 
-    function ready(f){
-        /in/.test(document.readyState) ? setTimeout(ready,9,f) : f();
-    }
+function ready(f){
+    /in/.test(document.readyState) ? setTimeout(ready,9,f) : f();
+}
 
-    /** Document is ready */
-    ready(function() {
+cEditor.core.loadPlugin('paragraph');
+//cEditor.core.loadPlugin('code');
+//cEditor.core.loadPlugin('header');
+//cEditor.core.loadPlugin('image');
+cEditor.core.loadPlugin('link');
+cEditor.core.loadPlugin('quote');
+//cEditor.core.loadPlugin('list');
 
-        cEditor.start({
-            textareaId: 'codex_editor',
-            data : INPUT
-        });
+/** Document is ready */
+ready(function() {
 
-        cPreview.show({
-            data : INPUT,
-            holder : 'output'
-        });
-
-        load.getScript({
-            async    : true,
-            url      : '/public/js/simpleCodeStyling.js?v=2',
-            instance : 'simpleCodeStyling',
-            loadCallback : function(response){
-                simpleCode.init('.editor_workout code');
-            }
-        });
-
+    cEditor.start({
+        textareaId: 'codex_editor',
+        data : INPUT,
+        //tools : ['paragraph', 'list', 'link'],
     });
+
+    cPreview.show({
+        data : INPUT,
+        holder : 'output'
+    });
+
+    load.getScript({
+        async    : true,
+        url      : '/public/js/simpleCodeStyling.js?v=2',
+        instance : 'simpleCodeStyling',
+        loadCallback : function(response){
+            simpleCode.init('.editor_workout code');
+        }
+    });
+
+});
 
 </script>
 
@@ -631,7 +640,7 @@ INPUT.items = [];
 
 </script>
 
-
+<!--
 <script src="/public/extensions/codex.editor/plugins/paragraph/paragraph.js"></script>
 <link rel="stylesheet" href="/public/extensions/codex.editor/plugins/paragraph/paragraph.css" />
 
@@ -652,3 +661,4 @@ INPUT.items = [];
 
 <script src="/public/extensions/codex.editor/plugins/image/image.js"></script>
 <link rel="stylesheet" href="/public/extensions/codex.editor/plugins/image/image.css" />
+-->
