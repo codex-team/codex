@@ -37,6 +37,8 @@ var cEditor = (function (cEditor){
         removeBlockButton : null,
         showSettingsButton: null,
         blockSettings     : null,
+        pluginSettings   : null,
+        defaultSettings   : null,
         toolbarButtons    : {}, // { type : DomEl, ... }
         redactor          : null
     };
@@ -539,12 +541,19 @@ cEditor.ui = {
         toolbox               = cEditor.draw.toolbox();
         redactor              = cEditor.draw.redactor();
 
+        /** settings */
+        var defaultSettings = cEditor.draw.defaultSettings(),
+            pluginSettings  = cEditor.draw.pluginsSettings();
+
+        /** Add default and plugins settings */
+        blockSettings.appendChild(pluginSettings);
+        blockSettings.appendChild(defaultSettings);
+
         /** Make blocks buttons
-        * This block contains settings button and remove block button
-        */
+         * This block contains settings button and remove block button
+         */
         blockButtons.appendChild(showSettingsButton);
         blockButtons.appendChild(blockSettings);
-        blockButtons.appendChild(showRemoveBlockButton);
 
         /** Appending first-level block buttons */
         toolbar.appendChild(blockButtons);
@@ -565,6 +574,8 @@ cEditor.ui = {
         cEditor.nodes.toolbox            = toolbox;
         cEditor.nodes.removeBlockButton  = showRemoveBlockButton;
         cEditor.nodes.blockSettings      = blockSettings;
+        cEditor.nodes.pluginSettings     = pluginSettings;
+        cEditor.nodes.defaultSettings    = defaultSettings;
         cEditor.nodes.showSettingsButton = showSettingsButton;
 
         cEditor.nodes.redactor = redactor;
@@ -699,11 +710,6 @@ cEditor.ui = {
         * Mouse click to radactor
         */
         cEditor.nodes.redactor.addEventListener('click', cEditor.callback.redactorClicked, false );
-
-        /**
-        * Mouse over to the Plus button
-        */
-        cEditor.nodes.plusButton.addEventListener('mouseover', cEditor.toolbar.toolbox.open, false );
 
         /**
         * Clicks to the Plus button
@@ -2617,11 +2623,11 @@ cEditor.toolbar = {
             if (!cEditor.tools[toolType] || !cEditor.core.isDomNode(cEditor.tools[toolType].settings) ) {
 
                 cEditor.core.log('Wrong tool type', 'warn');
-                cEditor.nodes.blockSettings.innerHTML = `Плагин «${toolType}» не имеет настроек`;
+                cEditor.nodes.pluginSettings.innerHTML = `Плагин «${toolType}» не имеет настроек`;
 
             } else {
 
-                cEditor.nodes.blockSettings.appendChild(cEditor.tools[toolType].settings);
+                cEditor.nodes.pluginSettings.appendChild(cEditor.tools[toolType].settings);
 
             }
 
@@ -3625,6 +3631,25 @@ cEditor.draw = {
         settings.className += 'ce_block_settings';
 
         return settings;
+    },
+
+    defaultSettings : function() {
+
+        var div = document.createElement('div');
+
+        div.classList.add('ce_block_settings-default');
+
+        return div;
+    },
+
+    pluginsSettings : function() {
+
+        var div = document.createElement('div');
+
+        div.classList.add('ce_block_settings-plugin');
+
+        return div;
+
     },
 
     plusButton : function() {
