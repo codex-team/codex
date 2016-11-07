@@ -921,6 +921,11 @@ cEditor.callback = {
 
             cEditor.content.splitBlock(currentInputIndex);
 
+            /** Show plus button when next input after split is empty*/
+            if (!cEditor.state.inputs[currentInputIndex + 1].textContent.trim()) {
+                cEditor.toolbar.showPlusButton();
+            }
+
         } else {
 
             if ( currentSelectedNode && currentSelectedNode.parentNode) {
@@ -933,12 +938,15 @@ cEditor.callback = {
 
                 event.preventDefault();
 
-                cEditor.core.log('ENTER clicked in last textNode. Crate new BLOCK');
+                cEditor.core.log('ENTER clicked in last textNode. Create new BLOCK');
 
                 cEditor.content.insertBlock({
                     type  : NEW_BLOCK_TYPE,
                     block : cEditor.tools[NEW_BLOCK_TYPE].render()
                 }, true );
+
+                /** Show plus button with empty block */
+                cEditor.toolbar.showPlusButton();
 
             } else {
 
@@ -981,6 +989,7 @@ cEditor.callback = {
 
         if (!cEditor.toolbar.inline.actionsOpened) {
             cEditor.toolbar.inline.close();
+            cEditor.content.clearMark();
         }
     },
 
@@ -1034,6 +1043,7 @@ cEditor.callback = {
             */
             cEditor.toolbar.move();
 
+
             cEditor.toolbar.open();
 
         } else {
@@ -1050,8 +1060,21 @@ cEditor.callback = {
             cEditor.toolbar.toolbox.close();
         }
 
-        /** Mark current block*/
-        cEditor.content.markBlock();
+
+        if (!cEditor.content.currentNode.textContent.trim()) {
+
+            /** Mark current block*/
+            cEditor.content.markBlock();
+
+            /** Show plus button */
+            cEditor.toolbar.showPlusButton();
+
+        } else {
+
+            /** Hide plus buttons */
+            cEditor.toolbar.hidePlusButton();
+        }
+
 
     },
 
@@ -2400,6 +2423,14 @@ cEditor.toolbar = {
 
         }
 
+    },
+
+    hidePlusButton : function() {
+        cEditor.nodes.plusButton.style.display = "none";
+    },
+
+    showPlusButton : function() {
+        cEditor.nodes.plusButton.style.display = "inline-block";
     },
 
     /**
