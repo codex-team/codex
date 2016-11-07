@@ -1061,7 +1061,9 @@ cEditor.callback = {
         }
 
 
-        if (!cEditor.content.currentNode.textContent.trim()) {
+        var inputIsEmpty = !cEditor.content.currentNode.textContent.trim();
+
+        if (inputIsEmpty) {
 
             /** Show plus button */
             cEditor.toolbar.showPlusButton();
@@ -2425,11 +2427,11 @@ cEditor.toolbar = {
     },
 
     hidePlusButton : function() {
-        cEditor.nodes.plusButton.style.display = "none";
+        cEditor.nodes.plusButton.classList.add('hide');
     },
 
     showPlusButton : function() {
-        cEditor.nodes.plusButton.style.display = "inline-block";
+        cEditor.nodes.plusButton.classList.remove('hide');
     },
 
     /**

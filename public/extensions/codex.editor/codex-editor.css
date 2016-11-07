@@ -288,6 +288,11 @@
 
     transition: transform 80ms linear;
 }
+
+    .ce_redactor_plusButton .hide {
+        display: none;
+    }
+
     .ce_redactor_plusButton:hover {
         cursor: pointer;
     }
