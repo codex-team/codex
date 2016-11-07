@@ -4,7 +4,7 @@
  */
 var codeTool = {
 
-    baseClass : "tool-code",
+    baseClass : "ce-code",
 
     /**
      * Make initial header block
@@ -15,13 +15,12 @@ var codeTool = {
 
         var tag = document.createElement('code');
 
-        tag.classList += codeTool.baseClass;
+        tag.classList.add(codeTool.baseClass);
 
         if (data && data.text) {
             tag.innerHTML = data.text;
         }
 
-        tag.classList.add('ce-code');
         tag.contentEditable = true;
 
         return tag;

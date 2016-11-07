@@ -1,12 +1,10 @@
 .ce-code {
     max-width: 700px;
-    margin: 20px auto !important;
-}
-
-.tool-code {
     display: block;
+    margin: 0 auto;
     font-family: 'monospace', 'monaco', 'consolas', 'courier';
     line-height: 1.5em;
-    background: #f8f8fd !important;
-    color: #304f77;
+    background: #fdfdff !important;
+    border: 1px solid #ebeef3;
+    color: #325179;
 }

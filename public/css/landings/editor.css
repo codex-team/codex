@@ -1,0 +1,158 @@
+/**
+* Editor form styles
+*/
+body{
+    background: #f0f3f9;
+}
+.site_header{
+    background: #fff;
+    border-color: #e7e9f5;
+}
+
+.editor_workout{
+    margin: 30px;
+    padding-bottom: 120px;
+    min-height: 600px;
+    border-radius: 3px;
+    background: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    letter-spacing: .1px;
+    font-size: 15px;
+}
+.editor_workout .big_header{
+    margin-bottom: 0;
+    padding-bottom: 20px;
+}
+.editor-landing--disclaimer{
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+    font-variant: small-caps;
+    font-size: .9em;
+    text-align: center;
+}
+.editor_workout .ce_block{
+    /*max-width: 700px;*/
+    /*margin: 20px auto;*/
+    /*padding: 0 !important;*/
+}
+    .editor_workout .ce_block[data-type="paragraph"]{
+        line-height: 1.7em;
+    }
+    .editor_workout [contenteditable]{
+        outline: none !important;
+    }
+
+    .ce_block--stretched {
+        margin: 0 !important;
+        max-width: none !important;
+        padding: 0 !important;
+    }
+
+.editor_workout h2,
+.editor_workout h3,
+.editor_workout h4{
+    line-height: 1.4em;
+}
+.editor_workout h3{
+    margin: 1.3em 0 .5em;
+    font-size: 1.3em;
+}
+.editor_workout h2{
+    margin: 1.7em 0 1.3em;
+    font-size: 1.7em;
+}
+.editor_workout h4{
+    margin: 1.7em 0 1.3em;
+    font-size: 1.1em;
+}
+.editor_workout ul,
+.editor_workout ol{
+    margin: 3em 0;
+}
+.editor_workout [data-type="link"]{
+    margin: 45px auto;
+}
+    .editor_workout li{
+        margin: 10px 0 !important;
+        list-style-position: outside;
+        line-height: 1.7em;
+    }
+.editor_workout code{
+    padding: 5px 10px;
+    font-size: .8em;
+}
+.editor_workout .ce_toolbar{
+    /*margin-left: 119px;*/
+}
+.editor-output-preview{
+    margin: 0 0px -30px;
+    background: #242835;
+    padding: 50px 0;
+    color: #6c7d98;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+}
+    .editor-output-preview pre{
+        max-width: 700px;
+        margin: 0 auto;
+        font-size: .86em;
+    }
+.editor-output--header{
+    margin: 40px 0 30px;
+    text-align: center;
+    font-size: 33px;
+    color: #fff;
+    letter-spacing: .4px
+}
+.editor-output--description{
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.editor_output__buttons {
+    text-align: center;
+}
+    .editor_output__buttons .button{
+        margin-right: 20px;
+        font-size: .9em;
+    }
+.site_footer{
+    border-top: 0;
+    background: #1a1c29;
+    color: #50586d;
+}
+    .site_footer h5{
+        color: #9da9cc;
+    }
+    .site_footer a{
+        color: #6581c5;
+    }
+    .site_footer .desclimer{
+        color: #535f7b;
+    }
+
+
+/**
+* Code highlighting
+*/
+.sc_attr{
+    color: #728cbd;
+}
+.sc_toolname{
+    color: #83decb;
+}
+.sc_tag{
+    color: #a9b6de;
+}
+.sc_key{
+    color: #42cca1;
+}
+
+
+/**
+* CodeX Editor styles overlay
+*/
+.ce_block[data-type="code"]{
+    padding: 1em 0 !important;
+}
+
