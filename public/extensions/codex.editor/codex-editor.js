@@ -921,6 +921,11 @@ cEditor.callback = {
 
             cEditor.content.splitBlock(currentInputIndex);
 
+            /** Show plus button when next input after split is empty*/
+            if (!cEditor.state.inputs[currentInputIndex + 1].textContent.trim()) {
+                cEditor.toolbar.showPlusButton();
+            }
+
         } else {
 
             if ( currentSelectedNode && currentSelectedNode.parentNode) {
@@ -933,12 +938,15 @@ cEditor.callback = {
 
                 event.preventDefault();
 
-                cEditor.core.log('ENTER clicked in last textNode. Crate new BLOCK');
+                cEditor.core.log('ENTER clicked in last textNode. Create new BLOCK');
 
                 cEditor.content.insertBlock({
                     type  : NEW_BLOCK_TYPE,
                     block : cEditor.tools[NEW_BLOCK_TYPE].render()
                 }, true );
+
+                /** Show plus button with empty block */
+                cEditor.toolbar.showPlusButton();
 
             } else {
 
@@ -981,6 +989,7 @@ cEditor.callback = {
 
         if (!cEditor.toolbar.inline.actionsOpened) {
             cEditor.toolbar.inline.close();
+            cEditor.content.clearMark();
         }
     },
 
@@ -1034,6 +1043,7 @@ cEditor.callback = {
             */
             cEditor.toolbar.move();
 
+
             cEditor.toolbar.open();
 
         } else {
@@ -1048,6 +1058,20 @@ cEditor.callback = {
             /** Close all panels */
             cEditor.toolbar.settings.close();
             cEditor.toolbar.toolbox.close();
+        }
+
+
+        var inputIsEmpty = !cEditor.content.currentNode.textContent.trim();
+
+        if (inputIsEmpty) {
+
+            /** Show plus button */
+            cEditor.toolbar.showPlusButton();
+
+        } else {
+
+            /** Hide plus buttons */
+            cEditor.toolbar.hidePlusButton();
         }
 
         /** Mark current block*/
@@ -2402,6 +2426,14 @@ cEditor.toolbar = {
 
     },
 
+    hidePlusButton : function() {
+        cEditor.nodes.plusButton.classList.add('hide');
+    },
+
+    showPlusButton : function() {
+        cEditor.nodes.plusButton.classList.remove('hide');
+    },
+
     /**
     * Panel which wrappes all User defined plugins (tools)
     */
@@ -2562,7 +2594,7 @@ cEditor.toolbar = {
         var toolbarHeight = cEditor.nodes.toolbar.clientHeight || cEditor.toolbar.defaultToolbarHeight,
             newYCoordinate = cEditor.content.currentNode.offsetTop - (cEditor.toolbar.defaultToolbarHeight / 2) + cEditor.toolbar.defaultOffset;
 
-        cEditor.nodes.toolbar.style.transform = "translateY(" + newYCoordinate + "px)";
+        cEditor.nodes.toolbar.style.transform = `translate3D(0, ${newYCoordinate}px, 0)`;
 
     },
 
@@ -2706,7 +2738,7 @@ cEditor.toolbar = {
             newCoordinateX = coords.x - this.wrappersOffset.left;
             newCoordinateY = coords.y + window.scrollY - this.wrappersOffset.top - defaultOffset - toolbar.offsetHeight;
 
-            toolbar.style.transform = `translateX(${newCoordinateX}px) translateY(${newCoordinateY}px)`;
+            toolbar.style.transform = `translate3D(${newCoordinateX}px, ${newCoordinateY}px, 0)`;
 
             /** Close everything */
             cEditor.toolbar.inline.closeButtons();
