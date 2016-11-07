@@ -119,15 +119,7 @@
         border-bottom-left-radius: 50px;
     }
 
-    .ce_toolbar .trash-toggler {
-        cursor: pointer;
-        padding: 6px 13px 6px 8px;
-        border-top-right-radius: 50px;
-        border-bottom-right-radius: 50px;
-    }
-
     .ce_toolbar .toggler,
-    .ce_toolbar .trash-toggler,
     .ce_toolbar li
     {
         display: inline-block;
@@ -143,27 +135,14 @@
     }
 
         .ce_toolbar .selected,
-        .ce_toolbar .toggler:hover,
         .ce_toolbar li:hover
         {
             background: #fcfcfd;
             color: #5779e0;
         }
-        .ce_toolbar .trash-toggler:hover {
-            color: #ff5c59;
-        }
-        .trash-active {
-            background: #FF5959 !important;
-            color: #fff !important;
-        }
-        .trash-active:hover {
-            background: #E22C2C !important;
-        }
+
         .removing-request {
             opacity: .1;
-        }
-        .ce_toolbar .remove_btn {
-            font-size: 1.1em;
         }
 
         .ce_toolbar .settings_btn {
@@ -272,6 +251,10 @@
     .ce_block_settings-default {
 
     }
+        .ce_button-remove {
+            border: 1px solid red;
+            padding: 5px;
+        }
 
     .ce_block_settings-plugin {
 

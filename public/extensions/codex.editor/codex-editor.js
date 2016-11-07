@@ -582,6 +582,8 @@ cEditor.ui = {
 
         cEditor.ui.makeInlineToolbar(inlineToolbar);
 
+        /** fill in default settings */
+        cEditor.toolbar.settings.makeDefaultSettings();
     },
 
     makeInlineToolbar : function(container) {
@@ -2642,7 +2644,7 @@ cEditor.toolbar = {
         close : function(){
 
             cEditor.nodes.blockSettings.classList.remove('opened');
-            cEditor.nodes.blockSettings.innerHTML = '';
+            cEditor.nodes.pluginSettings.innerHTML = '';
 
             this.opened = false;
 
@@ -2664,6 +2666,15 @@ cEditor.toolbar = {
             }
 
         },
+
+        makeDefaultSettings : function() {
+
+            var removeButton = cEditor.draw.removeBlockButton();
+
+            cEditor.nodes.defaultSettings.appendChild(removeButton);
+
+
+        }
 
     },
 
@@ -3665,13 +3676,12 @@ cEditor.draw = {
 
     removeBlockButton : function() {
 
-        var toggler = document.createElement('span');
+        var div = document.createElement('DIV');
 
-        toggler.className = 'trash-toggler';
+        div.className = 'ce_button-remove';
+        div.textContent = 'Удалить блок';
 
-        toggler.innerHTML = '<i class="remove_btn ce-icon-trash"></i>';
-
-        return toggler;
+        return div;
 
     },
 
