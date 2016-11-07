@@ -1063,9 +1063,6 @@ cEditor.callback = {
 
         if (!cEditor.content.currentNode.textContent.trim()) {
 
-            /** Mark current block*/
-            cEditor.content.markBlock();
-
             /** Show plus button */
             cEditor.toolbar.showPlusButton();
 
@@ -1075,6 +1072,8 @@ cEditor.callback = {
             cEditor.toolbar.hidePlusButton();
         }
 
+        /** Mark current block*/
+        cEditor.content.markBlock();
 
     },
 
@@ -2593,7 +2592,7 @@ cEditor.toolbar = {
         var toolbarHeight = cEditor.nodes.toolbar.clientHeight || cEditor.toolbar.defaultToolbarHeight,
             newYCoordinate = cEditor.content.currentNode.offsetTop - (cEditor.toolbar.defaultToolbarHeight / 2) + cEditor.toolbar.defaultOffset;
 
-        cEditor.nodes.toolbar.style.transform = "translateY(" + newYCoordinate + "px)";
+        cEditor.nodes.toolbar.style.transform = `translate3D(0, ${newYCoordinate}px, 0)`;
 
     },
 
@@ -2737,7 +2736,7 @@ cEditor.toolbar = {
             newCoordinateX = coords.x - this.wrappersOffset.left;
             newCoordinateY = coords.y + window.scrollY - this.wrappersOffset.top - defaultOffset - toolbar.offsetHeight;
 
-            toolbar.style.transform = `translateX(${newCoordinateX}px) translateY(${newCoordinateY}px)`;
+            toolbar.style.transform = `translate3D(${newCoordinateX}px, ${newCoordinateY}px, 0)`;
 
             /** Close everything */
             cEditor.toolbar.inline.closeButtons();
