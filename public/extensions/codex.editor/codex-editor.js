@@ -34,9 +34,10 @@ var cEditor = (function (cEditor){
         toolbox           : null,
         notifications     : null,
         plusButton        : null,
-        removeBlockButton : null,
         showSettingsButton: null,
         blockSettings     : null,
+        pluginSettings    : null,
+        defaultSettings   : null,
         toolbarButtons    : {}, // { type : DomEl, ... }
         redactor          : null
     };
@@ -532,19 +533,25 @@ cEditor.ui = {
         toolbar               = cEditor.draw.toolbar();
         inlineToolbar         = cEditor.draw.inlineToolbar();
         plusButton            = cEditor.draw.plusButton();
-        showRemoveBlockButton = cEditor.draw.removeBlockButton();
         showSettingsButton    = cEditor.draw.settingsButton();
         blockSettings         = cEditor.draw.blockSettings();
         blockButtons          = cEditor.draw.blockButtons();
         toolbox               = cEditor.draw.toolbox();
         redactor              = cEditor.draw.redactor();
 
+        /** settings */
+        var defaultSettings = cEditor.draw.defaultSettings(),
+            pluginSettings  = cEditor.draw.pluginsSettings();
+
+        /** Add default and plugins settings */
+        blockSettings.appendChild(pluginSettings);
+        blockSettings.appendChild(defaultSettings);
+
         /** Make blocks buttons
-        * This block contains settings button and remove block button
-        */
+         * This block contains settings button and remove block button
+         */
         blockButtons.appendChild(showSettingsButton);
         blockButtons.appendChild(blockSettings);
-        blockButtons.appendChild(showRemoveBlockButton);
 
         /** Appending first-level block buttons */
         toolbar.appendChild(blockButtons);
@@ -563,14 +570,17 @@ cEditor.ui = {
         cEditor.nodes.toolbar            = toolbar;
         cEditor.nodes.plusButton         = plusButton;
         cEditor.nodes.toolbox            = toolbox;
-        cEditor.nodes.removeBlockButton  = showRemoveBlockButton;
         cEditor.nodes.blockSettings      = blockSettings;
+        cEditor.nodes.pluginSettings     = pluginSettings;
+        cEditor.nodes.defaultSettings    = defaultSettings;
         cEditor.nodes.showSettingsButton = showSettingsButton;
 
         cEditor.nodes.redactor = redactor;
 
         cEditor.ui.makeInlineToolbar(inlineToolbar);
 
+        /** fill in default settings */
+        cEditor.toolbar.settings.addDefaultSettings();
     },
 
     makeInlineToolbar : function(container) {
@@ -701,11 +711,6 @@ cEditor.ui = {
         cEditor.nodes.redactor.addEventListener('click', cEditor.callback.redactorClicked, false );
 
         /**
-        * Mouse over to the Plus button
-        */
-        cEditor.nodes.plusButton.addEventListener('mouseover', cEditor.toolbar.toolbox.open, false );
-
-        /**
         * Clicks to the Plus button
         */
         cEditor.nodes.plusButton.addEventListener('click', cEditor.callback.plusButtonClicked, false);
@@ -714,11 +719,6 @@ cEditor.ui = {
         * Clicks to SETTINGS button in toolbar
         */
         cEditor.nodes.showSettingsButton.addEventListener('click', cEditor.callback.showSettingsButtonClicked, false );
-
-        /**
-        * All clicks to Remove tool in toolbar
-        */
-        cEditor.nodes.removeBlockButton.addEventListener('click', cEditor.callback.removeBlock, false);
 
         /**
          *  @deprecated ( but now in use for syncronization );
@@ -841,7 +841,7 @@ cEditor.callback = {
         if (cEditor.toolbar.opened && !cEditor.toolbar.toolbox.opened) {
             cEditor.toolbar.toolbox.open();
         } else {
-            cEditor.toolbar.leaf();
+            cEditor.toolbar.toolbox.leaf();
         }
 
         event.preventDefault();
@@ -879,8 +879,8 @@ cEditor.callback = {
 
             event.preventDefault();
 
-            cEditor.toolbar.toolClicked(event);
-            cEditor.toolbar.toolbox.close();
+            cEditor.toolbar.toolbox.toolClicked(event);
+
             cEditor.toolbar.close();
 
             return;
@@ -1089,7 +1089,7 @@ cEditor.callback = {
 
         cEditor.toolbar.current = button.dataset.type;
 
-        cEditor.toolbar.toolClicked(event);
+        cEditor.toolbar.toolbox.toolClicked(event);
         cEditor.toolbar.close();
 
     },
@@ -1134,7 +1134,6 @@ cEditor.callback = {
     removeBlock : function(event) {
 
         var current             = cEditor.content.currentNode,
-            removeBlockButton   = cEditor.nodes.removeBlockButton,
             firstLevelBlocksCount;
 
         /**
@@ -1143,9 +1142,8 @@ cEditor.callback = {
         if (!current.classList.contains('removing-request')) {
 
             current.classList.add('removing-request');
-
-            /** Make trash tool active */
-            removeBlockButton.classList.add('trash-active');
+            cEditor.toolbar.settings.removeBlock.setting.classList.add('hide');
+            cEditor.toolbar.settings.removeBlock.actions.classList.add('opened');
 
         } else {
 
@@ -2375,20 +2373,6 @@ cEditor.toolbar = {
     */
     open : function (){
 
-        var current             = cEditor.content.currentNode,
-            removeBlockButton   = cEditor.nodes.removeBlockButton;
-
-        /** Set trash state before we open the block */
-        if (current.classList.contains('removing-request')) {
-            removeBlockButton.classList.add('trash-active');
-        } else {
-            removeBlockButton.classList.remove('trash-active');
-        }
-
-        if (this.opened) {
-            return;
-        }
-
         cEditor.nodes.toolbar.classList.add('opened');
         this.opened = true;
 
@@ -2400,15 +2384,17 @@ cEditor.toolbar = {
     close : function(){
 
         cEditor.nodes.toolbar.classList.remove('opened');
-
         this.opened  = false;
+
         this.current = null;
+
         for (var button in cEditor.nodes.toolbarButtons){
             cEditor.nodes.toolbarButtons[button].classList.remove('selected');
         }
 
         /** Close toolbox when toolbar is not displayed */
         cEditor.toolbar.toolbox.close();
+        cEditor.toolbar.settings.close();
 
     },
 
@@ -2435,50 +2421,65 @@ cEditor.toolbar = {
     },
 
     /**
-    * Panel which wrappes all User defined plugins (tools)
+    * Moving toolbar to the specified node
     */
-    toolbox : {
+    move : function() {
 
-        opened : false,
+        /** Close Toolbox when we move toolbar */
+        cEditor.toolbar.toolbox.close();
 
-        /** Shows toolbox */
-        open : function() {
+        if (!cEditor.content.currentNode) {
+            return;
+        }
 
-            /** Close setting if toolbox is opened */
-            if (cEditor.toolbar.settings.opened) {
-                cEditor.toolbar.settings.close();
-            }
+        var toolbarHeight = cEditor.nodes.toolbar.clientHeight || cEditor.toolbar.defaultToolbarHeight,
+            newYCoordinate = cEditor.content.currentNode.offsetTop - (cEditor.toolbar.defaultToolbarHeight / 2) + cEditor.toolbar.defaultOffset;
 
-            /** display toolbox */
-            cEditor.nodes.toolbox.classList.add('opened');
+        cEditor.nodes.toolbar.style.transform = `translate3D(0, ${newYCoordinate}px, 0)`;
 
-            /** Animate plus button */
-            cEditor.nodes.plusButton.classList.add('ce_redactor_plusButton--clicked');
+    },
+};
 
-            /** toolbox state */
-            cEditor.toolbar.toolbox.opened = true;
+cEditor.toolbar.toolbox = {
 
-        },
+    opened : false,
 
-        /** Closes toolbox */
-        close : function() {
+    /** Shows toolbox */
+    open : function() {
 
-            /** Makes toolbox disapear */
-            cEditor.nodes.toolbox.classList.remove('opened');
+        /** Close setting if toolbox is opened */
+        if (cEditor.toolbar.settings.opened) {
+            cEditor.toolbar.settings.close();
+        }
 
-            /** Rotate plus button */
-            cEditor.nodes.plusButton.classList.remove('ce_redactor_plusButton--clicked');
+        /** display toolbox */
+        cEditor.nodes.toolbox.classList.add('opened');
 
-            /** toolbox state */
-            cEditor.toolbar.toolbox.opened = false;
+        /** Animate plus button */
+        cEditor.nodes.plusButton.classList.add('ce_redactor_plusButton--clicked');
 
-        },
+        /** toolbox state */
+        cEditor.toolbar.toolbox.opened = true;
+
+    },
+
+    /** Closes toolbox */
+    close : function() {
+
+        /** Makes toolbox disapear */
+        cEditor.nodes.toolbox.classList.remove('opened');
+
+        /** Rotate plus button */
+        cEditor.nodes.plusButton.classList.remove('ce_redactor_plusButton--clicked');
+
+        /** toolbox state */
+        cEditor.toolbar.toolbox.opened = false;
 
     },
 
     leaf : function(){
 
-        var currentTool = this.current,
+        var currentTool = cEditor.toolbar.current,
             tools       = Object.keys(cEditor.tools),
             barButtons  = cEditor.nodes.toolbarButtons,
             nextToolIndex,
@@ -2503,7 +2504,7 @@ cEditor.toolbar = {
 
         barButtons[toolToSelect].classList.add('selected');
 
-        this.current = toolToSelect;
+        cEditor.toolbar.current = toolToSelect;
 
     },
 
@@ -2579,569 +2580,657 @@ cEditor.toolbar = {
         cEditor.toolbar.move();
     },
 
+};
+
+/**
+ * Toolbar settings button
+ *
+ * Holds plugins actions (settings) and default - codex settings.
+ */
+cEditor.toolbar.settings = {
+
+    opened : false,
+
+    setting : null,
+    actions : null,
+
     /**
-    * Moving toolbar to the specified node
+    * Append and open settings
     */
-    move : function() {
+    open : function(toolType){
 
-        /** Close Toolbox when we move toolbar */
-        cEditor.toolbar.toolbox.close();
+        /**
+        * Append settings content
+        * It's stored in tool.settings
+        */
+        if (!cEditor.tools[toolType] || !cEditor.core.isDomNode(cEditor.tools[toolType].settings) ) {
 
-        if (!cEditor.content.currentNode) {
-            return;
+            cEditor.core.log('Wrong tool type', 'warn');
+            cEditor.nodes.pluginSettings.innerHTML = `Плагин «${toolType}» не имеет настроек`;
+
+        } else {
+
+            cEditor.nodes.pluginSettings.appendChild(cEditor.tools[toolType].settings);
+
         }
 
-        var toolbarHeight = cEditor.nodes.toolbar.clientHeight || cEditor.toolbar.defaultToolbarHeight,
-            newYCoordinate = cEditor.content.currentNode.offsetTop - (cEditor.toolbar.defaultToolbarHeight / 2) + cEditor.toolbar.defaultOffset;
+        var currentBlock = cEditor.content.currentNode;
 
-        cEditor.nodes.toolbar.style.transform = `translate3D(0, ${newYCoordinate}px, 0)`;
+        /** Activate removing request */
+        if (currentBlock.classList.contains('removing-request')) {
+            cEditor.toolbar.settings.setting.classList.add('hide');
+            cEditor.toolbar.settings.actions.classList.add('opened');
+        } else {
+            cEditor.toolbar.settings.setting.classList.remove('hide');
+            cEditor.toolbar.settings.actions.classList.remove('opened');
+        }
 
+        /** Open settings block */
+        cEditor.nodes.blockSettings.classList.add('opened');
+        this.opened = true;
     },
 
     /**
-    * Block settings methods
+    * Close and clear settings
     */
-    settings : {
+    close : function(){
 
-        opened : false,
+        cEditor.nodes.blockSettings.classList.remove('opened');
+        cEditor.nodes.pluginSettings.innerHTML = '';
 
-        /**
-        * Append and open settings
-        */
-        open : function(toolType){
-
-            /**
-            * Append settings content
-            * It's stored in tool.settings
-            */
-            if (!cEditor.tools[toolType] || !cEditor.core.isDomNode(cEditor.tools[toolType].settings) ) {
-
-                cEditor.core.log('Wrong tool type', 'warn');
-                cEditor.nodes.blockSettings.innerHTML = `Плагин «${toolType}» не имеет настроек`;
-
-            } else {
-
-                cEditor.nodes.blockSettings.appendChild(cEditor.tools[toolType].settings);
-
-            }
-
-            cEditor.nodes.blockSettings.classList.add('opened');
-            this.opened = true;
-
-        },
-
-        /**
-        * Close and clear settings
-        */
-        close : function(){
-
-            cEditor.nodes.blockSettings.classList.remove('opened');
-            cEditor.nodes.blockSettings.innerHTML = '';
-
-            this.opened = false;
-
-        },
-
-        /**
-        * @param {string} toolType - plugin type
-        */
-        toggle : function( toolType ){
-
-            if ( !this.opened ){
-
-                this.open(toolType);
-
-            } else {
-
-                this.close();
-
-            }
-
-        },
+        this.opened = false;
 
     },
 
     /**
-     * This is a inline toolbar that works with selected word.
-     * Ex: Wraps text to B, U, I tags and so on.
-     * Also this toolbar will be used for making text a link
+    * @param {string} toolType - plugin type
+    */
+    toggle : function( toolType ){
+
+        if ( !this.opened ){
+
+            this.open(toolType);
+
+        } else {
+
+            this.close();
+
+        }
+
+    },
+
+    addDefaultSettings : function() {
+
+        var removeButton = this.makeRemoveBlockButton();
+
+        cEditor.nodes.defaultSettings.appendChild(removeButton);
+
+    },
+
+    /**
+     * Here we will draw buttons and add listeners to components
      */
-    inline : {
+    makeRemoveBlockButton : function() {
 
-        buttonsOpened : null,
-        actionsOpened : null,
+        var removeBlockWrapper  = cEditor.draw.make('DIV', 'ce_button-remove', {}),
+            settingButton = cEditor.draw.make('DIV', 'ce_button__remove-setting', { textContent : 'Удалить блок' }),
+            actionWrapper = cEditor.draw.make('DIV', 'ce_button__remove-actions', {}),
+            confirmAction = cEditor.draw.make('SPAN', 'ce_button__remove-confirm', { textContent : 'Подтвердить' }),
+            cancelAction  = cEditor.draw.make('SPAN', 'ce_button__remove-cancel', { textContent : 'Отменить' });
 
-        wrappersOffset : null,
+        settingButton.addEventListener('click', cEditor.toolbar.settings.removeButtonClicked, false);
 
-        /**
-         * saving selection that need for execCommand for styling
-         *
-         */
-        storedSelection : null,
+        confirmAction.addEventListener('click', cEditor.toolbar.settings.confirmRemovingRequest, false);
 
-        /**
-         * @protected
-         *
-         * Open inline toobar
-         */
-        show : function() {
+        cancelAction.addEventListener('click', cEditor.toolbar.settings.cancelRemovingRequest, false);
 
-            var selectedText = this.getSelectionText(),
-                toolbar      = cEditor.nodes.inlineToolbar.wrapper,
-                buttons      = cEditor.nodes.inlineToolbar.buttons;
+        actionWrapper.appendChild(confirmAction);
+        actionWrapper.appendChild(cancelAction);
 
-            if (selectedText.length > 0) {
+        removeBlockWrapper.appendChild(settingButton);
+        removeBlockWrapper.appendChild(actionWrapper);
 
-                /** Move toolbar and open */
-                cEditor.toolbar.inline.move();
+        /** Save setting */
+        cEditor.toolbar.settings.setting = settingButton;
+        cEditor.toolbar.settings.actions = actionWrapper;
 
-                /** Open inline toolbar */
-                toolbar.classList.add('opened');
+        return removeBlockWrapper;
 
-                /** show buttons of inline toolbar */
-                cEditor.toolbar.inline.showButtons();
-            }
+    },
 
-        },
+    removeButtonClicked : function() {
 
-        /**
-         * @protected
-         *
-         * Closes inline toolbar
-         */
-        close : function() {
-            var toolbar = cEditor.nodes.inlineToolbar.wrapper;
-            toolbar.classList.remove('opened');
-        },
+        var currentBlock = cEditor.content.currentNode;
 
-        /**
-         * @private
-         *
-         * Moving toolbar
-         */
-        move : function() {
+        if (!currentBlock.classList.contains('removing-request')) {
+            currentBlock.classList.add('removing-request');
 
-            if (!this.wrappersOffset) {
-                this.wrappersOffset = this.getWrappersOffset();
-            }
+            cEditor.toolbar.settings.setting.classList.add('hide');
+            cEditor.toolbar.settings.actions.classList.add('opened');
+        }
+    },
 
-            var coords          = this.getSelectionCoords(),
-                defaultOffset   = 0,
-                toolbar         = cEditor.nodes.inlineToolbar.wrapper,
-                newCoordinateX,
-                newCoordinateY;
+    cancelRemovingRequest : function() {
 
-            if (toolbar.offsetHeight === 0) {
-                defaultOffset = 40;
-            }
+        var currentBlock = cEditor.content.currentNode;
 
-            newCoordinateX = coords.x - this.wrappersOffset.left;
-            newCoordinateY = coords.y + window.scrollY - this.wrappersOffset.top - defaultOffset - toolbar.offsetHeight;
+        if (currentBlock.classList.contains('removing-request')) {
+            currentBlock.classList.remove('removing-request');
+        }
 
-            toolbar.style.transform = `translate3D(${newCoordinateX}px, ${newCoordinateY}px, 0)`;
+        cEditor.toolbar.settings.actions.classList.remove('opened');
+        cEditor.toolbar.settings.setting.classList.remove('hide');
+    },
 
-            /** Close everything */
-            cEditor.toolbar.inline.closeButtons();
-            cEditor.toolbar.inline.closeAction();
+    confirmRemovingRequest : function() {
 
-        },
+        var currentBlock = cEditor.content.currentNode,
+            firstLevelBlocksCount;
 
-        /**
-         * @private
-         *
-         * Tool Clicked
-         */
+        if (currentBlock.classList.contains('removing-request')) {
+            currentBlock.remove();
 
-        toolClicked : function(event, type) {
+            firstLevelBlocksCount = cEditor.nodes.redactor.childNodes.length;
 
             /**
-             * For simple tools we use default browser function
-             * For more complicated tools, we should write our own behavior
-             */
-            switch (type) {
-                case 'createLink' : cEditor.toolbar.inline.createLinkAction(event, type); break;
-                default           : cEditor.toolbar.inline.defaultToolAction(type); break;
-            }
-
-            /**
-             * highlight buttons
-             * after making some action
-             */
-            cEditor.nodes.inlineToolbar.buttons.childNodes.forEach(cEditor.toolbar.inline.hightlight);
-        },
-
-        /**
-         * @private
-         *
-         * Saving wrappers offset in DOM
-         */
-        getWrappersOffset : function() {
-
-            var wrapper = cEditor.nodes.wrapper,
-                offset  = this.getOffset(wrapper);
-
-            this.wrappersOffset = offset;
-            return offset;
-
-        },
-
-        /**
-         * @private
-         *
-         * Calculates offset of DOM element
-         *
-         * @param el
-         * @returns {{top: number, left: number}}
-         */
-        getOffset : function ( el ) {
-
-            var _x = 0;
-            var _y = 0;
-
-            while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
-                _x += (el.offsetLeft + el.clientLeft);
-                _y += (el.offsetTop + el.clientTop);
-                el = el.offsetParent;
-            }
-            return { top: _y, left: _x };
-        },
-
-        /**
-         * @private
-         *
-         * Calculates position of selected text
-         * @returns {{x: number, y: number}}
-         */
-        getSelectionCoords : function() {
-
-            var sel = document.selection, range;
-            var x = 0, y = 0;
-
-            if (sel) {
-
-                if (sel.type != "Control") {
-                    range = sel.createRange();
-                    range.collapse(true);
-                    x = range.boundingLeft;
-                    y = range.boundingTop;
-                }
-
-            } else if (window.getSelection) {
-
-                sel = window.getSelection();
-
-                if (sel.rangeCount) {
-
-                    range = sel.getRangeAt(0).cloneRange();
-                    if (range.getClientRects) {
-                        range.collapse(true);
-                        var rect = range.getClientRects()[0];
-                        x = rect.left;
-                        y = rect.top;
-                    }
-
-                }
-            }
-            return { x: x, y: y };
-        },
-
-        /**
-         * @private
-         *
-         * Returns selected text as String
-         * @returns {string}
-         */
-        getSelectionText : function getSelectionText(){
-
-            var selectedText = ""
-
-            if (window.getSelection){ // all modern browsers and IE9+
-                selectedText = window.getSelection().toString()
-            }
-
-            return selectedText;
-        },
-
-        /** Opens buttons block */
-        showButtons : function() {
-
-            var buttons = cEditor.nodes.inlineToolbar.buttons;
-            buttons.classList.add('opened');
-
-            cEditor.toolbar.inline.buttonsOpened = true;
-
-            /** highlight buttons */
-            cEditor.nodes.inlineToolbar.buttons.childNodes.forEach(cEditor.toolbar.inline.hightlight);
-
-        },
-
-        /** Makes buttons disappear */
-        closeButtons : function() {
-            var buttons = cEditor.nodes.inlineToolbar.buttons;
-            buttons.classList.remove('opened');
-
-            cEditor.toolbar.inline.buttonsOpened = false;
-        },
-
-        /** Open buttons defined action if exist */
-        showActions : function() {
-            var action = cEditor.nodes.inlineToolbar.actions;
-            action.classList.add('opened');
-
-            cEditor.toolbar.inline.actionsOpened = true;
-        },
-
-        /** Close actions block */
-        closeAction : function() {
-            var action = cEditor.nodes.inlineToolbar.actions;
-            action.innerHTML = '';
-            action.classList.remove('opened');
-            cEditor.toolbar.inline.actionsOpened = false;
-        },
-
-        /** Action for link creation or for setting anchor */
-        createLinkAction : function(event, type) {
-
-            var isActive = this.isLinkActive();
-
-            var editable        = cEditor.content.currentNode,
-                storedSelection = cEditor.toolbar.inline.storedSelection;
-
-            if (isActive) {
-
-                var selection   = window.getSelection(),
-                    anchorNode  = selection.anchorNode;
-
-                storedSelection = cEditor.toolbar.inline.saveSelection(editable);
-
-                /**
-                 * Changing stored selection. if we want to remove anchor from word
-                 * we should remove anchor from whole word, not only selected part.
-                 * The solution is than we get the length of current link
-                 * Change start position to - end of selection minus length of anchor
-                 */
-                cEditor.toolbar.inline.restoreSelection(editable, storedSelection);
-
-                cEditor.toolbar.inline.defaultToolAction('unlink');
-
-            } else {
-
-                /** Create input and close buttons */
-                var action = cEditor.draw.inputForLink();
-                cEditor.nodes.inlineToolbar.actions.appendChild(action);
-
-                cEditor.toolbar.inline.closeButtons();
-                cEditor.toolbar.inline.showActions();
-
-                storedSelection = cEditor.toolbar.inline.saveSelection(editable);
-
-                /**
-                 * focus to input
-                 * Solution: https://developer.mozilla.org/ru/docs/Web/API/HTMLElement/focus
-                 * Prevents event after showing input and when we need to focus an input which is in unexisted form
-                 */
-                action.focus();
-                event.preventDefault();
-
-                /** Callback to link action */
-                action.addEventListener('keydown', function(event){
-
-                    if (event.keyCode == cEditor.core.keys.ENTER) {
-
-                        cEditor.toolbar.inline.restoreSelection(editable, storedSelection);
-                        cEditor.toolbar.inline.setAnchor(action.value);
-
-                        /**
-                         * Preventing events that will be able to happen
-                         */
-                        event.preventDefault();
-                        event.stopImmediatePropagation();
-
-                        cEditor.toolbar.inline.clearRange();
-                    }
-
-                }, false);
-            }
-        },
-
-        isLinkActive : function() {
-
-            var isActive = false;
-
-            cEditor.nodes.inlineToolbar.buttons.childNodes.forEach(function(tool) {
-                var dataType = tool.dataset.type;
-
-                if (dataType == 'link' && tool.classList.contains('hightlighted')) {
-                    isActive = true;
-                }
-            });
-
-            return isActive;
-        },
-
-        /** default action behavior of tool */
-        defaultToolAction : function(type) {
-            document.execCommand(type, false, null);
-        },
-
-        /**
-         * @private
-         *
-         * Sets URL
-         *
-         * @param {String} url - URL
-         */
-        setAnchor : function(url) {
-
-            document.execCommand('createLink', false, url);
-
-            /** Close after URL inserting */
-            cEditor.toolbar.inline.closeAction();
-        },
-
-        /**
-         * @private
-         *
-         * Saves selection
-         */
-        saveSelection : function(containerEl) {
-
-            var range = window.getSelection().getRangeAt(0),
-                preSelectionRange = range.cloneRange(),
-                start;
-
-            preSelectionRange.selectNodeContents(containerEl);
-            preSelectionRange.setEnd(range.startContainer, range.startOffset);
-
-            start = preSelectionRange.toString().length;
-
-            return {
-                start: start,
-                end: start + range.toString().length
-            }
-        },
-
-        /**
-         * @private
-         *
-         * Sets to previous selection (Range)
-         *
-         * @param {Element} containerEl - editable element where we restore range
-         * @param {Object} savedSel - range basic information to restore
-         */
-        restoreSelection : function(containerEl, savedSel) {
-
-            var range     = document.createRange(),
-                charIndex = 0;
-
-            range.setStart(containerEl, 0);
-            range.collapse(true);
-
-            var nodeStack = [containerEl],
-                node,
-                foundStart = false,
-                stop = false,
-                nextCharIndex;
-
-            while (!stop && (node = nodeStack.pop())) {
-
-                if (node.nodeType == 3) {
-
-                    nextCharIndex = charIndex + node.length;
-
-                    if (!foundStart && savedSel.start >= charIndex && savedSel.start <= nextCharIndex) {
-                        range.setStart(node, savedSel.start - charIndex);
-                        foundStart = true;
-                    }
-                    if (foundStart && savedSel.end >= charIndex && savedSel.end <= nextCharIndex) {
-                        range.setEnd(node, savedSel.end - charIndex);
-                        stop = true;
-                    }
-                    charIndex = nextCharIndex;
-                } else {
-                    var i = node.childNodes.length;
-                    while (i--) {
-                        nodeStack.push(node.childNodes[i]);
-                    }
-                }
-            }
-
-            var sel = window.getSelection();
-            sel.removeAllRanges();
-            sel.addRange(range);
-        },
-
-        /**
-         * @private
-         *
-         * Removes all ranges from window selection
-         */
-        clearRange : function() {
-            var selection = window.getSelection();
-            selection.removeAllRanges();
-        },
-
-        /**
-         * @private
-         *
-         * sets or removes hightlight
-         */
-        hightlight : function(tool) {
-            var dataType = tool.dataset.type;
-
-            if (document.queryCommandState(dataType)) {
-                cEditor.toolbar.inline.setButtonHighlighted(tool);
-            } else {
-                cEditor.toolbar.inline.removeButtonsHighLight(tool);
-            }
-
-            /**
-             *
-             * hightlight for anchors
-             */
-            var selection = window.getSelection(),
-                tag = selection.anchorNode.parentNode;
-
-            if (tag.tagName == 'A' && dataType == 'link') {
-                cEditor.toolbar.inline.setButtonHighlighted(tool);
-            }
-        },
-
-        /**
-         * @private
-         *
-         * Mark button if text is already executed
-         */
-        setButtonHighlighted : function(button) {
-            button.classList.add('hightlighted');
-
-            /** At link tool we also change icon */
-            if (button.dataset.type == 'link') {
-                var icon = button.childNodes[0];
-                icon.classList.remove('ce-icon-link');
-                icon.classList.add('ce-icon-unlink');
-            }
-        },
-
-        /**
-         * @private
-         *
-         * Removes hightlight
-         */
-        removeButtonsHighLight : function(button) {
-            button.classList.remove('hightlighted');
-
-            /** At link tool we also change icon */
-            if (button.dataset.type == 'link') {
-                var icon = button.childNodes[0];
-                icon.classList.remove('ce-icon-unlink');
-                icon.classList.add('ce-icon-link');
+            * If all blocks are removed
+            */
+            if (firstLevelBlocksCount === 0) {
+
+                /** update currentNode variable */
+                cEditor.content.currentNode = null;
+
+                /** Inserting new empty initial block */
+                cEditor.ui.addInitialBlock();
             }
         }
 
+        cEditor.ui.saveInputs();
+
+        cEditor.toolbar.close();
     }
 
 };
+
+/**
+ * This is a inline toolbar that works with selected word.
+ * Ex: Wraps text to B, U, I tags and so on.
+ * Also this toolbar will be used for making text a link
+ */
+cEditor.toolbar.inline = {
+
+    buttonsOpened : null,
+    actionsOpened : null,
+
+    wrappersOffset : null,
+
+    /**
+     * saving selection that need for execCommand for styling
+     *
+     */
+    storedSelection : null,
+
+    /**
+     * @protected
+     *
+     * Open inline toobar
+     */
+    show : function() {
+
+        var selectedText = this.getSelectionText(),
+            toolbar      = cEditor.nodes.inlineToolbar.wrapper,
+            buttons      = cEditor.nodes.inlineToolbar.buttons;
+
+        if (selectedText.length > 0) {
+
+            /** Move toolbar and open */
+            cEditor.toolbar.inline.move();
+
+            /** Open inline toolbar */
+            toolbar.classList.add('opened');
+
+            /** show buttons of inline toolbar */
+            cEditor.toolbar.inline.showButtons();
+        }
+
+    },
+
+    /**
+     * @protected
+     *
+     * Closes inline toolbar
+     */
+    close : function() {
+        var toolbar = cEditor.nodes.inlineToolbar.wrapper;
+        toolbar.classList.remove('opened');
+    },
+
+    /**
+     * @private
+     *
+     * Moving toolbar
+     */
+    move : function() {
+
+        if (!this.wrappersOffset) {
+            this.wrappersOffset = this.getWrappersOffset();
+        }
+
+        var coords          = this.getSelectionCoords(),
+            defaultOffset   = 0,
+            toolbar         = cEditor.nodes.inlineToolbar.wrapper,
+            newCoordinateX,
+            newCoordinateY;
+
+        if (toolbar.offsetHeight === 0) {
+            defaultOffset = 40;
+        }
+
+        newCoordinateX = coords.x - this.wrappersOffset.left;
+        newCoordinateY = coords.y + window.scrollY - this.wrappersOffset.top - defaultOffset - toolbar.offsetHeight;
+
+        toolbar.style.transform = `translate3D(${newCoordinateX}px, ${newCoordinateY}px, 0)`;
+
+        /** Close everything */
+        cEditor.toolbar.inline.closeButtons();
+        cEditor.toolbar.inline.closeAction();
+
+    },
+
+    /**
+     * @private
+     *
+     * Tool Clicked
+     */
+
+    toolClicked : function(event, type) {
+
+        /**
+         * For simple tools we use default browser function
+         * For more complicated tools, we should write our own behavior
+         */
+        switch (type) {
+            case 'createLink' : cEditor.toolbar.inline.createLinkAction(event, type); break;
+            default           : cEditor.toolbar.inline.defaultToolAction(type); break;
+        }
+
+        /**
+         * highlight buttons
+         * after making some action
+         */
+        cEditor.nodes.inlineToolbar.buttons.childNodes.forEach(cEditor.toolbar.inline.hightlight);
+    },
+
+    /**
+     * @private
+     *
+     * Saving wrappers offset in DOM
+     */
+    getWrappersOffset : function() {
+
+        var wrapper = cEditor.nodes.wrapper,
+            offset  = this.getOffset(wrapper);
+
+        this.wrappersOffset = offset;
+        return offset;
+
+    },
+
+    /**
+     * @private
+     *
+     * Calculates offset of DOM element
+     *
+     * @param el
+     * @returns {{top: number, left: number}}
+     */
+    getOffset : function ( el ) {
+
+        var _x = 0;
+        var _y = 0;
+
+        while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
+            _x += (el.offsetLeft + el.clientLeft);
+            _y += (el.offsetTop + el.clientTop);
+            el = el.offsetParent;
+        }
+        return { top: _y, left: _x };
+    },
+
+    /**
+     * @private
+     *
+     * Calculates position of selected text
+     * @returns {{x: number, y: number}}
+     */
+    getSelectionCoords : function() {
+
+        var sel = document.selection, range;
+        var x = 0, y = 0;
+
+        if (sel) {
+
+            if (sel.type != "Control") {
+                range = sel.createRange();
+                range.collapse(true);
+                x = range.boundingLeft;
+                y = range.boundingTop;
+            }
+
+        } else if (window.getSelection) {
+
+            sel = window.getSelection();
+
+            if (sel.rangeCount) {
+
+                range = sel.getRangeAt(0).cloneRange();
+                if (range.getClientRects) {
+                    range.collapse(true);
+                    var rect = range.getClientRects()[0];
+                    x = rect.left;
+                    y = rect.top;
+                }
+
+            }
+        }
+        return { x: x, y: y };
+    },
+
+    /**
+     * @private
+     *
+     * Returns selected text as String
+     * @returns {string}
+     */
+    getSelectionText : function getSelectionText(){
+
+        var selectedText = ""
+
+        if (window.getSelection){ // all modern browsers and IE9+
+            selectedText = window.getSelection().toString()
+        }
+
+        return selectedText;
+    },
+
+    /** Opens buttons block */
+    showButtons : function() {
+
+        var buttons = cEditor.nodes.inlineToolbar.buttons;
+        buttons.classList.add('opened');
+
+        cEditor.toolbar.inline.buttonsOpened = true;
+
+        /** highlight buttons */
+        cEditor.nodes.inlineToolbar.buttons.childNodes.forEach(cEditor.toolbar.inline.hightlight);
+
+    },
+
+    /** Makes buttons disappear */
+    closeButtons : function() {
+        var buttons = cEditor.nodes.inlineToolbar.buttons;
+        buttons.classList.remove('opened');
+
+        cEditor.toolbar.inline.buttonsOpened = false;
+    },
+
+    /** Open buttons defined action if exist */
+    showActions : function() {
+        var action = cEditor.nodes.inlineToolbar.actions;
+        action.classList.add('opened');
+
+        cEditor.toolbar.inline.actionsOpened = true;
+    },
+
+    /** Close actions block */
+    closeAction : function() {
+        var action = cEditor.nodes.inlineToolbar.actions;
+        action.innerHTML = '';
+        action.classList.remove('opened');
+        cEditor.toolbar.inline.actionsOpened = false;
+    },
+
+    /** Action for link creation or for setting anchor */
+    createLinkAction : function(event, type) {
+
+        var isActive = this.isLinkActive();
+
+        var editable        = cEditor.content.currentNode,
+            storedSelection = cEditor.toolbar.inline.storedSelection;
+
+        if (isActive) {
+
+            var selection   = window.getSelection(),
+                anchorNode  = selection.anchorNode;
+
+            storedSelection = cEditor.toolbar.inline.saveSelection(editable);
+
+            /**
+             * Changing stored selection. if we want to remove anchor from word
+             * we should remove anchor from whole word, not only selected part.
+             * The solution is than we get the length of current link
+             * Change start position to - end of selection minus length of anchor
+             */
+            cEditor.toolbar.inline.restoreSelection(editable, storedSelection);
+
+            cEditor.toolbar.inline.defaultToolAction('unlink');
+
+        } else {
+
+            /** Create input and close buttons */
+            var action = cEditor.draw.inputForLink();
+            cEditor.nodes.inlineToolbar.actions.appendChild(action);
+
+            cEditor.toolbar.inline.closeButtons();
+            cEditor.toolbar.inline.showActions();
+
+            storedSelection = cEditor.toolbar.inline.saveSelection(editable);
+
+            /**
+             * focus to input
+             * Solution: https://developer.mozilla.org/ru/docs/Web/API/HTMLElement/focus
+             * Prevents event after showing input and when we need to focus an input which is in unexisted form
+             */
+            action.focus();
+            event.preventDefault();
+
+            /** Callback to link action */
+            action.addEventListener('keydown', function(event){
+
+                if (event.keyCode == cEditor.core.keys.ENTER) {
+
+                    cEditor.toolbar.inline.restoreSelection(editable, storedSelection);
+                    cEditor.toolbar.inline.setAnchor(action.value);
+
+                    /**
+                     * Preventing events that will be able to happen
+                     */
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+
+                    cEditor.toolbar.inline.clearRange();
+                }
+
+            }, false);
+        }
+    },
+
+    isLinkActive : function() {
+
+        var isActive = false;
+
+        cEditor.nodes.inlineToolbar.buttons.childNodes.forEach(function(tool) {
+            var dataType = tool.dataset.type;
+
+            if (dataType == 'link' && tool.classList.contains('hightlighted')) {
+                isActive = true;
+            }
+        });
+
+        return isActive;
+    },
+
+    /** default action behavior of tool */
+    defaultToolAction : function(type) {
+        document.execCommand(type, false, null);
+    },
+
+    /**
+     * @private
+     *
+     * Sets URL
+     *
+     * @param {String} url - URL
+     */
+    setAnchor : function(url) {
+
+        document.execCommand('createLink', false, url);
+
+        /** Close after URL inserting */
+        cEditor.toolbar.inline.closeAction();
+    },
+
+    /**
+     * @private
+     *
+     * Saves selection
+     */
+    saveSelection : function(containerEl) {
+
+        var range = window.getSelection().getRangeAt(0),
+            preSelectionRange = range.cloneRange(),
+            start;
+
+        preSelectionRange.selectNodeContents(containerEl);
+        preSelectionRange.setEnd(range.startContainer, range.startOffset);
+
+        start = preSelectionRange.toString().length;
+
+        return {
+            start: start,
+            end: start + range.toString().length
+        }
+    },
+
+    /**
+     * @private
+     *
+     * Sets to previous selection (Range)
+     *
+     * @param {Element} containerEl - editable element where we restore range
+     * @param {Object} savedSel - range basic information to restore
+     */
+    restoreSelection : function(containerEl, savedSel) {
+
+        var range     = document.createRange(),
+            charIndex = 0;
+
+        range.setStart(containerEl, 0);
+        range.collapse(true);
+
+        var nodeStack = [containerEl],
+            node,
+            foundStart = false,
+            stop = false,
+            nextCharIndex;
+
+        while (!stop && (node = nodeStack.pop())) {
+
+            if (node.nodeType == 3) {
+
+                nextCharIndex = charIndex + node.length;
+
+                if (!foundStart && savedSel.start >= charIndex && savedSel.start <= nextCharIndex) {
+                    range.setStart(node, savedSel.start - charIndex);
+                    foundStart = true;
+                }
+                if (foundStart && savedSel.end >= charIndex && savedSel.end <= nextCharIndex) {
+                    range.setEnd(node, savedSel.end - charIndex);
+                    stop = true;
+                }
+                charIndex = nextCharIndex;
+            } else {
+                var i = node.childNodes.length;
+                while (i--) {
+                    nodeStack.push(node.childNodes[i]);
+                }
+            }
+        }
+
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+    },
+
+    /**
+     * @private
+     *
+     * Removes all ranges from window selection
+     */
+    clearRange : function() {
+        var selection = window.getSelection();
+        selection.removeAllRanges();
+    },
+
+    /**
+     * @private
+     *
+     * sets or removes hightlight
+     */
+    hightlight : function(tool) {
+        var dataType = tool.dataset.type;
+
+        if (document.queryCommandState(dataType)) {
+            cEditor.toolbar.inline.setButtonHighlighted(tool);
+        } else {
+            cEditor.toolbar.inline.removeButtonsHighLight(tool);
+        }
+
+        /**
+         *
+         * hightlight for anchors
+         */
+        var selection = window.getSelection(),
+            tag = selection.anchorNode.parentNode;
+
+        if (tag.tagName == 'A' && dataType == 'link') {
+            cEditor.toolbar.inline.setButtonHighlighted(tool);
+        }
+    },
+
+    /**
+     * @private
+     *
+     * Mark button if text is already executed
+     */
+    setButtonHighlighted : function(button) {
+        button.classList.add('hightlighted');
+
+        /** At link tool we also change icon */
+        if (button.dataset.type == 'link') {
+            var icon = button.childNodes[0];
+            icon.classList.remove('ce-icon-link');
+            icon.classList.add('ce-icon-unlink');
+        }
+    },
+
+    /**
+     * @private
+     *
+     * Removes hightlight
+     */
+    removeButtonsHighLight : function(button) {
+        button.classList.remove('hightlighted');
+
+        /** At link tool we also change icon */
+        if (button.dataset.type == 'link') {
+            var icon = button.childNodes[0];
+            icon.classList.remove('ce-icon-unlink');
+            icon.classList.add('ce-icon-link');
+        }
+    }
+
+}
 
 /**
 * File transport module
@@ -3627,6 +3716,25 @@ cEditor.draw = {
         return settings;
     },
 
+    defaultSettings : function() {
+
+        var div = document.createElement('div');
+
+        div.classList.add('ce_block_settings-default');
+
+        return div;
+    },
+
+    pluginsSettings : function() {
+
+        var div = document.createElement('div');
+
+        div.classList.add('ce_block_settings-plugin');
+
+        return div;
+
+    },
+
     plusButton : function() {
 
         var button = document.createElement('span');
@@ -3636,18 +3744,6 @@ cEditor.draw = {
         button.innerHTML = '<i class="ce-icon-plus"></i>';
 
         return button;
-    },
-
-    removeBlockButton : function() {
-
-        var toggler = document.createElement('span');
-
-        toggler.className = 'trash-toggler';
-
-        toggler.innerHTML = '<i class="remove_btn ce-icon-trash"></i>';
-
-        return toggler;
-
     },
 
     /**
@@ -3739,6 +3835,28 @@ cEditor.draw = {
 
         return node;
 
+    },
+
+    /**
+     * Creates Node with passed tagName and className
+     * @param {string}  tagName
+     * @param {string} className
+     * @param {object} properties - allow to assign properties
+     */
+    make : function( tagName , className , properties ){
+
+        var el = document.createElement( tagName );
+
+        if ( className ) el.className = className;
+
+        if ( properties ) {
+
+            for (var name in properties){
+                el[name] = properties[name];
+            }
+        }
+
+        return el;
     },
 
     pluginsRender : function(type, content) {
