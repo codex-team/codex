@@ -2594,7 +2594,7 @@ cEditor.toolbar = {
         var toolbarHeight = cEditor.nodes.toolbar.clientHeight || cEditor.toolbar.defaultToolbarHeight,
             newYCoordinate = cEditor.content.currentNode.offsetTop - (cEditor.toolbar.defaultToolbarHeight / 2) + cEditor.toolbar.defaultOffset;
 
-        cEditor.nodes.toolbar.style.transform = `translate3D(0, ${newYCoordinate}px, 0)`;
+        cEditor.nodes.toolbar.style.transform = `translate3D(0, ${Math.floor(newYCoordinate)}px, 0)`;
 
     },
 

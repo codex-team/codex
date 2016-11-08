@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="/public/css/task.css?v=<?= filemtime("public/css/task.css") ?>">
 <? if (!empty($success)): ?>
     <div class="success_alert">
         <h2>Спасибо!</h2>

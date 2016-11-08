@@ -248,6 +248,16 @@
 
 
 /**
+* Stretched block styles overlay
+*/
+.ce_block--stretched {
+    margin: 0 !important;
+    max-width: none !important;
+    padding: 0 !important;
+}
+
+
+/**
 * Base block highlighted
 */
 .ce-block__highlighted {
@@ -396,14 +406,11 @@
 
 
 
-.ce_redactor .ce_block{
-    outline: none;
+.ce_redactor [contenteditable]{
+    outline: none !important;
 }
 
-    .ce_redactor .ce_block:focus{
-        background: #fbfbfb;
-        border-radius: 3px;
-    }
+
 
 /*
 }
@@ -433,6 +440,7 @@
     animation-name: bounceIn; animation-duration: 600ms; animation-iteration-count: 1;
 }
 */
+
 
 /** Alerts */
 .ce_notifications-block {

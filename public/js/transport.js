@@ -11,11 +11,11 @@ var transport = (function(transport){
     transport.init = function (buttons) {
 
         for (var i = buttons.length - 1; i >= 0; i--) {
-            buttons[i].addEventListener('click', transport.buttonCallback, false)
-        };
+            buttons[i].addEventListener('click', transport.buttonCallback, false);
+        }
 
         transport.input.addEventListener('change', transport.submitCallback, false );
-    }
+    };
 
     transport.buttonCallback = function(event){
 
@@ -45,15 +45,15 @@ var transport = (function(transport){
         var input,
             alreadyAddedInput;
 
-        for ( field in data ){
+        for ( var field in data ){
 
             if (typeof data[field] == 'undefined') {
                 continue;
-            };
+            }
 
             alreadyAddedInput = transport.form.querySelector('input[name=' + field + ']');
 
-            if (typeof alreadyAddedInput != 'undefined' && alreadyAddedInput != null) {
+            if (typeof alreadyAddedInput != 'undefined' && alreadyAddedInput !== null) {
 
                 input = alreadyAddedInput;
 
@@ -71,7 +71,7 @@ var transport = (function(transport){
 
         }
 
-    }
+    };
 
     transport.submitCallback = function (){
 
@@ -109,7 +109,7 @@ var transport = (function(transport){
 
         if (response.callback) {
 
-            eval( response.callback );
+            response.callback.call();
 
         }
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?= substr(I18n::$lang, 0, 2); ?>" lang="<?= substr(I18n::$lang, 0, 2); ?>">
+<html>
 <head>
 
     <meta charset="utf-8">
@@ -18,60 +18,54 @@
 
 
     <link rel="stylesheet" href="/public/css/normalize.css">
-    <link rel="stylesheet" href="/public/css/main.css?v=<?= filemtime("public/css/main.css") ?>">
-    <link rel="stylesheet" href="/public/css/editor.css?v=<?= filemtime("public/css/editor.css") ?>">
+    <link rel="stylesheet" href="/public/css/codex.css?v=<?= filemtime('public/css/codex.css') ?>">
 
     <link rel="icon" type="image/png" href="/public/img/fav_shield@3x.png?v=985" id="favicon" />
 
     <meta id="metaImage" name="image" property="og:image"  content="https://ifmo.su/public/img/meta_img.png" />
     <link id="linkImage" rel="image_src" href="https://ifmo.su/public/img/meta_img.png" />
 
-    <script src="/public/js/main.js?v=<?= filemtime("public/js/main.js") ?>"></script>
+    <script src="/public/js/main.js?v=<?= filemtime('public/js/main.js') ?>"></script>
 
 </head>
 <body>
 
-    <header class="site_header">
-        <div class="center_side clearfix">
+    <header class="site-header">
+        <div class="center_side">
             <? if ($user->id): ?>
-                <a class="profile fl_r" href="/user/<?= $user->id ?>">
-                    <span class="ava"><img src="<?= $user->photo ?>" alt="<?= $user->name ?>" id="header-avatar-updatable" /></span>
-                    <span class="text">Profile</span>
+                <a class="site-header__profile" href="/user/<?= $user->id ?>">
+                    <img class="site-header__profile_photo" src="<?= $user->photo ?>" alt="<?= $user->name ?>" id="header-avatar-updatable" />Profile
                 </a>
             <? else: ?>
-                <a class="icon_link login fl_r" href="/auth/github">
-                    <i class="icon-github-circled"></i><span class="text">login</span>
+                <a class="site-header__login" href="/auth/github">
+                    <i class="icon-github-circled"></i>login
                 </a>
             <? endif ?>
-            <div class="site_menu fl_l">
+            <div class="site-header__menu">
                 <a href="/">CodeX</a>
                 <a href="/articles">Articles</a>
                 <a href="/contests">Contests</a>
             </div>
-            <div class="social_buttons">
-                <a class="icon_link social" href="//vk.com/codex_team" target="_blank"><i class="icon-vkontakte"></i></a>
-            </div>
+            <a class="site-header__social" href="//vk.com/codex_team" target="_blank"><i class="icon-vkontakte"></i></a>
         </div>
     </header>
 
-    <div id="scroll_button" class="scroll_button"></div>
-
     <?= $content ?>
 
-    <footer class="site_footer">
+    <footer class="site-footer">
         <div class="center_side clearfix">
-            <section class="fl_l codex_desc">
+            <section class="site-footer__section fl_l">
                 <h5>CodeX</h5>
-                <p>Клуб веб-разработки, дизайна и маркетинга. Мы строим команду молодых специалистов, способную создавать полноценные проекты в интернете на мировом уровне.</p>
+                Клуб веб-разработки, дизайна и маркетинга. Мы строим команду молодых специалистов, способную создавать полноценные проекты в интернете на мировом уровне.
             </section>
-            <section class="fl_r">
+            <section class="site-footer__section fl_r">
                 <h5>Follow us</h5>
                 <ul>
                     <li><a href="//vk.com/codex_team" target="_blank" rel="nofollow"><i class="icon-vkontakte"></i> <u>ВКонтакте</u></a></li>
                     <li><a href="//instagram.com/codex_team/" target="_blank" rel="nofollow"><i class="icon-instagram"></i> <u>Instagram</u></a></li>
                 </ul>
             </section>
-            <section class="fl_l">
+            <section class="site-footer__section fl_l">
                 <h5>Contact team</h5>
                 <ul>
                     <li><a href="mailto:team@ifmo.su?Subject=CodeX%20Team"><u>team@ifmo.su</u></a></li>
@@ -85,12 +79,14 @@
         </div>
     </footer>
 
-    <div id="utils" class="hidden" style="display: none">
-        <iframe name="transport"></iframe>
-        <form class="ajaxfree" id="transportForm" method="post" enctype="multipart/form-data"  target="transport" action="/ajax/transport" accept-charset="utf-8" >
-            <input type="file" name="files" id="transportInput"/>
-        </form>
-    </div>
+    <? if ($user->id): ?>
+        <div id="utils" class="hidden" style="display: none">
+            <iframe name="transport"></iframe>
+            <form class="ajaxfree" id="transportForm" method="post" enctype="multipart/form-data"  target="transport" action="/ajax/transport" accept-charset="utf-8" >
+                <input type="file" name="files" id="transportInput"/>
+            </form>
+        </div>
+    <? endif; ?>
 
     <? if ( Arr::get($_SERVER, 'SERVER_NAME') == 'ifmo.su'): ?>
         <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter32652805 = new Ya.Metrika({ id:32652805, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="https://mc.yandex.ru/watch/32652805" style="position:absolute; left:-9999px;" alt="" /></div></noscript>

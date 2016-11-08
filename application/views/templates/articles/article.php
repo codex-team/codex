@@ -1,4 +1,7 @@
+<link rel="stylesheet" href="/public/css/article.css?v=<?= filemtime("public/css/article.css") ?>">
+
 <div class="center_side clear">
+
     <article class="article" itemscope itemtype="http://schema.org/Article">
 
         <? if (isset($article->dt_update)): ?>
@@ -9,7 +12,9 @@
         <h1 class="big_header" itemprop="headline">
             <?= $article->title ?>
         </h1>
-        <div class="article_info">
+
+        <div class="article__info">
+
             <div class="ava_holder" itemscope itemtype="http://schema.org/Person" itemprop="author">
 
                 <meta itemprop="url" href="https://ifmo.su/user/<?= $article->user_id ?>" />
@@ -21,14 +26,22 @@
                 <a class="list_user_name" itemprop="name" href="https://ifmo.su/user/<?= $article->author->id ?>"><?= $article->author->name ?></a>
             </div>
         </div>
-        <div class="article_content"  itemprop="articleBody">
-            
-            <!-- For articles where Codex.Editor is used -->
-            <? for($i = 0; $i < count($article->blocks); $i++) : ?>
-                <?= $article->blocks[$i]; ?>
-            <? endfor; ?>
+        <div class="article_content" itemprop="articleBody">
 
-            <!-- For old articles -->
+            <?
+                /**
+                * For articles craeted with Codex.Editor
+                */
+            ?>
+            <? foreach ($article->blocks as $block): ?>
+                <?= $block; ?>
+            <? endforeach; ?>
+
+            <?
+                /**
+                * For articles with HTML content (old editor mode)
+                */
+            ?>
             <? if (!empty($article->text)) : ?>
                 <?=$article->text; ?>
             <? endif; ?>

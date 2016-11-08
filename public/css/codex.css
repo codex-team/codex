@@ -1,0 +1,453 @@
+/**
+* CodeX team stylesheets for ifmo.su
+* 8 nov 2016
+*/
+
+
+/**
+* Include icons font
+*/
+@import url("icons.css");
+
+
+
+
+/**
+*
+* Some base rules
+* ================================================
+*
+*/
+
+.hide {display: none !important}
+.block {display: block}
+.p_rel {position: relative}
+.pointer {cursor: pointer}
+
+a {
+    color: #4e88d6;
+}
+a:hover {
+    color: #d25555;
+    text-decoration: underline;
+}
+
+.align_c{
+    text-align: center;
+}
+
+textarea {
+    resize: vertical;
+}
+
+/**
+* Clearfix hack
+*/
+.clearfix:before,
+.clearfix:after{
+    content: " ";
+    display: table
+}
+.clearfix:after {
+    clear: both;
+}
+
+/**
+* Floating shorthands
+*/
+.fl_l {
+    float: left;
+}
+.fl_r {
+    float: right;
+}
+.constrain {
+    overflow: hidden;
+}
+
+
+/**
+*
+* Site blocks rules
+* =========================================
+*
+*/
+
+html {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    line-height: 1.5em;
+    letter-spacing: .1px;
+    background: #f9f9f9;
+}
+.center_side{
+    max-width: 940px;
+    margin: 0 auto;
+    background: #fff
+}
+
+
+/**
+*
+* Site header
+*
+*/
+.site-header{
+    position: relative;
+    border-bottom: 1px solid #eceff6;
+}
+    .site-header a{
+        text-decoration: none;
+        letter-spacing: .2px;
+    }
+
+.site-header__menu{
+    display: inline-block;
+}
+.site-header__profile,
+.site-header__login{
+    float: right;
+}
+    .site-header__login i{
+        vertical-align: text-bottom;
+        line-height: .7em;
+        font-size: 1.66em;
+    }
+.site-header__menu a,
+.site-header__profile,
+.site-header__login{
+    display: inline-block;
+    padding: 18px 0;
+}
+    .site-header__menu a:not(:first-child),
+    .site-header__profile{
+        margin-left: 30px;
+    }
+.site-header__profile_photo{
+    border-radius: 15px;
+    width: 22px;
+    height: 22px;
+    vertical-align: bottom;
+    margin-right: 5px;
+}
+.site-header__social{
+    position: absolute;
+    top: 17px;
+    left: 50%;
+    margin-left: -.75em;
+    font-size: 22px;
+}
+
+
+
+/**
+*
+* Footer
+*
+*/
+
+.site-footer{
+    border-top: 1px solid #eceff6;
+    padding: 30px 0;
+    margin-top: 30px;
+    font-size: 13px;
+}
+    .site-footer__section{
+        max-width: 400px;
+    }
+    .site-footer__section:not(:first-child){
+        margin-left: 45px;
+    }
+        .site-footer__section ul{
+            list-style: none;
+            padding-left: 0;
+            line-height: 1.8em;
+        }
+        .site-footer section a{
+            text-decoration: none;
+        }
+    .site-footer h5{
+        margin: 0 0 10px;
+        font-size: 1.02em;
+    }
+    .site-footer p{
+        margin: 0;
+    }
+    .site-footer .desclimer{
+        color: #aaa;
+    }
+
+
+/**
+*
+* Scroll up button
+*
+*/
+.scroll-up {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    padding: 32px 27px;
+    border-radius: 2px;
+    background: rgba(93, 104, 156, 0.08);
+    color: rgba(85, 97, 125, 0.6);
+    font-size: 18px;
+    text-align: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 150ms ease-in;
+}
+
+    .scroll-up:hover {
+        background: rgba(93, 104, 156, 0.15);
+    }
+
+    .scroll-up:before {
+        font-family: "codex_ic";
+        content: '\e80f';
+    }
+
+    .scroll-up.show {
+        opacity: 1;
+    }
+
+
+/**
+* CodeX logo on index page
+*/
+.codex-logo{
+    display: inline-block;
+    background: url('../img/codex-logo.svg') no-repeat;
+    width: 224px;
+    height: 224px;
+}
+
+
+.index-page{
+    padding: 100px 0 70px;
+    text-align: center;
+}
+    .index-page p{
+        max-width: 500px;
+        margin: 15px auto;
+    }
+    .index-page .codex-logo{
+        margin-bottom: 50px;
+    }
+
+
+
+
+
+
+/**
+* News block on index page
+*/
+.news{
+    display: inline-block;
+    max-width: 500px;
+    border-top: 1px solid #eceff6;
+    padding: 50px 0;
+    margin: 50px 0 0;
+    text-align: left;
+}
+    .news__list_item{
+        position: relative;
+        padding: 5px 0;
+        list-style: none;
+        line-height: 1.6em;
+    }
+    .news__list_item:before{
+        content: attr(data-time);
+        position: absolute;
+        left: -70px;
+        width: 50px;
+        text-align: right;
+        color: #8B8E99;
+    }
+    .news__bage{
+        display: inline-block;
+        margin-right: .8em;
+        color: #B33232;
+        letter-spacing: 2px;
+        font-size: 1.1em;
+        font-variant: small-caps;
+    }
+    .news__showmore{
+        display: inline-block;
+        margin-top: 1.5em;
+        border-bottom: 1px solid #dae1ec;
+        padding-bottom: 1px;
+        cursor: pointer;
+        color: #768293;
+    }
+        .news__showmore:hover{
+            color: #d25555;
+            border-color: #f5dfdf;
+        }
+
+
+/**
+* Event promo block on the index page
+*/
+.event_alert{
+    padding: 80px 0px;
+    max-width: 700px;
+    margin: 0 auto;
+    border-bottom: 1px solid #ebe8e8;
+    text-align: center;
+    font-size: 1.8em;
+}
+    .event_alert__day{
+        min-width: 70px;
+        line-height: 1.3em;
+        letter-spacing: 1.2px;
+        font-size: 2.3em;
+    }
+    .event_alert__month{
+        letter-spacing: 2px;
+    }
+    .event_alert__title{
+        margin-top: 1.4em;
+        font-size: .62em;
+        color: #ea6e6e;
+    }
+    .event_alert__description{
+        margin-top: 1em;
+        font-size: .64em;
+    }
+    .event_alert__link{
+        display: inline-block;
+        text-decoration: none;
+        color: inherit;
+    }
+        .event_alert__link:hover{
+            text-decoration: none;
+        }
+    .event_alert__icon_delimiter{
+        font-size: .7em;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+* End
+* =================================
+*/
+
+
+
+
+/**
+* Mobile viewport styles
+* =================================
+*/
+@media all and (max-width: 800px){
+
+    /**
+    * Center side section margins
+    */
+    .center_side{
+        padding: 0 20px;
+    }
+
+    /**
+    * Site header mobile
+    */
+    .site-header__social{
+        display: none;
+    }
+    .site-header__menu a:not(:first-child),
+    .site-header__profile{
+        margin-left: 10px;
+    }
+
+    /**
+    * Site footer mobile
+    */
+    .site-footer{
+        padding: 25px 0;
+    }
+    .site-footer__section{
+        float: none;
+        max-width: none;
+        margin: 0 0 20px;
+    }
+    .site-footer__section:last-child{
+        margin-bottom: 0;
+    }
+    .site-footer__section:not(:first-child){
+        margin-left: 0;
+    }
+
+    /**
+    * Index page mobile
+    */
+    .index-page{
+        padding: 50px 0;
+    }
+    .index-page p{
+        padding: 0 10px
+    }
+
+
+    /**
+    * Mobile scroll up button
+    */
+    .scroll-up{
+        left: auto;
+        bottom: 0;
+        right: 0;
+        padding: 12px 14px;
+        font-size: 12px;
+    }
+
+    /**
+    * News block
+    */
+    .news{
+        padding: 30px 0;
+        margin: 30px 0;
+    }
+    .news__list_item:before{
+        position: static;
+        display: block;
+        text-align: left;
+        margin: 1em 0 .6em;
+    }
+
+    /**
+    * Event alert on index page
+    */
+    .event_alert{
+        font-size: 1.5em;
+    }
+    .event_alert__description:before,
+    .event_alert__description:after{
+        display: none;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /** End of mobile viewport */
+
+}

@@ -34,6 +34,7 @@
                 <br />
                 <a class="logout" href="/auth/logout">Logout</a>
             <? endif; ?>
+        </div>
     </div>
 
     <? if ($articles): ?>
