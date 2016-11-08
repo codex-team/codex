@@ -251,10 +251,33 @@
     .ce_block_settings-default {
 
     }
-        .ce_button-remove {
-            border: 1px solid red;
-            padding: 5px;
+        .ce_button-remove { }
+
+        .ce_button__remove-setting {
+            /** Specific styles */
         }
+            .ce_button__remove-setting.hide {
+                display: none;
+            }
+
+        .ce_button__remove-actions {
+            display: none;
+        }
+
+            .ce_button__remove-actions.opened {
+                display: block;
+            }
+
+            .ce_button__remove-actions span {
+                padding: 0 10px;
+            }
+            .ce_button__remove-confirm {
+                /** Specific styles */
+            }
+
+            .ce_button__remove-cancel {
+                /** Specific styles */
+            }
 
     .ce_block_settings-plugin {
 
