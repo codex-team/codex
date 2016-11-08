@@ -1,1 +1,0 @@
-ALTER TABLE `Users` CHANGE `uid` `uid` BIGINT(11) NOT NULL;

@@ -1,1 +1,0 @@
-ALTER TABLE `Articles`  ADD `json` LONGTEXT NOT NULL ;
