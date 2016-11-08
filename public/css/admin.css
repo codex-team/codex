@@ -31,6 +31,14 @@
         }
 
 
+
+.no_data{
+    text-align: center;
+    padding: 150px 0;
+}
+
+
+
 .p_table{
     width: 100%;
     margin: 0 30px;

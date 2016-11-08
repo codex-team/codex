@@ -21,42 +21,52 @@
     font-size: 54px;
 }
 
-
-.article__info{
-    text-align: center;
-}
-
-
-
-/*.article_info{
+/**
+* Article information: author, date
+*/
+.article-info{
     text-align: center;
     margin-bottom: 70px;
 }
-    .article_info .list_user_ava{
-        margin: 0 20px;
-        border: 0;
-        display: inline-block;
-    }
-    .article_info .ava_holder{
-        display: inline-block;
-        position: relative;
-    }
-    .article_info time,
-    .article_info .list_user_name{
-        position: absolute;
-        top: 7px;
-    }
-        .article_info time{
-            color: #9095a2;
-            text-align: right;
-            left: -250px;
-            width: 250px;
-        }
-        .article_info .list_user_name{
-            text-align: left;
-            right: -250px;
-            width: 250px;
-        }*/
+.article-info__author{
+    display: inline-block;
+    position: relative;
+}
+.article-info__date{
+    color: #9095a2;
+    text-align: right;
+    left: -250px;
+    width: 250px;
+}
+.article-info__photo{
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    margin: 0 20px;
+    vertical-align: middle;
+}
+.article-info__name{
+    text-align: left;
+    right: -250px;
+    width: 250px;
+}
+.article-info__date,
+.article-info__name{
+    position: absolute;
+    top: 7px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 .article_content{
     font-size: 1.1em;
@@ -237,15 +247,6 @@
     padding: 0 !important;
 }
 
-    .clearfix:after {
-        visibility: hidden;
-        display: block;
-        font-size: 0;
-        content: " ";
-        clear: both;
-        height: 0;
-    }
-
     .ceditor-tool-link-input {
         outline: none;
         border: 0;
@@ -299,52 +300,40 @@
         color: rgba(165,156,86,.8);
     }
 
-    .tool-link-error {
-        background: rgb(255, 241, 241);
-        color: #bf4747;
-    }
-    .tool-link-error .ceditor-tool-link-input {
-        border-left-color: #d86b6b
-    }
 
-/** For small devices */
-@media all and (max-width: 800px) {
+/**
+* Mobile viewport
+*/
+@media all and (max-width: 800px){
+
 
     .article {
         margin: 0;
         border: 0;
     }
 
-    .article_info {
-        margin-left: 0;
-        font-size: 15px;
+    .article__title{
+        padding: 30px;
+        font-size: 33px;
+    }
+    .article-info__date{
+        display: block;
+        margin-bottom: 12px;
     }
 
-    .article_info time {
-        display: block;
-        margin-bottom: 10px;
+    .article-info__date,
+    .article-info__name{
+        position: static;
         text-align: center;
     }
-
-    .article_info .list_user_ava {
-        margin: 0 10px 0 0;
-        vertical-align: text-bottom;
+    .article-info__photo{
+        width: 26px;
+        height: 26px;
+        margin: 0 1em 0 0;
     }
 
-    .article_info .list_user_ava,
-    .article_info .list_user_ava > img {
-        width: 20px;
-        height: 20px;
-    }
 
-    .article_info .list_user_ava > img {
-        vertical-align: top;
-    }
 
-    .article_info time,
-    .article_info .list_user_name {
-        position: static;
-    }
 
     .article_content p,
     .article_content h1,
@@ -358,7 +347,7 @@
     .article_content code,
     .article_content blockquote,
     .article_content img {
-        max-width: 88%;
+        max-width: none;
     }
 
     .article_content {
@@ -477,17 +466,5 @@
         line-height: 1.82em;
         outline: none;
         overflow: hidden;
-    }
-
-}
-
-/**
-* Mobile viewport
-*/
-@media all and (max-width: 800px){
-
-   .article__title{
-        padding: 30px;
-        font-size: 33px;
     }
 }

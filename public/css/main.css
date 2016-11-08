@@ -36,7 +36,7 @@ a:hover{text-decoration: underline;}
 .align_c{text-align: center;}
 */
 
-input[type="text"],
+/*input[type="text"],
 input[type="email"],
 input[type="password"],
 input[type="search"],
@@ -60,7 +60,7 @@ textarea{
     }
 input[type="text"], input[type="url"], input[type="email"], input[type="password"], input[type="search"], textarea, .fake_textarea, .input_with_template{
     width: 100%;
-}
+}*/
 
 /*input::-moz-placeholder, textarea::-moz-placeholder { color: #A3B1BA !important; transition: all 200ms ease; background: transparent;}
 input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #A3B1BA !important; transition: all 200ms ease;}
@@ -69,7 +69,7 @@ input:focus::-moz-placeholder, textarea:focus::-moz-placeholder {opacity: .1 !im
 input:focus::-webkit-input-placeholder, textarea:focus::-webkit-input-placeholder { opacity: .1 !important; }
 */
 
-
+/*
 .button,
 input[type="submit"]{
     -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
@@ -140,7 +140,7 @@ input[disabled]
         padding: 16px 30px;
         font-size: 1.2em;
     }
-
+*/
 .fileinput{position: relative; cursor: pointer; overflow: hidden;}
 .fileinput input{
     position: absolute;
@@ -194,7 +194,7 @@ input[disabled]
 */
 
 
-@font-face {
+/*@font-face {
   font-family: 'codex_ic';
   src: url('../fonts/codex_icons/codex_ic.eot?2');
   src: url('../fonts/codex_icons/codex_ic.eot?2#iefix') format('embedded-opentype'),
@@ -203,7 +203,7 @@ input[disabled]
        url('../fonts/codex_icons/codex_ic.svg?2#codex_ic') format('svg');
   font-weight: normal;
   font-style: normal;
-}
+}*/
 /* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
 /* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
 /*
@@ -431,7 +431,7 @@ html {
         color: #aaa;
     }*/
 
-.page_header{
+/*.page_header{
     padding: 60px 30px;
 }
 .page_header h1{
@@ -441,11 +441,11 @@ html {
 }
 .page_header .description{
     max-width: 500px;
-}
+}*/
 
 
 /** Blog list */
-.articles_list{
+/*.articles_list{
     font-size: 0;
     letter-spacing: 0;
     text-align: center;
@@ -454,7 +454,6 @@ html {
 .blog_item{
     display: inline-block;
     width: 50%;
-    /*min-height: 24em;*/
     box-sizing: border-box;
     padding: 80px;
     border-top: 1px solid #e8ecf2;
@@ -492,7 +491,6 @@ html {
         width: 28px;
         height: 28px;
         border-radius: 50%;
-        /*margin-right: 7px;*/
     }
 
     .blog_item .author .name{
@@ -521,11 +519,11 @@ html {
             margin-top: 13px;
             line-height: 1.2em;
         }
+*/
 
 
 
-
-
+/*
 
 .profile_page{
     padding: 150px 0 110px;
@@ -570,7 +568,6 @@ html {
         border-radius: 50%;
         overflow: hidden;
 
-        /** Style for text placeholder from img-alt */
         font-size: 100px;
         line-height: 1em;
         letter-spacing: 50px;
@@ -629,14 +626,14 @@ html {
             border-bottom-color: #c4ceda;
         }
 
+*/
 
-
-
+/*
 .no_data{
     text-align: center;
     padding: 150px 0;
 }
-
+*/
 
 
 
@@ -689,7 +686,7 @@ html {
     margin-bottom: 20px;
 }
 
-.profile_settings{
+/*.profile_settings{
     padding: 40px 30px;
 }
     .profile_settings .fl_l{
@@ -721,8 +718,8 @@ html {
     .user_settings_form input:last-of-type{
         margin-bottom: 0;
     }
-
-.breadcrumb{
+*/
+/*.breadcrumb{
     margin-bottom: 50px;
     padding-left: 20px;
     border-left: 3px solid #D6D6D6;
@@ -739,7 +736,7 @@ html {
     margin-right: 5px;
     color: inherit;
 }
-
+*/
 
 .logo_medium{
     display: inline-block;
@@ -1152,7 +1149,7 @@ html {
 
 
 /*** Contests ***/
-.contest{
+/*.contest{
     padding: 30px 0;
 }
 .contest .disclaimer,
@@ -1278,9 +1275,9 @@ html {
         .contest .toggler i{
             font-size: 12px;
         }
-
+*/
 /*** contest list ***/
-.contests_list {
+/*.contests_list {
     position: relative;
     margin: 0 30px;
     border-top: 1px solid #d2dde5;
@@ -1334,10 +1331,10 @@ html {
     }
         .contests_list .title:hover {
             color: #4888DC;
-        }
+        }*/
 
 
-
+/*
 
 .follow_us{
     width: 33%;
@@ -1366,7 +1363,7 @@ html {
     height: 28px;
     background: url('../img/icon_telegram.png') no-repeat;
 }
-
+*/
 
 .random_articles {
     padding: 35px 0;
@@ -1423,7 +1420,7 @@ html {
 
 
 /** Redactor zone styles */
-.redactor_zone{
+/*.redactor_zone{
     margin: 0px;
 }
     .redactor_zone textarea{
@@ -1437,17 +1434,17 @@ html {
     .redactor_zone .ce_toolbar{
         border-color: #F9E1E1;
         box-shadow: 0 2px 11px rgba(239, 123, 123, 0.15);
-    }
+    }*/
 
-
+/*
 .join-page{
     line-height: 1.64em;
-}
+}*/
 
 /**
 * Authored user block on /join page
 */
-.user-link{
+/*.user-link{
     font-size: 1.1em;
     margin-bottom: 1.5em;
 }
@@ -1468,7 +1465,7 @@ html {
     color: #e04545;
 }
 
-
+*/
 
 
 /**
@@ -1744,7 +1741,7 @@ html {
 
     /** Blog */
 
-    .blog_item{
+    /*.blog_item{
         display: block;
         width: auto;
         border: 0 0 1px 0;
@@ -1756,18 +1753,18 @@ html {
         }
         .blog_item_big .title{
             font-size: 1.7em;
-        }
+        }*/
 
  /*   .big_header{
         padding: 30px;
         font-size: 33px;
     }
 */
-    .breadcrumb{
+    /*.breadcrumb{
         margin-bottom: 30px;
     }
-
-    .profile_settings .ava{
+*/
+    /*.profile_settings .ava{
 
     }
     .profile_settings .button{
@@ -1788,7 +1785,7 @@ html {
     }
     .profile_settings input[type="submit"]{
         margin: 30px 0 0;
-    }
+    }*/
 
     .ny_land h1 {
         font-size: 28px;
@@ -1810,7 +1807,7 @@ html {
         top: auto;
         margin: 20px;
     }
-    .contest_info td{
+  /*  .contest_info td{
         display: block;
         width: auto !important;
         padding: 5px 0;
@@ -1827,8 +1824,8 @@ html {
     .contest .result h2{
         margin: 20px 30px;
     }
-
-    .contests_list .date,
+*/
+   /* .contests_list .date,
     .contests_list .icon{
         float: none;
     }
@@ -1852,22 +1849,22 @@ html {
     .contests_list .icon{
         display: block;
         margin: 15px auto 30px;
-    }
+    }*/
 
-    .follow_us{
+    /*.follow_us{
         width: auto;
         float: none;
         margin: 0 0 50px 0;
-    }
+    }*/
 
-    .scroll_button{
+    /*.scroll_button{
         left: auto;
         bottom: 0;
         right: 0;
         padding: 12px 14px;
         font-size: 12px;
     }
-
+*/
     .random_articles {
         margin: 0 20px;
         padding-bottom: 0;
@@ -1947,14 +1944,14 @@ html {
         background: url('../img/logo_medium.png') no-repeat;
         background-size: 123px auto;
     }
-    .ava_wrapper .settings .gear{
+    /*.ava_wrapper .settings .gear{
         background: url('../img/icon_gear@2x.png') no-repeat;
         background-size: 21px 21px;
-    }
+    }*/
     .ny_land{
         background-size: 200px auto;
     }
-    .contest .line:before{
+   /* .contest .line:before{
         background: #fff url('../img/contest_icon_goblet@2x.png') no-repeat 50% 50%;
         background-size: 18px auto;
     }
@@ -1966,12 +1963,12 @@ html {
     }
     .contest .nick::after{
         background-position: -55px 0;
-    }
-    .icon_telegram{
+    }*/
+    /*.icon_telegram{
         background: url('../img/icon_telegram@2x.png') no-repeat;
         background-size: 28px 28px;
 
-    }
+    }*/
 
 
     /**

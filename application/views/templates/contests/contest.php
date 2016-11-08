@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="/public/css/contests.css?v=<?= filemtime("public/css/contests.css") ?>">
+<link rel="stylesheet" href="/public/css/article.css?v=<?= filemtime("public/css/article.css") ?>">
+
 <article class="contest" itemscope itemtype="http://schema.org/CreativeWork ">
     <div class="center_side clear">
 
@@ -9,7 +12,7 @@
         <div class="disclaimer">конкурс от команды codex</div>
         <div class="line"></div>
 
-        <h1 class="big_header" itemprop="headline">
+        <h1 class="article__title" itemprop="headline">
             <?= $contest->title ?>
         </h1>
 

@@ -66,6 +66,135 @@ textarea {
 }
 
 
+
+/**
+* Forms elements
+* =========================================
+*/
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="url"],
+textarea{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 2px;
+    border: 0;
+    font-size: 15px;
+    font-family: inherit;
+    outline: none;
+    background: #f4f5f8;
+}
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus,
+    input[type="search"]:focus,
+    input[type="url"]:focus,
+    textarea:focus{
+        background: #eef5fd;
+    }
+
+.button,
+input[type="submit"]{
+    user-select: none;
+    border-radius: 30px;
+    border: 0;
+    display: inline-block;
+    padding: 12px 24px;
+    color: #3F4B63;
+    vertical-align: top;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: inherit;
+    background: #ECF3F9;
+    line-height: 1em;
+}
+.button:hover,
+input[type="submit"]:hover{
+    background: #4592DA;
+    color: #fff;
+    text-decoration: none;
+}
+
+/**
+* Add class 'master' to make BLUE button
+*/
+.button.master,
+input[type="submit"]{
+    background: #5c95cf;
+    color: #fff;
+}
+.button.master:hover,
+input[type="submit"]:hover{
+    background: #3c7ab9;
+    color: #fff;
+}
+
+/**
+* Styles for disabled buttons and inputs
+*/
+.button.disabled,
+input[disabled]
+{
+    background: #EAECF1;
+    color: #A9AFC1;
+}
+.button.disabled:hover,
+input[disabled]:hover
+{
+    background: #EAECF1;
+    color: #A9AFC1;
+}
+
+/*
+* Imrove padding on buttons with icons
+*/
+.button.with_icon i{
+    margin: 0 .74em 0 -.3em;
+}
+
+/*
+* VK auth button
+*/
+.vk_button{
+    background: #6886ad;
+    color: #fff;
+}
+.vk_button:hover{
+    background: #496c98;
+    color: #fff;
+}
+
+/**
+* Green button - JOIN TEAM
+*/
+.button-green{
+    background: #00AD7C;
+    color: #fff;
+}
+.button-green:hover{
+    background: #0D936D;
+    color: #fff;
+}
+.button-indexpage{
+    margin-top: 1.5em;
+    padding: 16px 30px;
+    font-size: 1.2em;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 /**
 *
 * Site blocks rules
@@ -78,12 +207,10 @@ html {
     font-size: 14px;
     line-height: 1.5em;
     letter-spacing: .1px;
-    background: #f9f9f9;
 }
 .center_side{
     max-width: 940px;
     margin: 0 auto;
-    background: #fff
 }
 
 
@@ -330,6 +457,343 @@ html {
 
 
 
+/**
+* Page header block
+* with description and follow-us block
+*/
+.page-header{
+    padding: 60px 0;
+}
+.page-header__title{
+    font-size: 1.68em;
+    line-height: 1.2em;
+    letter-spacing: .2px;
+}
+.page-header__description{
+    max-width: 500px;
+}
+
+
+/**
+* Follow-us block
+* uses on articles and contests lists
+*/
+.follow-us{
+    width: 33%;
+    margin-top: 27px;
+    margin-left: 50px;
+    color: #7183a1;
+}
+    .follow-us a{
+        display: inline-block;
+        margin-top: 15px;
+        white-space: nowrap;
+    }
+        .follow-us a i{
+            vertical-align: middle;
+            margin-right: 14px;
+        }
+        .follow-us a span{
+            display: inline-block;
+            vertical-align: middle;
+            text-decoration: underline;
+        }
+/**
+* Telegram icon
+* uses in follow-us offer block
+*/
+.icon_telegram{
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    background: url('../img/icon_telegram.png') no-repeat;
+}
+
+
+/**
+* Navigation line
+* Breadcrumbs
+*/
+.breadcrumb{
+    margin-bottom: 50px;
+    padding-left: 20px;
+    border-left: 3px solid #D6D6D6;
+    color: #A2A2A2;
+}
+.breadcrumb h1{
+    display: inline-block;
+    margin: 0 5px 0 5px;
+    font-size: inherit;
+    font-weight: normal;
+}
+.breadcrumb a{
+    display: inline-block;
+    margin-right: 5px;
+    color: inherit;
+}
+
+
+
+
+/**
+* Blogs feed
+*/
+.feed{
+    font-size: 0;
+    letter-spacing: 0;
+    text-align: center;
+}
+.feed-item{
+    display: inline-block;
+    width: 50%;
+    box-sizing: border-box;
+    padding: 80px;
+    border-top: 1px solid #e8ecf2;
+    vertical-align: top;
+    text-align: center;
+    font-size: 15px;
+}
+.feed-item__time{
+    font-size: .8em;
+    color: #7f94ac;
+}
+.feed-item__title{
+    display: block;
+    margin: 20px 0 30px;
+    font-size: 1.82em;
+    letter-spacing: .2px;
+    line-height: 1.3em;
+    word-wrap: break-word;
+    text-decoration: none;
+    font-weight: bold;
+    color: inherit;
+}
+    .feed-item__title:hover{
+        text-decoration: underline;
+    }
+.feed-item__author{
+    text-decoration: none;
+    color: #6e7992;
+    font-weight: bold;
+}
+    .feed-item__author:hover .feed-item__author_name{
+        text-decoration: underline;
+    }
+.feed-item__author_photo{
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+}
+.feed-item__author_name{
+    display: block;
+    max-width: 80px;
+    margin: 10px auto 0;
+    word-wrap: break-word;
+    font-size: 0.78em;
+    line-height: 1.17em
+}
+.feed-item_big{
+    width: 100%;
+    padding: 130px 130px 100px;
+    min-height: auto;
+}
+    .feed-item_big .feed-item__title{
+        font-size: 3.5em;
+        margin-bottom: 50px;
+    }
+    .feed-item_big .feed-item__author_photo{
+        width: 46px;
+        height: 46px;
+    }
+    .feed-item_big .feed-item__author_name{
+        margin-top: 13px;
+        line-height: 1.2em;
+    }
+
+
+
+
+
+/**
+* Profile settings form
+*/
+.profile-settings{
+    padding: 40px 0;
+}
+.profile-settings label{
+    display: block;
+    margin-bottom: .7em;
+}
+.profile-settings__form{
+    margin-left: 40px;
+    padding-left: 35px;
+    border-left: 3px solid #8B9AAF;
+    max-width: 280px;
+}
+.profile-settings__form input:not(:last-of-type),
+.profile-settings__form textarea,
+.profile-settings__ava{
+    margin-bottom: 20px;
+}
+
+
+
+
+
+/**
+*
+* User profile
+*
+*/
+.profile {
+    padding: 150px 0 110px;
+    text-align: center;
+}
+.profile-ava {
+    position: relative;
+    display: inline-block;
+}
+.profile-ava__settings{
+    position: absolute;
+    bottom: -6px;
+    right: 0;
+    background: #fff url('../img/icon_gear.png') no-repeat center center;
+    width: 29px;
+    height: 29px;
+    border-radius: 50%;
+    transition: transform 150ms ease;
+    will-change: transform;
+
+}
+    .profile-ava__settings:hover{
+        transform: rotate(45deg);
+    }
+
+.profile-ava__photo,
+.profile-settings__ava{
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+
+    background: #e9ecf5;
+    border-radius: 50%;
+    overflow: hidden;
+
+    /** Style for text placeholder from img-alt */
+    font-size: 100px;
+    line-height: 1em;
+    letter-spacing: 50px;
+    color: #CAD2E0;
+    font-weight: bold;
+}
+        .profile-ava__photo > img,
+        .profile-settings__ava > img
+        {
+            vertical-align: top;
+            margin: -1px 0 0 -2px;
+            width: 103px;
+            height: 103px;
+        }
+
+.profile__name{
+    margin: 1.5em 0 .74em;
+    font-size: 2.2em;
+}
+.profile__bio{
+    font-size: 1.2em;
+    line-height: 1.5em;
+}
+.profile__social{
+    display: inline-block;
+    padding: 2px 3px;
+    margin: 25px 18px;
+    border-radius: 15px;
+    text-decoration: none;
+    font-size: 1.5em;
+}
+.profile__social:not(.github){
+    color: #9C9DA2;
+}
+.profile__social:hover{
+    color: #4C5063;
+}
+.profile__social.github:not(.profile__social_no_insta){
+    font-size: 2.1em;
+    line-height: .5em;
+}
+.profile__logout{
+    display: inline-block;
+    margin-top: 30px;
+    font-size: 18px;
+    text-decoration: none !important;
+    color: #b9bfca;
+    border-bottom: 1px solid #dce1e8;
+}
+    .profile__logout:hover{
+        color: #8d9aaf;
+        border-bottom-color: #c4ceda;
+    }
+
+
+
+
+/**
+* Read-also recommendations block
+*/
+.random_articles {
+    padding: 35px 0;
+    margin: 0 120px;
+    max-width: 600px;
+}
+    .random_articles a{
+        padding-bottom: 3px;
+        border-bottom: 1px solid #d8e5f1;
+        text-decoration: none;
+        letter-spacing: 0.2px;
+        font-size: 1.31em;
+    }
+    .random_articles h3{
+        margin-bottom: 20px;
+        font-size: 1.5em;
+    }
+    .random_articles li{
+        display: block;
+        list-style: none;
+        margin: 20px 0;
+    }
+
+/**
+* Social sharing block
+*/
+.sharing{
+    margin: 50px 70px 0;
+    padding: 30px 40px;
+    border-radius: 3px;
+    background: #f1f5f8;
+    color: #616C98;
+}
+    .sharing .but{
+        margin-left: 13px;
+        cursor: pointer;
+        color: #a1acc1;
+        font-size: 20px;
+    }
+        .sharing .but:hover{color: #5D75BD;}
+        .sharing .tw:hover{color: #6E98FD;}
+        .sharing .tg:hover{color: #41ADFF;}
+        .sharing .tg{font-size: 17px;}
+
+    .sharing .main_but{
+        margin: -0.66em 12px 0 0;
+        padding: 10px 24px;
+        border-radius: 25px;
+        background: #607cb6;
+        color: #fff;
+    }
+        .sharing .main_but:hover{background: #546fa9;}
+        .sharing .main_but i{margin: 0 4px 0 -5px;}
+
+
 
 
 
@@ -436,18 +900,107 @@ html {
         display: none;
     }
 
+    /**
+    * Follow us mobile
+    */
+    .follow-us{
+        width: auto;
+        float: none;
+        margin: 0 0 50px 0;
+    }
 
 
+    /**
+    * Blogs feed mobile
+    */
+    .feed-item{
+        display: block;
+        width: auto;
+        border: 0 0 1px 0;
+        padding: 25px 0;
+    }
+    .feed-item__title{
+        margin: 15px 20px 20px;
+        font-size: 1.2em;
+    }
+    .feed-item_big .feed-item__title{
+        font-size: 2em;
+    }
+
+    /**
+    * Users profiles
+    */
+    .profile{
+        padding: 70px 0;
+    }
+
+    /**
+    * Profile settings
+    */
+    .profile-settings .button{
+        margin-top: -38px;
+    }
+    .profile-settings .fl_l{
+        float: none;
+    }
+    .profile-settings__form{
+        margin-left: 0;
+        padding-left: 0;
+        border-left: 0;
+    }
 
 
+    /**
+    * Recommendations block
+    */
+    .random_articles {
+        margin: 0;
+        padding-bottom: 0;
+    }
+    .random_articles a{
+        line-height: 1.7em;
+        font-size: 1.1em;
+    }
 
-
-
-
-
-
-
+    /**
+    * Sharing
+    */
+    .sharing{
+        margin: 30px 0 0;
+        padding:  30px;
+        text-align: center;
+    }
+    .sharing .main_but{
+        float: none;
+        display: block;
+        margin: 0 0 15px;
+    }
+    .sharing .but{
+        display: inline-block;
+        float: none;
+        margin: 0 7px 18px;
+    }
 
     /** End of mobile viewport */
+
+}
+
+
+
+/**
+* Retina displays styles
+*/
+@media print, (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 1.25dppx), (min-resolution: 120dpi) {
+
+    .icon_telegram{
+        background: url('../img/icon_telegram@2x.png') no-repeat;
+        background-size: 28px 28px;
+    }
+    .profile-ava__settings{
+        background: #fff url('../img/icon_gear@2x.png') no-repeat center center;
+        background-size: 21px 21px;
+    }
+
+
 
 }
