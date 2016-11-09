@@ -94,6 +94,7 @@
         font-family: 'monospace', 'monaco', 'consolas', 'courier';
         font-size: 14px;
         color: #3D597B;
+        overflow-x: auto;
     }
     .article_content li{
         margin: 0.2em 0;

@@ -184,6 +184,20 @@ input[disabled]:hover
     font-size: 1.2em;
 }
 
+/**
+* Loading button animation
+*/
+.button.loading{
+    position: relative;
+    overflow: hidden;
+    background: #F5F5F5;
+    color: #434C61;
+}
+.button.loading:before{
+  position: absolute; left: 0; top: 0;
+  content: ''; width: 100%; height: 100%; display: block;
+  background: url('../img/load_pattern.gif'); opacity: .1;
+}
 
 
 
@@ -454,6 +468,36 @@ html {
     .event_alert__icon_delimiter{
         font-size: .7em;
     }
+
+/**
+* Some promo link on index page
+*/
+
+.contest_alert a{
+    display: block;
+    margin: -20px 40px 40px;
+    text-align: center;
+    text-decoration: none;
+    font-variant: small-caps;
+    letter-spacing: 1.4px;
+    color: #988e8e;
+}
+.contest_alert .line{
+    position: relative;
+    margin: 0 70px 70px;
+    height: 1px;
+    background: #ebe8e8;
+}
+.contest_alert .line:before{
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -19px;
+    width: 40px;
+    height: 40px;
+    margin-left: -20px;
+    background: #fff url('../img/contest_icon_goblet.png') no-repeat 50% 50%;
+}
 
 
 
@@ -794,11 +838,33 @@ html {
         .sharing .main_but i{margin: 0 4px 0 -5px;}
 
 
+.profile_join_requests{
+    color: #9A9A9A;
+    font-style: italic;
+}
 
 
 
-
-
+/**
+* Branches
+* To use add class .branchy to any Element
+*/
+.branchy{
+    text-decoration: none;
+}
+    .branchy::before,
+    .branchy::after{
+        content: '';
+        display: inline-block;
+        margin: 0 4px;
+        width: 55px;
+        height: 26px;
+        background: url('../img/branches.png') no-repeat;
+        vertical-align: top;
+    }
+        .branchy::after{
+            background-position: -55px 0;
+        }
 
 
 
@@ -979,6 +1045,14 @@ html {
         display: inline-block;
         float: none;
         margin: 0 7px 18px;
+    }
+
+
+    /**
+    * Contest promo link on index page
+    */
+    .contest_alert a{
+        margin: 20px 0;
     }
 
     /** End of mobile viewport */

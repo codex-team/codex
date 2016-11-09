@@ -6,8 +6,10 @@
     </div>
 <? endif ?>
 <div class="center_side clearfix">
-    <div class="mobile_logo_small"></div>
     <div class="left_col fl_l">
+
+        <div class="codex-logo codex-logo--mobile"></div>
+
         <article class="join-page">
             <p>
                 CodeX — это новый клуб в НИУ ИТМО, объединяющий студентов, интересующихся веб-разработкой, дизайном и изучением новых технологий на практике.
@@ -35,14 +37,13 @@
         </article>
     </div>
     <div class="right_col">
-        <div class="page_pic">
-            <div class="logo_medium"></div>
-        </div>
+
+        <div class="codex-logo codex-logo--r-col"></div>
 
         <?
             if ( !$request ):
         ?>
-            <form class="blank" id="joinBlank" method="post" action="/join">
+            <form class="join-form" id="joinBlank" method="post" action="/join">
 
                 <input type="hidden" name="csrf" value="<?= Security::token() ?>">
 
@@ -61,7 +62,7 @@
 
                 <? else: ?>
 
-                    <div class="blank_auth" id="blankAuthBlock">
+                    <div class="join-form__auth" id="blankAuthBlock">
                         <a class="button vk_button with_icon" href="/auth/vk"><i class="icon-vkontakte"></i>Авторизоваться</a>
                         <span class="additional">или ввести <u class="pointer" id="blankShowAdditionalFieldsButton">почту</u></span>
                     </div>

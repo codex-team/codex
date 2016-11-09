@@ -44,9 +44,6 @@
     text-decoration: none;
 }
 
-
-
-
 .additional_tasks{
     margin: 0;
     padding: 0;
@@ -92,6 +89,34 @@
 .join-page{
     line-height: 1.64em;
 }
+.codex-logo--r-col{
+    display: block;
+    margin: 30px auto 50px;
+}
+
+.join-form label{
+    display: block;
+    margin-bottom: .7em;
+}
+.join-form textarea,
+.join-form input{
+    margin-bottom: 30px;
+}
+
+/**
+* Joining page auth form
+*/
+.join-form__auth{
+    margin-bottom: 30px;
+    color: #838ea1;
+}
+.join-form__auth .button{
+    vertical-align: middle;
+    margin-right: 20px;
+}
+
+
+
 
 /**
 * Authored user block on /join page
@@ -117,7 +142,24 @@
     color: #e04545;
 }
 
+.success_alert{
+    background: #F2F5FB;
+    color: #6F809A;
+    line-height: 1.6em;
+    font-size: 16px;
+    padding: 100px 200px;
+    text-align: center;
+}
+.success_alert.compact{
+    margin-top: 2em;
+    padding: 30px;
+    font-size: 14px;
+}
 
+
+.codex-logo--mobile{
+    display: none;
+}
 
 /**
 * Small screens viewport
@@ -136,20 +178,92 @@
 */
 @media all and (max-width: 800px){
 
+    .codex-logo--r-col{
+        display: none;
+    }
+
+    .codex-logo--mobile{
+        display: block;
+        width: 160px;
+        height: 160px;
+        margin: 30px auto;
+        background-size: auto 160px
+    }
+
     .left_col{
         float: none;
-        width: auto;
-        padding: 0 30px;
+        width: auto;;
     }
     .left_col article{
         padding: 10px 0;
     }
     .right_col{
-        padding: 30px;
+        padding: 0;
+    }
+    .join-form__auth{
+        text-align: center;
+    }
+    .join-form .button{
+        margin: 0;
+    }
+    .join-form .additional{
+        display: block;
+        margin-top: 15px;
     }
 
     .block_link a{
         margin: 0 20px;
     }
 
+}
+
+
+
+
+
+
+@-webkit-keyframes wobble {
+    0% { -webkit-transform: translateX(0%); }
+    15% { -webkit-transform: translateX(-1%) rotate(-5deg); }
+    30% { -webkit-transform: translateX(3%) rotate(3deg); }
+    45% { -webkit-transform: translateX(-1%) rotate(-3deg); }
+    60% { -webkit-transform: translateX(3%) rotate(2deg); }
+    75% { -webkit-transform: translateX(-1%) rotate(-1deg); }
+    100% { -webkit-transform: translateX(0%); }
+}
+
+@-moz-keyframes wobble {
+    0% { -moz-transform: translateX(0%); }
+    15% { -moz-transform: translateX(-1%) rotate(-5deg); }
+    30% { -moz-transform: translateX(3%) rotate(3deg); }
+    45% { -moz-transform: translateX(-1%) rotate(-3deg); }
+    60% { -moz-transform: translateX(3%) rotate(2deg); }
+    75% { -moz-transform: translateX(-1%) rotate(-1deg); }
+    100% { -moz-transform: translateX(0%); }
+}
+
+@-o-keyframes wobble {
+    0% { -o-transform: translateX(0%); }
+    15% { -o-transform: translateX(-1%) rotate(-5deg); }
+    30% { -o-transform: translateX(3%) rotate(3deg); }
+    45% { -o-transform: translateX(-1%) rotate(-3deg); }
+    60% { -o-transform: translateX(3%) rotate(2deg); }
+    75% { -o-transform: translateX(-1%) rotate(-1deg); }
+    100% { -o-transform: translateX(0%); }
+}
+
+@keyframes wobble {
+    0% { transform: translateX(0%); }
+    15% { transform: translateX(-1%) rotate(-5deg); }
+    30% { transform: translateX(3%) rotate(3deg); }
+    45% { transform: translateX(-1%) rotate(-3deg); }
+    60% { transform: translateX(3%) rotate(2deg); }
+    75% { transform: translateX(-1%) rotate(-1deg); }
+    100% { transform: translateX(0%); }
+}
+
+.wobble {
+    -webkit-animation-name: wobble; -moz-animation-name: wobble; -o-animation-name: wobble; animation-name: wobble;
+    -webkit-animation-duration: 400ms; -moz-animation-duration: 400ms; -o-animation-duration: 400ms; animation-duration: 400ms;
+    -webkit-animation-iteration-count: 1; -moz-animation-iteration-count: 1; -o-animation-iteration-count: 1; animation-iteration-count: 1;
 }
