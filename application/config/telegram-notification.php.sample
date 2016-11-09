@@ -1,0 +1,8 @@
+<?php defined('SYSPATH') OR die('No direct access allowed.');
+
+return array(
+
+    /** Put here a link from Codex.Bot for notifications */
+    'url' => '',
+
+);
