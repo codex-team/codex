@@ -1,9 +1,9 @@
-<link rel="stylesheet" href="/public/css/landings/editor.css" />
+<link rel="stylesheet" href="/public/css/landings/editor.css?v=<?= filemtime("public/css/landings/editor.css") ?>">
 <div class="center_side">
-    <article class="editor_workout">
+    <article class="editor-landing">
 
-        <h1 class="big_header" itemprop="headline">CodeX Editor</h1>
-        <div class="editor-landing--disclaimer">under development</div>
+        <h1 class="editor-landing__title" itemprop="headline">CodeX Editor</h1>
+        <div class="editor-landing__disclaimer">under development</div>
 
         <form name="editor-demo" action="/editor/preview" method="POST" enctype="multipart/form-data">
 
@@ -404,14 +404,14 @@ INPUT.items = [];
             holder : 'output'
         });
 
-        load.getScript({
-            async    : true,
-            url      : '/public/js/simpleCodeStyling.js?v=2',
-            instance : 'simpleCodeStyling',
-            loadCallback : function(response){
-                simpleCode.init('.editor_workout code');
-            }
-        });
+        // load.getScript({
+        //     async    : true,
+        //     url      : '/public/js/simpleCodeStyling.js?v=2',
+        //     instance : 'simpleCodeStyling',
+        //     loadCallback : function(response){
+        //         simpleCode.init('.editor-workout code');
+        //     }
+        // });
 
     });
 
