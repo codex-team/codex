@@ -72,6 +72,7 @@ cEditor.tools.paragraph = {
     settings         : null,
     render           : paragraphTool.render,
     save             : paragraphTool.save,
+    display          : false,
     enableLineBreaks : false,
     allowedToPaste   : true
 

@@ -30,15 +30,15 @@ var quoteTools = {
             }
         } else {
 
-            tag = document.createElement('BLOCKQUOTE');
+            var settings = {
+                style  : 'withPhoto',
+                text   : '',
+                author : '',
+                job    : '',
+                photo  : ''
+            };
 
-            tag.contentEditable = 'true';
-
-            tag.dataset.quoteStyle = 'simple';
-
-            tag.classList.add(quoteTools.styles.ce_quote);
-            tag.classList.add(quoteTools.styles.quoteText);
-            tag.classList.add(quoteTools.styles.simple.text);
+            tag = quoteTools.makeQuoteWithPhoto(settings);
 
         }
 
@@ -408,6 +408,7 @@ cEditor.tools.quote = {
     settings         : quoteTools.makeSettings(),
     render           : quoteTools.render,
     save             : quoteTools.save,
+    display          : true,
     enableLineBreaks : true,
     allowedToPaste   : true
 

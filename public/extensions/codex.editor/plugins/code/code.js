@@ -70,6 +70,7 @@ cEditor.tools.code = {
     settings         : null,
     render           : codeTool.render,
     save             : codeTool.save,
+    display          : true,
     enableLineBreaks : true
 
 };

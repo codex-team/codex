@@ -615,6 +615,10 @@ cEditor.ui = {
 
             tool = cEditor.tools[name];
 
+            if (!tool.display) {
+                continue;
+            }
+            
             if (!tool.iconClassname) {
                 cEditor.core.log('Toolbar icon classname missed. Tool %o skipped', 'warn', name);
                 continue;
@@ -3304,9 +3308,9 @@ cEditor.transport = {
     ajax : function(params){
 
         var xhr = new XMLHttpRequest(),
-            beforeSend = typeof params.success == 'function' ? params.beforeSend : function(){},
-            success    = typeof params.success == 'function' ? params.success : function(){},
-            error      = typeof params.error   == 'function' ? params.error   : function(){};
+            beforeSend = typeof params.beforeSend == 'function' ? params.beforeSend : function(){},
+            success    = typeof params.success    == 'function' ? params.success : function(){},
+            error      = typeof params.error      == 'function' ? params.error   : function(){};
 
         beforeSend();
 

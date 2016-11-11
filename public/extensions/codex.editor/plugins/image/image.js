@@ -414,6 +414,7 @@ cEditor.tools.image = {
     render           : ceImage.render,
     save             : ceImage.save,
     isStretched      : true,
+    display          : true,
     enableLineBreaks : false
 
 };
