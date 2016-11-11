@@ -7,8 +7,7 @@ return array(
         'APP_ID'        => '',
         'APP_SECRET'    => '',
         'SETTINGS'      => NULL,
-        'REDIRECT_URI'  => 'http://'.Arr::get($_SERVER, 'SERVER_NAME').'/auth/vk
-',
+        'REDIRECT_URI'  => 'http://'.Arr::get($_SERVER, 'SERVER_NAME').'/auth/vk',
         'GET_CODE_URI'  => 'https://oauth.vk.com/authorize/',
         'GET_TOKEN_URI' => 'https://oauth.vk.com/access_token'
     ),
