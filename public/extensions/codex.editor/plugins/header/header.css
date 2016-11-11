@@ -14,18 +14,17 @@
 }
 
 /** H e a d e r - settings */
-.ce_plugin_header--settings{
-    white-space: nowrap;
-    /*padding-right: 10px;    */
-}
 .ce_plugin_header--select_button{
-    display: inline-block;
-    margin-left: 15px;
-    color: #70a1ff;
+    display: block;
+    color: #306ac7;
     cursor: pointer;
+    line-height: 1.3em;
 }
+    .ce_plugin_header--select_button:not(:last-of-type){
+        margin-bottom: 0.9em;
+    }
     .ce_plugin_header--select_button:hover{
-        color: #8da8dc;
+        color: #a1b4ec;
     }
 
 

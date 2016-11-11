@@ -9,14 +9,18 @@
     /*padding-right: 10px;    */
 }
 .ce_plugin_quote--select_button{
-    display: inline-block;
-    margin-left: 15px;
-    color: #70a1ff;
+    display: block;
+    color: #306ac7;
     cursor: pointer;
+    line-height: 1.3em;
 }
-    .ce_plugin_quote--select_button:hover{
-        color: #8da8dc;
+    .ce_plugin_quote--select_button:not(:last-of-type){
+        margin-bottom: 0.9em;
     }
+    .ce_plugin_quote--select_button:hover{
+        color: #a1b4ec;
+    }
+
 
 /** Quote Styles */
 

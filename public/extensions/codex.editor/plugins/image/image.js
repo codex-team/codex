@@ -66,7 +66,6 @@ var ceImage = {
     makeSettings : function () {
 
         var holder  = document.createElement('DIV'),
-            caption = document.createElement('SPAN'),
             types   = {
                         centered  : 'По центру',
                         stretched : 'На всю ширину',
@@ -75,12 +74,6 @@ var ceImage = {
 
         /** Add holder classname */
         holder.className = 'ce_plugin_image--settings';
-
-        /** Add settings helper caption */
-        caption.textContent = 'Настройки плагина';
-        caption.className   = 'ce_plugin_image--caption';
-
-        holder.appendChild(caption);
 
         /** Now add type selectors */
         for (var type in types){

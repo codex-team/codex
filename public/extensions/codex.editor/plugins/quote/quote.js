@@ -74,7 +74,6 @@ var quoteTools = {
     makeSettings : function(data) {
 
         var holder  = document.createElement('DIV'),
-            caption = document.createElement('SPAN'),
             types   = {
                         simple      : 'Простая цитата',
                         withCaption : 'Цитата с подписью',
@@ -83,13 +82,7 @@ var quoteTools = {
             selectTypeButton;
 
         /** Add holder classname */
-        holder.className = quoteTools.styles.settings.holder,
-
-        /** Add settings helper caption */
-        caption.textContent = 'Настройки цитат';
-        caption.className   = quoteTools.styles.settings.caption;
-
-        holder.appendChild(caption);
+        holder.className = quoteTools.styles.settings.holder;
 
         /** Now add type selectors */
         for (var type in types){

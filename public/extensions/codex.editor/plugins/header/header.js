@@ -92,7 +92,6 @@ var headerTool = {
     makeSettings : function () {
 
         var holder  = document.createElement('DIV'),
-            caption = document.createElement('SPAN'),
             types   = {
                         H2: 'Заголовок раздела',
                         H3: 'Подзаголовок',
@@ -102,12 +101,6 @@ var headerTool = {
 
         /** Add holder classname */
         holder.className = 'ce_plugin_header--settings';
-
-        /** Add settings helper caption */
-        caption.textContent = 'Настройки заголовка';
-        caption.className   = 'ce_plugin_header--caption';
-
-        holder.appendChild(caption);
 
         /** Now add type selectors */
         for (var type in types){

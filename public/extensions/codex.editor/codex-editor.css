@@ -90,14 +90,22 @@
     display: inline-block;
     width: 30px;
     height: 30px;
-    background-color: #eee;
+    background-color: #fff;
+    box-shadow: 0 0 0 1px #6d748c;
     margin-right: 20px;
     border-radius: 15px;
     text-align: center;
     cursor: pointer;
+    font-size: 12px;
 }
 .ce-toolbar__tools li i{
     line-height: 30px;
+}
+.ce-toolbar__tools li:hover,
+.ce-toolbar__tools .selected{
+    background: #383b5d;
+    box-shadow: none;
+    color: #fff;
 }
 
 /**
@@ -126,8 +134,8 @@
     background: #FFFFFF;
     border: 1px solid #E0E2EA;
     box-shadow: 0px 5px 8px 0px rgba(195,200,222,0.50);
-    padding: 20px;
     border-radius: 3px;
+    white-space: nowrap;
     color: #707684;
     font-size: 13px;
 
@@ -138,6 +146,13 @@
     display: block;
 }
 
+.ce-settings_plugin{
+    padding: 20px;
+    border-bottom: 1px solid #E8EAEE;
+}
+.ce-settings_default{
+    padding: 20px;
+}
 
 
 
@@ -173,7 +188,11 @@
     padding: 12px 8px;
     color: inherit;
     font-size: 12px;
-
+    cursor: pointer;
+}
+.ce-toolbar-inline__buttons button:hover{
+    background: #171827;
+    color: #428bff;
 }
 .ce-toolbar-inline__actions{
 

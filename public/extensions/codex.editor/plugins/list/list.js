@@ -81,15 +81,10 @@ var listTool = {
     makeSettings : function(data) {
 
         var holder  = document.createElement('DIV'),
-            caption = document.createElement('SPAN'),
             selectTypeButton;
 
         /** Add holder classname */
         holder.className = 'ce_plugin_list--settings';
-
-        /** Add settings helper caption */
-        caption.textContent = 'Настройки списков';
-        caption.className   = 'ce_plugin_list--caption';
 
         var orderedButton = listTool.ui.button("ordered"),
             unorderedButton = listTool.ui.button("unordered");
