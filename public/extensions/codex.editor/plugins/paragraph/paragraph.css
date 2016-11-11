@@ -3,9 +3,10 @@
 */
 
 .ce-paragraph {
-    max-width: 700px;
+    max-width: 600px;
     margin: 0 auto;
     padding: 0.7em 0 !important;
+    line-height: 1.7em;
 }
 .ce-paragraph:empty::before{
     content : attr(data-placeholder);

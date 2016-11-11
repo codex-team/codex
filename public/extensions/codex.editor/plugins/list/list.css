@@ -1,6 +1,7 @@
 .ce-list {
-    max-width: 700px;
-    margin: 20px auto !important;
+    max-width: 600px;
+    margin: 1em auto !important;
+    padding: .5em 0;
 }
 
 .ce_plugin_list--settings{
@@ -17,3 +18,13 @@
         border-bottom-color: #687da5;
         color: #8da8dc;
     }
+
+.ce-list li{
+    background: #fff;
+    border: 1px solid #ebeef3;
+    border-radius: 3px;
+    margin: .5em;
+    padding: .5em;
+    list-style-position: outside;
+    margin-left: 1.1em;
+}

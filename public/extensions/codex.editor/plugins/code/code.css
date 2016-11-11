@@ -1,10 +1,15 @@
 .ce-code {
-    max-width: 700px;
+    max-width: 600px;
     display: block;
-    margin: 0 auto;
-    padding: 5px 10px;
     border: 1px solid #ebeef3;
+    border-radius: 3px;
     background: #fdfdff !important;
+
+    margin: 1em auto !important;
+    padding: .5em .8em;
+    box-sizing: border-box;
+    white-space: pre-wrap;
+
     font-family: 'monospace', 'monaco', 'consolas', 'courier';
     line-height: 1.5em;
     color: #325179;

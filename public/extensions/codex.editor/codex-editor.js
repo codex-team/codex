@@ -487,12 +487,12 @@ cEditor.ui = {
         /**
         * @const {string} BLOCK_CLASSNAME - redactor blocks name
         */
-        BLOCK_CLASSNAME : 'ce_block',
+        BLOCK_CLASSNAME : 'ce-block',
 
         /**
         * @const {String} BLOCK_STRETCHED - makes block stretched
         */
-        BLOCK_STRETCHED : 'ce_block--stretched',
+        BLOCK_STRETCHED : 'ce-block--stretched',
 
         /**
         * @const {String} BLOCK_HIGHLIGHTED - adds background
@@ -2456,7 +2456,7 @@ cEditor.toolbar.toolbox = {
         cEditor.nodes.toolbox.classList.add('opened');
 
         /** Animate plus button */
-        cEditor.nodes.plusButton.classList.add('ce_redactor_plusButton--clicked');
+        cEditor.nodes.plusButton.classList.add('clicked');
 
         /** toolbox state */
         cEditor.toolbar.toolbox.opened = true;
@@ -2470,7 +2470,7 @@ cEditor.toolbar.toolbox = {
         cEditor.nodes.toolbox.classList.remove('opened');
 
         /** Rotate plus button */
-        cEditor.nodes.plusButton.classList.remove('ce_redactor_plusButton--clicked');
+        cEditor.nodes.plusButton.classList.remove('clicked');
 
         /** toolbox state */
         cEditor.toolbar.toolbox.opened = false;
@@ -2605,8 +2605,8 @@ cEditor.toolbar.settings = {
         */
         if (!cEditor.tools[toolType] || !cEditor.core.isDomNode(cEditor.tools[toolType].settings) ) {
 
-            cEditor.core.log('Wrong tool type', 'warn');
-            cEditor.nodes.pluginSettings.innerHTML = `Плагин «${toolType}» не имеет настроек`;
+            cEditor.core.log(`Plugin «${toolType}» has no settings`, 'warn');
+            // cEditor.nodes.pluginSettings.innerHTML = `Плагин «${toolType}» не имеет настроек`;
 
         } else {
 
@@ -2829,7 +2829,7 @@ cEditor.toolbar.inline = {
         newCoordinateX = coords.x - this.wrappersOffset.left;
         newCoordinateY = coords.y + window.scrollY - this.wrappersOffset.top - defaultOffset - toolbar.offsetHeight;
 
-        toolbar.style.transform = `translate3D(${newCoordinateX}px, ${newCoordinateY}px, 0)`;
+        toolbar.style.transform = `translate3D(${Math.floor(newCoordinateX)}px, ${Math.floor(newCoordinateY)}px, 0)`;
 
         /** Close everything */
         cEditor.toolbar.inline.closeButtons();
@@ -3463,7 +3463,7 @@ cEditor.parser = {
                     block.contentEditable = "true";
 
                     /** Mark node as redactor block*/
-                    block.classList.add('ce_block');
+                    block.classList.add('ce-block');
 
                     /** Append block to the redactor */
                     cEditor.nodes.redactor.appendChild(block);
@@ -3595,7 +3595,7 @@ cEditor.draw = {
 
         var wrapper = document.createElement('div');
 
-        wrapper.className += 'ce_wrapper';
+        wrapper.className += 'codex-editor';
 
         return wrapper;
 
@@ -3608,7 +3608,7 @@ cEditor.draw = {
 
         var redactor = document.createElement('div');
 
-        redactor.className += 'ce_redactor';
+        redactor.className += 'ce-redactor';
 
         return redactor;
 
@@ -3621,7 +3621,7 @@ cEditor.draw = {
 
         var bar = document.createElement('div');
 
-        bar.className += 'ce_toolbar';
+        bar.className += 'ce-toolbar';
 
         return bar;
     },
@@ -3633,7 +3633,7 @@ cEditor.draw = {
 
         var bar = document.createElement('DIV');
 
-        bar.className += 'ce_toolbar-inline';
+        bar.className += 'ce-toolbar-inline';
 
         return bar;
 
@@ -3646,7 +3646,7 @@ cEditor.draw = {
 
         var wrapper = document.createElement('DIV');
 
-        wrapper.className += 'ce_toolbar-inline--buttons';
+        wrapper.className += 'ce-toolbar-inline__buttons';
 
         return wrapper;
     },
@@ -3658,7 +3658,7 @@ cEditor.draw = {
 
         var wrapper = document.createElement('DIV');
 
-        wrapper.className += 'ce_toolbar-inline--actions';
+        wrapper.className += 'ce-toolbar-inline__actions';
 
         return wrapper;
 
@@ -3699,7 +3699,7 @@ cEditor.draw = {
 
         var block = document.createElement('div');
 
-        block.className += 'ce_block_blockButtons';
+        block.className += 'ce-toolbar__actions';
 
         return block;
     },
@@ -3711,7 +3711,7 @@ cEditor.draw = {
 
         var settings = document.createElement('div');
 
-        settings.className += 'ce_block_settings';
+        settings.className += 'ce-settings';
 
         return settings;
     },
@@ -3720,7 +3720,7 @@ cEditor.draw = {
 
         var div = document.createElement('div');
 
-        div.classList.add('ce_block_settings-default');
+        div.classList.add('ce-settings_default');
 
         return div;
     },
@@ -3729,7 +3729,7 @@ cEditor.draw = {
 
         var div = document.createElement('div');
 
-        div.classList.add('ce_block_settings-plugin');
+        div.classList.add('ce-settings_plugin');
 
         return div;
 
@@ -3739,9 +3739,8 @@ cEditor.draw = {
 
         var button = document.createElement('span');
 
-        button.className = 'ce_redactor_plusButton';
-
-        button.innerHTML = '<i class="ce-icon-plus"></i>';
+        button.className = 'ce-toolbar__plus';
+        // button.innerHTML = '<i class="ce-icon-plus"></i>';
 
         return button;
     },
@@ -3753,10 +3752,10 @@ cEditor.draw = {
 
         var toggler = document.createElement('span');
 
-        toggler.className = 'toggler';
+        toggler.className = 'ce-toolbar__settings-btn';
 
         /** Toggler button*/
-        toggler.innerHTML = '<i class="settings_btn ce-icon-cog"></i>';
+        toggler.innerHTML = '<i class="ce-icon-cog"></i>';
 
         return toggler;
     },
@@ -3769,7 +3768,7 @@ cEditor.draw = {
 
         var wrapper = document.createElement('div');
 
-        wrapper.className = 'ce_redactor_tools';
+        wrapper.className = 'ce-toolbar__tools';
 
         return wrapper;
     },
@@ -3790,11 +3789,11 @@ cEditor.draw = {
             tool_title = document.createElement("span");
 
         button.dataset.type = type;
+        button.setAttribute('title', type);
 
         tool_icon.classList.add(classname);
-
-        tool_title.innerHTML = type;
         tool_title.classList.add('ce_toolbar_tools--title');
+
 
         button.appendChild(tool_icon);
         button.appendChild(tool_title);

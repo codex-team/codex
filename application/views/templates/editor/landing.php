@@ -155,7 +155,7 @@ _INPUT.items = [
     {
         type : 'code',
         data : {
-            text : `<pre>var promise = new Promise(function(resolve, reject) {
+            text : `var promise = new Promise(function(resolve, reject) {
 
     // do a thing, possibly async, then…
     if (/* everything turned out fine */) {
@@ -168,7 +168,7 @@ _INPUT.items = [
 
     }
 
-});</pre>`,
+});`,
         }
     },
     {
@@ -396,7 +396,7 @@ INPUT.items = [];
 
         cEditor.start({
             textareaId: 'codex_editor',
-            data : INPUT
+            data : _INPUT
         });
 
         cPreview.show({
