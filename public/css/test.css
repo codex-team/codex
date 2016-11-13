@@ -1,0 +1,304 @@
+/*List of tests*/
+.tests_list {
+    position: relative;
+    margin: 0 30px;
+    border-top: 1px solid #d2dde5;
+}
+
+    .tests_list::before {
+        display: block;
+        content: 'Тесты';
+        position: absolute;
+        left: 97px;
+        top: -14px;
+        padding: 3px 15px;
+        background: #fff;
+        color: #b0c4d3;
+        font-variant: small-caps;
+        font-size: 18px;
+        letter-spacing: 1px;
+    }
+
+    .tests_list .item {
+        padding: 50px 0;
+    }
+
+        .tests_list .date {
+            float: left;
+            width: 60px;
+            color: #a8adb6;
+            text-align: center;
+        }
+
+        .tests_list .constrain {
+            margin-left: 100px;
+            owerflow: hidden;
+        }
+
+            .tests_list .title {
+                display: inline-block;
+                margin: 0 0 8px;
+                font-size: 18px;
+                color: inherit;
+                text-decoration: none;
+                font-weight: bold;
+            }
+
+            .tests_list .title:hover {
+                color: #4888DC;
+            }
+
+/*Test*/
+.main {
+    margin: 30px;
+    padding-bottom: 20px;
+    border: 1px solid #eceff6;
+    border-radius: 3px;
+    max-width: 700px;
+    position: relative;
+    left: 50%;
+    margin-left: -350px;
+}
+
+.question_header {
+    font-family: inherit;
+    font-style: inherit;
+    font-size: 30px;
+    margin: 20px 50px 10px 50px;
+}
+
+    .question_title {
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .question_description {
+        font-style: italic;
+        font-size: 15px;
+        line-height: 25px;
+    }
+
+    .progressbar_background {
+        border: none;
+        color: #eceff6;
+        background-color: #eceff6;
+        height: 4px;
+        position: relative;
+        margin: 0;
+        width: 100%;
+        left: 0;
+        z-index: 1;
+        top: -4px;
+    }
+
+    .progressbar_front {
+        border: none;
+        color: #b2ffaf;
+        background-color: #b2ffaf;
+        height: 4px;
+        z-index: 2;
+        position:relative;
+        margin: 0;
+        left:0;
+        transition: width 1s;
+    }
+
+.question_options {
+    font-family: inherit;
+    font-style: inherit;
+    font-size: 18px;
+    margin: 30px 50px 30px 50px;
+}
+
+    .radio {
+        display:none;
+    }
+
+    .radio + label {
+        cursor: pointer;
+        margin-left: 10px;
+        padding-left: 30px;
+    }
+
+    .radio:not(checked) + label:hover:before {
+        border-color: #4592DA;
+        transition: 0.5s;
+    }
+
+    .radio:not(checked) + label {
+        position: relative;
+        top: 0px;
+        left: 0px;
+    }
+
+    .radio:not(checked) + label:before {
+        content: '';
+        position: absolute;
+        top: 5px;
+        left: 0px;
+        width: 18px;
+        height: 18px;
+        border: 1px solid #ECF3F9;
+        border-radius: 50%;
+        background: #ECF3F9;
+        transition: border-color 0.5s;
+    }
+
+    .radio:not(checked) + label:after {
+        content: '';
+        position: absolute;
+        top: 8px;
+        left: 3px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: #4592DA;
+        box-shadow: inset 0 1px 1px rgba(236,239,246,0.5);
+        opacity: 0;
+        transition: all .2s;
+    }
+
+    .radio:checked + label:after {
+        opacity: 1;
+    }
+
+    .radio:checked + label:before {
+        border-color: #4592DA;
+    }
+
+    .radio:checked + .selected_radio:after {
+        background-color: #ffdddd;
+    }
+
+    .radio:checked + .selected_radio:before {
+        border-color: #ffdddd;
+    }
+
+    .radio:checked + .right_radio:after {
+        background-color: #b2ffaf;
+    }
+
+    .radio:checked + .right_radio:before {
+        border-color: #b2ffaf;
+    }
+
+    .radio:disabled+label:hover:before {
+        border-color: #ECF3F9;
+    }
+
+    .radio:disabled+label {
+        cursor: default;
+    }
+
+.result_options {
+    border: 1px solid #eceff6;
+    border-radius: 3px;
+    margin: 10px 0px 0px 0px;
+    padding: 15px;
+    width: 100%;
+    font-family: inherit;
+    font-style: inherit;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+    .result_option_title {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .result_option_description {
+        font-style: italic;
+    }
+
+    .wrong {
+        background-color: #ffdddd;
+    }
+
+    .right {
+        background-color: #e5ffdd;
+    }
+
+    .result_div {
+        display: inline-block;
+        text-align: center;
+        font-family: inherit;
+        font-style: inherit;
+    }
+
+        .result_message {
+            font-size: 25px;
+            font-width: bold;
+            margin-bottom: 5px;
+        }
+
+        .result_points {
+            margin-top: 5px;
+            font-size: 20px;
+            font-style: italic;
+        }
+
+.test_button {
+    -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
+    border-radius: 30px;
+    border: 0;
+    display: inline-block;
+    padding: 12px 24px;
+    color: #3F4B63;
+    vertical-align: top;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: inherit;
+    background: #ECF3F9;
+    line-height: 1em;
+    outline: none;
+    margin-left: 50px;
+    transition: .2s;
+}
+
+.test_button:hover{
+    background: #4592DA;
+    color: #fff;
+    text-decoration: none;
+}
+
+.center {
+    width: 150px;
+    position: absolute;
+    left: calc(50% - 75px);
+    margin-top: -20px;
+}
+
+.left_button {
+    position: absolute;
+    left: 0px;
+    bottom: 20px;
+}
+
+.center_button {
+    width: 150px;
+    position: relative;
+    left: calc(350px - 125px);
+}
+
+.right_button {
+    position: absolute;
+    right: 50px;
+}
+
+.attention {
+    background: #4592DA;
+    color: #fff;
+}
+
+.invisible {
+    display: none;
+}
+
+.loading {
+    width: 32px;
+    height: 32px;
+    margin: 100px 0px 100px 334px;
+    background-image: url(/public/img/loading.gif);
+    background-repeat: no-repeat;
+}

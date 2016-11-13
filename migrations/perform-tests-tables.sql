@@ -1,0 +1,64 @@
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+
+CREATE TABLE IF NOT EXISTS `Tests` (
+  `id` int(11) NOT NULL,
+  `title` varchar(25) NOT NULL,
+  `short_description` text NOT NULL,
+  `description` text NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `Tests_Answers` (
+  `id` int(11) NOT NULL,
+  `q_id` int(11) NOT NULL,
+  `answer` text NOT NULL,
+  `is_right` tinyint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `Tests_Messages` (
+  `id` int(11) NOT NULL,
+  `t_id` int(11) NOT NULL,
+  `message` text NOT NULL,
+  `points` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `Tests_Questions` (
+  `id` int(11) NOT NULL,
+  `t_id` int(11) NOT NULL,
+  `title` varchar(25) NOT NULL,
+  `description` text NOT NULL,
+  `time` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+ALTER TABLE `Tests`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `Tests_Answers`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `Tests_Messages`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `Tests_Questions`
+  ADD PRIMARY KEY (`id`);
+
+
+ALTER TABLE `Tests`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `Tests_Answers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `Tests_Messages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `Tests_Questions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
