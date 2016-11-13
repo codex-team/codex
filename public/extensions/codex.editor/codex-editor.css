@@ -124,6 +124,42 @@
     cursor: pointer;
 }
 
+/**
+ * Trash tool
+ */
+.ce_button-remove-btn {
+    margin-left: 1.9em;
+}
+    .ce_button__remove-actions {
+        display: none;
+        position: absolute;
+        background: #0f0d10;
+        color: #fff;
+        padding: 5px;
+        left: -20px;
+        top: 30px;
+        border-radius: 5px;
+        font-size: 0.8em;
+    }
+        .ce_button__remove-actions.open {
+            display: block;
+        }
+
+        .ce_button__remove-confirm {
+            cursor: pointer;
+        }
+
+        .ce_button__remove-cancel {
+            cursor: pointer;
+        }
+
+    .ce_setting-tomain {
+        cursor: pointer;
+    }
+
+    .ce_button__markPagedBlock {
+        background: #ffe;
+    }
 
 /**
 * Settigns pane

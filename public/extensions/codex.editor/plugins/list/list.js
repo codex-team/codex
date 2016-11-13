@@ -99,7 +99,6 @@ var listTool = {
             cEditor.toolbar.settings.close();
         });
 
-        holder.appendChild(caption);
         holder.appendChild(orderedButton);
         holder.appendChild(unorderedButton);
 

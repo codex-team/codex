@@ -35,6 +35,7 @@ var cEditor = (function (cEditor){
         notifications     : null,
         plusButton        : null,
         showSettingsButton: null,
+        showTrashButton   : null,
         blockSettings     : null,
         pluginSettings    : null,
         defaultSettings   : null,
@@ -441,6 +442,9 @@ cEditor.saver = {
         var blockContent = block.childNodes,
             savedData    = cEditor.tools[pluginName].save(blockContent);
 
+        /** Marks Blocks that will be in main page */
+        savedData.toMain = block.classList.contains('ce_button__markPagedBlock');
+
         cEditor.state.jsonOutput.push(savedData);
     },
 
@@ -487,7 +491,7 @@ cEditor.ui = {
         /**
         * @const {string} BLOCK_CLASSNAME - redactor blocks name
         */
-        BLOCK_CLASSNAME : 'ce-block',
+        BLOCK_CLASSNAME : 'ce-block__content',
 
         /**
         * @const {String} BLOCK_STRETCHED - makes block stretched
@@ -511,11 +515,12 @@ cEditor.ui = {
             toolbar,
             inlineToolbar,
             redactor,
+            ceBlock,
             notifications,
             blockButtons,
             blockSettings,
             showSettingsButton,
-            showRemoveBlockButton,
+            showTrashButton,
             toolbox,
             plusButton;
 
@@ -534,10 +539,12 @@ cEditor.ui = {
         inlineToolbar         = cEditor.draw.inlineToolbar();
         plusButton            = cEditor.draw.plusButton();
         showSettingsButton    = cEditor.draw.settingsButton();
+        showTrashButton       = cEditor.toolbar.settings.makeRemoveBlockButton();
         blockSettings         = cEditor.draw.blockSettings();
         blockButtons          = cEditor.draw.blockButtons();
         toolbox               = cEditor.draw.toolbox();
         redactor              = cEditor.draw.redactor();
+        ceBlock               = cEditor.draw.ceBlock();
 
         /** settings */
         var defaultSettings = cEditor.draw.defaultSettings(),
@@ -551,6 +558,7 @@ cEditor.ui = {
          * This block contains settings button and remove block button
          */
         blockButtons.appendChild(showSettingsButton);
+        blockButtons.appendChild(showTrashButton);
         blockButtons.appendChild(blockSettings);
 
         /** Appending first-level block buttons */
@@ -563,6 +571,8 @@ cEditor.ui = {
         toolbar.appendChild(toolbox);
 
         wrapper.appendChild(toolbar);
+
+        redactor.appendChild(ceBlock);
         wrapper.appendChild(redactor);
 
         /** Save created ui-elements to static nodes state */
@@ -574,8 +584,9 @@ cEditor.ui = {
         cEditor.nodes.pluginSettings     = pluginSettings;
         cEditor.nodes.defaultSettings    = defaultSettings;
         cEditor.nodes.showSettingsButton = showSettingsButton;
+        cEditor.nodes.showTrashButton    = showTrashButton;
 
-        cEditor.nodes.redactor = redactor;
+        cEditor.nodes.redactor = ceBlock;
 
         cEditor.ui.makeInlineToolbar(inlineToolbar);
 
@@ -723,7 +734,6 @@ cEditor.ui = {
         * Clicks to SETTINGS button in toolbar
         */
         cEditor.nodes.showSettingsButton.addEventListener('click', cEditor.callback.showSettingsButtonClicked, false );
-
         /**
          *  @deprecated ( but now in use for syncronization );
          *  Any redactor changes: keyboard input, mouse cut/paste, drag-n-drop text
@@ -858,13 +868,22 @@ cEditor.callback = {
     enterKeyPressed : function(event){
 
         /** Set current node */
-        cEditor.content.workingNodeChanged();
+        cEditor.content.workingNodeChanged(event.target);
 
         if (event.target.contentEditable == 'true') {
 
             /** Update input index */
             cEditor.caret.saveCurrentInputIndex();
         }
+
+        if (!cEditor.content.currentNode) {
+            /**
+             * Enter key pressed in first-level block area
+             */
+            cEditor.callback.enterPressedOnBlock(workingNode, event);
+            return;
+        }
+
 
         var currentInputIndex       = cEditor.caret.getCurrentInputIndex() || 0,
             workingNode             = cEditor.content.currentNode,
@@ -894,19 +913,15 @@ cEditor.callback = {
 
         }
 
-        if (cEditor.parser.isFirstLevelBlock(cEditor.content.currentNode)) {
-
-            /**
-             * Enter key pressed in first-level block area
-             */
-            cEditor.callback.enterPressedOnBlock(workingNode, event);
-            return;
-        }
-
         /**
         * Allow making new <p> in same block by SHIFT+ENTER and forbids to prevent default browser behaviour
         */
-        if ( event.shiftKey || enableLineBreaks){
+        if ( event.shiftKey && !enableLineBreaks) {
+            cEditor.callback.enterPressedOnBlock(cEditor.content.currentBlock, event);
+            event.preventDefault();
+
+        } else if ( (event.shiftKey && !enableLineBreaks) || (!event.shiftKey && enableLineBreaks) ){
+            /** XOR */
             return;
         }
 
@@ -1020,9 +1035,6 @@ cEditor.callback = {
         if (selectedText.length === 0) {
             cEditor.toolbar.inline.close();
         }
-
-        // console.log("Event target",event.target);
-        // console.log("event target contentEditable", event.target.contentEditable);
 
         /** Update current input index in memory when caret focused into existed input */
         if (event.target.contentEditable == 'true') {
@@ -1202,10 +1214,6 @@ cEditor.callback = {
             case cEditor.core.keys.DOWN:
             case cEditor.core.keys.RIGHT:
                 cEditor.callback.blockRightOrDownArrowPressed(block);
-                break;
-
-            case cEditor.core.keys.ENTER:
-                cEditor.callback.enterPressedOnBlock(block, event);
                 break;
 
             case cEditor.core.keys.BACKSPACE:
@@ -1515,6 +1523,7 @@ cEditor.callback = {
 
         /** Close toolbox when settings button is active */
         cEditor.toolbar.toolbox.close();
+        cEditor.toolbar.settings.hideRemoveActions();
 
     }
 
@@ -1605,7 +1614,7 @@ cEditor.content = {
             node = node.parentNode;
         }
 
-        if (node === cEditor.nodes.redactor) {
+        if (node === cEditor.nodes.redactor || node === document.body) {
 
             return null;
 
@@ -1710,7 +1719,6 @@ cEditor.content = {
             cEditor.core.insertAfter(workingBlock, newBlock);
 
         } else {
-
             /**
             * If redactor is empty, append as first child
             */
@@ -2207,7 +2215,6 @@ cEditor.caret = {
         if (!focusedNode){
             return;
         }
-        console.log(focusedNode);
 
         /** Looking for parent contentEditable block */
         while (focusedNode.contentEditable != 'true') {
@@ -2594,6 +2601,8 @@ cEditor.toolbar.settings = {
     setting : null,
     actions : null,
 
+    toMainPage : null,
+
     /**
     * Append and open settings
     */
@@ -2616,17 +2625,9 @@ cEditor.toolbar.settings = {
 
         var currentBlock = cEditor.content.currentNode;
 
-        /** Activate removing request */
-        if (currentBlock.classList.contains('removing-request')) {
-            cEditor.toolbar.settings.setting.classList.add('hide');
-            cEditor.toolbar.settings.actions.classList.add('opened');
-        } else {
-            cEditor.toolbar.settings.setting.classList.remove('hide');
-            cEditor.toolbar.settings.actions.classList.remove('opened');
-        }
-
         /** Open settings block */
         cEditor.nodes.blockSettings.classList.add('opened');
+        cEditor.toolbar.settings.addDefaultSettings()
         this.opened = true;
     },
 
@@ -2661,10 +2662,66 @@ cEditor.toolbar.settings = {
 
     addDefaultSettings : function() {
 
-        var removeButton = this.makeRemoveBlockButton();
 
-        cEditor.nodes.defaultSettings.appendChild(removeButton);
+        var toMainPage;
 
+        if (!cEditor.toolbar.settings.blockIsPaged()) {
+            toMainPage = cEditor.toolbar.settings.makeToMainSetting(true);
+        } else {
+            toMainPage = cEditor.toolbar.settings.makeToMainSetting(false);
+        }
+
+        cEditor.nodes.defaultSettings.innerHTML = '';
+        cEditor.nodes.defaultSettings.appendChild(toMainPage);
+
+    },
+
+    makeToMainSetting : function(type) {
+
+        var setting;
+
+        if (type) {
+            setting = cEditor.toolbar.settings.mainPagedSetting();
+            setting.addEventListener('click', cEditor.toolbar.settings.markMainPagedBlock, false);
+        } else {
+            setting = cEditor.toolbar.settings.removePagedSetting();
+            setting.addEventListener('click', cEditor.toolbar.settings.remarkMainPagedBlock, false);
+        }
+
+
+        cEditor.toolbar.settings.toMainPage = setting;
+
+        return setting;
+    },
+
+    markMainPagedBlock : function() {
+        cEditor.content.currentNode.classList.add('ce_button__markPagedBlock');
+        cEditor.toolbar.settings.close();
+    },
+
+    remarkMainPagedBlock : function() {
+        cEditor.content.currentNode.classList.remove('ce_button__markPagedBlock');
+        cEditor.toolbar.settings.close();
+    },
+
+    mainPagedSetting : function() {
+        var setting = cEditor.draw.make('DIV', 'ce_setting-tomain', { textContent : 'Вывести на главной' });
+        return setting;
+    },
+
+    removePagedSetting : function() {
+        var setting = cEditor.draw.make('DIV', 'ce_setting-tomain', { textContent : 'Убрать из главной' });
+        return setting;
+    },
+
+    blockIsPaged : function() {
+        var currentBlock = cEditor.content.currentNode;
+
+        if (currentBlock) {
+            return currentBlock.classList.contains('ce_button__markPagedBlock');
+        } else {
+            return false;
+        }
     },
 
     /**
@@ -2672,11 +2729,11 @@ cEditor.toolbar.settings = {
      */
     makeRemoveBlockButton : function() {
 
-        var removeBlockWrapper  = cEditor.draw.make('DIV', 'ce_button-remove', {}),
-            settingButton = cEditor.draw.make('DIV', 'ce_button__remove-setting', { textContent : 'Удалить блок' }),
+        var removeBlockWrapper  = cEditor.draw.make('SPAN', 'ce_button-remove-btn', {}),
+            settingButton = cEditor.draw.make('SPAN', 'ce_button__remove-setting', { innerHTML : '<i class="ce-icon-trash"></i>' }),
             actionWrapper = cEditor.draw.make('DIV', 'ce_button__remove-actions', {}),
-            confirmAction = cEditor.draw.make('SPAN', 'ce_button__remove-confirm', { textContent : 'Подтвердить' }),
-            cancelAction  = cEditor.draw.make('SPAN', 'ce_button__remove-cancel', { textContent : 'Отменить' });
+            confirmAction = cEditor.draw.make('DIV', 'ce_button__remove-confirm', { textContent : 'Подтвердить' }),
+            cancelAction  = cEditor.draw.make('DIV', 'ce_button__remove-cancel', { textContent : 'Отменить' });
 
         settingButton.addEventListener('click', cEditor.toolbar.settings.removeButtonClicked, false);
 
@@ -2700,26 +2757,22 @@ cEditor.toolbar.settings = {
 
     removeButtonClicked : function() {
 
-        var currentBlock = cEditor.content.currentNode;
+        var action = cEditor.toolbar.settings.actions;
 
-        if (!currentBlock.classList.contains('removing-request')) {
-            currentBlock.classList.add('removing-request');
-
-            cEditor.toolbar.settings.setting.classList.add('hide');
-            cEditor.toolbar.settings.actions.classList.add('opened');
+        if (action.classList.contains('open')) {
+            cEditor.toolbar.settings.hideRemoveActions();
+        } else {
+            cEditor.toolbar.settings.showRemoveActions();
         }
+
+        cEditor.toolbar.toolbox.close();
+        cEditor.toolbar.settings.close();
+
     },
 
     cancelRemovingRequest : function() {
 
-        var currentBlock = cEditor.content.currentNode;
-
-        if (currentBlock.classList.contains('removing-request')) {
-            currentBlock.classList.remove('removing-request');
-        }
-
-        cEditor.toolbar.settings.actions.classList.remove('opened');
-        cEditor.toolbar.settings.setting.classList.remove('hide');
+        cEditor.toolbar.settings.actions.classList.remove('open');
     },
 
     confirmRemovingRequest : function() {
@@ -2727,27 +2780,33 @@ cEditor.toolbar.settings = {
         var currentBlock = cEditor.content.currentNode,
             firstLevelBlocksCount;
 
-        if (currentBlock.classList.contains('removing-request')) {
-            currentBlock.remove();
+        currentBlock.remove();
 
-            firstLevelBlocksCount = cEditor.nodes.redactor.childNodes.length;
+        firstLevelBlocksCount = cEditor.nodes.redactor.childNodes.length;
 
-            /**
-            * If all blocks are removed
-            */
-            if (firstLevelBlocksCount === 0) {
+        /**
+        * If all blocks are removed
+        */
+        if (firstLevelBlocksCount === 0) {
 
-                /** update currentNode variable */
-                cEditor.content.currentNode = null;
+            /** update currentNode variable */
+            cEditor.content.currentNode = null;
 
-                /** Inserting new empty initial block */
-                cEditor.ui.addInitialBlock();
-            }
+            /** Inserting new empty initial block */
+            cEditor.ui.addInitialBlock();
         }
 
         cEditor.ui.saveInputs();
 
         cEditor.toolbar.close();
+    },
+
+    showRemoveActions : function() {
+        cEditor.toolbar.settings.actions.classList.add('open');
+    },
+
+    hideRemoveActions : function() {
+        cEditor.toolbar.settings.actions.classList.remove('open');
     }
 
 };
@@ -3614,6 +3673,15 @@ cEditor.draw = {
 
     },
 
+    ceBlock : function() {
+
+        var block = document.createElement('DIV');
+
+        block.className += 'ce_block';
+
+        return block;
+
+    },
     /**
     * Empty toolbar with toggler
     */
