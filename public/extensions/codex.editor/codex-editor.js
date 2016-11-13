@@ -618,7 +618,7 @@ cEditor.ui = {
             if (!tool.display) {
                 continue;
             }
-            
+
             if (!tool.iconClassname) {
                 cEditor.core.log('Toolbar icon classname missed. Tool %o skipped', 'warn', name);
                 continue;
@@ -860,8 +860,11 @@ cEditor.callback = {
         /** Set current node */
         cEditor.content.workingNodeChanged();
 
-        /** Update input index */
-        cEditor.caret.saveCurrentInputIndex();
+        if (event.target.contentEditable == 'true') {
+
+            /** Update input index */
+            cEditor.caret.saveCurrentInputIndex();
+        }
 
         var currentInputIndex       = cEditor.caret.getCurrentInputIndex() || 0,
             workingNode             = cEditor.content.currentNode,
@@ -889,6 +892,15 @@ cEditor.callback = {
 
             return;
 
+        }
+
+        if (cEditor.parser.isFirstLevelBlock(cEditor.content.currentNode)) {
+
+            /**
+             * Enter key pressed in first-level block area
+             */
+            cEditor.callback.enterPressedOnBlock(workingNode, event);
+            return;
         }
 
         /**
@@ -1008,6 +1020,9 @@ cEditor.callback = {
         if (selectedText.length === 0) {
             cEditor.toolbar.inline.close();
         }
+
+        // console.log("Event target",event.target);
+        // console.log("event target contentEditable", event.target.contentEditable);
 
         /** Update current input index in memory when caret focused into existed input */
         if (event.target.contentEditable == 'true') {
@@ -1351,39 +1366,18 @@ cEditor.callback = {
 
     },
 
+    /**
+     * Callback for enter key pressing in first-level block area
+     */
     enterPressedOnBlock: function (block, event) {
 
-        var selection   = window.getSelection(),
-            currentNode = selection.anchorNode,
-            parentOfFocusedNode = currentNode.parentNode;
+        var NEW_BLOCK_TYPE  = 'paragraph';
 
-        /**
-        * We add new block with contentEditable property if enter key is pressed.
-        * First we check, if caret is at the end of last node and offset is legth of text node
-        * focusedNodeIndex + 1, because that we compare non-arrays index.
-        */
-        if ( currentNode.length === cEditor.caret.offset &&
-             parentOfFocusedNode.childNodes.length == cEditor.caret.focusedNodeIndex + 1) {
+        cEditor.content.insertBlock({
+            type  : NEW_BLOCK_TYPE,
+            block : cEditor.tools[NEW_BLOCK_TYPE].render()
+        }, true );
 
-            /** Prevent <div></div> creation */
-            event.preventDefault();
-
-            /** Create new Block and append it after current */
-            var newBlock = cEditor.draw.block('p');
-
-            newBlock.contentEditable = "true";
-            newBlock.classList.add(cEditor.ui.className.BLOCK_CLASSNAME);
-
-            /** Add event listeners (Keydown) for new created block */
-            cEditor.ui.addBlockHandlers(newBlock);
-
-            cEditor.core.insertAfter(block, newBlock);
-
-            /** set focus to the current (created) block */
-            cEditor.caret.setToNextBlock(block);
-
-            cEditor.toolbar.move();
-        }
     },
 
     backspacePressed: function (block) {
@@ -1642,6 +1636,7 @@ cEditor.content = {
         }
 
         this.currentNode = this.getFirstLevelBlock(targetNode);
+
     },
 
     /**
@@ -2212,6 +2207,7 @@ cEditor.caret = {
         if (!focusedNode){
             return;
         }
+        console.log(focusedNode);
 
         /** Looking for parent contentEditable block */
         while (focusedNode.contentEditable != 'true') {
