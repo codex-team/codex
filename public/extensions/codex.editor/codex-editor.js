@@ -64,6 +64,7 @@ var cEditor = (function (cEditor){
 
         // If all ok, make UI, bind events and parse initial-content
             .then(this.ui.make)
+            .then(this.ui.loadTools)
             .then(this.ui.addTools)
             .then(this.ui.bindEvents)
             .then(this.transport.prepare)
@@ -176,8 +177,26 @@ cEditor.core = {
     */
     isDomNode : function (el) {
         return el && typeof el === 'object' && el.nodeType && el.nodeType == this.nodeTypes.TAG;
-    }
+    },
 
+    loadPlugin : function (plugin)
+    {
+        // Adding the script tag to the head as suggested before
+        var head = document.getElementsByTagName('head')[0];
+        var script = document.createElement('script');
+        var stylesheet = document.createElement('link');
+
+        script.type = 'text/javascript';
+        script.src = '/public/extensions/codex.editor/plugins/' + plugin + '/' + plugin + '.js';
+
+        stylesheet.rel = 'stylesheet';
+        stylesheet.href = '/public/extensions/codex.editor/plugins/' + plugin + '/' + plugin + '.css';
+
+        head.appendChild(script);
+        head.appendChild(stylesheet);
+
+        console.log('Load js & css for ' + plugin);
+    }
 };
 
 
@@ -474,6 +493,7 @@ cEditor.saver = {
 /**
 * Methods:
 *   - make
+*   - loadTools
 *   - addTools
 *   - bindEvents
 *   - addBlockHandlers
@@ -603,6 +623,30 @@ cEditor.ui = {
 
     /**
     * @private
+    * Load js & css files for each tool fron userSettings
+    */
+    loadTools : function () {
+
+        return new Promise(function(resolve, reject) {
+
+            var toolsList = cEditor.settings.tools;
+
+            toolsList.forEach(function(tool, i, toolsList){
+
+                cEditor.core.loadPlugin(tool);
+
+                cEditor.ui.leftToLoad++;
+
+            });
+
+            resolve();
+        });
+    },
+
+    leftToLoad : 0,
+
+    /**
+    * @private
     * Append tools passed in cEditor.tools
     */
     addTools : function () {
@@ -610,8 +654,14 @@ cEditor.ui = {
         var tool,
             tool_button;
 
+            console.log(cEditor.ui.leftToLoad);
+
+            console.log(cEditor.tools);
+
         /** Make toolbar buttons */
         for (var name in cEditor.tools){
+
+            console.log(name);
 
             tool = cEditor.tools[name];
 

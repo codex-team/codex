@@ -185,3 +185,5 @@ cEditor.tools.header = {
     enableLineBreaks : false
 
 };
+
+cEditor.ui.leftToLoad--;

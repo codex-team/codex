@@ -182,3 +182,5 @@ cEditor.tools.list = {
     enableLineBreaks : true
 
 };
+
+cEditor.ui.leftToLoad--;
