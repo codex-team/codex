@@ -2668,7 +2668,7 @@ cEditor.toolbar.settings = {
 
         var isFeedModeActivated = cEditor.toolbar.settings.isFeedModeActivated();
 
-        return cEditor.toolbar.settings.updateFeedModeToggler(
+        return cEditor.toolbar.settings.feedModeToggler(
                     isFeedModeActivated
                 );
     },
@@ -2682,7 +2682,7 @@ cEditor.toolbar.settings = {
      * @param {Boolean} isActivated - flag that specified enable or disable Feed-mode
      * @return {Element} node/button that we place in default settings block
      */
-    updateFeedModeToggler : function(isActivated) {
+    feedModeToggler : function(isActivated) {
 
         var setting,
             data;
