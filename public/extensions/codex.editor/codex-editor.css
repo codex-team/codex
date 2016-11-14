@@ -148,10 +148,12 @@
 
         .ce-toolbar__remove-confirm {
             cursor: pointer;
+            /** Specific styles */
         }
 
         .ce-toolbar__remove-cancel {
             cursor: pointer;
+            /** Specific styles */
         }
 
     .ce-setting__button {
