@@ -21,7 +21,7 @@
     line-height: 1.3em;
 }
     .ce_plugin_header--select_button:not(:last-of-type){
-        margin-bottom: 0.9em;
+        margin-bottom: 1.5em;
     }
     .ce_plugin_header--select_button:hover{
         color: #a1b4ec;
