@@ -67,15 +67,6 @@ Class Model_Test extends Model
                                 ->order_by('Tests_Questions.id')
                                 ->execute();
 
-        $numberOfAnswers = DB::select('Tests_Questions.id', DB::expr('COUNT(Tests_Answers.id)'))
-                                ->from('Tests_Questions')
-                                ->join('Tests_Answers', 'inner')
-                                ->on('Tests_Questions.id', '=', 'Tests_Answers.q_id')
-                                ->where('t_id', '=', $id)
-                                ->group_by('Tests_Questions.id')
-                                ->order_by('Tests_Questions.id')
-                                ->execute();
-
         $question_row = array();
         $currentQuestion = array(
                                     'index' => -1,
