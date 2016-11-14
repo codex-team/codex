@@ -49,38 +49,64 @@ Class Model_Test extends Model
 
     private static function getQuestionsByTestId($id)
     {
-        $questionsQuery = DB::select()
+        $columns = array(
+                            array('Tests_Questions.id', 'questionId'),
+                            'title',
+                            'description',
+                            'time',
+                            array('Tests_Answers.id', 'answerId'),
+                            'q_id',
+                            'answer'
+                        );
+
+        $questionsQuery = DB::select_array($columns)
                                 ->from('Tests_Questions')
+                                ->join('Tests_Answers', 'inner')
+                                ->on('Tests_Questions.id', '=', 'Tests_Answers.q_id')
                                 ->where('t_id', '=', $id)
+                                ->order_by('Tests_Questions.id')
+                                ->execute();
+
+        $numberOfAnswers = DB::select('Tests_Questions.id', DB::expr('COUNT(Tests_Answers.id)'))
+                                ->from('Tests_Questions')
+                                ->join('Tests_Answers', 'inner')
+                                ->on('Tests_Questions.id', '=', 'Tests_Answers.q_id')
+                                ->where('t_id', '=', $id)
+                                ->group_by('Tests_Questions.id')
+                                ->order_by('Tests_Questions.id')
                                 ->execute();
 
         $question_row = array();
+        $currentQuestion = array(
+                                    'index' => -1,
+                                    'id'    => 0
+                                );
 
-        $ids = array();
-        $i = 0;
         foreach ($questionsQuery as $question) {
 
-            $question_row[$i]['id']          = $question['id'];
-            $ids[$i]                         = $question['id'];
-            $question_row[$i]['title']       = $question['title'];
-            $question_row[$i]['description'] = $question['description'];
-            $question_row[$i]['time']        = $question['time'];
-            $question_row[$i]['answers']     = array();
+            $answer = array(
+                'id'     => $question['answerId'],
+                'answer' => $question['answer']
+            );
 
-            $i++;
-        }
+            $questionData = array(
+                'id'            => $question['questionId'],
+                'title'         => $question['title'],
+                'description'   => $question['description'],
+                'time'          => $question['time'],
+                'answers'       => array($answer)
+            );
 
-        $answersQuery = DB::select()
-            ->from('Tests_Answers')
-            ->where('q_id', 'in', $ids)
-            ->execute();
+            if ($currentQuestion['id'] == $question['questionId']) {
 
-        foreach ($answersQuery as $answer) {
+                $question_row[ $currentQuestion['index'] ]['answers'][] = $answer;
 
-            $qKey = array_search($answer['q_id'], $ids);
+                continue;
+            }
 
-            $question_row[$qKey]['answers'][] = $answer;
-
+            $currentQuestion['index']++;
+            $currentQuestion['id'] = $question['questionId'];
+            $question_row[] = $questionData;
         }
 
         return $question_row;
@@ -109,7 +135,7 @@ Class Model_Test extends Model
         $userAnswers = array();
         foreach ($answers as $id => $answer)
         {
-            if(is_numeric($id)) {
+            if (is_numeric($id)) {
                 array_push($ids, $id);
                 array_push($userAnswers, $answer);
             }
@@ -128,39 +154,36 @@ Class Model_Test extends Model
 
         $points = 0;
         $userRightAnswers = array();
-        for ($i = 0; $i < count($ids); $i++) {
-            $userRightAnswers[$ids[$i]] = false;
-        }
 
         for ($i = 0; $i < count($userAnswers); $i++) {
             if ($rightAnswers[$ids[$i]] == $userAnswers[$i]) {
                 $points++;
                 $userRightAnswers[$ids[$i]] = true;
+                continue;
             }
+
+            $userRightAnswers[$ids[$i]] = false;
         }
 
         $messagesQuery = DB::select('message', 'points')
                         ->from('Tests_Messages')
                         ->where('t_id', '=', $test_id)
+                        ->order_by('points')
                         ->execute();
 
-        $messages = array();
-        foreach ($messagesQuery as $current) {
-            $messages[$current['points']] = $current['message'];
-        }
+        $message = 'Результат';
 
-        $message = '';
-        foreach ($messages as $point => $mes) {
-            if ($points == $point) {
-                $message = $mes;
-                break;
-            } else {
-                if ($points < $point) {
+        if(!empty($messagesQuery[0])) {
+
+            foreach ($messagesQuery as $current) {
+
+                if ($current['points'] > $points) {
                     break;
-                } else {
-                    $message = $mes;
                 }
+
+                $message = $current['message'];
             }
+
         }
 
         $result = array($points, $userRightAnswers, $message, $rightAnswers);
