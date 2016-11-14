@@ -150,10 +150,6 @@
             cursor: pointer;
         }
 
-        .ce-block--feed-mode {
-            background: #ffe;
-        }
-
 /**
 * Settigns pane
 */
@@ -247,6 +243,9 @@
     background: #f9f9fb;
 }
 
+.ce-block--feed-mode {
+    background: #ffe;
+}
 
 /**
 * Typographycs
