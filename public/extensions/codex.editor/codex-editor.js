@@ -2506,6 +2506,9 @@ cEditor.toolbar = {
 
         cEditor.nodes.toolbar.style.transform = `translate3D(0, ${Math.floor(newYCoordinate)}px, 0)`;
 
+        /** Close trash actions */
+        cEditor.toolbar.settings.hideRemoveActions();
+
     },
 };
 
