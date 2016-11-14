@@ -154,13 +154,13 @@
             cursor: pointer;
         }
 
-    .ce-setting__setToMainPage-btn {
+    .ce-setting__button {
         cursor: pointer;
     }
 
-    .ce-setting__blockPlacedOnMainPage {
-        background: #ffe;
-    }
+        .ce-setting__cover-make {
+            background: #ffe;
+        }
 
 /**
 * Settigns pane

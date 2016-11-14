@@ -443,7 +443,7 @@ cEditor.saver = {
             savedData    = cEditor.tools[pluginName].save(blockContent);
 
         /** Marks Blocks that will be in main page */
-        savedData.mainPage = block.classList.contains(cEditor.ui.className.BLOCK_MAINPAGE);
+        savedData.cover = block.classList.contains(cEditor.ui.className.BLOCK_COVER);
 
         cEditor.state.jsonOutput.push(savedData);
     },
@@ -504,9 +504,14 @@ cEditor.ui = {
         BLOCK_HIGHLIGHTED : 'ce-block__highlighted',
 
         /**
-        * @const {String}
+        * @const {String} - highlights covered blocks
         */
-        BLOCK_MAINPAGE : 'ce-setting__blockPlacedOnMainPage'
+        BLOCK_COVER : 'ce-setting__cover-make',
+
+        /**
+        * @const {String} - for all default settings
+        */
+        SETTING_BUTTON : 'ce-setting__button'
 
     },
 
@@ -2561,7 +2566,7 @@ cEditor.toolbar.settings = {
     setting : null,
     actions : null,
 
-    toMainPage : null,
+    cover : null,
 
     /**
     * Append and open settings
@@ -2639,7 +2644,7 @@ cEditor.toolbar.settings = {
 
         var setting;
 
-        if (!cEditor.toolbar.settings.isBlockToMainPage()) {
+        if (!cEditor.toolbar.settings.isBlockCovered()) {
             setting = cEditor.toolbar.settings.makeMainPageSetting(true);
         } else {
             setting = cEditor.toolbar.settings.makeMainPageSetting(false);
@@ -2659,47 +2664,55 @@ cEditor.toolbar.settings = {
      */
     makeMainPageSetting : function(type) {
 
-        var setting;
+        var setting,
+            data;
 
         if (type) {
-            setting = cEditor.toolbar.settings.setToMainPageButton();
+
+            data = {
+                textContent : 'Вывести на главную'
+            };
+
+            setting = cEditor.toolbar.settings.coverSettingButton(data);
             setting.addEventListener('click', cEditor.toolbar.settings.placeBlockToMainPage, false);
+
         } else {
-            setting = cEditor.toolbar.settings.removeFromMainPageButton();
+
+            data = {
+                textContent : 'Убрать из главной'
+            };
+
+            setting = cEditor.toolbar.settings.coverSettingButton(data);
             setting.addEventListener('click', cEditor.toolbar.settings.removeBlockFromMainPage, false);
+
         }
 
 
-        cEditor.toolbar.settings.toMainPage = setting;
+        cEditor.toolbar.settings.cover = setting;
 
         return setting;
     },
 
     placeBlockToMainPage : function() {
-        cEditor.content.currentNode.classList.add(cEditor.ui.className.BLOCK_MAINPAGE);
+        cEditor.content.currentNode.classList.add(cEditor.ui.className.BLOCK_COVER);
         cEditor.toolbar.settings.close();
     },
 
     removeBlockFromMainPage : function() {
-        cEditor.content.currentNode.classList.remove(cEditor.ui.className.BLOCK_MAINPAGE);
+        cEditor.content.currentNode.classList.remove(cEditor.ui.className.BLOCK_COVER);
         cEditor.toolbar.settings.close();
     },
 
-    setToMainPageButton : function() {
-        var setting = cEditor.draw.node('DIV', 'ce-setting__setToMainPage-btn', { textContent : 'Вывести на главной' });
+    coverSettingButton : function(data) {
+        var setting = cEditor.draw.node('DIV', cEditor.ui.className.SETTING_BUTTON, data);
         return setting;
     },
 
-    removeFromMainPageButton : function() {
-        var setting = cEditor.draw.node('DIV', 'ce-setting__setToMainPage-btn', { textContent : 'Убрать из главной' });
-        return setting;
-    },
-
-    isBlockToMainPage : function() {
+    isBlockCovered : function() {
         var currentBlock = cEditor.content.currentNode;
 
         if (currentBlock) {
-            return currentBlock.classList.contains(cEditor.ui.className.BLOCK_MAINPAGE);
+            return currentBlock.classList.contains(cEditor.ui.className.BLOCK_COVER);
         } else {
             return false;
         }
