@@ -2684,11 +2684,11 @@ cEditor.toolbar.settings = {
      */
     makeRemoveBlockButton : function() {
 
-        var removeBlockWrapper  = cEditor.draw.make('SPAN', 'ce_button-remove-btn', {}),
-            settingButton = cEditor.draw.make('SPAN', 'ce_button__remove-setting', { innerHTML : '<i class="ce-icon-trash"></i>' }),
-            actionWrapper = cEditor.draw.make('DIV', 'ce_button__remove-actions', {}),
-            confirmAction = cEditor.draw.make('DIV', 'ce_button__remove-confirm', { textContent : 'Подтвердить' }),
-            cancelAction  = cEditor.draw.make('DIV', 'ce_button__remove-cancel', { textContent : 'Отменить' });
+        var removeBlockWrapper  = cEditor.draw.make('SPAN', 'ce-toolbar__remove-btn', {}),
+            settingButton = cEditor.draw.make('SPAN', 'ce-toolbar__remove-setting', { innerHTML : '<i class="ce-icon-trash"></i>' }),
+            actionWrapper = cEditor.draw.make('DIV', 'ce-toolbar__remove-actions', {}),
+            confirmAction = cEditor.draw.make('DIV', 'ce-toolbar__remove-confirm', { textContent : 'Подтвердить' }),
+            cancelAction  = cEditor.draw.make('DIV', 'ce-toolbar__remove-cancel', { textContent : 'Отменить' });
 
         settingButton.addEventListener('click', cEditor.toolbar.settings.removeButtonClicked, false);
 
