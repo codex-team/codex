@@ -881,7 +881,20 @@ cEditor.callback = {
     enterKeyPressed : function(event){
 
         /** Set current node */
-        cEditor.content.workingNodeChanged(event.target);
+        var firstLevelBlocksArea = cEditor.callback.clickedOnFirstLevelBlockArea();
+
+        if (firstLevelBlocksArea) {
+            event.preventDefault();
+
+            /**
+             * it means that we lose input index, saved index before is not correct
+             * therefore we need to set caret when we insert new block
+             */
+            cEditor.caret.inputIndex = -1;
+
+            cEditor.callback.enterPressedOnBlock();
+            return;
+        }
 
         if (event.target.contentEditable == 'true') {
 
@@ -893,7 +906,7 @@ cEditor.callback = {
             /**
              * Enter key pressed in first-level block area
              */
-            cEditor.callback.enterPressedOnBlock(workingNode, event);
+            cEditor.callback.enterPressedOnBlock(event);
             return;
         }
 
@@ -989,6 +1002,8 @@ cEditor.callback = {
                     block : cEditor.tools[NEW_BLOCK_TYPE].render()
                 }, true );
 
+                cEditor.toolbar.move();
+
                 /** Show plus button with empty block */
                 cEditor.toolbar.showPlusButton();
 
@@ -1043,7 +1058,7 @@ cEditor.callback = {
 
         cEditor.ui.saveInputs();
 
-        var selectedText = cEditor.toolbar.inline.getSelectionText();
+        var selectedText    = cEditor.toolbar.inline.getSelectionText();
 
         if (selectedText.length === 0) {
             cEditor.toolbar.inline.close();
@@ -1120,6 +1135,53 @@ cEditor.callback = {
 
         /** Mark current block*/
         cEditor.content.markBlock();
+
+    },
+
+    /**
+     * This method allows to define, is caret in contenteditable element or not.
+     * Otherwise, if we get TEXT node from range container, that will means we have input index.
+     * In this case we use default browsers behaviour (if plugin allows that) or overwritten action.
+     * Therefore, to be sure that we've clicked first-level block area, we should have currentNode, which always
+     * specifies to the first-level block. Other cases we just ignore.
+     */
+    clickedOnFirstLevelBlockArea : function() {
+
+        var selection  = window.getSelection(),
+            anchorNode = selection.anchorNode,
+            flag = false;
+
+
+        if (selection.rangeCount == 0) {
+
+            return true;
+
+        } else {
+
+            if (!cEditor.core.isDomNode(anchorNode)) {
+                anchorNode = anchorNode.parentNode;
+            }
+
+            /** Already founded, without loop */
+            if (anchorNode.contentEditable == 'true') {
+                flag = true;
+            }
+
+            while (anchorNode.contentEditable != 'true') {
+                anchorNode = anchorNode.parentNode;
+
+                if (anchorNode.contentEditable == 'true') {
+                    flag = true;
+                }
+
+                if (anchorNode == document.body) {
+                    break;
+                }
+            }
+
+            /** If editable element founded, flag is "TRUE", Therefore we return "FALSE" */
+            return flag ? false : true;
+        }
 
     },
 
@@ -1345,7 +1407,7 @@ cEditor.callback = {
     /**
      * Callback for enter key pressing in first-level block area
      */
-    enterPressedOnBlock: function (block, event) {
+    enterPressedOnBlock: function (event) {
 
         var NEW_BLOCK_TYPE  = 'paragraph';
 
@@ -1353,6 +1415,9 @@ cEditor.callback = {
             type  : NEW_BLOCK_TYPE,
             block : cEditor.tools[NEW_BLOCK_TYPE].render()
         }, true );
+
+        cEditor.toolbar.move();
+        cEditor.toolbar.open();
 
     },
 
@@ -1673,7 +1738,7 @@ cEditor.content = {
     * @param needPlaceCaret     {bool}      pass true to set caret in new block
     *
     */
-    insertBlock : function(blockData, needPlaceCaret ) {
+    insertBlock : function( blockData, needPlaceCaret ) {
 
         var workingBlock    = cEditor.content.currentNode,
             newBlockContent = blockData.block,
@@ -1712,17 +1777,39 @@ cEditor.content = {
 
         if ( needPlaceCaret ) {
 
-            var currentInputIndex = cEditor.caret.getCurrentInputIndex() || 0;
+            /**
+             * If we don't know input index then we set default value -1
+             */
+            var currentInputIndex = cEditor.caret.getCurrentInputIndex() || -1;
 
-            /** Timeout for browsers execution */
-            setTimeout(function () {
 
-                /** Setting to the new input */
-                cEditor.caret.setToNextBlock(currentInputIndex);
+            if (currentInputIndex == -1) {
+
+
+                var editableElement = newBlock.querySelector('[contenteditable]'),
+                    emptyText       = document.createTextNode('');
+
+                editableElement.appendChild(emptyText);
+                cEditor.caret.set(editableElement, 0, 0);
+
                 cEditor.toolbar.move();
-                cEditor.toolbar.open();
+                cEditor.toolbar.showPlusButton();
 
-            }, 10);
+
+            } else {
+
+                /** Timeout for browsers execution */
+                setTimeout(function () {
+
+                    /** Setting to the new input */
+                    cEditor.caret.setToNextBlock(currentInputIndex);
+                    cEditor.toolbar.move();
+                    cEditor.toolbar.open();
+
+                }, 10);
+
+            }
+
         }
 
     },
@@ -2165,6 +2252,8 @@ cEditor.caret = {
 
             selection.removeAllRanges();
             selection.addRange(range);
+
+            cEditor.caret.saveCurrentInputIndex();
 
         }, 20);
     },
