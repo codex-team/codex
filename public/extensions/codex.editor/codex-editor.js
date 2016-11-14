@@ -443,7 +443,7 @@ cEditor.saver = {
             savedData    = cEditor.tools[pluginName].save(blockContent);
 
         /** Marks Blocks that will be in main page */
-        savedData.cover = block.classList.contains(cEditor.ui.className.BLOCK_HIGHLIGHTED_AS_COVER);
+        savedData.cover = block.classList.contains(cEditor.ui.className.BLOCK_IN_FEED_MODE);
 
         cEditor.state.jsonOutput.push(savedData);
     },
@@ -511,7 +511,7 @@ cEditor.ui = {
         /**
         * @const {String} - highlights covered blocks
         */
-        BLOCK_HIGHLIGHTED_AS_COVER : 'ce-block--marked-as-cover',
+        BLOCK_IN_FEED_MODE : 'ce-block--feed-mode',
 
         /**
         * @const {String} - for all default settings
@@ -2652,7 +2652,10 @@ cEditor.toolbar.settings = {
          * Fill defaultSettings
          */
 
-        /** Button whick enables/disables to show target block in feed */
+        /**
+         * Button that enables/disables Feed-mode
+         * Feed-mode means that block will be showed in articles-feed like cover
+         */
         cEditor.nodes.defaultSettings.appendChild(feedModeToggler);
 
     },
@@ -2663,8 +2666,10 @@ cEditor.toolbar.settings = {
      */
     makeFeedModeToggler : function() {
 
+        var isFeedModeActivated = cEditor.toolbar.settings.isFeedModeActivated();
+
         return cEditor.toolbar.settings.updateFeedModeToggler(
-                    cEditor.toolbar.settings.isBlockHighlightedAsCover()
+                    isFeedModeActivated
                 );
     },
 
@@ -2697,9 +2702,7 @@ cEditor.toolbar.settings = {
         }
 
         setting = cEditor.draw.node('DIV', cEditor.ui.className.SETTINGS_ITEM, data);
-        setting.addEventListener('click', cEditor.toolbar.settings.updateBlockHightlightedAsCover, false);
-
-        cEditor.toolbar.settings.cover = setting;
+        setting.addEventListener('click', cEditor.toolbar.settings.updateFeedMode, false);
 
         return setting;
     },
@@ -2707,28 +2710,20 @@ cEditor.toolbar.settings = {
     /**
      * Make covered block highlighted
      */
-    updateBlockHightlightedAsCover : function() {
+    updateFeedMode : function() {
 
         var currentNode = cEditor.content.currentNode;
 
+        currentNode.classList.toggle(cEditor.ui.className.BLOCK_IN_FEED_MODE);
 
-        if (currentNode.classList.contains(cEditor.ui.className.BLOCK_HIGHLIGHTED_AS_COVER)) {
-
-            currentNode.classList.remove(cEditor.ui.className.BLOCK_HIGHLIGHTED_AS_COVER);
-
-        } else {
-
-            currentNode.classList.add(cEditor.ui.className.BLOCK_HIGHLIGHTED_AS_COVER);
-
-        }
         cEditor.toolbar.settings.close();
     },
 
-    isBlockHighlightedAsCover : function() {
+    isFeedModeActivated : function() {
         var currentBlock = cEditor.content.currentNode;
 
         if (currentBlock) {
-            return currentBlock.classList.contains(cEditor.ui.className.BLOCK_HIGHLIGHTED_AS_COVER);
+            return currentBlock.classList.contains(cEditor.ui.className.BLOCK_IN_FEED_MODE);
         } else {
             return false;
         }
