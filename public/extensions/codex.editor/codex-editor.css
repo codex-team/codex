@@ -174,7 +174,7 @@
     border-radius: 3px;
     white-space: nowrap;
     color: #707684;
-    font-size: 13px;
+    font-size: 13.4px;
 
     /* hidden by default */
     display: none;
@@ -186,6 +186,9 @@
 .ce-settings_plugin{
     padding: 20px;
     border-bottom: 1px solid #E8EAEE;
+}
+.ce-settings_plugin:empty{
+    display: none;
 }
 .ce-settings_default{
     padding: 20px;
