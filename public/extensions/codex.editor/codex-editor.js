@@ -2663,31 +2663,19 @@ cEditor.toolbar.settings = {
     /**
      * Cover setting.
      * This tune highlights block, so that it may be used for showing target block on main page
-     */
-    makeFeedModeToggler : function() {
-
-        var isFeedModeActivated = cEditor.toolbar.settings.isFeedModeActivated();
-
-        return cEditor.toolbar.settings.feedModeToggler(
-                    isFeedModeActivated
-                );
-    },
-
-    /**
      * Draw different setting when block is marked for main page
      * If TRUE, then we show button that removes this selection
      * Also defined setting "Click" events will be listened and have separate callbacks
      *
-     *
-     * @param {Boolean} isActivated - flag that specified enable or disable Feed-mode
      * @return {Element} node/button that we place in default settings block
      */
-    feedModeToggler : function(isActivated) {
+    makeFeedModeToggler : function() {
 
-        var setting,
+        var isFeedModeActivated = cEditor.toolbar.settings.isFeedModeActivated(),
+            setting,
             data;
 
-        if (!isActivated) {
+        if (!isFeedModeActivated) {
 
             data = {
                 textContent : 'Вывести на главную страницу'
