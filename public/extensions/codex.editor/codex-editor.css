@@ -150,7 +150,7 @@
             cursor: pointer;
         }
 
-        .ce-setting__cover-highlight {
+        .ce-block--marked-as-cover {
             background: #ffe;
         }
 
@@ -174,7 +174,7 @@
     .ce-settings__item {
         cursor: pointer;
     }
-    
+
 .ce-settings.opened{
     display: block;
 }
@@ -243,7 +243,7 @@
     margin: 0 5px;
     border-radius: 3px;
 }
-.ce-block__highlighted {
+.ce-block--focused {
     background: #f9f9fb;
 }
 

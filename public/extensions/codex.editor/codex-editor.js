@@ -506,12 +506,12 @@ cEditor.ui = {
         /**
         * @const {String} BLOCK_HIGHLIGHTED - adds background
         */
-        BLOCK_HIGHLIGHTED : 'ce-block__highlighted',
+        BLOCK_HIGHLIGHTED : 'ce-block--focused',
 
         /**
         * @const {String} - highlights covered blocks
         */
-        BLOCK_HIGHLIGHTED_AS_COVER : 'ce-setting__cover-highlight',
+        BLOCK_HIGHLIGHTED_AS_COVER : 'ce-block--marked-as-cover',
 
         /**
         * @const {String} - for all default settings
@@ -2639,17 +2639,21 @@ cEditor.toolbar.settings = {
     addDefaultSettings : function() {
 
         /** list of default settings */
-        var makeCoveredBlock;
+        var feedModeToggler;
 
         /** Clear block and append initialized settings */
         cEditor.nodes.defaultSettings.innerHTML = '';
 
 
         /** Init all default setting buttons */
-        makeCoveredBlock = cEditor.toolbar.settings.makeSettingThatHightlighsBlock();
+        feedModeToggler = cEditor.toolbar.settings.makeFeedModeToggler();
 
-        /** Fill in defaultSettings block */
-        cEditor.nodes.defaultSettings.appendChild(makeCoveredBlock);
+        /**
+         * Fill defaultSettings
+         */
+
+        /** Button whick enables/disables to show target block in feed */
+        cEditor.nodes.defaultSettings.appendChild(feedModeToggler);
 
     },
 
@@ -2657,9 +2661,9 @@ cEditor.toolbar.settings = {
      * Cover setting.
      * This tune highlights block, so that it may be used for showing target block on main page
      */
-    makeSettingThatHightlighsBlock : function() {
+    makeFeedModeToggler : function() {
 
-        return cEditor.toolbar.settings.updateCoverSettingButton(
+        return cEditor.toolbar.settings.updateFeedModeToggler(
                     cEditor.toolbar.settings.isBlockHighlightedAsCover()
                 );
     },
@@ -2670,18 +2674,18 @@ cEditor.toolbar.settings = {
      * Also defined setting "Click" events will be listened and have separate callbacks
      *
      *
-     * @param {Boolean} type - this parameter shows which button to draw
+     * @param {Boolean} isActivated - flag that specified enable or disable Feed-mode
      * @return {Element} node/button that we place in default settings block
      */
-    updateCoverSettingButton : function(type) {
+    updateFeedModeToggler : function(isActivated) {
 
         var setting,
             data;
 
-        if (!type) {
+        if (!isActivated) {
 
             data = {
-                textContent : 'Вывести на главную'
+                textContent : 'Вывести на главную страницу'
             };
 
         } else {
