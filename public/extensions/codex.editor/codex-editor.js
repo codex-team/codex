@@ -491,7 +491,12 @@ cEditor.ui = {
         /**
         * @const {string} BLOCK_CLASSNAME - redactor blocks name
         */
-        BLOCK_CLASSNAME : 'ce-block__content',
+        BLOCK_CLASSNAME : 'ce-block',
+
+        /**
+        * @const {String} wrapper for plugins content
+        */
+        BLOCK_CONTENT : 'ce-block__content',
 
         /**
         * @const {String} BLOCK_STRETCHED - makes block stretched
@@ -506,12 +511,12 @@ cEditor.ui = {
         /**
         * @const {String} - highlights covered blocks
         */
-        BLOCK_COVER : 'ce-setting__cover-make',
+        BLOCK_COVER : 'ce-setting__cover-highlight',
 
         /**
         * @const {String} - for all default settings
         */
-        SETTING_BUTTON : 'ce-setting__button'
+        SETTINGS_ITEM : 'ce-settings__item'
 
     },
 
@@ -554,7 +559,6 @@ cEditor.ui = {
         blockButtons          = cEditor.draw.blockButtons();
         toolbox               = cEditor.draw.toolbox();
         redactor              = cEditor.draw.redactor();
-        ceBlock               = cEditor.draw.ceBlock();
 
         /** settings */
         var defaultSettings = cEditor.draw.defaultSettings(),
@@ -582,7 +586,6 @@ cEditor.ui = {
 
         wrapper.appendChild(toolbar);
 
-        redactor.appendChild(ceBlock);
         wrapper.appendChild(redactor);
 
         /** Save created ui-elements to static nodes state */
@@ -596,7 +599,7 @@ cEditor.ui = {
         cEditor.nodes.showSettingsButton = showSettingsButton;
         cEditor.nodes.showTrashButton    = showTrashButton;
 
-        cEditor.nodes.redactor = ceBlock;
+        cEditor.nodes.redactor = redactor;
 
         cEditor.ui.makeInlineToolbar(inlineToolbar);
 
@@ -1827,16 +1830,17 @@ cEditor.content = {
     */
     composeNewBlock : function (block, blockType, isStretched) {
 
-        var newBlock = cEditor.draw.block('DIV');
+        var newBlock     = cEditor.draw.node('DIV', cEditor.ui.className.BLOCK_CLASSNAME, {}),
+            blockContent = cEditor.draw.node('DIV', cEditor.ui.className.BLOCK_CONTENT, {});
 
-        newBlock.classList.add(cEditor.ui.className.BLOCK_CLASSNAME);
+        newBlock.appendChild(blockContent);
 
         if (isStretched) {
-            newBlock.classList.add(cEditor.ui.className.BLOCK_STRETCHED);
+            blockContent.classList.add(cEditor.ui.className.BLOCK_STRETCHED);
         }
         newBlock.dataset.type = blockType;
 
-        newBlock.appendChild(block);
+        blockContent.appendChild(block);
 
         return newBlock;
 
@@ -2704,7 +2708,7 @@ cEditor.toolbar.settings = {
     },
 
     coverSettingButton : function(data) {
-        var setting = cEditor.draw.node('DIV', cEditor.ui.className.SETTING_BUTTON, data);
+        var setting = cEditor.draw.node('DIV', cEditor.ui.className.SETTINGS_ITEM, data);
         return setting;
     },
 

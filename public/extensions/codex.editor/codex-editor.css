@@ -146,21 +146,11 @@
             display: block;
         }
 
-        .ce-toolbar__remove-confirm {
+        .ce-toolbar__remove-confirm, .ce-toolbar__remove-cancel {
             cursor: pointer;
-            /** Specific styles */
         }
 
-        .ce-toolbar__remove-cancel {
-            cursor: pointer;
-            /** Specific styles */
-        }
-
-    .ce-setting__button {
-        cursor: pointer;
-    }
-
-        .ce-setting__cover-make {
+        .ce-setting__cover-highlight {
             background: #ffe;
         }
 
@@ -181,6 +171,10 @@
     /* hidden by default */
     display: none;
 }
+    .ce-settings__item {
+        cursor: pointer;
+    }
+    
 .ce-settings.opened{
     display: block;
 }
