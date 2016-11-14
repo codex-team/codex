@@ -28,6 +28,12 @@ Route::set('CONTESTS_LIST', 'contests')->defaults(array(
 ));
 
 
+Route::set('TESTS_LIST', 'tests')->defaults(array(
+    'controller' => 'Tests_Index',
+    'action' => 'showAll',
+));
+
+
 // Add Substance
 
 Route::set('ADD_ARTICLE_SCRIPT', 'article/add')->defaults(array(
@@ -51,6 +57,12 @@ Route::set('SHOWCONTEST', 'contest(/<id>)')->defaults(array(
 	'controller' => 'Contests_Index',
 	'action'	 => 'show'
 ));
+
+Route::set('SHOWTEST', 'test(/<id>(/<action>))', array('action' => 'showResult'))->defaults(array(
+    'controller' => 'Tests_Index',
+    'action' => 'show',
+));
+
 
 // Edit Substances
 Route::set('EDIT_CONTEST_SCRIPT', 'contest/<id>/save', array('id' => $DIGIT))->defaults(array(

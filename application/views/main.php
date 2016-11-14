@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="/public/css/normalize.css">
     <link rel="stylesheet" href="/public/css/main.css?v=<?= filemtime("public/css/main.css") ?>">
     <link rel="stylesheet" href="/public/css/editor.css?v=<?= filemtime("public/css/editor.css") ?>">
+    <link rel="stylesheet" href="/public/css/test.css?v=<?= filemtime("public/css/test.css") ?>">
 
     <link rel="icon" type="image/png" href="/public/img/fav_shield@3x.png?v=985" id="favicon" />
 
@@ -47,6 +48,7 @@
                 <a href="/">CodeX</a>
                 <a href="/articles">Articles</a>
                 <a href="/contests">Contests</a>
+                <a href="/tests">Tests</a>
             </div>
             <div class="social_buttons">
                 <a class="icon_link social" href="//vk.com/codex_team" target="_blank"><i class="icon-vkontakte"></i></a>
