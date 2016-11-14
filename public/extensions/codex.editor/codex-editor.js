@@ -1160,51 +1160,6 @@ cEditor.callback = {
     },
 
     /**
-    * Sets block to removed state or if block's state is removed function deletes it from stream (DOM tree)
-    */
-    removeBlock : function(event) {
-
-        var current             = cEditor.content.currentNode,
-            firstLevelBlocksCount;
-
-        /**
-        * If block doesn't have 'removing-request' class then we add it
-        */
-        if (!current.classList.contains('removing-request')) {
-
-            current.classList.add('removing-request');
-            cEditor.toolbar.settings.removeBlock.setting.classList.add('hide');
-            cEditor.toolbar.settings.removeBlock.actions.classList.add('opened');
-
-        } else {
-
-            /** If block has 'removing-request' class then remove this block from DOM tree */
-            current.remove();
-
-            firstLevelBlocksCount = cEditor.nodes.redactor.childNodes.length;
-
-            /**
-            * If all blocks are removed
-            */
-            if (firstLevelBlocksCount === 0) {
-
-                /** update currentNode variable */
-                cEditor.content.currentNode = null;
-
-                /** Inserting new empty initial block */
-                cEditor.ui.addInitialBlock();
-            }
-
-            /** Close toolbar */
-            cEditor.toolbar.close();
-
-        }
-
-        cEditor.ui.saveInputs();
-
-    },
-
-    /**
     * Block handlers for KeyDown events
     */
     blockKeydown : function(event, block) {
@@ -3910,7 +3865,7 @@ cEditor.draw = {
      * @param {string} className
      * @param {object} properties - allow to assign properties
      */
-    make : function( tagName , className , properties ){
+    node : function( tagName , className , properties ){
 
         var el = document.createElement( tagName );
 

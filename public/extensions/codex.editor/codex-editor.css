@@ -127,10 +127,11 @@
 /**
  * Trash tool
  */
-.ce_button-remove-btn {
+.ce-toolbar__remove-btn {
     margin-left: 1.9em;
+    cursor: pointer;
 }
-    .ce_button__remove-actions {
+    .ce-toolbar__remove-actions {
         display: none;
         position: absolute;
         background: #0f0d10;
@@ -141,15 +142,15 @@
         border-radius: 5px;
         font-size: 0.8em;
     }
-        .ce_button__remove-actions.open {
+        .ce-toolbar__remove-actions.open {
             display: block;
         }
 
-        .ce_button__remove-confirm {
+        .ce-toolbar__remove-confirm {
             cursor: pointer;
         }
 
-        .ce_button__remove-cancel {
+        .ce-toolbar__remove-cancel {
             cursor: pointer;
         }
 
