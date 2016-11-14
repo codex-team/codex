@@ -443,7 +443,7 @@ cEditor.saver = {
             savedData    = cEditor.tools[pluginName].save(blockContent);
 
         /** Marks Blocks that will be in main page */
-        savedData.cover = block.classList.contains(cEditor.ui.className.BLOCK_COVER);
+        savedData.cover = block.classList.contains(cEditor.ui.className.BLOCK_HIGHLIGHTED_AS_COVER);
 
         cEditor.state.jsonOutput.push(savedData);
     },
@@ -511,7 +511,7 @@ cEditor.ui = {
         /**
         * @const {String} - highlights covered blocks
         */
-        BLOCK_COVER : 'ce-setting__cover-highlight',
+        BLOCK_HIGHLIGHTED_AS_COVER : 'ce-setting__cover-highlight',
 
         /**
         * @const {String} - for all default settings
@@ -2634,27 +2634,30 @@ cEditor.toolbar.settings = {
      */
     addDefaultSettings : function() {
 
-
-        /** Init default setting buttons */
-        var toMainPageSetting = cEditor.toolbar.settings.showOnMainPageSetting();
+        /** list of default settings */
+        var makeCoveredBlock;
 
         /** Clear block and append initialized settings */
         cEditor.nodes.defaultSettings.innerHTML = '';
-        cEditor.nodes.defaultSettings.appendChild(toMainPageSetting);
+
+
+        /** Init all default setting buttons */
+        makeCoveredBlock = cEditor.toolbar.settings.makeSettingThatHightlighsBlock();
+
+        /** Fill in defaultSettings block */
+        cEditor.nodes.defaultSettings.appendChild(makeCoveredBlock);
 
     },
 
-    showOnMainPageSetting : function() {
+    /**
+     * Cover setting.
+     * This tune highlights block, so that it may be used for showing target block on main page
+     */
+    makeSettingThatHightlighsBlock : function() {
 
-        var setting;
-
-        if (!cEditor.toolbar.settings.isBlockCovered()) {
-            setting = cEditor.toolbar.settings.makeMainPageSetting(true);
-        } else {
-            setting = cEditor.toolbar.settings.makeMainPageSetting(false);
-        }
-
-        return setting;
+        return cEditor.toolbar.settings.updateCoverSettingButton(
+                    cEditor.toolbar.settings.isBlockHighlightedAsCover()
+                );
     },
 
     /**
@@ -2666,19 +2669,16 @@ cEditor.toolbar.settings = {
      * @param {Boolean} type - this parameter shows which button to draw
      * @return {Element} node/button that we place in default settings block
      */
-    makeMainPageSetting : function(type) {
+    updateCoverSettingButton : function(type) {
 
         var setting,
             data;
 
-        if (type) {
+        if (!type) {
 
             data = {
                 textContent : 'Вывести на главную'
             };
-
-            setting = cEditor.toolbar.settings.coverSettingButton(data);
-            setting.addEventListener('click', cEditor.toolbar.settings.placeBlockToMainPage, false);
 
         } else {
 
@@ -2686,37 +2686,41 @@ cEditor.toolbar.settings = {
                 textContent : 'Убрать из главной'
             };
 
-            setting = cEditor.toolbar.settings.coverSettingButton(data);
-            setting.addEventListener('click', cEditor.toolbar.settings.removeBlockFromMainPage, false);
-
         }
 
+        setting = cEditor.draw.node('DIV', cEditor.ui.className.SETTINGS_ITEM, data);
+        setting.addEventListener('click', cEditor.toolbar.settings.updateBlockHightlightedAsCover, false);
 
         cEditor.toolbar.settings.cover = setting;
 
         return setting;
     },
 
-    placeBlockToMainPage : function() {
-        cEditor.content.currentNode.classList.add(cEditor.ui.className.BLOCK_COVER);
+    /**
+     * Make covered block highlighted
+     */
+    updateBlockHightlightedAsCover : function() {
+
+        var currentNode = cEditor.content.currentNode;
+
+
+        if (currentNode.classList.contains(cEditor.ui.className.BLOCK_HIGHLIGHTED_AS_COVER)) {
+
+            currentNode.classList.remove(cEditor.ui.className.BLOCK_HIGHLIGHTED_AS_COVER);
+
+        } else {
+
+            currentNode.classList.add(cEditor.ui.className.BLOCK_HIGHLIGHTED_AS_COVER);
+
+        }
         cEditor.toolbar.settings.close();
     },
 
-    removeBlockFromMainPage : function() {
-        cEditor.content.currentNode.classList.remove(cEditor.ui.className.BLOCK_COVER);
-        cEditor.toolbar.settings.close();
-    },
-
-    coverSettingButton : function(data) {
-        var setting = cEditor.draw.node('DIV', cEditor.ui.className.SETTINGS_ITEM, data);
-        return setting;
-    },
-
-    isBlockCovered : function() {
+    isBlockHighlightedAsCover : function() {
         var currentBlock = cEditor.content.currentNode;
 
         if (currentBlock) {
-            return currentBlock.classList.contains(cEditor.ui.className.BLOCK_COVER);
+            return currentBlock.classList.contains(cEditor.ui.className.BLOCK_HIGHLIGHTED_AS_COVER);
         } else {
             return false;
         }
