@@ -881,7 +881,12 @@ cEditor.callback = {
     enterKeyPressed : function(event){
 
         /** Set current node */
-        cEditor.content.workingNodeChanged(event.target);
+        var firstLevelBlocksArea = cEditor.callback.clickedOnFirstLevelBlockArea();
+
+        if (firstLevelBlocksArea) {
+            cEditor.callback.enterPressedOnBlock(event);
+            return;
+        }
 
         if (event.target.contentEditable == 'true') {
 
@@ -893,7 +898,7 @@ cEditor.callback = {
             /**
              * Enter key pressed in first-level block area
              */
-            cEditor.callback.enterPressedOnBlock(workingNode, event);
+            cEditor.callback.enterPressedOnBlock(event);
             return;
         }
 
@@ -1041,9 +1046,10 @@ cEditor.callback = {
 
         cEditor.content.workingNodeChanged(event.target);
 
+        console.log(cEditor.content.currentNode);
         cEditor.ui.saveInputs();
 
-        var selectedText = cEditor.toolbar.inline.getSelectionText();
+        var selectedText    = cEditor.toolbar.inline.getSelectionText();
 
         if (selectedText.length === 0) {
             cEditor.toolbar.inline.close();
@@ -1120,6 +1126,40 @@ cEditor.callback = {
 
         /** Mark current block*/
         cEditor.content.markBlock();
+
+    },
+
+    /**
+     * This method allows to define, is caret in contenteditable element or not.
+     * Otherwise, if we get TEXT node from range container, that will means we have input index.
+     * In this case we use default browsers behaviour (if plugin allows that) or overwritten action.
+     * Therefore, to be sure that we've clicked first-level block area, we should have currentNode, which always
+     * specifies to the first-level block. Other cases we just ignore.
+     */
+    clickedOnFirstLevelBlockArea : function() {
+
+        var selection = window.getSelection();
+
+        if (selection.rangeCount == 0) {
+
+            return true;
+
+        } else {
+
+            var range          = selection.getRangeAt(0),
+                caretIsInInput = (range.startContainer.nodeType == cEditor.core.nodeTypes.TEXT),
+                currentNode    = cEditor.content.currentNode;
+
+        console.log("caret is in input: %o", caretIsInInput);
+        console.log("currentNode is: %o", currentNode);
+        console.log(!caretIsInInput && currentNode);
+
+        if (!caretIsInInput && currentNode) {
+            return true;
+        } else {
+            return false;
+        }
+        }
 
     },
 
@@ -1345,7 +1385,7 @@ cEditor.callback = {
     /**
      * Callback for enter key pressing in first-level block area
      */
-    enterPressedOnBlock: function (block, event) {
+    enterPressedOnBlock: function (event) {
 
         var NEW_BLOCK_TYPE  = 'paragraph';
 
