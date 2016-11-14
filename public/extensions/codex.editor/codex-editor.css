@@ -113,52 +113,37 @@
 */
 .ce-toolbar__actions{
     position: absolute;
-    right: -50px;
+    right: -125px;
 }
 
 /**
 * Settings button
 */
 .ce-toolbar__settings-btn{
-    margin-right: -1.6em;
+    margin-right: .3em;
     cursor: pointer;
 }
-
-/**
- * Trash tool
- */
-.ce-toolbar__remove-btn {
-    margin-left: 1.9em;
-    cursor: pointer;
+.ce-toolbar__settings-btn,
+.ce-toolbar__remove-btn{
+    color: #5e6475;
 }
-    .ce-toolbar__remove-actions {
-        display: none;
-        position: absolute;
-        background: #0f0d10;
-        color: #fff;
-        padding: 5px;
-        left: -20px;
-        top: 30px;
-        border-radius: 5px;
-        font-size: 0.8em;
-    }
-        .ce-toolbar__remove-actions.open {
-            display: block;
-        }
-
-        .ce-toolbar__remove-confirm, .ce-toolbar__remove-cancel {
-            cursor: pointer;
-        }
+.ce-toolbar__settings-btn:hover,
+.ce-toolbar__remove-btn:hover{
+    color: #272b35
+}
 
 /**
 * Settigns pane
 */
-.ce-settings{
+.ce-settings,
+.ce-toolbar__remove-actions{
     position: absolute;
     right: 0;
+    margin-top: 10px;
+    min-width: 200px;
     background: #FFFFFF;
-    border: 1px solid #E0E2EA;
-    box-shadow: 0px 5px 8px 0px rgba(195,200,222,0.50);
+    border: 1px solid #e7e9f1;
+    box-shadow: 0px 2px 5px 0px rgba(16, 23, 49, 0.05);
     border-radius: 3px;
     white-space: nowrap;
     color: #707684;
@@ -167,11 +152,14 @@
     /* hidden by default */
     display: none;
 }
-    .ce-settings__item {
-        cursor: pointer;
-    }
+.ce-settings__item,
+.ce-toolbar__remove-confirm
+.ce-toolbar__remove-cancel {
+    cursor: pointer;
+}
 
-.ce-settings.opened{
+.ce-settings.opened,
+.ce-toolbar__remove-actions.opened{
     display: block;
 }
 
@@ -184,6 +172,32 @@
 }
 .ce-settings_default{
     padding: 20px;
+}
+
+
+
+/**
+ * Trash button
+ */
+.ce-toolbar__remove-btn {
+    cursor: pointer;
+}
+.ce-toolbar__remove-actions{
+    padding: 5px 0;
+}
+.ce-toolbar__remove-confirm,
+.ce-toolbar__remove-cancel{
+    padding: 10px 20px;
+}
+.ce-toolbar__remove-confirm{
+    color: #ea5c5c;
+}
+.ce-toolbar__remove-confirm:hover{
+    background: #e23d3d;
+    color: #fff;
+}
+.ce-toolbar__remove-cancel:hover{
+    background: #edf0f5;
 }
 
 
@@ -243,8 +257,30 @@
     background: #f9f9fb;
 }
 
-.ce-block--feed-mode {
-    background: #ffe;
+.ce-block--feed-mode{
+    position: relative;
+}
+.ce-block--feed-mode:before {
+    content: '\e81b';
+    font-family: "codex_editor";
+    display: inline-block;
+    position: absolute;
+
+    left: 30px;
+    top: 10px;
+    font-size: 16px;
+    color: #ef4a4a;
+}
+
+/**
+* Block content holder
+*/
+.ce-block__content{
+    max-width: 600px;
+    margin: 0 auto;
+}
+.ce-block--stretched{
+    max-width: none;
 }
 
 /**

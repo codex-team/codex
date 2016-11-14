@@ -9,6 +9,11 @@ var quoteTools = {
     path : '/upload/redactor_images/',
 
     /**
+    * Default quote style
+    */
+    defaultStyle : 'withPhoto',
+
+    /**
     * Make Quote from JSON datasets
     */
     makeBlockToAppend : function(data) {
@@ -90,11 +95,18 @@ var quoteTools = {
             selectTypeButton = document.createElement('SPAN');
 
             selectTypeButton.textContent = types[type];
-
             selectTypeButton.className   = quoteTools.styles.settings.buttons;
 
-            var quoteStyle = quoteTools.selectTypeQuoteStyle(type);
-            quoteTools.addSelectTypeClickListener(selectTypeButton, quoteStyle);
+            selectTypeButton.dataset.style = type;
+
+            if ( type == quoteTools.defaultStyle ){
+                selectTypeButton.classList.add(quoteTools.styles.settings.selectedType);
+            }
+
+            // var quoteStyle = quoteTools.selectTypeQuoteStyle(type);
+
+            selectTypeButton.addEventListener('click', quoteTools.changeStyleClicked, false);
+            // quoteTools.addSelectTypeClickListener(selectTypeButton, quoteStyle);
 
             holder.appendChild(selectTypeButton);
 
@@ -104,6 +116,29 @@ var quoteTools = {
 
     },
 
+    changeStyleClicked : function() {
+
+        var changeStyleButton = this,
+            quote = cEditor.content.currentNode.querySelector('.' + quoteTools.styles.ce_quote),
+            newStyle = changeStyleButton.dataset.style,
+            styleSelectors = this.parentNode.childNodes;
+
+        quote.dataset.quoteStyle = newStyle;
+
+        /**
+        * Mark selected style button
+        */
+        for (var i = styleSelectors.length - 1; i >= 0; i--) {
+            styleSelectors[i].classList.remove(quoteTools.styles.settings.selectedType);
+        }
+
+        this.classList.add(quoteTools.styles.settings.selectedType);
+
+    },
+
+    /**
+    * @deprecated
+    */
     selectTypeQuoteStyle : function(type) {
 
         /**
@@ -125,6 +160,9 @@ var quoteTools = {
 
     },
 
+    /**
+    * @deprecated
+    */
     addSelectTypeClickListener : function(el, quoteStyle) {
 
         el.addEventListener('click', function () {
@@ -147,6 +185,9 @@ var quoteTools = {
 
     },
 
+    /**
+    * @deprecated
+    */
     makeSimpleQuote : function(data) {
 
         var wrapper = quoteTools.ui.makeBlock('BLOCKQUOTE', [quoteTools.styles.simple.text, quoteTools.styles.quoteText]);
@@ -160,6 +201,9 @@ var quoteTools = {
         return wrapper;
     },
 
+    /**
+    * @deprecated
+    */
     makeQuoteWithCaption : function(data) {
 
         var wrapper = quoteTools.ui.blockquote(),
@@ -189,11 +233,11 @@ var quoteTools = {
 
     makeQuoteWithPhoto : function(data) {
 
-        var wrapper  = quoteTools.ui.blockquote();
+        var wrapper  = quoteTools.ui.blockquote(),
             photo    = quoteTools.ui.makeBlock('DIV', [quoteTools.styles.withPhoto.photo]),
             author   = quoteTools.ui.makeBlock('DIV', [quoteTools.styles.withPhoto.author, quoteTools.styles.quoteAuthor]),
             job      = quoteTools.ui.makeBlock('DIV', [quoteTools.styles.withPhoto.job, quoteTools.styles.authorsJob]),
-            quote    = quoteTools.ui.makeBlock('DIV', [quoteTools.styles.withPhoto.quote, quoteTools.styles.quoteText])
+            quote    = quoteTools.ui.makeBlock('DIV', [quoteTools.styles.withPhoto.quote, quoteTools.styles.quoteText]);
 
             /* Default Image src */
             if (!data.photo) {
@@ -319,8 +363,9 @@ quoteTools.styles = {
         holder  : 'ce_plugin_quote--settings',
         caption : 'ce_plugin_quote--caption',
         buttons : 'ce_plugin_quote--select_button',
+        selectedType : 'ce-quote-settings--selected'
     },
-}
+};
 
 quoteTools.ui = {
 

@@ -2689,7 +2689,7 @@ cEditor.toolbar.settings = {
 
         /** Open settings block */
         cEditor.nodes.blockSettings.classList.add('opened');
-        cEditor.toolbar.settings.addDefaultSettings()
+        cEditor.toolbar.settings.addDefaultSettings();
         this.opened = true;
     },
 
@@ -2767,13 +2767,13 @@ cEditor.toolbar.settings = {
         if (!isFeedModeActivated) {
 
             data = {
-                textContent : 'Вывести на главную страницу'
+                textContent : 'Вывести в ленте'
             };
 
         } else {
 
             data = {
-                textContent : 'Убрать из главной'
+                textContent : 'Не выводить в ленте'
             };
 
         }
@@ -2815,8 +2815,8 @@ cEditor.toolbar.settings = {
         var removeBlockWrapper  = cEditor.draw.node('SPAN', 'ce-toolbar__remove-btn', {}),
             settingButton = cEditor.draw.node('SPAN', 'ce-toolbar__remove-setting', { innerHTML : '<i class="ce-icon-trash"></i>' }),
             actionWrapper = cEditor.draw.node('DIV', 'ce-toolbar__remove-actions', {}),
-            confirmAction = cEditor.draw.node('DIV', 'ce-toolbar__remove-confirm', { textContent : 'Подтвердить' }),
-            cancelAction  = cEditor.draw.node('DIV', 'ce-toolbar__remove-cancel', { textContent : 'Отменить' });
+            confirmAction = cEditor.draw.node('DIV', 'ce-toolbar__remove-confirm', { textContent : 'Удалить блок' }),
+            cancelAction  = cEditor.draw.node('DIV', 'ce-toolbar__remove-cancel', { textContent : 'Отменить удаление' });
 
         settingButton.addEventListener('click', cEditor.toolbar.settings.removeButtonClicked, false);
 
@@ -2842,7 +2842,7 @@ cEditor.toolbar.settings = {
 
         var action = cEditor.toolbar.settings.actions;
 
-        if (action.classList.contains('open')) {
+        if (action.classList.contains('opened')) {
             cEditor.toolbar.settings.hideRemoveActions();
         } else {
             cEditor.toolbar.settings.showRemoveActions();
@@ -2855,7 +2855,7 @@ cEditor.toolbar.settings = {
 
     cancelRemovingRequest : function() {
 
-        cEditor.toolbar.settings.actions.classList.remove('open');
+        cEditor.toolbar.settings.actions.classList.remove('opened');
     },
 
     confirmRemovingRequest : function() {
@@ -2885,11 +2885,11 @@ cEditor.toolbar.settings = {
     },
 
     showRemoveActions : function() {
-        cEditor.toolbar.settings.actions.classList.add('open');
+        cEditor.toolbar.settings.actions.classList.add('opened');
     },
 
     hideRemoveActions : function() {
-        cEditor.toolbar.settings.actions.classList.remove('open');
+        cEditor.toolbar.settings.actions.classList.remove('opened');
     }
 
 };

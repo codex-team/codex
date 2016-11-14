@@ -2,8 +2,6 @@
 * Plugin styles
 */
 .ce-header {
-    max-width: 600px;
-    margin: 0 auto !important;
     padding: .5em 0;
     line-height: 1.4em;
 }

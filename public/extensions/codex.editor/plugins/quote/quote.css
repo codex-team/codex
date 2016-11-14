@@ -1,13 +1,3 @@
-.ce-quote {
-    max-width: 600px;
-    margin: 2em auto !important;
-}
-
-/** Quote - settings */
-.ce_plugin_quote--settings{
-    white-space: nowrap;
-    /*padding-right: 10px;    */
-}
 .ce_plugin_quote--select_button{
     display: block;
     color: #306ac7;
@@ -140,15 +130,13 @@
 }
 
 .quoteStyle-withPhoto--author {
-    font-size: 1.36em;
-    font-weight: bold;
-    color: #000;
     outline: none;
     overflow: hidden;
-    margin-bottom: 8px;
+    margin-bottom: 1em;
+    font-weight: bold;
+    color: #000;
 }
 .quoteStyle-withPhoto--job {
-    font-size: 1.04em;
     color: #818BA1;
     outline: none;
     overflow: hidden;
@@ -166,14 +154,32 @@
 }
 
 .quoteStyle-withPhoto--quote {
-    margin-top: 33px;
+    margin-top: 1em;
     line-height: 1.82em;
     outline: none;
     overflow: hidden;
 }
 
-.quoteStyle-withPhoto--authorWrapper {
-
-    margin-top: 10px;
-
+/**
+* New styles
+*/
+.ce-quote{
+    padding: 1em 0;
+}
+.quoteStyle-withPhoto--author,
+.quoteStyle-withPhoto--job,
+.quoteStyle-withPhoto--quote{
+    background: #fff;
+    padding: .4em .6em;
+    border: 1px solid #ebeef3;
+    border-radius: 3px;
+}
+.quoteStyle-withPhoto--quote{
+    min-height: 200px;
+}
+/**
+* Current select-type button
+*/
+.ce-quote-settings--selected{
+    font-weight: bold;
 }

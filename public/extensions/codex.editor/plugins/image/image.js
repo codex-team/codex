@@ -14,7 +14,6 @@ var ceImage = {
                 centered  : 'ce-plugin-image__uploaded--centered',
                 stretched : 'ce-plugin-image__uploaded--stretched',
         },
-        stretch       : 'ce_block--stretched',
         imageCaption  : 'ce-plugin-image__caption',
         imageWrapper  : 'ce-plugin-image__wrapper',
         formHolder    : 'ce-plugin-image__holder',
@@ -119,7 +118,6 @@ var ceImage = {
         if (type === 'stretched') {
 
             image.classList.add(ceImage.elementClasses.uploadedImage.stretched);
-            current.classList.add(ceImage.elementClasses.stretch);
 
             /** Setting dataset for saver */
             wrapper.dataset.stretched = true;

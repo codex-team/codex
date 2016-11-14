@@ -3,8 +3,6 @@
 */
 
 .ce-paragraph {
-    max-width: 600px;
-    margin: 0 auto;
     padding: 0.7em 0 !important;
     line-height: 1.7em;
 }
