@@ -37,6 +37,6 @@
 
         <script src="/public/js/test.js"></script>
         <script>
-            new Test(<?= json_encode($test); ?>);
+            window.test = new Test(<?= json_encode($test); ?>);
         </script>
 </div>

@@ -85,28 +85,25 @@ class Test {
 
     getResult() {
 
-        var data='',
-            xhr,
-            i;
+        var post = '';
 
-        for (i = 0; i < Object.keys(this.userAnswers).length; i++) {
+        for (var i = 0; i < Object.keys(this.userAnswers).length; i++) {
 
-            data += this.questions[i].id + '=' + this.userAnswers[this.questions[i].id] + '&';
+            post += this.questions[i].id + '=' + this.userAnswers[this.questions[i].id] + '&';
 
         }
 
+        var data =  {
+                        url: '/test/'+this.id+'/showResult',
+                        type: 'POST',
+                        ['content-type']: 'application/x-www-form-urlencoded',
+                        success: window.test.processResult,
+                        data: post
+                    };
+
+        codex.core.ajax(data);
+
         this.window.showLoading();
-
-        xhr  = new XMLHttpRequest();
-
-        xhr.open('post', ['/test/'+this.id+'/showResult'], true);
-
-        xhr.onreadystatechange = this.processResult.bind(this, xhr);
-
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.setRequestHeader('X-REQUESTED-WITH', 'xmlhttprequest');
-
-        xhr.send(data);
 
     }
 
@@ -120,19 +117,15 @@ class Test {
      * [2] - сообщение, выводимое вместе с результатом
      * [3] - массив <id вопроса> => <id верного варианта ответа>
      */
-    processResult(xhr) {
+    processResult(response) {
 
         var result;
 
-        if (xhr.readyState == 4)
-        {
-            result = JSON.parse(xhr.responseText);
+        result = JSON.parse(response);
 
-            result[0] = result[0]+' из '+this.numberOfQuestions;
+        result[0] = result[0] + ' из ' + window.test.numberOfQuestions;
 
-            this.window.showResult(result, this);
-
-        }
+        window.test.window.showResult(result, window.test);
 
     }
 
@@ -180,7 +173,7 @@ class Test_Window {
     constructor() {
 
         this.main            = getElem('main');
-        this.header          = getElem('question_header')
+        this.header          = getElem('question_header');
         this.title           = getElem('title');
         this.description     = getElem('description');
         this.barFront        = getElem('bar_front');
@@ -271,7 +264,7 @@ class Test_Window {
 
         for (i = 0; i < question.answers.length; i++) {
 
-            p = createElem('p', 'question_option'),
+            p = createElem('p', 'question_option');
             radio = createElem('input', 'radio', i+1);
             radio.setAttribute('type', 'radio');
             p.appendChild(radio);
@@ -418,7 +411,7 @@ class Test_Window {
         this.title.innerHTML = test.title;
         this.description.innerHTML = test.short_description;
 
-        for (var i = 0; i < Object.keys(result[1]).length; i++) {
+        for (i = 0; i < Object.keys(result[1]).length; i++) {
 
             div = createElem('div', 'result_options');
 
@@ -471,7 +464,7 @@ class Test_Window {
             decs: test.short_description,
             img: 'https://ifmo.su/public/img/meta_img.png'
 
-        }
+        };
 
         shareScript  = createElem('script');
         shareScript.innerHTML = 'window.shareData = ' + JSON.stringify(shareData);
