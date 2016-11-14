@@ -884,7 +884,15 @@ cEditor.callback = {
         var firstLevelBlocksArea = cEditor.callback.clickedOnFirstLevelBlockArea();
 
         if (firstLevelBlocksArea) {
-            cEditor.callback.enterPressedOnBlock(event);
+            event.preventDefault();
+
+            /**
+             * it means that we lose input index, saved index before is not correct
+             * therefore we need to set caret when we insert new block
+             */
+            cEditor.caret.inputIndex = -1;
+
+            cEditor.callback.enterPressedOnBlock();
             return;
         }
 
@@ -994,6 +1002,8 @@ cEditor.callback = {
                     block : cEditor.tools[NEW_BLOCK_TYPE].render()
                 }, true );
 
+                cEditor.toolbar.move();
+
                 /** Show plus button with empty block */
                 cEditor.toolbar.showPlusButton();
 
@@ -1046,7 +1056,6 @@ cEditor.callback = {
 
         cEditor.content.workingNodeChanged(event.target);
 
-        console.log(cEditor.content.currentNode);
         cEditor.ui.saveInputs();
 
         var selectedText    = cEditor.toolbar.inline.getSelectionText();
@@ -1138,7 +1147,10 @@ cEditor.callback = {
      */
     clickedOnFirstLevelBlockArea : function() {
 
-        var selection = window.getSelection();
+        var selection  = window.getSelection(),
+            anchorNode = selection.anchorNode,
+            flag = false;
+
 
         if (selection.rangeCount == 0) {
 
@@ -1146,19 +1158,29 @@ cEditor.callback = {
 
         } else {
 
-            var range          = selection.getRangeAt(0),
-                caretIsInInput = (range.startContainer.nodeType == cEditor.core.nodeTypes.TEXT),
-                currentNode    = cEditor.content.currentNode;
+            if (!cEditor.core.isDomNode(anchorNode)) {
+                anchorNode = anchorNode.parentNode;
+            }
 
-        console.log("caret is in input: %o", caretIsInInput);
-        console.log("currentNode is: %o", currentNode);
-        console.log(!caretIsInInput && currentNode);
+            /** Already founded, without loop */
+            if (anchorNode.contentEditable == 'true') {
+                flag = true;
+            }
 
-        if (!caretIsInInput && currentNode) {
-            return true;
-        } else {
-            return false;
-        }
+            while (anchorNode.contentEditable != 'true') {
+                anchorNode = anchorNode.parentNode;
+
+                if (anchorNode.contentEditable == 'true') {
+                    flag = true;
+                }
+
+                if (anchorNode == document.body) {
+                    break;
+                }
+            }
+
+            /** If editable element founded, flag is "TRUE", Therefore we return "FALSE" */
+            return flag ? false : true;
         }
 
     },
@@ -1393,6 +1415,9 @@ cEditor.callback = {
             type  : NEW_BLOCK_TYPE,
             block : cEditor.tools[NEW_BLOCK_TYPE].render()
         }, true );
+
+        cEditor.toolbar.move();
+        cEditor.toolbar.open();
 
     },
 
@@ -1713,7 +1738,7 @@ cEditor.content = {
     * @param needPlaceCaret     {bool}      pass true to set caret in new block
     *
     */
-    insertBlock : function(blockData, needPlaceCaret ) {
+    insertBlock : function( blockData, needPlaceCaret ) {
 
         var workingBlock    = cEditor.content.currentNode,
             newBlockContent = blockData.block,
@@ -1752,17 +1777,39 @@ cEditor.content = {
 
         if ( needPlaceCaret ) {
 
-            var currentInputIndex = cEditor.caret.getCurrentInputIndex() || 0;
+            /**
+             * If we don't know input index then we set default value -1
+             */
+            var currentInputIndex = cEditor.caret.getCurrentInputIndex() || -1;
 
-            /** Timeout for browsers execution */
-            setTimeout(function () {
 
-                /** Setting to the new input */
-                cEditor.caret.setToNextBlock(currentInputIndex);
+            if (currentInputIndex == -1) {
+
+
+                var editableElement = newBlock.querySelector('[contenteditable]'),
+                    emptyText       = document.createTextNode('');
+
+                editableElement.appendChild(emptyText);
+                cEditor.caret.set(editableElement, 0, 0);
+
                 cEditor.toolbar.move();
-                cEditor.toolbar.open();
+                cEditor.toolbar.showPlusButton();
 
-            }, 10);
+
+            } else {
+
+                /** Timeout for browsers execution */
+                setTimeout(function () {
+
+                    /** Setting to the new input */
+                    cEditor.caret.setToNextBlock(currentInputIndex);
+                    cEditor.toolbar.move();
+                    cEditor.toolbar.open();
+
+                }, 10);
+
+            }
+
         }
 
     },
@@ -2205,6 +2252,8 @@ cEditor.caret = {
 
             selection.removeAllRanges();
             selection.addRange(range);
+
+            cEditor.caret.saveCurrentInputIndex();
 
         }, 20);
     },
