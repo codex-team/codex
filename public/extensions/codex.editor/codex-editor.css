@@ -127,10 +127,11 @@
 /**
  * Trash tool
  */
-.ce_button-remove-btn {
+.ce-toolbar__remove-btn {
     margin-left: 1.9em;
+    cursor: pointer;
 }
-    .ce_button__remove-actions {
+    .ce-toolbar__remove-actions {
         display: none;
         position: absolute;
         background: #0f0d10;
@@ -141,25 +142,13 @@
         border-radius: 5px;
         font-size: 0.8em;
     }
-        .ce_button__remove-actions.open {
+        .ce-toolbar__remove-actions.open {
             display: block;
         }
 
-        .ce_button__remove-confirm {
+        .ce-toolbar__remove-confirm, .ce-toolbar__remove-cancel {
             cursor: pointer;
         }
-
-        .ce_button__remove-cancel {
-            cursor: pointer;
-        }
-
-    .ce_setting-tomain {
-        cursor: pointer;
-    }
-
-    .ce_button__markPagedBlock {
-        background: #ffe;
-    }
 
 /**
 * Settigns pane
@@ -178,6 +167,10 @@
     /* hidden by default */
     display: none;
 }
+    .ce-settings__item {
+        cursor: pointer;
+    }
+
 .ce-settings.opened{
     display: block;
 }
@@ -246,10 +239,13 @@
     margin: 0 5px;
     border-radius: 3px;
 }
-.ce-block__highlighted {
+.ce-block--focused {
     background: #f9f9fb;
 }
 
+.ce-block--feed-mode {
+    background: #ffe;
+}
 
 /**
 * Typographycs

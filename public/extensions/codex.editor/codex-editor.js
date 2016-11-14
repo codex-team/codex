@@ -443,7 +443,7 @@ cEditor.saver = {
             savedData    = cEditor.tools[pluginName].save(blockContent);
 
         /** Marks Blocks that will be in main page */
-        savedData.toMain = block.classList.contains('ce_button__markPagedBlock');
+        savedData.cover = block.classList.contains(cEditor.ui.className.BLOCK_IN_FEED_MODE);
 
         cEditor.state.jsonOutput.push(savedData);
     },
@@ -491,7 +491,12 @@ cEditor.ui = {
         /**
         * @const {string} BLOCK_CLASSNAME - redactor blocks name
         */
-        BLOCK_CLASSNAME : 'ce-block__content',
+        BLOCK_CLASSNAME : 'ce-block',
+
+        /**
+        * @const {String} wrapper for plugins content
+        */
+        BLOCK_CONTENT : 'ce-block__content',
 
         /**
         * @const {String} BLOCK_STRETCHED - makes block stretched
@@ -501,7 +506,17 @@ cEditor.ui = {
         /**
         * @const {String} BLOCK_HIGHLIGHTED - adds background
         */
-        BLOCK_HIGHLIGHTED : 'ce-block__highlighted',
+        BLOCK_HIGHLIGHTED : 'ce-block--focused',
+
+        /**
+        * @const {String} - highlights covered blocks
+        */
+        BLOCK_IN_FEED_MODE : 'ce-block--feed-mode',
+
+        /**
+        * @const {String} - for all default settings
+        */
+        SETTINGS_ITEM : 'ce-settings__item'
 
     },
 
@@ -544,7 +559,6 @@ cEditor.ui = {
         blockButtons          = cEditor.draw.blockButtons();
         toolbox               = cEditor.draw.toolbox();
         redactor              = cEditor.draw.redactor();
-        ceBlock               = cEditor.draw.ceBlock();
 
         /** settings */
         var defaultSettings = cEditor.draw.defaultSettings(),
@@ -572,7 +586,6 @@ cEditor.ui = {
 
         wrapper.appendChild(toolbar);
 
-        redactor.appendChild(ceBlock);
         wrapper.appendChild(redactor);
 
         /** Save created ui-elements to static nodes state */
@@ -586,7 +599,7 @@ cEditor.ui = {
         cEditor.nodes.showSettingsButton = showSettingsButton;
         cEditor.nodes.showTrashButton    = showTrashButton;
 
-        cEditor.nodes.redactor = ceBlock;
+        cEditor.nodes.redactor = redactor;
 
         cEditor.ui.makeInlineToolbar(inlineToolbar);
 
@@ -1157,51 +1170,6 @@ cEditor.callback = {
             cEditor.toolbar.toolbox.close();
 
         }
-    },
-
-    /**
-    * Sets block to removed state or if block's state is removed function deletes it from stream (DOM tree)
-    */
-    removeBlock : function(event) {
-
-        var current             = cEditor.content.currentNode,
-            firstLevelBlocksCount;
-
-        /**
-        * If block doesn't have 'removing-request' class then we add it
-        */
-        if (!current.classList.contains('removing-request')) {
-
-            current.classList.add('removing-request');
-            cEditor.toolbar.settings.removeBlock.setting.classList.add('hide');
-            cEditor.toolbar.settings.removeBlock.actions.classList.add('opened');
-
-        } else {
-
-            /** If block has 'removing-request' class then remove this block from DOM tree */
-            current.remove();
-
-            firstLevelBlocksCount = cEditor.nodes.redactor.childNodes.length;
-
-            /**
-            * If all blocks are removed
-            */
-            if (firstLevelBlocksCount === 0) {
-
-                /** update currentNode variable */
-                cEditor.content.currentNode = null;
-
-                /** Inserting new empty initial block */
-                cEditor.ui.addInitialBlock();
-            }
-
-            /** Close toolbar */
-            cEditor.toolbar.close();
-
-        }
-
-        cEditor.ui.saveInputs();
-
     },
 
     /**
@@ -1862,16 +1830,17 @@ cEditor.content = {
     */
     composeNewBlock : function (block, blockType, isStretched) {
 
-        var newBlock = cEditor.draw.block('DIV');
+        var newBlock     = cEditor.draw.node('DIV', cEditor.ui.className.BLOCK_CLASSNAME, {}),
+            blockContent = cEditor.draw.node('DIV', cEditor.ui.className.BLOCK_CONTENT, {});
 
-        newBlock.classList.add(cEditor.ui.className.BLOCK_CLASSNAME);
+        newBlock.appendChild(blockContent);
 
         if (isStretched) {
-            newBlock.classList.add(cEditor.ui.className.BLOCK_STRETCHED);
+            blockContent.classList.add(cEditor.ui.className.BLOCK_STRETCHED);
         }
         newBlock.dataset.type = blockType;
 
-        newBlock.appendChild(block);
+        blockContent.appendChild(block);
 
         return newBlock;
 
@@ -2343,6 +2312,10 @@ cEditor.caret = {
                 firstLevelBlock = cEditor.content.getFirstLevelBlock(anchorNode),
                 pluginsRender   = firstLevelBlock.childNodes[0];
 
+            if (!cEditor.core.isDomNode(anchorNode)) {
+                anchorNode = anchorNode.parentNode;
+            }
+
             var isFirstNode  = anchorNode === pluginsRender.childNodes[0],
                 isOffsetZero = anchorOffset === 0;
 
@@ -2601,7 +2574,7 @@ cEditor.toolbar.settings = {
     setting : null,
     actions : null,
 
-    toMainPage : null,
+    cover : null,
 
     /**
     * Append and open settings
@@ -2660,65 +2633,86 @@ cEditor.toolbar.settings = {
 
     },
 
+    /**
+     * This function adds default core settings
+     */
     addDefaultSettings : function() {
 
+        /** list of default settings */
+        var feedModeToggler;
 
-        var toMainPage;
-
-        if (!cEditor.toolbar.settings.blockIsPaged()) {
-            toMainPage = cEditor.toolbar.settings.makeToMainSetting(true);
-        } else {
-            toMainPage = cEditor.toolbar.settings.makeToMainSetting(false);
-        }
-
+        /** Clear block and append initialized settings */
         cEditor.nodes.defaultSettings.innerHTML = '';
-        cEditor.nodes.defaultSettings.appendChild(toMainPage);
+
+
+        /** Init all default setting buttons */
+        feedModeToggler = cEditor.toolbar.settings.makeFeedModeToggler();
+
+        /**
+         * Fill defaultSettings
+         */
+
+        /**
+         * Button that enables/disables Feed-mode
+         * Feed-mode means that block will be showed in articles-feed like cover
+         */
+        cEditor.nodes.defaultSettings.appendChild(feedModeToggler);
 
     },
 
-    makeToMainSetting : function(type) {
+    /**
+     * Cover setting.
+     * This tune highlights block, so that it may be used for showing target block on main page
+     * Draw different setting when block is marked for main page
+     * If TRUE, then we show button that removes this selection
+     * Also defined setting "Click" events will be listened and have separate callbacks
+     *
+     * @return {Element} node/button that we place in default settings block
+     */
+    makeFeedModeToggler : function() {
 
-        var setting;
+        var isFeedModeActivated = cEditor.toolbar.settings.isFeedModeActivated(),
+            setting,
+            data;
 
-        if (type) {
-            setting = cEditor.toolbar.settings.mainPagedSetting();
-            setting.addEventListener('click', cEditor.toolbar.settings.markMainPagedBlock, false);
+        if (!isFeedModeActivated) {
+
+            data = {
+                textContent : 'Вывести на главную страницу'
+            };
+
         } else {
-            setting = cEditor.toolbar.settings.removePagedSetting();
-            setting.addEventListener('click', cEditor.toolbar.settings.remarkMainPagedBlock, false);
+
+            data = {
+                textContent : 'Убрать из главной'
+            };
+
         }
 
-
-        cEditor.toolbar.settings.toMainPage = setting;
+        setting = cEditor.draw.node('DIV', cEditor.ui.className.SETTINGS_ITEM, data);
+        setting.addEventListener('click', cEditor.toolbar.settings.updateFeedMode, false);
 
         return setting;
     },
 
-    markMainPagedBlock : function() {
-        cEditor.content.currentNode.classList.add('ce_button__markPagedBlock');
+    /**
+     * Updates Feed-mode
+     */
+    updateFeedMode : function() {
+
+        var currentNode = cEditor.content.currentNode;
+
+        currentNode.classList.toggle(cEditor.ui.className.BLOCK_IN_FEED_MODE);
+
         cEditor.toolbar.settings.close();
     },
 
-    remarkMainPagedBlock : function() {
-        cEditor.content.currentNode.classList.remove('ce_button__markPagedBlock');
-        cEditor.toolbar.settings.close();
-    },
+    isFeedModeActivated : function() {
 
-    mainPagedSetting : function() {
-        var setting = cEditor.draw.make('DIV', 'ce_setting-tomain', { textContent : 'Вывести на главной' });
-        return setting;
-    },
-
-    removePagedSetting : function() {
-        var setting = cEditor.draw.make('DIV', 'ce_setting-tomain', { textContent : 'Убрать из главной' });
-        return setting;
-    },
-
-    blockIsPaged : function() {
         var currentBlock = cEditor.content.currentNode;
 
         if (currentBlock) {
-            return currentBlock.classList.contains('ce_button__markPagedBlock');
+            return currentBlock.classList.contains(cEditor.ui.className.BLOCK_IN_FEED_MODE);
         } else {
             return false;
         }
@@ -2729,11 +2723,11 @@ cEditor.toolbar.settings = {
      */
     makeRemoveBlockButton : function() {
 
-        var removeBlockWrapper  = cEditor.draw.make('SPAN', 'ce_button-remove-btn', {}),
-            settingButton = cEditor.draw.make('SPAN', 'ce_button__remove-setting', { innerHTML : '<i class="ce-icon-trash"></i>' }),
-            actionWrapper = cEditor.draw.make('DIV', 'ce_button__remove-actions', {}),
-            confirmAction = cEditor.draw.make('DIV', 'ce_button__remove-confirm', { textContent : 'Подтвердить' }),
-            cancelAction  = cEditor.draw.make('DIV', 'ce_button__remove-cancel', { textContent : 'Отменить' });
+        var removeBlockWrapper  = cEditor.draw.node('SPAN', 'ce-toolbar__remove-btn', {}),
+            settingButton = cEditor.draw.node('SPAN', 'ce-toolbar__remove-setting', { innerHTML : '<i class="ce-icon-trash"></i>' }),
+            actionWrapper = cEditor.draw.node('DIV', 'ce-toolbar__remove-actions', {}),
+            confirmAction = cEditor.draw.node('DIV', 'ce-toolbar__remove-confirm', { textContent : 'Подтвердить' }),
+            cancelAction  = cEditor.draw.node('DIV', 'ce-toolbar__remove-cancel', { textContent : 'Отменить' });
 
         settingButton.addEventListener('click', cEditor.toolbar.settings.removeButtonClicked, false);
 
@@ -3910,7 +3904,7 @@ cEditor.draw = {
      * @param {string} className
      * @param {object} properties - allow to assign properties
      */
-    make : function( tagName , className , properties ){
+    node : function( tagName , className , properties ){
 
         var el = document.createElement( tagName );
 
