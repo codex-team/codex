@@ -95,15 +95,16 @@
 }
 
 .quoteStyle-withPhoto--photo {
-    width: 70px;
-    height: 70px;
+    width: 85px;
+    height: 85px;
     overflow: hidden;
     text-align: center;
-    line-height: 70px;
-    border-radius: 50%;
+    line-height: 85px;
+    border-radius: 3px;
     float: left;
-    margin-right: 25px;
-    border: 2px dashed #D7E2EE;
+    margin-right: 1em;
+    border: 1px solid #ebeef3;
+    background: #fff;
 }
     .quoteStyle-withPhoto--photo:hover {
         cursor: pointer;
@@ -125,8 +126,15 @@
 
 .quoteStyle-withPhoto--photo .ce-icon-picture {
     font-family: "codex_editor";
-	font-size: 1.5em;
-	color: #d5dbea;
+    font-size: 1.5em;
+    color: #d5dbea;
+}
+.quoteStyle-withPhoto--photo:hover{
+    background: #fdfeff;
+    border-color: #c1c4cc;
+}
+.quoteStyle-withPhoto--photo:hover .ce-icon-picture {
+    color: #2b3142;
 }
 
 .quoteStyle-withPhoto--author {
