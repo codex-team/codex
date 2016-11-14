@@ -2708,7 +2708,7 @@ cEditor.toolbar.settings = {
     },
 
     /**
-     * Make covered block highlighted
+     * Updates Feed-mode
      */
     updateFeedMode : function() {
 
@@ -2720,6 +2720,7 @@ cEditor.toolbar.settings = {
     },
 
     isFeedModeActivated : function() {
+
         var currentBlock = cEditor.content.currentNode;
 
         if (currentBlock) {
