@@ -2312,6 +2312,10 @@ cEditor.caret = {
                 firstLevelBlock = cEditor.content.getFirstLevelBlock(anchorNode),
                 pluginsRender   = firstLevelBlock.childNodes[0];
 
+            if (!cEditor.core.isDomNode(anchorNode)) {
+                anchorNode = anchorNode.parentNode;
+            }
+
             var isFirstNode  = anchorNode === pluginsRender.childNodes[0],
                 isOffsetZero = anchorOffset === 0;
 
