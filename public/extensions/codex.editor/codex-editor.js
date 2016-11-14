@@ -443,7 +443,7 @@ cEditor.saver = {
             savedData    = cEditor.tools[pluginName].save(blockContent);
 
         /** Marks Blocks that will be in main page */
-        savedData.toMain = block.classList.contains('ce_button__markPagedBlock');
+        savedData.mainPage = block.classList.contains(cEditor.ui.className.BLOCK_MAINPAGE);
 
         cEditor.state.jsonOutput.push(savedData);
     },
@@ -502,6 +502,11 @@ cEditor.ui = {
         * @const {String} BLOCK_HIGHLIGHTED - adds background
         */
         BLOCK_HIGHLIGHTED : 'ce-block__highlighted',
+
+        /**
+        * @const {String}
+        */
+        BLOCK_MAINPAGE : 'ce-setting__blockPlacedOnMainPage'
 
     },
 
@@ -2615,32 +2620,53 @@ cEditor.toolbar.settings = {
 
     },
 
+    /**
+     * This function adds default core settings
+     */
     addDefaultSettings : function() {
 
 
-        var toMainPage;
+        /** Init default setting buttons */
+        var toMainPageSetting = cEditor.toolbar.settings.showOnMainPageSetting();
 
-        if (!cEditor.toolbar.settings.blockIsPaged()) {
-            toMainPage = cEditor.toolbar.settings.makeToMainSetting(true);
-        } else {
-            toMainPage = cEditor.toolbar.settings.makeToMainSetting(false);
-        }
-
+        /** Clear block and append initialized settings */
         cEditor.nodes.defaultSettings.innerHTML = '';
-        cEditor.nodes.defaultSettings.appendChild(toMainPage);
+        cEditor.nodes.defaultSettings.appendChild(toMainPageSetting);
 
     },
 
-    makeToMainSetting : function(type) {
+    showOnMainPageSetting : function() {
+
+        var setting;
+
+        if (!cEditor.toolbar.settings.isBlockToMainPage()) {
+            setting = cEditor.toolbar.settings.makeMainPageSetting(true);
+        } else {
+            setting = cEditor.toolbar.settings.makeMainPageSetting(false);
+        }
+
+        return setting;
+    },
+
+    /**
+     * Draw different setting when block is marked for main page
+     * If TRUE, then we show button that removes this selection
+     * Also defined setting "Click" events will be listened and have separate callbacks
+     *
+     *
+     * @param {Boolean} type - this parameter shows which button to draw
+     * @return {Element} node/button that we place in default settings block
+     */
+    makeMainPageSetting : function(type) {
 
         var setting;
 
         if (type) {
-            setting = cEditor.toolbar.settings.mainPagedSetting();
-            setting.addEventListener('click', cEditor.toolbar.settings.markMainPagedBlock, false);
+            setting = cEditor.toolbar.settings.setToMainPageButton();
+            setting.addEventListener('click', cEditor.toolbar.settings.placeBlockToMainPage, false);
         } else {
-            setting = cEditor.toolbar.settings.removePagedSetting();
-            setting.addEventListener('click', cEditor.toolbar.settings.remarkMainPagedBlock, false);
+            setting = cEditor.toolbar.settings.removeFromMainPageButton();
+            setting.addEventListener('click', cEditor.toolbar.settings.removeBlockFromMainPage, false);
         }
 
 
@@ -2649,31 +2675,31 @@ cEditor.toolbar.settings = {
         return setting;
     },
 
-    markMainPagedBlock : function() {
-        cEditor.content.currentNode.classList.add('ce_button__markPagedBlock');
+    placeBlockToMainPage : function() {
+        cEditor.content.currentNode.classList.add(cEditor.ui.className.BLOCK_MAINPAGE);
         cEditor.toolbar.settings.close();
     },
 
-    remarkMainPagedBlock : function() {
-        cEditor.content.currentNode.classList.remove('ce_button__markPagedBlock');
+    removeBlockFromMainPage : function() {
+        cEditor.content.currentNode.classList.remove(cEditor.ui.className.BLOCK_MAINPAGE);
         cEditor.toolbar.settings.close();
     },
 
-    mainPagedSetting : function() {
-        var setting = cEditor.draw.make('DIV', 'ce_setting-tomain', { textContent : 'Вывести на главной' });
+    setToMainPageButton : function() {
+        var setting = cEditor.draw.node('DIV', 'ce-setting__setToMainPage-btn', { textContent : 'Вывести на главной' });
         return setting;
     },
 
-    removePagedSetting : function() {
-        var setting = cEditor.draw.make('DIV', 'ce_setting-tomain', { textContent : 'Убрать из главной' });
+    removeFromMainPageButton : function() {
+        var setting = cEditor.draw.node('DIV', 'ce-setting__setToMainPage-btn', { textContent : 'Убрать из главной' });
         return setting;
     },
 
-    blockIsPaged : function() {
+    isBlockToMainPage : function() {
         var currentBlock = cEditor.content.currentNode;
 
         if (currentBlock) {
-            return currentBlock.classList.contains('ce_button__markPagedBlock');
+            return currentBlock.classList.contains(cEditor.ui.className.BLOCK_MAINPAGE);
         } else {
             return false;
         }
@@ -2684,11 +2710,11 @@ cEditor.toolbar.settings = {
      */
     makeRemoveBlockButton : function() {
 
-        var removeBlockWrapper  = cEditor.draw.make('SPAN', 'ce-toolbar__remove-btn', {}),
-            settingButton = cEditor.draw.make('SPAN', 'ce-toolbar__remove-setting', { innerHTML : '<i class="ce-icon-trash"></i>' }),
-            actionWrapper = cEditor.draw.make('DIV', 'ce-toolbar__remove-actions', {}),
-            confirmAction = cEditor.draw.make('DIV', 'ce-toolbar__remove-confirm', { textContent : 'Подтвердить' }),
-            cancelAction  = cEditor.draw.make('DIV', 'ce-toolbar__remove-cancel', { textContent : 'Отменить' });
+        var removeBlockWrapper  = cEditor.draw.node('SPAN', 'ce-toolbar__remove-btn', {}),
+            settingButton = cEditor.draw.node('SPAN', 'ce-toolbar__remove-setting', { innerHTML : '<i class="ce-icon-trash"></i>' }),
+            actionWrapper = cEditor.draw.node('DIV', 'ce-toolbar__remove-actions', {}),
+            confirmAction = cEditor.draw.node('DIV', 'ce-toolbar__remove-confirm', { textContent : 'Подтвердить' }),
+            cancelAction  = cEditor.draw.node('DIV', 'ce-toolbar__remove-cancel', { textContent : 'Отменить' });
 
         settingButton.addEventListener('click', cEditor.toolbar.settings.removeButtonClicked, false);
 

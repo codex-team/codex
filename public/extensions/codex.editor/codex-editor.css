@@ -154,11 +154,11 @@
             cursor: pointer;
         }
 
-    .ce_setting-tomain {
+    .ce-setting__setToMainPage-btn {
         cursor: pointer;
     }
 
-    .ce_button__markPagedBlock {
+    .ce-setting__blockPlacedOnMainPage {
         background: #ffe;
     }
 
