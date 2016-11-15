@@ -60,8 +60,7 @@ var quoteTools = {
         * Extracts JSON quote data from HTML block
         * @param {Text} text, {Text} author, {Object} photo
         */
-        var block = blockContent[0],
-            parsedblock = quoteTools.parseBlockQuote(block);
+        var parsedblock = quoteTools.parseBlockQuote(blockContent);
             json  = {
                 type : 'quote',
                 data : {

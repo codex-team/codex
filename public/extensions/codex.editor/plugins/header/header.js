@@ -57,8 +57,7 @@ var headerTool = {
     */
     save : function (blockContent) {
 
-        var block = blockContent[0],
-            json  = {
+        var json  = {
                 type : 'header',
                 data : {
                     type : null,
@@ -66,8 +65,8 @@ var headerTool = {
                 }
             };
 
-        json.data.type = block.dataset.headerData;
-        json.data.text = block.textContent;
+        json.data.type = blockContent.dataset.headerData;
+        json.data.text = blockContent.textContent;
 
         return json;
 

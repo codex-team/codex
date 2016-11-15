@@ -41,15 +41,14 @@ var codeTool = {
      */
     save : function (blockContent){
 
-        var block = blockContent[0];
-            json  = {
+        var json  = {
                 type : 'code',
                 data : {
                     text : null,
                 }
             };
 
-        json.data.text = block.innerHTML;
+        json.data.text = blockContent.innerHTML;
 
         return json;
 

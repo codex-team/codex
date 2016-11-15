@@ -60,8 +60,7 @@ var listTool = {
      */
     save : function (blockContent){
 
-        var block = blockContent[0],
-            json  = {
+        var json  = {
                 type : 'list',
                 data : {
                     type  : null,
@@ -69,10 +68,10 @@ var listTool = {
                 }
             };
 
-        for(var index = 0; index < block.childNodes.length; index++)
-            json.data.items[index] = block.childNodes[index].textContent;
+        for(var index = 0; index < blockContent.childNodes.length; index++)
+            json.data.items[index] = blockContent.childNodes[index].textContent;
 
-        json.data.type = block.dataset.type;
+        json.data.type = blockContent.dataset.type;
 
         return json;
 

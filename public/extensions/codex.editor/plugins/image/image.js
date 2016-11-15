@@ -138,7 +138,7 @@ var ceImage = {
 
     save : function ( block ) {
 
-        var data    = block[0],
+        var data    = block,
             image   = ceImage.ui.getImage(data),
             caption = data.querySelector('.' + ceImage.elementClasses.imageCaption);
 

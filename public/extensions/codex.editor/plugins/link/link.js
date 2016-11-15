@@ -68,15 +68,14 @@ var linkTool = {
 
         var linkElement = linkTool.elementClasses.link;
 
-        var block = blockContent[0],
-            json = {
+        var json = {
                 type : 'link',
                 data : {
-                    fullLink    : block.querySelector("." + linkElement).href,
-                    shortLink   : block.querySelector("." + linkElement).textContent,
-                    image       : block.querySelector("." + linkTool.elementClasses.image).src,
-                    title       : block.querySelector("." + linkTool.elementClasses.title).textContent,
-                    description : block.querySelector("." + linkTool.elementClasses.description).textContent
+                    fullLink    : blockContent.querySelector("." + linkElement).href,
+                    shortLink   : blockContent.querySelector("." + linkElement).textContent,
+                    image       : blockContent.querySelector("." + linkTool.elementClasses.image).src,
+                    title       : blockContent.querySelector("." + linkTool.elementClasses.title).textContent,
+                    description : blockContent.querySelector("." + linkTool.elementClasses.description).textContent
                 }
             };
 
