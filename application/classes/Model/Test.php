@@ -67,7 +67,7 @@ Class Model_Test extends Model
                                 ->order_by('Tests_Questions.id')
                                 ->execute();
 
-        $question_row = array();
+        $questions = array();
         $currentQuestion = array(
                                     'index' => -1,
                                     'id'    => 0
@@ -90,17 +90,17 @@ Class Model_Test extends Model
 
             if ($currentQuestion['id'] == $question['questionId']) {
 
-                $question_row[ $currentQuestion['index'] ]['answers'][] = $answer;
+                $questions[ $currentQuestion['index'] ]['answers'][] = $answer;
 
                 continue;
             }
 
             $currentQuestion['index']++;
             $currentQuestion['id'] = $question['questionId'];
-            $question_row[] = $questionData;
+            $questions[] = $questionData;
         }
 
-        return $question_row;
+        return $questions;
     }
 
     private static function rowsToModels($test_rows)
@@ -120,18 +120,31 @@ Class Model_Test extends Model
         return $tests;
     }
 
+    /**
+     * Функция принимает id теста
+     * и массив ответов пользователя вида
+     * <id вопроса> => <id варианта ответа>.
+     *
+     * Возвращает объект result, который содержит
+     * количество набранных очков, сообщение и правильные ответы
+     *
+     * @param $test_id
+     * @param $answers
+     * @return array
+     */
     public static function getResult($test_id, $answers)
     {
         $ids = array();
-        $userAnswers = array();
+        //$userAnswers = array();
         foreach ($answers as $id => $answer)
         {
-            if (is_numeric($id)) {
-                array_push($ids, $id);
-                array_push($userAnswers, $answer);
-            }
+                $ids[] = $id;
         }
 
+        /**
+         * Делаем запрос в базу на выбор верных вариантов ответов на вопросы,
+         * id которых есть в $ids.
+         */
         $rightAnswersQuery = DB::select('q_id', 'id')
                                 ->from('Tests_Answers')
                                 ->where('q_id', 'in', $ids)
@@ -143,27 +156,27 @@ Class Model_Test extends Model
             $rightAnswers[$current['q_id']] = $current['id'];
         }
 
+        /**
+         * Считаем набранные очки
+         */
         $points = 0;
-        $userRightAnswers = array();
-
-        for ($i = 0; $i < count($userAnswers); $i++) {
-            if ($rightAnswers[$ids[$i]] == $userAnswers[$i]) {
-                $points++;
-                $userRightAnswers[$ids[$i]] = true;
-                continue;
-            }
-
-            $userRightAnswers[$ids[$i]] = false;
+        foreach ($answers as $id => $answer) {
+            $points += ($answer == $rightAnswers[$id] ? 1 : 0);
         }
 
+        /**
+         * Делаем запрос в базу на выбор сообщений,
+         * принадлежащих данному тесту
+         */
         $messagesQuery = DB::select('message', 'points')
                         ->from('Tests_Messages')
                         ->where('t_id', '=', $test_id)
                         ->order_by('points')
                         ->execute();
 
-        $message = 'Результат';
-
+        /**
+         * Выбираем сообщение в соответствие с набранными очками
+         */
         if(!empty($messagesQuery[0])) {
 
             foreach ($messagesQuery as $current) {
@@ -177,7 +190,11 @@ Class Model_Test extends Model
 
         }
 
-        $result = array($points, $userRightAnswers, $message, $rightAnswers);
+        $result = array(
+                        'points'         => $points,
+                        'message'        => $message,
+                        'rightAnswers'   => $rightAnswers
+                       );
 
         return $result;
     }

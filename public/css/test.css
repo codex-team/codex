@@ -49,7 +49,7 @@
             }
 
 /*Test*/
-.main {
+.test_main {
     margin: 30px;
     padding-bottom: 20px;
     border: 1px solid #eceff6;
@@ -79,27 +79,28 @@
     }
 
     .progressbar_background {
+        position: relative;
+        left: 0;
+        top: -4px;
+        z-index: 1;
+        margin: 0;
+        width: 100%;
         border: none;
         color: #eceff6;
         background-color: #eceff6;
         height: 4px;
-        position: relative;
-        margin: 0;
-        width: 100%;
-        left: 0;
-        z-index: 1;
-        top: -4px;
+
     }
 
     .progressbar_front {
+        position:relative;
+        left:0;
+        z-index: 2;
+        margin: 0;
         border: none;
         color: #b2ffaf;
         background-color: #b2ffaf;
         height: 4px;
-        z-index: 2;
-        position:relative;
-        margin: 0;
-        left:0;
         transition: width 1s;
     }
 
@@ -107,31 +108,23 @@
     font-family: inherit;
     font-style: inherit;
     font-size: 18px;
-    margin: 30px 50px 30px 50px;
+    margin: 30px 50px;
 }
 
-    .radio {
+    .test_radio {
         display:none;
     }
 
-    .radio + label {
-        cursor: pointer;
-        margin-left: 10px;
-        padding-left: 30px;
-    }
-
-    .radio:not(checked) + label:hover:before {
-        border-color: #4592DA;
-        transition: 0.5s;
-    }
-
-    .radio:not(checked) + label {
+    .test_radio + label {
         position: relative;
         top: 0px;
         left: 0px;
+        margin-left: 10px;
+        padding-left: 30px;
+        cursor: pointer;
     }
 
-    .radio:not(checked) + label:before {
+    .test_radio:not(checked) + label:before {
         content: '';
         position: absolute;
         top: 5px;
@@ -144,7 +137,12 @@
         transition: border-color 0.5s;
     }
 
-    .radio:not(checked) + label:after {
+    .test_radio:not(checked) + label:hover:before {
+        border-color: #4592DA;
+        transition: 0.5s;
+    }
+
+    .test_radio:not(checked) + label:after {
         content: '';
         position: absolute;
         top: 8px;
@@ -158,35 +156,43 @@
         transition: all .2s;
     }
 
-    .radio:checked + label:after {
+    .test_radio:checked + label:after {
         opacity: 1;
     }
 
-    .radio:checked + label:before {
+    .test_radio:checked + label:before {
         border-color: #4592DA;
     }
 
-    .radio:checked + .selected_radio:after {
+    .test_radio + .selected_radio:after {
         background-color: #ffdddd;
     }
 
-    .radio:checked + .selected_radio:before {
+    .test_radio:checked + .selected_radio:before {
         border-color: #ffdddd;
     }
 
-    .radio:checked + .right_radio:after {
+    .test_radio:checked + .selected_radio:hover:before {
+        border-color: #ffdddd;
+    }
+
+    .test_radio + .right_radio:after {
         background-color: #b2ffaf;
     }
 
-    .radio:checked + .right_radio:before {
+    .test_radio:checked + .right_radio:before {
         border-color: #b2ffaf;
     }
 
-    .radio:disabled+label:hover:before {
+    .test_radio:checked + .right_radio:hover:before {
+        border-color: #b2ffaf;
+    }
+
+    .test_radio:disabled + label:hover:before {
         border-color: #ECF3F9;
     }
 
-    .radio:disabled+label {
+    .test_radio:disabled + label {
         cursor: default;
     }
 
@@ -211,16 +217,20 @@
         font-style: italic;
     }
 
-    .wrong {
+    .result_option_wrong {
         background-color: #ffdddd;
     }
 
-    .right {
+    .result_option_right {
         background-color: #e5ffdd;
     }
 
     .result_div {
-        display: inline-block;
+        width: 150px;
+        position: absolute;
+        left: 50%;
+        margin-left: -75px;
+        margin-top: -50px;
         text-align: center;
         font-family: inherit;
         font-style: inherit;
@@ -230,6 +240,7 @@
             font-size: 25px;
             font-width: bold;
             margin-bottom: 5px;
+            margin-top: 5px;
         }
 
         .result_points {
@@ -260,13 +271,6 @@
     background: #4592DA;
     color: #fff;
     text-decoration: none;
-}
-
-.center {
-    width: 150px;
-    position: absolute;
-    left: calc(50% - 75px);
-    margin-top: -20px;
 }
 
 .left_button {

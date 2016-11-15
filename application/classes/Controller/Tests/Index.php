@@ -26,7 +26,7 @@ class Controller_Tests_Index extends Controller_Base_preDispatch
 
             $result = Model_Test::getResult($this->request->param('id'), $_POST);
 
-            echo json_encode($result);
+            $this->response->body(json_encode($result));
 
         } else {
             die('No direct script access.');

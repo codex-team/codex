@@ -1,6 +1,6 @@
 <div class="center_side">
 
-        <section class="main" id="main">
+        <section class="test_main" id="test_main">
 
             <div class="question_header" id="question_header">
 

@@ -32,7 +32,7 @@ class Test {
         this.id                 = test.id;
         this.title              = test.title;
         this.description        = test.description;
-        this.short_description  = test.short_description;
+        this.shortDescription   = test.short_description;
         this.questions          = test.questions;
         this.numberOfQuestions  = test.questions.length;
         this.window             = new Test_Window();
@@ -45,7 +45,6 @@ class Test {
     }
 
     startTest() {
-
         this.currentQuestion = -1;
         this.window.startTest();
         this.goToNextQuestion();
@@ -62,7 +61,7 @@ class Test {
         if (this.currentQuestion < this.numberOfQuestions) {
 
             this.window.showQuestion(this);
-            this.setChangeEventOnAnswersOptions(this.questions[this.currentQuestion].answers.length);
+            this.bind(this.questions[this.currentQuestion].answers.length);
 
             return;
         }
@@ -83,6 +82,10 @@ class Test {
     }
 
 
+    /**
+     * Создаем ajax запрос.
+     * Тело запроса - массив вида <id опроса> => <id выбранного ответа>
+     */
     getResult() {
 
         var post = '';
@@ -96,13 +99,16 @@ class Test {
         var data =  {
                         url: '/test/'+this.id+'/showResult',
                         type: 'POST',
-                        ['content-type']: 'application/x-www-form-urlencoded',
+                        'content-type': 'application/x-www-form-urlencoded',
                         success: window.test.processResult,
                         data: post
                     };
 
         codex.core.ajax(data);
 
+        /**
+         * Показываем гифку загрузки, пока ждем ответа
+         */
         this.window.showLoading();
 
     }
@@ -111,11 +117,9 @@ class Test {
      * Обрабатываем результат запроса.
      *
      * В результате запроса получаем массив:
-     * [0] - количеество набранных очков
-     * [1] - массив <id вопроса> => true|false
-     *       true если пользователь верно отвветил на вопрос, false в обратном случае
-     * [2] - сообщение, выводимое вместе с результатом
-     * [3] - массив <id вопроса> => <id верного варианта ответа>
+     * points       - количеество набранных очков
+     * message      - сообщение, выводимое вместе с результатом
+     * rightAnswers - массив <id вопроса> => <id верного варианта ответа>
      */
     processResult(response) {
 
@@ -123,18 +127,22 @@ class Test {
 
         result = JSON.parse(response);
 
-        result[0] = result[0] + ' из ' + window.test.numberOfQuestions;
+        result['points'] = result['points'] + ' из ' + window.test.numberOfQuestions;
+
+        window.test.share(result);
 
         window.test.window.showResult(result, window.test);
 
     }
 
 
-    setChangeEventOnAnswersOptions(n) {
+    bind(n) {
+
+        var radio;
 
         for (var i = 0; i < n; i++) {
-
-            this.window.options.children[i].firstChild.addEventListener('change', this.getUserAnswer.bind(this));
+            radio = this.window.options.children[i].firstChild;
+            radio.addEventListener('change', this.getUserAnswer.bind(this));
 
         }
 
@@ -143,16 +151,35 @@ class Test {
 
     getUserAnswer() {
 
+        var radio,
+            question = this.questions[this.currentQuestion];
+
         this.window.answerButton.removeAttribute('disabled');
 
-        for (var i = 0; i < this.questions[ this.currentQuestion ].answers.length; i++) {
+        for (var i = 0; i < question.answers.length; i++) {
 
-            if (this.window.options.children[i].firstChild.checked) {
-                this.userAnswers[ this.questions[ this.currentQuestion ].id ] = this.questions[ this.currentQuestion ].answers[i]['id'];
+            radio = this.window.options.children[i].firstChild;
+
+            if (radio.checked) {
+                this.userAnswers[question.id] = question.answers[i]['id'];
             }
 
         }
 
+    }
+
+    share(result) {
+
+        window.shareData = {
+
+            url: window.location.protocol + '//' + window.location.hostname + '/test/' + this.id,
+            title: this.title+'. Я набрал '+result['points'],
+            decs: this.shortDescription,
+            img: 'https://ifmo.su/public/img/meta_img.png'
+
+        };
+
+        codex.sharer.init();
     }
 
 }
@@ -172,7 +199,7 @@ class Test_Window {
 
     constructor() {
 
-        this.main            = getElem('main');
+        this.main            = getElem('test_main');
         this.header          = getElem('question_header');
         this.title           = getElem('title');
         this.description     = getElem('description');
@@ -216,8 +243,8 @@ class Test_Window {
 
         this.clear(this.options);
 
-        this.title.innerHTML = test.questions[test.currentQuestion].title;
-        this.description.innerHTML = test.questions[test.currentQuestion].description;
+        this.title.textContent = test.questions[test.currentQuestion].title;
+        this.description.textContent = test.questions[test.currentQuestion].description;
 
         this.answerButton.disabled = true;
 
@@ -240,13 +267,13 @@ class Test_Window {
         this.backButton.classList.add('invisible');
         this.passButton.classList.add('invisible');
 
-        this.title.innerHTML = test.questions[i].title;
-        this.description.innerHTML = test.questions[i].description;
+        this.title.textContent = test.questions[i].title;
+        this.description.textContent = test.questions[i].description;
         this.answerButton.disabled = true;
 
-        this.showOptions(test.questions[i], result[3], test.userAnswers);
+        this.showOptions(test.questions[i], result['rightAnswers'], test.userAnswers);
 
-        this.showButtons(test, result, i);
+        this.showNavButtons(test, result, i);
     }
 
     /**
@@ -265,13 +292,13 @@ class Test_Window {
         for (i = 0; i < question.answers.length; i++) {
 
             p = createElem('p', 'question_option');
-            radio = createElem('input', 'radio', i+1);
+            radio = createElem('input', 'test_radio', i+1);
             radio.setAttribute('type', 'radio');
             p.appendChild(radio);
 
             label = createElem('label');
             label.setAttribute('for', i+1);
-            label.innerHTML = question.answers[i]['answer'];
+            label.textContent = question.answers[i]['answer'];
             p.appendChild(label);
 
             if (userAnswers && rightAnswers) {
@@ -303,12 +330,24 @@ class Test_Window {
     /**
      * Выводим кнопки назад, вперед и "К результатам"
      * при выводе вопроса после прохождения теста
+     *
+     * @param test      - объект, содержащий данные о тесте
+     * @param result    - объект, содержащий результат прохождения теста
+     * @param i         - номер текущего вопроса
+     *
+     * test и result напрямую в функции не используются,
+     * и нужны лишь для того, чтобы передать в функцию,
+     * отображающую следующий/предыдущий вопрос
      */
-    showButtons(test, result, i) {
+    showNavButtons(test, result, i) {
         var prev,
-            to_results,
+            toResults,
             next;
 
+        /**
+         * Кнопка назад (предыдущий вопрос)
+         * Создается, если вопрос не первый
+         */
         if (i > 0){
 
             prev = createElem('input', 'test_button');
@@ -320,41 +359,28 @@ class Test_Window {
 
             prev.addEventListener('click', this.showRightAnswer.bind(this, test, result, i - 1));
 
-            prev.addEventListener('click', function (e) {
-                e.currentTarget.parentNode.removeChild(e.currentTarget);
-                if (next) {
-                    next.parentNode.removeChild(next);
-                }
-                if (to_results) {
-                    to_results.parentNode.removeChild(to_results);
-                }
-            });
-
             this.main.insertBefore(prev, this.backButton.parentNode);
         }
 
-        to_results = createElem('input', 'test_button');
+        /**
+         * К результатам
+         */
+        toResults = createElem('input', 'test_button');
 
-        to_results.setAttribute('type', 'button');
-        to_results.setAttribute('value', 'К результатам');
+        toResults.setAttribute('type', 'button');
+        toResults.setAttribute('value', 'К результатам');
 
-        to_results.classList.add('attention');
-        to_results.classList.add('center_button');
+        toResults.classList.add('attention');
+        toResults.classList.add('center_button');
 
-        to_results.addEventListener('click', this.showResult.bind(this, result, test));
+        toResults.addEventListener('click', this.showResult.bind(this, result, test));
 
-        to_results.addEventListener('click', function (e) {
-            e.currentTarget.parentNode.removeChild(e.currentTarget);
-            if (next) {
-                next.parentNode.removeChild(next);
-            }
-            if (prev) {
-                prev.parentNode.removeChild(prev);
-            }
-        });
+        this.main.insertBefore(toResults, this.share);
 
-        this.main.insertBefore(to_results, this.share);
-
+        /**
+         * Кнопка вперед (к следующему вопросу).
+         * Создается, если вопрос не последний
+         */
         if (i < test.numberOfQuestions - 1) {
 
             next = createElem('input', 'test_button');
@@ -366,17 +392,25 @@ class Test_Window {
 
             next.addEventListener('click', this.showRightAnswer.bind(this, test, result, i + 1));
 
-            next.addEventListener('click', function (e) {
-                e.currentTarget.parentNode.removeChild(e.currentTarget);
-                if (prev) {
-                    prev.parentNode.removeChild(prev);
-                }
-                if (to_results) {
-                    to_results.parentNode.removeChild(to_results);
-                }
-            });
             this.main.insertBefore(next, this.share);
         }
+
+        prev ? prev.addEventListener('click', this.deleteNavButtons.bind(null, prev, toResults, next)):null;
+        toResults.addEventListener('click', this.deleteNavButtons.bind(null, prev, toResults, next));
+        next ? next.addEventListener('click', this.deleteNavButtons.bind(null, prev, toResults, next)):null;
+    }
+
+    /**
+     * Удаляем кнопки назад, вперед, к результатам при переходе к следующему вопросу
+     */
+    deleteNavButtons(prev, toResults, next) {
+
+        prev ? prev.remove():null;
+
+        toResults ? toResults.remove():null;
+
+        next ? next.remove():null;
+
     }
 
     /**
@@ -396,87 +430,74 @@ class Test_Window {
 
     showResult(result, test) {
 
-        var i,
-            p,
-            div,
-            resultDiv,
-            shareScript,
-            shareData;
-
-        this.clear(this.options);
+        this.createResultOptions(result, test);
 
         this.share.classList.remove('invisible');
         this.header.classList.remove('invisible');
 
-        this.title.innerHTML = test.title;
-        this.description.innerHTML = test.short_description;
+        this.title.textContent = test.title;
+        this.description.textContent = test.shortDescription;
 
-        for (i = 0; i < Object.keys(result[1]).length; i++) {
 
-            div = createElem('div', 'result_options');
-
-            p = createElem('div', 'result_option_title');
-            p.innerHTML = test.questions[i].title;
-
-            div.appendChild(p);
-
-            p = createElem('div', 'result_option_description');
-            p.innerHTML = test.questions[i].description;
-
-            div.appendChild(p);
-
-            div.classList.add( result[1][i+1]?'right':'wrong' );
-
-            div.addEventListener('click', this.showRightAnswer.bind(this, test, result, i) );
-            div.addEventListener('click', function(){resultDiv.parentNode.removeChild(resultDiv)});
-
-            this.options.appendChild(div);
-
-        }
-
-        resultDiv = createElem('div', 'result_div');
-
-        p = createElem('p', 'result_message');
-        p.innerHTML = result[2];
-
-        resultDiv.appendChild(p);
-
-        p = createElem('p', 'result_points');
-        p.innerHTML = result[0];
-
-        resultDiv.appendChild(p);
-
-        resultDiv.classList.add('center');
-
-        this.main.insertBefore(resultDiv, this.passButton);
 
         this.backButton.classList.remove('invisible');
         this.passButton.classList.remove('invisible');
 
-        this.passButton.addEventListener('click', function(){resultDiv.parentNode.removeChild(resultDiv)});
-
         this.passButton.setAttribute('value', 'Ёще раз');
 
-        shareData = {
-
-            url: window.location.protocol + '//' + window.location.hostname + '/test/' + test.id,
-            title: test.title+'. Я набрал '+result[0],
-            decs: test.short_description,
-            img: 'https://ifmo.su/public/img/meta_img.png'
-
-        };
-
-        shareScript  = createElem('script');
-        shareScript.innerHTML = 'window.shareData = ' + JSON.stringify(shareData);
-
-        this.share.appendChild(shareScript);
-        codex.sharer.init();
-
-        if (this.main.getElementsByClassName('loading')[0])
-            this.main.removeChild(this.main.getElementsByClassName('loading')[0]);
+        if (this.main.querySelector('.loading'))
+            this.main.querySelector('.loading').remove();
 
     }
 
+    createResultOptions(result, test) {
+        var i, p, div,
+            resultDiv,
+            question;
+
+        this.clear(this.options);
+
+        for (i = 0; i < test.questions.length; i++) {
+
+            question = test.questions[i];
+            div = createElem('div', 'result_options');
+
+            p = createElem('div', 'result_option_title');
+            p.textContent = question.title;
+
+            div.appendChild(p);
+
+            p = createElem('div', 'result_option_description');
+            p.textContent = question.description;
+
+            div.appendChild(p);
+
+            div.classList.add(
+                result['rightAnswers'][question.id] == test.userAnswers[question.id]?'result_option_right':'result_option_wrong');
+
+            div.addEventListener('click', this.showRightAnswer.bind(this, test, result, i) );
+            div.addEventListener('click', this.deleteResultDiv.bind(null, resultDiv));
+
+            this.options.appendChild(div);
+        }
+
+        resultDiv = createElem('div', 'result_div');
+            p = createElem('p', 'result_message');
+            p.textContent = result['message'] || 'Результат';
+        resultDiv.appendChild(p);
+
+            p = createElem('p', 'result_points');
+            p.textContent = result['points'];
+        resultDiv.appendChild(p);
+
+        this.main.insertBefore(resultDiv, this.passButton);
+
+        this.passButton.addEventListener('click', this.deleteResultDiv.bind(null, resultDiv));
+    }
+
+    deleteResultDiv(resultDiv) {
+        resultDiv ? resultDiv.remove() : document.querySelector('.result_div').remove();
+    }
 
     clear(elem) {
 

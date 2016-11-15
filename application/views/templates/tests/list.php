@@ -15,17 +15,19 @@
 
     <div class="tests_list">
 
-        <? foreach ($tests as $i => $test): ?>
-        <section class="item">
+        <? foreach ($tests as $test): ?>
 
-            <time class="date"><?= date_format(date_create($test->date), 'd M'); ?></time>
+            <section class="item">
 
-            <div class="constrain">
-                <a class="title" href="<?= 'test/' . $test->id; ?>"><?= $test->title; ?></a>
-                <div class="description"><?= $test->short_description ?></div>
-            </div>
+                <time class="date"><?= date_format(date_create($test->date), 'd M'); ?></time>
 
-        </section>
+                <div class="constrain">
+                    <a class="title" href="<?= '/test/' . $test->id; ?>"><?= $test->title; ?></a>
+                    <div class="description"><?= $test->short_description ?></div>
+                </div>
+
+            </section>
+
         <? endforeach; ?>
 
     </div>
