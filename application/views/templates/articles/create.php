@@ -49,7 +49,7 @@
 
         </section>
 
-        <span id="submitButton" class="button master" style="margin: 40px 119px 40px">Отправить</span>
+        <span id="submitButton" class="button master" style="margin: 40px 139px 40px">Отправить</span>
     </form>
 </div>
 

@@ -402,7 +402,7 @@ INPUT.items = [];
 
         cEditor.start({
             textareaId: 'codex_editor',
-            data : _INPUT
+            data : INPUT
         });
 
         cPreview.show({
