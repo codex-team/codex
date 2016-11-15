@@ -147,12 +147,12 @@ listTool.ui = {
     button : function (buttonType) {
 
         var types   = {
-                unordered    : 'Обычный список',
-                ordered      : 'Нумерованный список'
+                unordered    : '<i class="ce-icon-list-bullet"></i>Обычный список',
+                ordered      : '<i class="ce-icon-list-numbered"></i>Нумерованный список'
             },
             button = document.createElement('SPAN');
 
-        button.textContent = types[buttonType];
+        button.innerHTML = types[buttonType];
 
         button.className   = 'ce_plugin_list--select_button';
 

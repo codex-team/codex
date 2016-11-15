@@ -1,13 +1,10 @@
-<?php
+<?
 
-    switch ($block->type) {
-        case 'ul':
-            $tag = 'ul';
-            break;
-        case 'ol':
-            $tag = 'ol';
-            break;
-    };
+    $tag = 'ul';
+
+    if ( !empty($block->type) && $block->type == 'ol' ) {
+        $tag = 'ol';
+    }
 
 ?>
 <<?=$tag; ?>>

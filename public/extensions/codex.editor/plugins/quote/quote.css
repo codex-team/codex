@@ -95,14 +95,14 @@
 }
 
 .quoteStyle-withPhoto--photo {
-    width: 85px;
-    height: 85px;
+    width: 92px;
+    height: 92px;
     overflow: hidden;
     text-align: center;
-    line-height: 85px;
+    line-height: 92px;
     border-radius: 3px;
     float: left;
-    margin-right: 1em;
+    margin-right: 10px;
     border: 1px solid #ebeef3;
     background: #fff;
 }
@@ -140,7 +140,7 @@
 .quoteStyle-withPhoto--author {
     outline: none;
     overflow: hidden;
-    margin-bottom: 1em;
+    margin-bottom: 10px;
     font-weight: bold;
     color: #000;
 }
@@ -162,7 +162,7 @@
 }
 
 .quoteStyle-withPhoto--quote {
-    margin-top: 1em;
+    margin-bottom: 10px;
     line-height: 1.82em;
     outline: none;
     overflow: hidden;
@@ -178,7 +178,7 @@
 .quoteStyle-withPhoto--job,
 .quoteStyle-withPhoto--quote{
     background: #fff;
-    padding: .4em .6em;
+    padding: .6em .8em;
     border: 1px solid #ebeef3;
     border-radius: 3px;
 }

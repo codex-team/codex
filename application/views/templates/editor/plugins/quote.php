@@ -1,3 +1,8 @@
+<?
+    if ( empty($block->style) ){
+        $block->style = 'simple';
+    }
+?>
 <? if ($block->style == 'simple'): ?>
     <!-- Simple quote -->
     <blockquote class="quoteStyle-simple--text">

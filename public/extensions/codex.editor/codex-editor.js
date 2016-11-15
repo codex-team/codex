@@ -2770,13 +2770,13 @@ cEditor.toolbar.settings = {
         if (!isFeedModeActivated) {
 
             data = {
-                textContent : 'Вывести в ленте'
+                innerHTML : '<i class="ce-icon-newspaper"></i>Вывести в ленте'
             };
 
         } else {
 
             data = {
-                textContent : 'Не выводить в ленте'
+                innerHTML : '<i class="ce-icon-newspaper"></i>Не выводить в ленте'
             };
 
         }
@@ -2817,7 +2817,7 @@ cEditor.toolbar.settings = {
 
         var removeBlockWrapper  = cEditor.draw.node('SPAN', 'ce-toolbar__remove-btn', {}),
             settingButton = cEditor.draw.node('SPAN', 'ce-toolbar__remove-setting', { innerHTML : '<i class="ce-icon-trash"></i>' }),
-            actionWrapper = cEditor.draw.node('DIV', 'ce-toolbar__remove-actions', {}),
+            actionWrapper = cEditor.draw.node('DIV', 'ce-toolbar__remove-confirmation', {}),
             confirmAction = cEditor.draw.node('DIV', 'ce-toolbar__remove-confirm', { textContent : 'Удалить блок' }),
             cancelAction  = cEditor.draw.node('DIV', 'ce-toolbar__remove-cancel', { textContent : 'Отменить удаление' });
 

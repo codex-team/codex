@@ -55,11 +55,11 @@
 
 /** Uploaded image */
 .ce-plugin-image__wrapper {
-    margin : 0;
+    padding: 1em 0;
 }
 .ce-plugin-image__uploaded--centered {
-    max-width: 700px;
-    display:block;
+    display: block;
+    max-width: 600px;
     margin: 0 auto;
 }
 
@@ -73,11 +73,14 @@
 	}
 
 .ce-plugin-image__caption {
-    max-width: 700px;
-    margin: 0 auto !important;
-    padding: 1em !important;
+    max-width: 600px;
+    margin: .5em auto 0;
+    padding: .5em;
     text-align: center;
     color: #898a8c;
+    background: #fff;
+    border: 1px solid #ebeef3;
+    border-radius: 3px;
 }
 
     .ce-plugin-image__caption:empty::before {

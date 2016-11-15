@@ -79,33 +79,51 @@
     left: 0;
 
     /* hidden by default */
-    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-100px);
+    transition: all 150ms cubic-bezier(0.600, -0.280, 0.735, 0.045);
 }
 .ce-toolbar__tools.opened{
-    display: block;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
 }
 
 .ce-toolbar__plus,
 .ce-toolbar__tools li {
     display: inline-block;
-    width: 30px;
-    height: 30px;
-    background-color: #fff;
-    box-shadow: 0 0 0 1px #6d748c;
-    margin-right: 20px;
-    border-radius: 15px;
+    width: 32px;
+    height: 32px;
+    background-color: #eff2f5;
+    /*box-shadow: 0 0 0 1px #6d748c;*/
+    margin-right: 17px;
+    border-radius: 16px;
     text-align: center;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 14px;
+
+    will-change: transform, margin-right;
+    transition: transform 200ms cubic-bezier(0.600, -0.280, 0.735, 0.045), margin 200ms ease-out;
 }
 .ce-toolbar__tools li i{
-    line-height: 30px;
+    line-height: 32px;
 }
 .ce-toolbar__tools li:hover,
 .ce-toolbar__tools .selected{
     background: #383b5d;
     box-shadow: none;
     color: #fff;
+}
+
+/* animation for tools opening */
+.ce-toolbar__tools li{
+    transform: rotate(-180deg) scale(.7);
+    margin-right: -15px;
+}
+.ce-toolbar__tools.opened li{
+    transform: none;
+    margin-right: 17px;
 }
 
 /**
@@ -136,7 +154,7 @@
 * Settigns pane
 */
 .ce-settings,
-.ce-toolbar__remove-actions{
+.ce-toolbar__remove-confirmation{
     position: absolute;
     right: 0;
     margin-top: 10px;
@@ -152,6 +170,46 @@
     /* hidden by default */
     display: none;
 }
+
+/**
+* Settings and remove-confirmation corner
+*/
+.ce-settings:before,
+.ce-toolbar__remove-confirmation:before,
+.ce-settings:after,
+.ce-toolbar__remove-confirmation:after{
+    content: "";
+    position: absolute;
+    top: -14px;
+    right: 10px;
+    border-style: solid;
+}
+
+.ce-settings:before,
+.ce-toolbar__remove-confirmation:before {
+    margin: -2px -1px 0;
+    border-width: 8px;
+    border-color: transparent transparent #e7e9f1 transparent;
+}
+.ce-settings:after,
+.ce-toolbar__remove-confirmation:after {
+    border-width: 7px;
+    border-color: transparent transparent #fff transparent;
+}
+.ce-settings:before,
+.ce-settings:after{
+    right: 27px;
+}
+.ce-toolbar__remove-confirmation:before,
+.ce-toolbar__remove-confirmation:after{
+    right: 5px;
+}
+.ce-toolbar__remove-confirmation{
+    right: -3px;
+}
+
+
+
 .ce-settings__item,
 .ce-toolbar__remove-confirm
 .ce-toolbar__remove-cancel {
@@ -159,7 +217,7 @@
 }
 
 .ce-settings.opened,
-.ce-toolbar__remove-actions.opened{
+.ce-toolbar__remove-confirmation.opened{
     display: block;
 }
 
@@ -173,7 +231,9 @@
 .ce-settings_default{
     padding: 20px;
 }
-
+.ce-settings__item i {
+    margin-right: 1.3em;
+}
 
 
 /**
@@ -182,7 +242,7 @@
 .ce-toolbar__remove-btn {
     cursor: pointer;
 }
-.ce-toolbar__remove-actions{
+.ce-toolbar__remove-confirmation{
     padding: 5px 0;
 }
 .ce-toolbar__remove-confirm,
@@ -267,7 +327,7 @@
     position: absolute;
 
     left: 30px;
-    top: 10px;
+    top: 13px;
     font-size: 16px;
     color: #ef4a4a;
 }

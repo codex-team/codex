@@ -1,5 +1,5 @@
 .ce-list {
-    margin: 1em 0 !important;
+    margin: 0;
     padding: .5em 0;
 }
 
@@ -19,6 +19,12 @@
     .ce_plugin_list--select_button:hover{
         color: #a1b4ec;
     }
+/**
+* List style settigns icons
+*/
+.ce_plugin_list--select_button i{
+    margin-right: 1.3em;
+}
 
 .ce-list li{
     background: #fff;

@@ -277,9 +277,9 @@ var quoteTools = {
         wrapper.classList.add(quoteTools.styles.withPhoto.wrapper);
         wrapper.dataset.quoteStyle = 'withPhoto';
 
+        wrapper.appendChild(quote);
         wrapper.appendChild(photo);
         wrapper.appendChild(authorsWrapper);
-        wrapper.appendChild(quote);
 
         return wrapper;
     },

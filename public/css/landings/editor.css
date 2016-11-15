@@ -85,6 +85,7 @@ body{
     .editor-output-preview pre{
         max-width: 700px;
         margin: 0 auto;
+        overflow: auto;
         font-size: .86em;
     }
 .editor-output--header{

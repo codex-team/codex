@@ -56,10 +56,16 @@ _INPUT.items = [
             text : '<p>Ladies and gentlemen, prepare yourself for a pivotal moment in the history of web development…</p>'
         }
     },
+    // {
+    //     type : 'paragraph',
+    //     data : {
+    //         text : '<p><i>[Drumroll begins]</i></p><p>Promises have arrived natively in JavaScript!</p><p><i>[Fireworks explode, glittery paper rains from above, the crowd goes wild]</i></p>'
+    //     }
+    // },
     {
         type : 'paragraph',
         data : {
-            text : '<p><i>[Drumroll begins]</i></p><p>Promises have arrived natively in JavaScript!</p><p><i>[Fireworks explode, glittery paper rains from above, the crowd goes wild]</i></p>'
+            text : "The promise constructor takes one argument, a callback with two parameters, resolve and reject. Do something within the callback, perhaps async, then call resolve if everything worked, otherwise call reject.Like 'throw' in plain old JavaScript, it's customary, but not required, to reject with an Error object. The benefit of Error objects is they capture a stack trace, making debugging tools more helpful. Here's how you use that promise:",
         }
     },
     {
