@@ -20,7 +20,9 @@ class Controller_Users_Index extends Controller_Base_preDispatch
 	        $viewUser = $this->user;
 	    }
 
-        if (!$viewUser->id) $this->redirect('/');
+        if (!$viewUser->id) {
+            throw new HTTP_Exception_404();
+        }
 
         /**
         * Clear cache hook

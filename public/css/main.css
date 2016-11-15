@@ -1,11 +1,19 @@
-*{-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;}
-audio, canvas, iframe, img, svg, video {vertical-align: middle;}
-textarea {resize: vertical;}
+/**
+* Old stylessheet
+*
+* @deprecated since 8 nov 2016 with codex.css
+*/
+
+/**{-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;}*/
+/*audio, canvas, iframe, img, svg, video {vertical-align: middle;}*/
+/*textarea {resize: vertical;}*/
+
 ::-moz-selection { background: #b3d4fc; text-shadow: none;}
 ::selection { background: #b3d4fc; text-shadow: none;}
-.clearfix:before,
+
+/*.clearfix:before,
 .clearfix:after { content: " "; display: table }
-.clearfix:after { clear: both; }
+.clearfix:after { clear: both; }*/
 hr {
     display: block;
     height: 1px;
@@ -14,7 +22,8 @@ hr {
     margin: 1em 0;
     padding: 0;
 }
-.fl_l{float: left;}
+
+/*.fl_l{float: left;}
 .fl_r{float: right;}
 .constrain{overflow: hidden;}
 .pointer{cursor: pointer ;}
@@ -25,9 +34,9 @@ a{color: #4e88d6;}
 a:hover{color: #d25555;}
 a:hover{text-decoration: underline;}
 .align_c{text-align: center;}
+*/
 
-
-input[type="text"],
+/*input[type="text"],
 input[type="email"],
 input[type="password"],
 input[type="search"],
@@ -51,7 +60,7 @@ textarea{
     }
 input[type="text"], input[type="url"], input[type="email"], input[type="password"], input[type="search"], textarea, .fake_textarea, .input_with_template{
     width: 100%;
-}
+}*/
 
 /*input::-moz-placeholder, textarea::-moz-placeholder { color: #A3B1BA !important; transition: all 200ms ease; background: transparent;}
 input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #A3B1BA !important; transition: all 200ms ease;}
@@ -60,7 +69,7 @@ input:focus::-moz-placeholder, textarea:focus::-moz-placeholder {opacity: .1 !im
 input:focus::-webkit-input-placeholder, textarea:focus::-webkit-input-placeholder { opacity: .1 !important; }
 */
 
-
+/*
 .button,
 input[type="submit"]{
     -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
@@ -131,7 +140,7 @@ input[disabled]
         padding: 16px 30px;
         font-size: 1.2em;
     }
-
+*/
 .fileinput{position: relative; cursor: pointer; overflow: hidden;}
 .fileinput input{
     position: absolute;
@@ -140,7 +149,7 @@ input[disabled]
     cursor: pointer;
 }
 
-.button.loading{
+/*.button.loading{
     position: relative;
     overflow: hidden;
     background: #F5F5F5;
@@ -150,9 +159,9 @@ input[disabled]
   content: ''; width: 100%; height: 100%; display: block;
   background: url('../img/load_pattern.gif'); opacity: .1;
   position: absolute; left: 0; top: 0;
-}
+}*/
 
-
+/*
 .scroll_button {
     position: fixed;
     bottom: 30px;
@@ -181,19 +190,11 @@ input[disabled]
         opacity: 1;
     }
 
-.technic{
-    display: inline-block;
-    padding: 0 4px;
-    background-color: #F4F7FB;
-    font-family: 'monaco', 'consolas', 'courier';
-    font-size: 13px;
-    color: #456994;
-}
+
+*/
 
 
-
-
-@font-face {
+/*@font-face {
   font-family: 'codex_ic';
   src: url('../fonts/codex_icons/codex_ic.eot?2');
   src: url('../fonts/codex_icons/codex_ic.eot?2#iefix') format('embedded-opentype'),
@@ -202,7 +203,7 @@ input[disabled]
        url('../fonts/codex_icons/codex_ic.svg?2#codex_ic') format('svg');
   font-weight: normal;
   font-style: normal;
-}
+}*/
 /* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
 /* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
 /*
@@ -213,6 +214,8 @@ input[disabled]
   }
 }
 */
+
+/*
 
  [class^="icon-"]:before, [class*=" icon-"]:before {
   font-family: "codex_ic";
@@ -225,23 +228,23 @@ input[disabled]
   width: 1em;
   margin-right: .2em;
   text-align: center;
-  /* opacity: .8; */
 
-  /* For safety - reset parent styles, that can break glyph codes*/
+
+
   font-variant: normal;
   text-transform: none;
 
-  /* fix buttons height, for twitter bootstrap */
+
   line-height: 1em;
 
-  /* Animation center compensation - margins should be symmetric */
-  /* remove if not needed */
+
+
   margin-left: .2em;
 
-  /* you can be more comfortable with increased icons size */
-  /* font-size: 120%; */
 
-  /* Font smoothing. That was taken from TWBS */
+
+
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
@@ -278,7 +281,7 @@ input[disabled]
 .icon-picture:before { content: '\e81c'; }
 .icon-cog:before { content: '\e81d'; }
 .icon-paper-plane:before { content: '\e81e'; }
-.icon-facebook:before { content: '\e81f'; }
+.icon-facebook:before { content: '\e81f'; }*/
 
 .error_alert{
     background: #FDF4F4;
@@ -288,7 +291,7 @@ input[disabled]
     border-radius: 2px;
     margin-top: 40px;
 }
-.success_alert{
+/*.success_alert{
     background: #F2F5FB;
     color: #6F809A;
     line-height: 1.6em;
@@ -300,14 +303,14 @@ input[disabled]
     margin-top: 2em;
     padding: 30px;
     font-size: 14px;
-}
+}*/
 
 
 
 
 
 
-
+/*
 html {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     font-size: 14px;
@@ -318,14 +321,12 @@ html {
     max-width: 1000px;
     margin: 0 auto;
 }
-
+*/
 
 
 
 /* Side header styles*/
-
-
-.site_header{
+/*.site_header{
     position: relative;
     border-bottom: 1px solid #eceff6;
 }
@@ -428,9 +429,9 @@ html {
     }
     .site_footer .desclimer{
         color: #aaa;
-    }
+    }*/
 
-.page_header{
+/*.page_header{
     padding: 60px 30px;
 }
 .page_header h1{
@@ -440,11 +441,11 @@ html {
 }
 .page_header .description{
     max-width: 500px;
-}
+}*/
 
 
 /** Blog list */
-.articles_list{
+/*.articles_list{
     font-size: 0;
     letter-spacing: 0;
     text-align: center;
@@ -453,7 +454,6 @@ html {
 .blog_item{
     display: inline-block;
     width: 50%;
-    /*min-height: 24em;*/
     box-sizing: border-box;
     padding: 80px;
     border-top: 1px solid #e8ecf2;
@@ -491,7 +491,6 @@ html {
         width: 28px;
         height: 28px;
         border-radius: 50%;
-        /*margin-right: 7px;*/
     }
 
     .blog_item .author .name{
@@ -520,11 +519,11 @@ html {
             margin-top: 13px;
             line-height: 1.2em;
         }
+*/
 
 
 
-
-
+/*
 
 .profile_page{
     padding: 150px 0 110px;
@@ -569,7 +568,6 @@ html {
         border-radius: 50%;
         overflow: hidden;
 
-        /** Style for text placeholder from img-alt */
         font-size: 100px;
         line-height: 1em;
         letter-spacing: 50px;
@@ -628,18 +626,18 @@ html {
             border-bottom-color: #c4ceda;
         }
 
+*/
 
-
-
+/*
 .no_data{
     text-align: center;
     padding: 150px 0;
 }
+*/
 
 
 
-
-.left_col{
+/*.left_col{
     width: 47%;
     margin-right: 70px;
 }
@@ -650,8 +648,8 @@ html {
     padding-left: 58%;
 }
 
-
-.blank .user_panel{
+*/
+/*.blank .user_panel{
     padding: 20px 0;
 }
     .user_panel .ava{
@@ -673,9 +671,9 @@ html {
         color: #bac1cf;
         display: inline-block;
         margin-top: 8px;
-    }
+    }*/
 
-.blank label{
+/*.blank label{
     display: block;
     margin-bottom: 7px;
 }
@@ -686,9 +684,9 @@ html {
 
 .blank .additional_fields input{
     margin-bottom: 20px;
-}
+}*/
 
-.profile_settings{
+/*.profile_settings{
     padding: 40px 30px;
 }
     .profile_settings .fl_l{
@@ -720,8 +718,8 @@ html {
     .user_settings_form input:last-of-type{
         margin-bottom: 0;
     }
-
-.breadcrumb{
+*/
+/*.breadcrumb{
     margin-bottom: 50px;
     padding-left: 20px;
     border-left: 3px solid #D6D6D6;
@@ -738,8 +736,8 @@ html {
     margin-right: 5px;
     color: inherit;
 }
-
-
+*/
+/*
 .logo_medium{
     display: inline-block;
     background: url('../img/logo_medium.png') no-repeat;
@@ -754,8 +752,8 @@ html {
     margin: 55px 0;
     margin-left: -25px;
 }
-
-.blank_auth{
+*/
+/*.blank_auth{
     margin-bottom: 30px;
 }
     .blank_auth .vk_button{
@@ -766,8 +764,8 @@ html {
         display: inline-block;
         color: #838ea1;
     }
-
-.mobile_logo_small{
+*/
+/*.mobile_logo_small{
     display: block;
     background: url('../img/logo_small.png') no-repeat;
     width: 123px;
@@ -775,8 +773,8 @@ html {
     margin: 40px auto 20px;
     display: none;
 }
-
-.p_table{
+*/
+/*.p_table{
     width: 100%;
     margin: 30px;
 }
@@ -837,12 +835,12 @@ html {
     .p_table .checker i{
         margin: 1px;
         line-height: 1.7em;
-    }
+    }*/
 
 /**
 * Article styles
 */
-.article{
+/*.article{
     margin: 30px;
     padding-bottom: 20px;
     border: 1px solid #eceff6;
@@ -853,24 +851,8 @@ html {
     }
     .article .left_col{
         padding-left: 0;
-    }
-
-.article_form_buttons {
-    padding-left: 30px;
-}
-
-.edit_article_form label {
-    margin: 30px 0 24px 0;
-    display: block;
-}
-.edit_article_form input[type="text"] {
-    margin-bottom: 25px;
-}
-.edit_article_form p {
-    margin: 30px 0;
-    display: block;
-}
-
+    }*/
+/*
 .page_block{
     margin-top: 50px;
 }
@@ -880,8 +862,8 @@ html {
     color: inherit;
     text-decoration: none;
 }
-
-
+*/
+/*
 .additional_tasks{
     margin: 0;
     padding: 0;
@@ -899,7 +881,6 @@ html {
             top: 1.9em;
             width: 10px;
             height: 10px;
-            /*margin-top: -5px;*/
             display: inline-block;
             border-radius: 5px;
             background: #DFE7F5;
@@ -920,9 +901,9 @@ html {
     .additional_tasks.legend li:before{
         top: 2em;
     }
+*/
 
-
-
+/*
 .clarity_page{
     padding: 100px 0 70px;
     text-align: center;
@@ -938,10 +919,10 @@ html {
         max-width: 500px;
         margin: 15px auto;
     }
+*/
 
 
-
-.landing_page{
+/*.landing_page{
     padding: 100px;
     text-align: center;
     color: #1c1e21;
@@ -961,11 +942,11 @@ html {
         font-size: 30px;
     }
 
+*/
 
 
 
-
-
+/*
 
 .page_menu{
     margin: 30px;
@@ -992,102 +973,27 @@ html {
             display: none;
         }
 
-
-
-/** Article page styles */
-
-.big_header{
+*/
+/*.big_header{
     font-size: 54px;
     line-height: 1.2em;
     text-align: center;
     padding: 100px 140px 40px;
-}
-.article_info{
-    text-align: center;
-    margin-bottom: 70px;
-}
-    .article_info .list_user_ava{
-        margin: 0 20px;
-        border: 0;
-        display: inline-block;
-    }
-    .article_info .ava_holder{
-        display: inline-block;
-        position: relative;
-    }
-    .article_info time,
-    .article_info .list_user_name{
-        position: absolute;
-        top: 7px;
-    }
-        .article_info time{
-            color: #9095a2;
-            text-align: right;
-            left: -250px;
-            width: 250px;
-        }
-        .article_info .list_user_name{
-            text-align: left;
-            right: -250px;
-            width: 250px;
-        }
-
-.article_content{
-    font-size: 1.1em;
-    line-height: 1.75em;
-    word-wrap: break-word;
-    letter-spacing: 0;
-}
-    .article_content img{
-        max-width: 100%;
-        margin: 30px 0;
-    }
-    .article_content a{
-        color: #2574CE;
-        text-decoration: none;
-        border-bottom: 1px solid #B2C9F3;
-    }
-        .article_content a:hover{
-            color: #2C70F5;
-            border-bottom-color: #6E8FEC;
-        }
-    .article_content code{
-        display: block;
-        padding: 10px 15px;
-        background-color: #F9FAFB;
-        font-family: 'monospace', 'monaco', 'consolas', 'courier';
-        font-size: 14px;
-        color: #3D597B;
-    }
-    .article_content li{
-        margin: 0.2em 0;
-    }
-    .article_content blockquote{
-        margin: 30px 0;
-        /*padding: 45px 60px;*/
-        border-top: 2px solid #EDEFF1;
-        border-bottom: 2px solid #EDEFF1;
-        font-size: 1.2em;
-        line-height: 1.7em;
-    }
-
-.article_content .page_block{
-    max-width: 700px;
-    margin: 5em auto;
-}
+}*/
 
 
+/*
 .profile_join_requests{
     color: #9A9A9A;
     font-style: italic;
 }
-
+*/
 
 
 
 /*** New Year landing styles *******************/
 
-.ny_land{
+/*.ny_land{
     padding: 40px;
     background: #b00303 url('../img/new_year_pattern.png');
     color: #fff;
@@ -1218,13 +1124,13 @@ html {
     font-size: 14px;
 
 }
-
+*/
 /*** end of New Year landing styles *******************/
 
 /**
 * Branches
 */
-.branchy{
+/*.branchy{
     text-decoration: none;
 }
     .branchy::before,
@@ -1239,11 +1145,11 @@ html {
     }
         .branchy::after{
             background-position: -55px 0;
-        }
+        }*/
 
 
 /*** Contests ***/
-.contest{
+/*.contest{
     padding: 30px 0;
 }
 .contest .disclaimer,
@@ -1369,9 +1275,9 @@ html {
         .contest .toggler i{
             font-size: 12px;
         }
-
+*/
 /*** contest list ***/
-.contests_list {
+/*.contests_list {
     position: relative;
     margin: 0 30px;
     border-top: 1px solid #d2dde5;
@@ -1425,10 +1331,10 @@ html {
     }
         .contests_list .title:hover {
             color: #4888DC;
-        }
+        }*/
 
 
-
+/*
 
 .follow_us{
     width: 33%;
@@ -1457,8 +1363,8 @@ html {
     height: 28px;
     background: url('../img/icon_telegram.png') no-repeat;
 }
-
-
+*/
+/*
 .random_articles {
     padding: 35px 0;
     margin: 0 130px;
@@ -1512,9 +1418,9 @@ html {
         .sharing .main_but i{margin: 0 4px 0 -5px;}
 
 
-
+*/
 /** Redactor zone styles */
-.redactor_zone{
+/*.redactor_zone{
     margin: 0px;
 }
     .redactor_zone textarea{
@@ -1528,17 +1434,17 @@ html {
     .redactor_zone .ce_toolbar{
         border-color: #F9E1E1;
         box-shadow: 0 2px 11px rgba(239, 123, 123, 0.15);
-    }
+    }*/
 
-
+/*
 .join-page{
     line-height: 1.64em;
-}
+}*/
 
 /**
 * Authored user block on /join page
 */
-.user-link{
+/*.user-link{
     font-size: 1.1em;
     margin-bottom: 1.5em;
 }
@@ -1559,13 +1465,13 @@ html {
     color: #e04545;
 }
 
-
+*/
 
 
 /**
 * News
 */
-.news{
+/*.news{
     display: inline-block;
     max-width: 500px;
     border-top: 1px solid #eceff6;
@@ -1607,12 +1513,12 @@ html {
             color: #d25555;
             border-color: #f5dfdf;
         }
-
+*/
 
 /**
 * Event promo block
 */
-.event_alert{
+/*.event_alert{
     padding: 80px 0px;
     max-width: 700px;
     margin: 0 auto;
@@ -1653,7 +1559,7 @@ html {
     }
 
 
-
+*/
 
 
 /**
@@ -1744,17 +1650,17 @@ html {
     -o-animation-name: bounceIn; -o-animation-duration: 600ms; -o-animation-iteration-count: 1;
     animation-name: bounceIn; animation-duration: 600ms; animation-iteration-count: 1;
 }
-
+/*
 @media all and (max-width: 1000px){
 
     .left_col{margin-right: 0;}
     .right_col{padding-left: 56%;}
 
 }
-
+*/
 @media all and (max-width: 800px){
 
-    .left_col{
+/*    .left_col{
         float: none;
         width: auto;
         padding: 0 30px;
@@ -1764,8 +1670,8 @@ html {
     }
     .right_col{
         padding: 30px;
-    }
-    .page_pic{
+    }*/
+  /*  .page_pic{
         display: none;
     }
     .blank_auth{
@@ -1786,9 +1692,9 @@ html {
     .page_block .right_col{
         padding: 0;
         margin-top: 50px;
-    }
+    }*/
 
-    .site_header{
+   /* .site_header{
         padding: 0 25px;
     }
     .site_header .icon_link{
@@ -1831,11 +1737,11 @@ html {
         }
         .site_footer section:last-child{
             margin-bottom: 0;
-        }
+        }*/
 
     /** Blog */
 
-    .blog_item{
+    /*.blog_item{
         display: block;
         width: auto;
         border: 0 0 1px 0;
@@ -1847,26 +1753,18 @@ html {
         }
         .blog_item_big .title{
             font-size: 1.7em;
-        }
+        }*/
 
-
-    .landing_page{
-        padding: 50px 25px;
-    }
-        .landing_page h1{
-            font-size: 40px;
-        }
-
-    .big_header{
+ /*   .big_header{
         padding: 30px;
         font-size: 33px;
     }
-
-    .breadcrumb{
+*/
+    /*.breadcrumb{
         margin-bottom: 30px;
     }
-
-    .profile_settings .ava{
+*/
+    /*.profile_settings .ava{
 
     }
     .profile_settings .button{
@@ -1887,9 +1785,9 @@ html {
     }
     .profile_settings input[type="submit"]{
         margin: 30px 0 0;
-    }
+    }*/
 
-    .ny_land h1 {
+    /*.ny_land h1 {
         font-size: 28px;
         line-height: 1.3em;
         margin: 30px 0;
@@ -1908,8 +1806,8 @@ html {
         left: auto;
         top: auto;
         margin: 20px;
-    }
-    .contest_info td{
+    }*/
+  /*  .contest_info td{
         display: block;
         width: auto !important;
         padding: 5px 0;
@@ -1926,8 +1824,8 @@ html {
     .contest .result h2{
         margin: 20px 30px;
     }
-
-    .contests_list .date,
+*/
+   /* .contests_list .date,
     .contests_list .icon{
         float: none;
     }
@@ -1951,23 +1849,23 @@ html {
     .contests_list .icon{
         display: block;
         margin: 15px auto 30px;
-    }
+    }*/
 
-    .follow_us{
+    /*.follow_us{
         width: auto;
         float: none;
         margin: 0 0 50px 0;
-    }
+    }*/
 
-    .scroll_button{
+    /*.scroll_button{
         left: auto;
         bottom: 0;
         right: 0;
         padding: 12px 14px;
         font-size: 12px;
     }
-
-    .random_articles {
+*/
+    /*.random_articles {
         margin: 0 20px;
         padding-bottom: 0;
     }
@@ -1990,13 +1888,13 @@ html {
         display: inline-block;
         float: none;
         margin: 0 7px 18px;
-    }
+    }*/
 
 
     /**
     * News
     */
-    .news{
+    /*.news{
         padding: 30px 0;
         margin: 30px 0;
     }
@@ -2015,11 +1913,11 @@ html {
     .event_alert__description:after{
         display: none;
     }
+*/
 
-
-    .block_link a{
+    /*.block_link a{
         margin: 0 20px;
-    }
+    }*/
 
 
     /**
@@ -2033,7 +1931,7 @@ html {
 
 @media print, (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 1.25dppx), (min-resolution: 120dpi) {
 
-    .m_logo_wrap .m_logo, .clarity_page .cdx_logo{
+    /*.m_logo_wrap .m_logo, .clarity_page .cdx_logo{
         background: url('../img/logo224@2x.png') no-repeat;
         background-size: 224px 224px;
     }
@@ -2045,15 +1943,15 @@ html {
     .mobile_logo_small{
         background: url('../img/logo_medium.png') no-repeat;
         background-size: 123px auto;
-    }
-    .ava_wrapper .settings .gear{
+    }*/
+    /*.ava_wrapper .settings .gear{
         background: url('../img/icon_gear@2x.png') no-repeat;
         background-size: 21px 21px;
-    }
-    .ny_land{
+    }*/
+    /*.ny_land{
         background-size: 200px auto;
-    }
-    .contest .line:before{
+    }*/
+   /* .contest .line:before{
         background: #fff url('../img/contest_icon_goblet@2x.png') no-repeat 50% 50%;
         background-size: 18px auto;
     }
@@ -2065,12 +1963,12 @@ html {
     }
     .contest .nick::after{
         background-position: -55px 0;
-    }
-    .icon_telegram{
+    }*/
+    /*.icon_telegram{
         background: url('../img/icon_telegram@2x.png') no-repeat;
         background-size: 28px 28px;
 
-    }
+    }*/
 
 
     /**

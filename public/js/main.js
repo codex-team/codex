@@ -73,35 +73,6 @@ codex.core = {
 
         XMLHTTP.send(data.data);
 
-    },
-
-    showException : function ( message ){
-
-        var wrapper = document.querySelector('.exceptionWrapper'),
-            notify;
-
-        if (!wrapper) {
-
-            wrapper = document.createElement('div');
-            wrapper.classList.add('exceptionWrapper');
-
-            document.body.appendChild(wrapper);
-
-        }
-
-        notify = document.createElement('div');
-        notify.classList.add('clientException');
-
-        notify.innerHTML = message;
-
-        wrapper.appendChild(notify);
-
-        notify.classList.add('bounceIn');
-
-        setTimeout(function(){
-            notify.remove();
-        }, 8000);
-
     }
 
 },
@@ -184,7 +155,9 @@ codex.content = {
 
 };
 
-
+/**
+* Module for scroll-up button
+*/
 codex.scrollUp = {
 
     /**
@@ -220,7 +193,10 @@ codex.scrollUp = {
     init : function () {
 
         /** Find scroll-up button */
-        this.button = document.getElementById('scroll_button');
+        this.button = document.createElement('DIV');
+
+        this.button.classList.add('scroll-up');
+        document.body.appendChild(this.button);
 
         /** Bind click event on scroll-up button */
         this.button.addEventListener("click", codex.scrollUp.scrollPage);
@@ -346,7 +322,7 @@ var helpers = (function(helpers) {
         if (path)    str += '; path=' + path;
         if (domain)  str += '; domain=' + domain;
         document.cookie = str;
-    }
+    };
 
     helpers.getCookie = function (name) {
 
@@ -356,7 +332,7 @@ var helpers = (function(helpers) {
         var begin = dc.indexOf("; " + prefix);
         if (begin == -1) {
             begin = dc.indexOf(prefix);
-            if (begin != 0) return null;
+            if (begin !== 0) return null;
         } else
             begin += 2;
 
@@ -364,7 +340,7 @@ var helpers = (function(helpers) {
         if (end == -1) end = dc.length;
 
         return unescape(dc.substring(begin + prefix.length, end));
-    }
+    };
 
     return helpers;
 
@@ -548,7 +524,7 @@ var callbacks = (function(callbacks) {
         }
 
 
-    }
+    };
 
     callbacks.checkUser = function (event, uid) {
 
@@ -603,7 +579,7 @@ var xhr = (function(xhr){
         r20 = /%20/g;
         add = function (key, value) {
             // If value is a function, invoke it and return its value
-            value = ( typeof value == 'function' ) ? value() : ( value == null ? "" : value );
+            value = ( typeof value == 'function' ) ? value() : ( value === null ? "" : value );
             s[ s.length ] = encodeURIComponent(key) + "=" + encodeURIComponent(value);
         };
         if (a instanceof Array) {
@@ -639,11 +615,11 @@ var xhr = (function(xhr){
             // Serialize scalar item.
             add(prefix, obj);
         }
-    }
+    };
 
     xhr.call = function ( data ) {
 
-        if ( !data || !data['url'] ){
+        if ( !data || !data.url ){
 
             console.warn('url wasn\'t passed into ajax method' );
             return;
@@ -651,41 +627,40 @@ var xhr = (function(xhr){
         }
 
         var XMLHTTP              = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP"),
-            success_function     = function( r ){};
+            successCallback;
 
-            data['type']         = data['type'] || 'GET';
-            data['url']          = data['url'];
-            data['content-type'] = data['contentType'] || 'text/html';
-            data['async']        = data['async'] || false;
-            data['data']         = data['data'] || '';
-            data['formData']     = data['formData'] || false;
-            success_function     = data['success'] || success_function ;
+            data.type         = data.type || 'GET';
+            data.url          = data.url;
+            data.async        = data.async || false;
+            data.data         = data.data || '';
+            data.formData     = data.formData || false;
+            data['content-type'] = data.contentType || 'text/html';
+            successCallback      = data.success || successCallback ;
 
-        if ( data['type'] == 'GET' && data['data'] ){
+        if ( data.type == 'GET' && data.data ){
 
-            data['url'] = /\?/.test(data['url']) ? data['url'] + '&' + data['data'] : data['url'] + '?' + data['data'];
+            data.url = /\?/.test(data.url) ? data.url + '&' + data.data : data.url + '?' + data.data;
 
         }
 
-        if (data['beforeSend'] && typeof data['beforeSend'] == 'function') {
-            data['beforeSend'].call();
-        };
+        if (data.beforeSend && typeof data.beforeSend == 'function') {
+            data.beforeSend.call();
+        }
 
-        XMLHTTP.open( data['type'], data['url'], data['async'] );
+        XMLHTTP.open( data.type, data.url, data.async );
         XMLHTTP.setRequestHeader("Content-type", data['content-type'] );
         XMLHTTP.setRequestHeader("Connection", "close");
         XMLHTTP.setRequestHeader("X-Requested-With", "XMLHttpRequest");
         XMLHTTP.onreadystatechange = function(){
 
-            if ( XMLHTTP.readyState == 4 && XMLHTTP.status == 200 ){
+            if ( XMLHTTP.readyState == 4 && XMLHTTP.status == 200 && successCallback){
 
-                success_function(XMLHTTP.responseText);
+                successCallback.call(XMLHTTP.responseText);
 
             }
         };
 
-        XMLHTTP.send( data['formData'] || objectToQueryString(data['data']) );
-
+        XMLHTTP.send( data.formData || objectToQueryString(data.data) );
 
     };
 
@@ -699,7 +674,7 @@ var xhr = (function(xhr){
             doc.body.innerHTML = markup;
         }
         return doc;
-    }
+    };
 
 
     /**
@@ -792,16 +767,17 @@ var xhr = (function(xhr){
             }
         }
         return q.join('&');
-    }
+    };
 
     return xhr;
 
 })({});
 
 
+/**
+* Document ready callback
+*/
 codex.docReady(function(){
-
-    console.log('document is ready', document);
 
     if (window.shareData) {
 
@@ -811,19 +787,19 @@ codex.docReady(function(){
 
 
     var joinBlank = document.getElementById('joinBlank');
-    if ( typeof joinBlank != 'undefined' && joinBlank != null ){
+    if ( typeof joinBlank != 'undefined' && joinBlank !== null ){
         var joinBlankTextareas = joinBlank.getElementsByTagName('textarea');
         if (joinBlankTextareas.length) {
 
             for (var i = joinBlankTextareas.length - 1; i >= 0; i--) {
                 joinBlankTextareas[i].addEventListener('keyup', callbacks.checkUserCanEdit, false);
-            };
+            }
 
-        };
+        }
     }
 
     var blankShowAdditionalFieldsButton = document.getElementById('blankShowAdditionalFieldsButton');
-    if ( typeof blankShowAdditionalFieldsButton != 'undefined' && blankShowAdditionalFieldsButton != null ){
+    if ( typeof blankShowAdditionalFieldsButton != 'undefined' && blankShowAdditionalFieldsButton !== null ){
 
         blankShowAdditionalFieldsButton.addEventListener('click', callbacks.showAdditionalFields, false);
 

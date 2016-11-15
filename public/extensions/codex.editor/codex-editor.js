@@ -35,6 +35,7 @@ var cEditor = (function (cEditor){
         notifications     : null,
         plusButton        : null,
         showSettingsButton: null,
+        showTrashButton   : null,
         blockSettings     : null,
         pluginSettings    : null,
         defaultSettings   : null,
@@ -438,8 +439,12 @@ cEditor.saver = {
         }
 
         /** Result saver */
-        var blockContent = block.childNodes,
-            savedData    = cEditor.tools[pluginName].save(blockContent);
+        var blockContent   = block.childNodes[0],
+            pluginsContent = blockContent.childNodes[0],
+            savedData      = cEditor.tools[pluginName].save(pluginsContent);
+
+        /** Marks Blocks that will be in main page */
+        savedData.cover = block.classList.contains(cEditor.ui.className.BLOCK_IN_FEED_MODE);
 
         cEditor.state.jsonOutput.push(savedData);
     },
@@ -487,17 +492,32 @@ cEditor.ui = {
         /**
         * @const {string} BLOCK_CLASSNAME - redactor blocks name
         */
-        BLOCK_CLASSNAME : 'ce_block',
+        BLOCK_CLASSNAME : 'ce-block',
+
+        /**
+        * @const {String} wrapper for plugins content
+        */
+        BLOCK_CONTENT : 'ce-block__content',
 
         /**
         * @const {String} BLOCK_STRETCHED - makes block stretched
         */
-        BLOCK_STRETCHED : 'ce_block--stretched',
+        BLOCK_STRETCHED : 'ce-block--stretched',
 
         /**
         * @const {String} BLOCK_HIGHLIGHTED - adds background
         */
-        BLOCK_HIGHLIGHTED : 'ce-block__highlighted',
+        BLOCK_HIGHLIGHTED : 'ce-block--focused',
+
+        /**
+        * @const {String} - highlights covered blocks
+        */
+        BLOCK_IN_FEED_MODE : 'ce-block--feed-mode',
+
+        /**
+        * @const {String} - for all default settings
+        */
+        SETTINGS_ITEM : 'ce-settings__item'
 
     },
 
@@ -511,11 +531,12 @@ cEditor.ui = {
             toolbar,
             inlineToolbar,
             redactor,
+            ceBlock,
             notifications,
             blockButtons,
             blockSettings,
             showSettingsButton,
-            showRemoveBlockButton,
+            showTrashButton,
             toolbox,
             plusButton;
 
@@ -534,6 +555,7 @@ cEditor.ui = {
         inlineToolbar         = cEditor.draw.inlineToolbar();
         plusButton            = cEditor.draw.plusButton();
         showSettingsButton    = cEditor.draw.settingsButton();
+        showTrashButton       = cEditor.toolbar.settings.makeRemoveBlockButton();
         blockSettings         = cEditor.draw.blockSettings();
         blockButtons          = cEditor.draw.blockButtons();
         toolbox               = cEditor.draw.toolbox();
@@ -551,6 +573,7 @@ cEditor.ui = {
          * This block contains settings button and remove block button
          */
         blockButtons.appendChild(showSettingsButton);
+        blockButtons.appendChild(showTrashButton);
         blockButtons.appendChild(blockSettings);
 
         /** Appending first-level block buttons */
@@ -563,6 +586,7 @@ cEditor.ui = {
         toolbar.appendChild(toolbox);
 
         wrapper.appendChild(toolbar);
+
         wrapper.appendChild(redactor);
 
         /** Save created ui-elements to static nodes state */
@@ -574,6 +598,7 @@ cEditor.ui = {
         cEditor.nodes.pluginSettings     = pluginSettings;
         cEditor.nodes.defaultSettings    = defaultSettings;
         cEditor.nodes.showSettingsButton = showSettingsButton;
+        cEditor.nodes.showTrashButton    = showTrashButton;
 
         cEditor.nodes.redactor = redactor;
 
@@ -614,6 +639,10 @@ cEditor.ui = {
         for (var name in cEditor.tools){
 
             tool = cEditor.tools[name];
+
+            if (!tool.display) {
+                continue;
+            }
 
             if (!tool.iconClassname) {
                 cEditor.core.log('Toolbar icon classname missed. Tool %o skipped', 'warn', name);
@@ -674,7 +703,7 @@ cEditor.ui = {
 
         for(var name in tools) {
 
-            var tool = tools[name];
+            tool = tools[name];
 
             toolButton = cEditor.draw.toolbarButtonInline(name, tool.icon);
 
@@ -719,7 +748,6 @@ cEditor.ui = {
         * Clicks to SETTINGS button in toolbar
         */
         cEditor.nodes.showSettingsButton.addEventListener('click', cEditor.callback.showSettingsButtonClicked, false );
-
         /**
          *  @deprecated ( but now in use for syncronization );
          *  Any redactor changes: keyboard input, mouse cut/paste, drag-n-drop text
@@ -753,7 +781,7 @@ cEditor.ui = {
 
         block.addEventListener('mouseup', function(){
             cEditor.toolbar.inline.show();
-        }, false)
+        }, false);
 
     },
 
@@ -854,10 +882,35 @@ cEditor.callback = {
     enterKeyPressed : function(event){
 
         /** Set current node */
-        cEditor.content.workingNodeChanged();
+        var firstLevelBlocksArea = cEditor.callback.clickedOnFirstLevelBlockArea();
 
-        /** Update input index */
-        cEditor.caret.saveCurrentInputIndex();
+        if (firstLevelBlocksArea) {
+            event.preventDefault();
+
+            /**
+             * it means that we lose input index, saved index before is not correct
+             * therefore we need to set caret when we insert new block
+             */
+            cEditor.caret.inputIndex = -1;
+
+            cEditor.callback.enterPressedOnBlock();
+            return;
+        }
+
+        if (event.target.contentEditable == 'true') {
+
+            /** Update input index */
+            cEditor.caret.saveCurrentInputIndex();
+        }
+
+        if (!cEditor.content.currentNode) {
+            /**
+             * Enter key pressed in first-level block area
+             */
+            cEditor.callback.enterPressedOnBlock(event);
+            return;
+        }
+
 
         var currentInputIndex       = cEditor.caret.getCurrentInputIndex() || 0,
             workingNode             = cEditor.content.currentNode,
@@ -890,7 +943,12 @@ cEditor.callback = {
         /**
         * Allow making new <p> in same block by SHIFT+ENTER and forbids to prevent default browser behaviour
         */
-        if ( event.shiftKey || enableLineBreaks){
+        if ( event.shiftKey && !enableLineBreaks) {
+            cEditor.callback.enterPressedOnBlock(cEditor.content.currentBlock, event);
+            event.preventDefault();
+
+        } else if ( (event.shiftKey && !enableLineBreaks) || (!event.shiftKey && enableLineBreaks) ){
+            /** XOR */
             return;
         }
 
@@ -944,6 +1002,8 @@ cEditor.callback = {
                     type  : NEW_BLOCK_TYPE,
                     block : cEditor.tools[NEW_BLOCK_TYPE].render()
                 }, true );
+
+                cEditor.toolbar.move();
 
                 /** Show plus button with empty block */
                 cEditor.toolbar.showPlusButton();
@@ -999,7 +1059,7 @@ cEditor.callback = {
 
         cEditor.ui.saveInputs();
 
-        var selectedText = cEditor.toolbar.inline.getSelectionText();
+        var selectedText    = cEditor.toolbar.inline.getSelectionText();
 
         if (selectedText.length === 0) {
             cEditor.toolbar.inline.close();
@@ -1080,6 +1140,53 @@ cEditor.callback = {
     },
 
     /**
+     * This method allows to define, is caret in contenteditable element or not.
+     * Otherwise, if we get TEXT node from range container, that will means we have input index.
+     * In this case we use default browsers behaviour (if plugin allows that) or overwritten action.
+     * Therefore, to be sure that we've clicked first-level block area, we should have currentNode, which always
+     * specifies to the first-level block. Other cases we just ignore.
+     */
+    clickedOnFirstLevelBlockArea : function() {
+
+        var selection  = window.getSelection(),
+            anchorNode = selection.anchorNode,
+            flag = false;
+
+
+        if (selection.rangeCount == 0) {
+
+            return true;
+
+        } else {
+
+            if (!cEditor.core.isDomNode(anchorNode)) {
+                anchorNode = anchorNode.parentNode;
+            }
+
+            /** Already founded, without loop */
+            if (anchorNode.contentEditable == 'true') {
+                flag = true;
+            }
+
+            while (anchorNode.contentEditable != 'true') {
+                anchorNode = anchorNode.parentNode;
+
+                if (anchorNode.contentEditable == 'true') {
+                    flag = true;
+                }
+
+                if (anchorNode == document.body) {
+                    break;
+                }
+            }
+
+            /** If editable element founded, flag is "TRUE", Therefore we return "FALSE" */
+            return flag ? false : true;
+        }
+
+    },
+
+    /**
     * Toolbar button click handler
     * @param this - cursor to the button
     */
@@ -1129,51 +1236,6 @@ cEditor.callback = {
     },
 
     /**
-    * Sets block to removed state or if block's state is removed function deletes it from stream (DOM tree)
-    */
-    removeBlock : function(event) {
-
-        var current             = cEditor.content.currentNode,
-            firstLevelBlocksCount;
-
-        /**
-        * If block doesn't have 'removing-request' class then we add it
-        */
-        if (!current.classList.contains('removing-request')) {
-
-            current.classList.add('removing-request');
-            cEditor.toolbar.settings.removeBlock.setting.classList.add('hide');
-            cEditor.toolbar.settings.removeBlock.actions.classList.add('opened');
-
-        } else {
-
-            /** If block has 'removing-request' class then remove this block from DOM tree */
-            current.remove();
-
-            firstLevelBlocksCount = cEditor.nodes.redactor.childNodes.length;
-
-            /**
-            * If all blocks are removed
-            */
-            if (firstLevelBlocksCount === 0) {
-
-                /** update currentNode variable */
-                cEditor.content.currentNode = null;
-
-                /** Inserting new empty initial block */
-                cEditor.ui.addInitialBlock();
-            }
-
-            /** Close toolbar */
-            cEditor.toolbar.close();
-
-        }
-
-        cEditor.ui.saveInputs();
-
-    },
-
-    /**
     * Block handlers for KeyDown events
     */
     blockKeydown : function(event, block) {
@@ -1183,10 +1245,6 @@ cEditor.callback = {
             case cEditor.core.keys.DOWN:
             case cEditor.core.keys.RIGHT:
                 cEditor.callback.blockRightOrDownArrowPressed(block);
-                break;
-
-            case cEditor.core.keys.ENTER:
-                cEditor.callback.enterPressedOnBlock(block, event);
                 break;
 
             case cEditor.core.keys.BACKSPACE:
@@ -1347,39 +1405,21 @@ cEditor.callback = {
 
     },
 
-    enterPressedOnBlock: function (block, event) {
+    /**
+     * Callback for enter key pressing in first-level block area
+     */
+    enterPressedOnBlock: function (event) {
 
-        var selection   = window.getSelection(),
-            currentNode = selection.anchorNode,
-            parentOfFocusedNode = currentNode.parentNode;
+        var NEW_BLOCK_TYPE  = 'paragraph';
 
-        /**
-        * We add new block with contentEditable property if enter key is pressed.
-        * First we check, if caret is at the end of last node and offset is legth of text node
-        * focusedNodeIndex + 1, because that we compare non-arrays index.
-        */
-        if ( currentNode.length === cEditor.caret.offset &&
-             parentOfFocusedNode.childNodes.length == cEditor.caret.focusedNodeIndex + 1) {
+        cEditor.content.insertBlock({
+            type  : NEW_BLOCK_TYPE,
+            block : cEditor.tools[NEW_BLOCK_TYPE].render()
+        }, true );
 
-            /** Prevent <div></div> creation */
-            event.preventDefault();
+        cEditor.toolbar.move();
+        cEditor.toolbar.open();
 
-            /** Create new Block and append it after current */
-            var newBlock = cEditor.draw.block('p');
-
-            newBlock.contentEditable = "true";
-            newBlock.classList.add(cEditor.ui.className.BLOCK_CLASSNAME);
-
-            /** Add event listeners (Keydown) for new created block */
-            cEditor.ui.addBlockHandlers(newBlock);
-
-            cEditor.core.insertAfter(block, newBlock);
-
-            /** set focus to the current (created) block */
-            cEditor.caret.setToNextBlock(block);
-
-            cEditor.toolbar.move();
-        }
     },
 
     backspacePressed: function (block) {
@@ -1517,6 +1557,7 @@ cEditor.callback = {
 
         /** Close toolbox when settings button is active */
         cEditor.toolbar.toolbox.close();
+        cEditor.toolbar.settings.hideRemoveActions();
 
     }
 
@@ -1598,6 +1639,8 @@ cEditor.content = {
     },
 
     /**
+    * @private
+    *
     * Finds first-level block
     * @param {Element} node - selected or clicked in redactors area node
     */
@@ -1607,7 +1650,7 @@ cEditor.content = {
             node = node.parentNode;
         }
 
-        if (node === cEditor.nodes.redactor) {
+        if (node === cEditor.nodes.redactor || node === document.body) {
 
             return null;
 
@@ -1638,6 +1681,7 @@ cEditor.content = {
         }
 
         this.currentNode = this.getFirstLevelBlock(targetNode);
+
     },
 
     /**
@@ -1697,7 +1741,7 @@ cEditor.content = {
     * @param needPlaceCaret     {bool}      pass true to set caret in new block
     *
     */
-    insertBlock : function(blockData, needPlaceCaret ) {
+    insertBlock : function( blockData, needPlaceCaret ) {
 
         var workingBlock    = cEditor.content.currentNode,
             newBlockContent = blockData.block,
@@ -1711,7 +1755,6 @@ cEditor.content = {
             cEditor.core.insertAfter(workingBlock, newBlock);
 
         } else {
-
             /**
             * If redactor is empty, append as first child
             */
@@ -1737,17 +1780,39 @@ cEditor.content = {
 
         if ( needPlaceCaret ) {
 
-            var currentInputIndex = cEditor.caret.getCurrentInputIndex() || 0;
+            /**
+             * If we don't know input index then we set default value -1
+             */
+            var currentInputIndex = cEditor.caret.getCurrentInputIndex() || -1;
 
-            /** Timeout for browsers execution */
-            setTimeout(function () {
 
-                /** Setting to the new input */
-                cEditor.caret.setToNextBlock(currentInputIndex);
+            if (currentInputIndex == -1) {
+
+
+                var editableElement = newBlock.querySelector('[contenteditable]'),
+                    emptyText       = document.createTextNode('');
+
+                editableElement.appendChild(emptyText);
+                cEditor.caret.set(editableElement, 0, 0);
+
                 cEditor.toolbar.move();
-                cEditor.toolbar.open();
+                cEditor.toolbar.showPlusButton();
 
-            }, 10);
+
+            } else {
+
+                /** Timeout for browsers execution */
+                setTimeout(function () {
+
+                    /** Setting to the new input */
+                    cEditor.caret.setToNextBlock(currentInputIndex);
+                    cEditor.toolbar.move();
+                    cEditor.toolbar.open();
+
+                }, 10);
+
+            }
+
         }
 
     },
@@ -1855,16 +1920,17 @@ cEditor.content = {
     */
     composeNewBlock : function (block, blockType, isStretched) {
 
-        var newBlock = cEditor.draw.block('DIV');
+        var newBlock     = cEditor.draw.node('DIV', cEditor.ui.className.BLOCK_CLASSNAME, {}),
+            blockContent = cEditor.draw.node('DIV', cEditor.ui.className.BLOCK_CONTENT, {});
 
-        newBlock.classList.add(cEditor.ui.className.BLOCK_CLASSNAME);
+        newBlock.appendChild(blockContent);
 
         if (isStretched) {
-            newBlock.classList.add(cEditor.ui.className.BLOCK_STRETCHED);
+            blockContent.classList.add(cEditor.ui.className.BLOCK_STRETCHED);
         }
         newBlock.dataset.type = blockType;
 
-        newBlock.appendChild(block);
+        blockContent.appendChild(block);
 
         return newBlock;
 
@@ -2190,6 +2256,8 @@ cEditor.caret = {
             selection.removeAllRanges();
             selection.addRange(range);
 
+            cEditor.caret.saveCurrentInputIndex();
+
         }, 20);
     },
 
@@ -2336,6 +2404,10 @@ cEditor.caret = {
                 firstLevelBlock = cEditor.content.getFirstLevelBlock(anchorNode),
                 pluginsRender   = firstLevelBlock.childNodes[0];
 
+            if (!cEditor.core.isDomNode(anchorNode)) {
+                anchorNode = anchorNode.parentNode;
+            }
+
             var isFirstNode  = anchorNode === pluginsRender.childNodes[0],
                 isOffsetZero = anchorOffset === 0;
 
@@ -2435,7 +2507,10 @@ cEditor.toolbar = {
         var toolbarHeight = cEditor.nodes.toolbar.clientHeight || cEditor.toolbar.defaultToolbarHeight,
             newYCoordinate = cEditor.content.currentNode.offsetTop - (cEditor.toolbar.defaultToolbarHeight / 2) + cEditor.toolbar.defaultOffset;
 
-        cEditor.nodes.toolbar.style.transform = `translate3D(0, ${newYCoordinate}px, 0)`;
+        cEditor.nodes.toolbar.style.transform = `translate3D(0, ${Math.floor(newYCoordinate)}px, 0)`;
+
+        /** Close trash actions */
+        cEditor.toolbar.settings.hideRemoveActions();
 
     },
 };
@@ -2456,7 +2531,7 @@ cEditor.toolbar.toolbox = {
         cEditor.nodes.toolbox.classList.add('opened');
 
         /** Animate plus button */
-        cEditor.nodes.plusButton.classList.add('ce_redactor_plusButton--clicked');
+        cEditor.nodes.plusButton.classList.add('clicked');
 
         /** toolbox state */
         cEditor.toolbar.toolbox.opened = true;
@@ -2470,7 +2545,7 @@ cEditor.toolbar.toolbox = {
         cEditor.nodes.toolbox.classList.remove('opened');
 
         /** Rotate plus button */
-        cEditor.nodes.plusButton.classList.remove('ce_redactor_plusButton--clicked');
+        cEditor.nodes.plusButton.classList.remove('clicked');
 
         /** toolbox state */
         cEditor.toolbar.toolbox.opened = false;
@@ -2594,6 +2669,8 @@ cEditor.toolbar.settings = {
     setting : null,
     actions : null,
 
+    cover : null,
+
     /**
     * Append and open settings
     */
@@ -2605,8 +2682,8 @@ cEditor.toolbar.settings = {
         */
         if (!cEditor.tools[toolType] || !cEditor.core.isDomNode(cEditor.tools[toolType].settings) ) {
 
-            cEditor.core.log('Wrong tool type', 'warn');
-            cEditor.nodes.pluginSettings.innerHTML = `Плагин «${toolType}» не имеет настроек`;
+            cEditor.core.log(`Plugin «${toolType}» has no settings`, 'warn');
+            // cEditor.nodes.pluginSettings.innerHTML = `Плагин «${toolType}» не имеет настроек`;
 
         } else {
 
@@ -2616,17 +2693,9 @@ cEditor.toolbar.settings = {
 
         var currentBlock = cEditor.content.currentNode;
 
-        /** Activate removing request */
-        if (currentBlock.classList.contains('removing-request')) {
-            cEditor.toolbar.settings.setting.classList.add('hide');
-            cEditor.toolbar.settings.actions.classList.add('opened');
-        } else {
-            cEditor.toolbar.settings.setting.classList.remove('hide');
-            cEditor.toolbar.settings.actions.classList.remove('opened');
-        }
-
         /** Open settings block */
         cEditor.nodes.blockSettings.classList.add('opened');
+        cEditor.toolbar.settings.addDefaultSettings();
         this.opened = true;
     },
 
@@ -2659,12 +2728,89 @@ cEditor.toolbar.settings = {
 
     },
 
+    /**
+     * This function adds default core settings
+     */
     addDefaultSettings : function() {
 
-        var removeButton = this.makeRemoveBlockButton();
+        /** list of default settings */
+        var feedModeToggler;
 
-        cEditor.nodes.defaultSettings.appendChild(removeButton);
+        /** Clear block and append initialized settings */
+        cEditor.nodes.defaultSettings.innerHTML = '';
 
+
+        /** Init all default setting buttons */
+        feedModeToggler = cEditor.toolbar.settings.makeFeedModeToggler();
+
+        /**
+         * Fill defaultSettings
+         */
+
+        /**
+         * Button that enables/disables Feed-mode
+         * Feed-mode means that block will be showed in articles-feed like cover
+         */
+        cEditor.nodes.defaultSettings.appendChild(feedModeToggler);
+
+    },
+
+    /**
+     * Cover setting.
+     * This tune highlights block, so that it may be used for showing target block on main page
+     * Draw different setting when block is marked for main page
+     * If TRUE, then we show button that removes this selection
+     * Also defined setting "Click" events will be listened and have separate callbacks
+     *
+     * @return {Element} node/button that we place in default settings block
+     */
+    makeFeedModeToggler : function() {
+
+        var isFeedModeActivated = cEditor.toolbar.settings.isFeedModeActivated(),
+            setting,
+            data;
+
+        if (!isFeedModeActivated) {
+
+            data = {
+                innerHTML : '<i class="ce-icon-newspaper"></i>Вывести в ленте'
+            };
+
+        } else {
+
+            data = {
+                innerHTML : '<i class="ce-icon-newspaper"></i>Не выводить в ленте'
+            };
+
+        }
+
+        setting = cEditor.draw.node('DIV', cEditor.ui.className.SETTINGS_ITEM, data);
+        setting.addEventListener('click', cEditor.toolbar.settings.updateFeedMode, false);
+
+        return setting;
+    },
+
+    /**
+     * Updates Feed-mode
+     */
+    updateFeedMode : function() {
+
+        var currentNode = cEditor.content.currentNode;
+
+        currentNode.classList.toggle(cEditor.ui.className.BLOCK_IN_FEED_MODE);
+
+        cEditor.toolbar.settings.close();
+    },
+
+    isFeedModeActivated : function() {
+
+        var currentBlock = cEditor.content.currentNode;
+
+        if (currentBlock) {
+            return currentBlock.classList.contains(cEditor.ui.className.BLOCK_IN_FEED_MODE);
+        } else {
+            return false;
+        }
     },
 
     /**
@@ -2672,11 +2818,11 @@ cEditor.toolbar.settings = {
      */
     makeRemoveBlockButton : function() {
 
-        var removeBlockWrapper  = cEditor.draw.make('DIV', 'ce_button-remove', {}),
-            settingButton = cEditor.draw.make('DIV', 'ce_button__remove-setting', { textContent : 'Удалить блок' }),
-            actionWrapper = cEditor.draw.make('DIV', 'ce_button__remove-actions', {}),
-            confirmAction = cEditor.draw.make('SPAN', 'ce_button__remove-confirm', { textContent : 'Подтвердить' }),
-            cancelAction  = cEditor.draw.make('SPAN', 'ce_button__remove-cancel', { textContent : 'Отменить' });
+        var removeBlockWrapper  = cEditor.draw.node('SPAN', 'ce-toolbar__remove-btn', {}),
+            settingButton = cEditor.draw.node('SPAN', 'ce-toolbar__remove-setting', { innerHTML : '<i class="ce-icon-trash"></i>' }),
+            actionWrapper = cEditor.draw.node('DIV', 'ce-toolbar__remove-confirmation', {}),
+            confirmAction = cEditor.draw.node('DIV', 'ce-toolbar__remove-confirm', { textContent : 'Удалить блок' }),
+            cancelAction  = cEditor.draw.node('DIV', 'ce-toolbar__remove-cancel', { textContent : 'Отменить удаление' });
 
         settingButton.addEventListener('click', cEditor.toolbar.settings.removeButtonClicked, false);
 
@@ -2700,26 +2846,22 @@ cEditor.toolbar.settings = {
 
     removeButtonClicked : function() {
 
-        var currentBlock = cEditor.content.currentNode;
+        var action = cEditor.toolbar.settings.actions;
 
-        if (!currentBlock.classList.contains('removing-request')) {
-            currentBlock.classList.add('removing-request');
-
-            cEditor.toolbar.settings.setting.classList.add('hide');
-            cEditor.toolbar.settings.actions.classList.add('opened');
+        if (action.classList.contains('opened')) {
+            cEditor.toolbar.settings.hideRemoveActions();
+        } else {
+            cEditor.toolbar.settings.showRemoveActions();
         }
+
+        cEditor.toolbar.toolbox.close();
+        cEditor.toolbar.settings.close();
+
     },
 
     cancelRemovingRequest : function() {
 
-        var currentBlock = cEditor.content.currentNode;
-
-        if (currentBlock.classList.contains('removing-request')) {
-            currentBlock.classList.remove('removing-request');
-        }
-
         cEditor.toolbar.settings.actions.classList.remove('opened');
-        cEditor.toolbar.settings.setting.classList.remove('hide');
     },
 
     confirmRemovingRequest : function() {
@@ -2727,27 +2869,33 @@ cEditor.toolbar.settings = {
         var currentBlock = cEditor.content.currentNode,
             firstLevelBlocksCount;
 
-        if (currentBlock.classList.contains('removing-request')) {
-            currentBlock.remove();
+        currentBlock.remove();
 
-            firstLevelBlocksCount = cEditor.nodes.redactor.childNodes.length;
+        firstLevelBlocksCount = cEditor.nodes.redactor.childNodes.length;
 
-            /**
-            * If all blocks are removed
-            */
-            if (firstLevelBlocksCount === 0) {
+        /**
+        * If all blocks are removed
+        */
+        if (firstLevelBlocksCount === 0) {
 
-                /** update currentNode variable */
-                cEditor.content.currentNode = null;
+            /** update currentNode variable */
+            cEditor.content.currentNode = null;
 
-                /** Inserting new empty initial block */
-                cEditor.ui.addInitialBlock();
-            }
+            /** Inserting new empty initial block */
+            cEditor.ui.addInitialBlock();
         }
 
         cEditor.ui.saveInputs();
 
         cEditor.toolbar.close();
+    },
+
+    showRemoveActions : function() {
+        cEditor.toolbar.settings.actions.classList.add('opened');
+    },
+
+    hideRemoveActions : function() {
+        cEditor.toolbar.settings.actions.classList.remove('opened');
     }
 
 };
@@ -2829,7 +2977,7 @@ cEditor.toolbar.inline = {
         newCoordinateX = coords.x - this.wrappersOffset.left;
         newCoordinateY = coords.y + window.scrollY - this.wrappersOffset.top - defaultOffset - toolbar.offsetHeight;
 
-        toolbar.style.transform = `translate3D(${newCoordinateX}px, ${newCoordinateY}px, 0)`;
+        toolbar.style.transform = `translate3D(${Math.floor(newCoordinateX)}px, ${Math.floor(newCoordinateY)}px, 0)`;
 
         /** Close everything */
         cEditor.toolbar.inline.closeButtons();
@@ -2944,10 +3092,10 @@ cEditor.toolbar.inline = {
      */
     getSelectionText : function getSelectionText(){
 
-        var selectedText = ""
+        var selectedText = "";
 
         if (window.getSelection){ // all modern browsers and IE9+
-            selectedText = window.getSelection().toString()
+            selectedText = window.getSelection().toString();
         }
 
         return selectedText;
@@ -3109,7 +3257,7 @@ cEditor.toolbar.inline = {
         return {
             start: start,
             end: start + range.toString().length
-        }
+        };
     },
 
     /**
@@ -3230,7 +3378,7 @@ cEditor.toolbar.inline = {
         }
     }
 
-}
+};
 
 /**
 * File transport module
@@ -3304,9 +3452,9 @@ cEditor.transport = {
     ajax : function(params){
 
         var xhr = new XMLHttpRequest(),
-            beforeSend = typeof params.success == 'function' ? params.beforeSend : function(){},
-            success    = typeof params.success == 'function' ? params.success : function(){},
-            error      = typeof params.error   == 'function' ? params.error   : function(){};
+            beforeSend = typeof params.beforeSend == 'function' ? params.beforeSend : function(){},
+            success    = typeof params.success    == 'function' ? params.success : function(){},
+            error      = typeof params.error      == 'function' ? params.error   : function(){};
 
         beforeSend();
 
@@ -3463,7 +3611,7 @@ cEditor.parser = {
                     block.contentEditable = "true";
 
                     /** Mark node as redactor block*/
-                    block.classList.add('ce_block');
+                    block.classList.add('ce-block');
 
                     /** Append block to the redactor */
                     cEditor.nodes.redactor.appendChild(block);
@@ -3595,7 +3743,7 @@ cEditor.draw = {
 
         var wrapper = document.createElement('div');
 
-        wrapper.className += 'ce_wrapper';
+        wrapper.className += 'codex-editor';
 
         return wrapper;
 
@@ -3608,12 +3756,21 @@ cEditor.draw = {
 
         var redactor = document.createElement('div');
 
-        redactor.className += 'ce_redactor';
+        redactor.className += 'ce-redactor';
 
         return redactor;
 
     },
 
+    ceBlock : function() {
+
+        var block = document.createElement('DIV');
+
+        block.className += 'ce_block';
+
+        return block;
+
+    },
     /**
     * Empty toolbar with toggler
     */
@@ -3621,7 +3778,7 @@ cEditor.draw = {
 
         var bar = document.createElement('div');
 
-        bar.className += 'ce_toolbar';
+        bar.className += 'ce-toolbar';
 
         return bar;
     },
@@ -3633,7 +3790,7 @@ cEditor.draw = {
 
         var bar = document.createElement('DIV');
 
-        bar.className += 'ce_toolbar-inline';
+        bar.className += 'ce-toolbar-inline';
 
         return bar;
 
@@ -3646,7 +3803,7 @@ cEditor.draw = {
 
         var wrapper = document.createElement('DIV');
 
-        wrapper.className += 'ce_toolbar-inline--buttons';
+        wrapper.className += 'ce-toolbar-inline__buttons';
 
         return wrapper;
     },
@@ -3658,7 +3815,7 @@ cEditor.draw = {
 
         var wrapper = document.createElement('DIV');
 
-        wrapper.className += 'ce_toolbar-inline--actions';
+        wrapper.className += 'ce-toolbar-inline__actions';
 
         return wrapper;
 
@@ -3699,7 +3856,7 @@ cEditor.draw = {
 
         var block = document.createElement('div');
 
-        block.className += 'ce_block_blockButtons';
+        block.className += 'ce-toolbar__actions';
 
         return block;
     },
@@ -3711,7 +3868,7 @@ cEditor.draw = {
 
         var settings = document.createElement('div');
 
-        settings.className += 'ce_block_settings';
+        settings.className += 'ce-settings';
 
         return settings;
     },
@@ -3720,7 +3877,7 @@ cEditor.draw = {
 
         var div = document.createElement('div');
 
-        div.classList.add('ce_block_settings-default');
+        div.classList.add('ce-settings_default');
 
         return div;
     },
@@ -3729,7 +3886,7 @@ cEditor.draw = {
 
         var div = document.createElement('div');
 
-        div.classList.add('ce_block_settings-plugin');
+        div.classList.add('ce-settings_plugin');
 
         return div;
 
@@ -3739,9 +3896,8 @@ cEditor.draw = {
 
         var button = document.createElement('span');
 
-        button.className = 'ce_redactor_plusButton';
-
-        button.innerHTML = '<i class="ce-icon-plus"></i>';
+        button.className = 'ce-toolbar__plus';
+        // button.innerHTML = '<i class="ce-icon-plus"></i>';
 
         return button;
     },
@@ -3753,10 +3909,10 @@ cEditor.draw = {
 
         var toggler = document.createElement('span');
 
-        toggler.className = 'toggler';
+        toggler.className = 'ce-toolbar__settings-btn';
 
         /** Toggler button*/
-        toggler.innerHTML = '<i class="settings_btn ce-icon-cog"></i>';
+        toggler.innerHTML = '<i class="ce-icon-cog"></i>';
 
         return toggler;
     },
@@ -3769,7 +3925,7 @@ cEditor.draw = {
 
         var wrapper = document.createElement('div');
 
-        wrapper.className = 'ce_redactor_tools';
+        wrapper.className = 'ce-toolbar__tools';
 
         return wrapper;
     },
@@ -3790,11 +3946,11 @@ cEditor.draw = {
             tool_title = document.createElement("span");
 
         button.dataset.type = type;
+        button.setAttribute('title', type);
 
         tool_icon.classList.add(classname);
-
-        tool_title.innerHTML = type;
         tool_title.classList.add('ce_toolbar_tools--title');
+
 
         button.appendChild(tool_icon);
         button.appendChild(tool_title);
@@ -3843,7 +3999,7 @@ cEditor.draw = {
      * @param {string} className
      * @param {object} properties - allow to assign properties
      */
-    make : function( tagName , className , properties ){
+    node : function( tagName , className , properties ){
 
         var el = document.createElement( tagName );
 

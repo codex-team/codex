@@ -1,7 +1,10 @@
+<link rel="stylesheet" href="/public/css/task.css?v=<?= filemtime("public/css/task.css") ?>">
+<link rel="stylesheet" href="/public/css/article.css?v=<?= filemtime("public/css/article.css") ?>">
+
 <div class="center_side">
     <article class="article">
 
-        <h1 class="big_header">Задание для веб-разработчиков</h1>
+        <h1 class="article__title">Задание для веб-разработчиков</h1>
 
         <div class="article_content">
             <p>

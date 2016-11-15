@@ -1,7 +1,9 @@
+<link rel="stylesheet" href="/public/css/article.css?v=<?= filemtime("public/css/article.css") ?>">
+
 <div class="center_side clear">
     <article class="article" itemscope itemtype="http://schema.org/Article">
 
-        <h1 class="big_header" itemprop="headline">
+        <h1 class="article__title" itemprop="headline">
             <?= $article->title; ?>
         </h1>
 

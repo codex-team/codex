@@ -8,7 +8,7 @@ class Controller_Landings extends Controller_Base_preDispatch
     {
         $this->title = 'CodeX Bot';
         $this->description = 'Telegram bot-platform for developers and managers';
-        $this->template->content = View::factory('templates/bot/landing', $this->view);
+        $this->template->content = View::factory('templates/landings/bot', $this->view);
     }
 
     /** Codex Special Landing page in https://ifmo.su/special */
@@ -16,7 +16,7 @@ class Controller_Landings extends Controller_Base_preDispatch
     {
         $this->title = 'CodeX Special';
         $this->description = 'Module for making high contrast site version';
-        $this->template->content = View::factory('templates/special/landing', $this->view);
+        $this->template->content = View::factory('templates/landings/special', $this->view);
     }
 
 }

@@ -1,36 +1,56 @@
-<div class="center_side clear">
+<link rel="stylesheet" href="/public/css/editor-form.css?v=<?= filemtime("public/css/editor-form.css") ?>">
 
-        <form name="codex_article" method="POST" action="/<?= $article->id && $article->uri ? $article->uri . '/save' : 'article/add' ?>" enctype="multipart/form-data" id="edit_article_form" class="edit_article_form">
+<div class="center_side">
 
-            <section class="article_form__inputs">
-                <input type="hidden" name="csrf" value="<?= Security::token() ?>" />
-                <input type="hidden" name="article_id" value="<?= $article->id ?: ''; ?>">
+    <form class="editor-form" name="codex_article" method="POST" action="/<?= $article->id && $article->uri ? $article->uri . '/save' : 'article/add' ?>" enctype="multipart/form-data" id="edit_article_form" class="edit_article_form">
 
-                <label for="title">Заголовок</label>
-                <input type="text" name="title" value="<?= $article->title ?: ''; ?>">
-            </section>
+        <input type="hidden" name="csrf" value="<?= Security::token() ?>" />
+        <input type="hidden" name="article_id" value="<?= $article->id ?: ''; ?>">
 
-            <div class="article_content redactor_zone">
-                <textarea name="article_json" id="codex_editor" rows="10" hidden><?= $article->json ?: ''; ?></textarea>
-            </div>
+        <section class="editor-form__section">
+            <label for="title">Заголовок</label>
+            <input type="text" name="title" value="<?= $article->title ?: ''; ?>">
+        </section>
 
-            <section class="article_form__inputs">
-                <label for="uri">URI</label>
-                <input type="text" name="uri" value="<?= $article->uri ?: ''; ?>" autocomplete="off">
+        <div class="redactor_zone">
+            <textarea name="article_json" id="codex_editor" rows="10" hidden><?= $article->json ?: ''; ?></textarea>
+        </div>
 
-                <label for="description">Описание статьи</label>
-                <textarea name="description" rows="5"><?= $article->description ?: ''; ?></textarea>
+        <section class="editor-form__section">
 
-                <input type="checkbox" name="is_published" value="1" <?= $article->is_published ? 'checked' : ''; ?> > Опубликовать <br>
-                <input type="checkbox" name="marked" value="1" <?= $article->marked ? 'checked' : ''; ?> > Отметить как важную
+            <label for="uri">URI</label>
+            <input type="text" name="uri" value="<?= $article->uri ?: ''; ?>" autocomplete="off">
 
-                <label for="order">Порядок в списке (если не задавать, будет в порядке убывания даты)</label>
-                <input type="text" name="order" value="<?= $article->order ?: ''; ?>">
-            </section>
+        </section>
 
-            <span id="submitButton" class="button master" style="margin: 40px 119px 40px">Отправить</span>
-        </form>
+        <section class="editor-form__section">
 
+            <label for="description">Описание статьи</label>
+            <textarea name="description" rows="5"><?= $article->description ?: ''; ?></textarea>
+
+        </section>
+
+        <section class="editor-form__section">
+
+            <input type="checkbox" name="is_published" value="1" <?= $article->is_published ? 'checked' : ''; ?> > Опубликовать <br>
+
+        </section>
+
+        <section class="editor-form__section">
+
+            <input type="checkbox" name="marked" value="1" <?= $article->marked ? 'checked' : ''; ?> > Отметить как важную <br/>
+
+        </section>
+
+        <section class="editor-form__section">
+
+            <label for="order">Порядок в списке (если не задавать, будет в порядке убывания даты)</label>
+            <input type="text" name="order" value="<?= $article->order ?: ''; ?>">
+
+        </section>
+
+        <span id="submitButton" class="button master" style="margin: 40px 139px 40px">Отправить</span>
+    </form>
 </div>
 
 <script>
@@ -55,7 +75,7 @@
             json = [];
 
         }
-        
+
         var INPUT = {
             items : json,
             count : json.length,

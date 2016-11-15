@@ -1,13 +1,13 @@
 <div class="center_side">
-    <div class="profile_settings">
+    <div class="profile-settings">
 
         <div class="breadcrumb" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
             <a href="/user" itemprop="url"><span itemprop="title">Profile</span></a> »
             <h1 class="name" itemprop="title">Settings</h1>
         </div>
 
-        <div class="fl_l">
-            <div class="ava">
+        <div class="fl_l align_c">
+            <div class="profile-settings__ava">
                 <img src="<?= $user->photo ?>" alt="<?= $user->name ?>" id="profile-photo-updatable">
             </div>
             <br/>
@@ -15,29 +15,32 @@
                 <i class="icon-picture"></i>Change
             </div>
         </div>
+
         <div class="constrain">
-            <form class="blank" action="/user/settings" method="POST" enctype="multipart/form-data">
 
-                    <input type="hidden" name="csrf" value="<?= Security::token() ?>" />
+            <form class="profile-settings__form" action="/user/settings" method="POST" enctype="multipart/form-data">
 
-                    <div class="user_settings_form">
+                <input type="hidden" name="csrf" value="<?= Security::token() ?>" />
 
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" value="<?= $user->name?>" required/>
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" value="<?= $user->name?>" required/>
 
-                        <label for="bio">About</label>
-                        <textarea rows="2" id="bio" name="bio"><?= $user->bio?></textarea>
+                <label for="bio">About</label>
+                <textarea rows="2" id="bio" name="bio"><?= $user->bio?></textarea>
 
-                        <label for="vk_uri"><i class="icon-vkontakte"></i> vk.com</label>
-                        <input type="text" id="vk_uri" name="vk_uri" value="<?= $user->vk_uri?>"/>
+                <label for="vk_uri"><i class="icon-vkontakte"></i> vk.com</label>
+                <input type="text" id="vk_uri" name="vk_uri" value="<?= $user->vk_uri?>"/>
 
-                        <label for="instagram_uri"> <i class="icon-instagram"></i> Instagram</label>
-                        <input type="text" id="instagram_uri" name="instagram_uri" value="<?=$user->instagram_uri?>"/>
+                <label for="instagram_uri"> <i class="icon-instagram"></i> Instagram</label>
+                <input type="text" id="instagram_uri" name="instagram_uri" value="<?=$user->instagram_uri?>"/>
 
-                    </div>
+                <br>
 
-                    <input type="submit" value="Сохранить" name="submit">
+                <input type="submit" value="Сохранить" name="submit">
+
             </form>
+
         </div>
+
     </div>
 </div>

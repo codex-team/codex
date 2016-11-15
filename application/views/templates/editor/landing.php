@@ -1,9 +1,9 @@
-<link rel="stylesheet" href="/public/css/landings/editor.css" />
+<link rel="stylesheet" href="/public/css/landings/editor.css?v=<?= filemtime("public/css/landings/editor.css") ?>">
 <div class="center_side">
-    <article class="editor_workout">
+    <article class="editor-landing">
 
-        <h1 class="big_header" itemprop="headline">CodeX Editor</h1>
-        <div class="editor-landing--disclaimer">under development</div>
+        <h1 class="editor-landing__title" itemprop="headline">CodeX Editor</h1>
+        <div class="editor-landing__disclaimer">under development</div>
 
         <form name="editor-demo" action="/editor/preview" method="POST" enctype="multipart/form-data">
 
@@ -56,10 +56,16 @@ _INPUT.items = [
             text : '<p>Ladies and gentlemen, prepare yourself for a pivotal moment in the history of web development…</p>'
         }
     },
+    // {
+    //     type : 'paragraph',
+    //     data : {
+    //         text : '<p><i>[Drumroll begins]</i></p><p>Promises have arrived natively in JavaScript!</p><p><i>[Fireworks explode, glittery paper rains from above, the crowd goes wild]</i></p>'
+    //     }
+    // },
     {
         type : 'paragraph',
         data : {
-            text : '<p><i>[Drumroll begins]</i></p><p>Promises have arrived natively in JavaScript!</p><p><i>[Fireworks explode, glittery paper rains from above, the crowd goes wild]</i></p>'
+            text : "The promise constructor takes one argument, a callback with two parameters, resolve and reject. Do something within the callback, perhaps async, then call resolve if everything worked, otherwise call reject.Like 'throw' in plain old JavaScript, it's customary, but not required, to reject with an Error object. The benefit of Error objects is they capture a stack trace, making debugging tools more helpful. Here's how you use that promise:",
         }
     },
     {
@@ -155,7 +161,7 @@ _INPUT.items = [
     {
         type : 'code',
         data : {
-            text : `<pre>var promise = new Promise(function(resolve, reject) {
+            text : `var promise = new Promise(function(resolve, reject) {
 
     // do a thing, possibly async, then…
     if (/* everything turned out fine */) {
@@ -168,7 +174,7 @@ _INPUT.items = [
 
     }
 
-});</pre>`,
+});`,
         }
     },
     {
@@ -404,14 +410,14 @@ INPUT.items = [];
             holder : 'output'
         });
 
-        load.getScript({
-            async    : true,
-            url      : '/public/js/simpleCodeStyling.js?v=2',
-            instance : 'simpleCodeStyling',
-            loadCallback : function(response){
-                simpleCode.init('.editor_workout code');
-            }
-        });
+        // load.getScript({
+        //     async    : true,
+        //     url      : '/public/js/simpleCodeStyling.js?v=2',
+        //     instance : 'simpleCodeStyling',
+        //     loadCallback : function(response){
+        //         simpleCode.init('.editor-workout code');
+        //     }
+        // });
 
     });
 

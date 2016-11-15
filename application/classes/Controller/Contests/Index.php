@@ -25,7 +25,7 @@ class Controller_Contests_Index extends Controller_Base_preDispatch
 
         }
 
-        $this->template->content = View::factory('templates/contests/list', $this->view);
+        $this->template->content = View::factory('templates/contests/list_wrapper', $this->view);
     }
 
     public function action_show()

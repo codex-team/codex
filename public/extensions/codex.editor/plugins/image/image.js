@@ -14,7 +14,6 @@ var ceImage = {
                 centered  : 'ce-plugin-image__uploaded--centered',
                 stretched : 'ce-plugin-image__uploaded--stretched',
         },
-        stretch       : 'ce_block--stretched',
         imageCaption  : 'ce-plugin-image__caption',
         imageWrapper  : 'ce-plugin-image__wrapper',
         formHolder    : 'ce-plugin-image__holder',
@@ -66,7 +65,6 @@ var ceImage = {
     makeSettings : function () {
 
         var holder  = document.createElement('DIV'),
-            caption = document.createElement('SPAN'),
             types   = {
                         centered  : 'По центру',
                         stretched : 'На всю ширину',
@@ -75,12 +73,6 @@ var ceImage = {
 
         /** Add holder classname */
         holder.className = 'ce_plugin_image--settings';
-
-        /** Add settings helper caption */
-        caption.textContent = 'Настройки плагина';
-        caption.className   = 'ce_plugin_image--caption';
-
-        holder.appendChild(caption);
 
         /** Now add type selectors */
         for (var type in types){
@@ -126,7 +118,6 @@ var ceImage = {
         if (type === 'stretched') {
 
             image.classList.add(ceImage.elementClasses.uploadedImage.stretched);
-            current.classList.add(ceImage.elementClasses.stretch);
 
             /** Setting dataset for saver */
             wrapper.dataset.stretched = true;
@@ -147,7 +138,7 @@ var ceImage = {
 
     save : function ( block ) {
 
-        var data    = block[0],
+        var data    = block,
             image   = ceImage.ui.getImage(data),
             caption = data.querySelector('.' + ceImage.elementClasses.imageCaption);
 
@@ -421,6 +412,7 @@ cEditor.tools.image = {
     render           : ceImage.render,
     save             : ceImage.save,
     isStretched      : true,
+    display          : true,
     enableLineBreaks : false
 
 };

@@ -57,8 +57,7 @@ var headerTool = {
     */
     save : function (blockContent) {
 
-        var block = blockContent[0],
-            json  = {
+        var json  = {
                 type : 'header',
                 data : {
                     type : null,
@@ -66,8 +65,8 @@ var headerTool = {
                 }
             };
 
-        json.data.type = block.dataset.headerData;
-        json.data.text = block.textContent;
+        json.data.type = blockContent.dataset.headerData;
+        json.data.text = blockContent.textContent;
 
         return json;
 
@@ -92,7 +91,6 @@ var headerTool = {
     makeSettings : function () {
 
         var holder  = document.createElement('DIV'),
-            caption = document.createElement('SPAN'),
             types   = {
                         H2: 'Заголовок раздела',
                         H3: 'Подзаголовок',
@@ -102,12 +100,6 @@ var headerTool = {
 
         /** Add holder classname */
         holder.className = 'ce_plugin_header--settings';
-
-        /** Add settings helper caption */
-        caption.textContent = 'Настройки заголовка';
-        caption.className   = 'ce_plugin_header--caption';
-
-        holder.appendChild(caption);
 
         /** Now add type selectors */
         for (var type in types){
@@ -182,6 +174,7 @@ cEditor.tools.header = {
     settings         : headerTool.makeSettings(),
     render           : headerTool.render,
     save             : headerTool.save,
+    display          : true,
     enableLineBreaks : false
 
 };

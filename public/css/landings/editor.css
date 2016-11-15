@@ -1,15 +1,15 @@
 /**
-* Editor form styles
+* Editor landing page
 */
 body{
     background: #f0f3f9;
 }
-.site_header{
+.site-header,
+.site-footer{
     background: #fff;
     border-color: #e7e9f5;
 }
-
-.editor_workout{
+.editor-landing{
     margin: 30px;
     padding-bottom: 120px;
     min-height: 600px;
@@ -19,71 +19,62 @@ body{
     letter-spacing: .1px;
     font-size: 15px;
 }
-.editor_workout .big_header{
+.editor-landing__title{
     margin-bottom: 0;
-    padding-bottom: 20px;
+    padding: 100px 140px 10px;
+    text-align: center;
+    line-height: 1.2em;
+    font-size: 34px;
 }
-.editor-landing--disclaimer{
+.editor-landing__disclaimer{
     margin-bottom: 40px;
     letter-spacing: 2px;
     font-variant: small-caps;
     font-size: .9em;
     text-align: center;
 }
-.editor_workout .ce_block{
-    /*max-width: 700px;*/
-    /*margin: 20px auto;*/
-    /*padding: 0 !important;*/
-}
-    .editor_workout .ce_block[data-type="paragraph"]{
-        line-height: 1.7em;
-    }
-    .editor_workout [contenteditable]{
-        outline: none !important;
-    }
 
-    .ce_block--stretched {
-        margin: 0 !important;
-        max-width: none !important;
-        padding: 0 !important;
-    }
-
-.editor_workout h2,
-.editor_workout h3,
-.editor_workout h4{
+/**
+.editor-landing h2,
+.editor-landing h3,
+.editor-landing h4{
     line-height: 1.4em;
 }
-.editor_workout h3{
+.editor-landing h3{
     margin: 1.3em 0 .5em;
     font-size: 1.3em;
 }
-.editor_workout h2{
+.editor-landing h2{
     margin: 1.7em 0 1.3em;
     font-size: 1.7em;
 }
-.editor_workout h4{
+.editor-landing h4{
     margin: 1.7em 0 1.3em;
     font-size: 1.1em;
 }
-.editor_workout ul,
-.editor_workout ol{
+.editor-landing ul,
+.editor-landing ol{
     margin: 3em 0;
 }
-.editor_workout [data-type="link"]{
+.editor-landing [data-type="link"]{
     margin: 45px auto;
 }
-    .editor_workout li{
+    .editor-landing li{
         margin: 10px 0 !important;
         list-style-position: outside;
         line-height: 1.7em;
     }
-.editor_workout code{
+.editor-landing code{
     padding: 5px 10px;
     font-size: .8em;
 }
-.editor_workout .ce_toolbar{
-    /*margin-left: 119px;*/
-}
+*/
+
+
+
+/**
+* Editor output JSON preview styles
+*/
 .editor-output-preview{
     margin: 0 0px -30px;
     background: #242835;
@@ -94,6 +85,7 @@ body{
     .editor-output-preview pre{
         max-width: 700px;
         margin: 0 auto;
+        overflow: auto;
         font-size: .86em;
     }
 .editor-output--header{
@@ -148,11 +140,4 @@ body{
     color: #42cca1;
 }
 
-
-/**
-* CodeX Editor styles overlay
-*/
-.ce_block[data-type="code"]{
-    padding: 1em 0 !important;
-}
 

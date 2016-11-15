@@ -5,8 +5,6 @@
 * @version 0.0.1
 */
 .ce-image {
-    max-width: 700px;
-    margin: 0 auto !important;
 }
 
 /** upload image form */
@@ -57,11 +55,11 @@
 
 /** Uploaded image */
 .ce-plugin-image__wrapper {
-    margin : 0;
+    padding: 1em 0;
 }
 .ce-plugin-image__uploaded--centered {
-    max-width: 700px;
-    display:block;
+    display: block;
+    max-width: 600px;
     margin: 0 auto;
 }
 
@@ -75,11 +73,14 @@
 	}
 
 .ce-plugin-image__caption {
-    max-width: 700px;
-    margin: 0 auto !important;
-    padding: 1em !important;
+    max-width: 600px;
+    margin: .5em auto 0;
+    padding: .5em;
     text-align: center;
     color: #898a8c;
+    background: #fff;
+    border: 1px solid #ebeef3;
+    border-radius: 3px;
 }
 
     .ce-plugin-image__caption:empty::before {
@@ -97,16 +98,15 @@
     }
 
 /** Settings */
-.ce_plugin_image--settings{
-    white-space: nowrap;
-    /*padding-right: 10px;    */
-}
 .ce_plugin_image--select_button{
-    display: inline-block;
-    margin-left: 15px;
-    color: #70a1ff;
+    display: block;
+    color: #306ac7;
     cursor: pointer;
+    line-height: 1.3em;
 }
+    .ce_plugin_image--select_button:not(:last-of-type){
+        margin-bottom: 1.5em;
+    }
     .ce_plugin_image--select_button:hover{
-        color: #8da8dc;
+        color: #a1b4ec;
     }

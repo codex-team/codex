@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="/public/css/landings/new-year.css?v=<?= filemtime("public/css/landings/new-year.css") ?>">
 <? if ( !empty($ny_user_requests) ): ?>
 
     <?
@@ -50,7 +51,7 @@
                     } else {
                         form.className += ' pulled hide';
                     }
-                }
+                };
             </script>
 
             <div class="show_blank pointer" onclick="nyLandToggleForm(event)">Как вступить в клуб</div>

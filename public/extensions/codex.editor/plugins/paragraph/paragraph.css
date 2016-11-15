@@ -3,9 +3,8 @@
 */
 
 .ce-paragraph {
-    max-width: 700px;
-    margin: 0 auto;
     padding: 0.7em 0 !important;
+    line-height: 1.7em;
 }
 .ce-paragraph:empty::before{
     content : attr(data-placeholder);
@@ -15,4 +14,15 @@
 }
 .ce-paragraph:focus::before{
 	opacity: .1;
+}
+
+
+.ce-paragraph p {
+    margin: 1.2em 0;
+}
+.ce-paragraph p:first-of-type{
+    margin-top: 0;
+}
+.ce-paragraph p:last-of-type{
+    margin-bottom: 0;
 }

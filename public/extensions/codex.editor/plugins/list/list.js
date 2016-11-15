@@ -60,8 +60,7 @@ var listTool = {
      */
     save : function (blockContent){
 
-        var block = blockContent[0],
-            json  = {
+        var json  = {
                 type : 'list',
                 data : {
                     type  : null,
@@ -69,10 +68,10 @@ var listTool = {
                 }
             };
 
-        for(var index = 0; index < block.childNodes.length; index++)
-            json.data.items[index] = block.childNodes[index].textContent;
+        for(var index = 0; index < blockContent.childNodes.length; index++)
+            json.data.items[index] = blockContent.childNodes[index].textContent;
 
-        json.data.type = block.dataset.type;
+        json.data.type = blockContent.dataset.type;
 
         return json;
 
@@ -81,15 +80,10 @@ var listTool = {
     makeSettings : function(data) {
 
         var holder  = document.createElement('DIV'),
-            caption = document.createElement('SPAN'),
             selectTypeButton;
 
         /** Add holder classname */
         holder.className = 'ce_plugin_list--settings';
-
-        /** Add settings helper caption */
-        caption.textContent = 'Настройки списков';
-        caption.className   = 'ce_plugin_list--caption';
 
         var orderedButton = listTool.ui.button("ordered"),
             unorderedButton = listTool.ui.button("unordered");
@@ -104,7 +98,6 @@ var listTool = {
             cEditor.toolbar.settings.close();
         });
 
-        holder.appendChild(caption);
         holder.appendChild(orderedButton);
         holder.appendChild(unorderedButton);
 
@@ -153,12 +146,12 @@ listTool.ui = {
     button : function (buttonType) {
 
         var types   = {
-                unordered    : 'Обычный список',
-                ordered      : 'Нумерованный список'
+                unordered    : '<i class="ce-icon-list-bullet"></i>Обычный список',
+                ordered      : '<i class="ce-icon-list-numbered"></i>Нумерованный список'
             },
             button = document.createElement('SPAN');
 
-        button.textContent = types[buttonType];
+        button.innerHTML = types[buttonType];
 
         button.className   = 'ce_plugin_list--select_button';
 
@@ -179,6 +172,7 @@ cEditor.tools.list = {
     settings         : listTool.makeSettings(),
     render           : listTool.render,
     save             : listTool.save,
+    display          : true,
     enableLineBreaks : true
 
 };

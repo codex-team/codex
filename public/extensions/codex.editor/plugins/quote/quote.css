@@ -1,22 +1,16 @@
-.ce-quote {
-    max-width: 700px;
-    margin: 2em auto !important;
-}
-
-/** Quote - settings */
-.ce_plugin_quote--settings{
-    white-space: nowrap;
-    /*padding-right: 10px;    */
-}
 .ce_plugin_quote--select_button{
-    display: inline-block;
-    margin-left: 15px;
-    color: #70a1ff;
+    display: block;
+    color: #306ac7;
     cursor: pointer;
+    line-height: 1.3em;
 }
-    .ce_plugin_quote--select_button:hover{
-        color: #8da8dc;
+    .ce_plugin_quote--select_button:not(:last-of-type){
+        margin-bottom: 1.5em;
     }
+    .ce_plugin_quote--select_button:hover{
+        color: #a1b4ec;
+    }
+
 
 /** Quote Styles */
 
@@ -101,15 +95,16 @@
 }
 
 .quoteStyle-withPhoto--photo {
-    width: 70px;
-    height: 70px;
+    width: 92px;
+    height: 92px;
     overflow: hidden;
     text-align: center;
-    line-height: 70px;
-    border-radius: 50%;
+    line-height: 92px;
+    border-radius: 3px;
     float: left;
-    margin-right: 25px;
-    border: 2px dashed #D7E2EE;
+    margin-right: 10px;
+    border: 1px solid #ebeef3;
+    background: #fff;
 }
     .quoteStyle-withPhoto--photo:hover {
         cursor: pointer;
@@ -131,20 +126,25 @@
 
 .quoteStyle-withPhoto--photo .ce-icon-picture {
     font-family: "codex_editor";
-	font-size: 1.5em;
-	color: #d5dbea;
+    font-size: 1.5em;
+    color: #d5dbea;
+}
+.quoteStyle-withPhoto--photo:hover{
+    background: #fdfeff;
+    border-color: #c1c4cc;
+}
+.quoteStyle-withPhoto--photo:hover .ce-icon-picture {
+    color: #2b3142;
 }
 
 .quoteStyle-withPhoto--author {
-    font-size: 1.36em;
-    font-weight: bold;
-    color: #000;
     outline: none;
     overflow: hidden;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #000;
 }
 .quoteStyle-withPhoto--job {
-    font-size: 1.04em;
     color: #818BA1;
     outline: none;
     overflow: hidden;
@@ -162,14 +162,32 @@
 }
 
 .quoteStyle-withPhoto--quote {
-    margin-top: 33px;
+    margin-bottom: 10px;
     line-height: 1.82em;
     outline: none;
     overflow: hidden;
 }
 
-.quoteStyle-withPhoto--authorWrapper {
-
-    margin-top: 10px;
-
+/**
+* New styles
+*/
+.ce-quote{
+    padding: 1em 0;
+}
+.quoteStyle-withPhoto--author,
+.quoteStyle-withPhoto--job,
+.quoteStyle-withPhoto--quote{
+    background: #fff;
+    padding: .6em .8em;
+    border: 1px solid #ebeef3;
+    border-radius: 3px;
+}
+.quoteStyle-withPhoto--quote{
+    min-height: 200px;
+}
+/**
+* Current select-type button
+*/
+.ce-quote-settings--selected{
+    font-weight: bold;
 }
