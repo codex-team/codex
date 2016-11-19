@@ -176,6 +176,12 @@ Route::set('EDITOR_LANDING', 'editor(/<action>)', array())->defaults(array(
 	'action' => 'landing'
 ));
 
+Route::set('EDITOR_GET_MEDIA', 'editor/getMedia/<action>', array())
+	->defaults(array(
+		'controller' => 'editor',
+		'action' => 'instagram'
+	));
+
 Route::set('ARTICLE_EDITOR_SAVE_IMG', 'editorsaveimg', array())->defaults(array(
     'controller' => 'articles_edit',
     'action' => 'saveEditorImg'
