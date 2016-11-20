@@ -348,7 +348,7 @@
     .article_content code,
     .article_content blockquote,
     .article_content img {
-        max-width: none;
+        max-width: 100%;
     }
 
     .article_content {
