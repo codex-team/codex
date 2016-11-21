@@ -85,6 +85,7 @@ class Controller_Base_preDispatch extends Controller_Template
                              'article_json', 'contest_text', 'results_contest' ); // Исключения для полей с визуальным редактором
 
         foreach ($_POST as $key => $value){
+            
             $value = stripos( $value, 'سمَـَّوُوُحخ ̷̴̐خ ̷̴̐خ ̷̴̐خ امارتيخ ̷̴̐خ') !== false ? '' : $value ;
 
             if ( in_array($key, $exceptions) === false ){
