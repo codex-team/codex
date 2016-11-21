@@ -39,5 +39,9 @@
 </div>
 
 <? if ($articles): ?>
-    <?= View::factory('templates/articles/list', array( 'articles' => $articles )); ?>
+    <div class="center_side">
+        <div class="feed">
+            <?= View::factory('templates/articles/list', array( 'articles' => $articles )); ?>
+        </div>
+    </div>
 <? endif ?>
