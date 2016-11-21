@@ -136,27 +136,4 @@ class Controller_Editor extends Controller_Base_preDispatch
             'description'   => $description,
         );
     }
-
-    public function action_instagram()
-    {
-
-        $api = "https://api.instagram.com/oembed/?";
-        $url = "https://www.instagram.com/p/BLvA8oghr2-/?taken-by=mishaha&OMITSCRIPT=true";
-
-        echo $api . 'url=' . $url;
-
-        $request = Request::factory($api . "url=" . $url)
-                ->method(Request::GET)
-                ->execute();
-
-        $result = $request->body();
-//        $result = json_decode($result);
-
-//        var_dump($result);
-
-        $this->request->body($result);
-        $this->auto_render = false;
-//        $this->response->headers('Content-Type', 'application/json; charset=utf-8');
-//        $this->response->body(@json_encode($result));
-    }
 }
