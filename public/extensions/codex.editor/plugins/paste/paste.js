@@ -25,12 +25,18 @@ var pasteTool = {
 
         instagram : {
             path : '//platform.instagram.com/en_US/embeds.js',
-            loaded : false
+            loaded : false,
+            render : function() {
+                window.instgrm.Embeds.process();
+            }
         },
 
         twitter : {
             path : '//platform.twitter.com/widgets.js',
-            loaded : false
+            loaded : false,
+            render : function(tweetId, blockContent) {
+                window.twttr.widgets.createTweet(tweetId, blockContent);
+            }
         },
 
         vk : {
@@ -48,25 +54,8 @@ var pasteTool = {
 
     make : function() {
 
-        pasteTool.init();
-
         return pasteTool.ui.make();
 
-    },
-
-    init : function() {
-
-        var script;
-
-        for(script in pasteTool.externalScripts) {
-
-            if (!pasteTool.externalScripts[script].loaded && pasteTool.externalScripts[script].path) {
-
-                pasteTool.importScript(pasteTool.externalScripts[script].path)
-                pasteTool.externalScripts[script].loaded = true;
-
-            }
-        }
     },
 
     /** Appends script to head of document */
@@ -75,6 +64,8 @@ var pasteTool = {
         var script = document.createElement('SCRIPT');
         script.type = "text\/javascript";
         script.src = scriptPath;
+        script.async = true;
+        script.defer = true;
 
         document.head.appendChild(script);
     },
@@ -150,10 +141,15 @@ pasteTool.content = {
 
         cEditor.content.switchBlock(cEditor.content.currentNode, content, 'paste-instagram');
 
-        /**
-         * Use instagram script to upload embed
-         */
-        window.instgrm.Embeds.process();
+        if (!window.instgrm) {
+
+            /** If script is not loaded yet */
+            setTimeout(pasteTool.externalScripts.instagram.render, 200);
+
+        } else {
+            pasteTool.externalScripts.instagram.render();
+        }
+
     },
 
     twitter : function(tweetId) {
@@ -163,14 +159,18 @@ pasteTool.content = {
 
         inputForPaste.remove();
 
-        /**
-         * Use twitter script to render tweet
-         */
-        window.twttr.widgets.createTweet(tweetId, blockContent);
+        if (!window.twttr) {
+
+            /** if script is not loaded yet */
+            setTimeout(function() {
+                pasteTool.externalScripts.twitter.render(tweetId, blockContent);
+            }, 100);
+
+        } else {
+            pasteTool.externalScripts.twitter.render(tweetId, blockContent);
+        }
 
         cEditor.content.currentNode.dataset.type = "paste-twitter";
-
-
     }
 
 };
@@ -335,7 +335,13 @@ pasteTool.callbacks = {
     instagramMedia : function(url) {
 
         var fullUrl = url.input,
-            embed_code;
+            embed_code,
+            script = pasteTool.externalScripts.instagram;
+
+        if (!script.loaded) {
+            pasteTool.importScript(script.path);
+            script.loaded = true;
+        }
 
         /**
          * HTML template of instagram embed
@@ -348,8 +354,14 @@ pasteTool.callbacks = {
     twitterMedia : function(url) {
 
         var fullUrl = url.input,
+            script = pasteTool.externalScripts.twitter,
             tweetId,
             arr;
+
+        if (!script.loaded) {
+            pasteTool.importScript(script.path);
+            script.loaded = true;
+        }
 
         arr = fullUrl.split('/');
         tweetId = arr.pop();
