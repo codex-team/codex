@@ -10,6 +10,7 @@ var ceImage = {
 
         ce_image      : 'ce-image',
         loading       : 'ce-plugin-image__loader',
+        blockStretched: 'ce-block--stretched',
         uploadedImage : {
                 centered  : 'ce-plugin-image__uploaded--centered',
                 stretched : 'ce-plugin-image__uploaded--stretched',
@@ -104,7 +105,8 @@ var ceImage = {
 
     selectTypeClicked : function(type) {
 
-        var current = cEditor.content.currentNode,
+        var current      = cEditor.content.currentNode,
+            blockContent = current.childNodes[0],
             image   = ceImage.ui.getImage(current),
             wrapper = current.querySelector('.' + ceImage.elementClasses.imageWrapper);
 
@@ -119,12 +121,16 @@ var ceImage = {
 
             image.classList.add(ceImage.elementClasses.uploadedImage.stretched);
 
+            blockContent.classList.add(ceImage.elementClasses.blockStretched);
+
             /** Setting dataset for saver */
             wrapper.dataset.stretched = true;
 
         } else if (type === 'centered') {
 
             image.classList.add(ceImage.elementClasses.uploadedImage.centered);
+
+            blockContent.classList.remove(ceImage.elementClasses.blockStretched);
 
             /** Setting dataset for saver */
             wrapper.dataset.stretched = false;
@@ -369,7 +375,7 @@ ceImage.photoUploadingCallbacks = {
         data = {
             background : false,
             border   : false,
-            isStrech : false,
+            isStretch : false,
             file : {
                 url    : ceImage.path + 'o_' + parsed.filename,
                 bigUrl : null,

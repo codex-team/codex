@@ -157,17 +157,20 @@ pasteTool.content = {
         var blockContent = cEditor.content.currentNode.childNodes[0],
             inputForPaste = blockContent.querySelector('.ce-paste');
 
-        inputForPaste.remove();
+        inputForPaste.classList.add('ce-plugin-image__loader');
 
         if (!window.twttr) {
 
             /** if script is not loaded yet */
             setTimeout(function() {
                 pasteTool.externalScripts.twitter.render(tweetId, blockContent);
+                inputForPaste.remove();
             }, 100);
 
         } else {
+
             pasteTool.externalScripts.twitter.render(tweetId, blockContent);
+            inputForPaste.remove();
         }
 
         cEditor.content.currentNode.dataset.type = "paste-twitter";
@@ -215,6 +218,29 @@ pasteTool.ui = {
         blockquote.appendChild(div);
 
         return blockquote;
+
+    },
+
+    uploadedImage : function(filename) {
+
+        var data = {
+            background: false,
+            border: false,
+            isStretch: false,
+            file: {
+                url: "upload/redactor_images/" + filename,
+                bigUrl: "upload/redactor_images/" + filename,
+                width: null,
+                height: null,
+                additionalData: "null"
+            },
+            caption: '',
+            cover: null
+        };
+
+        var image = cEditor.tools.image.make(data);
+
+        return image;
 
     }
 
@@ -271,20 +297,20 @@ pasteTool.callbacks = {
         var string = this.getPatedData(),
 
             regexTemplates = {
-                http : new RegExp("^http?.+(jpg|bmp|gif|png)"),
+                http : /(?:([^:\/?#]+):)?(?:\/\/([^\/?#]*))?([^?#]*\.(?:jpe?g|gif|png))(?:\?([^#]*))?(?:#(.*))?/i,
                 instagram : new RegExp("http?.+instagram.com\/p?."),
                 twitter : new RegExp("http?.+twitter.com?.+\/"),
                 vk : new RegExp(""),
             },
 
-            http  = regexTemplates.http.exec(string),
+            http  = regexTemplates.http.test(string),
             instagram = regexTemplates.instagram.exec(string),
             twitter = regexTemplates.twitter.exec(string),
             vk = regexTemplates.vk.exec(string);
 
         if (http) {
 
-            pasteTool.callbacks.uploadImage(http);
+            pasteTool.callbacks.uploadImage(string);
 
         } else if (instagram) {
 
@@ -309,22 +335,42 @@ pasteTool.callbacks = {
      *
      * @param url
      */
-    uploadImage : function(url) {
+    uploadImage : function(path) {
 
-        var fullUrl = url.input;
+        var ajaxUrl = location.protocol + '//' + location.hostname,
+            file,
+            image,
+            current = cEditor.content.currentNode,
+            beforeSend,
+            success_callback;
 
+        /** When image is uploaded to redactors folder */
+        success_callback = function(data) {
+
+            var file = JSON.parse(data);
+            image = pasteTool.ui.uploadedImage(file.filename);
+            cEditor.content.switchBlock(current, image, 'image');
+
+        };
+
+        /** Before sending XMLHTTP request */
+        beforeSend = function() {
+            var content = current.querySelector('.ce-block__content');
+            content.classList.add('ce-plugin-image__loader');
+        };
+
+        /** Preparing data for XMLHTTP */
         var data = {
-                url: '',
-                type: "POST",
-                data : {
-                    url: fullUrl
-                },
-                success : function(data) {
-                    console.log(data);
-                }
-            };
+            url: ajaxUrl + '/editor/transport/',
+            type: "POST",
+            data : {
+                file: path
+            },
+            beforeSend : beforeSend,
+            success : success_callback
+        };
 
-        pasteTool.draw(data);
+        pasteTool.ajax(data);
     },
 
     /**
