@@ -20,13 +20,63 @@
  */
 var pasteTool = {
 
+    /** scripts state */
+    externalScripts : {
+
+        instagram : {
+            path : '//platform.instagram.com/en_US/embeds.js',
+            loaded : false
+        },
+
+        twitter : {
+            path : '//platform.twitter.com/widgets.js',
+            loaded : false
+        },
+
+        vk : {
+            path : null,
+            loaded : false
+        },
+
+        facebook : {
+            path : null,
+            loaded : false
+        }
+    },
 
     PLUGINS_TYPE : 'DIV',
 
     make : function() {
 
+        pasteTool.init();
+
         return pasteTool.ui.make();
 
+    },
+
+    init : function() {
+
+        var script;
+
+        for(script in pasteTool.externalScripts) {
+
+            if (!pasteTool.externalScripts[script].loaded && pasteTool.externalScripts[script].path) {
+
+                pasteTool.importScript(pasteTool.externalScripts[script].path)
+                pasteTool.externalScripts[script].loaded = true;
+
+            }
+        }
+    },
+
+    /** Appends script to head of document */
+    importScript : function(scriptPath) {
+
+        var script = document.createElement('SCRIPT');
+        script.type = "text\/javascript";
+        script.src = scriptPath;
+
+        document.head.appendChild(script);
     },
 
     /**
@@ -246,7 +296,7 @@ pasteTool.callbacks = {
 
         } else if (vk) {
 
-            console.log("Vk content");
+            pasteTool.callbacks.vkMedia(vk);
 
         };
 
@@ -305,6 +355,10 @@ pasteTool.callbacks = {
         tweetId = arr.pop();
 
         pasteTool.content.twitter(tweetId);
+    },
+
+    vk : function(url) {
+        console.log('content from vk');
     }
 
 };
@@ -331,7 +385,7 @@ pasteTool.draw = {
 cEditor.tools.paste = {
 
     type             : 'paste',
-    iconClassname    : 'ce-icon-paragraph',
+    iconClassname    : 'ce-icon-instagram',
     make             : pasteTool.make,
     appendCallback   : null,
     settings         : null,

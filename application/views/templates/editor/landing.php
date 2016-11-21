@@ -1,6 +1,4 @@
 <link rel="stylesheet" href="/public/css/landings/editor.css?v=<?= filemtime("public/css/landings/editor.css") ?>">
-<script src="//platform.instagram.com/en_US/embeds.js" async defer></script>
-<script src="//platform.twitter.com/widgets.js" async defer></script>
 <div class="center_side">
     <article class="editor-landing">
 
