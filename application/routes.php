@@ -27,6 +27,11 @@ Route::set('CONTESTS_LIST', 'contests')->defaults(array(
 	'action' => 'showAll',
 ));
 
+Route::set('COURSES_LIST', 'courses')->defaults(array(
+	'controller' => 'Courses_Index',
+	'action' => 'showAll',
+));
+
 
 // Add Substance
 
@@ -37,6 +42,11 @@ Route::set('ADD_ARTICLE_SCRIPT', 'article/add')->defaults(array(
 
 Route::set('ADD_CONTEST_SCRIPT', 'contest/add')->defaults(array(
 	'controller' => 'Contests_modify',
+	'action' => 'save'
+));
+
+Route::set('ADD_COURSE_SCRIPT', 'course/add')->defaults(array(
+	'controller' => 'Courses_modify',
 	'action' => 'save'
 ));
 
@@ -52,14 +62,29 @@ Route::set('SHOWCONTEST', 'contest(/<id>)')->defaults(array(
 	'action'	 => 'show'
 ));
 
+Route::set('SHOWCOURSE', 'course(/<id>)')->defaults(array(
+	'controller' => 'Courses_Index',
+	'action'	 => 'show'
+));
+
 // Edit Substances
-Route::set('EDIT_CONTEST_SCRIPT', 'contest/<id>/save', array('id' => $DIGIT))->defaults(array(
+
+Route::set('EDIT_ARTICLE_SCRIPT', 'article/<id>/save', array('id' => $DIGIT))
+	->defaults(array(
+		'controller' => 'Articles_Modify',
+		'action' => 'save'
+	));
+
+Route::set('EDIT_CONTEST_SCRIPT', 'contest/<id>/save', array('id' => $DIGIT))
+	->defaults(array(
 	'controller' => 'Contests_Modify',
 	'action' => 'save'
 ));
-Route::set('EDIT_ARTICLE_SCRIPT', 'article/<id>/save', array('id' => $DIGIT))
-    ->defaults(array(
-	'controller' => 'Articles_Modify',
+
+
+Route::set('EDIT_COURSE_SCRIPT', 'course/<id>/save', array('id' => $DIGIT))
+	->defaults(array(
+	'controller' => 'Courses_Modify',
 	'action' => 'save'
 ));
 
@@ -71,6 +96,11 @@ Route::set('DEL_ARTICLE_SCRIPT', 'article/delarticle/<article_id>', array('artic
 
 Route::set('DEL_CONTEST_SCRIPT', 'contests/delcontest/<contest_id>', array('contest_id' => $DIGIT))->defaults(array(
 	'controller' => 'Contests_Modify',
+	'action' => 'delete'
+));
+
+Route::set('DEL_COURSE_SCRIPT', 'courses/delcourse/<course_id>', array('course_id' => $DIGIT))->defaults(array(
+	'controller' => 'Courses_Modify',
 	'action' => 'delete'
 ));
 
@@ -155,7 +185,7 @@ Route::set('ADMIN_EDIT_ARTICLE', 'article/<article_id>/edit', array('article_id'
 ));
 
 
-Route::set('ADMIN', 'admin(/<category>(/<list>))', array('category' => 'articles|users|contests|requests',
+Route::set('ADMIN', 'admin(/<category>(/<list>))', array('category' => 'articles|users|contests|courses|requests',
                                                                 'list' => 'unpublished|deleted'))
   ->defaults(array(
         'controller' => 'admin',
