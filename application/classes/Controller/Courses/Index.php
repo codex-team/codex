@@ -43,7 +43,7 @@ class Controller_Courses_Index extends Controller_Base_preDispatch
         $this->title = $course->title;
         $this->description = $course->description;
 
-        $this->template->content = View::factory('templates/courses/contest', $this->view);
+        $this->template->content = View::factory('templates/courses/course', $this->view);
     }
 
 }

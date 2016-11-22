@@ -141,6 +141,7 @@ class Model_Alias
 
             $dt_create = DATE::$timezone;
             $model_alias = new Model_Alias($newAlias, $type, $id, $dt_create, $deprecated);
+
             $model_alias->save();
 
             self::updateSubstanceUri($newAlias, $type, $id);

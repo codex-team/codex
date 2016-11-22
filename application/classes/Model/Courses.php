@@ -37,17 +37,17 @@ Class Model_Courses extends Model
     public function insert()
     {
         $idAndRowAffected = Dao_Courses::insert()
-                                ->set('uri',            $this->uri)
-                                ->set('title',          $this->title)
-                                ->set('text',           $this->text)
-                                ->set('description',    $this->description)
-                                ->set('cover',          $this->cover)
-                                ->set('is_removed',     $this->is_removed)
-                                ->set('is_published',   $this->is_published)
-                                ->set('marked',         $this->marked)
-                                ->set('order',          $this->order)
-                                ->clearcache('courses_list')
-                                ->execute();
+            ->set('uri',            $this->uri)
+            ->set('title',          $this->title)
+            ->set('text',           $this->text)
+            ->set('description',    $this->description)
+            ->set('cover',          $this->cover)
+            ->set('is_removed',     $this->is_removed)
+            ->set('is_published',   $this->is_published)
+            ->set('marked',         $this->marked)
+            ->set('order',          $this->order)
+            ->clearcache('courses_list')
+            ->execute();
 
         if ($idAndRowAffected) {
             $course = Dao_Courses::select()
@@ -90,7 +90,7 @@ Class Model_Courses extends Model
         if ($this->id != 0) {
 
             Dao_Courses::update()->where('id', '=', $this->id)
-                ->set('status', -1)
+                ->set('is_removed', 1)
                 ->clearcache('courses_list')
                 ->execute();
 
@@ -174,11 +174,11 @@ Class Model_Courses extends Model
         $coursesQuery = Dao_Courses::select()->limit(200);        // TODO add pagination.
 
         if (!$add_removed) {
-            $coursesQuery->where('is_removed', '=', 1);
+            $coursesQuery->where('is_removed', '=', 0);
         }
 
         if (!$add_not_published) {
-            $coursesQuery->where('is_published', '=', 1);
+            $coursesQuery->where('is_published', '=', 0);
         }
 
         if ($cachedTime) {

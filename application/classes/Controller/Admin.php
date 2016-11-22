@@ -101,11 +101,6 @@ class Controller_Admin extends Controller_Base_preDispatch
 
         $courses = Model_Courses::getAllCourses();
 
-//        foreach ($courses as $course)
-//        {
-//            $course->winner = Model_User::get($course->winner);
-//        }
-
         $this->view["courses"] = $courses;
 
         return View::factory('templates/admin/courses/list', $this->view);
