@@ -3,6 +3,10 @@
 <div class="center_side clear">
 
     <section class="courses">
+        <div class="courses__title">
+            <p>Курс</p>
+            <h2>«Изучение Python»</h2>
+        </div>
 
         <div class="courses__block-left">
             <ol class="courses__list">

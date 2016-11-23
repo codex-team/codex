@@ -478,6 +478,9 @@
     box-sizing: border-box;
     margin: 30px 0px;
 }
+    .courses__title h2, .courses__title p {
+        text-align: center;
+    }
 
     .courses__block-right {
         float: right;
