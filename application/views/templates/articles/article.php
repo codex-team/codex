@@ -2,6 +2,29 @@
 
 <div class="center_side clear">
 
+    <section class="courses">
+
+        <div class="courses__block-left">
+            <ol class="courses__list">
+                <li><a href="#">Система алиасов</a></li>
+                <li><a href="#">Архитектура бота для Telegram</a></li>
+                <li><a href="#">Публикация статистики из Яндекс.Метрики в Telegram</a></li>
+                <li><a href="#">Supervisor. Настраиваем автоматический перезапуск скриптов</a></li>
+                <li><a href="#">Разработка на Scala: первые шаги</a></li>
+            </ol>
+        </div>
+
+        <div class="courses__block-right">
+            <ol class="courses__list">
+                <li><a href="#">Простой веб-сервер с использованием Python и Flask</a></li>
+                <li><a href="#">О пользе микроразметки для вашего сайта</a></li>
+                <li><a href="#">Ошибки в процессе проектирования лэндингов</a></li>
+                <li><a href="#">Почему вам стоит знать о Redis?</a></li>
+                <li><a href="#">Получаем оповещения от GitHub</a></li>
+            </ol>
+        </div>
+    </section>
+
     <article class="article" itemscope itemtype="http://schema.org/Article">
 
         <? if (isset($article->dt_update)): ?>

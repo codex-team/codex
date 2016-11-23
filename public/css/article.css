@@ -469,3 +469,37 @@
         overflow: hidden;
     }
 }
+
+
+.courses {
+    padding: 10px;
+    overflow: auto;
+    border: 1px solid #eceff6;
+    box-sizing: border-box;
+    margin: 30px 0px;
+}
+
+    .courses__block-right {
+        float: right;
+        max-width: 50%;
+    }
+
+    .courses__block-left {
+        float: left;
+        max-width: 50%;
+    }
+
+    ul.courses__list {
+        list-style: none;
+    }
+        .courses__list li {
+            margin-top: 15px;
+            padding-left: 12px;
+        }
+
+        .courses__list li a {
+            text-decoration: none;
+            padding-bottom: 3px;
+            border-bottom: 1px solid #d6deec;
+            line-height: 1.5em;
+        }
