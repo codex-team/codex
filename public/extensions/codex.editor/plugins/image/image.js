@@ -280,7 +280,7 @@ ceImage.ui = {
 
         caption.textContent = text;
 
-        wrapper.dataset.stretched = stretched,
+        wrapper.dataset.stretched = stretched;
         /** Appeding to the wrapper */
         wrapper.appendChild(image);
         wrapper.appendChild(caption);
@@ -316,7 +316,7 @@ ceImage.ui = {
 
         caption.textContent = text;
 
-        wrapper.dataset.stretched = 'false',
+        wrapper.dataset.stretched = 'false';
 
         /** Appeding to the wrapper */
         wrapper.appendChild(image);
@@ -342,7 +342,7 @@ ceImage.ui = {
 
         caption.textContent = text;
 
-        wrapper.dataset.stretched = 'true',
+        wrapper.dataset.stretched = 'true';
         /** Appeding to the wrapper */
         wrapper.appendChild(image);
         wrapper.appendChild(caption);
@@ -402,7 +402,7 @@ ceImage.photoUploadingCallbacks = {
         cEditor.notifications.errorThrown();
     },
 
-}
+};
 
 
 /**
