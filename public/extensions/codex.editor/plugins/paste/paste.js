@@ -20,7 +20,9 @@
  */
 var pasteTool = {
 
-    /** scripts state */
+    /**
+     * SDK and Widgets from Social Networks to embed
+     * */
     externalScripts : {
 
         instagram : {
@@ -73,8 +75,6 @@ var pasteTool = {
 
 
 /**
- * @protected
- *
  * Works with content: insert and switch.
  */
 pasteTool.content = {
@@ -93,7 +93,9 @@ pasteTool.content = {
             setTimeout(pasteTool.externalScripts.instagram.render, 200);
 
         } else {
+
             pasteTool.externalScripts.instagram.render();
+
         }
 
     },
@@ -114,18 +116,26 @@ pasteTool.content = {
             /** if script is not loaded yet */
             setTimeout(function() {
                 pasteTool.externalScripts.twitter.render(tweetId, blockContent);
-                inputForPaste.remove();
+
             }, 100);
 
         } else {
 
             pasteTool.externalScripts.twitter.render(tweetId, blockContent);
-            inputForPaste.remove();
+
         }
 
+        inputForPaste.remove();
         cEditor.content.currentNode.dataset.type = "paste-twitter";
     },
 
+    /**
+     * @deprecated
+     *
+     * Facebook post
+     *
+     * @param url
+     */
     facebook : function(url) {
 
         var facebookBlock = pasteTool.ui.makeFbBlock(url);
@@ -137,8 +147,6 @@ pasteTool.content = {
 };
 
 /**
- * @protected
- *
  * Make elements to insert or switch
  *
  * @uses Core cEditor.draw module
@@ -150,6 +158,7 @@ pasteTool.ui = {
 
         var plugin = cEditor.draw.node('DIV', 'ce-paste', { contentEditable: true });
 
+        plugin.dataset.placeholder = 'Paste link';
         plugin.addEventListener('paste', pasteTool.callbacks.pasted, false);
 
         return plugin;
@@ -204,13 +213,20 @@ pasteTool.ui = {
             cover: null
         };
 
+        /** Using Image plugin make method */
         var image = cEditor.tools.image.make(data);
 
         return image;
 
     },
 
-    makeFbBlock : function(url) {
+    /**
+     * @deprecated
+     *
+     * @param url
+     * @returns {Element}
+     */
+    makeFacebookBlock : function(url) {
 
         //<div class="fb-post" data-href="{your-post-url}"></div>
         var wrapper = cEditor.draw.node('DIV', 'fb-root', {}),
@@ -225,7 +241,6 @@ pasteTool.ui = {
 
 
 /**
- * @protected
  *
  * Callbacks
  * @type {{pasted: pasteTool.callbacks.pasted}}
@@ -246,7 +261,7 @@ pasteTool.callbacks = {
     },
 
     /**
-     *
+     * Analizes pated string and calls necessary method
      */
     analize : function(string) {
 
@@ -289,8 +304,6 @@ pasteTool.callbacks = {
     },
 
     /**
-     * @protected
-     *
      * Direct upload
      *
      * @param url
@@ -375,6 +388,10 @@ pasteTool.callbacks = {
         pasteTool.content.twitter(tweetId);
     },
 
+    /**
+     * @deprecated
+     * @param url
+     */
     facebookMedia : function(url) {
 
         var script = pasteTool.externalScripts.facebook,
@@ -389,6 +406,10 @@ pasteTool.callbacks = {
         pasteTool.content.facebook(url);
     },
 
+    /**
+     * @deprecated
+     * @param url
+     */
     vkMedia : function(url) {
         var arr = url.split('w=wall'),
             id_post = arr[1],
