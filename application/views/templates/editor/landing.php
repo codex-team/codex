@@ -30,8 +30,8 @@
     <pre id="output"></pre>
 </div>
 
-<link rel="stylesheet" href="/public/extensions/codex.editor/codex-editor.css" />
-<script src="/public/extensions/codex.editor/codex-editor.js"></script>
+<link rel="stylesheet" href="/public/extensions/codex.editor/codex-editor.css?v=2" />
+<script src="/public/extensions/codex.editor/codex-editor.js?v=2"></script>
 <script>
 
 /**
