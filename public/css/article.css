@@ -474,7 +474,6 @@
 .courses {
     padding: 10px;
     overflow: auto;
-    border: 1px solid #eceff6;
     box-sizing: border-box;
     margin: 30px 0px;
 }
@@ -482,14 +481,15 @@
         text-align: center;
     }
 
-    .courses__block-right {
-        float: right;
-        max-width: 50%;
-    }
-
     .courses__block-left {
         float: left;
         max-width: 50%;
+        display: inline-block;
+    }
+
+    .courses__block-right {
+        max-width: 50%;
+        display: inline-block;
     }
 
     ul.courses__list {
