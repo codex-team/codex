@@ -39,18 +39,16 @@ var pasteTool = {
             }
         },
 
-        vk : {
-            path : null,
+        vkontakte : {
+            path : 'https://vk.com/js/api/xd_connection.js?2',
             loaded : false
         },
 
         facebook : {
-            path : null,
+            path : '//connect.facebook.net/en_US/sdk.js#xfbml=1&amp;version=v2.8',
             loaded : false
         }
     },
-
-    PLUGINS_TYPE : 'DIV',
 
     make : function() {
 
@@ -68,63 +66,9 @@ var pasteTool = {
         script.defer = true;
 
         document.head.appendChild(script);
-    },
 
-    /**
-     * Ajax requests module
-     */
-    ajax : function (data) {
-
-        if (!data || !data.url){
-            return;
-        }
-
-        var XMLHTTP          = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP"),
-            success_function = function(){};
-
-        data.async           = true;
-        data.type            = data.type || 'GET';
-        data.data            = data.data || '';
-        // data['content-type'] = data['content-type'] || 'application/json; charset=utf-8';
-        success_function     = data.success || success_function ;
-
-        if (data.type == 'GET' && data.data) {
-
-            data.url = /\?/.test(data.url) ? data.url + '&' + data.data : data.url + '?' + data.data;
-
-        } else {
-
-            var params = '',
-                obj;
-
-            for(var obj in data.data) {
-                params += (obj + '=' + encodeURIComponent(data.data[obj]) + '&');
-            }
-
-        }
-
-        if (data.withCredentials) {
-            XMLHTTP.withCredentials = true;
-        }
-
-        if (data.beforeSend && typeof data.beforeSend == 'function') {
-            data.beforeSend.call();
-        }
-
-        XMLHTTP.open( data.type, data.url, data.async );
-        XMLHTTP.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-        XMLHTTP.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-        XMLHTTP.onreadystatechange = function() {
-            if (XMLHTTP.readyState == 4 && XMLHTTP.status == 200) {
-                success_function(XMLHTTP.responseText);
-            }
-        };
-
-        XMLHTTP.send(params);
-
-    },
-
+        return script;
+    }
 };
 
 
@@ -132,11 +76,13 @@ var pasteTool = {
  * @protected
  *
  * Works with content: insert and switch.
- *
- * @type {{}}
  */
 pasteTool.content = {
 
+    /**
+     * Instagram render method renders content and switches existed DOM element
+     * @param content
+     */
     instagram : function(content) {
 
         cEditor.content.switchBlock(cEditor.content.currentNode, content, 'paste-instagram');
@@ -152,6 +98,10 @@ pasteTool.content = {
 
     },
 
+    /**
+     * Twitter render method appends content after block
+     * @param tweetId
+     */
     twitter : function(tweetId) {
 
         var blockContent = cEditor.content.currentNode.childNodes[0],
@@ -174,7 +124,15 @@ pasteTool.content = {
         }
 
         cEditor.content.currentNode.dataset.type = "paste-twitter";
-    }
+    },
+
+    facebook : function(url) {
+
+        var facebookBlock = pasteTool.ui.makeFbBlock(url);
+
+        cEditor.content.switchBlock(cEditor.content.currentNode, facebookBlock, 'paste-facebook');
+
+    },
 
 };
 
@@ -183,13 +141,14 @@ pasteTool.content = {
  *
  * Make elements to insert or switch
  *
+ * @uses Core cEditor.draw module
  * @type {{make: pasteTool.ui.make}}
  */
 pasteTool.ui = {
 
     make : function() {
 
-        var plugin = pasteTool.draw.block(pasteTool.PLUGINS_TYPE, 'ce-paste', {});
+        var plugin = cEditor.draw.node('DIV', 'ce-paste', { contentEditable: true });
 
         plugin.addEventListener('paste', pasteTool.callbacks.pasted, false);
 
@@ -205,10 +164,10 @@ pasteTool.ui = {
      */
     instagramBlock : function(url) {
 
-        var blockquote = pasteTool.draw.block('BLOCKQUOTE', 'instagram-media ce-paste__instagram', {}),
-            div = pasteTool.draw.block('DIV', '', {}),
-            paragraph = pasteTool.draw.block('P', 'ce-paste__instagram--p', {}),
-            anchor = pasteTool.draw.block('A', '', {});
+        var blockquote = cEditor.draw.node('BLOCKQUOTE', 'instagram-media ce-paste__instagram', {}),
+            div        = cEditor.draw.node('DIV', '', {}),
+            paragraph  = cEditor.draw.node('P', 'ce-paste__instagram--p', {}),
+            anchor     = cEditor.draw.node('A', '', { href : url });
 
         blockquote.dataset.instgrmVersion = 4;
         anchor.href = url;
@@ -221,6 +180,13 @@ pasteTool.ui = {
 
     },
 
+    /**
+     * Upload image by URL
+     *
+     * @uses editor Image tool
+     * @param filename
+     * @returns {Element}
+     */
     uploadedImage : function(filename) {
 
         var data = {
@@ -242,7 +208,18 @@ pasteTool.ui = {
 
         return image;
 
-    }
+    },
+
+    makeFbBlock : function(url) {
+
+        //<div class="fb-post" data-href="{your-post-url}"></div>
+        var wrapper = cEditor.draw.node('DIV', 'fb-root', {}),
+            div     = cEditor.draw.node('DIV', 'fb-post', {});
+
+        div.dataset.href = url;
+
+        return div;
+    },
 
 };
 
@@ -251,12 +228,9 @@ pasteTool.ui = {
  * @protected
  *
  * Callbacks
- *
  * @type {{pasted: pasteTool.callbacks.pasted}}
  */
 pasteTool.callbacks = {
-
-    pastedData : null,
 
     /**
      * Saves data
@@ -268,45 +242,27 @@ pasteTool.callbacks = {
         var clipBoardData = event.clipboardData || window.clipboardData,
             content = clipBoardData.getData('Text');
 
-        pasteTool.callbacks.setPastedData(content);
-
-        pasteTool.callbacks.analize();
-    },
-
-    /**
-     * Sets data
-     *
-     * @param {String} string - pasted content
-     */
-    setPastedData : function(string) {
-        this.pastedData = string;
-    },
-
-    /**
-     * returns pasted content as string
-     */
-    getPatedData : function() {
-        return this.pastedData;
+        pasteTool.callbacks.analize(content);
     },
 
     /**
      *
      */
-    analize : function() {
+    analize : function(string) {
 
-        var string = this.getPatedData(),
-
-            regexTemplates = {
+        var regexTemplates = {
                 http : /(?:([^:\/?#]+):)?(?:\/\/([^\/?#]*))?([^?#]*\.(?:jpe?g|gif|png))(?:\?([^#]*))?(?:#(.*))?/i,
                 instagram : new RegExp("http?.+instagram.com\/p?."),
                 twitter : new RegExp("http?.+twitter.com?.+\/"),
-                vk : new RegExp(""),
+                facebook : /https?.+facebook.+\/\d+\?/,
+                vk : /https?.+vk?.com\/feed\?w=wall\d+_\d+/,
             },
 
             http  = regexTemplates.http.test(string),
             instagram = regexTemplates.instagram.exec(string),
             twitter = regexTemplates.twitter.exec(string),
-            vk = regexTemplates.vk.exec(string);
+            facebook = regexTemplates.facebook.test(string),
+            vk = regexTemplates.vk.test(string);
 
         if (http) {
 
@@ -320,11 +276,15 @@ pasteTool.callbacks = {
 
             pasteTool.callbacks.twitterMedia(twitter);
 
+        } else if (facebook) {
+
+            pasteTool.callbacks.facebookMedia(string);
+
         } else if (vk) {
 
-            pasteTool.callbacks.vkMedia(vk);
+            pasteTool.callbacks.vkMedia(string);
 
-        };
+        }
 
     },
 
@@ -370,7 +330,7 @@ pasteTool.callbacks = {
             success : success_callback
         };
 
-        pasteTool.ajax(data);
+        cEditor.core.ajax(data);
     },
 
     /**
@@ -415,27 +375,50 @@ pasteTool.callbacks = {
         pasteTool.content.twitter(tweetId);
     },
 
-    vk : function(url) {
-        console.log('content from vk');
-    }
+    facebookMedia : function(url) {
 
-};
+        var script = pasteTool.externalScripts.facebook,
+            postId;
 
-pasteTool.draw = {
+        FB.init({
+            appId : '1577740102496910',
+            xfbml : true,
+            version: 'v2.3'
+        });
 
-    /**
-     * @protected
-     *
-     * Draws block with className and properties
-     */
-    block : function( tagname, className, properties) {
+        pasteTool.content.facebook(url);
+    },
 
-        var block = document.createElement(tagname);
+    vkMedia : function(url) {
+        var arr = url.split('w=wall'),
+            id_post = arr[1],
+            script = pasteTool.externalScripts.vkontakte,
+            state;
 
-        block.className = className;
-        block.contentEditable = "true";
+        if (!script.loaded) {
+            state = pasteTool.importScript(script.path);
+            script.loaded = true;
+        }
 
-        return block;
+        /** Initialize VK Javascript SKD */
+        setTimeout(function() {
+
+            VK.init(function() {
+                console.log('here');
+            }, function() {
+                console.log('her');
+            }, '5.60');
+
+        }, 200);
+
+        VK.api('wall.getById', {
+            posts : id_post,
+            copy_history_depth: 2,
+
+        }, function(data) {
+            console.log(data);
+        });
+
     }
 
 };

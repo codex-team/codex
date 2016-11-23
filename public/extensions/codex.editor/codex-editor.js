@@ -177,8 +177,59 @@ cEditor.core = {
     */
     isDomNode : function (el) {
         return el && typeof el === 'object' && el.nodeType && el.nodeType == this.nodeTypes.TAG;
-    }
+    },
 
+    /**
+     * Native Ajax
+     */
+    ajax : function (data) {
+
+        if (!data || !data.url){
+            return;
+        }
+
+        var XMLHTTP          = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP"),
+            success_function = function(){},
+            params = '',
+            obj;
+
+        data.async           = true;
+        data.type            = data.type || 'GET';
+        data.data            = data.data || '';
+        data['content-type'] = data['content-type'] || 'application/json; charset=utf-8';
+        success_function     = data.success || success_function ;
+
+        if (data.type == 'GET' && data.data) {
+
+            data.url = /\?/.test(data.url) ? data.url + '&' + data.data : data.url + '?' + data.data;
+
+        } else {
+
+            for(obj in data.data) {
+                params += (obj + '=' + encodeURIComponent(data.data[obj]) + '&');
+            }
+        }
+
+        if (data.withCredentials) {
+            XMLHTTP.withCredentials = true;
+        }
+
+        if (data.beforeSend && typeof data.beforeSend == 'function') {
+            data.beforeSend.call();
+        }
+
+        XMLHTTP.open( data.type, data.url, data.async );
+        XMLHTTP.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+        XMLHTTP.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        XMLHTTP.onreadystatechange = function() {
+            if (XMLHTTP.readyState == 4 && XMLHTTP.status == 200) {
+                success_function(XMLHTTP.responseText);
+            }
+        };
+
+        XMLHTTP.send(params);
+    }
 };
 
 
