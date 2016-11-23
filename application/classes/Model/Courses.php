@@ -178,7 +178,7 @@ Class Model_Courses extends Model
         }
 
         if (!$add_not_published) {
-            $coursesQuery->where('is_published', '=', 0);
+            $coursesQuery->where('is_published', '=', 1);
         }
 
         if ($cachedTime) {
