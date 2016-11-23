@@ -368,6 +368,7 @@ pasteTool.callbacks = {
         embed_code = pasteTool.ui.instagramBlock(fullUrl);
 
         pasteTool.content.instagram(embed_code);
+
     },
 
     twitterMedia : function(url) {
@@ -387,60 +388,6 @@ pasteTool.callbacks = {
 
         pasteTool.content.twitter(tweetId);
     },
-
-    /**
-     * @deprecated
-     * @param url
-     */
-    facebookMedia : function(url) {
-
-        var script = pasteTool.externalScripts.facebook,
-            postId;
-
-        FB.init({
-            appId : '1577740102496910',
-            xfbml : true,
-            version: 'v2.3'
-        });
-
-        pasteTool.content.facebook(url);
-    },
-
-    /**
-     * @deprecated
-     * @param url
-     */
-    vkMedia : function(url) {
-        var arr = url.split('w=wall'),
-            id_post = arr[1],
-            script = pasteTool.externalScripts.vkontakte,
-            state;
-
-        if (!script.loaded) {
-            state = pasteTool.importScript(script.path);
-            script.loaded = true;
-        }
-
-        /** Initialize VK Javascript SKD */
-        setTimeout(function() {
-
-            VK.init(function() {
-                console.log('here');
-            }, function() {
-                console.log('her');
-            }, '5.60');
-
-        }, 200);
-
-        VK.api('wall.getById', {
-            posts : id_post,
-            copy_history_depth: 2,
-
-        }, function(data) {
-            console.log(data);
-        });
-
-    }
 
 };
 

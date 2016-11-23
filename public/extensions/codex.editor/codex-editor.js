@@ -780,7 +780,7 @@ cEditor.ui = {
         }, false );
 
         /** All keydowns on Document */
-        cEditor.nodes.redactor.addEventListener('keydown', cEditor.callback.globalKeydown, false );
+        document.addEventListener('keydown', cEditor.callback.globalKeydown, false );
 
         /** All keydowns on Document */
         document.addEventListener('keyup', cEditor.callback.globalKeyup, false );
@@ -1113,8 +1113,8 @@ cEditor.callback = {
         var selectedText    = cEditor.toolbar.inline.getSelectionText();
 
         /**
-        *  ... <---------------------------------- Add Comment here = = = = = = = = = = < W W w W W W W W W W W W W W W W W W W W W W W W W W W W W W W W WWW WWW WWW WWW WWW WWW
-        */
+         * Clicked in redactor zone or input, but text is not selected
+         */
         if (selectedText.length === 0) {
             cEditor.toolbar.inline.close();
         }
