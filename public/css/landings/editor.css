@@ -177,13 +177,12 @@
 */
 @media all and (max-width: 800px){
 
-    .editor-landing{
-        margin: 0;
-    }
-
     .editor-landing__title{
         padding: 10px 0 0;
         font-size: 28px;
+    }
+    .editor-landing__input-title{
+        margin: 0 20px;
     }
     .editor-landing__disclaimer{
         font-size: .8em;
