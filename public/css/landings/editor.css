@@ -1,16 +1,16 @@
 /**
 * Editor landing page
 */
-body{
+/*body{
     background: #f0f3f9;
-}
+}*/
 .site-header,
 .site-footer{
     background: #fff;
     border-color: #e7e9f5;
 }
 .editor-landing{
-    margin: 30px;
+    margin: 30px 0;
     padding-bottom: 120px;
     min-height: 600px;
     border-radius: 3px;
@@ -21,18 +21,49 @@ body{
 }
 .editor-landing__title{
     margin-bottom: 0;
-    padding: 100px 140px 10px;
+    padding: 30px 140px 8px;
     text-align: center;
     line-height: 1.2em;
-    font-size: 34px;
+    letter-spacing: .2px;
+    font-size: 36px;
+    color: #D8DADD;
+    font-weight: 600;
 }
 .editor-landing__disclaimer{
     margin-bottom: 40px;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     font-variant: small-caps;
     font-size: .9em;
     text-align: center;
+    color: #C1C3C7;
 }
+.editor-landing__input-title{
+    display: block;
+    max-width: 600px;
+    margin: 0 auto;
+    background: none;
+    padding: 0;
+    font-size: 2.5em;
+    line-height: 1.6em;
+    letter-spacing: .2px;
+    font-weight: 700;
+    outline: none;
+}
+.editor-landing__input-title:focus{
+    background: none;
+}
+
+.editor-landing__input-title:empty::before{
+    content : attr(data-placeholder);
+    color: #5B5F66;
+    opacity: 1;
+    transition: opacity 200ms ease;
+}
+.editor-landing__input-title:focus::before{
+    opacity: .1;
+}
+
+
 
 /**
 .editor-landing h2,
@@ -140,4 +171,22 @@ body{
     color: #42cca1;
 }
 
+/**
+* Mobile viewport styles
+* =================================
+*/
+@media all and (max-width: 800px){
 
+    .editor-landing{
+        margin: 0;
+    }
+
+    .editor-landing__title{
+        padding: 10px 0 0;
+        font-size: 28px;
+    }
+    .editor-landing__disclaimer{
+        font-size: .8em;
+    }
+
+}
