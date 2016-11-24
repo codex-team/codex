@@ -130,11 +130,9 @@ pasteTool.content = {
         cEditor.content.switchBlock(cEditor.content.currentNode, content, 'paste');
 
         var blockContent = cEditor.content.currentNode.childNodes[0];
-
-        blockContent.classList.add('ce-paste-plugin__loader');
+            blockContent.classList.add('ce-paste-plugin__loader');
 
         pasteTool.externalScripts.instagram.render();
-
         blockContent.classList.remove('ce-paste-plugin__loader');
 
     },
@@ -150,11 +148,9 @@ pasteTool.content = {
         cEditor.content.switchBlock(cEditor.content.currentNode, tweet, 'paste');
 
         var blockContent = cEditor.content.currentNode.childNodes[0];
-
-        blockContent.classList.add('ce-paste-plugin__loader');
+            blockContent.classList.add('ce-paste-plugin__loader');
 
         pasteTool.externalScripts.twitter.render(tweetId, blockContent);
-
         blockContent.classList.remove('ce-paste-plugin__loader');
 
         /** Remove empty DIV */

@@ -5,14 +5,6 @@
 var paragraphTool = {
 
     /**
-     * Prepare method before calling make function
-     * @uses Paste tool prepare method
-     */
-    prepare : function() {
-        pasteTool.prepare();
-    },
-
-    /**
     * Make initial header block
     * @param {object} JSON with block data
     * @return {Element} element to append
@@ -83,7 +75,6 @@ cEditor.tools.paragraph = {
 
     type             : 'paragraph',
     iconClassname    : 'ce-icon-paragraph',
-    prepare          : paragraphTool.prepare,
     make             : paragraphTool.make,
     appendCallback   : null,
     settings         : null,

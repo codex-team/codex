@@ -67,8 +67,8 @@ var cEditor = (function (cEditor){
             .then(this.ui.make)
             .then(this.ui.addTools)
             .then(this.ui.bindEvents)
+            .then(this.ui.preparePlugins)
             .then(this.transport.prepare)
-            // .then(this.parser.parseTextareaContent)
             .then(this.renderer.makeBlocksFromData)
             .then(this.ui.saveInputs)
             .catch(function (error) {
@@ -812,6 +812,15 @@ cEditor.ui = {
 
     },
 
+    preparePlugins : function() {
+
+        for(var tool in cEditor.tools) {
+
+            if (cEditor.tools[tool].prepare)
+                cEditor.tools[tool].prepare();
+        }
+    },
+
     addBlockHandlers : function(block) {
 
         if (!block) return;
@@ -858,9 +867,6 @@ cEditor.ui = {
             cEditor.core.log('Plugin %o was not implemented and can\'t be used as initial block', 'warn', initialBlockType);
             return;
         }
-
-        /** Prepare plugin */
-        cEditor.tools[initialBlockType].prepare();
 
         initialBlock = cEditor.tools[initialBlockType].render();
 
@@ -1113,10 +1119,10 @@ cEditor.callback = {
 
         cEditor.ui.saveInputs();
 
-        var selectedText    = cEditor.toolbar.inline.getSelectionText();
+        var selectedText = cEditor.toolbar.inline.getSelectionText();
 
         /**
-         * Clicked in redactor zone or input, but text is not selected
+         * If selection range took off, then we hide inline toolbar
          */
         if (selectedText.length === 0) {
             cEditor.toolbar.inline.close();
@@ -1131,8 +1137,10 @@ cEditor.callback = {
 
         if (cEditor.content.currentNode === null) {
 
-            /** Can't get -1 value */
-            var indexOfLastInput = (cEditor.state.inputs.length > 0) ? cEditor.state.inputs.length - 1 : 0;
+            /**
+             * If inputs in redactor does not exits, then we length 0 not -1
+             */
+            var indexOfLastInput = cEditor.state.inputs.length > 0 ? cEditor.state.inputs.length - 1 : 0;
 
             /** If we have any inputs */
             if (cEditor.state.inputs.length) {
@@ -2681,11 +2689,6 @@ cEditor.toolbar.toolbox = {
             newBlockContent,
             appendCallback,
             blockData;
-
-        /** Before make method */
-        if (tool.prepare) {
-            tool.prepare();
-        }
 
         /** Make block from plugin */
         newBlockContent = tool.make();
