@@ -86,6 +86,7 @@ var pasteTool = {
              */
             json = {
                 type: "instagram",
+                tool: "paste",
                 data: {
                     media: true,
                     user: {
@@ -105,6 +106,7 @@ var pasteTool = {
              */
             json = {
                 type: "tweet",
+                tool: "paste",
                 data: {
                     media: true,
                     conversation: false,
