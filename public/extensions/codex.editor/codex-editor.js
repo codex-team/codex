@@ -1138,14 +1138,14 @@ cEditor.callback = {
         if (cEditor.content.currentNode === null) {
 
             /**
-             * If inputs in redactor does not exits, then we length 0 not -1
+             * If inputs in redactor does not exits, then we put input index 0 not -1
              */
             var indexOfLastInput = cEditor.state.inputs.length > 0 ? cEditor.state.inputs.length - 1 : 0;
 
             /** If we have any inputs */
             if (cEditor.state.inputs.length) {
 
-                /** Set caret to the last input */
+                /** getting firstlevel parent of input */
                 var firstLevelBlock  = cEditor.content.getFirstLevelBlock(cEditor.state.inputs[indexOfLastInput]);
             }
 
