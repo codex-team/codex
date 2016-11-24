@@ -16,14 +16,13 @@ class Model_Alias
     public $dt_create;
     public $deprecated;
 
-    public function __construct($uri = null, $type = null, $id = null, $dt_create = null, $deprecated = 0)
+    public function __construct($uri = null, $type = null, $id = null, $deprecated = 0)
     {
         $this->uri          =   $uri;
         $this->hash         =   md5( $this->uri );
         $this->hash_raw     =   md5( $this->uri, true);
         $this->type         =   $type;
         $this->id           =   $id;
-        $this->dt_create    =   $dt_create;
         $this->deprecated   =   $deprecated;
     }
 
@@ -34,7 +33,6 @@ class Model_Alias
                         ->set('hash', $this->hash_raw)
                         ->set('type', $this->type)
                         ->set('id', $this->id)
-                        ->set('dt_create', $this->dt_create)
                         ->set('deprecated', $this->deprecated)
                         ->clearcache('hash:'. $this->hash)
                         ->execute();
@@ -102,7 +100,6 @@ class Model_Alias
      * @return array with contorller , action and id
      * @throws HTTP_Exception_404
      */
-
     public function getRealRequestParams($route, $sub_action = null)
     {
         $model_uri = Model_Uri::Instance();
@@ -138,10 +135,7 @@ class Model_Alias
         if ( !empty($alias) ) {
             $newAlias = self::generateAlias($alias);
 
-
-            $dt_create = DATE::$timezone;
-            $model_alias = new Model_Alias($newAlias, $type, $id, $dt_create, $deprecated);
-
+            $model_alias = new Model_Alias($newAlias, $type, $id, $deprecated);
             $model_alias->save();
 
             self::updateSubstanceUri($newAlias, $type, $id);

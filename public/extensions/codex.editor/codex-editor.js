@@ -729,7 +729,7 @@ cEditor.ui = {
         }, false );
 
         /** All keydowns on Document */
-        document.addEventListener('keydown', cEditor.callback.globalKeydown, false );
+        cEditor.nodes.redactor.addEventListener('keydown', cEditor.callback.globalKeydown, false );
 
         /** All keydowns on Document */
         document.addEventListener('keyup', cEditor.callback.globalKeyup, false );
@@ -1061,6 +1061,9 @@ cEditor.callback = {
 
         var selectedText    = cEditor.toolbar.inline.getSelectionText();
 
+        /**
+        *  ... <---------------------------------- Add Comment here = = = = = = = = = = < W W w W W W W W W W W W W W W W W W W W W W W W W W W W W W W W WWW WWW WWW WWW WWW WWW
+        */
         if (selectedText.length === 0) {
             cEditor.toolbar.inline.close();
         }
@@ -1109,7 +1112,7 @@ cEditor.callback = {
         } else {
 
             /**
-            * Move toolbar to the right position and open
+            * Move toolbar to the new position and open
             */
             cEditor.toolbar.move();
 
@@ -1132,10 +1135,18 @@ cEditor.callback = {
 
             /** Hide plus buttons */
             cEditor.toolbar.hidePlusButton();
+
         }
 
+        var currentNodeType = cEditor.content.currentNode.dataset.type;
+
+
         /** Mark current block*/
-        cEditor.content.markBlock();
+        if (currentNodeType != 'paragraph' || !inputIsEmpty) {
+
+            cEditor.content.markBlock();
+
+        }
 
     },
 
