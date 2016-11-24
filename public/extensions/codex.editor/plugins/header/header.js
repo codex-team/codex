@@ -174,7 +174,7 @@ cEditor.tools.header = {
     settings         : headerTool.makeSettings(),
     render           : headerTool.render,
     save             : headerTool.save,
-    display          : true,
+    displayInToolbox : true,
     enableLineBreaks : false
 
 };

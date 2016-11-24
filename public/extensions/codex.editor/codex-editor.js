@@ -691,7 +691,7 @@ cEditor.ui = {
 
             tool = cEditor.tools[name];
 
-            if (!tool.display) {
+            if (!tool.displayInToolbox) {
                 continue;
             }
 
@@ -812,12 +812,18 @@ cEditor.ui = {
 
     },
 
+    /**
+     * Initialize plugins before using
+     * Ex. Load scripts or call some internal methods
+     */
     preparePlugins : function() {
 
         for(var tool in cEditor.tools) {
 
-            if (cEditor.tools[tool].prepare)
-                cEditor.tools[tool].prepare();
+            if (!cEditor.tools[tool].prepare)
+                continue;
+
+            cEditor.tools[tool].prepare();
         }
     },
 

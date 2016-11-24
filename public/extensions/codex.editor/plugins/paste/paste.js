@@ -423,7 +423,7 @@ cEditor.tools.paste = {
     settings         : null,
     render           : null,
     save             : pasteTool.save,
-    display          : false,
+    displayInToolbox : false,
     enableLineBreaks : false,
     allowedToPaste   : false
 

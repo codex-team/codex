@@ -452,7 +452,7 @@ cEditor.tools.quote = {
     settings         : quoteTools.makeSettings(),
     render           : quoteTools.render,
     save             : quoteTools.save,
-    display          : true,
+    displayInToolbox : true,
     enableLineBreaks : true,
     allowedToPaste   : true
 

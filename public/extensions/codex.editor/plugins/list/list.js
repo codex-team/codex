@@ -172,7 +172,7 @@ cEditor.tools.list = {
     settings         : listTool.makeSettings(),
     render           : listTool.render,
     save             : listTool.save,
-    display          : true,
+    displayInToolbox : true,
     enableLineBreaks : true
 
 };

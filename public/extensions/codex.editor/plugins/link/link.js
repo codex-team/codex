@@ -317,7 +317,7 @@ cEditor.tools.link = {
     appendCallback   : linkTool.appendCallback,
     render           : linkTool.render,
     save             : linkTool.save,
-    display          : true,
+    displayInToolbox : true,
     enableLineBreaks : true
 
 };
