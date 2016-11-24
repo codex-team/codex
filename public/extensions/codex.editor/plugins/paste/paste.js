@@ -77,23 +77,50 @@ var pasteTool = {
     /** Saving data as JSON object*/
     save : function(data) {
 
-        var json = {
-                type : 'paste',
-                data : {
-                    type : null,
-                },
-                cover: false
-            };
+        var json;
 
         if (data.classList.contains(pasteTool.externalScripts.instagram.class)) {
 
-            json.data.type = 'instagram';
-            json.data.url = data.src;
+            /**
+             * Ex. Instagram JSON output
+             */
+            json = {
+                type: "instagram",
+                data: {
+                    media: true,
+                    user: {
+
+                    },
+                    created_at: '',
+                    caption: ''
+                }
+            };
 
         } else if (data.classList.contains(pasteTool.externalScripts.twitter.class)) {
 
-            json.data.type = 'twitter';
-            json.data.tweetId = data.dataset.tweetId;
+            // var data = pasteTool.getTweetInfo(data.dataset.tweetId);
+
+            /**
+             * Ex. Twitter JSON output
+             */
+            json = {
+                type: "tweet",
+                data: {
+                    media: true,
+                    conversation: false,
+                    user: {
+                        profile_image_url: "http:\/\/pbs.twimg.com\/profile_images\/1817165982\/nikita-likhachev-512_normal.jpg",
+                        profile_image_url_https: "https:\/\/pbs.twimg.com\/profile_images\/1817165982\/nikita-likhachev-512_normal.jpg",
+                        screen_name: "Niketas",
+                        name: "Никита Лихачёв"
+                    },
+                    id: data.dataset.tweetId,
+                    text: "ВНИМАНИЕ ЧИТАТЬ ВСЕМ НЕ ДАЙ БОГ ПРОПУСТИТЕ НУ ИЛИ ХОТЯ БЫ КЛИКНИ И ПОДОЖДИ 15 СЕКУНД https:\/\/t.co\/iWyOHf4xr2",
+                    created_at: "Tue Jun 28 14:09:12 +0000 2016",
+                    status_url: "https:\/\/twitter.com\/Niketas\/status\/747793978511101953",
+                    caption: "Caption"
+                }
+            }
         }
 
         return json;
