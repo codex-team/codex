@@ -96,14 +96,17 @@ class Model_Methods extends Model
             unlink($file);
             return $filename;
 
-        } else {
-            
-            $filename = uniqid() . '.jpg';
-            $image = Image::factory($copy_file['tmp_name'])->save('upload/redactor_images/' . $filename);
-
-            return $filename;
         }
+
         return FALSE;
+    }
+
+    public function saveRedactorsImage($file) {
+
+        $filename = uniqid() . '.jpg';
+        $image = Image::factory($file['tmp_name'])->save('upload/redactor_images/' . $filename);
+
+        return $filename;
     }
 
     /**
@@ -118,7 +121,7 @@ class Model_Methods extends Model
 
             if (!Upload::type($file, array('jpg', 'jpeg', 'png', 'gif'))) return FALSE;
             if (!is_dir($path)) mkdir($path);
-            return $this->saveImage($file, $path, $sizes, $forcedSizes);
+            return $this->saveRedactorsImage($file);
         }
 
         return false;

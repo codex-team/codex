@@ -780,7 +780,7 @@ cEditor.ui = {
         }, false );
 
         /** All keydowns on Document */
-        document.addEventListener('keydown', cEditor.callback.globalKeydown, false );
+        cEditor.nodes.redactor.addEventListener('keydown', cEditor.callback.globalKeydown, false );
 
         /** All keydowns on Document */
         document.addEventListener('keyup', cEditor.callback.globalKeyup, false );
@@ -858,6 +858,9 @@ cEditor.ui = {
             cEditor.core.log('Plugin %o was not implemented and can\'t be used as initial block', 'warn', initialBlockType);
             return;
         }
+
+        /** Prepare plugin */
+        cEditor.tools[initialBlockType].prepare();
 
         initialBlock = cEditor.tools[initialBlockType].render();
 
@@ -1128,12 +1131,18 @@ cEditor.callback = {
 
         if (cEditor.content.currentNode === null) {
 
-            /** Set caret to the last input */
-            var indexOfLastInput = cEditor.state.inputs.length - 1,
-                firstLevelBlock  = cEditor.content.getFirstLevelBlock(cEditor.state.inputs[indexOfLastInput]);
+            /** Can't get -1 value */
+            var indexOfLastInput = (cEditor.state.inputs.length > 0) ? cEditor.state.inputs.length - 1 : 0;
+
+            /** If we have any inputs */
+            if (cEditor.state.inputs.length) {
+
+                /** Set caret to the last input */
+                var firstLevelBlock  = cEditor.content.getFirstLevelBlock(cEditor.state.inputs[indexOfLastInput]);
+            }
 
             /** If input is empty, then we set caret to the last input */
-            if (cEditor.state.inputs[indexOfLastInput].textContent === '' && firstLevelBlock.dataset.type == 'paragraph') {
+            if (cEditor.state.inputs.length && cEditor.state.inputs[indexOfLastInput].textContent === '' && firstLevelBlock.dataset.type == 'paragraph') {
 
                 cEditor.caret.setToBlock(indexOfLastInput);
 
@@ -1147,9 +1156,16 @@ cEditor.callback = {
                     block : cEditor.tools[NEW_BLOCK_TYPE].render()
                 });
 
-                /** Set caret to this appended input */
-                cEditor.caret.setToNextBlock(indexOfLastInput);
+                /** If there is no inputs except inserted */
+                if (cEditor.state.inputs.length === 1) {
 
+                    cEditor.caret.setToBlock(indexOfLastInput);
+
+                } else {
+
+                    /** Set caret to this appended input */
+                    cEditor.caret.setToNextBlock(indexOfLastInput);
+                }
             }
 
             /**
@@ -1573,7 +1589,7 @@ cEditor.callback = {
 
             cEditor.content.sanitize(node);
 
-        }, 0);
+        }, 10);
 
     },
 
@@ -2170,6 +2186,10 @@ cEditor.content = {
      */
     sanitize : function(target) {
 
+        if (!target) {
+            return;
+        }
+
         for (var i = 0; i < target.childNodes.length; i++) {
             this.dfs(target.childNodes[i]);
         }
@@ -2654,13 +2674,18 @@ cEditor.toolbar.toolbox = {
         /**
         * UNREPLACEBLE_TOOLS this types of tools are forbidden to replace even they are empty
         */
-        var UNREPLACEBLE_TOOLS = ['image', 'link', 'list'],
+        var UNREPLACEBLE_TOOLS = ['image', 'link', 'list', 'paste'],
             tool               = cEditor.tools[cEditor.toolbar.current],
             workingNode        = cEditor.content.currentNode,
             currentInputIndex  = cEditor.caret.inputIndex,
             newBlockContent,
             appendCallback,
             blockData;
+
+        /** Before make method */
+        if (tool.prepare) {
+            tool.prepare();
+        }
 
         /** Make block from plugin */
         newBlockContent = tool.make();

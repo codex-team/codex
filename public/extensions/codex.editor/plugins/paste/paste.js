@@ -15,8 +15,6 @@
  * @protected
  *
  * Main tool settings.
- *
- * @type {{PLUGINS_TYPE: string, make: pasteTool.make}}
  */
 var pasteTool = {
 
@@ -28,6 +26,7 @@ var pasteTool = {
         instagram : {
             path : '//platform.instagram.com/en_US/embeds.js',
             loaded : false,
+            class : 'ce-paste__instagram',
             render : function() {
                 window.instgrm.Embeds.process();
             }
@@ -36,25 +35,68 @@ var pasteTool = {
         twitter : {
             path : '//platform.twitter.com/widgets.js',
             loaded : false,
+            class : 'twitter-tweet',
             render : function(tweetId, blockContent) {
                 window.twttr.widgets.createTweet(tweetId, blockContent);
             }
         },
 
         vkontakte : {
-            path : 'https://vk.com/js/api/xd_connection.js?2',
+            path : null, //'https://vk.com/js/api/xd_connection.js?2',
             loaded : false
         },
 
         facebook : {
-            path : '//connect.facebook.net/en_US/sdk.js#xfbml=1&amp;version=v2.8',
+            path : null, //'//connect.facebook.net/en_US/sdk.js#xfbml=1&amp;version=v2.8',
             loaded : false
+        }
+    },
+
+    /**
+     * Call's before make
+     */
+    prepare : function() {
+
+        var sdk;
+
+        for(sdk in pasteTool.externalScripts) {
+
+            if (!pasteTool.externalScripts[sdk].loaded && pasteTool.externalScripts[sdk].path) {
+                pasteTool.importScript(pasteTool.externalScripts[sdk].path);
+                pasteTool.externalScripts[sdk].loaded = true;
+            }
         }
     },
 
     make : function() {
 
         return pasteTool.ui.make();
+
+    },
+
+    /** Saving data as JSON object*/
+    save : function(data) {
+
+        var json = {
+                type : 'paste',
+                data : {
+                    type : null,
+                },
+                cover: false
+            };
+
+        if (data.classList.contains(pasteTool.externalScripts.instagram.class)) {
+
+            json.data.type = 'instagram';
+            json.data.url = data.src;
+
+        } else if (data.classList.contains(pasteTool.externalScripts.twitter.class)) {
+
+            json.data.type = 'twitter';
+            json.data.tweetId = data.dataset.tweetId;
+        }
+
+        return json;
 
     },
 
@@ -85,18 +127,15 @@ pasteTool.content = {
      */
     instagram : function(content) {
 
-        cEditor.content.switchBlock(cEditor.content.currentNode, content, 'paste-instagram');
+        cEditor.content.switchBlock(cEditor.content.currentNode, content, 'paste');
 
-        if (!window.instgrm) {
+        var blockContent = cEditor.content.currentNode.childNodes[0];
 
-            /** If script is not loaded yet */
-            setTimeout(pasteTool.externalScripts.instagram.render, 200);
+        blockContent.classList.add('ce-paste-plugin__loader');
 
-        } else {
+        pasteTool.externalScripts.instagram.render();
 
-            pasteTool.externalScripts.instagram.render();
-
-        }
+        blockContent.classList.remove('ce-paste-plugin__loader');
 
     },
 
@@ -106,27 +145,21 @@ pasteTool.content = {
      */
     twitter : function(tweetId) {
 
-        var blockContent = cEditor.content.currentNode.childNodes[0],
-            inputForPaste = blockContent.querySelector('.ce-paste');
+        var tweet = pasteTool.ui.twitterBlock();
 
-        inputForPaste.classList.add('ce-plugin-image__loader');
+        cEditor.content.switchBlock(cEditor.content.currentNode, tweet, 'paste');
 
-        if (!window.twttr) {
+        var blockContent = cEditor.content.currentNode.childNodes[0];
 
-            /** if script is not loaded yet */
-            setTimeout(function() {
-                pasteTool.externalScripts.twitter.render(tweetId, blockContent);
+        blockContent.classList.add('ce-paste-plugin__loader');
 
-            }, 100);
+        pasteTool.externalScripts.twitter.render(tweetId, blockContent);
 
-        } else {
+        blockContent.classList.remove('ce-paste-plugin__loader');
 
-            pasteTool.externalScripts.twitter.render(tweetId, blockContent);
+        /** Remove empty DIV */
+        blockContent.childNodes[0].remove();
 
-        }
-
-        inputForPaste.remove();
-        cEditor.content.currentNode.dataset.type = "paste-twitter";
     },
 
     /**
@@ -150,7 +183,6 @@ pasteTool.content = {
  * Make elements to insert or switch
  *
  * @uses Core cEditor.draw module
- * @type {{make: pasteTool.ui.make}}
  */
 pasteTool.ui = {
 
@@ -187,6 +219,11 @@ pasteTool.ui = {
 
         return blockquote;
 
+    },
+
+    twitterBlock : function() {
+        var block = cEditor.draw.node('DIV', '', {});
+        return block;
     },
 
     /**
@@ -243,7 +280,6 @@ pasteTool.ui = {
 /**
  *
  * Callbacks
- * @type {{pasted: pasteTool.callbacks.pasted}}
  */
 pasteTool.callbacks = {
 
@@ -266,20 +302,20 @@ pasteTool.callbacks = {
     analize : function(string) {
 
         var regexTemplates = {
-                http : /(?:([^:\/?#]+):)?(?:\/\/([^\/?#]*))?([^?#]*\.(?:jpe?g|gif|png))(?:\?([^#]*))?(?:#(.*))?/i,
+                image : /(?:([^:\/?#]+):)?(?:\/\/([^\/?#]*))?([^?#]*\.(?:jpe?g|gif|png))(?:\?([^#]*))?(?:#(.*))?/i,
                 instagram : new RegExp("http?.+instagram.com\/p?."),
                 twitter : new RegExp("http?.+twitter.com?.+\/"),
                 facebook : /https?.+facebook.+\/\d+\?/,
                 vk : /https?.+vk?.com\/feed\?w=wall\d+_\d+/,
             },
 
-            http  = regexTemplates.http.test(string),
+            image  = regexTemplates.image.test(string),
             instagram = regexTemplates.instagram.exec(string),
             twitter = regexTemplates.twitter.exec(string),
             facebook = regexTemplates.facebook.test(string),
             vk = regexTemplates.vk.test(string);
 
-        if (http) {
+        if (image) {
 
             pasteTool.callbacks.uploadImage(string);
 
@@ -357,11 +393,6 @@ pasteTool.callbacks = {
             embed_code,
             script = pasteTool.externalScripts.instagram;
 
-        if (!script.loaded) {
-            pasteTool.importScript(script.path);
-            script.loaded = true;
-        }
-
         /**
          * HTML template of instagram embed
          */
@@ -378,11 +409,6 @@ pasteTool.callbacks = {
             tweetId,
             arr;
 
-        if (!script.loaded) {
-            pasteTool.importScript(script.path);
-            script.loaded = true;
-        }
-
         arr = fullUrl.split('/');
         tweetId = arr.pop();
 
@@ -395,12 +421,13 @@ cEditor.tools.paste = {
 
     type             : 'paste',
     iconClassname    : 'ce-icon-instagram',
+    prepare          : pasteTool.prepare,
     make             : pasteTool.make,
     appendCallback   : null,
     settings         : null,
     render           : null,
-    save             : null,
-    display          : true,
+    save             : pasteTool.save,
+    display          : false,
     enableLineBreaks : false,
     allowedToPaste   : false
 

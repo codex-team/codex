@@ -5,6 +5,14 @@
 var paragraphTool = {
 
     /**
+     * Prepare method before calling make function
+     * @uses Paste tool prepare method
+     */
+    prepare : function() {
+        pasteTool.prepare();
+    },
+
+    /**
     * Make initial header block
     * @param {object} JSON with block data
     * @return {Element} element to append
@@ -25,6 +33,14 @@ var paragraphTool = {
          * if plugin need to add placeholder
          * tag.setAttribute('data-placeholder', 'placehoder');
          */
+
+        /**
+         * @uses Paste tool callback.
+         * Function analyzes pasted data
+         * If pasted URL from instagram, twitter or Image
+         * it renders via Social widgets content or uploads image and uses Image tool to render
+         */
+        tag.addEventListener('paste', pasteTool.callbacks.pasted, false);
 
         return tag;
 
@@ -67,6 +83,7 @@ cEditor.tools.paragraph = {
 
     type             : 'paragraph',
     iconClassname    : 'ce-icon-paragraph',
+    prepare          : paragraphTool.prepare,
     make             : paragraphTool.make,
     appendCallback   : null,
     settings         : null,
