@@ -24,13 +24,19 @@
 }
 
 .quiz__question-button{
-    padding: 5px;
+    padding: 2px 10px;
     background: #fff;
     font: inherit;
-    color: #03548A;
-    border: #03548A solid 1px;
+    color: #4e88d6;
+    border: #4e88d6 solid 1px;
     border-radius: 5px;
     outline: none;
+}
+
+.quiz__question-button:hover,
+.quiz__question-button:focus{
+    background: #4e88d6;
+    color: #fff;
 }
 
 .quiz__question-button_next {

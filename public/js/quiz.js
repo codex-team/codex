@@ -1,7 +1,8 @@
 var quiz = (function() {
 
     var quizData        = null,
-        currentQuestion = null;
+        currentQuestion = 0,
+        score           = 0;
 
     var init = function(quizDataInput, handler) {
 
@@ -24,7 +25,7 @@ var quiz = (function() {
 
             var title,
                 //description,
-                options,
+                optionsHolder,
                 counter,
                 nextButton;
 
@@ -32,24 +33,25 @@ var quiz = (function() {
 
             //description = this.createElem('div', ['quiz__question-description']);
 
-            options = this.createElem('div', 'quiz__question-options');
+            optionsHolder = this.createElem('div', 'quiz__question-options');
 
             counter = this.createElem('div', 'quiz__question-counter');
 
             nextButton = this.createElem('input', ['quiz__question-button', 'quiz__question-button_next']);
 
             nextButton.setAttribute('type', 'button');
-            nextButton.setAttribute('Value', 'Далее →');
+            nextButton.setAttribute('value', 'Далее →');
 
-            questionElems = {
+            this.questionElems = {
                 counter: counter,
                 title: title,
                 //description: description,
-                options: options,
+                optionsHolder: optionsHolder,
+                options: [{input: this.createElem('input')}, {input: this.createElem('input')}, {input: this.createElem('input')}],
                 nextButton: nextButton
             };
 
-            this.append(questionElems);
+            this.append(this.questionElems);
 
             this.currentQuestion = 0;
 
@@ -58,7 +60,13 @@ var quiz = (function() {
 
         showQuestion: function (){
 
+        },
 
+        showAnswer: function(isRight) {
+
+        },
+
+        showResult: function() {
 
         },
 
@@ -79,16 +87,64 @@ var quiz = (function() {
         append: function(elems, parent) {
             parent = parent || this.handler;
 
-            for (var i in elems) {
-                parent.appendChild(elems[i]);
+            if (elems instanceof Object) {
+
+                for (var i in elems) {
+                    if (elems[i] instanceof Element)
+                        parent.appendChild(elems[i]);
+                }
+
+            } else {
+                parent.appendChild(elems);
+            }
+
+        },
+
+        clear: function(parent) {
+            parent = parent || this.handler;
+
+            while (parent.firstChild) {
+                parent.removeChild(parent.firstChild);
             }
 
         }
 
     };
 
+    var gameProcessing_ = {
+
+        selectedOption: null,
+
+        getUserAnswer: function() {
+
+            var options,
+                option,
+                isRight;
+
+            options = UI_.questionElems.options;
+
+            for (option in options) {
+
+                if ( options[option].input.getAttribute('checked') )
+                    break;
+
+            }
+
+            this.selectedOption = options[option];
+
+            score += +this.selectedOption.input.getAttribute('data');
+
+            isRight = +this.selectedOption.input.getAttribute('data') ? true : false;
+
+            console.log(score);
+            //UI_.showAnswer(isRight);
+
+        },
+
+    };
+
     return {
-        init: init,
+        init: init
     }
 
 })();
