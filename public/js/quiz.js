@@ -80,7 +80,7 @@ var quiz = (function() {
             parent = parent || this.handler;
 
             for (var i in elems) {
-                this.handler.appendChild(elems[i]);
+                parent.appendChild(elems[i]);
             }
 
         }
