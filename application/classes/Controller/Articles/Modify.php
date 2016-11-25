@@ -47,7 +47,8 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             $article->marked       = Arr::get($_POST, 'marked') ? 1 : 0;
             $article->order        = (int) Arr::get($_POST, 'order');
             $article->description  = Arr::get($_POST, 'description');
-            
+            $course_id             = Arr::get($_POST, 'course_id', 0);
+
             if ($article->title && $article->json && $article->description) {
 
                 $uri = Arr::get($_POST, 'uri');
@@ -63,6 +64,8 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
                     $insertedId = $article->insert();
                     $article->uri = Model_Alias::addAlias($alias, Model_Uri::ARTICLE, $insertedId);
                     $article->update();
+
+                    Model_Courses::addArticleToCourse($insertedId, $course_id);
                 }
 
                 // Если поле uri пустое, то редиректить на обычный роут /article/id
@@ -75,6 +78,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         }
 
         $this->view['article'] = $article;
+        $this->view['courses'] = Model_Courses::getActiveCoursesNames();
         $this->template->content = View::factory('templates/articles/create', $this->view);
     }
 

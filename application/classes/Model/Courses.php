@@ -120,6 +120,20 @@ Class Model_Courses extends Model
             ->execute();
     }
 
+    public function addArticleToCourse($article_id, $course_id) {
+        $article = Model_Article::get($article_id);
+        if (!$article) {
+            return false;
+        }
+
+        $course = Model_Courses::get(intval($course_id));
+        if (!$course) {
+            return false;
+        }
+        return DB::insert('Courses_articles', array('course_id', 'article_id', 'article_index'))->values(array(intval($course_id), $article_id, 0))->execute();
+
+    }
+
     /**
      * Возвращает курс из базы данных с указанным идентификатором, иначе возвращает пустой курс с ID=0.
      *
@@ -160,6 +174,16 @@ Class Model_Courses extends Model
     public static function getAllCourses()
     {
         return Model_Courses::getCourses(true, false);
+    }
+
+    public static function getActiveCoursesNames()
+    {
+        $courses = Model_Courses::getActiveCourses();
+        $list = array();
+        foreach ($courses as $course) {
+            $list []= array('id' => $course->id, 'name' => $course->title);
+        }
+        return $list;
     }
 
     /**

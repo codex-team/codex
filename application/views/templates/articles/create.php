@@ -32,6 +32,20 @@
 
         <section class="editor-form__section">
 
+            <label for="course_id">Выберите курс, к которому относится статья</label>
+            <select name="course_id">
+                <option value="0">---</option>
+                <?php foreach ($courses as $course): ?>
+                    <option value="<?= $course['id']; ?>"><?= $course['name']; ?></option>
+                <?php endforeach; ?>
+            </select>
+
+        </section>
+
+        <?php Model_Courses::getActiveCoursesNames(); ?>
+
+        <section class="editor-form__section">
+
             <input type="checkbox" name="is_published" value="1" <?= $article->is_published ? 'checked' : ''; ?> > Опубликовать <br>
 
         </section>
