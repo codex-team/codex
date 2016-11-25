@@ -310,8 +310,9 @@ Class Model_Article extends Model
      */
     public static function getPopularArticles($currentArticleId, $numberOfArticles = 3)
     {
-        $memcache = Cache::instance('memcache');
-        $allArticles = $memcache->get('pop_articles');
+        # TODO: сделать получение "default" инстанса из конфига
+        $memcached = Cache::instance('memcached');
+        $allArticles = $memcached->get('pop_articles');
 
         if (!$allArticles){
             $allArticles = self::getArticles(false, false, 10);
@@ -327,7 +328,7 @@ Class Model_Article extends Model
                 return ($a->views < $b->views) ? 1 : -1;
             });
 
-            $memcache->set('pop_articles', $allArticles, null, Date::MINUTE);
+            $memcached->set('pop_articles', $allArticles, null, Date::MINUTE);
         }
 
         $mostPopularArticles = array_slice($allArticles, 0, 10);
