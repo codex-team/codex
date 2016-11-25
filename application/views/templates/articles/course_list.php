@@ -2,40 +2,29 @@
 
     $articles = array(
         'Система алиасов',
-        'Архитектура бота для Telegram',
+//        'Архитектура бота для Telegram',
         'Публикация статистики из Яндекс.Метрики в Telegram',
-        'Supervisor. Настраиваем автоматический перезапуск скриптов',
-        'Разработка на Scala: первые шаги',
-        'Простой веб-сервер с использованием Python и Flask',
-        'О пользе микроразметки для вашего сайта',
-        'Ошибки в процессе проектирования лэндингов',
-        'Почему вам стоит знать о Redis?',
-        'Получаем оповещения от GitHub'
+//        'Supervisor. Настраиваем автоматический перезапуск скриптов',
+//        'Разработка на Scala: первые шаги'
     );
+//        'Простой веб-сервер с использованием Python и Flask',
+//        'О пользе микроразметки для вашего сайта',
+//        'Ошибки в процессе проектирования лэндингов',
+//        'Почему вам стоит знать о Redis?',
+//        'Получаем оповещения от GitHub'
 
 ?>
 
-<section class="courses">
+<section class="course">
 
-    <div class="courses__title">
-        <p>Курс</p>
-        <h2>«Изучение Python»</h2>
-    </div>
+    <h2 class="course__title">«Изучение Python»</h2>
 
-    <div class="courses__block-left">
-        <ol class="courses__list">
+    <ul class="courses-list">
+        <? for($i = 0; $i < count($articles); $i++) : ?>
+            <li class="courses-list__item">
+                <a class="courses-list__link" href=""><?=$articles[$i]; ?></a>
+            </li>
+        <? endfor; ?>
+    </ul>
 
-            <? for($i = 0; $i < count($articles) / 2; $i++) : ?>
-                <li><a href=""><?=$articles[$i]; ?></a></li>
-            <? endfor; ?>
-        </ol>
-    </div>
-
-    <div class="courses__block-right">
-        <ol class="courses__list">
-            <? for($i = count($articles) / 2; $i < count($articles); $i++) : ?>
-                <li><a href=""><?=$articles[$i]; ?></a></li>
-            <? endfor; ?>
-        </ol>
-    </div>
 </section>
