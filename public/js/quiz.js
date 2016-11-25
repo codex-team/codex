@@ -28,13 +28,13 @@ var quiz = (function() {
                 counter,
                 nextButton;
 
-            title = this.createElem('div', ['quiz__question-title']);
+            title = this.createElem('div', 'quiz__question-title');
 
             //description = this.createElem('div', ['quiz__question-description']);
 
-            options = this.createElem('div', ['quiz__question-options']);
+            options = this.createElem('div', 'quiz__question-options');
 
-            counter = this.createElem('div', ['quiz__question-counter']);
+            counter = this.createElem('div', 'quiz__question-counter');
 
             nextButton = this.createElem('input', ['quiz__question-button', 'quiz__question-button_next']);
 
@@ -65,8 +65,12 @@ var quiz = (function() {
         createElem: function(tag, classes) {
             var elem = document.createElement(tag);
 
-            for (var key in classes) {
-                elem.classList.add(classes[key]);
+            if (classes instanceof Array) {
+                for (var i in classes) {
+                    elem.classList.add(classes[i]);
+                }
+            } else {
+                elem.classList.add(classes);
             }
 
             return elem;
@@ -75,13 +79,13 @@ var quiz = (function() {
         append: function(elems, parent) {
             parent = parent || this.handler;
 
-            for (key in elems) {
-                this.handler.appendChild(elems[key]);
+            for (var i in elems) {
+                this.handler.appendChild(elems[i]);
             }
 
         }
 
-    }
+    };
 
     return {
         init: init,
