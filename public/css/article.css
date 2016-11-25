@@ -471,38 +471,43 @@
 }
 
 
-.courses {
-    padding: 10px;
-    overflow: auto;
-    box-sizing: border-box;
+.course {
     margin: 30px 0px;
 }
-    .courses__title h2, .courses__title p {
+    .course__title {
         text-align: center;
+        position: relative;
+        margin-bottom: 25px;
     }
 
-    .courses__block-left {
-        float: left;
-        max-width: 50%;
-        display: inline-block;
+    .course__title::before {
+        display: block;
+        content: 'курс';
+        font-size: 14px;
+        line-height: 1.5em;
+        font-weight: normal;
+        margin-bottom: 10px;
     }
 
-    .courses__block-right {
-        max-width: 50%;
-        display: inline-block;
-    }
-
-    ul.courses__list {
+    .courses-list {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 0;
         list-style: none;
     }
-        .courses__list li {
+
+        .courses-list__item {
             margin-top: 15px;
-            padding-left: 12px;
+            text-align: center;
         }
 
-        .courses__list li a {
-            text-decoration: none;
-            padding-bottom: 3px;
-            border-bottom: 1px solid #d6deec;
-            line-height: 1.5em;
-        }
+    .courses-list__link {
+        text-decoration: none;
+        padding-bottom: 3px;
+        border-bottom: 1px solid #d6deec;
+        line-height: 1.5em;
+    }
+
+    .courses-list__link:hover {
+        text-decoration: none;
+    }
