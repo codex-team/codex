@@ -45,6 +45,17 @@
                 <?=$article->text; ?>
             <? endif; ?>
 
+
+            <!--Вставляем тест-->
+            <?= View::factory('templates/quizzes/quiz', array('quizData' => array(
+                'title'             => '',
+                'description'       => '',
+                'shortDescription'  => '',
+                'dtCreate'          => '',
+                'questions'         => array(),
+                'messages'          => array(),
+            )));?>
+
         </div>
 
 
@@ -54,7 +65,6 @@
             'title' => html_entity_decode($article->title),
             'desc'  => html_entity_decode($article->description),
         ))); ?>
-
 
         <ul class="random_articles">
             <h3>Читайте далее</h3>
