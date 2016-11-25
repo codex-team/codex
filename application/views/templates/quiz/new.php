@@ -7,7 +7,7 @@
 
         <div id="quizForm">
 
-            <form name="quizForm" action="/quiz/new" method="GET">
+            <form name="quizForm" action="/quiz/save" method="GET">
                 <input type="hidden" name="csrf" value="<?= Security::token(); ?>" />
 
                 <input type="text" name="quiz.name" placeholder="Название теста" />

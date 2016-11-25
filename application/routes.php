@@ -27,6 +27,7 @@ Route::set('CONTESTS_LIST', 'contests')->defaults(array(
 	'action' => 'showAll',
 ));
 
+
 // Add Substance
 
 Route::set('ADD_ARTICLE_SCRIPT', 'article/add')->defaults(array(
@@ -39,9 +40,14 @@ Route::set('ADD_CONTEST_SCRIPT', 'contest/add')->defaults(array(
 	'action' => 'save'
 ));
 
-Route::set('TEST_CREATE_SCRIPT', 'test/create')->defaults(array(
-	'controller' => 'Test',
-	'action' => 'create'
+Route::set('ADD_QUIZ_SCRIPT', 'quiz/new')->defaults(array(
+	'controller' => 'Quiz',
+	'action' => 'new'
+));
+
+Route::set('SAVE_QUIZ_SCRIPT', 'quiz/save')->defaults(array(
+	'controller' => 'Quiz',
+	'action' => 'save'
 ));
 
 // Show Substances which doesn't have Uri
