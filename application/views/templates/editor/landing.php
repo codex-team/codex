@@ -1,24 +1,26 @@
 <link rel="stylesheet" href="/public/css/landings/editor.css?v=<?= filemtime("public/css/landings/editor.css") ?>">
-<div class="center_side">
-    <article class="editor-landing">
 
-        <h1 class="editor-landing__title" itemprop="headline">CodeX Editor</h1>
-        <div class="editor-landing__disclaimer">under development</div>
+<article class="editor-landing">
 
-        <form name="editor-demo" action="/editor/preview" method="POST" enctype="multipart/form-data">
+    <h1 class="editor-landing__title" itemprop="headline">CodeX Editor</h1>
+    <div class="editor-landing__disclaimer">under development</div>
 
-            <textarea hidden name="html" id="codex_editor" cols="30" rows="10" style="width: 100%;height: 300px;"></textarea>
-            <textarea hidden name="article_json" id="json_result" cols="30" rows="10" style="width: 100%;height: 300px;"></textarea>
+    <div contenteditable class="editor-landing__input-title" type="text" data-placeholder="Title" onkeypressed="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation();"></div>
 
-            <div class="editor_output__buttons">
-                <a href="#output" id="jsonPreviewerButton" class="button">View Output</a>
-                <span id="saveButton" class="button master">Save and Preview</span>
-            </div>
+    <form name="editor-demo" action="/editor/preview" method="POST" enctype="multipart/form-data">
 
-        </form>
+        <textarea hidden name="html" id="codex_editor" cols="30" rows="10" style="width: 100%;height: 300px;"></textarea>
+        <textarea hidden name="article_json" id="json_result" cols="30" rows="10" style="width: 100%;height: 300px;"></textarea>
 
-    </article>
-</div>
+        <div class="editor_output__buttons">
+            <a href="#output" id="jsonPreviewerButton" class="button">View Output</a>
+            <span id="saveButton" class="button master">Save and Preview</span>
+        </div>
+
+    </form>
+
+</article>
+
 
 <div class="editor-output-preview">
 
@@ -28,8 +30,8 @@
     <pre id="output"></pre>
 </div>
 
-<link rel="stylesheet" href="/public/extensions/codex.editor/codex-editor.css" />
-<script src="/public/extensions/codex.editor/codex-editor.js"></script>
+<link rel="stylesheet" href="/public/extensions/codex.editor/codex-editor.css?v=2" />
+<script src="/public/extensions/codex.editor/codex-editor.js?v=2"></script>
 <script>
 
 /**
