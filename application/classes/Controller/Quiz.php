@@ -1,17 +1,17 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Qui extends Controller_Base_preDispatch
+class Controller_Quiz extends Controller_Base_preDispatch
 {
     public function action_new()
     {
-        if (/* Request user have permission to create quizzes */) {
+        //if (/* Request user have permission to create quizzes */) {
             $this->title = 'Создание теста';
 
             // Рендерит шаблон создания теста.
             $this->template->content = View::factory('templates/quiz/new', $this->view);
-        } else {
+        /*} else {
             $this->response = Response::factory()->status(403);
-        }
+        }*/
     }
 
 

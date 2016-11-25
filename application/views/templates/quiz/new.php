@@ -5,19 +5,15 @@
 
         <h1 class="article__title">Создание теста</h1>
 
-        <div id="quizForm">
+        <form id="quizForm" name="quizForm" action="/quiz/save" method="GET">
 
-            <form name="quizForm" action="/quiz/save" method="GET">
-                <input type="hidden" name="csrf_token" value="<?= Security::token(); ?>" />
+            <input type="hidden" name="csrf_token" value="<?= Security::token(); ?>" />
+            <input type="text" name="quiz.name" placeholder="Название теста" />
+            <textarea name="quiz.description" placeholder="Описание теста"></textarea>
 
-                <input type="text" name="quiz.name" placeholder="Название теста" />
-                <textarea name="quiz.description" placeholder="Описание теста"></textarea>
-
-                <button id="nextBlock">Следующий блок</button>
-
-            </form>
-
-        </div>
+            <button id="nextBlock">Следующий блок</button>
+            
+        </form>
 
     </article>
 </div>

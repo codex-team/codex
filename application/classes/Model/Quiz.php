@@ -39,27 +39,26 @@ Class Model_Quiz extends Model
     {
         $quiz = new Model_Quiz();
 
-        $quiz->name = Arr::get($dict, 'name', 'Без названия');
-        $quiz->description = Arr::get($dict, 'description');
+        $quiz->name = Arr::get($dict, 'quiz.name', 'Без названия');
+        $quiz->description = Arr::get($dict, 'quiz.description');
 
         $quiz = $quiz->insert();
 
-        if ($dict = Arr::get($dict, 'questions')) {
-
-            foreach ($dict as $number => $question) {
+        for ($number = 1; $number <= Arr::get($dict, 'questions_length'); $number++) {
             $question = new Model_Question();
 
-            $question->number = $number + 1;
+            $pattern = 'question_' . $number . '_';
+
+            $question->number = $number;
             $question->quiz_id = $quiz;
-            $question->heading = Arr::get($question, 'heading', 'Без названия');
-            $question->body = Arr::get($question, 'body');
-            $question->ans_1 = Arr::get($question, 'ans_1', '1');
-            $question->ans_2 = Arr::get($question, 'ans_2', '2');
-            $question->ans_3 = Arr::get($question, 'ans_3', '3');
-            $question->correct = Arr::get($question, 'correct', 1);
+            $question->heading = Arr::get($question, $pattern . 'heading', 'Без названия');
+            $question->body = Arr::get($question, $pattern . 'body');
+            $question->ans_1 = Arr::get($question, $pattern . 'ans_1', '1');
+            $question->ans_2 = Arr::get($question, $pattern . 'ans_2', '2');
+            $question->ans_3 = Arr::get($question, $pattern . 'ans_3', '3');
+            $question->correct = Arr::get($question, $pattern . 'correct', 1);
 
             $question->insert();
-            }
         }
 
         return $quiz;
