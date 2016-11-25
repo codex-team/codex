@@ -152,7 +152,7 @@ var headerTool = {
 
         new_header.dataset.headerData = type;
 
-        cEditor.content.switchBlock(old_header, new_header, 'header');
+        cEditor.content.switchBlock(old_header, new_header, 'header', type);
 
         /** Close settings after replacing */
         cEditor.toolbar.settings.close();

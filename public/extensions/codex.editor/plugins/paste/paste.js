@@ -156,7 +156,7 @@ pasteTool.content = {
      */
     instagram : function(content) {
 
-        cEditor.content.switchBlock(cEditor.content.currentNode, content, 'paste');
+        cEditor.content.switchBlock(cEditor.content.currentNode, content, 'paste', 'instagram');
 
         var blockContent = cEditor.content.currentNode.childNodes[0];
             blockContent.classList.add('ce-paste-plugin__loader');
@@ -174,7 +174,7 @@ pasteTool.content = {
 
         var tweet = pasteTool.ui.twitterBlock();
 
-        cEditor.content.switchBlock(cEditor.content.currentNode, tweet, 'paste');
+        cEditor.content.switchBlock(cEditor.content.currentNode, tweet, 'paste', 'twitter');
 
         var blockContent = cEditor.content.currentNode.childNodes[0];
             blockContent.classList.add('ce-paste-plugin__loader');

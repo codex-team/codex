@@ -175,7 +175,7 @@ var quoteTools = {
             var wrapper = cEditor.content.composeNewBlock(newStyledQuote, 'quote');
                 wrapper.appendChild(newStyledQuote);
 
-            cEditor.content.replaceBlock(cEditor.content.currentNode, wrapper, 'quote');
+            cEditor.content.switchBlock(cEditor.content.currentNode, newStyledQuote, 'quote');
 
             /** Close settings after replacing */
             cEditor.toolbar.settings.close();
