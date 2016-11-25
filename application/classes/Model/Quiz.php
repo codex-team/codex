@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') OR die('No Direct Script Access');
 
 
-Class Model_Test extends Model
+Class Model_Quiz extends Model
 {
     public $id = 0;
     public $name;
@@ -15,35 +15,66 @@ Class Model_Test extends Model
 
     public function insert()
     {
-        $idAndRowAffected = Dao_Test::insert()
+        $idAndRowAffected = Dao_Quiz::insert()
                                 ->set('name',           $this->name)
                                 ->set('description',    $this->description)
-                                ->clearcache('test_list')
+                                ->clearcache('quiz_list')
                                 ->execute();
 
         if ($idAndRowAffected) {
-            $test = Dao_Test::select()
+            $quiz = Dao_Quiz::select()
                 ->where('id', '=', $idAndRowAffected)
                 ->limit(1)
                 ->cached(10*Date::MINUTE)
                 ->execute();
 
-            $this->fillByRow($test);
+            $this->fillByRow($quiz);
         }
 
         return $idAndRowAffected;
     }
 
 
-    private function fillByRow($test_row)
+    public static function save($dict)
     {
-        if (!empty($test_row['id'])) {
+        $quiz = new Model_Quiz();
 
-            $this->id           = $test_row['id'];
-            $this->name         = $test_row['name'];
-            $this->description  = $test_row['description'];
-            $this->dt_create    = $test_row['dt_create'];
-            $this->dt_update    = $test_row['dt_update'];
+        $quiz->name = Arr::get($dict, 'name', 'Без названия');
+        $quiz->description = Arr::get($dict, 'description');
+
+        $quiz = $quiz->insert();
+
+        if ($dict = Arr::get($dict, 'questions')) {
+
+            foreach ($dict as $number => $question) {
+            $question = new Model_Question();
+
+            $question->number = $number + 1;
+            $question->quiz_id = $quiz;
+            $question->heading = Arr::get($question, 'heading', 'Без названия');
+            $question->body = Arr::get($question, 'body');
+            $question->ans_1 = Arr::get($question, 'ans_1', '1');
+            $question->ans_2 = Arr::get($question, 'ans_2', '2');
+            $question->ans_3 = Arr::get($question, 'ans_3', '3');
+            $question->correct = Arr::get($question, 'correct', 1);
+
+            $question->insert();
+            }
+        }
+
+        return $quiz;
+    }
+
+
+    private function fillByRow($quiz_row)
+    {
+        if (!empty($quiz_row['id'])) {
+
+            $this->id           = $quiz_row['id'];
+            $this->name         = $quiz_row['name'];
+            $this->description  = $quiz_row['description'];
+            $this->dt_create    = $quiz_row['dt_create'];
+            $this->dt_update    = $quiz_row['dt_update'];
         }
 
         return $this;
@@ -52,9 +83,9 @@ Class Model_Test extends Model
 
     public function remove()
     {
-        Dao_Test::update()->where('id', '=', $this->id)
+        Dao_Quiz::update()->where('id', '=', $this->id)
             ->set('is_removed', 1)
-            ->clearcache('test_list')
+            ->clearcache('quiz_list')
             ->execute();
 
             $this->id = 0;
@@ -64,7 +95,7 @@ Class Model_Test extends Model
 
     public function update()
     {
-        Dao_Test::update()->where('id', '=', $this->id)
+        Dao_Quiz::update()->where('id', '=', $this->id)
             ->set('name',           $this->name)
             ->set('description',    $this->description)
             ->set('dt_update',      $this->dt_update)
@@ -75,20 +106,20 @@ Class Model_Test extends Model
 
     public static function get($id = 0, $needClearCache = false)
     {
-        $test = Dao_Test::select()
+        $quiz = Dao_Quiz::select()
             ->where('id', '=', $id)
             ->limit(1);
 
         if ($needClearCache) {
-            $test->clearcache($id);
+            $quiz->clearcache($id);
         } else {
-            $test->cached(Date::MINUTE * 5, $id);
+            $quiz->cached(Date::MINUTE * 5, $id);
         }
 
-        $test = $test->execute();
+        $quiz = $quiz->execute();
 
-        $model = new Model_Test();
+        $model = new Model_Quiz();
 
-        return $model->fillByRow($test);
+        return $model->fillByRow($quiz);
     }
 }
