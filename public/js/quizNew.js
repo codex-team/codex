@@ -30,15 +30,8 @@
 
         block.divWrap = quiz.generateElement('div', {'class': 'wrap'});
 
-        if (number != 1) {
-            block.buttonClose = quiz.generateElement('button', {
-                'class': 'close',
-                'textContent': 'Удалить вопрос'
-            });
-        }
-
         block.h1Number = quiz.generateElement('h1', {
-            'textContent': 'Вопрос' + number
+            'textContent': 'Вопрос ' + number
         });
 
         block.inputHeading = quiz.generateElement('input', {
@@ -96,7 +89,10 @@
         });
 
         if (number != 1) {
-            block.divWrap.appendChild(block.buttonClose);
+            block.buttonClose = quiz.generateElement('button', {
+                'class': 'removeBlock',
+                'textContent': 'Удалить вопрос'
+            });
         }
 
         block.divWrap.appendChild(block.h1Number);
@@ -108,6 +104,10 @@
         block.divWrap.appendChild(block.inputAns_2);
         block.divWrap.appendChild(block.inputCorrectAns_3);
         block.divWrap.appendChild(block.inputAns_3);
+
+        if (number != 1) {
+            block.divWrap.appendChild(block.buttonClose);
+        }
 
         return block;
     };

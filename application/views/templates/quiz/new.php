@@ -12,7 +12,7 @@
             <textarea name="quiz.description" placeholder="Описание теста"></textarea>
 
             <button id="nextBlock">Следующий блок</button>
-            
+
         </form>
 
     </article>
