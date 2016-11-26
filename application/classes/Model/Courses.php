@@ -128,12 +128,12 @@ Class Model_Courses extends Model
      */
     public static function addArticleToCourse($article_id, $course_id) {
         $article = Model_Article::get($article_id);
-        if (!$article) {
+        if (!$article->id) {
             return false;
         }
 
         $course = Model_Courses::get($course_id);
-        if (!$course) {
+        if (!$course->id) {
             return false;
         }
 
