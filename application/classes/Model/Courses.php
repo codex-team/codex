@@ -91,6 +91,7 @@ Class Model_Courses extends Model
 
             Dao_Courses::update()->where('id', '=', $this->id)
                 ->set('is_removed', 1)
+                ->set('is_published', 0)
                 ->clearcache('courses_list')
                 ->execute();
 

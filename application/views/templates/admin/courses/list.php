@@ -1,4 +1,9 @@
+<link rel="stylesheet" href="/public/css/courses.css?v=<?= filemtime("public/css/courses.css") ?>">
+
 <div class="center_side clear">
+    <div class="courses-list__button-add">
+        <a href="/course/add">Добавить новый курс</a>
+    </div>
     <? if (count($courses) == 0): ?>
         <article class="article">
             <p>Здесь пока нет статей.</p>
@@ -6,8 +11,7 @@
     <? else: ?>
         <table class="p_table">
             <? foreach ($courses as $current_course): ?>
-<!--                TODO(#39) здесь не предусмотрен сценарий обработки удалённых статей -->
-                <? //if ($current_article->is_removed != 1): ?>
+                <? if ($current_course->is_removed != 1): ?>
                     <tr>
                         <td class="id"><?= $current_course->id ?></td>
                         <td class="title">
@@ -28,7 +32,7 @@
                             </a>
                         </td>
                     </tr>
-                <? //endif; ?>
+                <? endif; ?>
             <? endforeach; ?>
         </table>    
     <? endif; ?>

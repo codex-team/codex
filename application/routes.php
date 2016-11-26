@@ -27,12 +27,6 @@ Route::set('CONTESTS_LIST', 'contests')->defaults(array(
 	'action' => 'showAll',
 ));
 
-Route::set('COURSES_LIST', 'courses')->defaults(array(
-	'controller' => 'Courses_Index',
-	'action' => 'showAll',
-));
-
-
 // Add Substance
 
 Route::set('ADD_ARTICLE_SCRIPT', 'article/add')->defaults(array(
