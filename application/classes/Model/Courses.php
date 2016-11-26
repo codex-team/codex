@@ -120,18 +120,47 @@ Class Model_Courses extends Model
             ->execute();
     }
 
-    public function addArticleToCourse($article_id, $course_id) {
+    /**
+     * Добавляет статью к курсу.
+     * @param $article_id
+     * @param $course_id
+     * @return DB::insert
+     */
+    public static function addArticleToCourse($article_id, $course_id) {
         $article = Model_Article::get($article_id);
         if (!$article) {
             return false;
         }
 
-        $course = Model_Courses::get(intval($course_id));
+        $course = Model_Courses::get($course_id);
         if (!$course) {
             return false;
         }
-        return DB::insert('Courses_articles', array('course_id', 'article_id', 'article_index'))->values(array(intval($course_id), $article_id, 0))->execute();
 
+        return DB::insert('Courses_articles', array('course_id', 'article_id', 'article_index'))->values(array($course_id, $article_id, 0))->execute();
+    }
+
+    /**
+     * Получить список курсов, в которые включена данная статья.
+     * @param $article
+     * @return bool|object
+     */
+    public static function getCurrentCoursesIds($article) {
+        if (!$article) {
+            return false;
+        }
+
+        return DB::select('course_id')->from('Courses_articles')->where('article_id', '=', $article->id)->execute();
+    }
+
+    /**
+     * Открепляет статью ото всех курсов.
+     * TODO: временное решение, пока у нас статья может быть добавлена только к отдному курсу.
+     * @param $article_id
+     * @return DB:remove
+     */
+    public static function delArticleFromCourses($article_id) {
+        return DB::delete('Courses_articles')->where('article_id', '=', $article_id)->execute();
     }
 
     /**
