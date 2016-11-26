@@ -6,7 +6,7 @@
         <? endif; ?>
         <meta itemprop="datePublished" content="<?= date(DATE_ISO8601, strtotime($course->dt_create)) ?>" />
 
-        <div class="disclaimer">Курс от команды codex</div>
+        <div class="disclaimer">Курс от команды CodeX</div>
         <div class="line"></div>
 
         <h1 class="article__title" itemprop="headline">

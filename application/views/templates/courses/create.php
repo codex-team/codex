@@ -38,12 +38,12 @@
         </section>
 
         <section class="editor-form__section">
-            <input type="checkbox" class="course_is_published" name="is_published" value="1" <?= $course->is_published ? 'checked' : ''; ?>>
+            <input type="checkbox" name="is_published" value="1" <?= $course->is_published ? 'checked' : ''; ?>>
             Опубликован
         </section>
 
         <section class="editor-form__section">
-            <input type="checkbox" class="course_marked" name="marked" value="1" <?= $course->marked ? 'checked' : ''; ?>>
+            <input type="checkbox" name="marked" value="1" <?= $course->marked ? 'checked' : ''; ?>>
             Важный курс
         </section>
 

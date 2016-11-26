@@ -101,7 +101,7 @@ Class Model_Courses extends Model
 
 
     /**
-     * Обновляет контест, сохраняя поля модели.
+     * Обновляет курс, сохраняя поля модели.
      */
     public function update()
     {

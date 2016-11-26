@@ -35,14 +35,14 @@
             <label for="course_id">Выберите курс, к которому относится статья</label>
             <select name="course_id">
                 <option value="0">---</option>
-                <?php foreach ($courses as $course): ?>
-                    <option value="<?= $course['id']; ?>"><?= $course['name']; ?></option>
-                <?php endforeach; ?>
+                <? foreach ($courses as $course): ?>
+                    <option value="<?= $course['id']; ?>">
+                        <?= $course['name']; ?>
+                    </option>
+                <? endforeach; ?>
             </select>
 
         </section>
-
-        <?php Model_Courses::getActiveCoursesNames(); ?>
 
         <section class="editor-form__section">
 
