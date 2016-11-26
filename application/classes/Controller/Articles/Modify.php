@@ -59,6 +59,8 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
                     $article->dt_update = date('Y-m-d H:i:s');
                     $article->update();
 
+                    Model_Courses::delArticleFromCourses($article_id);
+                    Model_Courses::addArticleToCourse($article_id, $course_id);
                 } else {
                     $article->user_id = $this->user->id;
                     $insertedId = $article->insert();
