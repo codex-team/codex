@@ -100,24 +100,24 @@ html body .codex-special__toolbar{
 }
 
 /** green */
-.special-green .site_header,
-.special-green  .site_footer{
+.special-green .site-header,
+.special-green  .site-footer{
     border-color: #464134;
 }
-.special-green .site_footer .desclimer{
+.special-green .site-footer .desclimer{
     color: #796647
 }
 /** black*/
-.special-white .site_header,
-.special-white  .site_footer{
+.special-white .site-header,
+.special-white  .site-footer{
     border-color: #2d2d2d;
 }
 /** blue */
-.special-blue .site_header,
-.special-blue  .site_footer{
+.special-blue .site-header,
+.special-blue  .site-footer{
     border-color: #a1ccf9;
 }
-.special-blue .site_footer .desclimer{
+.special-blue .site-footer .desclimer{
     color: #3897ef
 }
 
