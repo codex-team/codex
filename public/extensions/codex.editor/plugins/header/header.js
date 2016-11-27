@@ -57,18 +57,15 @@ var headerTool = {
     */
     save : function (blockContent) {
 
-        var json  = {
-                type : 'header',
-                data : {
-                    type : null,
-                    text : null,
-                }
+        var data = {
+                type : null,
+                text : null,
             };
 
-        json.data.type = blockContent.dataset.headerData;
-        json.data.text = blockContent.textContent;
+        data.type = blockContent.dataset.headerData;
+        data.text = blockContent.textContent;
 
-        return json;
+        return data;
 
     },
 
@@ -156,7 +153,6 @@ var headerTool = {
 
         /** Close settings after replacing */
         cEditor.toolbar.settings.close();
-
     },
 
 };
@@ -174,7 +170,7 @@ cEditor.tools.header = {
     settings         : headerTool.makeSettings(),
     render           : headerTool.render,
     save             : headerTool.save,
-    display          : true,
+    displayInToolbox : true,
     enableLineBreaks : false
 
 };

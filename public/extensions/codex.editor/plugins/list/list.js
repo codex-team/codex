@@ -60,20 +60,17 @@ var listTool = {
      */
     save : function (blockContent){
 
-        var json  = {
-                type : 'list',
-                data : {
-                    type  : null,
-                    items : [],
-                }
+        var data = {
+                type  : null,
+                items : [],
             };
 
         for(var index = 0; index < blockContent.childNodes.length; index++)
-            json.data.items[index] = blockContent.childNodes[index].textContent;
+            data.items[index] = blockContent.childNodes[index].textContent;
 
-        json.data.type = blockContent.dataset.type;
+        data.type = blockContent.dataset.type;
 
-        return json;
+        return data;
 
     },
 
@@ -115,7 +112,7 @@ var listTool = {
             newEditable.innerHTML = oldEditable.innerHTML;
             newEditable.classList.add('ce-list');
 
-            cEditor.content.switchBlock(currentBlock, newEditable, cEditor.tools.list.type);
+            cEditor.content.switchBlock(currentBlock, newEditable, 'list');
     },
 
 };
@@ -172,7 +169,7 @@ cEditor.tools.list = {
     settings         : listTool.makeSettings(),
     render           : listTool.render,
     save             : listTool.save,
-    display          : true,
+    displayInToolbox : true,
     enableLineBreaks : true
 
 };

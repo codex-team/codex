@@ -41,16 +41,13 @@ var codeTool = {
      */
     save : function (blockContent){
 
-        var json  = {
-                type : 'code',
-                data : {
-                    text : null,
-                }
+        var data = {
+                text : null,
             };
 
-        json.data.text = blockContent.innerHTML;
+        data.text = blockContent.innerHTML;
 
-        return json;
+        return data;
 
     },
 
@@ -69,7 +66,7 @@ cEditor.tools.code = {
     settings         : null,
     render           : codeTool.render,
     save             : codeTool.save,
-    display          : true,
+    displayInToolbox : true,
     enableLineBreaks : true
 
 };

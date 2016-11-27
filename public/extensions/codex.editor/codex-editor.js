@@ -67,8 +67,8 @@ var cEditor = (function (cEditor){
             .then(this.ui.make)
             .then(this.ui.addTools)
             .then(this.ui.bindEvents)
+            .then(this.ui.preparePlugins)
             .then(this.transport.prepare)
-            // .then(this.parser.parseTextareaContent)
             .then(this.renderer.makeBlocksFromData)
             .then(this.ui.saveInputs)
             .catch(function (error) {
@@ -177,8 +177,83 @@ cEditor.core = {
     */
     isDomNode : function (el) {
         return el && typeof el === 'object' && el.nodeType && el.nodeType == this.nodeTypes.TAG;
-    }
+    },
 
+    /**
+     * Native Ajax
+     */
+    ajax : function (data) {
+
+        if (!data || !data.url){
+            return;
+        }
+
+        var XMLHTTP          = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP"),
+            success_function = function(){},
+            params = '',
+            obj;
+
+        data.async           = true;
+        data.type            = data.type || 'GET';
+        data.data            = data.data || '';
+        data['content-type'] = data['content-type'] || 'application/json; charset=utf-8';
+        success_function     = data.success || success_function ;
+
+        if (data.type == 'GET' && data.data) {
+
+            data.url = /\?/.test(data.url) ? data.url + '&' + data.data : data.url + '?' + data.data;
+
+        } else {
+
+            for(obj in data.data) {
+                params += (obj + '=' + encodeURIComponent(data.data[obj]) + '&');
+            }
+        }
+
+        if (data.withCredentials) {
+            XMLHTTP.withCredentials = true;
+        }
+
+        if (data.beforeSend && typeof data.beforeSend == 'function') {
+            data.beforeSend.call();
+        }
+
+        XMLHTTP.open( data.type, data.url, data.async );
+        XMLHTTP.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+        XMLHTTP.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        XMLHTTP.onreadystatechange = function() {
+            if (XMLHTTP.readyState == 4 && XMLHTTP.status == 200) {
+                success_function(XMLHTTP.responseText);
+            }
+        };
+
+        XMLHTTP.send(params);
+    },
+
+    /** Appends script to head of document */
+    importScript : function(scriptPath, instanceName) {
+
+        /** Script is already loaded */
+        if ( !instanceName || (instanceName && document.getElementById('ce-script-' + instanceName)) ) {
+            cEditor.core.log("Instance name of script is missed or script is already loaded", "warn");
+            return;
+        }
+
+
+        var script   = document.createElement('SCRIPT');
+        script.type = "text/javascript";
+        script.src = scriptPath;
+        script.async = true;
+        script.defer = true;
+
+        if (instanceName) {
+            script.id = "ce-script-" + instanceName;
+        }
+
+        document.head.appendChild(script);
+        return script;
+    }
 };
 
 
@@ -425,7 +500,7 @@ cEditor.saver = {
 
     makeFormDataFromBlocks : function(block) {
 
-        var pluginName = block.dataset.type;
+        var pluginName = block.dataset.tool;
 
         /** Check for plugin existance */
         if (!cEditor.tools[pluginName]) {
@@ -441,12 +516,19 @@ cEditor.saver = {
         /** Result saver */
         var blockContent   = block.childNodes[0],
             pluginsContent = blockContent.childNodes[0],
-            savedData      = cEditor.tools[pluginName].save(pluginsContent);
+            savedData      = cEditor.tools[pluginName].save(pluginsContent),
+            output;
+
+
+        output = {
+            type: pluginName,
+            data: savedData
+        };
 
         /** Marks Blocks that will be in main page */
-        savedData.cover = block.classList.contains(cEditor.ui.className.BLOCK_IN_FEED_MODE);
+        output.cover = block.classList.contains(cEditor.ui.className.BLOCK_IN_FEED_MODE);
 
-        cEditor.state.jsonOutput.push(savedData);
+        cEditor.state.jsonOutput.push(output);
     },
 
     /**
@@ -640,7 +722,7 @@ cEditor.ui = {
 
             tool = cEditor.tools[name];
 
-            if (!tool.display) {
+            if (!tool.displayInToolbox) {
                 continue;
             }
 
@@ -759,6 +841,21 @@ cEditor.ui = {
             cEditor.nodes.toolbarButtons[button].addEventListener('click', cEditor.callback.toolbarButtonClicked, false);
         }
 
+    },
+
+    /**
+     * Initialize plugins before using
+     * Ex. Load scripts or call some internal methods
+     */
+    preparePlugins : function() {
+
+        for(var tool in cEditor.tools) {
+
+            if (typeof cEditor.tools[tool].prepare != 'function')
+                continue;
+
+            cEditor.tools[tool].prepare();
+        }
     },
 
     addBlockHandlers : function(block) {
@@ -914,7 +1011,7 @@ cEditor.callback = {
 
         var currentInputIndex       = cEditor.caret.getCurrentInputIndex() || 0,
             workingNode             = cEditor.content.currentNode,
-            tool                    = workingNode.dataset.type,
+            tool                    = workingNode.dataset.tool,
             isEnterPressedOnToolbar = cEditor.toolbar.opened &&
                                       cEditor.toolbar.current &&
                                       event.target == cEditor.state.inputs[currentInputIndex];
@@ -1059,11 +1156,11 @@ cEditor.callback = {
 
         cEditor.ui.saveInputs();
 
-        var selectedText    = cEditor.toolbar.inline.getSelectionText();
+        var selectedText = cEditor.toolbar.inline.getSelectionText();
 
         /**
-        *  ... <---------------------------------- Add Comment here = = = = = = = = = = < W W w W W W W W W W W W W W W W W W W W W W W W W W W W W W W W WWW WWW WWW WWW WWW WWW
-        */
+         * If selection range took off, then we hide inline toolbar
+         */
         if (selectedText.length === 0) {
             cEditor.toolbar.inline.close();
         }
@@ -1077,12 +1174,20 @@ cEditor.callback = {
 
         if (cEditor.content.currentNode === null) {
 
-            /** Set caret to the last input */
-            var indexOfLastInput = cEditor.state.inputs.length - 1,
-                firstLevelBlock  = cEditor.content.getFirstLevelBlock(cEditor.state.inputs[indexOfLastInput]);
+            /**
+             * If inputs in redactor does not exits, then we put input index 0 not -1
+             */
+            var indexOfLastInput = cEditor.state.inputs.length > 0 ? cEditor.state.inputs.length - 1 : 0;
+
+            /** If we have any inputs */
+            if (cEditor.state.inputs.length) {
+
+                /** getting firstlevel parent of input */
+                var firstLevelBlock  = cEditor.content.getFirstLevelBlock(cEditor.state.inputs[indexOfLastInput]);
+            }
 
             /** If input is empty, then we set caret to the last input */
-            if (cEditor.state.inputs[indexOfLastInput].textContent === '' && firstLevelBlock.dataset.type == 'paragraph') {
+            if (cEditor.state.inputs.length && cEditor.state.inputs[indexOfLastInput].textContent === '' && firstLevelBlock.dataset.tool == 'paragraph') {
 
                 cEditor.caret.setToBlock(indexOfLastInput);
 
@@ -1096,9 +1201,16 @@ cEditor.callback = {
                     block : cEditor.tools[NEW_BLOCK_TYPE].render()
                 });
 
-                /** Set caret to this appended input */
-                cEditor.caret.setToNextBlock(indexOfLastInput);
+                /** If there is no inputs except inserted */
+                if (cEditor.state.inputs.length === 1) {
 
+                    cEditor.caret.setToBlock(indexOfLastInput);
+
+                } else {
+
+                    /** Set caret to this appended input */
+                    cEditor.caret.setToNextBlock(indexOfLastInput);
+                }
             }
 
             /**
@@ -1522,7 +1634,7 @@ cEditor.callback = {
 
             cEditor.content.sanitize(node);
 
-        }, 0);
+        }, 10);
 
     },
 
@@ -1562,7 +1674,7 @@ cEditor.callback = {
         * ...
         * Type is stored in data-type attribute on block
         */
-        var currentToolType = cEditor.content.currentNode.dataset.type;
+        var currentToolType = cEditor.content.currentNode.dataset.tool;
 
         cEditor.toolbar.settings.toggle(currentToolType);
 
@@ -1705,15 +1817,12 @@ cEditor.content = {
     * [!] Function does not saves old block content.
     *     You can get it manually and pass with newBlock.innerHTML
     */
-    replaceBlock : function function_name(targetBlock, newBlock, newBlockType) {
+    replaceBlock : function function_name(targetBlock, newBlock) {
 
-        if (!targetBlock || !newBlock || !newBlockType){
+        if (!targetBlock || !newBlock){
             cEditor.core.log('replaceBlock: missed params');
             return;
         }
-
-        /** Store block type */
-        newBlock.dataset.type = newBlockType;
 
         /** If target-block is not a frist-level block, then we iterate parents to find it */
         while(!targetBlock.classList.contains(cEditor.ui.className.BLOCK_CLASSNAME)) {
@@ -1835,12 +1944,12 @@ cEditor.content = {
     * @param {Element} newNode
     * @param {Element} blockType
     */
-    switchBlock : function(blockToReplace, newBlock, blockType){
+    switchBlock : function(blockToReplace, newBlock, tool){
 
-        var newBlockComposed = cEditor.content.composeNewBlock(newBlock, blockType);
+        var newBlockComposed = cEditor.content.composeNewBlock(newBlock, tool);
 
         /** Replacing */
-        cEditor.content.replaceBlock(blockToReplace, newBlockComposed, blockType);
+        cEditor.content.replaceBlock(blockToReplace, newBlockComposed);
 
         /** Save new Inputs when block is changed */
         cEditor.ui.saveInputs();
@@ -1929,22 +2038,20 @@ cEditor.content = {
     /**
     * @private
     */
-    composeNewBlock : function (block, blockType, isStretched) {
+    composeNewBlock : function (block, tool, isStretched) {
 
         var newBlock     = cEditor.draw.node('DIV', cEditor.ui.className.BLOCK_CLASSNAME, {}),
             blockContent = cEditor.draw.node('DIV', cEditor.ui.className.BLOCK_CONTENT, {});
 
+        blockContent.appendChild(block);
         newBlock.appendChild(blockContent);
 
         if (isStretched) {
             blockContent.classList.add(cEditor.ui.className.BLOCK_STRETCHED);
         }
-        newBlock.dataset.type = blockType;
 
-        blockContent.appendChild(block);
-
+        newBlock.dataset.tool = tool;
         return newBlock;
-
     },
 
     /**
@@ -2118,6 +2225,10 @@ cEditor.content = {
      * @uses DFS function for deep searching
      */
     sanitize : function(target) {
+
+        if (!target) {
+            return;
+        }
 
         for (var i = 0; i < target.childNodes.length; i++) {
             this.dfs(target.childNodes[i]);
@@ -2603,7 +2714,7 @@ cEditor.toolbar.toolbox = {
         /**
         * UNREPLACEBLE_TOOLS this types of tools are forbidden to replace even they are empty
         */
-        var UNREPLACEBLE_TOOLS = ['image', 'link', 'list'],
+        var UNREPLACEBLE_TOOLS = ['image', 'link', 'list', 'instagram', 'twitter'],
             tool               = cEditor.tools[cEditor.toolbar.current],
             workingNode        = cEditor.content.currentNode,
             currentInputIndex  = cEditor.caret.inputIndex,
@@ -2623,10 +2734,9 @@ cEditor.toolbar.toolbox = {
 
         if (
             workingNode &&
-            UNREPLACEBLE_TOOLS.indexOf(workingNode.dataset.type) === -1 &&
+            UNREPLACEBLE_TOOLS.indexOf(workingNode.dataset.tool) === -1 &&
             workingNode.textContent.trim() === ''
         ){
-
             /** Replace current block */
             cEditor.content.switchBlock(workingNode, newBlockContent, tool.type);
 
