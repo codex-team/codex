@@ -15,7 +15,7 @@ var twitterTool = {
         /**
          * Load script
          */
-        cEditor.core.importScript(script);
+        cEditor.core.importScript(script, 'twitterAPI');
 
     },
 

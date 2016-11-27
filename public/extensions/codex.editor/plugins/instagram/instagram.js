@@ -15,7 +15,7 @@ var instagramTool = {
         /**
          * Load widget
          */
-        cEditor.core.importScript(script);
+        cEditor.core.importScript(script, 'instagramAPI');
     },
 
     /**

@@ -235,8 +235,8 @@ cEditor.core = {
     importScript : function(scriptPath, instanceName) {
 
         /** Script is already loaded */
-        if (instanceName && document.getElementById('ce-script-' + instanceName)){
-            console.log("trying to load script without instance name");
+        if ( !instanceName || (instanceName && document.getElementById('ce-script-' + instanceName)) ) {
+            cEditor.core.log("Instance name of script is missed or script is already loaded", "warn");
             return;
         }
 
