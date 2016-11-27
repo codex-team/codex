@@ -851,7 +851,7 @@ cEditor.ui = {
 
         for(var tool in cEditor.tools) {
 
-            if (!cEditor.tools[tool].prepare)
+            if (typeof cEditor.tools[tool].prepare != 'function')
                 continue;
 
             cEditor.tools[tool].prepare();
