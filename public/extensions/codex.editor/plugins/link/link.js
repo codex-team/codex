@@ -68,18 +68,15 @@ var linkTool = {
 
         var linkElement = linkTool.elementClasses.link;
 
-        var json = {
-                type : 'link',
-                data : {
-                    fullLink    : blockContent.querySelector("." + linkElement).href,
-                    shortLink   : blockContent.querySelector("." + linkElement).textContent,
-                    image       : blockContent.querySelector("." + linkTool.elementClasses.image).src,
-                    title       : blockContent.querySelector("." + linkTool.elementClasses.title).textContent,
-                    description : blockContent.querySelector("." + linkTool.elementClasses.description).textContent
-                }
+        var data = {
+                fullLink    : blockContent.querySelector("." + linkElement).href,
+                shortLink   : blockContent.querySelector("." + linkElement).textContent,
+                image       : blockContent.querySelector("." + linkTool.elementClasses.image).src,
+                title       : blockContent.querySelector("." + linkTool.elementClasses.title).textContent,
+                description : blockContent.querySelector("." + linkTool.elementClasses.description).textContent
             };
 
-        return json;
+        return data;
 
     },
 

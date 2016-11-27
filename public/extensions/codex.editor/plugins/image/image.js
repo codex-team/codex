@@ -144,29 +144,26 @@ var ceImage = {
 
     save : function ( block ) {
 
-        var data    = block,
-            image   = ceImage.ui.getImage(data),
-            caption = data.querySelector('.' + ceImage.elementClasses.imageCaption);
+        var content    = block,
+            image   = ceImage.ui.getImage(content),
+            caption = content.querySelector('.' + ceImage.elementClasses.imageCaption);
 
-        var json = {
-            type : 'image',
-            data : {
-                background : false,
-                border : false,
-                isStretch : data.dataset.stretched,
-                file : {
-                    url : image.src,
-                    bigUrl : null,
-                    width  : image.width,
-                    height : image.height,
-                    additionalData :null,
-                },
-                caption : caption.textContent,
-                cover : null,
-            }
+        var data = {
+            background : false,
+            border : false,
+            isStretch : content.dataset.stretched,
+            file : {
+                url : image.src,
+                bigUrl : null,
+                width  : image.width,
+                height : image.height,
+                additionalData :null,
+            },
+            caption : caption.textContent,
+            cover : null,
         };
 
-        return json;
+        return data;
     },
 
     uploadButtonClicked : function(event) {

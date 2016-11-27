@@ -52,16 +52,13 @@ var paragraphTool = {
     */
     save : function (blockContent){
 
-        var json  = {
-                type : 'paragraph',
-                data : {
-                    text : null,
-                }
+        var data = {
+                text : null,
             };
 
-        json.data.text = blockContent.innerHTML;
+        data.text = blockContent.innerHTML;
 
-        return json;
+        return data;
 
     },
 

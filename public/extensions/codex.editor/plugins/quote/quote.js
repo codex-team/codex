@@ -61,18 +61,15 @@ var quoteTools = {
         * @param {Text} text, {Text} author, {Object} photo
         */
         var parsedblock = quoteTools.parseBlockQuote(blockContent);
-            json  = {
-                type : 'quote',
-                data : {
-                    style  : parsedblock.style,
-                    text   : parsedblock.text,
-                    author : parsedblock.author,
-                    job    : parsedblock.job,
-                    photo  : parsedblock.photo,
-                }
+            data = {
+                style  : parsedblock.style,
+                text   : parsedblock.text,
+                author : parsedblock.author,
+                job    : parsedblock.job,
+                photo  : parsedblock.photo,
             };
 
-        return json;
+        return data;
     },
 
     makeSettings : function(data) {

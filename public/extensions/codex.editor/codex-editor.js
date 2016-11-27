@@ -505,12 +505,19 @@ cEditor.saver = {
         /** Result saver */
         var blockContent   = block.childNodes[0],
             pluginsContent = blockContent.childNodes[0],
-            savedData      = cEditor.tools[pluginName].save(pluginsContent);
+            savedData      = cEditor.tools[pluginName].save(pluginsContent),
+            output;
+
+
+        output = {
+            type: pluginName,
+            data: savedData
+        };
 
         /** Marks Blocks that will be in main page */
-        savedData.cover = block.classList.contains(cEditor.ui.className.BLOCK_IN_FEED_MODE);
+        output.cover = block.classList.contains(cEditor.ui.className.BLOCK_IN_FEED_MODE);
 
-        cEditor.state.jsonOutput.push(savedData);
+        cEditor.state.jsonOutput.push(output);
     },
 
     /**
