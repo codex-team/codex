@@ -1,10 +1,10 @@
 <?php defined('SYSPATH') OR die('No Direct Script Access');
 /**
-* Содержит функции для работы с redis и
-* статистикой просмотров.
-*
-* @author Ivan Zhuravlev
-*/
+ * Содержит функции для работы с redis и
+ * статистикой просмотров.
+ *
+ * @author Ivan Zhuravlev
+ */
 Class Model_Stats extends Model
 {
     const ARTICLE = 1;
@@ -23,7 +23,15 @@ Class Model_Stats extends Model
     */
     public function hit($type, $id, $time = 0)
     {
+        if (!$this->redis) {
+            return;
+        }
+
         $key = self::getKey($type, $id, $time);
+
+        if (!$this->redis->get($key)) {
+            $this->redis->set($key, 1);
+        }
 
         $this->redis->incr($key);
     }
@@ -42,9 +50,13 @@ Class Model_Stats extends Model
 
     public function get($type, $id, $time = 0)
     {
+        if (!$this->redis) {
+            return;
+        }
+
         $key = self::getKey($type, $id, $time);
 
-        $views = $this->redis->get($key); 
+        $views = $this->redis->get($key);
 
         return $views;
     }

@@ -229,6 +229,19 @@ cEditor.core = {
         };
 
         XMLHTTP.send(params);
+    },
+
+    /** Appends script to head of document */
+    importScript : function(scriptPath) {
+
+        var script = document.createElement('SCRIPT');
+        script.type = "text\/javascript";
+        script.src = scriptPath;
+        script.async = true;
+        script.defer = true;
+
+        document.head.appendChild(script);
+        return script;
     }
 };
 
@@ -476,7 +489,7 @@ cEditor.saver = {
 
     makeFormDataFromBlocks : function(block) {
 
-        var pluginName = block.dataset.type;
+        var pluginName = block.dataset.tool;
 
         /** Check for plugin existance */
         if (!cEditor.tools[pluginName]) {
@@ -980,7 +993,7 @@ cEditor.callback = {
 
         var currentInputIndex       = cEditor.caret.getCurrentInputIndex() || 0,
             workingNode             = cEditor.content.currentNode,
-            tool                    = workingNode.dataset.type,
+            tool                    = workingNode.dataset.tool,
             isEnterPressedOnToolbar = cEditor.toolbar.opened &&
                                       cEditor.toolbar.current &&
                                       event.target == cEditor.state.inputs[currentInputIndex];
@@ -1156,7 +1169,7 @@ cEditor.callback = {
             }
 
             /** If input is empty, then we set caret to the last input */
-            if (cEditor.state.inputs.length && cEditor.state.inputs[indexOfLastInput].textContent === '' && firstLevelBlock.dataset.type == 'paragraph') {
+            if (cEditor.state.inputs.length && cEditor.state.inputs[indexOfLastInput].textContent === '' && firstLevelBlock.dataset.tool == 'paragraph') {
 
                 cEditor.caret.setToBlock(indexOfLastInput);
 
@@ -1643,7 +1656,7 @@ cEditor.callback = {
         * ...
         * Type is stored in data-type attribute on block
         */
-        var currentToolType = cEditor.content.currentNode.dataset.type;
+        var currentToolType = cEditor.content.currentNode.dataset.tool;
 
         cEditor.toolbar.settings.toggle(currentToolType);
 
@@ -1786,15 +1799,12 @@ cEditor.content = {
     * [!] Function does not saves old block content.
     *     You can get it manually and pass with newBlock.innerHTML
     */
-    replaceBlock : function function_name(targetBlock, newBlock, newBlockType) {
+    replaceBlock : function function_name(targetBlock, newBlock) {
 
-        if (!targetBlock || !newBlock || !newBlockType){
+        if (!targetBlock || !newBlock){
             cEditor.core.log('replaceBlock: missed params');
             return;
         }
-
-        /** Store block type */
-        newBlock.dataset.type = newBlockType;
 
         /** If target-block is not a frist-level block, then we iterate parents to find it */
         while(!targetBlock.classList.contains(cEditor.ui.className.BLOCK_CLASSNAME)) {
@@ -1916,12 +1926,12 @@ cEditor.content = {
     * @param {Element} newNode
     * @param {Element} blockType
     */
-    switchBlock : function(blockToReplace, newBlock, blockType){
+    switchBlock : function(blockToReplace, newBlock, tool){
 
-        var newBlockComposed = cEditor.content.composeNewBlock(newBlock, blockType);
+        var newBlockComposed = cEditor.content.composeNewBlock(newBlock, tool);
 
         /** Replacing */
-        cEditor.content.replaceBlock(blockToReplace, newBlockComposed, blockType);
+        cEditor.content.replaceBlock(blockToReplace, newBlockComposed);
 
         /** Save new Inputs when block is changed */
         cEditor.ui.saveInputs();
@@ -2010,22 +2020,20 @@ cEditor.content = {
     /**
     * @private
     */
-    composeNewBlock : function (block, blockType, isStretched) {
+    composeNewBlock : function (block, tool, isStretched) {
 
         var newBlock     = cEditor.draw.node('DIV', cEditor.ui.className.BLOCK_CLASSNAME, {}),
             blockContent = cEditor.draw.node('DIV', cEditor.ui.className.BLOCK_CONTENT, {});
 
+        blockContent.appendChild(block);
         newBlock.appendChild(blockContent);
 
         if (isStretched) {
             blockContent.classList.add(cEditor.ui.className.BLOCK_STRETCHED);
         }
-        newBlock.dataset.type = blockType;
 
-        blockContent.appendChild(block);
-
+        newBlock.dataset.tool = tool;
         return newBlock;
-
     },
 
     /**
@@ -2708,10 +2716,9 @@ cEditor.toolbar.toolbox = {
 
         if (
             workingNode &&
-            UNREPLACEBLE_TOOLS.indexOf(workingNode.dataset.type) === -1 &&
+            UNREPLACEBLE_TOOLS.indexOf(workingNode.dataset.tool) === -1 &&
             workingNode.textContent.trim() === ''
         ){
-
             /** Replace current block */
             cEditor.content.switchBlock(workingNode, newBlockContent, tool.type);
 
