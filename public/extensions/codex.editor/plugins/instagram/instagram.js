@@ -68,10 +68,13 @@ instagramTool.content = {
         cEditor.content.switchBlock(cEditor.content.currentNode, content, 'instagram');
 
         var blockContent = cEditor.content.currentNode.childNodes[0];
-        // blockContent.classList.add('ce-paste-plugin__loader');
+        blockContent.classList.add('instagram__loader');
 
         window.instgrm.Embeds.process();
-        // blockContent.classList.remove('ce-paste-plugin__loader');
+
+        setTimeout(function(){
+            blockContent.classList.remove('instagram__loader');
+        }, 500);
     },
 
     /**
@@ -84,11 +87,10 @@ instagramTool.content = {
 
         var blockquote = cEditor.draw.node('BLOCKQUOTE', 'instagram-media instagram', {}),
             div        = cEditor.draw.node('DIV', '', {}),
-            paragraph  = cEditor.draw.node('P', 'ce-paste__instagram--p', {}),
+            paragraph  = cEditor.draw.node('P', 'ce-paste__instagram--p', {});
             anchor     = cEditor.draw.node('A', '', { href : url });
 
         blockquote.dataset.instgrmVersion = 4;
-        anchor.href = url;
 
         paragraph.appendChild(anchor);
         div.appendChild(paragraph);

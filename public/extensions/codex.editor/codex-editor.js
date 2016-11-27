@@ -232,13 +232,21 @@ cEditor.core = {
     },
 
     /** Appends script to head of document */
-    importScript : function(scriptPath) {
+    importScript : function(scriptPath, instanceName) {
 
-        var script = document.createElement('SCRIPT');
-        script.type = "text\/javascript";
+        var script   = document.createElement('SCRIPT');
+        script.type = "text/javascript";
         script.src = scriptPath;
         script.async = true;
         script.defer = true;
+
+        if (instanceName) {
+            script.id = "ce-script-" + instanceName;
+        }
+
+        /** Script is already loaded */
+        if (document.getElementById('ce-script' + instanceName))
+            return;
 
         document.head.appendChild(script);
         return script;
@@ -2703,7 +2711,7 @@ cEditor.toolbar.toolbox = {
         /**
         * UNREPLACEBLE_TOOLS this types of tools are forbidden to replace even they are empty
         */
-        var UNREPLACEBLE_TOOLS = ['image', 'link', 'list', 'paste'],
+        var UNREPLACEBLE_TOOLS = ['image', 'link', 'list', 'instagram', 'twitter'],
             tool               = cEditor.tools[cEditor.toolbar.current],
             workingNode        = cEditor.content.currentNode,
             currentInputIndex  = cEditor.caret.inputIndex,

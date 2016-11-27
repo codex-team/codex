@@ -1,17 +1,19 @@
-.instagram {
-    border-radius:3px;
-    box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15);
-    width: 600px;
+.ce-redactor .instagram {
+    width: 100%;
+    max-width: 650px;
     margin: 10px auto;
 }
 
-.instagram__p {
-    color:#c9c8cd;
-    margin-bottom:0;
-    margin-top:8px;
-    overflow:hidden;
-    padding:8px 0 7px;
-    text-align:center;
-    text-overflow:ellipsis;
-    white-space:nowrap;
+.instagram__loader {
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #58595a;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }

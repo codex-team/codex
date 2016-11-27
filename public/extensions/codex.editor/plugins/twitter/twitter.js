@@ -70,10 +70,10 @@ twitterTool.content = {
         cEditor.content.switchBlock(cEditor.content.currentNode, tweet, 'twitter');
 
         var blockContent = cEditor.content.currentNode.childNodes[0];
-        blockContent.classList.add('ce-paste-plugin__loader');
+        blockContent.classList.add('twitter__loader');
 
         window.twttr.widgets.createTweet(tweetId, blockContent);
-        blockContent.classList.remove('ce-paste-plugin__loader');
+        blockContent.classList.remove('twitter__loader');
 
         /** Remove empty DIV */
         blockContent.childNodes[0].remove();
