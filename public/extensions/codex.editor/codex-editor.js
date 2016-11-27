@@ -234,6 +234,13 @@ cEditor.core = {
     /** Appends script to head of document */
     importScript : function(scriptPath, instanceName) {
 
+        /** Script is already loaded */
+        if (instanceName && document.getElementById('ce-script-' + instanceName)){
+            console.log("trying to load script without instance name");
+            return;
+        }
+
+
         var script   = document.createElement('SCRIPT');
         script.type = "text/javascript";
         script.src = scriptPath;
@@ -243,10 +250,6 @@ cEditor.core = {
         if (instanceName) {
             script.id = "ce-script-" + instanceName;
         }
-
-        /** Script is already loaded */
-        if (document.getElementById('ce-script' + instanceName))
-            return;
 
         document.head.appendChild(script);
         return script;

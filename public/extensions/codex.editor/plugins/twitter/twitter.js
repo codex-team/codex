@@ -73,7 +73,10 @@ twitterTool.content = {
         blockContent.classList.add('twitter__loader');
 
         window.twttr.widgets.createTweet(tweetId, blockContent);
-        blockContent.classList.remove('twitter__loader');
+
+        setTimeout(function() {
+            blockContent.classList.remove('twitter__loader');
+        }, 500);
 
         /** Remove empty DIV */
         blockContent.childNodes[0].remove();

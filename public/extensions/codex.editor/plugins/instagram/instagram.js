@@ -87,7 +87,7 @@ instagramTool.content = {
 
         var blockquote = cEditor.draw.node('BLOCKQUOTE', 'instagram-media instagram', {}),
             div        = cEditor.draw.node('DIV', '', {}),
-            paragraph  = cEditor.draw.node('P', 'ce-paste__instagram--p', {});
+            paragraph  = cEditor.draw.node('P', 'ce-paste__instagram--p', {}),
             anchor     = cEditor.draw.node('A', '', { href : url });
 
         blockquote.dataset.instgrmVersion = 4;
