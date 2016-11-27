@@ -156,7 +156,6 @@ var headerTool = {
 
         /** Close settings after replacing */
         cEditor.toolbar.settings.close();
-
     },
 
 };
