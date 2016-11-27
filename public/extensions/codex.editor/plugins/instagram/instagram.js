@@ -37,6 +37,22 @@ var instagramTool = {
      */
     save : function(blockContent) {
 
+        var json;
+
+        /** Example */
+        json = {
+            type: "instagram",
+            data:{
+                media:true,
+                conversation:false,
+                user:{
+                },
+                url: blockContent.src
+            }
+        };
+
+        return json;
+
     },
 
     /**
