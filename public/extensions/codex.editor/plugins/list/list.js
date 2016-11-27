@@ -115,7 +115,7 @@ var listTool = {
             newEditable.innerHTML = oldEditable.innerHTML;
             newEditable.classList.add('ce-list');
 
-            cEditor.content.switchBlock(currentBlock, newEditable, 'list', blockType);
+            cEditor.content.switchBlock(currentBlock, newEditable, 'list');
     },
 
 };

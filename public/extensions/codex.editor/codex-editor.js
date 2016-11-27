@@ -229,6 +229,19 @@ cEditor.core = {
         };
 
         XMLHTTP.send(params);
+    },
+
+    /** Appends script to head of document */
+    importScript : function(scriptPath) {
+
+        var script = document.createElement('SCRIPT');
+        script.type = "text\/javascript";
+        script.src = scriptPath;
+        script.async = true;
+        script.defer = true;
+
+        document.head.appendChild(script);
+        return script;
     }
 };
 
@@ -1786,15 +1799,12 @@ cEditor.content = {
     * [!] Function does not saves old block content.
     *     You can get it manually and pass with newBlock.innerHTML
     */
-    replaceBlock : function function_name(targetBlock, newBlock, newBlockType) {
+    replaceBlock : function function_name(targetBlock, newBlock) {
 
         if (!targetBlock || !newBlock){
             cEditor.core.log('replaceBlock: missed params');
             return;
         }
-
-        /** Store block type */
-        // newBlock.dataset.type = newBlockType;
 
         /** If target-block is not a frist-level block, then we iterate parents to find it */
         while(!targetBlock.classList.contains(cEditor.ui.className.BLOCK_CLASSNAME)) {
@@ -1916,15 +1926,12 @@ cEditor.content = {
     * @param {Element} newNode
     * @param {Element} blockType
     */
-    switchBlock : function(blockToReplace, newBlock, tool, blockType){
+    switchBlock : function(blockToReplace, newBlock, tool){
 
-        var newBlockComposed = cEditor.content.composeNewBlock(newBlock, tool, blockType);
-
-        // console.log(newBlockComposed);
-        // console.log(blockToReplace);
+        var newBlockComposed = cEditor.content.composeNewBlock(newBlock, tool);
 
         /** Replacing */
-        cEditor.content.replaceBlock(blockToReplace, newBlockComposed, blockType);
+        cEditor.content.replaceBlock(blockToReplace, newBlockComposed);
 
         /** Save new Inputs when block is changed */
         cEditor.ui.saveInputs();
@@ -2013,7 +2020,7 @@ cEditor.content = {
     /**
     * @private
     */
-    composeNewBlock : function (block, tool, blockType, isStretched) {
+    composeNewBlock : function (block, tool, isStretched) {
 
         var newBlock     = cEditor.draw.node('DIV', cEditor.ui.className.BLOCK_CLASSNAME, {}),
             blockContent = cEditor.draw.node('DIV', cEditor.ui.className.BLOCK_CONTENT, {});
@@ -2025,13 +2032,8 @@ cEditor.content = {
             blockContent.classList.add(cEditor.ui.className.BLOCK_STRETCHED);
         }
 
-        if (blockType) {
-            newBlock.dataset.blockType = blockType;
-        }
-
-        newBlock.dataset.tool = tool
+        newBlock.dataset.tool = tool;
         return newBlock;
-
     },
 
     /**
@@ -2718,7 +2720,7 @@ cEditor.toolbar.toolbox = {
             workingNode.textContent.trim() === ''
         ){
             /** Replace current block */
-            cEditor.content.switchBlock(workingNode, newBlockContent, tool.type, '');
+            cEditor.content.switchBlock(workingNode, newBlockContent, tool.type);
 
         } else {
 

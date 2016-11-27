@@ -393,7 +393,7 @@ ceImage.photoUploadingCallbacks = {
          * If current block is empty, we can replace it to uploaded image
          * Or insert new block
          */
-        cEditor.content.switchBlock(ceImage.holder, image, 'image', 'centered');
+        cEditor.content.switchBlock(ceImage.holder, image, 'image');
     },
 
     /** Error callback. Sends notification to user that something happend or plugin doesn't supports method */
