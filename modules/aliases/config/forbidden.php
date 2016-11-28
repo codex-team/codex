@@ -12,6 +12,8 @@
             'Article',
             'Contests',
             'Contest',
+            'Courses',
+            'Course',
             'Admin',
         )
     )

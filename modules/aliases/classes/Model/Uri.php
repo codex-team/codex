@@ -15,6 +15,7 @@ class Model_Uri {
     const ARTICLE  = 1;
     const CONTEST  = 2;
     const USER     = 3;
+    const COURSE   = 4;
 
     /*
      * Actions
@@ -30,6 +31,7 @@ class Model_Uri {
         self::ARTICLE   => 'Articles',
         self::CONTEST   => 'Contests',
         self::USER      => 'Users',
+        self::COURSE    => 'Courses',
     );
 
     public $actionsMap  = array(
