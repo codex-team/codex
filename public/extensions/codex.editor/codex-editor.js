@@ -1250,8 +1250,7 @@ cEditor.callback = {
 
         }
 
-        var currentNodeType = cEditor.content.currentNode.dataset.type;
-
+        var currentNodeType = cEditor.content.currentNode.dataset.tool;
 
         /** Mark current block*/
         if (currentNodeType != 'paragraph' || !inputIsEmpty) {
@@ -2191,7 +2190,7 @@ cEditor.content = {
     paste : function(mutation) {
 
         var workingNode = cEditor.content.currentNode,
-            tool        = workingNode.dataset.type;
+            tool        = workingNode.dataset.tool;
 
         if (cEditor.tools[tool].allowedToPaste) {
             cEditor.content.sanitize(mutation.addedNodes);
@@ -3825,15 +3824,15 @@ cEditor.parser = {
     storeBlockType : function (node) {
 
         switch (node.tagName) {
-            case 'P' :          node.dataset.type = 'paragraph'; break;
+            case 'P' :          node.dataset.tool = 'paragraph'; break;
             case 'H1':
             case 'H2':
             case 'H3':
             case 'H4':
             case 'H5':
-            case 'H6':          node.dataset.type = 'header'; break;
-            case 'BLOCKQUOTE':  node.dataset.type = 'quote'; break;
-            case 'CODE':        node.dataset.type = 'code'; break;
+            case 'H6':          node.dataset.tool = 'header'; break;
+            case 'BLOCKQUOTE':  node.dataset.tool = 'quote'; break;
+            case 'CODE':        node.dataset.tool = 'code'; break;
         }
 
         return node;
