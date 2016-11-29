@@ -56,6 +56,21 @@
     <pre id="output"></pre>
 </div>
 
+
+<div class="advantages clearfix">
+    <div class="center_side">
+        <div class="advantages__item">
+            API based
+        </div>
+        <div class="advantages__item">
+            Native JS
+        </div>
+        <div class="advantages__item">
+            Opened
+        </div>
+    </div>
+</div>
+
 <link rel="stylesheet" href="/public/extensions/codex.editor/codex-editor.css?v=2" />
 <script src="/public/extensions/codex.editor/codex-editor.js?v=2"></script>
 <script>
