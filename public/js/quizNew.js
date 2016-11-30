@@ -100,6 +100,7 @@
         if (number != 1) {
             block.buttonRemoveBlock = quiz.generateElement('button', {
                 'class': 'block__remove-block',
+                'type': 'button',
                 'textContent': 'Удалить вопрос'
             });
         }
@@ -152,12 +153,12 @@
     };
 
 
-    document.getElementById('nextBlock').onclick = () => {
+    document.getElementById('insertBlock').onclick = () => {
         quiz.insertBlock(quiz.getQuestionBlock(quiz.questions.length + 1))
     };
 
     quiz.quizForm.onclick = (event) => {
-        if (event.target.className == 'close') {
+        if (event.target.className == 'block__remove-block') {
             for (let i = 0; i <= quiz.questions.length; i++) {
                 if (quiz.questions[i].buttonRemoveBlock == event.target) {
                     quiz.removeBlock(questions[i]);

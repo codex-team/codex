@@ -6,15 +6,16 @@
         <form id="quizForm" name="quizForm" action="/quiz/save" method="POST">
 
             <input type="hidden" name="csrf_token" value="<?= Security::token(); ?>" />
-            <input type="text" name="quiz.name" placeholder="Название теста" />
-            <textarea name="quiz.description" placeholder="Описание теста"></textarea>
+            <input type="text" name="quiz_name" placeholder="Название теста" />
+            <textarea name="quiz_description" placeholder="Описание теста"></textarea>
+
+            <input type="submit" value="Создать тест" for="quizForm" class="article__button" />
 
             <div id="anchor"></div>
 
-        </form>
+            <button type="button" id="insertBlock" class="article__button">Добавить вопрос</button>
 
-        <button id="insertBlock" class="article__button">Добавить вопрос</button>
-        <input type="submit" for="quizForm" class="article__button" />
+        </form>
 
     </article>
 </div>
