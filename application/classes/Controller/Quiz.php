@@ -18,23 +18,24 @@ class Controller_Quiz extends Controller_Base_preDispatch
     public function action_save()
     {
         if (Security::check('csrf_token')) {
-            $quiz = Model_Quiz::save($this->request->get());
+            $quiz = Model_Quiz::save($this->request->post());
 
-            $jsonResponse = json_encode([
-                'id' => $quiz,
-                'message' => 'Successfully created a quiz',
-                'ru' => 'Тест успешно создан'
-            ]);
+            if ($quiz != -1) {
+                $this->template->content = View::factory(
+                    'templates/quiz/save',
+                    ['status' => 'Тест успешно создан']
+                );
+            } else {
+                $this->template->content = View::factory(
+                    'templates/quiz/save',
+                    ['status' => 'При создании теста произошла ошибка']
+                );
+            }
         } else {
-            $jsonResponse = json_encode([
-                'message' => 'Invalid CSRF token',
-                'ru' => 'Неверный токен CSRF'
-            ]);
+            $this->template->content = View::factory(
+                'templates/quiz/save',
+                ['status' => 'Неверный токен CSRF']
+            );
         }
-
-        $this->auto_render = false;
-        $this->is_ajax = true;
-        $this->response->headers('Content-Type', 'application/json');
-        $this->response->body($jsonResponse);
     }
 }
