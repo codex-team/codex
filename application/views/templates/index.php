@@ -33,9 +33,9 @@
             include 'news.php';
         ?>
 
-        <? /** Join button */
-           //<br><a class="button button-green button-indexpage" href="/join">Вступить в клуб</a>
-        ?>
+        <? /** Join button */ ?>
+           <br><a class="button button-green button-indexpage" href="/join">Вступить в клуб</a>
+        <? ?>
 
     </div>
 </div>

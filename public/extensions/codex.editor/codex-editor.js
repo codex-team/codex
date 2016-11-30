@@ -1067,7 +1067,8 @@ cEditor.callback = {
         */
         if (
             currentSelectedNode.nodeType == cEditor.core.nodeTypes.TEXT &&
-            !isTextNodeHasParentBetweenContenteditable
+            !isTextNodeHasParentBetweenContenteditable &&
+            !caretAtTheEndOfText
         ){
 
             event.preventDefault();
@@ -1101,6 +1102,7 @@ cEditor.callback = {
                 }, true );
 
                 cEditor.toolbar.move();
+                cEditor.toolbar.open();
 
                 /** Show plus button with empty block */
                 cEditor.toolbar.showPlusButton();
