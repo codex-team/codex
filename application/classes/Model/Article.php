@@ -22,6 +22,8 @@ Class Model_Article extends Model
     public $is_removed;
     public $is_published;
 
+    private $redis;
+
     /**
     * @var bool $marked — позволяет выделить важную статью в списке
     */
@@ -41,6 +43,7 @@ Class Model_Article extends Model
      */
     public function __construct()
     {
+        $this->redis = Controller_Base_preDispatch::_redis();
     }
 
     /**
@@ -123,6 +126,9 @@ Class Model_Article extends Model
                 ->set('is_removed', 1)
                 ->clearcache('articles_list')
                 ->execute();
+
+            //Удаляем статью из фида
+            $this->remFromFeedList();
 
             // Статья удалена
             $this->id = 0;
@@ -335,4 +341,64 @@ Class Model_Article extends Model
 
         return array_slice($mostPopularArticles, 0, $numberOfArticles);
     }
+
+
+    /**
+     * Добавляем все активные статьи в фид (для инициализации фида в Redis)
+     */
+    public static function addActiveArticlesToFeedList()
+    {
+
+        $articles = self::getActiveArticles();
+
+        foreach ($articles as $article) {
+            $article->addToFeedList();
+        }
+
+    }
+
+    /**
+     * Меняем порядок элементов в фиде (для статей)
+     *
+     * @param string $next_item - member для sorted set в Redis (то есть article:<id> или course:<id>')
+     * TODO: реализовать автоматическое определение типа следующего элемента (статьи или курса)
+     * @return bool
+     */
+    public function changeFeedOrder($next_item)
+    {
+
+        if ($this->redis->zRank('feed', 'article:'.$this->id === false)) {
+            return false;
+        }
+
+        if($this->redis->zRank('feed', $next_item) === false) {
+            return false;
+        }
+
+        $interval = $this->redis->zScore('feed', $next_item) - $this->redis->zScore('feed', 'article:'.$this->id);
+
+        $this->redis->zIncrBy('feed', $interval + 1, 'article:'.$this->id);
+
+    }
+
+    /**
+     * Добавляем статью в фид в Redis
+     */
+    public function addToFeedList()
+    {
+        if ($this->redis->zRank('feed', 'article:'.$this->id) === false)
+            $this->redis->zAdd('feed', time(), 'article:'.$this->id);
+
+    }
+
+    /**
+     * Удаляем статью из фида
+     */
+    public function remFromFeedList()
+    {
+
+        $this->redis->zRem('feed', 'article:'.$this->id);
+
+    }
+
 }

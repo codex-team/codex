@@ -21,12 +21,15 @@ Class Model_Courses extends Model
     public $marked;
     public $order;
 
+    private $redis;
+
     /**
      * Пустой конструктор для модели курсов, если нужно получить курс из хранилища, нужно пользоваться статическими
      * методами
      */
     public function __construct()
     {
+        $this->redis = Controller_Base_preDispatch::_redis();
     }
 
     /**
@@ -57,6 +60,8 @@ Class Model_Courses extends Model
                 ->execute();
 
             $this->fillByRow($course);
+
+            $this->addToFeedList();
         }
 
         return $idAndRowAffected;
@@ -94,6 +99,8 @@ Class Model_Courses extends Model
                 ->set('is_published', 0)
                 ->clearcache('courses_list')
                 ->execute();
+
+            $this->remToFeedList();
 
             // Курс удален
             $this->id = 0;
@@ -135,8 +142,15 @@ Class Model_Courses extends Model
 
         $course = Model_Courses::get($course_id);
         if (!$course->id) {
+
+            //Добавляем в фид id статьи, так как не передан курс, к которому ее добавить
+            $article->addToFeedList();
+
             return false;
         }
+
+        //Удаляем id статьи из фида
+        $article->remFromFeedList();
 
         return DB::insert('Courses_articles', array('course_id', 'article_id', 'article_index'))->values(array($course_id, $article_id, 0))->execute();
     }
@@ -161,6 +175,11 @@ Class Model_Courses extends Model
      * @return DB:remove
      */
     public static function delArticleFromCourses($article_id) {
+
+        //Добавляем id статьи в фид
+        $article = Model_Article::get($article_id);
+        $article->addToFeedList();
+
         return DB::delete('Courses_articles')->where('article_id', '=', $article_id)->execute();
     }
 
@@ -258,4 +277,61 @@ Class Model_Courses extends Model
 
         return $courses;
     }
+
+    /**
+     * Получить id статей, входящих в курс
+     *
+     * @param $course_id
+     * @return bool|object
+     */
+    public static function getArticles($course_id)
+    {
+        if (!$course_id) {
+            return false;
+        }
+
+        return DB::select('article_id')->from('Courses_articles')->where('course_id', '=', $course_id)->execute();
+    }
+
+    /**
+     * Меняем порядок элементов в фиде (для курсов)
+     *
+     * @param string $next_item - member для sorted set в Redis (то есть article:<id> или course:<id>')
+     * TODO: реализовать автоматическое определение типа следующего элемента (статьи или курса)
+     * @return bool
+     */
+    public function changeFeedOrder($next_item)
+    {
+
+        if ($this->redis->zRank('feed', 'course:'.$this->id === false)) {
+            return false;
+        }
+
+        if($this->redis->zRank('feed', $next_item) === false) {
+            return false;
+        }
+
+        $interval = $this->redis->zScore('feed', $next_item) - $this->redis->zScore('feed', 'course:'.$this->id);
+
+        $this->redis->zIncrBy('feed', $interval + 1, 'course:'.$this->id);
+
+    }
+
+    /*
+     * Добавляем курс в фид в Redis
+     */
+    public function addToFeedList()
+    {
+        if ($this->redis->zRank('feed', 'course:'.$this->id) === false)
+            $this->redis->zAdd('feed', time(), 'course:'.$this->id);
+    }
+
+    /**
+     * Удаляем курс из фида
+     */
+    public function remFromFeedList()
+    {
+        $this->redis->zRem('feed', 'course:'.$this->id);
+    }
+
 }
