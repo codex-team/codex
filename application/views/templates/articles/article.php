@@ -52,7 +52,20 @@
                 'description'       => '',
                 'shortDescription'  => '',
                 'dtCreate'          => '',
-                'questions'         => array(),
+                'questions'         => array(
+				array(
+					'title' => 'Question 1',
+					'answers' => array(
+					array(
+						'text' => 'Option 1',
+						'score' => 0
+					),
+					array(
+						'text' => 'Option 2',
+						'score' => 1
+					))
+				)
+				),
                 'messages'          => array(),
             )));?>
 

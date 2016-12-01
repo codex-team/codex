@@ -1,4 +1,5 @@
-var quiz = (function() {
+
+ quiz = (function() {
 
     var quizData        = null,
         currentQuestion = 0,
@@ -42,24 +43,33 @@ var quiz = (function() {
             nextButton.setAttribute('type', 'button');
             nextButton.setAttribute('value', 'Далее →');
 
-            this.questionElems = {
+            this.questionElems = {//из чего состоит вопрос
                 counter: counter,
                 title: title,
                 //description: description,
                 optionsHolder: optionsHolder,
-                options: [{input: this.createElem('input')}, {input: this.createElem('input')}, {input: this.createElem('input')}],
                 nextButton: nextButton
             };
 
             this.append(this.questionElems);
 
-            this.currentQuestion = 0;
-
-            //this.showQuestion();
+            this.currentQuestion = -1;//вопрос,который будет выводиться в конце статьи в  методе showQuestion
+            this.showQuestion();
         },
 
         showQuestion: function (){
-
+			var cQ = ++this.currentQuestion;
+			this.questionElems.counter.innerHTML = ' ';//this.currentQuestion; 
+			var n = quizData.questions[cQ].answers.length;
+				for (var i=0;i< n;i++) //здесь вывод вариантов ответа. их добавить через optionsHolder. это нужно вынести в отдельную функцию
+				//в questionElems 
+				{
+				
+					this.createOptions(quizData.questions[cQ].answers[i], i);
+					
+				}
+		
+		//запустить цикл для массива из n вопросов
         },
 
         showAnswer: function(isRight) {
@@ -69,8 +79,25 @@ var quiz = (function() {
         showResult: function() {
 
         },
+		
+		createOptions: function (answer,i) { //для создания вариантов ответа
+			
+			
+			var input = this.createElem('input','quiz__question-radiobutton'),
+				label = this.createElem('label','quiz__question-label');
+			input.setAttribute('name','r');
+			input.setAttribute('id', i);
+			input.setAttribute('type','radio');
+			label.setAttribute('data',answer.score);
+			label.setAttribute('for', i);
+			label.textContent = answer.text;
+			label.addEventListener('click', gameProcessing_.getUserAnswer);
+			
+			this.append([input,label]);
+			
+		},
 
-        createElem: function(tag, classes) {
+        createElem: function(tag, classes) { //сюда нужно передать имя тега,он возвращает созданный dom элемент с нужными атрибутами
             var elem = document.createElement(tag);
 
             if (classes instanceof Array) {
@@ -115,29 +142,9 @@ var quiz = (function() {
 
         selectedOption: null,
 
-        getUserAnswer: function() {
+        getUserAnswer: function(e) {
 
-            var options,
-                option,
-                isRight;
-
-            options = UI_.questionElems.options;
-
-            for (option in options) {
-
-                if ( options[option].input.getAttribute('checked') )
-                    break;
-
-            }
-
-            this.selectedOption = options[option];
-
-            score += +this.selectedOption.input.getAttribute('data');
-
-            isRight = +this.selectedOption.input.getAttribute('data') ? true : false;
-
-            console.log(score);
-            //UI_.showAnswer(isRight);
+			console.log('score: '+e.currentTarget.getAttribute('data'));
 
         },
 

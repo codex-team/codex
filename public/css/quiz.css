@@ -45,3 +45,35 @@
     width: 75px;
     margin-left: -75px;
 }
+
+.quiz__question-radiobutton {
+	display: none;
+}
+
+.quiz__question-label {
+	display: block;
+	position:relative;
+}
+
+.quiz__question-label:before {
+	content: '';
+	position:absolute;
+	left: -17px;
+	top:7px;
+	height:12px;
+	width:12px;
+	border-radius:50%;
+	background:#A9A9A9;
+	
+}
+.quiz__question-label:after {
+	
+	position:absolute;
+	height:5px;
+	width:5px;
+	border-radius:50%;
+	background:black;
+	left: -14px;
+	top:10px;
+	content: '';
+}
