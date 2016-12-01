@@ -1,4 +1,4 @@
-((quiz) => {
+(function(quiz) {
 
     // Форма создания теста.
     quiz.quizForm = document.forms.quizForm;
@@ -8,10 +8,10 @@
 
 
     // Генератор блока (словаря со всеми входящими в блок элементами).
-    quiz.generateElement = (tag, attributes) => {
-        let element = document.createElement(tag);
+    quiz.generateElement = function(tag, attributes) {
+        var element = document.createElement(tag);
 
-        for (let attr in attributes) {
+        for (var attr in attributes) {
             if (attributes.hasOwnProperty(attr)) {
                 if (attr != 'textContent') {
                     element.setAttribute(attr, attributes[attr]);
@@ -25,27 +25,27 @@
     }
 
 
-    quiz.getQuestionBlock = (number) => {
-        let block = {};
+    quiz.getQuestionBlock = function(number) {
+        var block = {};
 
-        block.divBlock = quiz.generateElement('div', {'class': 'block'});
+        block.divQuestion = quiz.generateElement('div', {'class': 'question'});
 
-        block.h1Title = quiz.generateElement('h1', {
-            'class': 'block__title',
+        block.spanNumber = quiz.generateElement('span', {
+            'class': 'question__number',
             'textContent': 'Вопрос ' + number
         });
 
-        block.inputQuestionHeading = quiz.generateElement('input', {
+        block.inputHeading = quiz.generateElement('input', {
             'type': 'text',
             'name': 'question_' + number + '_heading',
-            'class': 'block__question-heading',
+            'class': 'question__heading',
             'placeholder': 'Заголовок вопроса',
             'required': ''
         });
 
-        block.textareaQuestionBody = quiz.generateElement('textarea', {
+        block.textareaBody = quiz.generateElement('textarea', {
             'name': 'question_' + number + '_body',
-            'class': 'block__question-body',
+            'class': 'question__body',
             'placeholder': 'Тело вопроса'
         });
 
@@ -53,6 +53,7 @@
             'type': 'radio',
             'name': 'question_' + number + '_correct',
             'value': '1',
+            'class': 'question__correct',
             'hidden': '',
             'required': ''
         });
@@ -61,6 +62,7 @@
             'type': 'radio',
             'name': 'question_' + number + '_correct',
             'value': '2',
+            'class': 'question__correct',
             'hidden': '',
             'required': ''
         });
@@ -69,54 +71,54 @@
             'type': 'radio',
             'name': 'question_' + number + '_correct',
             'value': '3',
+            'class': 'question__correct',
             'hidden': '',
             'required': ''
         });
 
         block.inputAns_1 = quiz.generateElement('input', {
             'type': 'text',
-            'name': 'ans_1',
-            'class': 'block__ans_1',
+            'name': 'question_' + number + '_ans_1',
+            'class': 'question__answer',
             'placeholder': 'Ответ 1',
             'required': ''
         });
 
         block.inputAns_2 = quiz.generateElement('input', {
             'type': 'text',
-            'name': 'ans_2',
-            'class': 'block__ans_2',
+            'name': 'question_' + number + '_ans_2',
+            'class': 'question__answer',
             'placeholder': 'Ответ 2',
             'required': ''
         });
 
         block.inputAns_3 = quiz.generateElement('input', {
             'type': 'text',
-            'name': 'ans_3',
-            'class': 'block__ans_3',
+            'name': 'question_' + number + '_ans_3',
+            'class': 'question__answer',
             'placeholder': 'Ответ 3',
             'required': ''
         });
 
         if (number != 1) {
-            block.buttonRemoveBlock = quiz.generateElement('button', {
-                'class': 'block__remove-block',
-                'type': 'button',
+            block.aRemoveBlock = quiz.generateElement('a', {
+                'class': 'question__remove-block',
                 'textContent': 'Удалить вопрос'
             });
         }
 
-        block.divBlock.appendChild(block.h1Title);
-        block.divBlock.appendChild(block.inputQuestionHeading);
-        block.divBlock.appendChild(block.textareaQuestionBody);
-        block.divBlock.appendChild(block.inputCorrectAns_1);
-        block.divBlock.appendChild(block.inputAns_1);
-        block.divBlock.appendChild(block.inputCorrectAns_2);
-        block.divBlock.appendChild(block.inputAns_2);
-        block.divBlock.appendChild(block.inputCorrectAns_3);
-        block.divBlock.appendChild(block.inputAns_3);
+        block.divQuestion.appendChild(block.spanNumber);
+        block.divQuestion.appendChild(block.inputHeading);
+        block.divQuestion.appendChild(block.textareaBody);
+        block.divQuestion.appendChild(block.inputCorrectAns_1);
+        block.divQuestion.appendChild(block.inputAns_1);
+        block.divQuestion.appendChild(block.inputCorrectAns_2);
+        block.divQuestion.appendChild(block.inputAns_2);
+        block.divQuestion.appendChild(block.inputCorrectAns_3);
+        block.divQuestion.appendChild(block.inputAns_3);
 
         if (number != 1) {
-            block.divBlock.appendChild(block.buttonRemoveBlock);
+            block.divQuestion.appendChild(block.aRemoveBlock);
         }
 
         return block;
@@ -124,27 +126,35 @@
 
 
     // Функция вставки блока в DOM и в список блоков.
-    quiz.insertBlock = (block) => {
-        quiz.quizForm.insertBefore(block.divBlock, document.getElementById('insertBlock'));
+    quiz.insertBlock = function(block) {
+        quiz.quizForm.insertBefore(block.divQuestion, document.getElementById('insertBlock'));
         quiz.questions.push(block);
     };
 
 
     // Функция удаления блока из DOM и из списка блоков.
-    quiz.removeBlock = (block) => {
+    quiz.removeBlock = function(block) {
         // Удаляем блок из DOM.
-        quiz.quizForm.removeChild(block.divBlock);
+        quiz.quizForm.removeChild(block.divQuestion);
 
         // Если блок не последний в списке:
         if (!(quiz.questions.indexOf(block) == quiz.questions.length - 1)) {
-            let blockIndex = quiz.questions.indexOf(block);
+            var blockIndex = quiz.questions.indexOf(block);
 
             // Удаляем блок из списка.
             quiz.questions.splice(blockIndex, 1);
 
             // Каждому блоку в списке после удаленного сдвигаем номер на единицу.
-            for (let i = blockIndex; i < quiz.questions.length; i++) {
-                quiz.questions[i].h1Title.textContent = 'Вопрос ' + (i + 1);
+            for (var i = blockIndex; i < quiz.questions.length; i++) {
+                quiz.questions[i].spanNumber.textContent = 'Вопрос ' + (i + 1);
+                quiz.questions[i].inputHeading.name = 'question_' + (i + 1) + '_heading';
+                quiz.questions[i].textareaBody.name = 'question_' + (i + 1) + '_body';
+                quiz.questions[i].inputCorrectAns_1.name = 'question_' + (i + 1) + '_correct';
+                quiz.questions[i].inputCorrectAns_2.name = 'question_' + (i + 1) + '_correct';
+                quiz.questions[i].inputCorrectAns_3.name = 'question_' + (i + 1) + '_correct';
+                quiz.questions[i].inputAns_1.name = 'question_' + (i + 1) + '_ans_1';
+                quiz.questions[i].inputAns_2.name = 'question_' + (i + 1) + '_ans_2';
+                quiz.questions[i].inputAns_3.name = 'question_' + (i + 1) + '_ans_3';
             }
         // Иначе просто удаляем блок из списка.
         } else {
@@ -153,15 +163,15 @@
     };
 
 
-    document.getElementById('insertBlock').onclick = () => {
+    document.getElementById('insertBlock').onclick = function() {
         quiz.insertBlock(quiz.getQuestionBlock(quiz.questions.length + 1))
     };
 
-    quiz.quizForm.onclick = (event) => {
-        if (event.target.className == 'block__remove-block') {
-            for (let i = 0; i <= quiz.questions.length; i++) {
-                if (quiz.questions[i].buttonRemoveBlock == event.target) {
-                    quiz.removeBlock(questions[i]);
+    quiz.quizForm.onclick = function(event) {
+        if (event.target.className == 'question__remove-block') {
+            for (var i = 0; i <= quiz.questions.length; i++) {
+                if (quiz.questions[i].aRemoveBlock == event.target) {
+                    quiz.removeBlock(quiz.questions[i]);
                     break;
                 }
             }
