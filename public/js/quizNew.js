@@ -81,7 +81,7 @@
 
         block.labelCorrectAns_1 = quiz.generateElement('label', {
             'for': 'question_' + number + '_correct_1',
-            'class': 'question__label'
+            'class': 'question__correct'
         });
 
         block.labelCorrectAns_2 = quiz.generateElement('label', {
