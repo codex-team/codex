@@ -78,7 +78,7 @@
             json;
 
         /** If we want to edit article */
-        if (article.textContent != '') {
+        if (article.textContent.length) {
 
             /** get content that was written before and render with Codex.Editor */
             json = JSON.parse(article.textContent);
@@ -141,3 +141,13 @@
 
 <script src="/public/extensions/codex.editor/plugins/image/image.js"></script>
 <link rel="stylesheet" href="/public/extensions/codex.editor/plugins/image/image.css" />
+
+<script src="/public/extensions/codex.editor/plugins/paste/paste.js"></script>
+<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/paste/paste.css">
+
+<script src="/public/extensions/codex.editor/plugins/instagram/instagram.js"></script>
+<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/instagram/instagram.css">
+
+<script src="/public/extensions/codex.editor/plugins/twitter/twitter.js"></script>
+<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/twitter/twitter.css">
+

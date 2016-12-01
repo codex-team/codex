@@ -53,7 +53,7 @@ var simpleCode = (function(simpleCode) {
             style         = document.getElementById(styleInstance),
             css =   '.sc_attr{color: #F57975;}' +
                     '.sc_tag{color: #7DA3F4;}' +
-                    '.sc_keyword{color: #C97AC1;}' +
+                    '.sc_keyword{color: #d87ccf;}' +
                     '.sc_digt{color: #37D755;}'+
                     '.sc_var{color: #8199C6;}' +
                     '.sc_comment{color: #acb1bd;}' +

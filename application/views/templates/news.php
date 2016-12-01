@@ -1,6 +1,10 @@
 <?
     $news = array(
         array(
+            'text' => 'Вышла <a href="http://news.ifmo.ru/ru/science/it/news/6243/">статья о клубе</a> от редакции НИУ ИТМО',
+            'date' => '30 nov'
+        ),
+        array(
             'text' => 'Опубликованы <a href="/task">задания для вступающих в клуб</a>',
             'date' => '23 oct'
         ),
