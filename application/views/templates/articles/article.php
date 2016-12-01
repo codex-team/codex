@@ -58,15 +58,18 @@
 					'answers' => array(
 					array(
 						'text' => 'Option 1',
-						'score' => 0
+						'score' => 1,
+                        'message' => 'Верно!'
 					),
 					array(
 						'text' => 'Option 2',
-						'score' => 1
+						'score' => 0,
+                        'message' => 'Не угадал..'
 					))
 				)
 				),
-                'messages'          => array(),
+                'messages'          => array(0 => 'Плохо',
+                                             1 => 'Норм'),
             )));?>
 
         </div>
