@@ -53,6 +53,7 @@
             'type': 'radio',
             'name': 'question_' + number + '_correct',
             'value': '1',
+            'id': 'question_' + number + '_correct_1',
             'class': 'question__correct',
             'hidden': '',
             'required': ''
@@ -62,6 +63,7 @@
             'type': 'radio',
             'name': 'question_' + number + '_correct',
             'value': '2',
+            'id': 'question_' + number + '_correct_2',
             'class': 'question__correct',
             'hidden': '',
             'required': ''
@@ -71,9 +73,25 @@
             'type': 'radio',
             'name': 'question_' + number + '_correct',
             'value': '3',
+            'id': 'question_' + number + '_correct_3',
             'class': 'question__correct',
             'hidden': '',
             'required': ''
+        });
+
+        block.labelCorrectAns_1 = quiz.generateElement('label', {
+            'for': 'question_' + number + '_correct_1',
+            'class': 'question__label'
+        });
+
+        block.labelCorrectAns_2 = quiz.generateElement('label', {
+            'for': 'question_' + number + '_correct_2',
+            'class': 'question__correct'
+        });
+
+        block.labelCorrectAns_3 = quiz.generateElement('label', {
+            'for': 'question_' + number + '_correct_3',
+            'class': 'question__correct'
         });
 
         block.inputAns_1 = quiz.generateElement('input', {
@@ -103,7 +121,7 @@
         if (number != 1) {
             block.aRemoveBlock = quiz.generateElement('a', {
                 'class': 'question__remove-block',
-                'textContent': 'Удалить вопрос'
+                'textContent': 'Удалить'
             });
         }
 
@@ -111,10 +129,13 @@
         block.divQuestion.appendChild(block.inputHeading);
         block.divQuestion.appendChild(block.textareaBody);
         block.divQuestion.appendChild(block.inputCorrectAns_1);
+        block.divQuestion.appendChild(block.labelCorrectAns_1);
         block.divQuestion.appendChild(block.inputAns_1);
         block.divQuestion.appendChild(block.inputCorrectAns_2);
+        block.divQuestion.appendChild(block.labelCorrectAns_2);
         block.divQuestion.appendChild(block.inputAns_2);
         block.divQuestion.appendChild(block.inputCorrectAns_3);
+        block.divQuestion.appendChild(block.labelCorrectAns_3);
         block.divQuestion.appendChild(block.inputAns_3);
 
         if (number != 1) {

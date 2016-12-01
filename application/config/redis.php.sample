@@ -1,0 +1,11 @@
+<?php defined('SYSPATH') OR die('No direct access allowed.');
+
+return array
+(
+    'default' => array
+    (
+        'hostname' => '127.0.0.1',
+        'port' => '',
+        'password' => '',
+    ),
+);
