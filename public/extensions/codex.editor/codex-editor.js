@@ -611,6 +611,7 @@ cEditor.ui = {
 
         var wrapper,
             toolbar,
+            toolbarContent,
             inlineToolbar,
             redactor,
             ceBlock,
@@ -634,6 +635,7 @@ cEditor.ui = {
 
         /** Make toolbar and content-editable redactor */
         toolbar               = cEditor.draw.toolbar();
+        toolbarContent        = cEditor.draw.toolbarContent();
         inlineToolbar         = cEditor.draw.inlineToolbar();
         plusButton            = cEditor.draw.plusButton();
         showSettingsButton    = cEditor.draw.settingsButton();
@@ -659,13 +661,16 @@ cEditor.ui = {
         blockButtons.appendChild(blockSettings);
 
         /** Appending first-level block buttons */
-        toolbar.appendChild(blockButtons);
+        toolbarContent.appendChild(blockButtons);
 
         /** Append plus button */
-        toolbar.appendChild(plusButton);
+        toolbarContent.appendChild(plusButton);
 
         /** Appending toolbar tools */
-        toolbar.appendChild(toolbox);
+        toolbarContent.appendChild(toolbox);
+
+        /** Append toolbarContent to toolbar */
+        toolbar.appendChild(toolbarContent);
 
         wrapper.appendChild(toolbar);
 
@@ -3903,6 +3908,14 @@ cEditor.draw = {
         bar.className += 'ce-toolbar';
 
         return bar;
+    },
+
+    toolbarContent : function() {
+
+        var wrapper = document.createElement('DIV');
+        wrapper.classList.add('ce-toolbar__content');
+
+        return wrapper;
     },
 
     /**

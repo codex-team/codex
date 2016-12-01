@@ -42,9 +42,7 @@
 .ce-toolbar{
     position: absolute;
     z-index: 2;
-    width: 600px;
-    left: 50%;
-    margin-left: -300px;
+    width: 100%;
 
     /* hidden by default */
     display: none;
@@ -53,6 +51,11 @@
     display: block;
 }
 
+    .ce-toolbar__content {
+        position: relative;
+        max-width: 600px;
+        margin: 0 auto;
+    }
 /**
 * Plus button
 */
@@ -131,7 +134,7 @@
 */
 .ce-toolbar__actions{
     position: absolute;
-    right: -160px;
+    right: -50px;
     border-radius: 2px;
     padding: 2px 4px;
     /*background: #f9f9fb;*/
