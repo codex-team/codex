@@ -660,14 +660,14 @@ cEditor.ui = {
         blockButtons.appendChild(showTrashButton);
         blockButtons.appendChild(blockSettings);
 
-        /** Appending first-level block buttons */
-        toolbarContent.appendChild(blockButtons);
-
         /** Append plus button */
         toolbarContent.appendChild(plusButton);
 
         /** Appending toolbar tools */
         toolbarContent.appendChild(toolbox);
+
+        /** Appending first-level block buttons */
+        toolbar.appendChild(blockButtons);
 
         /** Append toolbarContent to toolbar */
         toolbar.appendChild(toolbarContent);
