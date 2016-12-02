@@ -137,7 +137,7 @@
 
 
 
-@media all and (max-width: 1000px){
+@media all and (max-width: 800px){
 
     .site-header__button {
         display: none;
