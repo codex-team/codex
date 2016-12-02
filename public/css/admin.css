@@ -134,12 +134,6 @@
     display: inline-block;
     padding: 18px 0;
 }
-.site-header__button::before{
-    /*font-family: "codex_ic";
-    content: '\e80b';
-    margin-right: 5px;*/
-}
-
 
 
 
