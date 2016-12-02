@@ -129,3 +129,24 @@
         margin: 1px;
         line-height: 1.7em;
     }
+
+.site-header__button{
+    display: inline-block;
+    padding: 18px 0;
+}
+.site-header__button::before{
+    /*font-family: "codex_ic";
+    content: '\e80b';
+    margin-right: 5px;*/
+}
+
+
+
+
+@media all and (max-width: 1000px){
+
+    .site-header__button {
+        display: none;
+    }
+
+}

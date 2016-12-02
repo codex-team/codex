@@ -18,6 +18,7 @@ Class Model_User extends Model
     public $bio         = '';
     public $role        = 1;
     public $is_removed  = 0;
+    public $isAdmin     = 0;
 
 
 
@@ -106,6 +107,7 @@ Class Model_User extends Model
             $model->bio           = $user['bio'];
             $model->role          = $user['role'];
             $model->is_removed    = $user['is_removed'];
+            $model->isAdmin       = $user['role'] == self::ROLE_ADMIN ? true : false;
         }
 
         return $model;
