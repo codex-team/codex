@@ -49,74 +49,38 @@
             'placeholder': 'Тело вопроса'
         });
 
-        block.inputCorrectAns_1 = quiz.generateElement('input', {
-            'type': 'radio',
-            'name': 'question_' + number + '_correct',
-            'value': '1',
-            'id': 'question_' + number + '_correct_1',
-            'class': 'question__correct',
-            'hidden': '',
-            'required': ''
-        });
+        for (var i = 1; i <= 3; i++) {
+            block['divAns_' + i + 'Wrap'] = quiz.generateElement('div', {
+                'class': 'question__answer-wrap'
+            });
 
-        block.inputCorrectAns_2 = quiz.generateElement('input', {
-            'type': 'radio',
-            'name': 'question_' + number + '_correct',
-            'value': '2',
-            'id': 'question_' + number + '_correct_2',
-            'class': 'question__correct',
-            'hidden': '',
-            'required': ''
-        });
+            block['inputCorrectAns_' + i] = quiz.generateElement('input', {
+                'type': 'radio',
+                'name': 'question_' + number + '_correct',
+                'value': '3',
+                'id': 'question_' + number + '_correct_' + i,
+                'class': 'question__correct',
+                'hidden': '',
+                'required': ''
+            });
 
-        block.inputCorrectAns_3 = quiz.generateElement('input', {
-            'type': 'radio',
-            'name': 'question_' + number + '_correct',
-            'value': '3',
-            'id': 'question_' + number + '_correct_3',
-            'class': 'question__correct',
-            'hidden': '',
-            'required': ''
-        });
+            block['labelCorrectAns_' + i] = quiz.generateElement('label', {
+                'for': 'question_' + number + '_correct_' + i,
+                'class': 'question__correct'
+            });
 
-        block.labelCorrectAns_1 = quiz.generateElement('label', {
-            'for': 'question_' + number + '_correct_1',
-            'class': 'question__correct'
-        });
+            block['spanCorrectAns_' + i] = quiz.generateElement('span', {
+                'class': 'question__correct'
+            });
 
-        block.labelCorrectAns_2 = quiz.generateElement('label', {
-            'for': 'question_' + number + '_correct_2',
-            'class': 'question__correct'
-        });
-
-        block.labelCorrectAns_3 = quiz.generateElement('label', {
-            'for': 'question_' + number + '_correct_3',
-            'class': 'question__correct'
-        });
-
-        block.inputAns_1 = quiz.generateElement('input', {
-            'type': 'text',
-            'name': 'question_' + number + '_ans_1',
-            'class': 'question__answer',
-            'placeholder': 'Ответ 1',
-            'required': ''
-        });
-
-        block.inputAns_2 = quiz.generateElement('input', {
-            'type': 'text',
-            'name': 'question_' + number + '_ans_2',
-            'class': 'question__answer',
-            'placeholder': 'Ответ 2',
-            'required': ''
-        });
-
-        block.inputAns_3 = quiz.generateElement('input', {
-            'type': 'text',
-            'name': 'question_' + number + '_ans_3',
-            'class': 'question__answer',
-            'placeholder': 'Ответ 3',
-            'required': ''
-        });
+            block['inputAns_' + i] = quiz.generateElement('input', {
+                'type': 'text',
+                'name': 'question_' + number + '_ans_' + i,
+                'class': 'question__answer',
+                'placeholder': 'Ответ ' + i,
+                'required': ''
+            });
+        }
 
         if (number != 1) {
             block.aRemoveBlock = quiz.generateElement('a', {
@@ -128,15 +92,26 @@
         block.divQuestion.appendChild(block.spanNumber);
         block.divQuestion.appendChild(block.inputHeading);
         block.divQuestion.appendChild(block.textareaBody);
-        block.divQuestion.appendChild(block.inputCorrectAns_1);
-        block.divQuestion.appendChild(block.labelCorrectAns_1);
-        block.divQuestion.appendChild(block.inputAns_1);
-        block.divQuestion.appendChild(block.inputCorrectAns_2);
-        block.divQuestion.appendChild(block.labelCorrectAns_2);
-        block.divQuestion.appendChild(block.inputAns_2);
-        block.divQuestion.appendChild(block.inputCorrectAns_3);
-        block.divQuestion.appendChild(block.labelCorrectAns_3);
-        block.divQuestion.appendChild(block.inputAns_3);
+
+        block.labelCorrectAns_1.appendChild(block.spanCorrectAns_1);
+        block.labelCorrectAns_2.appendChild(block.spanCorrectAns_2);
+        block.labelCorrectAns_3.appendChild(block.spanCorrectAns_3);
+
+        block.divAns_1Wrap.appendChild(block.inputCorrectAns_1);
+        block.divAns_1Wrap.appendChild(block.labelCorrectAns_1);
+        block.divAns_1Wrap.appendChild(block.inputAns_1);
+
+        block.divAns_2Wrap.appendChild(block.inputCorrectAns_2);
+        block.divAns_2Wrap.appendChild(block.labelCorrectAns_2);
+        block.divAns_2Wrap.appendChild(block.inputAns_2);
+
+        block.divAns_3Wrap.appendChild(block.inputCorrectAns_3);
+        block.divAns_3Wrap.appendChild(block.labelCorrectAns_3);
+        block.divAns_3Wrap.appendChild(block.inputAns_3);
+
+        block.divQuestion.appendChild(block.divAns_1Wrap);
+        block.divQuestion.appendChild(block.divAns_2Wrap);
+        block.divQuestion.appendChild(block.divAns_3Wrap);
 
         if (number != 1) {
             block.divQuestion.appendChild(block.aRemoveBlock);
@@ -173,6 +148,9 @@
                 quiz.questions[i].inputCorrectAns_1.name = 'question_' + (i + 1) + '_correct';
                 quiz.questions[i].inputCorrectAns_2.name = 'question_' + (i + 1) + '_correct';
                 quiz.questions[i].inputCorrectAns_3.name = 'question_' + (i + 1) + '_correct';
+                quiz.questions[i].labelCorrectAns_1.setAttribute('for', 'question_' + (i + 1) + '_correct_1');
+                quiz.questions[i].labelCorrectAns_2.setAttribute('for', 'question_' + (i + 1) + '_correct_2');
+                quiz.questions[i].labelCorrectAns_3.setAttribute('for', 'question_' + (i + 1) + '_correct_3');
                 quiz.questions[i].inputAns_1.name = 'question_' + (i + 1) + '_ans_1';
                 quiz.questions[i].inputAns_2.name = 'question_' + (i + 1) + '_ans_2';
                 quiz.questions[i].inputAns_3.name = 'question_' + (i + 1) + '_ans_3';
