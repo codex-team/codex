@@ -611,6 +611,7 @@ cEditor.ui = {
 
         var wrapper,
             toolbar,
+            toolbarContent,
             inlineToolbar,
             redactor,
             ceBlock,
@@ -634,6 +635,7 @@ cEditor.ui = {
 
         /** Make toolbar and content-editable redactor */
         toolbar               = cEditor.draw.toolbar();
+        toolbarContent        = cEditor.draw.toolbarContent();
         inlineToolbar         = cEditor.draw.inlineToolbar();
         plusButton            = cEditor.draw.plusButton();
         showSettingsButton    = cEditor.draw.settingsButton();
@@ -658,14 +660,17 @@ cEditor.ui = {
         blockButtons.appendChild(showTrashButton);
         blockButtons.appendChild(blockSettings);
 
+        /** Append plus button */
+        toolbarContent.appendChild(plusButton);
+
+        /** Appending toolbar tools */
+        toolbarContent.appendChild(toolbox);
+
         /** Appending first-level block buttons */
         toolbar.appendChild(blockButtons);
 
-        /** Append plus button */
-        toolbar.appendChild(plusButton);
-
-        /** Appending toolbar tools */
-        toolbar.appendChild(toolbox);
+        /** Append toolbarContent to toolbar */
+        toolbar.appendChild(toolbarContent);
 
         wrapper.appendChild(toolbar);
 
@@ -1067,7 +1072,8 @@ cEditor.callback = {
         */
         if (
             currentSelectedNode.nodeType == cEditor.core.nodeTypes.TEXT &&
-            !isTextNodeHasParentBetweenContenteditable
+            !isTextNodeHasParentBetweenContenteditable &&
+            !caretAtTheEndOfText
         ){
 
             event.preventDefault();
@@ -1101,6 +1107,7 @@ cEditor.callback = {
                 }, true );
 
                 cEditor.toolbar.move();
+                cEditor.toolbar.open();
 
                 /** Show plus button with empty block */
                 cEditor.toolbar.showPlusButton();
@@ -3901,6 +3908,14 @@ cEditor.draw = {
         bar.className += 'ce-toolbar';
 
         return bar;
+    },
+
+    toolbarContent : function() {
+
+        var wrapper = document.createElement('DIV');
+        wrapper.classList.add('ce-toolbar__content');
+
+        return wrapper;
     },
 
     /**
