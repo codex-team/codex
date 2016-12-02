@@ -150,6 +150,27 @@ codex.content = {
             button.classList.add('hide');
         }
 
+    },
+    
+    /**
+     * @private
+     *
+     * Calculates offset of DOM element
+     *
+     * @param el
+     * @returns {{top: number, left: number}}
+     */
+    getOffset : function ( el ) {
+
+        var _x = 0;
+        var _y = 0;
+
+        while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
+            _x += (el.offsetLeft + el.clientLeft);
+            _y += (el.offsetTop + el.clientTop);
+            el = el.offsetParent;
+        }
+        return { top: _y, left: _x };
     }
 
 
@@ -206,6 +227,41 @@ codex.scrollUp = {
 
     }
 
+};
+
+/**
+ * Fixes columns
+ */
+codex.fixColumns = {
+
+    init : function() {
+
+        var courseNavigation = document.getElementsByName('js-course-navigation');
+
+        var makeFixedColumns = function(columns) {
+
+            columns.forEach(function(item) {
+
+                item.style.position = "";
+                item.style.top = "";
+
+                var offset = codex.content.getOffset(item);
+
+                if (document.body.scrollTop >= offset.top) {
+                    item.style.position = "fixed";
+                    item.style.top = 0;
+
+                }
+
+            });
+
+        };
+
+        document.addEventListener('scroll', function() {
+            makeFixedColumns(courseNavigation);
+        }, false);
+
+    }
 };
 
 codex.sharer = (function( sharer ){
@@ -836,6 +892,9 @@ codex.docReady(function(){
 
     /** Initialize scroll up button */
     codex.scrollUp.init();
+
+    /** Fix previous and next article columns if they exist on page */
+    codex.fixColumns.init();
 
 });
 

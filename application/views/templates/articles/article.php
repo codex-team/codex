@@ -4,94 +4,99 @@
 
     <?= View::factory('templates/articles/course_list'); ?>
 
+</div>
 
-    <div class="course-nav">
-        <div class="course-nav__icon"></div>
-        <div class="course-nav__title">Почему моя программа не работает?</div>
-        <img class="course-nav__avatar" src="https://ifmo.su/upload/users/qNgjN82zGBE_quad_1451238345.jpg" itemprop="image">
-        <div class="course-nav__author">Владислав Третьяк</div>
+<div class="article-wrapper" name="js-article-wrapper">
+
+    <div class="course-navigation-wrapper course-navigation-wrapper--previous" name="js-course-navigation">
+        <a class="course-navigation course-navigation--previous" href="#">
+            <div class="course-navigation__icon course-navigation__icon--previous"></div>
+            <div class="course-navigation__title">Публикация статистики из Яндекс.Метрики в Telegram</div>
+            <img class="course-navigation__avatar" src="https://ifmo.su/upload/users/qNgjN82zGBE_quad_1451238345.jpg" itemprop="image">
+            <div class="course-navigation__author">Владислав Третьяк</div>
+        </a>
     </div>
 
-    <article class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="course-navigation-wrapper course-navigation-wrapper--next" name="js-course-navigation">
+        <a class="course-navigation course-navigation--next" href="#">
+            <div class="course-navigation__icon course-navigation__icon--next"></div>
+            <div class="course-navigation__title">Почему моя программа не работает?</div>
+            <img class="course-navigation__avatar" src="https://ifmo.su/upload/users/qNgjN82zGBE_quad_1451238345.jpg" itemprop="image">
+            <div class="course-navigation__author">Владислав Третьяк</div>
+        </a>
+    </div>
 
-        <? if (isset($article->dt_update)): ?>
-            <meta itemprop="dateModified" content="<?= date(DATE_ISO8601, strtotime($article->dt_update)) ?>" />
-        <? endif; ?>
-        <meta itemprop="datePublished" content="<?= date(DATE_ISO8601, strtotime($article->dt_create)) ?>" />
+    <div class="center_side">
+        <article class="article" itemscope itemtype="http://schema.org/Article">
 
-        <h1 class="article__title" itemprop="headline">
-            <?= $article->title ?>
-        </h1>
+            <? if (isset($article->dt_update)): ?>
+                <meta itemprop="dateModified" content="<?= date(DATE_ISO8601, strtotime($article->dt_update)) ?>" />
+            <? endif; ?>
+            <meta itemprop="datePublished" content="<?= date(DATE_ISO8601, strtotime($article->dt_create)) ?>" />
 
-        <div class="article-info">
-            <div class="article-info__author" itemscope itemtype="http://schema.org/Person" itemprop="author">
+            <h1 class="article__title" itemprop="headline">
+                <?= $article->title ?>
+            </h1>
 
-                <meta itemprop="url" href="https://ifmo.su/user/<?= $article->user_id ?>" />
+            <div class="article-info">
+                <div class="article-info__author" itemscope itemtype="http://schema.org/Person" itemprop="author">
 
-                <time class="article-info__date"><?= Date::fuzzy_span(strtotime($article->dt_create)) ?></time>
-                <img class="article-info__photo" src="<?= $article->author->photo ?>" alt="https://ifmo.su/<?= $article->author->name ?>"  itemprop="image">
-                <a class="article-info__name" itemprop="name" href="https://ifmo.su/user/<?= $article->author->id ?>"><?= $article->author->name ?></a>
+                    <meta itemprop="url" href="https://ifmo.su/user/<?= $article->user_id ?>" />
+
+                    <time class="article-info__date"><?= Date::fuzzy_span(strtotime($article->dt_create)) ?></time>
+                    <img class="article-info__photo" src="<?= $article->author->photo ?>" alt="https://ifmo.su/<?= $article->author->name ?>"  itemprop="image">
+                    <a class="article-info__name" itemprop="name" href="https://ifmo.su/user/<?= $article->author->id ?>"><?= $article->author->name ?></a>
+
+                </div>
+            </div>
+
+            <div class="article_content <?= !empty($article->text) ? 'article_content--old' : '' ?>" itemprop="articleBody">
+
+                <?
+                    /**
+                    * For articles craeted with Codex.Editor
+                    */
+                ?>
+                <? foreach ($article->blocks as $block): ?>
+                    <?= $block; ?>
+                <? endforeach; ?>
+
+                <?
+                    /**
+                    * For articles with HTML content (old editor mode)
+                    */
+                ?>
+                <? if (!empty($article->text)) : ?>
+                    <?=$article->text; ?>
+                <? endif; ?>
 
             </div>
-        </div>
-
-        <div class="article_content <?= !empty($article->text) ? 'article_content--old' : '' ?>" itemprop="articleBody">
-
-            <?
-                /**
-                * For articles craeted with Codex.Editor
-                */
-            ?>
-            <? foreach ($article->blocks as $block): ?>
-                <?= $block; ?>
-            <? endforeach; ?>
-
-            <?
-                /**
-                * For articles with HTML content (old editor mode)
-                */
-            ?>
-            <? if (!empty($article->text)) : ?>
-                <?=$article->text; ?>
-            <? endif; ?>
-
-        </div>
 
 
-        <?= View::factory('templates/blocks/share', array('share' => array(
-            'offer' => 'Если вам понравилась статья, поделитесь ссылкой на нее',
-            'url'   => 'https://' . Arr::get($_SERVER, 'HTTP_HOST', Arr::get($_SERVER, 'SERVER_NAME', 'ifmo.su')) . '/article/' . $article->id,
-            'title' => html_entity_decode($article->title),
-            'desc'  => html_entity_decode($article->description),
-        ))); ?>
+            <?= View::factory('templates/blocks/share', array('share' => array(
+                'offer' => 'Если вам понравилась статья, поделитесь ссылкой на нее',
+                'url'   => 'https://' . Arr::get($_SERVER, 'HTTP_HOST', Arr::get($_SERVER, 'SERVER_NAME', 'ifmo.su')) . '/article/' . $article->id,
+                'title' => html_entity_decode($article->title),
+                'desc'  => html_entity_decode($article->description),
+            ))); ?>
 
 
-        <ul class="random_articles">
-            <h3>Читайте далее</h3>
-            <p>Мы расскажем вам о крутых и интересных технологиях и приведём примеры их использования в наших проектах.</p>
+            <ul class="random_articles">
+                <h3>Читайте далее</h3>
+                <p>Мы расскажем вам о крутых и интересных технологиях и приведём примеры их использования в наших проектах.</p>
 
-            <? foreach ($popularArticles as $popularArticle): ?>
-                <li><a href="/<?= $popularArticle->uri ?: ('article/' . $popularArticle->id) ; ?>"><?= $popularArticle->title; ?></a></li>
-            <? endforeach; ?>
+                <? foreach ($popularArticles as $popularArticle): ?>
+                    <li><a href="/<?= $popularArticle->uri ?: ('article/' . $popularArticle->id) ; ?>"><?= $popularArticle->title; ?></a></li>
+                <? endforeach; ?>
 
-        </ul>
+            </ul>
 
-        <div class="next-article">
-            <div class="next-article__title"><h2>Почему моя программа не работает?</h2></div>
-            <img class="next-article__avatar" src="https://ifmo.su/upload/users/qNgjN82zGBE_quad_1451238345.jpg" itemprop="image">
-            <div class="next-article__author-name">Владислав Третьяк</div>
-        </div> 
-        
-    </article>
-
-    
-    <div class="course-nav">
-        <div class="course-nav__icon--back"></div>
-        <div class="course-nav__title">Синтаксис</div>
-        <img class="course-nav__avatar" src="https://ifmo.su/upload/users/qNgjN82zGBE_quad_1451238345.jpg" itemprop="image">
-        <div class="course-nav__author">Владислав Третьяк</div>
+        </article>
     </div>
 
+</div>
 
+<div class="center_side clear">
     <?=View::factory('templates/articles/course_list'); ?>
 </div>
+
