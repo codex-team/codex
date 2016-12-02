@@ -23,6 +23,7 @@ class Controller_Index extends Controller_Base_preDispatch
         $modelUser = new Model_User();
         $bestDevelopersIds = array(
             24, // @n0str
+            115, // Murod
         );
         $this->view['bestDevelopers'] = $modelUser->getUsersByIds($bestDevelopersIds);
 
