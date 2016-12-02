@@ -13,12 +13,9 @@
 }
 
 .article{
-    margin: 0 auto;
-    max-width: 940px;
     padding-bottom: 20px;
     border: 1px solid #eceff6;
     border-radius: 3px;
-    /*display: inline-block;*/
 }
 .article__title{
     padding: 100px 140px 40px;
@@ -377,13 +374,10 @@
     }
 
     .course-navigation__icon--next {
-        background: url('arrow-forward.svg') no-repeat;
+        background: url('../img/arrow-forward.svg') no-repeat;
     }
     .course-navigation__icon--previous{
-        background: url('arrow-back.svg') no-repeat;
-    }
-
-    .course-navigation__title {
+        background: url('../img/arrow-back.svg') no-repeat;
     }
 
     .course-navigation__avatar {
@@ -407,39 +401,6 @@
         display: none;
     }
 }
-
-/*.next-article {*/
-    /*margin: 50px;*/
-    /*text-align: justify;*/
-/*}*/
-
-/*.next-article__title:before {*/
-    /*content: "далее в курсе";*/
-    /*font-size: 16px;*/
-    /*color: #828282;*/
-    /*text-align: left;*/
-/*}*/
-
-/*.next-article__title {*/
-    /*display: inline-block;*/
-    /*vertical-align: 50%;*/
-    /*text-align: left;*/
-/*}*/
-
-/*.next-article__author-name {*/
-    /*display: inline-block;*/
-    /*vertical-align: 50%;*/
-    /*margin-left: auto;*/
-/*}*/
-
-/*.next-article__avatar {*/
-    /*margin-left: auto;*/
-    /*display: inline-block;*/
-    /*border-radius: 100%;*/
-    /*width: 30px;*/
-    /*height: 30px;*/
-/*}*/
-
 
 /**
 * Mobile viewport
