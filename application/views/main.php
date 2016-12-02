@@ -41,6 +41,7 @@
                 </a>
                 <? if ($user->isAdmin): ?>
                     <a class="site-header__button" href="/article/add">
+                        <i class="icon-pencil"></i>
                         <span class="site-header__button_text">
                             Write
                         </span>
