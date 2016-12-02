@@ -37,7 +37,7 @@
         <div class="center_side">
             <? if ($user->id): ?>
                 <a class="site-header__profile" href="/user/<?= $user->id ?>">
-                    <img class="site-header__profile_photo" src="<?= $user->photo ?>" alt="<?= $user->name ?>" id="header-avatar-updatable" /><?= $user->name ?>
+                    <img class="site-header__profile_photo" src="<?= $user->photo ?>" alt="<?= $user->name ?>" id="header-avatar-updatable" />Profile
                 </a>
                 <? if ($user->isAdmin): ?>
                     <a class="site-header__button" href="/article/add">
@@ -65,7 +65,7 @@
     <footer class="site-footer">
         <div class="center_side clearfix">
             <section class="site-footer__section fl_l">
-                <h5>CodeX</h5>
+                <h5><a href="/">CodeX</a></h5>
                 Клуб веб-разработки, дизайна и маркетинга. Мы строим команду молодых специалистов, способную создавать полноценные проекты в интернете на мировом уровне.
             </section>
             <section class="site-footer__section fl_r">
