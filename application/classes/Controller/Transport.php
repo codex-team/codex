@@ -21,9 +21,14 @@ class Controller_Transport extends Controller_Base_preDispatch {
 	{
 		$this->files = Arr::get($_FILES, 'files');
 
-		if (isset($_GET['files'])) {
-			$url = Arr::get($_GET, 'files');
+		if (isset($_POST['file'])) {
+			$url = Arr::get($_POST, 'file');
 			$filename = $this->methods->saveImageByUrl($url, 'upload/redactor_images/');
+
+			if ($filename) {
+				$this->transportResponse['success'] = 1;
+				$this->transportResponse['filename'] = $filename;
+			}
 			goto finish;
 		}
 

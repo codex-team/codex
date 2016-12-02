@@ -25,9 +25,9 @@
     min-height: 350px;
 }
 
-.ce-redactor * {
+/*.ce-redactor * {
     box-sizing: border-box;
-}
+}*/
 
 /**
 * Remove outlines from inputs
@@ -131,7 +131,10 @@
 */
 .ce-toolbar__actions{
     position: absolute;
-    right: -125px;
+    right: -160px;
+    border-radius: 2px;
+    padding: 2px 4px;
+    /*background: #f9f9fb;*/
 }
 
 /**
@@ -198,11 +201,11 @@
 }
 .ce-settings:before,
 .ce-settings:after{
-    right: 27px;
+    right: 31px;
 }
 .ce-toolbar__remove-confirmation:before,
 .ce-toolbar__remove-confirmation:after{
-    right: 5px;
+    right: 10px;
 }
 .ce-toolbar__remove-confirmation{
     right: -3px;
@@ -336,7 +339,7 @@
     margin: 0 5px;
     border-radius: 3px;
 }
-.ce-block--focused {
+.ce-block--focused{
     background: #f9f9fb;
 }
 
@@ -349,7 +352,7 @@
     display: inline-block;
     position: absolute;
 
-    left: 30px;
+    left: 17px;
     top: 13px;
     font-size: 16px;
     color: #ef4a4a;
@@ -361,9 +364,11 @@
 .ce-block__content{
     max-width: 600px;
     margin: 0 auto;
+    padding: 1px;
 }
 .ce-block--stretched{
     max-width: none;
+    padding: 0;
 }
 
 /**
@@ -372,6 +377,20 @@
 .ce-redactor p{
     margin: 0;
 }
+
+/**
+* Loading bar class
+*/
+.ce-redactor__loader{
+    background-image: repeating-linear-gradient(-45deg, transparent, transparent 4px, #f5f9ff 4px, #eaedef 8px) !important;
+    background-size: 56px 56px;
+    animation: loading-bar 1.3s infinite linear;
+}
+
+@keyframes loading-bar {
+    100% { background-position: -56px 0 }
+}
+
 
 /**
 * Mobile viewport styles

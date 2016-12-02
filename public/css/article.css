@@ -88,15 +88,6 @@
             color: #2C70F5;
             border-bottom-color: #6E8FEC;
         }
-    .article_content code{
-        display: block;
-        padding: 10px 15px;
-        background-color: #F9FAFB;
-        font-family: 'monospace', 'monaco', 'consolas', 'courier';
-        font-size: 14px;
-        color: #3D597B;
-        overflow-x: auto;
-    }
     .article_content li{
         margin: 0.2em 0;
     }
@@ -110,6 +101,45 @@
     }
 
 
+/**
+*
+* Plugins styles
+* ================================
+*/
+
+/**
+* Code block styles
+*/
+.article__code-wrapper{
+    padding: 2em 0;
+    background-color: #f9fafd;
+}
+.article__code,
+.article_content--old code{
+    display: block;
+    overflow-x: auto;
+    background-color: #f9fafd;
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    font-size: 14px;
+    color: #3a4c6d;
+}
+.article__code p{
+    margin: 0 !important;
+}
+.article_content--old code{
+    padding: 1em
+}
+
+
+
+
+
+
+
+
+
+
+
 
 /** Paragraph styles */
 .article_content p,
@@ -121,17 +151,22 @@
 .article_content h6,
 .article_content ul,
 .article_content ol,
-.article_content code,
 .article_content blockquote,
-.article_content img {
+.article_content--old code,
+.article__code {
     max-width: 700px;
 }
 
 
 .article_content p,
-.article_content code {
+.article__code-wrapper,
+.article_content--old code{
     margin: 1.3em auto;
 }
+.article__code{
+    margin: 0 auto;
+}
+
 
 .article_content ul,
 .article_content ol {
@@ -418,6 +453,15 @@
     }
 
 
+    /**
+    * Code block styles
+    */
+    .article__code-wrapper{
+        padding: 15px;
+        font-size: 12px;
+        line-height: 1.7em;
+    }
+
 
 
     .article_content p,
@@ -430,6 +474,7 @@
     .article_content ul,
     .article_content ol,
     .article_content code,
+    .article__code,
     .article_content blockquote,
     .article_content img {
         max-width: 100%;
@@ -445,12 +490,6 @@
         font-size: 1.1em;
         line-height: 1.5em;
         padding: 20px ;
-    }
-
-    .article_content code {
-        padding: 10px;
-        font-size: .7em;
-        line-height: 1.5em;
     }
 
     .article_content h2 {

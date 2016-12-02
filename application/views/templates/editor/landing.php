@@ -5,7 +5,7 @@
     <h1 class="editor-landing__title" itemprop="headline">CodeX Editor</h1>
     <div class="editor-landing__disclaimer">under development</div>
 
-    <div contenteditable class="editor-landing__input-title" type="text" data-placeholder="Title" onkeypressed="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation();"></div>
+    <div contenteditable id="js-editor-title" class="editor-landing__input-title" type="text" data-placeholder="Title"></div>
 
     <form name="editor-demo" action="/editor/preview" method="POST" enctype="multipart/form-data">
 
@@ -21,6 +21,32 @@
 
 </article>
 
+<script>
+
+    /**
+    * Hander for article title input
+    * Sets focus on ce-redator by ENTER key
+    */
+    var titleInput = document.getElementById('js-editor-title');
+
+    titleInput.addEventListener('keypress',function(event) {
+
+        var ENTER = 13,
+            redactor;
+
+        if (event.keyCode == ENTER){
+
+            event.preventDefault();
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+
+            redactor = document.querySelector('.ce-redactor');
+            redactor.click();
+        }
+
+    });
+</script>
+
 
 <div class="editor-output-preview">
 
@@ -28,6 +54,21 @@
     <div class="editor-output--description">Yeah, it's blocks! Very useful for multiplatform coverage.</div>
 
     <pre id="output"></pre>
+</div>
+
+
+<div class="advantages clearfix">
+    <div class="center_side">
+        <div class="advantages__item">
+            API based
+        </div>
+        <div class="advantages__item">
+            Native JS
+        </div>
+        <div class="advantages__item">
+            Opened
+        </div>
+    </div>
 </div>
 
 <link rel="stylesheet" href="/public/extensions/codex.editor/codex-editor.css?v=2" />
@@ -520,3 +561,12 @@ INPUT.items = [];
 
 <script src="/public/extensions/codex.editor/plugins/image/image.js"></script>
 <link rel="stylesheet" href="/public/extensions/codex.editor/plugins/image/image.css" />
+
+<script src="/public/extensions/codex.editor/plugins/paste/paste.js"></script>
+<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/paste/paste.css">
+
+<script src="/public/extensions/codex.editor/plugins/instagram/instagram.js"></script>
+<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/instagram/instagram.css">
+
+<script src="/public/extensions/codex.editor/plugins/twitter/twitter.js"></script>
+<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/twitter/twitter.css">

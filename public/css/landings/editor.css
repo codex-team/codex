@@ -1,16 +1,19 @@
 /**
 * Editor landing page
 */
-/*body{
+body{
     background: #f0f3f9;
-}*/
+}
 .site-header,
 .site-footer{
     background: #fff;
     border-color: #e7e9f5;
 }
 .editor-landing{
-    margin: 30px 0;
+    background: #fff;
+    max-width: 940px;
+    margin: 30px auto;
+    padding-top: 60px;
     padding-bottom: 120px;
     min-height: 600px;
     border-radius: 3px;
@@ -44,7 +47,7 @@
     background: none;
     padding: 0;
     font-size: 2.5em;
-    line-height: 1.6em;
+    line-height: 1.2em;
     letter-spacing: .2px;
     font-weight: 700;
     outline: none;
@@ -107,7 +110,6 @@
 * Editor output JSON preview styles
 */
 .editor-output-preview{
-    margin: 0 0px -30px;
     background: #242835;
     padding: 50px 0;
     color: #6c7d98;
@@ -139,18 +141,35 @@
         margin-right: 20px;
         font-size: .9em;
     }
-.site_footer{
+
+/**
+* Advantages block
+*/
+.advantages{
+    background: #13151f;
+    color: #fff;
+}
+.advantages__item{
+    float: left;
+    width: 33%;
+    padding: 50px 0;
+    text-align: center;
+    font-size: 24px;
+}
+
+.site-footer{
     border-top: 0;
+    margin-top: 0;
     background: #1a1c29;
     color: #50586d;
 }
-    .site_footer h5{
+    .site-footer h5{
         color: #9da9cc;
     }
-    .site_footer a{
+    .site-footer a{
         color: #6581c5;
     }
-    .site_footer .desclimer{
+    .site-footer .desclimer{
         color: #535f7b;
     }
 
@@ -186,6 +205,10 @@
     }
     .editor-landing__disclaimer{
         font-size: .8em;
+    }
+
+    .advantages__item{
+        font-size: 16px;
     }
 
 }

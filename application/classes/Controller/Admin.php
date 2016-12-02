@@ -26,6 +26,9 @@ class Controller_Admin extends Controller_Base_preDispatch
             case 'contests' :
                 $pageContent = self::contests();
                 break;
+            case 'courses' :
+                $pageContent = self::courses();
+                break;
             case 'requests'    :
                 $pageContent = self::requests();
                 break;
@@ -90,6 +93,17 @@ class Controller_Admin extends Controller_Base_preDispatch
         $this->view["contests"] = $contests;
 
         return View::factory('templates/admin/contests/list', $this->view);
+
+    }
+
+    public function courses()
+    {
+
+        $courses = Model_Courses::getAllCourses();
+
+        $this->view["courses"] = $courses;
+
+        return View::factory('templates/admin/courses/list', $this->view);
 
     }
 

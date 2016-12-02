@@ -26,6 +26,14 @@ var paragraphTool = {
          * tag.setAttribute('data-placeholder', 'placehoder');
          */
 
+        /**
+         * @uses Paste tool callback.
+         * Function analyzes pasted data
+         * If pasted URL from instagram, twitter or Image
+         * it renders via Social widgets content or uploads image and uses Image tool to render
+         */
+        tag.addEventListener('paste', pasteTool.callbacks.pasted, false);
+
         return tag;
 
     },
@@ -44,16 +52,13 @@ var paragraphTool = {
     */
     save : function (blockContent){
 
-        var json  = {
-                type : 'paragraph',
-                data : {
-                    text : null,
-                }
+        var data = {
+                text : null,
             };
 
-        json.data.text = blockContent.innerHTML;
+        data.text = blockContent.innerHTML;
 
-        return json;
+        return data;
 
     },
 
@@ -72,7 +77,7 @@ cEditor.tools.paragraph = {
     settings         : null,
     render           : paragraphTool.render,
     save             : paragraphTool.save,
-    display          : false,
+    displayInToolbox : false,
     enableLineBreaks : false,
     allowedToPaste   : true
 

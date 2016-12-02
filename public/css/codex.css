@@ -311,6 +311,10 @@ html {
         margin: 0 0 10px;
         font-size: 1.02em;
     }
+    .site-footer h5 a{
+        color: inherit;
+        text-decoration: none;
+    }
     .site-footer p{
         margin: 0;
     }
@@ -331,10 +335,10 @@ html {
     padding: 32px 27px;
     border-radius: 2px;
     background: rgba(93, 104, 156, 0.08);
-    color: rgba(85, 97, 125, 0.6);
     font-size: 18px;
     text-align: center;
     cursor: pointer;
+    color: rgba(85, 97, 125, 0.6);
     opacity: 0;
     transition: opacity 150ms ease-in;
 }

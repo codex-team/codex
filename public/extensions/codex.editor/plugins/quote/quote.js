@@ -61,18 +61,15 @@ var quoteTools = {
         * @param {Text} text, {Text} author, {Object} photo
         */
         var parsedblock = quoteTools.parseBlockQuote(blockContent);
-            json  = {
-                type : 'quote',
-                data : {
-                    style  : parsedblock.style,
-                    text   : parsedblock.text,
-                    author : parsedblock.author,
-                    job    : parsedblock.job,
-                    photo  : parsedblock.photo,
-                }
+            data = {
+                style  : parsedblock.style,
+                text   : parsedblock.text,
+                author : parsedblock.author,
+                job    : parsedblock.job,
+                photo  : parsedblock.photo,
             };
 
-        return json;
+        return data;
     },
 
     makeSettings : function(data) {
@@ -175,7 +172,7 @@ var quoteTools = {
             var wrapper = cEditor.content.composeNewBlock(newStyledQuote, 'quote');
                 wrapper.appendChild(newStyledQuote);
 
-            cEditor.content.replaceBlock(cEditor.content.currentNode, wrapper, 'quote');
+            cEditor.content.switchBlock(cEditor.content.currentNode, newStyledQuote, 'quote');
 
             /** Close settings after replacing */
             cEditor.toolbar.settings.close();
@@ -452,7 +449,7 @@ cEditor.tools.quote = {
     settings         : quoteTools.makeSettings(),
     render           : quoteTools.render,
     save             : quoteTools.save,
-    display          : true,
+    displayInToolbox : true,
     enableLineBreaks : true,
     allowedToPaste   : true
 

@@ -35,7 +35,7 @@
             </div>
         </div>
 
-        <div class="article_content" itemprop="articleBody">
+        <div class="article_content <?= !empty($article->text) ? 'article_content--old' : '' ?>" itemprop="articleBody">
 
             <?
                 /**

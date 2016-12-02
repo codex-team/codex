@@ -63,9 +63,7 @@ class Model_Methods extends Model
         if (!Upload::type($file, array('jpg', 'jpeg', 'png', 'gif'))) return FALSE;
         if (!is_dir($path)) mkdir($path);
 
-//        echo Debug::vars($file);
-//        move_uploaded_file($file['tmp_name'], 'upload/redactor_images/' . $file['name']);
-//        exit;
+        $copy_file = $file;
 
         if ( $file = Upload::save($file, NULL, $path) ){
 
@@ -97,8 +95,18 @@ class Model_Methods extends Model
             // Delete the temporary file
             unlink($file);
             return $filename;
+
         }
+
         return FALSE;
+    }
+
+    public function saveRedactorsImage($file) {
+
+        $filename = uniqid() . '.jpg';
+        $image = Image::factory($file['tmp_name'])->save('upload/redactor_images/' . $filename);
+
+        return $filename;
     }
 
     /**
@@ -113,7 +121,7 @@ class Model_Methods extends Model
 
             if (!Upload::type($file, array('jpg', 'jpeg', 'png', 'gif'))) return FALSE;
             if (!is_dir($path)) mkdir($path);
-            return $this->saveImage($file, $path, $sizes, $forcedSizes);
+            return $this->saveRedactorsImage($file);
         }
 
         return false;
@@ -122,6 +130,7 @@ class Model_Methods extends Model
     public function getFiles($url)
     {
         $tempName = tempnam('/tmp', 'tmp_files');
+
         $originalName = basename(parse_url($url, PHP_URL_PATH));
 
         $imgRawData = @file_get_contents($url);

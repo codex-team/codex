@@ -55,7 +55,7 @@
     <footer class="site-footer">
         <div class="center_side clearfix">
             <section class="site-footer__section fl_l">
-                <h5>CodeX</h5>
+                <h5><a href="/">CodeX</a></h5>
                 Клуб веб-разработки, дизайна и маркетинга. Мы строим команду молодых специалистов, способную создавать полноценные проекты в интернете на мировом уровне.
             </section>
             <section class="site-footer__section fl_r">
