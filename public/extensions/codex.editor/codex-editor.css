@@ -391,7 +391,7 @@
 }
 
 @keyframes loading-bar {
-    100% { background-position: -56% 0 }
+    100% { background-position: -56px 0 }
 }
 
 
