@@ -37,5 +37,10 @@
            <br><a class="button button-green button-indexpage" href="/join">Вступить в клуб</a>
         <? ?>
 
+        <?
+            /** Best developers block */
+            include 'developers.php';
+        ?>
+
     </div>
 </div>
