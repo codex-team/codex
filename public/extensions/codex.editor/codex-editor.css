@@ -51,11 +51,9 @@
     display: block;
 }
 
-    .ce-toolbar__content {
-        position: relative;
-        max-width: 600px;
-        margin: 0 auto;
-    }
+.ce-toolbar__content {
+    position: relative;
+}
 /**
 * Plus button
 */
@@ -364,7 +362,8 @@
 /**
 * Block content holder
 */
-.ce-block__content{
+.ce-block__content,
+.ce-toolbar__content {
     max-width: 600px;
     margin: 0 auto;
     padding: 1px;
