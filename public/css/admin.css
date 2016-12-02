@@ -133,6 +133,13 @@
 .site-header__button{
     display: inline-block;
     padding: 18px 0;
+    color: #04A670;
+    margin-right: 50px;
+}
+.site-header__button::before{
+    font-family: "codex_ic";
+    content: '\e80b';
+    margin-right: 5px;
 }
 
 

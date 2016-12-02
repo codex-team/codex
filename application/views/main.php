@@ -42,7 +42,7 @@
                 <? if ($user->isAdmin): ?>
                     <a class="site-header__button" href="/article/add">
                         <span class="site-header__button_text">
-                            Write an article
+                            Write
                         </span>
                     </a>
                 <? endif ?>
