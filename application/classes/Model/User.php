@@ -35,6 +35,28 @@ Class Model_User extends Model
     }
 
     /**
+    * Returns users models by specified ids
+    * @param    array  $ids     ids to select
+    * @return   array of Model_User
+    */
+    public function getUsersByIds($ids)
+    {
+        $users = Dao_Users::select()
+                    ->where_in('id', $ids)
+                    ->cached(Date::MINUTE * 10, 'users_by_ids:' . implode(',', $ids))
+                    ->execute();
+
+
+        $models = array();
+
+        foreach ($users as $user_row) {
+            $models[] = $this->rowToModel($user_row);
+        }
+
+        return $models;
+    }
+
+    /**
      * Возвращает модель пользователя по его уникальному атрибуту
      * @param string $attr
      * @param int $value

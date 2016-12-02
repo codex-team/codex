@@ -17,6 +17,16 @@ class Controller_Index extends Controller_Base_preDispatch
 
         $this->view['ny_user_requests'] = $this->user->getUserRequests();
 
+        /**
+        * Select best developers
+        */
+        $modelUser = new Model_User();
+        $bestDevelopersIds = array(
+            24, // @n0str
+            115, // Murod
+        );
+        $this->view['bestDevelopers'] = $modelUser->getUsersByIds($bestDevelopersIds);
+
 
         $this->title = 'Команда CodeX';
         $this->template->content = View::factory('templates/index', $this->view);
