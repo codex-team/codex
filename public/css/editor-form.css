@@ -28,12 +28,3 @@ body{
     display: block;
     margin-bottom: 1em;
 }
-
-
-
-/**
-* Codex editor overrides
-*/
-.ce-toolbar__actions{
-    right: -130px !important;
-}
