@@ -40,12 +40,7 @@
                     <img class="site-header__profile_photo" src="<?= $user->photo ?>" alt="<?= $user->name ?>" id="header-avatar-updatable" />Profile
                 </a>
                 <? if ($user->isAdmin): ?>
-                    <a class="site-header__button" href="/article/add">
-                        <i class="icon-pencil"></i>
-                        <span class="site-header__button_text">
-                            Write
-                        </span>
-                    </a>
+                    <a class="site-header__button" href="/article/add"><i class="icon-pencil"></i>Write</a>
                 <? endif ?>
             <? else: ?>
                 <a class="site-header__login" href="/auth/github">

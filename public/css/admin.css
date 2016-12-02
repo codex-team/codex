@@ -134,7 +134,9 @@
     display: inline-block;
     padding: 18px 0;
     color: #04A670;
-    margin-right: 50px;
+}
+.site-header__button i{
+    letter-spacing: .2px;
 }
 
 
