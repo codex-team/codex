@@ -2,7 +2,15 @@
 
 <div class="center_side clear">
 
-    <?=View::factory('templates/articles/course_list'); ?>
+    <?= View::factory('templates/articles/course_list'); ?>
+
+
+    <div class="course-nav">
+        <div class="course-nav__icon"></div>
+        <div class="course-nav__title">Почему моя программа не работает?</div>
+        <img class="course-nav__avatar" src="https://ifmo.su/upload/users/qNgjN82zGBE_quad_1451238345.jpg" itemprop="image">
+        <div class="course-nav__author">Владислав Третьяк</div>
+    </div>
 
     <article class="article" itemscope itemtype="http://schema.org/Article">
 
@@ -68,7 +76,22 @@
 
         </ul>
 
+        <div class="next-article">
+            <div class="next-article__title"><h2>Почему моя программа не работает?</h2></div>
+            <img class="next-article__avatar" src="https://ifmo.su/upload/users/qNgjN82zGBE_quad_1451238345.jpg" itemprop="image">
+            <div class="next-article__author-name">Владислав Третьяк</div>
+        </div> 
+        
     </article>
+
+    
+    <div class="course-nav">
+        <div class="course-nav__icon--back"></div>
+        <div class="course-nav__title">Синтаксис</div>
+        <img class="course-nav__avatar" src="https://ifmo.su/upload/users/qNgjN82zGBE_quad_1451238345.jpg" itemprop="image">
+        <div class="course-nav__author">Владислав Третьяк</div>
+    </div>
+
 
     <?=View::factory('templates/articles/course_list'); ?>
 </div>

@@ -13,6 +13,7 @@
     padding-bottom: 20px;
     border: 1px solid #eceff6;
     border-radius: 3px;
+    display: inline-block;
 }
 .article__title{
     padding: 100px 140px 40px;
@@ -300,6 +301,89 @@
         text-decoration: none;
         color: rgba(165,156,86,.8);
     }
+
+/**
+* Course navigation
+*/
+
+.course-nav {
+    border: solid 1px;
+    display: inline-block;
+    width: 140px;
+}
+
+    .course-nav__title {
+        text-align: center;
+        font-weight: 4  00;
+        font-size: 15px;
+        margin-bottom: 15px;
+    }
+
+    .course-nav__icon {
+        display: block;
+        margin: 20px auto;
+        margin-bottom: 15px;
+        width: 15px;
+        height: 28px;
+        background: url(arrow-forward.svg) no-repeat;
+    }
+
+        .course-nav__icon--back {
+            display: block;
+            margin: 20px auto;
+            margin-bottom: 15px;
+            width: 15px;
+            height: 28px;
+            background: url(arrow-back.svg) no-repeat;
+        }
+
+    .course-nav__avatar {
+        display: block;
+        margin: 0 auto;
+        margin-bottom: 5px;
+        text-align: center;
+        border-radius: 100%;
+        width: 30px;
+        height: 30px;
+    }
+
+    .course-nav__author {
+        text-align: center;
+        font-size: 13px;
+        color: #5F6A75;
+    }
+
+.next-article {
+    margin: 50px;
+    text-align: justify;
+}
+
+.next-article__title:before {
+    content: "далее в курсе";
+    font-size: 16px;
+    color: #828282;
+    text-align: left;
+}
+
+.next-article__title {
+    display: inline-block;
+    vertical-align: 50%;
+    text-align: left;
+}
+
+.next-article__author-name {
+    display: inline-block;
+    vertical-align: 50%;
+    margin-left: auto;
+}
+
+.next-article__avatar {
+    margin-left: auto;
+    display: inline-block;
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+}
 
 
 /**
