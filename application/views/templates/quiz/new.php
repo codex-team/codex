@@ -10,7 +10,7 @@
 
         <input type="hidden" name="csrf_token" value="<?= Security::token(); ?>" />
 
-        <button type="button" id="insertBlock" class="quiz-form__button">Добавить вопрос</button>
+        <button type="button" id="insertBlock" class="quiz-form__button">+ Добавить вопрос</button>
 
     </form>
 </div>
