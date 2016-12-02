@@ -29,7 +29,6 @@ Class Model_Courses extends Model
      */
     public function __construct()
     {
-        $this->feed = new Model_Feed($this);
     }
 
     /**
@@ -80,6 +79,8 @@ Class Model_Courses extends Model
         foreach ($course_row as $fieldname => $value) {
             if (property_exists($this, $fieldname)) $this->$fieldname = $value;
         }
+
+        $this->feed = new Model_Feed($this);
 
         return $this;
     }

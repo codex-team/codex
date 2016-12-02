@@ -34,7 +34,7 @@ class Model_Feed extends Model {
 
         if (get_class($item) == 'Model_Article') {
             return 'article:';
-        } elseif (get_class($item) == 'Model_Course') {
+        } elseif (get_class($item) == 'Model_Courses') {
            return 'course:';
         } else {
             return false;

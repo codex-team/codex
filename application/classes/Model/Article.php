@@ -42,7 +42,6 @@ Class Model_Article extends Model
      */
     public function __construct()
     {
-        $this->feed = new Model_Feed($this);
     }
 
     /**
@@ -76,6 +75,7 @@ Class Model_Article extends Model
             $this->fillByRow($article);
         }
 
+
         return $idAndRowAffected;
     }
 
@@ -107,6 +107,8 @@ Class Model_Article extends Model
             $this->author           = Model_User::get($this->user_id);
             $this->commentsCount    = Model_Comment::countCommentsByArticle($this->id);
         }
+
+        $this->feed = new Model_Feed($this);
 
         return $this;
     }
