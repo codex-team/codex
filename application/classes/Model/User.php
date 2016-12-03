@@ -18,6 +18,7 @@ Class Model_User extends Model
     public $bio         = '';
     public $role        = 1;
     public $is_removed  = 0;
+    public $isAdmin     = 0;
 
 
 
@@ -126,8 +127,9 @@ Class Model_User extends Model
             $model->fb_uri        = $user['fb_uri'];
             $model->instagram_uri = $user['instagram_uri'];
             $model->bio           = $user['bio'];
-            $model->role          = $user['role'];
+            $model->role          = (int) $user['role'];
             $model->is_removed    = $user['is_removed'];
+            $model->isAdmin       = $model->role === self::ROLE_ADMIN ? true : false;
         }
 
         return $model;

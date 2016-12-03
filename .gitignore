@@ -11,6 +11,7 @@ sftp-config.json
 *.sublime-project
 *.sublime-workspace
 .htaccess
+.ftpconfig
 application/config/database.php
 application/config/oauth.php
 application/config/redis.php
