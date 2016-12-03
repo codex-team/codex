@@ -127,9 +127,9 @@ Class Model_User extends Model
             $model->fb_uri        = $user['fb_uri'];
             $model->instagram_uri = $user['instagram_uri'];
             $model->bio           = $user['bio'];
-            $model->role          = $user['role'];
+            $model->role          = (int) $user['role'];
             $model->is_removed    = $user['is_removed'];
-            $model->isAdmin       = $user['role'] == self::ROLE_ADMIN ? true : false;
+            $model->isAdmin       = $model->role === self::ROLE_ADMIN ? true : false;
         }
 
         return $model;
