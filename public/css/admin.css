@@ -136,7 +136,7 @@
     color: #04A670;
 }
 .site-header__button i{
-    letter-spacing: .2px;
+    letter-spacing: 1px !important;
 }
 
 
