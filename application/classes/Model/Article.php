@@ -21,7 +21,8 @@ Class Model_Article extends Model
     public $dt_update;
     public $is_removed;
     public $is_published;
-    public $feed;
+
+    const FEED_TYPE = 'article';
 
     /**
     * @var bool $marked — позволяет выделить важную статью в списке
@@ -108,8 +109,6 @@ Class Model_Article extends Model
             $this->commentsCount    = Model_Comment::countCommentsByArticle($this->id);
         }
 
-        $this->feed = new Model_Feed($this);
-
         return $this;
     }
 
@@ -127,9 +126,6 @@ Class Model_Article extends Model
                 ->set('is_removed', 1)
                 ->clearcache('articles_list')
                 ->execute();
-
-            //Удаляем статью из фида
-            $this->feed->remFromFeedList();
 
             // Статья удалена
             $this->id = 0;

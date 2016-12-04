@@ -3,12 +3,10 @@
 class Model_Feed extends Model {
 
     private $redis;
-    private $value;
 
-    public function __construct(&$item)
+    public function __construct()
     {
         $this->redis = Controller_Base_preDispatch::_redis();
-        $this->value = self::getValue($item);
     }
 
     /**
@@ -18,9 +16,9 @@ class Model_Feed extends Model {
      * @return string
      */
 
-    public function getValue(&$item)
+    public function composeValueIdentity($item)
     {
-        return self::getType($item).$item->id;
+        return self::getType($item).':'.$item->id;
     }
 
 
@@ -30,14 +28,14 @@ class Model_Feed extends Model {
      * @param $item
      * @return bool|string
      */
-    public function getType(&$item) {
+    public function getType($item) {
 
-        if (get_class($item) == 'Model_Article') {
-            return 'article:';
-        } elseif (get_class($item) == 'Model_Courses') {
-           return 'course:';
-        } else {
-            return false;
+        switch ($item::FEED_TYPE) {
+
+            case 'article': return 'article';
+            case 'course': return 'course';
+            default: throw new Exception();
+
         }
 
     }
@@ -49,62 +47,96 @@ class Model_Feed extends Model {
      *
      * @return void|bool
      */
-    public function changeFeedOrder($item_after)
+    public function putAbove($item, $item_below)
     {
-        $item_after_value = self::getValue($item_after);
+        $item_value = self::composeValueIdentity($item);
+        $item_below_value = self::composeValueIdentity($item_below);
 
-        if ($this->redis->zRank('feed', $this->value) === false) {
+        if ($this->redis->zRank('feed', $item_value) === false) {
             return false;
         }
 
-        if($this->redis->zRank('feed', $item_after_value) === false) {
+        if($this->redis->zRank('feed', $item_below_value) === false) {
             return false;
         }
 
-        $interval = $this->redis->zScore('feed', $item_after_value) - $this->redis->zScore('feed', $this->value);
+        $interval = $this->redis->zScore('feed', $item_below_value) - $this->redis->zScore('feed', $item_value);
 
-        $this->redis->zIncrBy('feed', $interval + 1, $this->value);
+        $this->redis->zIncrBy('feed', $interval + 1, $item_value);
     }
 
     /**
-     * Добавляем элемент в фид в Redis
+     * Добавляем элемент в фид
      *
      * @param $item
+     * @return bool|void
      */
-    public function addToFeedList()
+    public function add($item)
     {
+        $value = self::composeValueIdentity($item);
 
-        var_dump($this->value);
-
-        if ($this->redis->zRank('feed', $this->value) === false) {
-            $this->redis->zAdd('feed', time(), $this->value);
+        if ($this->redis->zRank('feed', $value) !== false) {
+            return false;
         }
 
+        $this->redis->zAdd('feed', strtotime($item->dt_create), $value);
+
     }
 
     /**
-     * Удаляем статью из фида
+     * Удаляем элемент из фида
      *
      * @param $item
      */
-    public function remFromFeedList()
+    public function remove($item)
     {
-        $this->redis->zRem('feed', $this->value);
+        $value = self::composeValueIdentity($item);
+
+        $this->redis->zRem('feed', $value);
     }
 
 
     /**
      * Добавляем все опубликованные статьи в фид (для инициализации фида в Redis)
      */
-    public function addActiveArticlesToFeedList()
+    public function addActiveArticles()
     {
 
         $articles = Model_Article::getActiveArticles();
 
         foreach ($articles as $article) {
-            $article->feed->addToFeedList();
+            self::add($article);
         }
 
+    }
+
+    public function get() {
+
+        $list = $this->redis->zRevRange('feed', 0, -1);
+
+        $models_list = array();
+
+        foreach ($list as $i => $item) {
+
+            list($type, $id) = explode(':', $item);
+
+            switch ($type) {
+
+                case 'article':
+                    $models_list[$i]['model'] = Model_Article::get($id);
+                    break;
+
+                case 'course':
+                    $models_list[$i]['model'] = Model_Courses::get($id);
+                    break;
+                default: throw new Exception();
+
+            }
+
+            $models_list[$i]['type'] = $type;
+        }
+
+        return $models_list;
     }
 }
 

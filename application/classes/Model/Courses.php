@@ -21,7 +21,7 @@ Class Model_Courses extends Model
     public $marked;
     public $order;
 
-    private $feed;
+    const FEED_TYPE = 'course';
 
     /**
      * Пустой конструктор для модели курсов, если нужно получить курс из хранилища, нужно пользоваться статическими
@@ -59,8 +59,6 @@ Class Model_Courses extends Model
                 ->execute();
 
             $this->fillByRow($course);
-
-            $this->feed->addToFeedList();
         }
 
         return $idAndRowAffected;
@@ -79,8 +77,6 @@ Class Model_Courses extends Model
         foreach ($course_row as $fieldname => $value) {
             if (property_exists($this, $fieldname)) $this->$fieldname = $value;
         }
-
-        $this->feed = new Model_Feed($this);
 
         return $this;
     }
@@ -101,8 +97,6 @@ Class Model_Courses extends Model
                 ->clearcache('courses_list')
                 ->execute();
 
-            $this->feed->remFromFeedList();
-
             // Курс удален
             $this->id = 0;
         }
@@ -114,7 +108,7 @@ Class Model_Courses extends Model
      */
     public function update()
     {
-        Dao_Contests::update()->where('id', '=', $this->id)
+        Dao_Courses::update()->where('id', '=', $this->id)
             ->set('uri',            $this->uri)
             ->set('title',          $this->title)
             ->set('text',           $this->text)
@@ -143,15 +137,8 @@ Class Model_Courses extends Model
 
         $course = Model_Courses::get($course_id);
         if (!$course->id) {
-
-            //Добавляем в фид id статьи, так как не передан курс, к которому ее добавить
-            $article->feed->addToFeedList();
-
             return false;
         }
-
-        //Удаляем id статьи из фида
-        $article->feed->remFromFeedList();
 
         return Dao_CoursesArticles::insert()
                         ->set('course_id', $course_id)
@@ -180,11 +167,6 @@ Class Model_Courses extends Model
      * @return Dao_CoursesArticles:remove
      */
     public static function delArticleFromCourses($article_id) {
-
-        //Добавляем id статьи в фид
-        $article = Model_Article::get($article_id);
-        $article->feed->addToFeedList();
-
         return Dao_CoursesArticles::delete()->where('article_id', '=', $article_id)->execute();
     }
 

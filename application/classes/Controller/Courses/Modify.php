@@ -14,6 +14,8 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
 
     public function action_save()
     {
+        $feed = new Model_Feed();
+
         $csrfToken = Arr::get($_POST, 'csrf');
 
         /*
@@ -61,6 +63,9 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
                     $course->uri = Model_Alias::addAlias($alias, Model_Uri::COURSE, $insertedId);
                 }
 
+                //Добавляем курс в фид
+                $feed->add($course);
+
                 // Если поле uri пустое, то редиректить на обычный роут /course/id
                 $redirect = ($uri) ? $course->uri : '/course/' . $course->id;
                 $this->redirect( $redirect );
@@ -75,12 +80,17 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
 
     public function action_delete()
     {
+        $feed = new Model_Feed();
+
         $user_id = $this->user->id;
         $course_id = $this->request->param('course_id') ?: $this->request->query('id');
 
         if (!empty($course_id) && !empty($user_id))
         {
-            Model_Courses::get($course_id)->remove();
+            $course = Model_Courses::get($course_id);
+            $course->remove();
+
+            $feed->remove($course);
         }
 
         $this->redirect('/admin/courses');

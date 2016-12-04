@@ -5,6 +5,8 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
     public function action_showAll()
     {
+        $feed = new Model_Feed();
+
         $this->title = "Статьи команды CodeX";
         $this->description = "Здесь собраны заметки о нашем опыте и исследованиях в области веб-разработки, дизайна, маркетинга и организации рабочих процессов";
 
@@ -13,7 +15,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         */
         $needClearCache = Arr::get($_GET, 'clear') == 1;
 
-        $this->view["articles"]  = Model_Article::getActiveArticles($needClearCache);
+        $this->view["feed"] = $feed->get();
         $this->template->content = View::factory('templates/articles/list_wrapper', $this->view);
     }
 

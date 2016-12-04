@@ -16,6 +16,8 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
     {
         $csrfToken = Arr::get($_POST, 'csrf');
 
+        $feed = new Model_Feed();
+
         /*
          * редактирвоание происходит напрямую из роута вида: <controller>/<action>/<id>
          * так как срабатывает обычный роут, то при отправке формы передается переменная contest_id.
@@ -60,14 +62,22 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
                     $article->update();
 
                     Model_Courses::delArticleFromCourses($article_id);
-                    Model_Courses::addArticleToCourse($article_id, $course_id);
+                    $in_course = Model_Courses::addArticleToCourse($article_id, $course_id);
+
                 } else {
                     $article->user_id = $this->user->id;
                     $insertedId = $article->insert();
                     $article->uri = Model_Alias::addAlias($alias, Model_Uri::ARTICLE, $insertedId);
                     $article->update();
 
-                    Model_Courses::addArticleToCourse($insertedId, $course_id);
+                    $in_course = Model_Courses::addArticleToCourse($insertedId, $course_id);
+                }
+
+                //Если статья не добавлена в курс, добавляем ее в фид, и наоборот
+                if (!$in_course) {
+                    $feed->add($article);
+                } else {
+                    $feed->remove($article);
                 }
 
                 // Если поле uri пустое, то редиректить на обычный роут /article/id
@@ -87,11 +97,16 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
 
     public function action_delete()
     {
+        $feed = new Model_Feed();
+
         $user_id = $this->user->id;
         $article_id = $this->request->param('article_id') ?: $this->request->query('id');
 
         if (!empty($article_id) && !empty($user_id)) {
-            Model_Article::get($article_id)->remove($user_id);
+            $article = Model_Article::get($article_id);
+            $article->remove($user_id);
+
+            $feed->remove($article);
         }
 
         $this->redirect('/admin/articles');
