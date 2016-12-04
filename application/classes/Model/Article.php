@@ -76,7 +76,6 @@ Class Model_Article extends Model
             $this->fillByRow($article);
         }
 
-
         return $idAndRowAffected;
     }
 
@@ -338,5 +337,4 @@ Class Model_Article extends Model
 
         return array_slice($mostPopularArticles, 0, $numberOfArticles);
     }
-
 }
