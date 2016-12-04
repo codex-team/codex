@@ -7,13 +7,11 @@
     border: 1px #ECEFF6 solid;
     border-radius: 3px;
     font: inherit;
-    font-size: 1.5em;
 }
 
 .quiz__question-title {
     font-size: 1.25em;
     font-weight: 600;
-    margin-bottom: 1.5em;
 }
 
 .quiz__question-description {
@@ -29,27 +27,16 @@
     padding: 2px 10px;
     background: #fff;
     font: inherit;
-    font-size: 0.66em;
-    color: #fff;
-    background-color: #4e88d6;
+    color: #4e88d6;
     border: #4e88d6 solid 1px;
     border-radius: 5px;
     outline: none;
-    transition: 1s;
 }
 
 .quiz__question-button:hover,
 .quiz__question-button:focus{
-    background: #56a0f6;
+    background: #4e88d6;
     color: #fff;
-}
-
-.quiz__question-button:disabled,
-.quiz__question-button:disabled:hover,
-.quiz__question-button:disabled:focus {
-    border-color: #b3b6bd;
-    color: #b3b6bd;
-    background-color: #fff;
 }
 
 .quiz__question-button_next {
@@ -98,6 +85,7 @@ quiz__question-label {
 	left: -24px;
 	
 }
+<<<<<<< HEAD
 
 .quiz__question-radiobutton:checked + .quiz__question-label:after{
     opacity: 1;
@@ -192,3 +180,5 @@ quiz__question-label {
 .quiz__sharing .tw:hover{color: #6E98FD;}
 .quiz__sharing .tg:hover{color: #41ADFF;}
 .quiz__sharing .tg{font-size: 25px;}
+=======
+>>>>>>> parent of f067afc... Add all methods
