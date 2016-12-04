@@ -86,6 +86,7 @@ quiz__question-label {
 	
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 .quiz__question-radiobutton:checked + .quiz__question-label:after{
     opacity: 1;
@@ -180,5 +181,7 @@ quiz__question-label {
 .quiz__sharing .tw:hover{color: #6E98FD;}
 .quiz__sharing .tg:hover{color: #41ADFF;}
 .quiz__sharing .tg{font-size: 25px;}
+=======
+>>>>>>> parent of f067afc... Add all methods
 =======
 >>>>>>> parent of f067afc... Add all methods
