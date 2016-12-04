@@ -31,16 +31,16 @@
     font: inherit;
     font-size: 0.66em;
     color: #fff;
-    background-color: #fff;
+    background-color: #4e88d6;
     border: #4e88d6 solid 1px;
     border-radius: 5px;
     outline: none;
-    transition: .5s;
+    transition: 1s;
 }
 
 .quiz__question-button:hover,
 .quiz__question-button:focus{
-    background: #4e88d6;
+    background: #56a0f6;
     color: #fff;
 }
 
@@ -57,7 +57,6 @@
     left: 100%;
     width: 75px;
     margin-left: -75px;
-    background: #81c0ff;
 }
 
 .quiz__question-radiobutton {
