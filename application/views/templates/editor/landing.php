@@ -71,10 +71,12 @@
     </div>
 </div>
 
-<link rel="stylesheet" href="/public/extensions/codex.editor/codex-editor.css?v=2" />
-<script src="/public/extensions/codex.editor/codex-editor.js?v=2"></script>
-<script>
+<!-- Editor scripts and styles -->
+<script src="/public/extensions/editor/build/build.js"></script>
+<link rel="stylesheet" href="/public/extensions/editor/build/build.css">
+<link rel="stylesheet" href="/public/extensions/editor/codex-editor.css?v=3" />
 
+<script>
 /**
 * Redactor input
 */
@@ -327,17 +329,17 @@ jsonPreviewerButton.addEventListener('click', function() {
     /**
      * Save blocks
      */
-    cEditor.saver.saveBlocks();
+    codex.editor.saver.saveBlocks();
 
     setTimeout(function() {
 
         /**
          * Fill in INPUT items
          */
-        INPUT.items = cEditor.state.jsonOutput;
+        INPUT.items = codex.editor.state.jsonOutput;
         INPUT.count = INPUT.items.length;
 
-        document.getElementById('json_result').innerHTML = JSON.stringify(cEditor.state.jsonOutput);
+        document.getElementById('json_result').innerHTML = JSON.stringify(codex.editor.state.jsonOutput);
 
         /**
          * View JSON data
@@ -353,7 +355,6 @@ jsonPreviewerButton.addEventListener('click', function() {
 }, false);
 
 
-
 /**
  * Preview button handler
  */
@@ -367,17 +368,17 @@ saveButton.addEventListener('click', function() {
     /**
      * Save blocks
      */
-    cEditor.saver.saveBlocks();
+    codex.editor.saver.saveBlocks();
 
     setTimeout(function() {
 
         /**
          * Fill in INPUT items
          */
-        INPUT.items = cEditor.state.jsonOutput;
+        INPUT.items = codex.editor.state.jsonOutput;
         INPUT.count = INPUT.items.length;
 
-        JSONinput.innerHTML = JSON.stringify(cEditor.state.jsonOutput);
+        JSONinput.innerHTML = JSON.stringify(codex.editor.state.jsonOutput);
 
         /**
          * Send form
@@ -388,48 +389,6 @@ saveButton.addEventListener('click', function() {
     }, 100);
 
 }, false);
-
-
-/**
- * Native ajax method.
- */
-function ajax(data) {
-
-        if (!data || !data.url){
-            return;
-        }
-        var XMLHTTP          = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP"),
-            success_function = function(){};
-        data.async           = true;
-        data.type            = data.type || 'GET';
-        data.data            = data.data || '';
-        data['content-type'] = data['content-type'] || 'application/json; charset=utf-8';
-        success_function     = data.success || success_function ;
-
-        if (data.type == 'GET' && data.data) {
-            data.url = /\?/.test(data.url) ? data.url + '&' + data.data : data.url + '?' + data.data;
-        }
-
-        if (data.withCredentials) {
-            XMLHTTP.withCredentials = true;
-        }
-
-        if (data.beforeSend && typeof data.beforeSend == 'function') {
-            data.beforeSend.call();
-        }
-
-        XMLHTTP.open( data.type, data.url, data.async );
-        XMLHTTP.setRequestHeader("Content-type", data['content-type'] );
-        XMLHTTP.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-        XMLHTTP.onreadystatechange = function() {
-        if (XMLHTTP.readyState == 4 && XMLHTTP.status == 200) {
-                success_function(XMLHTTP.responseText);
-            }
-        };
-
-        XMLHTTP.send(data.data);
-}
-
 
 /**
 * Empty redactor preview
@@ -443,7 +402,7 @@ INPUT.items = [];
     /** Document is ready */
     ready(function() {
 
-        cEditor.start({
+        codex.editor.start({
             textareaId: 'codex_editor',
             data : INPUT
         });
@@ -539,34 +498,3 @@ INPUT.items = [];
     })({});
 
 </script>
-
-
-<script src="/public/extensions/codex.editor/plugins/paragraph/paragraph.js"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/paragraph/paragraph.css" />
-
-<script src="/public/extensions/codex.editor/plugins/header/header.js"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/header/header.css" />
-
-<script src="/public/extensions/codex.editor/plugins/link/link.js"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/link/link.css" />
-
-<script src="/public/extensions/codex.editor/plugins/code/code.js"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/code/code.css" />
-
-<script src="/public/extensions/codex.editor/plugins/quote/quote.js"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/quote/quote.css" />
-
-<script src="/public/extensions/codex.editor/plugins/list/list.js"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/list/list.css" />
-
-<script src="/public/extensions/codex.editor/plugins/image/image.js"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/image/image.css" />
-
-<script src="/public/extensions/codex.editor/plugins/paste/paste.js"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/paste/paste.css">
-
-<script src="/public/extensions/codex.editor/plugins/instagram/instagram.js"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/instagram/instagram.css">
-
-<script src="/public/extensions/codex.editor/plugins/twitter/twitter.js"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/twitter/twitter.css">

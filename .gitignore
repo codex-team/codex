@@ -2,6 +2,7 @@ phpmyadmin/*
 application/cache/*
 application/logs/*
 upload/*
+public/extensions/editor/node_modules/*
 pma/*
 .DS_Store
 sftp-config.json
