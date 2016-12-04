@@ -69,28 +69,74 @@
 	position:relative;
 }
 
+
+quiz__question-label {
+	cursor:pointer;
+}
+
+
+
+
+
 .quiz__question-label:before {
 	content: '';
 	position:absolute;
-	left: -17px;
-	top:7px;
-	height:12px;
-	width:12px;
-	border-radius:50%;
-	background:#A9A9A9;
+	left: -24px;
+	height:15px;
+	width:15px;
+	border-radius: 50%;
+	border:4px solid #333333;
+	background: #fff;
 	
 }
+
+
+   
+
 .quiz__question-label:after {
-	
-	position:absolute;
-	height:5px;
-	width:5px;
-	border-radius:50%;
-	background:black;
-	left: -14px;
-	top:10px;
 	content: '';
+	position:absolute;
+	left: -24px;
+	
 }
+
+.quiz__question-radiobutton:checked + .quiz__question-label:after{
+    opacity: 1;
+}
+
+
+.quiz__question-label_wrong:before {
+	border-color:#990000;
+	background: #fff;
+}
+
+.quiz__question-radiobutton:checked + .quiz__question-label_wrong:after {
+    opacity: 0;
+}
+
+.quiz__question-label_right:before {
+    
+    background:#33CC33;
+    border-color:#33CC33;
+
+}
+
+.quiz__question-radiobutton:checked + .quiz__question-label_right:after {
+    content: '\2714';
+    width: 15px;
+    height: 15px;
+    font-size: 17px;
+    text-align: center;
+    color:white;
+}
+
+
+
+
+
+
+
+
 
 .quiz__answer-message {
     margin-left: 1em;
