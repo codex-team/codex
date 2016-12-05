@@ -1,14 +1,7 @@
 /**
  * Instagram plugin
- * Renders url to Instagram Embed
- *
- * @author Codex Team
- * @copyright Khaydarov Murod
- *
  * @version 1.0.0
  */
-
-/** Include to Build css */
 var instagramTool = {
 
     /**
@@ -22,7 +15,7 @@ var instagramTool = {
         /**
          * Load widget
          */
-        codex.editor.core.importScript(script, 'instagramAPI');
+        cEditor.core.importScript(script, 'instagramAPI');
     },
 
     /**
@@ -72,15 +65,15 @@ instagramTool.content = {
 
     render : function(content) {
 
-        codex.editor.content.switchBlock(codex.editor.content.currentNode, content, 'instagram');
+        cEditor.content.switchBlock(cEditor.content.currentNode, content, 'instagram');
 
-        var blockContent = codex.editor.content.currentNode.childNodes[0];
-        blockContent.classList.add('ce-redactor__loader');
+        var blockContent = cEditor.content.currentNode.childNodes[0];
+        blockContent.classList.add('instagram__loader');
 
         window.instgrm.Embeds.process();
 
         setTimeout(function(){
-            blockContent.classList.remove('ce-redactor__loader');
+            blockContent.classList.remove('instagram__loader');
         }, 500);
     },
 
@@ -92,10 +85,10 @@ instagramTool.content = {
      */
     instagramBlock : function(url) {
 
-        var blockquote = codex.editor.draw.node('BLOCKQUOTE', 'instagram-media instagram', {}),
-            div        = codex.editor.draw.node('DIV', '', {}),
-            paragraph  = codex.editor.draw.node('P', 'ce-paste__instagram--p', {}),
-            anchor     = codex.editor.draw.node('A', '', { href : url });
+        var blockquote = cEditor.draw.node('BLOCKQUOTE', 'instagram-media instagram', {}),
+            div        = cEditor.draw.node('DIV', '', {}),
+            paragraph  = cEditor.draw.node('P', 'ce-paste__instagram--p', {}),
+            anchor     = cEditor.draw.node('A', '', { href : url });
 
         blockquote.dataset.instgrmVersion = 4;
 
@@ -106,5 +99,21 @@ instagramTool.content = {
         return blockquote;
 
     },
+
+};
+
+cEditor.tools.instagram = {
+
+    type             : 'instagram',
+    iconClassname    : 'ce-icon-instagram',
+    prepare          : instagramTool.prepare,
+    make             : instagramTool.make,
+    appendCallback   : null,
+    settings         : null,
+    render           : instagramTool.reneder,
+    save             : instagramTool.save,
+    displayInToolbox : false,
+    enableLineBreaks : false,
+    allowedToPaste   : false
 
 };

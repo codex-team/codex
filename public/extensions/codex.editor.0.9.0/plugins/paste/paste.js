@@ -9,10 +9,6 @@
  *  - Image
  *  - External Link
  *
- * @author Codex Team
- * @copyright Khaydarov Murod
- *
- * @version 1.0.0
  */
 
 /**
@@ -27,14 +23,14 @@ var pasteTool = {
 /**
  * Make elements to insert or switch
  *
- * @uses Core codex.editor.draw module
+ * @uses Core cEditor.draw module
  */
 pasteTool.ui = {
 
     /**
      * Upload image by URL
      *
-     * @uses codex Image tool
+     * @uses cEditor Image tool
      * @param filename
      * @returns {Element}
      */
@@ -56,7 +52,7 @@ pasteTool.ui = {
         };
 
         /** Using Image plugin make method */
-        var image = codex.editor.tools.image.make(data);
+        var image = cEditor.tools.image.make(data);
 
         return image;
 
@@ -135,7 +131,7 @@ pasteTool.callbacks = {
         var ajaxUrl = location.protocol + '//' + location.hostname,
             file,
             image,
-            current = codex.editor.content.currentNode,
+            current = cEditor.content.currentNode,
             beforeSend,
             success_callback;
 
@@ -144,7 +140,7 @@ pasteTool.callbacks = {
 
             var file = JSON.parse(data);
             image = pasteTool.ui.uploadedImage(file.filename);
-            codex.editor.content.switchBlock(current, image, 'image');
+            cEditor.content.switchBlock(current, image, 'image');
 
         };
 
@@ -165,7 +161,7 @@ pasteTool.callbacks = {
             success : success_callback
         };
 
-        codex.editor.core.ajax(data);
+        cEditor.core.ajax(data);
     },
 
     /**
@@ -184,7 +180,7 @@ pasteTool.callbacks = {
             url: fullUrl
         };
 
-        codex.editor.tools.instagram.make(data);
+        cEditor.tools.instagram.make(data);
 
     },
 
@@ -221,7 +217,23 @@ pasteTool.callbacks = {
             caption:"Caption"
         };
 
-        codex.editor.tools.twitter.make(data);
-    }
+        cEditor.tools.twitter.make(data);
+    },
+
+};
+
+cEditor.tools.paste = {
+
+    type             : 'paste',
+    iconClassname    : '',
+    prepare          : pasteTool.prepare,
+    make             : pasteTool.make,
+    appendCallback   : null,
+    settings         : null,
+    render           : null,
+    save             : pasteTool.save,
+    displayInToolbox : false,
+    enableLineBreaks : false,
+    allowedToPaste   : false
 
 };

@@ -1,10 +1,9 @@
 /**
- * Image plugin for codex-editor
- * @author CodeX Team <team@ifmo.su>
- * @copyright Khaydarov Murod
- *
- * @version 1.1.3
- */
+* Image plugin for codex-editor
+* @author CodeX Team <team@ifmo.su>
+*
+* @version 1.1.3
+*/
 var ceImage = {
 
     elementClasses : {
@@ -106,7 +105,7 @@ var ceImage = {
 
     selectTypeClicked : function(type) {
 
-        var current      = codex.editor.content.currentNode,
+        var current      = cEditor.content.currentNode,
             blockContent = current.childNodes[0],
             image   = ceImage.ui.getImage(current),
             wrapper = current.querySelector('.' + ceImage.elementClasses.imageWrapper);
@@ -116,7 +115,7 @@ var ceImage = {
         image.className   = '';
 
         /** Add important first-level class ce_block */
-        current.classList.add(codex.editor.ui.className.BLOCK_CLASSNAME);
+        current.classList.add(cEditor.ui.className.BLOCK_CLASSNAME);
 
         if (type === 'stretched') {
 
@@ -174,7 +173,7 @@ var ceImage = {
             error      = ceImage.photoUploadingCallbacks.error;
 
         /** Define callbacks */
-        codex.editor.transport.selectAndUpload({
+        cEditor.transport.selectAndUpload({
             beforeSend,
             success,
             error,
@@ -363,7 +362,7 @@ ceImage.photoUploadingCallbacks = {
 
         var parsed = JSON.parse(result),
             data,
-            currentBlock = codex.editor.content.currentNode,
+            currentBlock = cEditor.content.currentNode,
             image;
 
         /**
@@ -391,13 +390,32 @@ ceImage.photoUploadingCallbacks = {
          * If current block is empty, we can replace it to uploaded image
          * Or insert new block
          */
-        codex.editor.content.switchBlock(ceImage.holder, image, 'image');
+        cEditor.content.switchBlock(ceImage.holder, image, 'image');
     },
 
     /** Error callback. Sends notification to user that something happend or plugin doesn't supports method */
     error : function(result) {
         console.log('Choosen file is not an image or image is corrupted');
-        codex.editor.notifications.errorThrown();
+        cEditor.notifications.errorThrown();
     },
+
+};
+
+
+/**
+* Add plugin it to redactor tools
+*/
+cEditor.tools.image = {
+
+    type             : 'image',
+    iconClassname    : 'ce-icon-picture',
+    make             : ceImage.make,
+    appendCallback   : ceImage.appendCallback,
+    settings         : ceImage.makeSettings(),
+    render           : ceImage.render,
+    save             : ceImage.save,
+    isStretched      : true,
+    displayInToolbox : true,
+    enableLineBreaks : false
 
 };
