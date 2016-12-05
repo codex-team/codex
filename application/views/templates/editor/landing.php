@@ -108,14 +108,8 @@
 
 <script>
 
-
-    function ready(f){
-        /in/.test(document.readyState) ? setTimeout(ready,9,f) : f();
-    }
-
     /** Document is ready */
-    ready(function() {
-
+    codex.docReady(function() {
         codex.editor.start({
 
             textareaId: 'codex_editor',

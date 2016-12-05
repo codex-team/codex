@@ -1,4 +1,4 @@
-var codex =
+var codex = codex || {}; codex["editor"] =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -52,11 +52,8 @@ var codex =
 	'use strict';
 	
 	var editor = __webpack_require__(1);
-	// var editor = 10;
 	
-	module.exports = {
-	  editor: editor
-	};
+	module.exports = editor;
 
 /***/ },
 /* 1 */
