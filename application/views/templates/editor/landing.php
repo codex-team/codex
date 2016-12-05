@@ -72,38 +72,38 @@
 </div>
 
 <!-- Developers plugin -->
-<script src="/public/extensions/codex.editor/modules/plugins/header/header.js?v=<?=filemtime('public/extensions/codex.editor/modules/plugins/header/header.js'); ?>"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/modules/plugins/header/header.css">
+<script src="/public/extensions/codex.editor/plugins/header/header.js?v=<?=filemtime('public/extensions/codex.editor/plugins/header/header.js'); ?>"></script>
+<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/header/header.css">
 
-<script src="/public/extensions/codex.editor/modules/plugins/paragraph/paragraph.js?v=<?=filemtime('public/extensions/codex.editor/modules/plugins/paragraph/paragraph.js'); ?>"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/modules/plugins/paragraph/paragraph.css">
+<script src="/public/extensions/codex.editor/plugins/paragraph/paragraph.js?v=<?=filemtime('public/extensions/codex.editor/plugins/paragraph/paragraph.js'); ?>"></script>
+<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/paragraph/paragraph.css">
 
-<script src="/public/extensions/codex.editor/modules/plugins/paste/paste.js?v=<?=filemtime('public/extensions/codex.editor/modules/plugins/code/code.js'); ?>"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/modules/plugins/paste/paste.css">
+<script src="/public/extensions/codex.editor/plugins/paste/paste.js?v=<?=filemtime('public/extensions/codex.editor/plugins/code/code.js'); ?>"></script>
+<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/paste/paste.css">
 
-<script src="/public/extensions/codex.editor/modules/plugins/code/code.js?v=<?=filemtime('public/extensions/codex.editor/modules/plugins/code/code.js'); ?>"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/modules/plugins/code/code.css">
+<script src="/public/extensions/codex.editor/plugins/code/code.js?v=<?=filemtime('public/extensions/codex.editor/plugins/code/code.js'); ?>"></script>
+<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/code/code.css">
 
-<script src="/public/extensions/codex.editor/modules/plugins/link/link.js?v=<?=filemtime('public/extensions/codex.editor/modules/plugins/link/link.js'); ?>"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/modules/plugins/link/link.css">
+<script src="/public/extensions/codex.editor/plugins/link/link.js?v=<?=filemtime('public/extensions/codex.editor/plugins/link/link.js'); ?>"></script>
+<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/link/link.css">
 
-<script src="/public/extensions/codex.editor/modules/plugins/list/list.js?v=<?=filemtime('public/extensions/codex.editor/modules/plugins/list/list.js'); ?>"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/modules/plugins/list/list.css">
+<script src="/public/extensions/codex.editor/plugins/list/list.js?v=<?=filemtime('public/extensions/codex.editor/plugins/list/list.js'); ?>"></script>
+<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/list/list.css">
 
-<script src="/public/extensions/codex.editor/modules/plugins/image/image.js?v=<?=filemtime('public/extensions/codex.editor/modules/plugins/image/image.js'); ?>"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/modules/plugins/image/image.css">
+<script src="/public/extensions/codex.editor/plugins/image/image.js?v=<?=filemtime('public/extensions/codex.editor/plugins/image/image.js'); ?>"></script>
+<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/image/image.css">
 
-<script src="/public/extensions/codex.editor/modules/plugins/quote/quote.js?v=<?=filemtime('public/extensions/codex.editor/modules/plugins/quote/quote.js'); ?>"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/modules/plugins/quote/quote.css">
+<script src="/public/extensions/codex.editor/plugins/quote/quote.js?v=<?=filemtime('public/extensions/codex.editor/plugins/quote/quote.js'); ?>"></script>
+<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/quote/quote.css">
 
-<script src="/public/extensions/codex.editor/modules/plugins/instagram/instagram.js?v=<?=filemtime('public/extensions/codex.editor/modules/plugins/instagram/instagram.js'); ?>"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/modules/plugins/instagram/instagram.css">
+<script src="/public/extensions/codex.editor/plugins/instagram/instagram.js?v=<?=filemtime('public/extensions/codex.editor/plugins/instagram/instagram.js'); ?>"></script>
+<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/instagram/instagram.css">
 
-<script src="/public/extensions/codex.editor/modules/plugins/twitter/twitter.js?v=<?=filemtime('public/extensions/codex.editor/modules/plugins/twitter/twitter.js'); ?>"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/modules/plugins/twitter/twitter.css">
+<script src="/public/extensions/codex.editor/plugins/twitter/twitter.js?v=<?=filemtime('public/extensions/codex.editor/plugins/twitter/twitter.js'); ?>"></script>
+<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/twitter/twitter.css">
 
 <!-- Editor scripts and styles -->
-<script src="/public/extensions/codex.editor/codex_editor.js?v=?<?=filemtime('public/extensions/codex.editor/codex_editor.js'); ?>"></script>
+<script src="/public/extensions/codex.editor/codex-editor.js?v=?<?=filemtime('public/extensions/codex.editor/codex-editor.js'); ?>"></script>
 <link rel="stylesheet" href="/public/extensions/codex.editor/codex-editor.css?v=<?=filemtime('public/extensions/codex.editor/codex-editor.css'); ?>" />
 
 <script>
