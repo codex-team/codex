@@ -71,13 +71,62 @@
     </div>
 </div>
 
+<!-- Developers plugin -->
+<script src="/public/extensions/editor/modules/plugins/header/header.js"></script>
+<link rel="stylesheet" href="/public/extensions/editor/modules/plugins/header/header.css">
+
 <!-- Editor scripts and styles -->
-<script src="/public/extensions/editor/build/build.js"></script>
-<link rel="stylesheet" href="/public/extensions/editor/build/build.css">
-<link rel="stylesheet" href="/public/extensions/editor/codex-editor.css?v=3" />
+<script src="/public/extensions/editor/bundle/codex.js?v=?<?=filemtime('public/extensions/editor/bundle/codex.js'); ?>"></script>
+<link rel="stylesheet" href="/public/extensions/editor/bundle/codex.css?v=<?=filemtime('public/extensions/editor/bundle/codex.css'); ?>">
+<link rel="stylesheet" href="/public/extensions/editor/codex-editor.css?v=<?=filemtime('public/extensions/editor/codex-editor.css'); ?>" />
 
 <script>
-/**
+
+
+    function ready(f){
+        /in/.test(document.readyState) ? setTimeout(ready,9,f) : f();
+    }
+
+    /** Document is ready */
+    ready(function() {
+
+        codex.editor.start({
+
+            textareaId: 'codex_editor',
+
+            tools : {
+                header : {
+                    type             : 'header',
+                    iconClassname    : 'ce-icon-header',
+                    make             : headerTool.make,
+                    appendCallback   : headerTool.appendCallback,
+                    settings         : headerTool.makeSettings(),
+                    render           : headerTool.render,
+                    save             : headerTool.save
+                }
+            },
+
+            data : INPUT
+        });
+
+        cPreview.show({
+            data : INPUT,
+            holder : 'output'
+        });
+
+        // load.getScript({
+        //     async    : true,
+        //     url      : '/public/js/simpleCodeStyling.js?v=2',
+        //     instance : 'simpleCodeStyling',
+        //     loadCallback : function(response){
+        //         simpleCode.init('.editor-workout code');
+        //     }
+        // });
+
+    });
+
+
+    /**
 * Redactor input
 */
 var INPUT = {
@@ -394,34 +443,6 @@ saveButton.addEventListener('click', function() {
 * Empty redactor preview
 */
 INPUT.items = [];
-
-    function ready(f){
-        /in/.test(document.readyState) ? setTimeout(ready,9,f) : f();
-    }
-
-    /** Document is ready */
-    ready(function() {
-
-        codex.editor.start({
-            textareaId: 'codex_editor',
-            data : INPUT
-        });
-
-        cPreview.show({
-            data : INPUT,
-            holder : 'output'
-        });
-
-        // load.getScript({
-        //     async    : true,
-        //     url      : '/public/js/simpleCodeStyling.js?v=2',
-        //     instance : 'simpleCodeStyling',
-        //     loadCallback : function(response){
-        //         simpleCode.init('.editor-workout code');
-        //     }
-        // });
-
-    });
 
 </script>
 
