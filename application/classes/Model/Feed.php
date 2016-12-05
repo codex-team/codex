@@ -34,7 +34,7 @@ class Model_Feed extends Model {
 
             case 'article': return 'article';
             case 'course': return 'course';
-            default: throw new Exception();
+            default: throw new Exception('Invalid type of feed item');
 
         }
 
