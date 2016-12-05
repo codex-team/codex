@@ -72,13 +72,39 @@
 </div>
 
 <!-- Developers plugin -->
-<script src="/public/extensions/editor/modules/plugins/header/header.js"></script>
-<link rel="stylesheet" href="/public/extensions/editor/modules/plugins/header/header.css">
+<script src="/public/extensions/codex.editor/modules/plugins/header/header.js?v=<?=filemtime('public/extensions/codex.editor/modules/plugins/header/header.js'); ?>"></script>
+<link rel="stylesheet" href="/public/extensions/codex.editor/modules/plugins/header/header.css">
+
+<script src="/public/extensions/codex.editor/modules/plugins/paragraph/paragraph.js?v=<?=filemtime('public/extensions/codex.editor/modules/plugins/paragraph/paragraph.js'); ?>"></script>
+<link rel="stylesheet" href="/public/extensions/codex.editor/modules/plugins/paragraph/paragraph.css">
+
+<script src="/public/extensions/codex.editor/modules/plugins/paste/paste.js?v=<?=filemtime('public/extensions/codex.editor/modules/plugins/code/code.js'); ?>"></script>
+<link rel="stylesheet" href="/public/extensions/codex.editor/modules/plugins/paste/paste.css">
+
+<script src="/public/extensions/codex.editor/modules/plugins/code/code.js?v=<?=filemtime('public/extensions/codex.editor/modules/plugins/code/code.js'); ?>"></script>
+<link rel="stylesheet" href="/public/extensions/codex.editor/modules/plugins/code/code.css">
+
+<script src="/public/extensions/codex.editor/modules/plugins/link/link.js?v=<?=filemtime('public/extensions/codex.editor/modules/plugins/link/link.js'); ?>"></script>
+<link rel="stylesheet" href="/public/extensions/codex.editor/modules/plugins/link/link.css">
+
+<script src="/public/extensions/codex.editor/modules/plugins/list/list.js?v=<?=filemtime('public/extensions/codex.editor/modules/plugins/list/list.js'); ?>"></script>
+<link rel="stylesheet" href="/public/extensions/codex.editor/modules/plugins/list/list.css">
+
+<script src="/public/extensions/codex.editor/modules/plugins/image/image.js?v=<?=filemtime('public/extensions/codex.editor/modules/plugins/image/image.js'); ?>"></script>
+<link rel="stylesheet" href="/public/extensions/codex.editor/modules/plugins/image/image.css">
+
+<script src="/public/extensions/codex.editor/modules/plugins/quote/quote.js?v=<?=filemtime('public/extensions/codex.editor/modules/plugins/quote/quote.js'); ?>"></script>
+<link rel="stylesheet" href="/public/extensions/codex.editor/modules/plugins/quote/quote.css">
+
+<script src="/public/extensions/codex.editor/modules/plugins/instagram/instagram.js?v=<?=filemtime('public/extensions/codex.editor/modules/plugins/instagram/instagram.js'); ?>"></script>
+<link rel="stylesheet" href="/public/extensions/codex.editor/modules/plugins/instagram/instagram.css">
+
+<script src="/public/extensions/codex.editor/modules/plugins/twitter/twitter.js?v=<?=filemtime('public/extensions/codex.editor/modules/plugins/twitter/twitter.js'); ?>"></script>
+<link rel="stylesheet" href="/public/extensions/codex.editor/modules/plugins/twitter/twitter.css">
 
 <!-- Editor scripts and styles -->
-<script src="/public/extensions/editor/bundle/codex.js?v=?<?=filemtime('public/extensions/editor/bundle/codex.js'); ?>"></script>
-<link rel="stylesheet" href="/public/extensions/editor/bundle/codex.css?v=<?=filemtime('public/extensions/editor/bundle/codex.css'); ?>">
-<link rel="stylesheet" href="/public/extensions/editor/codex-editor.css?v=<?=filemtime('public/extensions/editor/codex-editor.css'); ?>" />
+<script src="/public/extensions/codex.editor/codex_editor.js?v=?<?=filemtime('public/extensions/codex.editor/codex_editor.js'); ?>"></script>
+<link rel="stylesheet" href="/public/extensions/codex.editor/codex-editor.css?v=<?=filemtime('public/extensions/codex.editor/codex-editor.css'); ?>" />
 
 <script>
 
@@ -95,6 +121,32 @@
             textareaId: 'codex_editor',
 
             tools : {
+                paragraph : {
+                    type             : 'paragraph',
+                    iconClassname    : 'ce-icon-paragraph',
+                    make             : paragraphTool.make,
+                    appendCallback   : null,
+                    settings         : null,
+                    render           : paragraphTool.render,
+                    save             : paragraphTool.save,
+                    displayInToolbox : false,
+                    enableLineBreaks : false,
+                    allowedToPaste   : true
+                },
+                paste : {
+                    type             : 'paste',
+                    iconClassname    : '',
+                    prepare          : pasteTool.prepare,
+                    make             : pasteTool.make,
+                    appendCallback   : null,
+                    settings         : null,
+                    render           : null,
+                    save             : pasteTool.save,
+                    displayInToolbox : false,
+                    enableLineBreaks : false,
+                    callbacks        : pasteTool.callbacks,
+                    allowedToPaste   : false
+                },
                 header : {
                     type             : 'header',
                     iconClassname    : 'ce-icon-header',
@@ -103,6 +155,88 @@
                     settings         : headerTool.makeSettings(),
                     render           : headerTool.render,
                     save             : headerTool.save
+                },
+                code : {
+                    type             : 'code',
+                    iconClassname    : 'ce-icon-code',
+                    make             : codeTool.make,
+                    appendCallback   : null,
+                    settings         : null,
+                    render           : codeTool.render,
+                    save             : codeTool.save,
+                    displayInToolbox : true,
+                    enableLineBreaks : true
+                },
+                link : {
+                    type             : 'link',
+                    iconClassname    : 'ce-icon-link',
+                    make             : linkTool.makeNewBlock,
+                    appendCallback   : linkTool.appendCallback,
+                    render           : linkTool.render,
+                    save             : linkTool.save,
+                    displayInToolbox : true,
+                    enableLineBreaks : true
+                },
+                list : {
+                    type             : 'list',
+                    iconClassname    : 'ce-icon-list-bullet',
+                    make             : listTool.make,
+                    appendCallback   : null,
+                    settings         : listTool.makeSettings(),
+                    render           : listTool.render,
+                    save             : listTool.save,
+                    displayInToolbox : true,
+                    enableLineBreaks : true
+                },
+                quote : {
+                    type             : 'quote',
+                    iconClassname    : 'ce-icon-quote',
+                    make             : quoteTools.makeBlockToAppend,
+                    appendCallback   : null,
+                    settings         : quoteTools.makeSettings(),
+                    render           : quoteTools.render,
+                    save             : quoteTools.save,
+                    displayInToolbox : true,
+                    enableLineBreaks : true,
+                    allowedToPaste   : true
+                },
+                image : {
+                    type             : 'image',
+                    iconClassname    : 'ce-icon-picture',
+                    make             : ceImage.make,
+                    appendCallback   : ceImage.appendCallback,
+                    settings         : ceImage.makeSettings(),
+                    render           : ceImage.render,
+                    save             : ceImage.save,
+                    isStretched      : true,
+                    displayInToolbox : true,
+                    enableLineBreaks : false
+                },
+                instagram : {
+                    type             : 'instagram',
+                    iconClassname    : 'ce-icon-instagram',
+                    prepare          : instagramTool.prepare,
+                    make             : instagramTool.make,
+                    appendCallback   : null,
+                    settings         : null,
+                    render           : instagramTool.reneder,
+                    save             : instagramTool.save,
+                    displayInToolbox : false,
+                    enableLineBreaks : false,
+                    allowedToPaste   : false
+                },
+                twitter : {
+                    type             : 'twitter',
+                    iconClassname    : 'ce-icon-twitter',
+                    prepare          : twitterTool.prepare,
+                    make             : twitterTool.make,
+                    appendCallback   : null,
+                    settings         : null,
+                    render           : twitterTool.render,
+                    save             : twitterTool.save,
+                    displayInToolbox : false,
+                    enableLineBreaks : false,
+                    allowedToPaste   : false
                 }
             },
 

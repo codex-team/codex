@@ -6,10 +6,6 @@
  * @version 1.0.0
  */
 
-/** Include to Build css */
-// require('./header.css');
-
-// var codex = require('../../../editor');
 var headerTool = {
 
     /**
@@ -145,7 +141,7 @@ var headerTool = {
         var old_header, new_header;
 
         /** Now current header stored as a currentNode */
-        old_header = codex.content.currentNode.querySelector('[contentEditable]');
+        old_header = codex.editor.content.currentNode.querySelector('[contentEditable]');
 
         /** Making new header */
         new_header = document.createElement(type);
@@ -157,10 +153,10 @@ var headerTool = {
 
         new_header.dataset.headerData = type;
 
-        codex.content.switchBlock(old_header, new_header, 'header');
+        codex.editor.content.switchBlock(old_header, new_header, 'header');
 
         /** Close settings after replacing */
-        codex.toolbar.settings.close();
+        codex.editor.toolbar.settings.close();
     }
 
 };
