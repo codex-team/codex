@@ -15,7 +15,9 @@ module.exports = {
     entry: "./index",
     output: {
         filename: "./codex_editor.js",
-        library: "codex"
+
+        /** If variable "Codex" exists, variable "Editor" will be an object of "Codex" */
+        library: ["codex", "editor"]
     },
 
     watch: true,

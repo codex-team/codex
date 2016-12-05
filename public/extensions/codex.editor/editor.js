@@ -78,7 +78,7 @@ var codex = (function(codex){
      *
      * Load user defined tools
      * Tools must contain this important objects :
-     *  @param {String} Type - this is a type of plugin. It can be used as plugin name
+     *  @param {String} type - this is a type of plugin. It can be used as plugin name
      *  @param {String} iconClassname - this a icon in toolbar
      *  @param {Object} make - what should plugin do, when it is clicked
      *  @param {Object} appendCallback - callback after clicking
