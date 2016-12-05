@@ -103,6 +103,8 @@ quiz = (function() {
 
             var answerStyle = answer.getAttribute('data') > 0 ? '_right' :  '_wrong';
             answer.classList.add('quiz__question-label'+answerStyle);
+            answer.previousElementSibling.checked = true;
+
 
             var answerMessage = this.createElem('div', 'quiz__answer-message');
 
@@ -110,8 +112,11 @@ quiz = (function() {
 
             this.insertAfter(answerMessage, answer);
 
+            var inputs = document.querySelectorAll('.quiz__question-radiobutton');
+
             for (var k in this.questionElems.options) {
                 this.questionElems.options[k].removeEventListener('click', gameProcessing_.getUserAnswer);
+                inputs[k].disabled = true;
             }
 
             this.questionElems.nextButton.disabled = false;
