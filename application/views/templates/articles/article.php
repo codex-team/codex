@@ -47,31 +47,6 @@
 
         </div>
 
-        <!--Вставляем тест-->
-        <?= View::factory('templates/quizzes/quiz', array('quizData' => array(
-            'title'             => '',
-            'description'       => '',
-            'shortDescription'  => '',
-            'dtCreate'          => '',
-            'questions'         => array(
-                array(
-                    'title' => 'Question 1',
-                    'answers' => array(
-                        array(
-                            'text' => 'Option 1',
-                            'score' => 1,
-                            'message' => 'Верно!'
-                        ),
-                        array(
-                            'text' => 'Option 2',
-                            'score' => 0,
-                            'message' => 'Не угадал..'
-                        ))
-                )
-            ),
-            'messages'          => array(0 => 'Плохо',
-                1 => 'Норм'),
-        )));?>
 
 
         <?= View::factory('templates/blocks/share', array('share' => array(
