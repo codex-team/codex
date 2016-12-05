@@ -101,9 +101,12 @@ quiz = (function() {
          */
         showAnswer: function(answer) {
 
-            var answerStyle = answer.getAttribute('data') > 0 ? '_right' :  '_wrong';
+            var answerNo = +answer.getAttribute('for'),
+                answerStyle = answer.getAttribute('data') > 0 ? '_right' :  '_wrong';
+
             answer.classList.add('quiz__question-label'+answerStyle);
-            answer.previousElementSibling.checked = true;
+
+            this.questionElems.options[answerNo].input = true;
 
 
             var answerMessage = this.createElem('div', 'quiz__answer-message');
@@ -112,11 +115,9 @@ quiz = (function() {
 
             this.insertAfter(answerMessage, answer);
 
-            var inputs = document.querySelectorAll('.quiz__question-radiobutton');
-
             for (var k in this.questionElems.options) {
-                this.questionElems.options[k].removeEventListener('click', gameProcessing_.getUserAnswer);
-                inputs[k].disabled = true;
+                this.questionElems.options[k].label.removeEventListener('click', gameProcessing_.getUserAnswer);
+                this.questionElems.options[k].input.disabled = true;
             }
 
             this.questionElems.nextButton.disabled = false;
@@ -212,7 +213,7 @@ quiz = (function() {
             //Вешаем слушатель на вариант ответа
             label.addEventListener('click', gameProcessing_.getUserAnswer);
 
-            this.questionElems.options.push(label);
+            this.questionElems.options.push({label:label, input: input});
 
             this.append([input,label], this.questionElems.optionsHolder);
 
@@ -305,10 +306,14 @@ quiz = (function() {
          * @param {Object} e - объект события клика по варианту ответа
          */
         getUserAnswer: function(e) {
-            score += +e.currentTarget.getAttribute('data');
+
+            var answer = e.currentTarget,
+                points = +answer.getAttribute('data');
+
+            score += points;
 
 
-            UI_.showAnswer(e.currentTarget);
+            UI_.showAnswer(answer);
 
         },
 
