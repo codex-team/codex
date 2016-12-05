@@ -65,6 +65,9 @@
 .quiz__question-label {
     display: block;
     position:relative;
+	margin-top: 15px;
+	margin-left:39px;
+	
 }
 
 
@@ -78,6 +81,7 @@
     left: -24px;
     height:15px;
     width:15px;
+	margin-left:-15px;
     border-radius: 50%;
     border:4px solid #333333;
     background: #fff;
@@ -117,6 +121,8 @@
 
 .quiz__question-radiobutton:checked + .quiz__question-label_right:after {
     content: '\2714';
+	left:-35px;
+	top: 1px;
     width: 15px;
     height: 15px;
     font-size: 17px;
