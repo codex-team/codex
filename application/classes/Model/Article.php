@@ -29,11 +29,6 @@ Class Model_Article extends Model
     */
     public $marked = false;
 
-    /**
-    * @var null|int $order — позволяет изменять порядок вывода статей
-    */
-    public $order = null;
-
     public $author;
     public $commentsCount;
 

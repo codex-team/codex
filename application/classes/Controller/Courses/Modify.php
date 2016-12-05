@@ -48,6 +48,7 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
             $course->dt_close       = Arr::get($_POST, 'duration');
             $course->order          = Arr::get($_POST, 'order');
             $course->uri          = Arr::get($_POST, 'uri');
+            $item_below_key         = Arr::get($_POST, 'item_below_key', 0);
 
             $uri = Arr::get($_POST, 'uri');
             $alias = Model_Alias::generateUri($uri);
@@ -65,6 +66,19 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
 
                 //Добавляем курс в фид
                 $feed->add($course);
+                if ($item_below_key) {
+                    list($ib_type, $ib_id) = explode(':', $item_below_key);
+
+                    switch ($ib_type) {
+                        case 'article':
+                            $feed->putAbove($course, Model_Article::get($ib_id));
+                            break;
+                        case 'course':
+                            $feed->putAbove($course, Model_Courses::get($ib_id));
+                            break;
+                    }
+                }
+
 
                 // Если поле uri пустое, то редиректить на обычный роут /course/id
                 $redirect = ($uri) ? $course->uri : '/course/' . $course->id;
@@ -75,6 +89,7 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
             }
         }
         $this->view['course'] = $course;
+        $this->view['topFeed'] = $feed->get(5);
         $this->template->content = View::factory('templates/courses/create', $this->view);
     }
 

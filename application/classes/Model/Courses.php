@@ -19,7 +19,6 @@ Class Model_Courses extends Model
     public $is_removed;
     public $is_published;
     public $marked;
-    public $order;
 
     const FEED_TYPE = 'course';
 

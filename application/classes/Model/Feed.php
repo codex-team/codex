@@ -110,9 +110,21 @@ class Model_Feed extends Model {
 
     }
 
-    public function get() {
 
-        $list = $this->redis->zRevRange('feed', 0, -1);
+    /**
+     * Получаем первые id элементов в фиде в количестве $numberOfItems.
+     * Если п$numberOfItems не указано, то получаем все элементы в фиде.
+     *
+     * @param int $numberOfItems
+     *
+     * @return array - массив моделей статей и курсов
+     * @throws Exception
+     */
+    public function get($numberOfItems = 0) {
+
+        $numberOfItems = $this->redis->zCard('feed') > $numberOfItems ? $numberOfItems : 0;
+
+        $list = $this->redis->zRevRange('feed', -$numberOfItems, -1);
 
         $models_list = array();
 
