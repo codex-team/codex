@@ -51,11 +51,9 @@
     display: block;
 }
 
-    .ce-toolbar__content {
-        position: relative;
-        max-width: 600px;
-        margin: 0 auto;
-    }
+.ce-toolbar__content {
+    position: relative;
+}
 /**
 * Plus button
 */
@@ -297,7 +295,6 @@
 .ce-toolbar-inline__buttons button{
     background: none;
     border: 0;
-    height: auto !important;
     padding: 12px 8px;
     color: inherit;
     font-size: 12px;
@@ -365,7 +362,8 @@
 /**
 * Block content holder
 */
-.ce-block__content{
+.ce-block__content,
+.ce-toolbar__content {
     max-width: 600px;
     margin: 0 auto;
     padding: 1px;
@@ -392,7 +390,7 @@
 }
 
 @keyframes loading-bar {
-    100% { background-position: -56% 0 }
+    100% { background-position: -56px 0 }
 }
 
 
