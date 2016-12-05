@@ -107,11 +107,11 @@ quiz = (function() {
             answer.classList.add('quiz__question-label'+answerStyle);
 
             this.questionElems.options[answerNo].input = true;
-
+            
 
             var answerMessage = this.createElem('div', 'quiz__answer-message');
 
-            answerMessage.textContent = this.currentQuestionObj.answers[+answer.getAttribute('for')].message;
+            answerMessage.textContent = this.currentQuestionObj.answers[answerNo].message;
 
             this.insertAfter(answerMessage, answer);
 
