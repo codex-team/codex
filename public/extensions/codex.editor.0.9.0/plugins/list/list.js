@@ -1,11 +1,7 @@
 /**
- * Code Plugin
+ * Code Plugin\
  * Creates code tag and adds content to this tag
- *
- * @author Codex Team
- * @copyright Khaydarov Murod
  */
-
 var listTool = {
 
     baseClass : "tool-list",
@@ -91,12 +87,12 @@ var listTool = {
 
         orderedButton.addEventListener('click', function (event) {
             listTool.changeBlockStyle(event, 'ol');
-            codex.toolbar.settings.close();
+            cEditor.toolbar.settings.close();
         });
 
         unorderedButton.addEventListener('click', function (event) {
             listTool.changeBlockStyle(event, 'ul');
-            codex.toolbar.settings.close();
+            cEditor.toolbar.settings.close();
         });
 
         holder.appendChild(orderedButton);
@@ -108,7 +104,7 @@ var listTool = {
 
     changeBlockStyle : function (event, blockType) {
 
-        var currentBlock = codex.content.currentNode,
+        var currentBlock = cEditor.content.currentNode,
             newEditable = listTool.ui.make(blockType),
             oldEditable = currentBlock.querySelector("[contenteditable]");
 
@@ -116,8 +112,8 @@ var listTool = {
             newEditable.innerHTML = oldEditable.innerHTML;
             newEditable.classList.add('ce-list');
 
-            codex.content.switchBlock(currentBlock, newEditable, 'list');
-    }
+            cEditor.content.switchBlock(currentBlock, newEditable, 'list');
+    },
 
 };
 
@@ -158,4 +154,22 @@ listTool.ui = {
 
         return button;
     }
+};
+
+/**
+ * Now plugin is ready.
+ * Add it to redactor tools
+ */
+cEditor.tools.list = {
+
+    type             : 'list',
+    iconClassname    : 'ce-icon-list-bullet',
+    make             : listTool.make,
+    appendCallback   : null,
+    settings         : listTool.makeSettings(),
+    render           : listTool.render,
+    save             : listTool.save,
+    displayInToolbox : true,
+    enableLineBreaks : true
+
 };

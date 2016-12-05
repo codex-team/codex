@@ -1,10 +1,8 @@
 /**
  * Twitter plugin
- *
- * @author Codex Team
- * @copyright Khaydarov Murod
  * @version 1.0.0
  */
+
 var twitterTool = {
 
     /**
@@ -17,7 +15,7 @@ var twitterTool = {
         /**
          * Load script
          */
-        codex.editor.core.importScript(script, 'twitterAPI');
+        cEditor.core.importScript(script, 'twitterAPI');
 
     },
 
@@ -69,15 +67,15 @@ twitterTool.content = {
 
         var tweet = twitterTool.content.twitterBlock();
 
-        codex.editor.content.switchBlock(codex.editor.content.currentNode, tweet, 'twitter');
+        cEditor.content.switchBlock(cEditor.content.currentNode, tweet, 'twitter');
 
-        var blockContent = codex.editor.content.currentNode.childNodes[0];
-        blockContent.classList.add('ce-redactor__loader');
+        var blockContent = cEditor.content.currentNode.childNodes[0];
+        blockContent.classList.add('twitter__loader');
 
         window.twttr.widgets.createTweet(tweetId, blockContent);
 
         setTimeout(function() {
-            blockContent.classList.remove('ce-redactor__loader');
+            blockContent.classList.remove('twitter__loader');
         }, 500);
 
         /** Remove empty DIV */
@@ -86,7 +84,23 @@ twitterTool.content = {
     },
 
     twitterBlock : function() {
-        var block = codex.editor.draw.node('DIV', '', {});
+        var block = cEditor.draw.node('DIV', '', {});
         return block;
     }
+};
+
+cEditor.tools.twitter = {
+
+    type             : 'twitter',
+    iconClassname    : 'ce-icon-twitter',
+    prepare          : twitterTool.prepare,
+    make             : twitterTool.make,
+    appendCallback   : null,
+    settings         : null,
+    render           : twitterTool.render,
+    save             : twitterTool.save,
+    displayInToolbox : false,
+    enableLineBreaks : false,
+    allowedToPaste   : false
+
 };
