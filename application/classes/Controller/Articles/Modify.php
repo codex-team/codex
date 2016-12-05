@@ -50,6 +50,11 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             $article->order        = (int) Arr::get($_POST, 'order');
             $article->description  = Arr::get($_POST, 'description');
             $course_id             = Arr::get($_POST, 'course_id', 0);
+
+            /**
+             * @var string $item_below_key
+             * Ключ элемента в фиде, над которым нужно поставить данную статью ('[article|course]:<id>')
+             * */
             $item_below_key         = Arr::get($_POST, 'item_below_key', 0);
 
             if ($article->title && $article->json && $article->description) {
@@ -78,6 +83,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
                 if (!$in_course) {
                     $feed->add($article);
 
+                    //Ставим статью в переданное место в фиде, если это было указано
                     if ($item_below_key) {
                         list($ib_type, $ib_id) = explode(':', $item_below_key);
 
