@@ -15,17 +15,13 @@ class Controller_Index extends Controller_Base_preDispatch
             Security::token(true);
         }
 
-        $this->view['ny_user_requests'] = $this->user->getUserRequests();
+        $this->view['ny_user_requests'] = $this->user->getUserRequest();
 
         /**
         * Select best developers
         */
-        $modelUser = new Model_User();
-        $bestDevelopersIds = array(
-            24, // @n0str
-            115, // Murod
-        );
-        $this->view['bestDevelopers'] = $modelUser->getUsersByIds($bestDevelopersIds);
+        $this->view['bestDevelopers'][] = new Model_User(24); //n0str
+        $this->view['bestDevelopers'][] = new Model_User(115); //khaydarov
 
 
         $this->title = 'Команда CodeX';

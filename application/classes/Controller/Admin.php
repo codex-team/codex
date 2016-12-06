@@ -6,7 +6,7 @@ class Controller_Admin extends Controller_Base_preDispatch
     public function before()
     {
         parent::before();
-        if (!$this->user->checkAccess(array(Model_User::ROLE_ADMIN)))
+        if (!$this->user->is_admin)
             throw new HTTP_Exception_403();
     }
 
@@ -40,7 +40,7 @@ class Controller_Admin extends Controller_Base_preDispatch
         $this->template->content = View::factory("templates/admin/wrapper", array("content" => $pageContent));
 
     }
-    
+
     public function action_edit()
     {
         $article_id = $this->request->param('article_id');
@@ -87,7 +87,7 @@ class Controller_Admin extends Controller_Base_preDispatch
 
         foreach ($contests as $contest)
         {
-            $contest->winner = Model_User::get($contest->winner);
+            $contest->winner = new Model_User($contest->winner);
         }
 
         $this->view["contests"] = $contests;
@@ -118,7 +118,7 @@ class Controller_Admin extends Controller_Base_preDispatch
         {
             if ($request['uid'])
             {
-              $request['user'] = Model_User::get((int)$request['uid']);
+              $request['user'] = new Model_User((int)$request['uid']);
             } else {
               $request['user'] = new Model_User();
               $request['user']->name = $request['name'];

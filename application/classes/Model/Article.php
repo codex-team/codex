@@ -102,7 +102,7 @@ Class Model_Article extends Model
             $this->is_removed   = $article_row['is_removed'];
             $this->is_published = $article_row['is_published'];
 
-            $this->author           = Model_User::get($this->user_id);
+            $this->author           = new Model_User($this->user_id);
             $this->commentsCount    = Model_Comment::countCommentsByArticle($this->id);
         }
 

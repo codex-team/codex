@@ -15,7 +15,7 @@ class Controller_Users_Index extends Controller_Base_preDispatch
         $user_id = $this->request->param('user_id');
 
 	    if ( !empty($user_id) ){
-		    $viewUser = Model_User::get( $user_id );
+		    $viewUser = new Model_User($user_id);
 	    } else {
 	        $viewUser = $this->user;
 	    }
@@ -30,7 +30,7 @@ class Controller_Users_Index extends Controller_Base_preDispatch
         $needClearCache = Arr::get($_GET, 'clear') == 1;
         $this->view["articles"]  = Model_Article::getArticlesByUserId($viewUser->id, $needClearCache);
 
-        $this->view['join_requests'] = $viewUser->getUserRequests();
+        $this->view['join_requests'] = $viewUser->getUserRequest();
 
         $this->title = $viewUser->name ?: 'Пользователь #' . $viewUser->id;
         $this->view['viewUser']  = $viewUser;
@@ -49,7 +49,7 @@ class Controller_Users_Index extends Controller_Base_preDispatch
         $csrfToken = Arr::get($_POST, 'csrf');
 
         if(!Security::check($csrfToken)){
-            $user = Model_User::get($this->user->id);
+            $user = new Model_User($this->user->id);
 
             $this->view['user'] = $user;
 

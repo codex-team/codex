@@ -50,7 +50,7 @@ class Controller_Contests_Index extends Controller_Base_preDispatch
         * Add winner User information
         */
         if ($contest->winner) {
-            $contest->winner = Model_User::get($contest->winner);
+            $contest->winner = new Model_User($contest->winner);
         }
 
         $this->view["contest"] = $contest;

@@ -8,7 +8,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
     public function before()
     {
         parent::before();
-        if (!$this->user->checkAccess(array(Model_User::ROLE_ADMIN)))
+        if (!$this->user->is_admin)
             $this->redirect('/');
     }
 

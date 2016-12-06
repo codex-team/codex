@@ -22,17 +22,19 @@ class Controller_Auth extends Controller_Base_preDispatch
                 $token = Session::instance()->get('vk_token');
                 Cookie::set("auth_token", $token);
 
-                $user = Model_User::findByAttribute('vk_id', $profile->uid);
+                $user = new Model_User;
+                $user->findByAttribute('vk_id', $profile->uid);
+
                 if ($user->is_empty())
                 {
                     $user = new Model_User();
-                    $user->vk_id = $profile->uid;
+                    $user->vk_id       = $profile->uid;
+                    $user->photo       = $profile->photo_200;
+                    $user->photo_big   = $profile->photo_max;
                     $user->photo_small = $profile->photo_50;
-                    $user->photo = $profile->photo_200;
-                    $user->photo_big = $profile->photo_max;
-                    $user->name = $this->get_vk_name($profile);
+                    $user->name        = $this->get_vk_name($profile);
 
-                    if ($result = $user->save('vk'))
+                    if ($result = $user->insert())
                     {
                         $inserted_id = $result[0];
                         $new_session = new Model_Sessions();
@@ -76,7 +78,9 @@ class Controller_Auth extends Controller_Base_preDispatch
             {
                 Session::instance()->set('profile', $profile);
 
-                $user = Model_User::findByAttribute('fb_id', $profile->id);
+                $user = new Model_User;
+                $user->findByAttribute('fb_id', $profile->id);
+                
                 if ($user->is_empty())
                 {
                     $user = new Model_User();
@@ -85,14 +89,13 @@ class Controller_Auth extends Controller_Base_preDispatch
                     # TODO: Проверить загрузку на альфе $user->photo = $fb->get_images($profile->id);
                     # TODO: Загрузить фото профиля целиком: $fb->get_images($profile->id);
 
-                    $user->save();
+                    $user->insert();
                 }
             }
-        }
-        else
-        {
+        } else {
 
         }
+
         Controller::redirect($this->get_return_url());
     }
 
@@ -110,7 +113,7 @@ class Controller_Auth extends Controller_Base_preDispatch
         $gh = Oauth::instance('github');
 
         if ($gh->login())
-        { 
+        {
             $profile = $gh->get_user();
 
             if ($profile)
@@ -118,20 +121,23 @@ class Controller_Auth extends Controller_Base_preDispatch
                 $token = $gh->get_token();
                 Cookie::set("auth_token", $token);
 
-                $user = Model_User::findByAttribute('github_id', $profile->id);
+                $user = new Model_User;
+                $user->findByAttribute('github_id', $profile->id);
+
                 if ($user->is_empty())
                 {
                     $user = new Model_User();
+
                     if ($profile->name)
                         $user->name = $profile->name;
                     else
                         $user->name = $profile->login;
 
-                    $user->github_id = $profile->id;
+                    $user->github_id  = $profile->id;
                     $user->github_uri = $profile->login;
-                    $user->photo = $profile->avatar_url;
+                    $user->photo      = $profile->avatar_url;
 
-                    if ($result = $user->save())
+                    if ($result = $user->insert())
                     {
                         $inserted_id = $result[0];
                         $new_session = new Model_Sessions();
@@ -148,9 +154,9 @@ class Controller_Auth extends Controller_Base_preDispatch
         }
         else
         {
-           
+
         }
-        
+
         Controller::redirect($this->get_return_url());
     }
 
@@ -184,7 +190,7 @@ class Controller_Auth extends Controller_Base_preDispatch
      */
     private function generate_auth_error()
     {
-        $error_code = $this->request->query('error_code');
+        $error_code    = $this->request->query('error_code');
         $error_message = $this->request->query('error_message');
 
         throw new HTTP_Exception_FacebookException('Ошибка #:error_code : :error_message', array(

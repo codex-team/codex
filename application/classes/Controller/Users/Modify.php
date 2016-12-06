@@ -17,7 +17,7 @@ class Controller_Users_Modify extends Controller_Base_preDispatch
         $csrfToken = Arr::get($_POST, 'csrf');
 
         if(!Security::check($csrfToken)){
-            $user = Model_User::get($this->user->id);
+            $user = new Model_User($this->user->id);
 
             $this->view['user'] = $user;
 

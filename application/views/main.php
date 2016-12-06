@@ -19,7 +19,7 @@
 
     <link rel="stylesheet" href="/public/css/normalize.css">
     <link rel="stylesheet" href="/public/css/codex.css?v=<?= filemtime('public/css/codex.css') ?>">
-    <? if ($user->isAdmin): ?>
+    <? if ($user->is_admin): ?>
         <link rel="stylesheet" href="/public/css/admin.css?v=<?= filemtime('public/css/admin.css') ?>">
     <? endif ?>
 
@@ -39,7 +39,7 @@
                 <a class="site-header__profile" href="/user/<?= $user->id ?>">
                     <img class="site-header__profile_photo" src="<?= $user->photo ?>" alt="<?= $user->name ?>" id="header-avatar-updatable" />Profile
                 </a>
-                <? if ($user->isAdmin): ?>
+                <? if ($user->is_admin): ?>
                     <a class="site-header__button" href="/article/add"><i class="icon-pencil"></i>Write</a>
                 <? endif ?>
             <? else: ?>
