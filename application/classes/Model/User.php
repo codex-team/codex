@@ -46,6 +46,8 @@ Class Model_User extends Model
                     ->cached(Date::MINUTE * 10, 'users_by_ids:' . implode(',', $ids))
                     ->execute();
 
+        if (!$users)
+            return [];
 
         $models = array();
 
