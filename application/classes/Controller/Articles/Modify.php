@@ -49,7 +49,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             $article->marked       = Arr::get($_POST, 'marked') ? 1 : 0;
             $article->order        = (int) Arr::get($_POST, 'order');
             $article->description  = Arr::get($_POST, 'description');
-            $courses_id            = Arr::get($_POST, 'courses_id', 0);
+            $courses_ids           = Arr::get($_POST, 'courses_ids', 0);
 
             /**
              * @var string $item_below_key
@@ -73,31 +73,22 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
                     $article->update();
                 }
 
-                if (!$courses_id) {
+                if (!$courses_ids) {
 
                     Model_Courses::deleteArticles($article->id);
                     $feed->add($article);
 
                     //Ставим статью в переданное место в фиде, если это было указано
                     if ($item_below_key) {
-                        list($ib_type, $ib_id) = explode(':', $item_below_key);
-
-                        switch ($ib_type) {
-                            case 'article':
-                                $feed->putAbove($article, Model_Article::get($ib_id));
-                                break;
-                            case 'course':
-                                $feed->putAbove($article, Model_Courses::get($ib_id));
-                                break;
-                        }
+                        $feed->putAbove($article, $item_below_key);
                     }
 
                 } else {
 
-                    $current_courses = Model_Courses::getCurrentCoursesIds($article);
+                    $current_courses = Model_Courses::getCoursesByArticleId($article);
 
-                    $courses_to_delete = array_diff($current_courses, $courses_id);
-                    $courses_to_add = array_diff($courses_id, $current_courses);
+                    $courses_to_delete = array_diff($current_courses, $courses_ids);
+                    $courses_to_add = array_diff($courses_ids, $current_courses);
 
                     Model_Courses::deleteArticles($article->id, $courses_to_delete);
 
@@ -119,7 +110,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
 
         $this->view['article']          = $article;
         $this->view['courses']          = Model_Courses::getActiveCoursesNames();
-        $this->view['selected_courses'] = Model_Courses::getCurrentCoursesIds($article);
+        $this->view['selected_courses'] = Model_Courses::getCoursesByArticleId($article);
         $this->view['topFeed']          = $feed->get(5);
 
         $this->template->content = View::factory('templates/articles/create', $this->view);

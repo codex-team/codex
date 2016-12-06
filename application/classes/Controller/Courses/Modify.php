@@ -75,16 +75,7 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
 
                     //Ставим курс в переданное место в фиде, если это было указано
                     if ($item_below_key) {
-                        list($ib_type, $ib_id) = explode(':', $item_below_key);
-
-                        switch ($ib_type) {
-                            case 'article':
-                                $feed->putAbove($course, Model_Article::get($ib_id));
-                                break;
-                            case 'course':
-                                $feed->putAbove($course, Model_Courses::get($ib_id));
-                                break;
-                        }
+                        $feed->putAbove($course, $item_below_key);
                     }
                 }
 

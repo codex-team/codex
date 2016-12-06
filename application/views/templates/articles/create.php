@@ -33,9 +33,10 @@
         <section class="editor-form__section">
 
             <label for="courses_id">Выберите курс, к которому относится статья</label>
-            <select name="courses_id[]" multiple>
+            <select name="courses_ids[]" multiple>
                 <? foreach ($courses as $course): ?>
-                    <option value="<?= $course['id']; ?>" <?= in_array($course['id'], $selected_courses)?'selected':''; ?>>
+                    <? $is_selected = is_array($selected_courses)?in_array($course['id'], $selected_courses):false; ?>
+                    <option value="<?= $course['id']; ?>" <?= $is_selected?'selected':''; ?>>
                         <?= $course['name']; ?>
                     </option>
                 <? endforeach; ?>

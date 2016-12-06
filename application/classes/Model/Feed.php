@@ -43,14 +43,15 @@ class Model_Feed extends Model {
     /**
      * Меняем порядок элементов в фиде
      *
-     * @param $item_after - элемент, после которого в sorted set вставляем (перед которым будет выводиться элемент)
+     * @param $item - элемент, который переставляем
+     * @param $item_below - массив, содержащий тип и id элемента,
+     * после которого в sorted set вставляем $item (перед которым $item будет выводиться)
      *
      * @return void|bool
      */
-    public function putAbove($item, $item_below)
+    public function putAbove($item, $item_below_value)
     {
         $item_value = self::composeValueIdentity($item);
-        $item_below_value = self::composeValueIdentity($item_below);
 
         if ($this->redis->zRank('feed', $item_value) === false) {
             return false;

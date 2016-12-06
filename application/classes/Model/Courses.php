@@ -150,19 +150,16 @@ Class Model_Courses extends Model
      * @param $article
      * @return bool|array
      */
-    public static function getCurrentCoursesIds($article) {
+    public static function getCoursesByArticleId($article) {
         if (!$article) {
             return false;
         }
 
-        $queryResult =  Dao_CoursesArticles::select('course_id')->where('article_id', '=', $article->id)->execute();
+        $selectedCourses = Dao_CoursesArticles::select('course_id')
+                                        ->where('article_id', '=', $article->id)
+                                        ->execute('course_id');
 
-        array_walk($queryResult, function(&$item, $key) {
-           $item = $item['course_id'];
-        });
-
-        return $queryResult;
-
+        return array_keys($selectedCourses);
     }
 
     /**
@@ -172,15 +169,15 @@ Class Model_Courses extends Model
      * @param {int|array} $courses_id - если передан, то открепляет статью от указанных курсов, иначе ото всех
      * @return Dao_CoursesArticles:remove
      */
-    public static function deleteArticles($article_id, $courses_id = 0) {
+    public static function deleteArticles($article_id, $courses_ids = 0) {
 
         $deleteQuery = Dao_CoursesArticles::delete()->where('article_id', '=', $article_id);
 
-        if (!$courses_id) {
+        if (!$courses_ids) {
             return $deleteQuery->execute();
         }
 
-        return $deleteQuery->where_in('course_id', $courses_id)->execute();
+        return $deleteQuery->where_in('course_id', $courses_ids)->execute();
 
     }
 
