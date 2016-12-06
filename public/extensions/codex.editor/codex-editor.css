@@ -42,9 +42,7 @@
 .ce-toolbar{
     position: absolute;
     z-index: 2;
-    width: 600px;
-    left: 50%;
-    margin-left: -300px;
+    width: 100%;
 
     /* hidden by default */
     display: none;
@@ -53,11 +51,14 @@
     display: block;
 }
 
+.ce-toolbar__content {
+    position: relative;
+}
 /**
 * Plus button
 */
 .ce-toolbar__plus{
-    background-image: url('fonts/codex_editor/icon-plus.svg');
+    background-image: url('fonts/icon-plus.svg');
     background-position: center center;
     background-repeat: no-repeat;
     text-align: center;
@@ -131,10 +132,10 @@
 */
 .ce-toolbar__actions{
     position: absolute;
-    right: -74px;
-    background: #fff;
+    right: 10px;
     border-radius: 2px;
     padding: 2px 4px;
+    /*background: #f9f9fb;*/
 }
 
 /**
@@ -201,11 +202,11 @@
 }
 .ce-settings:before,
 .ce-settings:after{
-    right: 27px;
+    right: 31px;
 }
 .ce-toolbar__remove-confirmation:before,
 .ce-toolbar__remove-confirmation:after{
-    right: 5px;
+    right: 10px;
 }
 .ce-toolbar__remove-confirmation{
     right: -3px;
@@ -337,8 +338,9 @@
 */
 .ce-block{
     margin: 0 5px;
+    border-radius: 3px;
 }
-.ce-block--focused .ce-block__content{
+.ce-block--focused{
     background: #f9f9fb;
 }
 
@@ -351,7 +353,7 @@
     display: inline-block;
     position: absolute;
 
-    left: 30px;
+    left: 17px;
     top: 13px;
     font-size: 16px;
     color: #ef4a4a;
@@ -360,11 +362,11 @@
 /**
 * Block content holder
 */
-.ce-block__content{
+.ce-block__content,
+.ce-toolbar__content {
     max-width: 600px;
     margin: 0 auto;
-    padding: 1px 10px;
-    border-radius: 3px;
+    padding: 1px;
 }
 .ce-block--stretched{
     max-width: none;
@@ -388,7 +390,7 @@
 }
 
 @keyframes loading-bar {
-    100% { background-position: -56% 0 }
+    100% { background-position: -56px 0 }
 }
 
 

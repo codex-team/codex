@@ -9,6 +9,10 @@
  *  - Image
  *  - External Link
  *
+ * @author Codex Team
+ * @copyright Khaydarov Murod
+ *
+ * @version 1.0.0
  */
 
 /**
@@ -23,14 +27,14 @@ var pasteTool = {
 /**
  * Make elements to insert or switch
  *
- * @uses Core cEditor.draw module
+ * @uses Core codex.editor.draw module
  */
 pasteTool.ui = {
 
     /**
      * Upload image by URL
      *
-     * @uses cEditor Image tool
+     * @uses codex Image tool
      * @param filename
      * @returns {Element}
      */
@@ -52,7 +56,7 @@ pasteTool.ui = {
         };
 
         /** Using Image plugin make method */
-        var image = cEditor.tools.image.make(data);
+        var image = codex.editor.tools.image.make(data);
 
         return image;
 
@@ -131,7 +135,7 @@ pasteTool.callbacks = {
         var ajaxUrl = location.protocol + '//' + location.hostname,
             file,
             image,
-            current = cEditor.content.currentNode,
+            current = codex.editor.content.currentNode,
             beforeSend,
             success_callback;
 
@@ -140,7 +144,7 @@ pasteTool.callbacks = {
 
             var file = JSON.parse(data);
             image = pasteTool.ui.uploadedImage(file.filename);
-            cEditor.content.switchBlock(current, image, 'image');
+            codex.editor.content.switchBlock(current, image, 'image');
 
         };
 
@@ -161,7 +165,7 @@ pasteTool.callbacks = {
             success : success_callback
         };
 
-        cEditor.core.ajax(data);
+        codex.editor.core.ajax(data);
     },
 
     /**
@@ -180,7 +184,7 @@ pasteTool.callbacks = {
             url: fullUrl
         };
 
-        cEditor.tools.instagram.make(data);
+        codex.editor.tools.instagram.make(data);
 
     },
 
@@ -217,23 +221,7 @@ pasteTool.callbacks = {
             caption:"Caption"
         };
 
-        cEditor.tools.twitter.make(data);
-    },
-
-};
-
-cEditor.tools.paste = {
-
-    type             : 'paste',
-    iconClassname    : '',
-    prepare          : pasteTool.prepare,
-    make             : pasteTool.make,
-    appendCallback   : null,
-    settings         : null,
-    render           : null,
-    save             : pasteTool.save,
-    displayInToolbox : false,
-    enableLineBreaks : false,
-    allowedToPaste   : false
+        codex.editor.tools.twitter.make(data);
+    }
 
 };
