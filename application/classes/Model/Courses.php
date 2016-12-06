@@ -166,7 +166,7 @@ Class Model_Courses extends Model
      * Открепляет статью от курсов.
      *
      * @param int $article_id
-     * @param {int|array} $courses_id - если передан, то открепляет статью от указанных курсов, иначе ото всех
+     * @param {int|array} $courses_ids - если передан, то открепляет статью от указанных курсов, иначе ото всех
      * @return Dao_CoursesArticles:remove
      */
     public static function deleteArticles($article_id, $courses_ids = 0) {
