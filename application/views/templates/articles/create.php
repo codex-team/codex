@@ -32,11 +32,10 @@
 
         <section class="editor-form__section">
 
-            <label for="course_id">Выберите курс, к которому относится статья</label>
-            <select name="course_id">
-                <option value="0">---</option>
+            <label for="courses_id">Выберите курс, к которому относится статья</label>
+            <select name="courses_id[]" multiple>
                 <? foreach ($courses as $course): ?>
-                    <option value="<?= $course['id']; ?>">
+                    <option value="<?= $course['id']; ?>" <?= in_array($course['id'], $selected_courses)?'selected':''; ?>>
                         <?= $course['name']; ?>
                     </option>
                 <? endforeach; ?>

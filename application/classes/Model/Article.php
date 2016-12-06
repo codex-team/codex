@@ -56,7 +56,6 @@ Class Model_Article extends Model
                                 ->set('cover',          $this->cover)
                                 ->set('user_id',        $this->user_id)
                                 ->set('marked',         $this->marked)
-                                ->set('order',          $this->order)
                                 ->set('is_published',   $this->is_published)
                                 ->clearcache('articles_list')
                                 ->execute();

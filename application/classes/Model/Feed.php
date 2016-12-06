@@ -73,6 +73,10 @@ class Model_Feed extends Model {
      */
     public function add($item)
     {
+        if (!$item->is_published || $item->is_removed) {
+            return false;
+        }
+
         $value = self::composeValueIdentity($item);
 
         if ($this->redis->zRank('feed', $value) !== false) {

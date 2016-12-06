@@ -8,9 +8,9 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
     public function before()
     {
         parent::before();
-        if (!$this->user->checkAccess(array(Model_User::ROLE_ADMIN)))
+        /*if (!$this->user->checkAccess(array(Model_User::ROLE_ADMIN)))
             $this->redirect('/');
-    }
+    */}
 
     public function action_save()
     {
@@ -49,7 +49,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             $article->marked       = Arr::get($_POST, 'marked') ? 1 : 0;
             $article->order        = (int) Arr::get($_POST, 'order');
             $article->description  = Arr::get($_POST, 'description');
-            $course_id             = Arr::get($_POST, 'course_id', 0);
+            $courses_id            = Arr::get($_POST, 'courses_id', 0);
 
             /**
              * @var string $item_below_key
@@ -66,40 +66,46 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
                     $article->uri = Model_Alias::updateAlias($article->uri, $alias, Model_Uri::ARTICLE, $article_id);
                     $article->dt_update = date('Y-m-d H:i:s');
                     $article->update();
-
-                    Model_Courses::delArticleFromCourses($article_id);
-                    $in_course = Model_Courses::addArticleToCourse($article_id, $course_id);
-
                 } else {
                     $article->user_id = $this->user->id;
                     $insertedId = $article->insert();
                     $article->uri = Model_Alias::addAlias($alias, Model_Uri::ARTICLE, $insertedId);
                     $article->update();
-
-                    $in_course = Model_Courses::addArticleToCourse($insertedId, $course_id);
                 }
 
-                if ($article->is_published && !$article->is_removed) {
-                    //Если статья не добавлена в курс, добавляем ее в фид, и наоборот
-                    if (!$in_course) {
-                        $feed->add($article);
+                if (!$courses_id) {
 
-                        //Ставим статью в переданное место в фиде, если это было указано
-                        if ($item_below_key) {
-                            list($ib_type, $ib_id) = explode(':', $item_below_key);
+                    Model_Courses::deleteArticles($article->id);
+                    $feed->add($article);
 
-                            switch ($ib_type) {
-                                case 'article':
-                                    $feed->putAbove($article, Model_Article::get($ib_id));
-                                    break;
-                                case 'course':
-                                    $feed->putAbove($article, Model_Courses::get($ib_id));
-                                    break;
-                            }
+                    //Ставим статью в переданное место в фиде, если это было указано
+                    if ($item_below_key) {
+                        list($ib_type, $ib_id) = explode(':', $item_below_key);
+
+                        switch ($ib_type) {
+                            case 'article':
+                                $feed->putAbove($article, Model_Article::get($ib_id));
+                                break;
+                            case 'course':
+                                $feed->putAbove($article, Model_Courses::get($ib_id));
+                                break;
                         }
-                    } else {
-                        $feed->remove($article);
                     }
+
+                } else {
+
+                    $current_courses = Model_Courses::getCurrentCoursesIds($article);
+
+                    $courses_to_delete = array_diff($current_courses, $courses_id);
+                    $courses_to_add = array_diff($courses_id, $current_courses);
+
+                    Model_Courses::deleteArticles($article->id, $courses_to_delete);
+
+                    foreach ($courses_to_add as $course_id) {
+                        Model_Courses::addArticle($article->id, $course_id);
+                    }
+
+                    $feed->remove($article);
                 }
 
                 // Если поле uri пустое, то редиректить на обычный роут /article/id
@@ -111,9 +117,11 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             }
         }
 
-        $this->view['article'] = $article;
-        $this->view['courses'] = Model_Courses::getActiveCoursesNames();
-        $this->view['topFeed'] = $feed->get(5);
+        $this->view['article']          = $article;
+        $this->view['courses']          = Model_Courses::getActiveCoursesNames();
+        $this->view['selected_courses'] = Model_Courses::getCurrentCoursesIds($article);
+        $this->view['topFeed']          = $feed->get(5);
+
         $this->template->content = View::factory('templates/articles/create', $this->view);
     }
 

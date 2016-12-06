@@ -46,7 +46,6 @@ Class Model_Courses extends Model
             ->set('is_removed',     $this->is_removed)
             ->set('is_published',   $this->is_published)
             ->set('marked',         $this->marked)
-            ->set('order',          $this->order)
             ->clearcache('courses_list')
             ->execute();
 
@@ -128,7 +127,7 @@ Class Model_Courses extends Model
      * @param $course_id
      * @return Dao_CoursesArticles::insert
      */
-    public static function addArticleToCourse($article_id, $course_id) {
+    public static function addArticle($article_id, $course_id) {
         $article = Model_Article::get($article_id);
         if (!$article->id) {
             return false;
@@ -149,24 +148,40 @@ Class Model_Courses extends Model
     /**
      * Получить список курсов, в которые включена данная статья.
      * @param $article
-     * @return bool|object
+     * @return bool|array
      */
     public static function getCurrentCoursesIds($article) {
         if (!$article) {
             return false;
         }
 
-        return Dao_CoursesArticles::select('course_id')->where('article_id', '=', $article->id)->execute();
+        $queryResult =  Dao_CoursesArticles::select('course_id')->where('article_id', '=', $article->id)->execute();
+
+        array_walk($queryResult, function(&$item, $key) {
+           $item = $item['course_id'];
+        });
+
+        return $queryResult;
+
     }
 
     /**
-     * Открепляет статью ото всех курсов.
-     * TODO: временное решение, пока у нас статья может быть добавлена только к отдному курсу.
-     * @param $article_id
+     * Открепляет статью от курсов.
+     *
+     * @param int $article_id
+     * @param {int|array} $courses_id - если передан, то открепляет статью от указанных курсов, иначе ото всех
      * @return Dao_CoursesArticles:remove
      */
-    public static function delArticleFromCourses($article_id) {
-        return Dao_CoursesArticles::delete()->where('article_id', '=', $article_id)->execute();
+    public static function deleteArticles($article_id, $courses_id = 0) {
+
+        $deleteQuery = Dao_CoursesArticles::delete()->where('article_id', '=', $article_id);
+
+        if (!$courses_id) {
+            return $deleteQuery->execute();
+        }
+
+        return $deleteQuery->where_in('course_id', $courses_id)->execute();
+
     }
 
     /**
