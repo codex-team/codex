@@ -1,11 +1,7 @@
 /**
- * Paragraph Plugin
- * Creates P tag and adds content to this tag
- *
- * @author Codex Team
- * @copyright Khaydarov Murod
- */
-
+* Paragraph Plugin\
+* Creates P tag and adds content to this tag
+*/
 var paragraphTool = {
 
     /**
@@ -64,7 +60,25 @@ var paragraphTool = {
 
         return data;
 
-    }
+    },
 
 };
 
+/**
+* Now plugin is ready.
+* Add it to redactor tools
+*/
+cEditor.tools.paragraph = {
+
+    type             : 'paragraph',
+    iconClassname    : 'ce-icon-paragraph',
+    make             : paragraphTool.make,
+    appendCallback   : null,
+    settings         : null,
+    render           : paragraphTool.render,
+    save             : paragraphTool.save,
+    displayInToolbox : false,
+    enableLineBreaks : false,
+    allowedToPaste   : true
+
+};
