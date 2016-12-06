@@ -79,21 +79,27 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
                     $in_course = Model_Courses::addArticleToCourse($insertedId, $course_id);
                 }
 
-                //Если статья не добавлена в курс, добавляем ее в фид, и наоборот
-                if (!$in_course) {
-                    $feed->add($article);
+                if ($article->is_published && !$article->is_removed) {
+                    //Если статья не добавлена в курс, добавляем ее в фид, и наоборот
+                    if (!$in_course) {
+                        $feed->add($article);
 
-                    //Ставим статью в переданное место в фиде, если это было указано
-                    if ($item_below_key) {
-                        list($ib_type, $ib_id) = explode(':', $item_below_key);
+                        //Ставим статью в переданное место в фиде, если это было указано
+                        if ($item_below_key) {
+                            list($ib_type, $ib_id) = explode(':', $item_below_key);
 
-                        switch ($ib_type) {
-                            case 'article': $feed->putAbove($article, Model_Article::get($ib_id)); break;
-                            case 'course': $feed->putAbove($article, Model_Courses::get($ib_id)); break;
+                            switch ($ib_type) {
+                                case 'article':
+                                    $feed->putAbove($article, Model_Article::get($ib_id));
+                                    break;
+                                case 'course':
+                                    $feed->putAbove($article, Model_Courses::get($ib_id));
+                                    break;
+                            }
                         }
+                    } else {
+                        $feed->remove($article);
                     }
-                } else {
-                    $feed->remove($article);
                 }
 
                 // Если поле uri пустое, то редиректить на обычный роут /article/id
