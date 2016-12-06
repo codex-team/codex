@@ -58,8 +58,7 @@ CREATE TABLE IF NOT EXISTS `Articles` (
   `is_removed` tinyint(1) NOT NULL DEFAULT '0',
   `is_published` tinyint(1) NOT NULL DEFAULT '0',
   `deprecated` tinyint(1) NOT NULL DEFAULT '0',
-  `marked` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Помечает статью в списке как важную',
-  `order` int(11) NOT NULL DEFAULT '0' COMMENT 'Порядок вывода статей'
+  `marked` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Помечает статью в списке как важную'
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------

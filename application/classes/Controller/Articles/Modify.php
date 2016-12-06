@@ -16,6 +16,8 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
     {
         $csrfToken = Arr::get($_POST, 'csrf');
 
+        $feed = new Model_Feed();
+
         /*
          * редактирвоание происходит напрямую из роута вида: <controller>/<action>/<id>
          * так как срабатывает обычный роут, то при отправке формы передается переменная contest_id.
@@ -49,6 +51,12 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             $article->description  = Arr::get($_POST, 'description');
             $course_id             = Arr::get($_POST, 'course_id', 0);
 
+            /**
+             * @var string $item_below_key
+             * Ключ элемента в фиде, над которым нужно поставить данную статью ('[article|course]:<id>')
+             * */
+            $item_below_key         = Arr::get($_POST, 'item_below_key', 0);
+
             if ($article->title && $article->json && $article->description) {
 
                 $uri = Arr::get($_POST, 'uri');
@@ -60,14 +68,38 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
                     $article->update();
 
                     Model_Courses::delArticleFromCourses($article_id);
-                    Model_Courses::addArticleToCourse($article_id, $course_id);
+                    $in_course = Model_Courses::addArticleToCourse($article_id, $course_id);
+
                 } else {
                     $article->user_id = $this->user->id;
                     $insertedId = $article->insert();
                     $article->uri = Model_Alias::addAlias($alias, Model_Uri::ARTICLE, $insertedId);
                     $article->update();
 
-                    Model_Courses::addArticleToCourse($insertedId, $course_id);
+                    $in_course = Model_Courses::addArticleToCourse($insertedId, $course_id);
+                }
+
+                if ($article->is_published && !$article->is_removed) {
+                    //Если статья не добавлена в курс, добавляем ее в фид, и наоборот
+                    if (!$in_course) {
+                        $feed->add($article);
+
+                        //Ставим статью в переданное место в фиде, если это было указано
+                        if ($item_below_key) {
+                            list($ib_type, $ib_id) = explode(':', $item_below_key);
+
+                            switch ($ib_type) {
+                                case 'article':
+                                    $feed->putAbove($article, Model_Article::get($ib_id));
+                                    break;
+                                case 'course':
+                                    $feed->putAbove($article, Model_Courses::get($ib_id));
+                                    break;
+                            }
+                        }
+                    } else {
+                        $feed->remove($article);
+                    }
                 }
 
                 // Если поле uri пустое, то редиректить на обычный роут /article/id
@@ -81,17 +113,23 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
 
         $this->view['article'] = $article;
         $this->view['courses'] = Model_Courses::getActiveCoursesNames();
+        $this->view['topFeed'] = $feed->get(5);
         $this->template->content = View::factory('templates/articles/create', $this->view);
     }
 
 
     public function action_delete()
     {
+        $feed = new Model_Feed();
+
         $user_id = $this->user->id;
         $article_id = $this->request->param('article_id') ?: $this->request->query('id');
 
         if (!empty($article_id) && !empty($user_id)) {
-            Model_Article::get($article_id)->remove($user_id);
+            $article = Model_Article::get($article_id);
+            $article->remove($user_id);
+
+            $feed->remove($article);
         }
 
         $this->redirect('/admin/articles');

@@ -33,8 +33,15 @@
         </section>
 
         <section class="editor-form__section">
-            <label for="course_order">Очередь</label>
-            <input type="text" name="order" id="codex_editor" value="<?= $course->order ?: ''; ?>" />
+            <label for="item_below_key">Выводить над (в списке первые 5 элементов фида, если не выбрать, курс останется на своем месте)</label>
+            <select name="item_below_key">
+                <option value="0">---</option>
+                <? foreach ($topFeed as $item): ?>
+                    <option value="<?= $item['type'].':'.$item['model']->id; ?>">
+                        <?= $item['model']->title; ?>
+                    </option>
+                <? endforeach ?>
+            </select>
         </section>
 
         <section class="editor-form__section">
