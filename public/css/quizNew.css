@@ -2,12 +2,7 @@ form {
     margin : 30px 0;
 }
 
-form * {
-    display : block;
-}
-
 .quiz-form__button {
-    width         : 150px;
     height        : 40px;
     line-height   : 40px;
     text-align    : center;
@@ -23,7 +18,12 @@ form * {
 }
 
 form .quiz-form__button:not([type="button"]) {
+    width : 150px;
     float : right;
+}
+
+form .quiz-form__button[type="button"] {
+    width : 200px;
 }
 
 input[type="text"],
@@ -37,8 +37,7 @@ textarea:focus {
 
 form .quiz-form__input-title,
 form .question__heading,
-form .question__remove-block
-{
+form .question__remove-block {
     font-size : 2em;
 }
 
@@ -47,29 +46,68 @@ form .quiz-form__textarea-description {
     padding : 0 0 10px 0;
 }
 
+form .quiz-form__wrap {
+    margin-right : 180px;
+}
+
+form .question div.question__wrap {
+    width : 80%;
+    margin-right : 0;
+}
+
+form div.quiz-form__wrap *,
+form div.question__wrap * {
+    margin  : 0;
+    padding : 0;
+}
+
+form .quiz-form__input-title,
+form .quiz-form__textarea-description,
+form .question__heading,
+form .question__body {
+    width : 100%;
+}
+
 form .question {
+    width         : 100%;
     margin        : 30px 0;
     border        : 1px solid #eceff6;
     border-radius : 2px;
+    display       : block;
 }
 
-form .question__number,
-form .question__remove-block {
-    float  : right;
-    margin : 20px;
+form .quiz-form__textarea-description,
+form .question__body {
+    height : 30px;
 }
 
-form .question__heading,
+form .question__right {
+    display : inline;
+    float   : right;
+    margin  : 30px;
+}
+
+form .question > *:not(.question__right) {
+    margin  : 30px 0;
+    padding : 0 30px;
+}
+
+form .question .question__heading,
+form .quiz-form__wrap .quiz-form__input-title {
+    margin-bottom : 10px;
+}
+
+form .quiz-form__textarea-description,
 form .question__body,
-form .question__answer-wrap {
-    margin  : 20px 0;
-    padding : 0 20px;
-}
-
-form .question__body,
-form .question__answer,
-form .question__remove-block {
+form .question__answer {
     font-size : 1.2em;
+}
+
+form .question__remove-block {
+    margin-top : 10px;
+    font-size  : 1em;
+    color      : #eb5757;
+    cursor     : pointer;
 }
 
 form .question__answer-wrap {
@@ -98,7 +136,7 @@ form label.question__correct {
     width         : 20px;
     height        : 20px;
     position      : absolute;
-    left          : 20px;
+    left          : 30px;
     box-sizing    : border-box;
     border        : 2px solid #4f4f4f;
     border-radius : 10px;

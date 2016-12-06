@@ -30,10 +30,14 @@
 
         block.divQuestion = quiz.generateElement('div', {'class': 'question'});
 
+        block.divRight = quiz.generateElement('div', {'class': 'question__right'});
+
         block.spanNumber = quiz.generateElement('span', {
             'class': 'question__number',
             'textContent': 'Вопрос ' + number
         });
+
+        block.divWrap = quiz.generateElement('div', {'class': 'question__wrap'});
 
         block.inputHeading = quiz.generateElement('input', {
             'type': 'text',
@@ -89,9 +93,17 @@
             });
         }
 
-        block.divQuestion.appendChild(block.spanNumber);
-        block.divQuestion.appendChild(block.inputHeading);
-        block.divQuestion.appendChild(block.textareaBody);
+        block.divWrap.appendChild(block.inputHeading);
+        block.divWrap.appendChild(block.textareaBody);
+
+        block.divQuestion.appendChild(block.divWrap);
+
+        block.divRight.appendChild(block.spanNumber);
+        if (number != 1) {
+            block.divRight.appendChild(block.aRemoveBlock);
+        }
+
+        block.divQuestion.appendChild(block.divRight);
 
         block.labelCorrectAns_1.appendChild(block.spanCorrectAns_1);
         block.labelCorrectAns_2.appendChild(block.spanCorrectAns_2);
@@ -112,10 +124,6 @@
         block.divQuestion.appendChild(block.divAns_1Wrap);
         block.divQuestion.appendChild(block.divAns_2Wrap);
         block.divQuestion.appendChild(block.divAns_3Wrap);
-
-        if (number != 1) {
-            block.divQuestion.appendChild(block.aRemoveBlock);
-        }
 
         return block;
     };

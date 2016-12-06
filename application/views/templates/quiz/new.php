@@ -5,8 +5,10 @@
 
         <button type="submit" class="quiz-form__button">Создать тест</button>
 
-        <input type="text" name="quiz_name" class="quiz-form__input-title" placeholder="Название теста" required />
-        <textarea name="quiz_description" class="quiz-form__textarea-description" placeholder="Описание теста"></textarea>
+        <div class="quiz-form__wrap">
+            <input type="text" name="quiz_name" class="quiz-form__input-title" placeholder="Название теста" required />
+            <textarea name="quiz_description" class="quiz-form__textarea-description" placeholder="Описание теста"></textarea>
+        </div>
 
         <input type="hidden" name="csrf_token" value="<?= Security::token(); ?>" />
 

@@ -39,7 +39,7 @@ Class Model_Quiz extends Model
     {
         $quiz = new Model_Quiz();
 
-        $quiz->name = Arr::get($dict, 'quiz.name', 'Без названия');
+        $quiz->name = Arr::get($dict, 'quiz.name');
         $quiz->description = Arr::get($dict, 'quiz.description');
 
         $quiz = $quiz->insert();
@@ -88,7 +88,6 @@ Class Model_Quiz extends Model
             ->execute();
 
             $this->id = 0;
-        }
     }
 
 
