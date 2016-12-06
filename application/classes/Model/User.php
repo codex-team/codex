@@ -47,7 +47,7 @@ Class Model_User extends Model
                     ->execute();
 
         if (!$users)
-            return [];
+            return array();
 
         $models = array();
 
