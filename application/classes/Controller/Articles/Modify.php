@@ -16,8 +16,6 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
     {
         $csrfToken = Arr::get($_POST, 'csrf');
 
-        $feed = new Model_Feed();
-
         /*
          * редактирвоание происходит напрямую из роута вида: <controller>/<action>/<id>
          * так как срабатывает обычный роут, то при отправке формы передается переменная contest_id.
@@ -37,6 +35,9 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         else {
             $article = new Model_Article();
         }
+
+
+        $feed = new Model_Feed($article::FEED_TYPE);
 
         /*
          * Articles Title.
@@ -76,11 +77,16 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
                 if (!$courses_ids) {
 
                     Model_Courses::deleteArticles($article->id);
-                    $feed->add($article);
 
-                    //Ставим статью в переданное место в фиде, если это было указано
-                    if ($item_below_key) {
-                        $feed->putAbove($article, $item_below_key);
+                    if ($article->is_published && !$article->is_removed) {
+                        $feed->add($article->id, $article->dt_create);
+
+                        //Ставим статью в переданное место в фиде, если это было указано
+                        if ($item_below_key) {
+                            $feed->putAbove($article->id, $item_below_key);
+                        }
+                    } else {
+                        $feed->remove($article->id);
                     }
 
                 } else {
@@ -96,7 +102,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
                         Model_Courses::addArticle($article->id, $course_id);
                     }
 
-                    $feed->remove($article);
+                    $feed->remove($article->id);
                 }
 
                 // Если поле uri пустое, то редиректить на обычный роут /article/id
@@ -119,7 +125,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
 
     public function action_delete()
     {
-        $feed = new Model_Feed();
+        $feed = new Model_Feed('article');
 
         $user_id = $this->user->id;
         $article_id = $this->request->param('article_id') ?: $this->request->query('id');
@@ -128,7 +134,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             $article = Model_Article::get($article_id);
             $article->remove($user_id);
 
-            $feed->remove($article);
+            $feed->remove($article->id);
         }
 
         $this->redirect('/admin/articles');

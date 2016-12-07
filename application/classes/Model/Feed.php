@@ -3,55 +3,38 @@
 class Model_Feed extends Model {
 
     private $redis;
+    private $type;
 
-    public function __construct()
+    public function __construct($type)
     {
         $this->redis = Controller_Base_preDispatch::_redis();
+        $this->type = $type;
     }
 
     /**
      * Получаем значение, которое будет записано в Redis ([article|course]:<id>)
      *
-     * @param $item
+     * @param $id
      * @return string
      */
 
-    public function composeValueIdentity($item)
+    public function composeValueIdentity($id)
     {
-        return self::getType($item).':'.$item->id;
-    }
-
-
-    /**
-     * Получаем тип объекта (курс или статья)
-     *
-     * @param $item
-     * @return bool|string
-     */
-    public function getType($item) {
-
-        switch ($item::FEED_TYPE) {
-
-            case 'article': return 'article';
-            case 'course': return 'course';
-            default: throw new Exception('Invalid type of feed item');
-
-        }
-
+        return $this->type.':'.$id;
     }
 
     /**
      * Меняем порядок элементов в фиде
      *
-     * @param $item - элемент, который переставляем
-     * @param $item_below - массив, содержащий тип и id элемента,
+     * @param $item_id - id элемента, который переставляем
+     * @param $item_below_walue - value элемента,
      * после которого в sorted set вставляем $item (перед которым $item будет выводиться)
      *
      * @return void|bool
      */
-    public function putAbove($item, $item_below_value)
+    public function putAbove($item_id, $item_below_value)
     {
-        $item_value = self::composeValueIdentity($item);
+        $item_value = self::composeValueIdentity($item_id);
 
         if ($this->redis->zRank('feed', $item_value) === false) {
             return false;
@@ -69,33 +52,30 @@ class Model_Feed extends Model {
     /**
      * Добавляем элемент в фид
      *
-     * @param $item
+     * @param $item_id
+     * @param $item_score
      * @return bool|void
      */
-    public function add($item)
+    public function add($item_id, $item_score)
     {
-        if (!$item->is_published || $item->is_removed) {
-            return false;
-        }
-
-        $value = self::composeValueIdentity($item);
+        $value = self::composeValueIdentity($item_id);
 
         if ($this->redis->zRank('feed', $value) !== false) {
             return false;
         }
 
-        $this->redis->zAdd('feed', strtotime($item->dt_create), $value);
+        $this->redis->zAdd('feed', strtotime($item_score), $value);
 
     }
 
     /**
      * Удаляем элемент из фида
      *
-     * @param $item
+     * @param $item_id
      */
-    public function remove($item)
+    public function remove($item_id)
     {
-        $value = self::composeValueIdentity($item);
+        $value = self::composeValueIdentity($item_id);
 
         $this->redis->zRem('feed', $value);
     }
@@ -110,7 +90,7 @@ class Model_Feed extends Model {
         $articles = Model_Article::getActiveArticles();
 
         foreach ($articles as $article) {
-            self::add($article);
+            self::add($article->id, $article->dt_create);
         }
 
     }

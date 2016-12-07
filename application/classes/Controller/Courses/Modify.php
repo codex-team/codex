@@ -14,8 +14,6 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
 
     public function action_save()
     {
-        $feed = new Model_Feed();
-
         $csrfToken = Arr::get($_POST, 'csrf');
 
         /*
@@ -37,6 +35,8 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
             $course = new Model_Courses();
         }
 
+        $feed = new Model_Feed($course::FEED_TYPE);
+
         if (Security::check($csrfToken)) {
             $course->title          = Arr::get($_POST, 'title');
             $course->text           = Arr::get($_POST, 'course_text');
@@ -47,7 +47,7 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
             $course->is_removed     = Arr::get($_POST, 'is_removed', '0');
             $course->dt_close       = Arr::get($_POST, 'duration');
             $course->order          = Arr::get($_POST, 'order');
-            $course->uri          = Arr::get($_POST, 'uri');
+            $course->uri            = Arr::get($_POST, 'uri');
 
             /**
              * @var string $item_below_key
@@ -71,12 +71,14 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
 
                 if ($course->is_published && !$course->is_removed) {
                     //Добавляем курс в фид
-                    $feed->add($course);
+                    $feed->add($course->id, $course->dt_create);
 
                     //Ставим курс в переданное место в фиде, если это было указано
                     if ($item_below_key) {
-                        $feed->putAbove($course, $item_below_key);
+                        $feed->putAbove($course->id, $item_below_key);
                     }
+                } else {
+                    $feed->remove($course->id);
                 }
 
 
@@ -95,7 +97,7 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
 
     public function action_delete()
     {
-        $feed = new Model_Feed();
+        $feed = new Model_Feed('course');
 
         $user_id = $this->user->id;
         $course_id = $this->request->param('course_id') ?: $this->request->query('id');
@@ -105,7 +107,7 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
             $course = Model_Courses::get($course_id);
             $course->remove();
 
-            $feed->remove($course);
+            $feed->remove($course->id);
         }
 
         $this->redirect('/admin/courses');
