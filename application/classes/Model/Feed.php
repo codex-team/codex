@@ -139,10 +139,10 @@ class Model_Feed extends Model {
                             ':error_text' => $error_text,
                             ':type'       => $type
                         ));
+                        Log::instance()->write();
                         throw new Exception($error_text);
                 }
             }
-            Log::instance()->write();
             return $models_list;
         }
 
