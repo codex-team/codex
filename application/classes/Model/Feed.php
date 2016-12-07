@@ -117,6 +117,10 @@ class Model_Feed extends Model {
 
             foreach ($list as $item) {
 
+                Log::instance()->add(Log::ERROR, 'Feed item - :item', array(
+                    ':item'       => $item
+                ));
+
                 list($type, $id) = explode(':', $item);
 
                 switch ($type) {
@@ -130,10 +134,10 @@ class Model_Feed extends Model {
                         break;
 
                     default:
-                        $error_text = 'Invalid feed type - ' . $type;
-                        Log::instance()->add(Log::ERROR, ':error_text at :url', array(
-                            ':url' => $_SERVER['REQUEST_URI'],
+                        $error_text = 'Invalid feed type';
+                        Log::instance()->add(Log::ERROR, ':error_text - :type', array(
                             ':error_text' => $error_text,
+                            ':type'       => $type
                         ));
                         throw new Exception($error_text);
                 }
