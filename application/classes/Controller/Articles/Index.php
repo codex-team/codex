@@ -9,6 +9,10 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
         $this->title = "Статьи команды CodeX";
         $this->description = "Здесь собраны заметки о нашем опыте и исследованиях в области веб-разработки, дизайна, маркетинга и организации рабочих процессов";
+        
+        if (Arr::get($_GET, 'feed')){
+            $feed->addActiveArticles();
+        }
 
         /**
         * Clear cache hook
