@@ -31,11 +31,9 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         */
         elseif ( $article_id = $this->request->query('id') ?: $this->request->param('id')) {
             $article = Model_Article::get($article_id, true);
-        }
-        else {
+        } else {
             $article = new Model_Article();
         }
-
 
         $feed = new Model_Feed($article::FEED_TYPE);
 
@@ -125,8 +123,6 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
 
     public function action_delete()
     {
-        $feed = new Model_Feed('article');
-
         $user_id = $this->user->id;
         $article_id = $this->request->param('article_id') ?: $this->request->query('id');
 
@@ -134,6 +130,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             $article = Model_Article::get($article_id);
             $article->remove($user_id);
 
+            $feed = new Model_Feed($article::FEED_TYPE);
             $feed->remove($article->id);
         }
 

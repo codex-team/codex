@@ -97,8 +97,6 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
 
     public function action_delete()
     {
-        $feed = new Model_Feed('course');
-
         $user_id = $this->user->id;
         $course_id = $this->request->param('course_id') ?: $this->request->query('id');
 
@@ -107,6 +105,7 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
             $course = Model_Courses::get($course_id);
             $course->remove();
 
+            $feed = new Model_Feed($course::FEED_TYPE);
             $feed->remove($course->id);
         }
 

@@ -5,7 +5,7 @@ class Model_Feed extends Model {
     private $redis;
     private $type;
 
-    public function __construct($type)
+    public function __construct($type = '')
     {
         $this->redis = Controller_Base_preDispatch::_redis();
         $this->type = $type;
@@ -126,7 +126,9 @@ class Model_Feed extends Model {
                 case 'course':
                     $models_list[$i]['model'] = Model_Courses::get($id);
                     break;
-                default: throw new Exception('Invalid type of feed item');
+
+                default:
+                    throw new Exception('Invalid type of feed item');
 
             }
 
