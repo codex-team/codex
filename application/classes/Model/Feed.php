@@ -88,6 +88,7 @@ class Model_Feed extends Model {
     {
 
         $articles = Model_Article::getActiveArticles();
+        $this->type = 'article';
 
         foreach ($articles as $article) {
             self::add($article->id, $article->dt_create);
