@@ -3,6 +3,7 @@
 class Controller_Articles_Index extends Controller_Base_preDispatch
 {
 
+    
     public function action_showAll()
     {
         $this->title = "Статьи команды CodeX";
@@ -19,6 +20,32 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
     public function action_show()
     {
+        if (Arr::get($_GET, 'test')) {
+            $this->view['test'] =   View::factory('templates/quizzes/quiz', array('quizData' => array(
+                                                                                                'title'             => '',
+                                                                                                'description'       => '',
+                                                                                                'shortDescription'  => '',
+                                                                                                'dtCreate'          => '',
+                                                                                                'questions'         => array(
+                                                                                                    array(
+                                                                                                        'title' => 'Question 1',
+                                                                                                        'answers' => array(
+                                                                                                            array(
+                                                                                                                'text' => 'Option 1',
+                                                                                                                'score' => 1,
+                                                                                                                'message' => 'Верно!'
+                                                                                                            ),
+                                                                                                            array(
+                                                                                                                'text' => 'Option 2',
+                                                                                                                'score' => 0,
+                                                                                                                'message' => 'Не угадал..'
+                                                                                                            ))
+                                                                                                    )
+                                                                                                ),
+                                                                                                'messages'          => array(0 => 'Плохо',
+                                                                                                    1 => 'Норм'),
+                                                                                            )));
+        }
 
         $articleId = $this->request->param('id') ?: $this->request->query('id');
 
