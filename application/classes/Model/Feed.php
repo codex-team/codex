@@ -27,14 +27,14 @@ class Model_Feed extends Model {
      * Меняем порядок элементов в фиде
      *
      * @param $item_id - id элемента, который переставляем
-     * @param $item_below_walue - value элемента,
+     * @param $item_below_value - value элемента,
      * после которого в sorted set вставляем $item (перед которым $item будет выводиться)
      *
      * @return void|bool
      */
     public function putAbove($item_id, $item_below_value)
     {
-        $item_value = self::composeValueIdentity($item_id);
+        $item_value = $this->composeValueIdentity($item_id);
 
         if ($this->redis->zRank('feed', $item_value) === false) {
             return false;
