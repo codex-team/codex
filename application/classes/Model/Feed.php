@@ -39,7 +39,7 @@ class Model_Feed extends Model {
     {
         $item_value = $this->composeValueIdentity($item_id);
 
-        if ($this->redis->zRank($this-$this->redis_key, $item_value) === false) {
+        if ($this->redis->zRank($this->redis_key, $item_value) === false) {
             return false;
         }
 
@@ -116,8 +116,11 @@ class Model_Feed extends Model {
 
         $numberOfItems = $this->redis->zCard($this->redis_key) > $numberOfItems ? $numberOfItems : 0;
 
-        $list = $this->redis->zRevRange($this->redis_key, -$numberOfItems, -1);
-
+        if ($numberOfItems) {
+            $list = $this->redis->zRevRange($this->redis_key, 0, $numberOfItems - 1);
+        } else {
+            $list = $this->redis->zRevRange($this->redis_key, 0, -1);
+        }
         if (is_array($list)) {
             $models_list = array();
 
