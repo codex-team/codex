@@ -112,28 +112,36 @@ class Model_Feed extends Model {
 
         $list = $this->redis->zRevRange('feed', -$numberOfItems, -1);
 
-        $models_list = array();
+        if ($list) {
+            $models_list = array();
 
-        foreach ($list as $item) {
+            foreach ($list as $item) {
 
-            list($type, $id) = explode(':', $item);
+                list($type, $id) = explode(':', $item);
 
-            switch ($type) {
+                switch ($type) {
 
-                case 'article':
-                    $models_list[] = Model_Article::get($id);
-                    break;
+                    case 'article':
+                        $models_list[] = Model_Article::get($id);
+                        break;
 
-                case 'course':
-                    $models_list[] = Model_Courses::get($id);
-                    break;
+                    case 'course':
+                        $models_list[] = Model_Courses::get($id);
+                        break;
 
-                default:
-                    throw new Exception('Invalid type of feed item');
-
+                    default:
+                        $error_text = 'Invalid feed type - ' . $type;
+                        Log::instance()->add(Log::ERROR, ':error_text at :url', array(
+                            ':url' => $_SERVER['REQUEST_URI'],
+                            ':error_text' => $error_text,
+                        ));
+                        throw new Exception($error_text);
+                }
             }
+
+            return $models_list;
         }
 
-        return $models_list;
+        return false;
     }
 }
