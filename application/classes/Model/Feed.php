@@ -5,10 +5,13 @@ class Model_Feed extends Model {
     private $redis;
     private $type;
 
+    private $redis_key;
+
     public function __construct($type = '')
     {
         $this->redis = Controller_Base_preDispatch::_redis();
         $this->type = $type;
+        $this->redis_key = 'feed';
     }
 
     /**
@@ -36,17 +39,17 @@ class Model_Feed extends Model {
     {
         $item_value = $this->composeValueIdentity($item_id);
 
-        if ($this->redis->zRank('feed', $item_value) === false) {
+        if ($this->redis->zRank($this-$this->redis_key, $item_value) === false) {
             return false;
         }
 
-        if($this->redis->zRank('feed', $item_below_value) === false) {
+        if($this->redis->zRank($this->redis_key, $item_below_value) === false) {
             return false;
         }
 
-        $interval = $this->redis->zScore('feed', $item_below_value) - $this->redis->zScore('feed', $item_value);
+        $interval = $this->redis->zScore($this->redis_key, $item_below_value) - $this->redis->zScore($this->redis_key, $item_value);
 
-        $this->redis->zIncrBy('feed', $interval + 1, $item_value);
+        $this->redis->zIncrBy($this->redis_key, $interval + 1, $item_value);
     }
 
     /**
@@ -60,11 +63,11 @@ class Model_Feed extends Model {
     {
         $value = $this->composeValueIdentity($item_id);
 
-        if ($this->redis->zRank('feed', $value) !== false) {
+        if ($this->redis->zRank($this->redis_key, $value) !== false) {
             return false;
         }
 
-        $this->redis->zAdd('feed', strtotime($item_score), $value);
+        $this->redis->zAdd($this->redis_key, strtotime($item_score), $value);
 
     }
 
@@ -77,7 +80,7 @@ class Model_Feed extends Model {
     {
         $value = $this->composeValueIdentity($item_id);
 
-        $this->redis->zRem('feed', $value);
+        $this->redis->zRem($this->redis_key, $value);
     }
 
 
@@ -88,6 +91,9 @@ class Model_Feed extends Model {
     {
 
         $articles = Model_Article::getActiveArticles();
+
+        $this->clear();
+
         $this->type = Model_Article::FEED_TYPE;
 
         foreach ($articles as $article) {
@@ -108,16 +114,18 @@ class Model_Feed extends Model {
      */
     public function get($numberOfItems = 0) {
 
-        $numberOfItems = $this->redis->zCard('feed') > $numberOfItems ? $numberOfItems : 0;
+        $numberOfItems = $this->redis->zCard($this->redis_key) > $numberOfItems ? $numberOfItems : 0;
 
-        $list = $this->redis->zRevRange('feed', -$numberOfItems, -1);
+        $list = $this->redis->zRevRange($this->redis_key, -$numberOfItems, -1);
 
         if (is_array($list)) {
             $models_list = array();
 
             foreach ($list as $item) {
 
-                Log::instance()->add(Log::DEBUG, 'Feed item - :item', array(
+                $debug_text = 'Feed item';
+                Log::instance()->add(Log::DEBUG, ':debug_text - :item', array(
+                    ':debug_text' => $debug_text,
                     ':item'       => $item
                 ));
 
@@ -147,5 +155,12 @@ class Model_Feed extends Model {
         }
 
         return false;
+    }
+
+    /**
+     * Очистить фид
+     */
+    public function clear() {
+        $this->redis->del($this->redis_key);
     }
 }
