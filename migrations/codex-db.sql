@@ -19,8 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `codex-db`
 --
-CREATE DATABASE IF NOT EXISTS `codex-db` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `codex-db`;
+CREATE DATABASE IF NOT EXISTS `codexdb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `codexdb`;
 
 -- --------------------------------------------------------
 
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `Alias` (
 
 CREATE TABLE IF NOT EXISTS `Articles` (
 `id` int(10) unsigned NOT NULL,
-  `uri` varchar(128) NOT NULL,
+  `uri` varchar(128) NULL,
   `title` varchar(128) NOT NULL,
   `text` text,
   `json` longtext NOT NULL,
@@ -58,7 +58,8 @@ CREATE TABLE IF NOT EXISTS `Articles` (
   `is_removed` tinyint(1) NOT NULL DEFAULT '0',
   `is_published` tinyint(1) NOT NULL DEFAULT '0',
   `deprecated` tinyint(1) NOT NULL DEFAULT '0',
-  `marked` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Помечает статью в списке как важную'
+  `marked` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Помечает статью в списке как важную',
+  `order` int(11) NOT NULL DEFAULT '0' COMMENT 'Порядок вывода статей'
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -88,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `Comments` (
 
 CREATE TABLE IF NOT EXISTS `Contests` (
 `id` int(11) NOT NULL,
-  `uri` varchar(128) NOT NULL,
+  `uri` varchar(128) NULL,
   `title` varchar(128) NOT NULL,
   `description` text,
   `list_icon` varchar(100) DEFAULT NULL,
@@ -101,6 +102,39 @@ CREATE TABLE IF NOT EXISTS `Contests` (
   `status` tinyint(4) NOT NULL DEFAULT '0',
   `winner` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Courses`
+--
+
+CREATE TABLE IF NOT EXISTS `Courses` (
+  `id` int(10) unsigned NOT NULL,
+  `uri` varchar(128) NOT NULL,
+  `title` varchar(128) NOT NULL,
+  `text` text,
+  `description` text,
+  `cover` varchar(32) DEFAULT NULL,
+  `dt_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dt_update` timestamp NULL DEFAULT NULL,
+  `is_removed` tinyint(1) NOT NULL DEFAULT '0',
+  `is_published` tinyint(1) NOT NULL DEFAULT '0',
+  `marked` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Помечает курс в списке как важный'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Courses_articles`
+--
+
+CREATE TABLE IF NOT EXISTS `Courses_articles` (
+  `id` int(11) NOT NULL,
+  `course_id` int(11) NOT NULL,
+  `article_id` int(11) NOT NULL,
+  `article_index` int(11) NOT NULL COMMENT 'Порядковый номер статьи в курсе'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Таблица для связи статей с курсами';
 
 -- --------------------------------------------------------
 
@@ -130,7 +164,9 @@ INSERT INTO `ForbiddenAliases` (`id`, `uri`) VALUES
 (10, 'bot'),
 (11, 'join'),
 (12, 'special'),
-(13, 'task');
+(13, 'task'),
+(14, 'course'),
+(15, 'courses');
 
 -- --------------------------------------------------------
 
@@ -194,7 +230,7 @@ CREATE TABLE IF NOT EXISTS `Tags_articles` (
 
 CREATE TABLE IF NOT EXISTS `Users` (
 `id` int(10) unsigned NOT NULL,
-  `uri` varchar(128) NOT NULL,
+  `uri` varchar(128) NULL,
   `name` varchar(128) NOT NULL,
   `vk_id` bigint(20) unsigned DEFAULT NULL,
   `vk_uri` varchar(128) DEFAULT NULL,
@@ -215,8 +251,6 @@ CREATE TABLE IF NOT EXISTS `Users` (
 
 --
 -- Indexes for dumped tables
---
-
 --
 -- Indexes for table `Alias`
 --
@@ -277,6 +311,18 @@ ALTER TABLE `Tags_articles`
 ALTER TABLE `Users`
  ADD PRIMARY KEY (`id`);
 
+--
+-- Индексы таблицы `Courses`
+--
+ALTER TABLE `Courses`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `Courses_articles`
+--
+ALTER TABLE `Courses_articles`
+  ADD PRIMARY KEY (`id`);
+
 
 --
 -- AUTO_INCREMENT for table `Alias`
@@ -323,6 +369,17 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
 ALTER TABLE `Users`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `Courses_articles`
+--
+ALTER TABLE `Courses_articles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `Courses`
+--
+ALTER TABLE `Courses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  
 --
 -- Constraints for dumped tables
 --
