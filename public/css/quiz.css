@@ -32,7 +32,7 @@
     border: #4e88d6 solid 1px;
     border-radius: 5px;
     outline: none;
-    transition: background .5s,color .5s;
+    transition: background .5s, color .5s;
 }
 
 .quiz__question-button:hover,
@@ -53,8 +53,6 @@
 .quiz__question-button_next {
 	cursor: pointer;
     float: right;
- 
-   
 }
 
 /* Стилизация radio-button */
@@ -67,7 +65,6 @@
     display: block;
     position: relative;
 	margin: 8px 0px 8px 33px;
-	
 }
 
 .quiz__question-label {
@@ -88,21 +85,21 @@
     cursor: pointer;
 }
 
-.quiz__question-label:hover:before {
+.quiz__question-label:before:hover { 
     border-color: #a3a3a3;
 }
 
-.quiz__question-label_right:hover:before {
-    border-color: #33CC33
+.quiz__question-label_right:before:hover {
+    border-color: #33CC33;
     cursor: default;
 }
 
-.quiz__question-label_wrong:hover:before {
+.quiz__question-label_wrong:before:hover {
     border-color: #990000;
     cursor: default;
 }
 
- .quiz__question-radiobutton:disabled + .quiz__question-label:hover:before {  
+ .quiz__question-radiobutton:disabled + .quiz__question-label:before:hover {  
     border-color: #333;
 }
 
@@ -133,7 +130,6 @@
 
     background: #33CC33;
     border-color: #33CC33;
-
 }
 
 .quiz__question-radiobutton:checked + .quiz__question-label_right:after {
