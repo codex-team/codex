@@ -22,7 +22,7 @@
 
             <time class="feed-item__time"><?= date_format(date_create($course->dt_create), 'd M'); ?></time>
 
-            <a class="feed-item__title" href="/<?= $course->uri ?: 'article/' . $course->id;  ?>"><?= $course->title ?></a>
+            <a class="feed-item__title" href="/<?= $course->uri ?: 'course/' . $course->id;  ?>"><?= $course->title ?></a>
 
         </article>
 
