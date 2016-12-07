@@ -58,7 +58,7 @@ class Model_Feed extends Model {
      */
     public function add($item_id, $item_score)
     {
-        $value = self::composeValueIdentity($item_id);
+        $value = $this->composeValueIdentity($item_id);
 
         if ($this->redis->zRank('feed', $value) !== false) {
             return false;
@@ -75,7 +75,7 @@ class Model_Feed extends Model {
      */
     public function remove($item_id)
     {
-        $value = self::composeValueIdentity($item_id);
+        $value = $this->composeValueIdentity($item_id);
 
         $this->redis->zRem('feed', $value);
     }
