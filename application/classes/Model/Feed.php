@@ -112,7 +112,7 @@ class Model_Feed extends Model {
 
         $list = $this->redis->zRevRange('feed', -$numberOfItems, -1);
 
-        if ($list) {
+        if (is_array($list)) {
             $models_list = array();
 
             foreach ($list as $item) {
