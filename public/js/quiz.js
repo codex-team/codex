@@ -5,8 +5,8 @@ quiz = (function() {
 
     var quizData            = null,
         numberOfQuestions   = null,
-        currentQuestion     = -1,
-        score               = 0;
+        currentQuestion     = null,
+        score               = null;
 
 
     /**
@@ -19,7 +19,8 @@ quiz = (function() {
 
         quizData = quizDataInput;
         numberOfQuestions = quizData.questions.length;
-
+        currentQuestion = -1;
+        score = 0;
 
         UI_.prepare(handler);
         UI_.setupQuestionInterface();
