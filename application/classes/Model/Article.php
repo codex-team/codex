@@ -22,15 +22,12 @@ Class Model_Article extends Model
     public $is_removed;
     public $is_published;
 
+    const FEED_TYPE = 'article';
+
     /**
     * @var bool $marked — позволяет выделить важную статью в списке
     */
     public $marked = false;
-
-    /**
-    * @var null|int $order — позволяет изменять порядок вывода статей
-    */
-    public $order = null;
 
     public $author;
     public $commentsCount;
@@ -59,7 +56,6 @@ Class Model_Article extends Model
                                 ->set('cover',          $this->cover)
                                 ->set('user_id',        $this->user_id)
                                 ->set('marked',         $this->marked)
-                                ->set('order',          $this->order)
                                 ->set('is_published',   $this->is_published)
                                 ->clearcache('articles_list')
                                 ->execute();

@@ -1,13 +1,24 @@
-<? foreach ($articles as $i => $article): ?>
-    <article class="feed-item <?= $article->marked ? 'feed-item_big' : ''?>">
+<? foreach ($feed as $i => $item): ?>
 
-        <time class="feed-item__time"><?= date_format(date_create($article->dt_create), 'd M'); ?></time>
+    <article class="feed-item <?= $item->marked ? 'feed-item_big' : ''?>">
 
-        <a class="feed-item__title" href="/<?= $article->uri ?: 'article/' . $article->id;  ?>"><?= $article->title ?></a>
-        <a class="feed-item__author" href="/user/<?= $article->author->id ?>">
-            <img class="feed-item__author_photo" src="<?= $article->author->photo ?>" />
-            <span class="feed-item__author_name"><?= $article->author->name ?></span>
-        </a>
+        <time class="feed-item__time"><?= date_format(date_create($item->dt_create), 'd M'); ?></time>
+
+        <? if ($item::FEED_TYPE == 'article'): ?>
+
+            <a class="feed-item__title" href="/<?= $item->uri ?: 'article/' . $item->id;  ?>"><?= $item->title ?></a>
+            <a class="feed-item__author" href="/user/<?= $item->author->id ?>">
+                <img class="feed-item__author_photo" src="<?= $item->author->photo ?>" />
+                <span class="feed-item__author_name"><?= $item->author->name ?></span>
+            </a>
+
+        <? else: ?>
+
+            <!-- Вывод карточки курса -->
+            <a class="feed-item__title" href="/<?= $item->uri ?: 'course/' . $item->id;  ?>"><?= $item->title ?></a>
+
+        <? endif; ?>
 
     </article>
+
 <? endforeach; ?>

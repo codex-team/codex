@@ -32,14 +32,28 @@
 
         <section class="editor-form__section">
 
-            <label for="course_id">Выберите курс, к которому относится статья</label>
-            <select name="course_id">
-                <option value="0">---</option>
+            <label for="courses_id">Выберите курс, к которому относится статья</label>
+            <select name="courses_ids[]" multiple>
                 <? foreach ($courses as $course): ?>
-                    <option value="<?= $course['id']; ?>">
+                    <? $is_selected = is_array($selected_courses)?in_array($course['id'], $selected_courses):false; ?>
+                    <option value="<?= $course['id']; ?>" <?= $is_selected?'selected':''; ?>>
                         <?= $course['name']; ?>
                     </option>
                 <? endforeach; ?>
+            </select>
+
+        </section>
+
+        <section class="editor-form__section">
+
+            <label for="item_below_key">Выводить над (в списке первые 5 элементов фида, если не выбрать, статья останется на своем месте)</label>
+            <select name="item_below_key">
+                <option value="0">---</option>
+                <? foreach ($topFeed as $item): ?>
+                    <option value="<?= $item::FEED_TYPE.':'.$item->id; ?>">
+                        <?= $item->title; ?>
+                    </option>
+                <? endforeach ?>
             </select>
 
         </section>
@@ -56,12 +70,6 @@
 
         </section>
 
-        <section class="editor-form__section">
-
-            <label for="order">Порядок в списке (если не задавать, будет в порядке убывания даты)</label>
-            <input type="text" name="order" value="<?= $article->order ?: ''; ?>">
-
-        </section>
 
         <span id="submitButton" class="button master" style="margin: 40px 139px 40px">Отправить</span>
     </form>
