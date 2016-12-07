@@ -28,59 +28,50 @@
     quiz.getQuestionBlock = function(number) {
         var block = {};
 
-        block.divQuestion = quiz.generateElement('div', {'class': 'question'});
+        block.divQuestion = quiz.generateElement('div', {'class': 'quiz-form__question'});
 
-        block.divRight = quiz.generateElement('div', {'class': 'question__right'});
+        block.divRight = quiz.generateElement('div', {'class': 'quiz-form__question-right'});
 
         block.spanNumber = quiz.generateElement('span', {
-            'class': 'question__number',
+            'class': 'quiz-form__question-number',
             'textContent': 'Вопрос ' + number
         });
-
-        block.divWrap = quiz.generateElement('div', {'class': 'question__wrap'});
 
         block.inputHeading = quiz.generateElement('input', {
             'type': 'text',
             'name': 'question_' + number + '_heading',
-            'class': 'question__heading',
+            'class': 'quiz-form__question-heading',
             'placeholder': 'Заголовок вопроса',
             'required': ''
         });
 
-        block.textareaBody = quiz.generateElement('textarea', {
+        block.inputBody = quiz.generateElement('textarea', {
             'name': 'question_' + number + '_body',
-            'class': 'question__body',
+            'class': 'quiz-form__question-body',
             'placeholder': 'Тело вопроса'
         });
 
         for (var i = 1; i <= 3; i++) {
             block['divAns_' + i + 'Wrap'] = quiz.generateElement('div', {
-                'class': 'question__answer-wrap'
+                'class': 'quiz-form__question-answer-wrap'
             });
 
             block['inputCorrectAns_' + i] = quiz.generateElement('input', {
                 'type': 'radio',
                 'name': 'question_' + number + '_correct',
                 'value': '3',
-                'id': 'question_' + number + '_correct_' + i,
-                'class': 'question__correct',
                 'hidden': '',
                 'required': ''
             });
 
             block['labelCorrectAns_' + i] = quiz.generateElement('label', {
-                'for': 'question_' + number + '_correct_' + i,
-                'class': 'question__correct'
-            });
-
-            block['spanCorrectAns_' + i] = quiz.generateElement('span', {
-                'class': 'question__correct'
+                'class': 'quiz-form__question-radio'
             });
 
             block['inputAns_' + i] = quiz.generateElement('input', {
                 'type': 'text',
                 'name': 'question_' + number + '_ans_' + i,
-                'class': 'question__answer',
+                'class': 'quiz-form__question-answer',
                 'placeholder': 'Ответ ' + i,
                 'required': ''
             });
@@ -88,36 +79,31 @@
 
         if (number != 1) {
             block.aRemoveBlock = quiz.generateElement('a', {
-                'class': 'question__remove-block',
+                'class': 'quiz-form__question-remove-block',
                 'textContent': 'Удалить'
             });
         }
 
-        block.divWrap.appendChild(block.inputHeading);
-        block.divWrap.appendChild(block.textareaBody);
+        block.divQuestion.appendChild(block.divRight);
 
-        block.divQuestion.appendChild(block.divWrap);
+        block.divQuestion.appendChild(block.inputHeading);
+        block.divQuestion.appendChild(block.inputBody);
 
         block.divRight.appendChild(block.spanNumber);
         if (number != 1) {
             block.divRight.appendChild(block.aRemoveBlock);
         }
 
-        block.divQuestion.appendChild(block.divRight);
+        block.labelCorrectAns_1.appendChild(block.inputCorrectAns_1);
+        block.labelCorrectAns_2.appendChild(block.inputCorrectAns_2);
+        block.labelCorrectAns_3.appendChild(block.inputCorrectAns_3);
 
-        block.labelCorrectAns_1.appendChild(block.spanCorrectAns_1);
-        block.labelCorrectAns_2.appendChild(block.spanCorrectAns_2);
-        block.labelCorrectAns_3.appendChild(block.spanCorrectAns_3);
-
-        block.divAns_1Wrap.appendChild(block.inputCorrectAns_1);
         block.divAns_1Wrap.appendChild(block.labelCorrectAns_1);
         block.divAns_1Wrap.appendChild(block.inputAns_1);
 
-        block.divAns_2Wrap.appendChild(block.inputCorrectAns_2);
         block.divAns_2Wrap.appendChild(block.labelCorrectAns_2);
         block.divAns_2Wrap.appendChild(block.inputAns_2);
 
-        block.divAns_3Wrap.appendChild(block.inputCorrectAns_3);
         block.divAns_3Wrap.appendChild(block.labelCorrectAns_3);
         block.divAns_3Wrap.appendChild(block.inputAns_3);
 
@@ -128,11 +114,15 @@
         return block;
     };
 
+    quiz.updateLength = function() {
+        document.getElementsByName('questions_length')[0].value = quiz.questions.length;
+    }
 
     // Функция вставки блока в DOM и в список блоков.
     quiz.insertBlock = function(block) {
         quiz.quizForm.insertBefore(block.divQuestion, document.getElementById('insertBlock'));
         quiz.questions.push(block);
+        quiz.updateLength();
     };
 
 
@@ -167,24 +157,28 @@
         } else {
             quiz.questions.splice(quiz.questions.indexOf(block), 1);
         }
+        quiz.updateLength();
     };
 
+    quiz.init = function() {
+        document.getElementById('insertBlock').onclick = function() {
+            quiz.insertBlock(quiz.getQuestionBlock(quiz.questions.length + 1))
+        };
 
-    document.getElementById('insertBlock').onclick = function() {
-        quiz.insertBlock(quiz.getQuestionBlock(quiz.questions.length + 1))
-    };
-
-    quiz.quizForm.onclick = function(event) {
-        if (event.target.className == 'question__remove-block') {
-            for (var i = 0; i <= quiz.questions.length; i++) {
-                if (quiz.questions[i].aRemoveBlock == event.target) {
-                    quiz.removeBlock(quiz.questions[i]);
-                    break;
+        quiz.quizForm.onclick = function(event) {
+            if (event.target.className == 'quiz-form__question-remove-block') {
+                for (var i = 0; i <= quiz.questions.length; i++) {
+                    if (quiz.questions[i].aRemoveBlock == event.target) {
+                        quiz.removeBlock(quiz.questions[i]);
+                        break;
+                    }
                 }
             }
-        }
-    };
+        };
+    }
 
     quiz.insertBlock(quiz.getQuestionBlock(1));
+
+    quiz.init();
 
 })({});

@@ -1,18 +1,17 @@
 <link type="text/css" href="/public/css/quizNew.css?v=<?= filemtime("public/css/quizNew.css") ?>" rel="stylesheet" />
 
 <div class="center_side clear">
-    <form id="quizForm" name="quizForm" action="/quiz/save" method="POST">
+    <form class="quiz-form" id="quizForm" name="quizForm" action="/quiz/save" method="POST">
 
-        <button type="submit" class="quiz-form__button">Создать тест</button>
+        <button class="button" type="submit">Создать тест</button>
 
-        <div class="quiz-form__wrap">
-            <input type="text" name="quiz_name" class="quiz-form__input-title" placeholder="Название теста" required />
-            <textarea name="quiz_description" class="quiz-form__textarea-description" placeholder="Описание теста"></textarea>
-        </div>
+        <input class="quiz-form__input-title" type="text" name="quiz_name" placeholder="Название теста" required />
+        <textarea class="quiz-form__input-description" name="quiz_description" placeholder="Описание теста"></textarea>
 
         <input type="hidden" name="csrf_token" value="<?= Security::token(); ?>" />
+        <input type="hidden" name="questions_length" value="1" />
 
-        <button type="button" id="insertBlock" class="quiz-form__button">Добавить вопрос</button>
+        <button class="button" type="button" id="insertQuestion">Добавить вопрос</button>
 
     </form>
 </div>

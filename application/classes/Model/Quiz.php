@@ -35,28 +35,24 @@ Class Model_Quiz extends Model
     }
 
 
-    public static function save($dict)
+    public function saveFromArray($arr)
     {
-        $quiz = new Model_Quiz();
+        $this->name = Arr::get($arr, 'name');
+        $this->description = Arr::get($arr, 'description');
 
-        $quiz->name = Arr::get($dict, 'quiz.name');
-        $quiz->description = Arr::get($dict, 'quiz.description');
+        $quiz_id = $this->insert();
 
-        $quiz = $quiz->insert();
-
-        for ($number = 1; $number <= Arr::get($dict, 'questions_length'); $number++) {
+        for ($number = 1; $number <= Arr::get($arr, 'questions_length'); $number++) {
             $question = new Model_Question();
 
-            $pattern = 'question_' . $number . '_';
-
-            $question->number = $number;
-            $question->quiz_id = $quiz;
-            $question->heading = Arr::get($question, $pattern . 'heading', 'Без названия');
-            $question->body = Arr::get($question, $pattern . 'body');
-            $question->ans_1 = Arr::get($question, $pattern . 'ans_1', '1');
-            $question->ans_2 = Arr::get($question, $pattern . 'ans_2', '2');
-            $question->ans_3 = Arr::get($question, $pattern . 'ans_3', '3');
-            $question->correct = Arr::get($question, $pattern . 'correct', 1);
+            $question->number  = $number;
+            $question->quiz_id = $quiz_id;
+            $question->heading = Arr::get($arr[$number], 'heading');
+            $question->body    = Arr::get($arr[$number], 'body');
+            $question->ans_1   = Arr::get($arr[$number], 'ans_1');
+            $question->ans_2   = Arr::get($arr[$number], 'ans_2');
+            $question->ans_3   = Arr::get($arr[$number], 'ans_3');
+            $question->correct = Arr::get($arr[$number], 'correct');
 
             $question->insert();
         }

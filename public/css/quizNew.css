@@ -1,145 +1,92 @@
-form {
-    margin : 30px 0;
+/**
+* Quiz form stylesheets
+*/
+
+.quiz-form {
+    margin: 30px 0;
 }
 
-.quiz-form__button {
-    height        : 40px;
-    line-height   : 40px;
-    text-align    : center;
-    cursor        : pointer;
-    background    : #5c95cf;
-    color         : white;
-    border        : none;
-    border-radius : 20px;
-}
-
-.quiz-form__button:hover {
-    background : #3c7ab9;
-}
-
-form .quiz-form__button:not([type="button"]) {
-    width : 150px;
-    float : right;
-}
-
-form .quiz-form__button[type="button"] {
-    width : 200px;
-}
-
-input[type="text"],
-textarea,
-input[type="text"]:focus,
-textarea:focus {
-    display    : block;
-    width      : auto;
+.quiz-form input[type="text"],
+.quiz-form textarea {
     background : none;
 }
 
-form .quiz-form__input-title,
-form .question__heading,
-form .question__remove-block {
-    font-size : 2em;
+.quiz-form .button[type="submit"] {
+    float : right;
 }
 
-form .quiz-form__input-title,
-form .quiz-form__textarea-description {
-    padding : 0 0 10px 0;
+.quiz-form__input-title,
+.quiz-form__question-heading {
+    font-size : 2em !important;
+    margin-bottom : 5px;
 }
 
-form .quiz-form__wrap {
-    margin-right : 180px;
+.quiz-form__input-title,
+.quiz-form__input-description,
+.quiz-form__question-heading,
+.quiz-form__question-body {
+    padding : 0 !important;
+    max-width : 80%;
 }
 
-form .question div.question__wrap {
-    width : 80%;
-    margin-right : 0;
-}
-
-form div.quiz-form__wrap *,
-form div.question__wrap * {
-    margin  : 0;
-    padding : 0;
-}
-
-form .quiz-form__input-title,
-form .quiz-form__textarea-description,
-form .question__heading,
-form .question__body {
-    width : 100%;
-}
-
-form .question {
-    width         : 100%;
-    margin        : 30px 0;
-    border        : 1px solid #eceff6;
+.quiz-form__question {
+    margin : 30px 0;
+    padding : 30px;
+    border : 1px solid #eceff6;
     border-radius : 2px;
-    display       : block;
 }
 
-form .quiz-form__textarea-description,
-form .question__body {
-    height : 30px;
+.quiz-form__question-right {
+    float : right;
 }
 
-form .question__right {
-    display : inline;
-    float   : right;
-    margin  : 30px;
+.quiz-form__question-number {
+    margin-bottom: 10px;
 }
 
-form .question > *:not(.question__right) {
-    margin  : 30px 0;
-    padding : 0 30px;
-}
-
-form .question .question__heading,
-form .quiz-form__wrap .quiz-form__input-title {
+.quiz-form__input-title
+.quiz-form__question-heading {
     margin-bottom : 10px;
 }
 
-form .quiz-form__textarea-description,
-form .question__body,
-form .question__answer {
+.quiz-form__input-description,
+.quiz-form__question-body,
+.quiz-form__question-answer {
     font-size : 1.2em;
 }
 
-form .question__remove-block {
+.quiz-form__question-remove-block {
+    display : block;
     margin-top : 10px;
-    font-size  : 1em;
-    color      : #eb5757;
-    cursor     : pointer;
+    font-size : 1em;
+    color : #eb5757;
+    cursor : pointer;
 }
 
-form .question__answer-wrap {
+.quiz-form__question-answer-wrap {
     position : relative;
 }
 
-form .question__answer {
-    padding : 0.5px 0 0.5px 30px;
+.quiz-form__question-answer {
+    width: auto !important;
 }
-
-form span.question__correct {
-    display       : none;
-    position      : absolute;
-    width         : 12px;
-    height        : 12px;
-    margin        : 2px;
-    background    : #4f4f4f;
+/*
+.quiz-form__question-radio {
+    width : 12px;
+    height : 12px;
+    margin : 2px;
+    background : #4f4f4f;
     border-radius : 8px;
-}
+}*/
 
-form input.question__correct:checked + label.question__correct span.question__correct {
-    display : block;
-}
-
-form label.question__correct {
-    width         : 20px;
-    height        : 20px;
-    position      : absolute;
-    left          : 30px;
-    box-sizing    : border-box;
-    border        : 2px solid #4f4f4f;
-    border-radius : 10px;
+.quiz-form__question-radio {
+    display: inline-block;
+    width : 20px;
+    height : 20px;
+    border : 2px solid #4f4f4f;
+    border-radius : 50%;
+    margin-right: 15px;
+    vertical-align: middle;
 }
 
 #insertBlock {
