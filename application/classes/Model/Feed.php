@@ -103,7 +103,7 @@ class Model_Feed extends Model {
      *
      * @param int $numberOfItems
      *
-     * @return array - массив моделей статей и курсов
+     * @return bool|array - массив моделей статей и курсов
      * @throws Exception
      */
     public function get($numberOfItems = 0) {
@@ -117,7 +117,7 @@ class Model_Feed extends Model {
 
             foreach ($list as $item) {
 
-                Log::instance()->add(Log::ERROR, 'Feed item - :item', array(
+                Log::instance()->add(Log::DEBUG, 'Feed item - :item', array(
                     ':item'       => $item
                 ));
 
@@ -142,7 +142,7 @@ class Model_Feed extends Model {
                         throw new Exception($error_text);
                 }
             }
-
+            Log::instance()->write();
             return $models_list;
         }
 
