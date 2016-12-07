@@ -113,29 +113,26 @@ class Model_Feed extends Model {
 
         $models_list = array();
 
-        foreach ($list as $i => $item) {
+        foreach ($list as $item) {
 
             list($type, $id) = explode(':', $item);
 
             switch ($type) {
 
                 case 'article':
-                    $models_list[$i]['model'] = Model_Article::get($id);
+                    $models_list[] = Model_Article::get($id);
                     break;
 
                 case 'course':
-                    $models_list[$i]['model'] = Model_Courses::get($id);
+                    $models_list[] = Model_Courses::get($id);
                     break;
 
                 default:
                     throw new Exception('Invalid type of feed item');
 
             }
-
-            $models_list[$i]['type'] = $type;
         }
 
         return $models_list;
     }
 }
-

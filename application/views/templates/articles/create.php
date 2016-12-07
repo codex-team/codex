@@ -50,8 +50,8 @@
             <select name="item_below_key">
                 <option value="0">---</option>
                 <? foreach ($topFeed as $item): ?>
-                    <option value="<?= $item['type'].':'.$item['model']->id; ?>">
-                        <?= $item['model']->title; ?>
+                    <option value="<?= $item::FEED_TYPE.':'.$item->id; ?>">
+                        <?= $item->title; ?>
                     </option>
                 <? endforeach ?>
             </select>
