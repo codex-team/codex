@@ -1,4 +1,4 @@
-(function(quiz) {
+var quizForm = (function(quiz) {
 
     // Форма создания теста.
     quiz.quizForm = document.forms.quizForm;
@@ -98,6 +98,8 @@
         block.labelCorrectAns_2.appendChild(block.inputCorrectAns_2);
         block.labelCorrectAns_3.appendChild(block.inputCorrectAns_3);
 
+        block.labelCorrectAns_1.addEventListener('click', selectCorrectAnswer_, false);
+
         block.divAns_1Wrap.appendChild(block.labelCorrectAns_1);
         block.divAns_1Wrap.appendChild(block.inputAns_1);
 
@@ -118,10 +120,15 @@
         document.getElementsByName('questions_length')[0].value = quiz.questions.length;
     }
 
-    // Функция вставки блока в DOM и в список блоков.
-    quiz.insertBlock = function(block) {
-        quiz.quizForm.insertBefore(block.divQuestion, document.getElementById('insertBlock'));
-        quiz.questions.push(block);
+    /**
+    * @private
+    * Функция вставки блока в DOM и в список блоков.
+    * @param {object} blockData - object with block data
+    * @param {Element} blockData.divQuestion - question holder
+    */
+    var insertBlock_ = function(blockData) {
+        quiz.quizForm.insertBefore(blockData.divQuestion, document.getElementById('insertQuestion'));
+        quiz.questions.push(blockData);
         quiz.updateLength();
     };
 
@@ -160,9 +167,15 @@
         quiz.updateLength();
     };
 
+    /**
+    *
+    */
     quiz.init = function() {
-        document.getElementById('insertBlock').onclick = function() {
-            quiz.insertBlock(quiz.getQuestionBlock(quiz.questions.length + 1))
+
+        writeLog_();
+
+        document.getElementById('insertQuestion').onclick = function() {
+            quiz.insertBlock_(quiz.getQuestionBlock(quiz.questions.length + 1))
         };
 
         quiz.quizForm.onclick = function(event) {
@@ -175,10 +188,27 @@
                 }
             }
         };
+
+        addInitialQuestion_();
     }
 
-    quiz.insertBlock(quiz.getQuestionBlock(1));
+    var writeLog_ = function () {
+        console.log(12345678);
+    }
+
+
+
+    var addInitialQuestion_ = function () {
+        quiz.insertBlock_(quiz.getQuestionBlock(1));
+    }
+
+
+
 
     quiz.init();
 
+    return quiz;
+
 })({});
+
+quizForm.init();

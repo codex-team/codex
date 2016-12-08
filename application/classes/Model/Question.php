@@ -28,7 +28,6 @@ Class Model_Question extends Model
                                 ->set('ans_2',          $this->ans_2)
                                 ->set('ans_3',          $this->ans_3)
                                 ->set('correct',        $this->correct)
-                                ->clearcache('question_list')
                                 ->execute();
 
         if ($idAndRowAffected) {
