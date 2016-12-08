@@ -47,7 +47,7 @@
 
         </div>
   
-        <?= isset($test)?$test:''; ?>
+        <?= isset($quiz)?View::factory('templates/quizzes/quiz', array('quizData' => json_decode($quiz->json))):''; ?>
         
         <?= View::factory('templates/blocks/share', array('share' => array(
             'offer' => 'Если вам понравилась статья, поделитесь ссылкой на нее',

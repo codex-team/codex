@@ -32,6 +32,20 @@
 
         <section class="editor-form__section">
 
+            <label for="quiz_id">Выберите тест, который относится к статье</label>
+            <select name="quiz_id">
+                <option value="0">---</option>
+                <? foreach ($quizzes as $quiz): ?>
+                    <option value="<?= $quiz['id']; ?>">
+                        <?= $quiz['title']; ?>
+                    </option>
+                <? endforeach; ?>
+            </select>
+
+        </section>
+
+        <section class="editor-form__section">
+
             <label for="course_id">Выберите курс, к которому относится статья</label>
             <select name="course_id">
                 <option value="0">---</option>

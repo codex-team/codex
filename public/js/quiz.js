@@ -19,7 +19,7 @@ quiz = (function() {
 
         quizData = quizDataInput;
         numberOfQuestions = quizData.questions.length;
-        currentQuestion = -1;
+        currentQuestion = 0;
         score = 0;
 
         UI_.prepare(handler);
@@ -81,8 +81,8 @@ quiz = (function() {
 
             this.clear(this.questionElems.optionsHolder);
             this.questionElems.options = [];
-
-            this.currentQuestionObj = quizData.questions[++currentQuestion];
+            this.questionElems.nextButton.onclick = null;
+            this.currentQuestionObj = quizData.questions[currentQuestion];
 
             this.questionElems.nextButton.setAttribute('disabled', true);
 
@@ -92,6 +92,7 @@ quiz = (function() {
             for (var i in this.currentQuestionObj.answers) {
                 this.createOption(this.currentQuestionObj.answers[i], i);
             }
+
         },
 
         /**
@@ -124,11 +125,12 @@ quiz = (function() {
             this.questionElems.nextButton.disabled = false;
 
             if (currentQuestion < numberOfQuestions  - 1) {
-                this.questionElems.nextButton.addEventListener('click', this.showQuestion);
+                this.questionElems.nextButton.onclick = this.showQuestion.bind(this);
             } else {
                 this.questionElems.nextButton.addEventListener('click', this.showResult.bind(this));
             }
 
+            currentQuestion++;
         },
 
         showResult: function() {
@@ -328,12 +330,12 @@ quiz = (function() {
             var messages = quizData.messages,
                 message;
 
-            for (var points in messages) {
-                if (score < points) {
+            for (var i in messages) {
+                if (score < messages[i]['score']) {
                     break;
                 }
 
-                message = messages[points];
+                message = messages[i]['message'];
             }
 
             return message;

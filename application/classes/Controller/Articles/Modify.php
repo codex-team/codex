@@ -47,6 +47,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             $article->marked       = Arr::get($_POST, 'marked') ? 1 : 0;
             $article->order        = (int) Arr::get($_POST, 'order');
             $article->description  = Arr::get($_POST, 'description');
+            $article->quiz         = Arr::get($_POST, 'id');
             $course_id             = Arr::get($_POST, 'course_id', 0);
 
             if ($article->title && $article->json && $article->description) {
@@ -81,6 +82,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
 
         $this->view['article'] = $article;
         $this->view['courses'] = Model_Courses::getActiveCoursesNames();
+        $this->view['quizzes'] = Model_Quiz::getTitles();
         $this->template->content = View::factory('templates/articles/create', $this->view);
     }
 
