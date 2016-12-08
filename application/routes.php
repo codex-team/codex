@@ -44,7 +44,6 @@ Route::set('ADD_COURSE_SCRIPT', 'course/add')->defaults(array(
 	'action' => 'save'
 ));
 
-
 Route::set('ADD_QUIZ_SCRIPT', 'quiz/new')->defaults(array(
 	'controller' => 'Quiz',
 	'action' => 'new'
