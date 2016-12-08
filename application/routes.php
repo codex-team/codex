@@ -39,7 +39,6 @@ Route::set('ADD_CONTEST_SCRIPT', 'contest/add')->defaults(array(
 	'action' => 'save'
 ));
 
-
 Route::set('ADD_COURSE_SCRIPT', 'course/add')->defaults(array(
 	'controller' => 'Courses_modify',
 	'action' => 'save'
