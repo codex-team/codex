@@ -23,7 +23,7 @@
 * Стили для слайда с вопросом
 */
 .quiz__question-title {
-    font-size: 1.25em;
+    font-size: 1.05em;
     font-weight: 600;
     margin-bottom: 1.5em;
 }
@@ -65,97 +65,59 @@
     float: right;
 }
 
-/* Стилизация radio-button */
-.quiz__question-radiobutton {
-    display: none;
-}
 
-/* Стилизация текста варианта ответа */
-.quiz__question-label {
-    display: block;
+
+/**
+* Answers with radio
+*/
+.quiz__question-answer{
     position: relative;
-	margin: 8px 0px 8px 33px;
-}
-
-.quiz__question-label {
-    cursor: default;
-}
-
-/* Стилизация radio, когда ответ не выбран */
-.quiz__question-label:before {
-    content: '';
-    position: absolute;
-    left: -24px;
-    height: 15px;
-    width: 15px;
-	margin-left: -8px;
-    border-radius: 50%;
-    border: 4px solid #333333;
-    background: #fff;
+    padding: .5em 0 .5em 40px;
     cursor: pointer;
+    line-height: 1.4em;
 }
-
-.quiz__question-label:before:hover {
-    border-color: #a3a3a3;
-}
-
-.quiz__question-label_right:before:hover {
-    border-color: #33CC33;
-    cursor: default;
-}
-
-.quiz__question-label_wrong:before:hover {
-    border-color: #990000;
-    cursor: default;
-}
-
- .quiz__question-radiobutton:disabled + .quiz__question-label:before:hover {
-    border-color: #333;
-}
-
-
-.quiz__question-label:after {
-    content: '';
+.quiz__question-answer:before{
     position: absolute;
-    left: -24px;
-
+    left: 0;
+    top: .4em;
+    display: inline-block;
+    content: '';
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 4px solid #404040;
+    box-shadow: inset 0 0 0 5px #fff;
+}
+.quiz__question-answer:hover::before{
+    background: #404040;
 }
 
-/* Стилизация кнопки, когда ответ выбран */
-.quiz__question-radiobutton:checked + .quiz__question-label:after{
-    opacity: 1;
+.quiz__question-answer_right:before{
+    border-color: #18d586;
+    background: #18d586 !important;
+}
+.quiz__question-answer_wrong:before{
+    border-color: #e94d4d;
+    background: #e94d4d !important;
 }
 
 
-.quiz__question-label_wrong:before {
-    border-color: #990000;
-    background: #fff;
-}
 
-.quiz__question-radiobutton:checked + .quiz__question-label_wrong:after {
-    opacity: 0;
-}
 
-.quiz__question-label_right:before {
 
-    background: #33CC33;
-    border-color: #33CC33;
-}
 
-.quiz__question-radiobutton:checked + .quiz__question-label_right:after {
-    content: '\2714';
-	left: -28px;
-	top: 1px;
-    width: 15px;
-    height: 15px;
-    font-size: 17px;
-    text-align: center;
-    color: #fff;
-}
+
+
+
+
+
+
+
+
+
 
 .quiz__answer-message {
-    margin-left: 2.5em;
-    font-size: 0.66em;
+    margin-left: 40px;
     font-style: italic;
     color: #b3b6bd;
 }
