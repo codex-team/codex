@@ -330,6 +330,10 @@ quiz = (function() {
             var messages = quizData.messages,
                 message;
 
+            if (!messages.length) {
+                return 'Not bad';
+            }
+
             for (var i in messages) {
                 if (score < messages[i]['score']) {
                     break;
