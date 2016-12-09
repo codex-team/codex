@@ -38,7 +38,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
          * get first course that article included in
          */
         $inCourse = Model_Courses::getCoursesByArticleId($article);
-        $courseId = Arr::get($inCourse, '0');
+        $courseId = current($inCourse);
 
         if ($courseId) {
 
