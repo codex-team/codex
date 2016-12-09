@@ -9,45 +9,46 @@ class Controller_Quiz extends Controller_Base_preDispatch
             throw new HTTP_Exception_403();
     }
 
-    public function action_new()
+    public function action_save()
     {
-        if (!Security::check($this->request->post('csrf_token'))) {
-            $this->template->content = View::factory('templates/quiz/new', $this->view);
-            return;
+
+        $csrfToken = Arr::get($_POST, 'csrf_token');
+
+        if ($this->request->post()) {
+            $quiz_id = Arr::get($_POST, 'quiz_id');
+        } else {
+            $quiz_id = $this->request->query('id') ? 0 : $this->request->param('id');
         }
 
-        $arr = array(
-            'name' => $this->request->post('quiz.name'),
-            'description' => $this->request->post('quiz.description'),
-            'questions' => array()
-        );
+        $quiz = new Model_Quiz($quiz_id);
 
-        if (!Arr::get($arr, 'name')) {
-            $this->template->content = View::factory('templates/quiz/new', $this->view);
-            return;
-        }
+        if (Security::check($csrfToken)) {
 
-        for ($number = 1; $number <= $this->request->post('questions_length'); $number++) {
-            $arr['questions'][$number]['heading'] = $this->request->post('question_' . $number . '_heading');
-            $arr['questions'][$number]['body'] = $this->request->post('question_' . $number . '_body');
-            $arr['questions'][$number]['ans_1'] = $this->request->post('question_' . $number . '_ans_1');
-            $arr['questions'][$number]['ans_2'] = $this->request->post('question_' . $number . '_ans_2');
-            $arr['questions'][$number]['ans_3'] = $this->request->post('question_' . $number . '_ans_3');
-            $arr['questions'][$number]['correct'] = $this->request->post('question_' . $number . '_correct');
+            $quiz->title        = Arr::get($_POST, 'title');
+            $quiz->description  = Arr::get($_POST, 'description');
+            $quiz->json         = Arr::get($_POST, 'json');
 
-            if (!Arr::get($arr['questions'][$number], 'heading') ||
-                !Arr::get($arr['questions'][$number], 'ans_1') ||
-                !Arr::get($arr['questions'][$number], 'ans_2') ||
-                !Arr::get($arr['questions'][$number], 'ans_3') ||
-                !Arr::get($arr['questions'][$number], 'correct')) {
-                    $this->template->content = View::factory('templates/quiz/new', $this->view);
-                    return;
+            if ($quiz->title && $quiz->json && $quiz->description) {
+                if ($quiz_id) {
+
+                    $quiz->dt_update = date('Y-m-d H:i:s');
+                    $quiz->update();
+
+                } else {
+
+                    $quiz->insert();
+
                 }
+
+            } else {
+                $this->view['error'] = true;
+            }
+
+            $this->redirect( '/' );
         }
 
-        $model = new Model_Quiz();
-        $model->saveFromArray($arr);
+        $this->view['quiz'] = $quiz;
+        $this->template->content = View::factory('templates/quiz/form', $this->view);
 
-        $this->response->body('OK');
     }
 }

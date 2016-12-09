@@ -15,28 +15,29 @@
     float : right;
 }
 
-.quiz-form__input-title,
-.quiz-form__question-heading {
+.quiz-form__quiz-title,
+.quiz-form__question-title {
     font-size : 2em !important;
     margin-bottom : 5px;
 }
 
-.quiz-form__input-title,
-.quiz-form__input-description,
-.quiz-form__question-heading,
-.quiz-form__question-body {
+.quiz-form__quiz-title,
+.quiz-form__quiz-description,
+.quiz-form__question-title {
     padding : 0 !important;
     max-width : 80%;
 }
 
-.quiz-form__question {
+.quiz-form__question-holder {
     margin : 30px 0;
     padding : 30px;
     border : 1px solid #eceff6;
     border-radius : 2px;
 }
 
-.quiz-form__question-right {
+.quiz-form__question-number,
+.quiz-form__question-destroy {
+    display : block;
     float : right;
 }
 
@@ -44,18 +45,17 @@
     margin-bottom: 10px;
 }
 
-.quiz-form__input-title
-.quiz-form__question-heading {
+.quiz-form__quiz-title
+.quiz-form__question-title {
     margin-bottom : 10px;
 }
 
-.quiz-form__input-description,
-.quiz-form__question-body,
-.quiz-form__question-answer {
+.quiz-form__quiz-description,
+.quiz-form__question-answer-text {
     font-size : 1.2em;
 }
 
-.quiz-form__question-remove-block {
+.quiz-form__question-destroy {
     display : block;
     margin-top : 10px;
     font-size : 1em;
@@ -63,32 +63,28 @@
     cursor : pointer;
 }
 
-.quiz-form__question-answer-wrap {
+.quiz-form__question-answer-holder {
     position : relative;
 }
 
-.quiz-form__question-answer {
-    width: auto !important;
-}
-/*
-.quiz-form__question-radio {
-    width : 12px;
-    height : 12px;
-    margin : 2px;
-    background : #4f4f4f;
-    border-radius : 8px;
-}*/
-
-.quiz-form__question-radio {
-    display: inline-block;
-    width : 20px;
-    height : 20px;
-    border : 2px solid #4f4f4f;
-    border-radius : 50%;
-    margin-right: 15px;
-    vertical-align: middle;
+.quiz-form__question-answer-text {
+    width : auto !important;
 }
 
-#insertBlock {
+.quiz-form__message-score,
+.quiz-form__question-answer-score {
+    display : inline-block;
+    width : 40px;
+    padding : 5px 5px 5px 0;
+    border : none;
+    font-size : 1.4em;
+}
+
+.quiz-form__message-message,
+.quiz-form__question-answer-message {
+    display : inline;
+}
+
+#insertQuestion {
     margin : auto;
 }

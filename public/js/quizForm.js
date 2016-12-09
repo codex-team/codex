@@ -122,7 +122,7 @@ var quizForm = (function(quiz) {
     var appendAnswerBlock_ = function(questionNumber) {
         var answer = {};
 
-        answer.question = quiz.questions[questionNumber + 1];
+        answer.question = quiz.questions[questionNumber - 1];
 
         var answerNumber = answer.question.answers.length + 1;
 
@@ -148,7 +148,7 @@ var quizForm = (function(quiz) {
             'type': 'number',
             'min': '0',
             'step': '0.1',
-            'class': 'quiz-form__question-answer-score'
+            'class': 'quiz-form__question-answer-score',
             'required': ''
         });
 
@@ -177,7 +177,7 @@ var quizForm = (function(quiz) {
     * Question data block creating function
     * Creates a question JS object with DOM elements in it and appends it to the questions list
     */
-    var appendQuestionBlock_ = function() {
+    var appendQuestionBlock_ = function(fromJson) {
         var question = {};
         var questionNumber = quiz.questions.length + 1;
 
@@ -209,8 +209,6 @@ var quizForm = (function(quiz) {
 
         question.answers = [];
 
-        appendAnswerBlock_(questionNumber);
-
         question.holder.appendChild(question.number);
         if (questionNumber != 1) {
             question.holder.appendChild(question.destroy);
@@ -219,6 +217,8 @@ var quizForm = (function(quiz) {
         question.holder.appendChild(question.addAnswer);
 
         quiz.questions.push(question);
+
+        appendAnswerBlock_(questionNumber);
 
         return question;
     };
@@ -256,13 +256,16 @@ var quizForm = (function(quiz) {
     var insertDataBlock_ = function(dataBlock) {
         if (dataBlock.answers) {
             var before = quiz.insertQuestion;
+            var parent = quiz.form;
         } else if (dataBlock.question) {
             var before = dataBlock.question.addAnswer;
+            var parent = dataBlock.question.holder;
         } else {
             var before = quiz.insertMessage;
+            var parent = quiz.form;
         }
 
-        quiz.form.insertBefore(dataBlock.holder, before);
+        parent.insertBefore(dataBlock.holder, before);
     }
 
 
@@ -331,7 +334,7 @@ var quizForm = (function(quiz) {
                 jsonMessage.message = message.message.value;
 
                 json.messages.push(jsonMessage);
-            });
+            };
 
             while (quiz.form.lastChild) {
                 if (quiz.form.lastChild.name == 'title' ||
@@ -344,18 +347,20 @@ var quizForm = (function(quiz) {
             quiz.form.appendChild(newDOMElement_(null, 'input', {
                 'type': 'hidden',
                 'name': 'json',
-                'value': JSON.stringify(json);
+                'value': JSON.stringify(json)
             }));
+
+            quiz.form.submit();
         }
 
 
         quiz.insertQuestion.onclick = function() {
-            insertBlock_(appendQuestionBlock_())
+            insertDataBlock_(appendQuestionBlock_())
         };
 
 
         quiz.insertMessage.onclick = function() {
-            insertBlock_(appendMessageBlock_());
+            insertDataBlock_(appendMessageBlock_());
         }
 
 
@@ -364,8 +369,20 @@ var quizForm = (function(quiz) {
                 event.target.className == 'quiz-form__question-answer-destroy' ||
                 event.target.className == 'quiz-form__message-destroy') {
                 destroyDataBlock_(event.target.dataBlock);
-            }
+            } else if (event.target.className == 'quiz-form__question-add-answer') {
+                insertDataBlock_(appendAnswerBlock_(quiz.questions.indexOf(event.target.dataBlock)));
+            };
         };
+    }
+
+
+    /**
+    * @private
+    * First message adding function
+    * Inserts message with number 1 to the form
+    */
+    var addInitialMessage_ = function() {
+        insertDataBlock_(appendMessageBlock_());
     }
 
 
@@ -375,7 +392,7 @@ var quizForm = (function(quiz) {
     * Inserts question with number 1 to the form
     */
     var addInitialQuestion_ = function() {
-        insertBlock_(appendQuestionBlock_());
+        insertDataBlock_(appendQuestionBlock_());
     }
 
 
@@ -386,6 +403,7 @@ var quizForm = (function(quiz) {
     */
     quiz.init = function() {
         setEventListeners_();
+        addInitialMessage_();
         addInitialQuestion_();
     }
 

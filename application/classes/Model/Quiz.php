@@ -4,28 +4,33 @@
 Class Model_Quiz extends Model
 {
     public $id = 0;
-    public $name;
+    public $title;
     public $description;
+    public $json;
     public $dt_create;
     public $dt_update;
 
 
-    public function __construct() {}
+    public function __construct($quiz_id = 0)
+    {
+        if ($quiz_id) {
+            $this->get($quiz_id);
+        }
+    }
 
 
     public function insert()
     {
-        $idAndRowAffected = Dao_Quiz::insert()
-                                ->set('name',           $this->name)
-                                ->set('description',    $this->description)
-                                ->clearcache('quiz_list')
-                                ->execute();
+        $idAndRowAffected = Dao_Quizzes::insert()
+            ->set('title',          $this->title)
+            ->set('json',           $this->json)
+            ->set('description',    $this->description)
+            ->execute();
 
         if ($idAndRowAffected) {
-            $quiz = Dao_Quiz::select()
+            $quiz = Dao_Quizzes::select()
                 ->where('id', '=', $idAndRowAffected)
                 ->limit(1)
-                ->cached(10*Date::MINUTE)
                 ->execute();
 
             $this->fillByRow($quiz);
@@ -34,40 +39,37 @@ Class Model_Quiz extends Model
         return $idAndRowAffected;
     }
 
-
-    public function saveFromArray($arr)
+    public function update()
     {
-        $this->name = Arr::get($arr, 'name');
-        $this->description = Arr::get($arr, 'description');
-
-        $quiz_id = $this->insert();
-
-        for ($number = 1; $number <= Arr::get($arr, 'questions_length'); $number++) {
-            $question = new Model_Question();
-
-            $question->number  = $number;
-            $question->quiz_id = $quiz_id;
-            $question->heading = Arr::get($arr[$number], 'heading');
-            $question->body    = Arr::get($arr[$number], 'body');
-            $question->ans_1   = Arr::get($arr[$number], 'ans_1');
-            $question->ans_2   = Arr::get($arr[$number], 'ans_2');
-            $question->ans_3   = Arr::get($arr[$number], 'ans_3');
-            $question->correct = Arr::get($arr[$number], 'correct');
-
-            $question->insert();
-        }
-
-        return $quiz;
+        Dao_Quizzes::update()->where('id', '=', $this->id)
+            ->set('title',       $this->title)
+            ->set('description', $this->description)
+            ->set('json',        $this->json)
+            ->clearcache($this->id)
+            ->execute();
     }
 
+
+    public function get($id = 0, $needClearCache = false)
+    {
+        $quiz = Dao_Quizzes::select()
+            ->where('id', '=', $id)
+            ->limit(1)
+            ->execute();
+
+        $this->fillByRow($quiz);
+
+        return $this;
+    }
 
     private function fillByRow($quiz_row)
     {
         if (!empty($quiz_row['id'])) {
 
             $this->id           = $quiz_row['id'];
-            $this->name         = $quiz_row['name'];
+            $this->title        = $quiz_row['title'];
             $this->description  = $quiz_row['description'];
+            $this->json         = $quiz_row['json'];
             $this->dt_create    = $quiz_row['dt_create'];
             $this->dt_update    = $quiz_row['dt_update'];
         }
@@ -75,45 +77,17 @@ Class Model_Quiz extends Model
         return $this;
     }
 
+    public static function getTitles() {
 
-    public function remove()
-    {
-        Dao_Quiz::update()->where('id', '=', $this->id)
-            ->set('is_removed', 1)
-            ->clearcache('quiz_list')
+        $quizzes = Dao_Quizzes::select(array('id', 'title'))
+            ->where('is_removed', '=', 0)
             ->execute();
 
-            $this->id = 0;
-    }
-
-
-    public function update()
-    {
-        Dao_Quiz::update()->where('id', '=', $this->id)
-            ->set('name',           $this->name)
-            ->set('description',    $this->description)
-            ->set('dt_update',      $this->dt_update)
-            ->clearcache($this->id)
-            ->execute();
-    }
-
-
-    public static function get($id = 0, $needClearCache = false)
-    {
-        $quiz = Dao_Quiz::select()
-            ->where('id', '=', $id)
-            ->limit(1);
-
-        if ($needClearCache) {
-            $quiz->clearcache($id);
-        } else {
-            $quiz->cached(Date::MINUTE * 5, $id);
+        $list = array();
+        foreach ($quizzes as $quiz) {
+            $list[] = array('id' => $quiz['id'], 'title' => $quiz['title']);
         }
 
-        $quiz = $quiz->execute();
-
-        $model = new Model_Quiz();
-
-        return $model->fillByRow($quiz);
+        return $list;
     }
 }
