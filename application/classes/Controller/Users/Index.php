@@ -3,23 +3,23 @@
 class Controller_Users_Index extends Controller_Base_preDispatch
 {
 
-		/*
-		* Если в ссылке /user/<user_id> передан user_id, тогда пользователя находят в БД по его id
-		* Если в ссылке не передан user_id, тогда пользователя находят в текущей сессии авторизации.
-		* Если пользователя нет в БД, тогда выводится сообщение об ошибке и просьбе авторизоваться.
-		*/
+        /*
+        * Если в ссылке /user/<user_id> передан user_id, тогда пользователя находят в БД по его id
+        * Если в ссылке не передан user_id, тогда пользователя находят в текущей сессии авторизации.
+        * Если пользователя нет в БД, тогда выводится сообщение об ошибке и просьбе авторизоваться.
+        */
 
 
     public function action_show()
     {
         $user_id = $this->request->param('user_id') ?: $this->request->query('user_id');
 
-	    if ( !empty($user_id) ){
-		    $viewUser = Model_User::get( $user_id );
+        if ( !empty($user_id) ){
+            $viewUser = Model_User::get( $user_id );
             $this->redirect($viewUser->uri);
-	    } else {
-	        $viewUser = $this->user;
-	    }
+        } else {
+            $viewUser = $this->user;
+        }
 
         if (!$viewUser->id) {
             throw new HTTP_Exception_404();
