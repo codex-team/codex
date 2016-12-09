@@ -5,8 +5,8 @@ class Controller_Quiz extends Controller_Base_preDispatch
     public function before()
     {
         parent::before();
-        /*if (!$this->user->checkAccess(array(Model_User::ROLE_ADMIN)))
-            throw new HTTP_Exception_403();*/
+        if (!$this->user->checkAccess(array(Model_User::ROLE_ADMIN)))
+            throw new HTTP_Exception_403();
     }
 
     public function action_save()
@@ -28,9 +28,7 @@ class Controller_Quiz extends Controller_Base_preDispatch
             $quiz->description  = Arr::get($_POST, 'description');
             $quiz->json         = Arr::get($_POST, 'json');
 
-            var_dump('ok1');
             if ($quiz->title && $quiz->json && $quiz->description) {
-                var_dump('ok2');
                 if ($quiz_id) {
 
                     $quiz->dt_update = date('Y-m-d H:i:s');
