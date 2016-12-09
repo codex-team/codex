@@ -43,25 +43,25 @@ quiz = (function() {
          * Создаем элементы для вывода теста, заносим их в UI_.questionElems и выводим на страницу.
          */
         setupQuestionInterface: function() {
-            this.clear();
+            UI_.clear();
 
             var title,
                 optionsHolder,
                 counter,
                 nextButton;
 
-            title = this.createElem('div', 'quiz__question-title');
+            title = UI_.createElem('div', 'quiz__question-title');
 
-            optionsHolder = this.createElem('div', 'quiz__question-options');
+            optionsHolder = UI_.createElem('div', 'quiz__question-options');
 
-            counter = this.createElem('div', 'quiz__question-counter');
+            counter = UI_.createElem('div', 'quiz__question-counter');
 
-            nextButton = this.createElem('input', ['quiz__question-button', 'quiz__question-button_next']);
+            nextButton = UI_.createElem('input', ['quiz__question-button', 'quiz__question-button_next']);
 
             nextButton.setAttribute('type', 'button');
             nextButton.setAttribute('value', 'Далее →');
 
-            this.questionElems = {
+            UI_.questionElems = {
                 counter: counter,
                 title: title,
                 optionsHolder: optionsHolder,
@@ -69,9 +69,9 @@ quiz = (function() {
                 nextButton: nextButton
             };
 
-            this.append(this.questionElems);
+            UI_.append(UI_.questionElems);
 
-            this.showQuestion();
+            UI_.showQuestion();
         },
 
         /**
@@ -79,20 +79,17 @@ quiz = (function() {
          */
         showQuestion: function (){
 
-            this.clear(this.questionElems.optionsHolder);
-            this.questionElems.options = [];
-            this.questionElems.nextButton.onclick = null;
-            this.currentQuestionObj = quizData.questions[currentQuestion];
+            UI_.clear(UI_.questionElems.optionsHolder);
+            UI_.questionElems.options = [];
+            UI_.questionElems.nextButton.removeEventListener('click', UI_.showQuestion);
+            UI_.currentQuestionObj = quizData.questions[currentQuestion];
 
-            this.questionElems.nextButton.setAttribute('disabled', true);
+            UI_.questionElems.nextButton.setAttribute('disabled', true);
 
-            this.questionElems.title.textContent = this.currentQuestionObj.title;
-            this.questionElems.counter.textContent = currentQuestion + 1 + '/' + numberOfQuestions;
+            UI_.questionElems.title.textContent = UI_.currentQuestionObj.title;
+            UI_.questionElems.counter.textContent = currentQuestion + 1 + '/' + numberOfQuestions;
 
-            for (var i in this.currentQuestionObj.answers) {
-                this.createOption(this.currentQuestionObj.answers[i], i);
-            }
-
+            UI_.currentQuestionObj.answers.map(UI_.createOption);
         },
 
         /**
@@ -103,31 +100,30 @@ quiz = (function() {
          */
         showAnswer: function(answer) {
 
-            var answerNo = +answer.getAttribute('for'),
-                answerStyle = answer.getAttribute('data') > 0 ? '_right' :  '_wrong';
+            var answerStyle = answer.dataset.score > 0 ? '_right' :  '_wrong',
+                answerIndex = parseInt(answer.getAttribute('for'));
 
-            answer.classList.add('quiz__question-label'+answerStyle);
+            answer.classList.add('quiz__question-label' + answerStyle);
 
-            this.questionElems.options[answerNo].input = true;
-            
+            UI_.questionElems.options[answerIndex].input.setAttribute('checked', true);
 
-            var answerMessage = this.createElem('div', 'quiz__answer-message');
+            var answerMessage = UI_.createElem('div', 'quiz__answer-message');
 
-            answerMessage.textContent = this.currentQuestionObj.answers[answerNo].message;
+            answerMessage.textContent = UI_.currentQuestionObj.answers[answerIndex].message;
 
-            this.insertAfter(answerMessage, answer);
+            UI_.insertAfter(answerMessage, answer);
 
-            for (var k in this.questionElems.options) {
-                this.questionElems.options[k].label.removeEventListener('click', gameProcessing_.getUserAnswer);
-                this.questionElems.options[k].input.disabled = true;
+            for (var k in UI_.questionElems.options) {
+                UI_.questionElems.options[k].label.removeEventListener('click', gameProcessing_.getUserAnswer);
+                UI_.questionElems.options[k].input.disabled = true;
             }
 
-            this.questionElems.nextButton.disabled = false;
+            UI_.questionElems.nextButton.disabled = false;
 
             if (currentQuestion < numberOfQuestions  - 1) {
-                this.questionElems.nextButton.onclick = this.showQuestion.bind(this);
+                UI_.questionElems.nextButton.addEventListener('click', UI_.showQuestion);
             } else {
-                this.questionElems.nextButton.addEventListener('click', this.showResult.bind(this));
+                UI_.questionElems.nextButton.addEventListener('click', UI_.showResult.bind(UI_));
             }
 
             currentQuestion++;
@@ -135,27 +131,27 @@ quiz = (function() {
 
         showResult: function() {
 
-            this.questionElems.nextButton.removeEventListener('click', this.showResult);
+            UI_.questionElems.nextButton.removeEventListener('click', UI_.showResult);
 
-            this.clear();
+            UI_.clear();
 
-            var resultTitle = this.createElem('div', 'quiz__result-title');
+            var resultTitle = UI_.createElem('div', 'quiz__result-title');
             resultTitle.textContent = 'Ваш результат:';
 
-            var resultScore = this.createElem('div', 'quiz__result-score');
+            var resultScore = UI_.createElem('div', 'quiz__result-score');
             resultScore.textContent = score + '/' + quizData.questions.length;
 
-            var resultMessage = this.createElem('div', 'quiz__result-message');
+            var resultMessage = UI_.createElem('div', 'quiz__result-message');
             resultMessage.textContent = gameProcessing_.getMessage();
 
-            var social = this.createElem('div', 'quiz__sharing');
-            this.createSocial(social);
+            var social = UI_.createElem('div', 'quiz__sharing');
+            UI_.createSocial(social);
 
-            var retry = this.createElem('div', 'quiz__retry-button');
+            var retry = UI_.createElem('div', 'quiz__retry-button');
             retry.textContent = 'Пройти еще раз';
             retry.addEventListener('click', init.bind(null, quizData, UI_.handler.id));
 
-            this.append([resultTitle, resultScore, resultMessage, social, retry]);
+            UI_.append([resultTitle, resultScore, resultMessage, social, retry]);
         },
 
         /**
@@ -165,10 +161,10 @@ quiz = (function() {
          */
         createSocial: function(handler) {
 
-            var vk = this.createElem('span', ['but', 'vk']);
-            var tg = this.createElem('span', ['but', 'tg']);
-            var tw = this.createElem('span', ['but', 'tw']);
-            var fb = this.createElem('span', ['but', 'fb']);
+            var vk = UI_.createElem('span', ['but', 'vk']);
+            var tg = UI_.createElem('span', ['but', 'tg']);
+            var tw = UI_.createElem('span', ['but', 'tw']);
+            var fb = UI_.createElem('span', ['but', 'fb']);
 
             vk.setAttribute('data-share-type', 'vkontakte');
             tg.setAttribute('data-share-type', 'telegram');
@@ -180,17 +176,17 @@ quiz = (function() {
             tw.setAttribute('title', 'Tweet');
             fb.setAttribute('title', 'Share on the Facebook');
 
-            var vk_icon = this.createElem('i', 'icon-vkontakte');
-            var tg_icon = this.createElem('i', 'icon-paper-plane');
-            var tw_icon = this.createElem('i', 'icon-twitter');
-            var fb_icon = this.createElem('i', 'icon-facebook-squared');
+            var vk_icon = UI_.createElem('i', 'icon-vkontakte');
+            var tg_icon = UI_.createElem('i', 'icon-paper-plane');
+            var tw_icon = UI_.createElem('i', 'icon-twitter');
+            var fb_icon = UI_.createElem('i', 'icon-facebook-squared');
 
-            this.append(vk_icon, vk);
-            this.append(tg_icon, tg);
-            this.append(tw_icon, tw);
-            this.append(fb_icon, fb);
+            UI_.append(vk_icon, vk);
+            UI_.append(tg_icon, tg);
+            UI_.append(tw_icon, tw);
+            UI_.append(fb_icon, fb);
 
-            this.append([vk,tg,tw,fb], handler);
+            UI_.append([vk,tg,tw,fb], handler);
         },
 
         /**
@@ -202,23 +198,23 @@ quiz = (function() {
          */
         createOption: function (answer, i) {
 
-            var input = this.createElem('input','quiz__question-radiobutton'),
-                label = this.createElem('label','quiz__question-label');
+            var input = UI_.createElem('input','quiz__question-radiobutton'),
+                label = UI_.createElem('label','quiz__question-label');
 
             input.setAttribute('name','r');
-            input.setAttribute('id', i);
+            input.setAttribute('id', i+'_'+answer.text);
             input.setAttribute('type','radio');
 
-            label.setAttribute('data',answer.score);
-            label.setAttribute('for', i);
+            label.dataset.score = answer.score;
+            label.setAttribute('for', i+'_'+answer.text);
             label.textContent = answer.text;
 
             //Вешаем слушатель на вариант ответа
             label.addEventListener('click', gameProcessing_.getUserAnswer);
 
-            this.questionElems.options.push({label:label, input: input});
+            UI_.questionElems.options.push({label:label, input: input});
 
-            this.append([input,label], this.questionElems.optionsHolder);
+            UI_.append([input,label], UI_.questionElems.optionsHolder);
 
         },
 
@@ -254,7 +250,7 @@ quiz = (function() {
          */
         append: function(elems, parent) {
 
-            parent = parent || this.handler;
+            parent = parent || UI_.handler;
 
             if (!(elems instanceof Element)) {
 
@@ -279,9 +275,9 @@ quiz = (function() {
          */
         insertAfter: function(elem, elemBefore) {
             if (elemBefore.nextSibling) {
-                this.questionElems.optionsHolder.insertBefore(elem, elemBefore.nextSibling);
+                UI_.questionElems.optionsHolder.insertBefore(elem, elemBefore.nextSibling);
             } else {
-                this.append(elem, elemBefore.parentNode);
+                UI_.append(elem, elemBefore.parentNode);
             }
         },
 
@@ -291,7 +287,7 @@ quiz = (function() {
          * @param {Element} parent
          */
         clear: function(parent) {
-            parent = parent || this.handler;
+            parent = parent || UI_.handler;
 
             while (parent.firstChild) {
                 parent.removeChild(parent.firstChild);
@@ -310,10 +306,9 @@ quiz = (function() {
          */
         getUserAnswer: function(e) {
 
-            var answer = e.currentTarget,
-                points = +answer.getAttribute('data');
+            var answer = e.currentTarget;
 
-            score += points;
+            score += answer.dataset.score;
 
 
             UI_.showAnswer(answer);
@@ -331,7 +326,7 @@ quiz = (function() {
                 message;
 
             if (!messages.length) {
-                return 'Not bad';
+                return;
             }
 
             for (var i in messages) {

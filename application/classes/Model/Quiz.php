@@ -6,7 +6,7 @@ Class Model_Quiz extends Model
     public $id = 0;
     public $title;
     public $description;
-    public $json;
+    public $quiz_data;
     public $dt_create;
     public $dt_update;
 
@@ -23,17 +23,12 @@ Class Model_Quiz extends Model
     {
         $idAndRowAffected = Dao_Quizzes::insert()
             ->set('title',          $this->title)
-            ->set('json',           $this->json)
+            ->set('quiz_data',      $this->quiz_data)
             ->set('description',    $this->description)
             ->execute();
 
         if ($idAndRowAffected) {
-            $quiz = Dao_Quizzes::select()
-                ->where('id', '=', $idAndRowAffected)
-                ->limit(1)
-                ->execute();
-
-            $this->fillByRow($quiz);
+            $this->get($idAndRowAffected);
         }
 
         return $idAndRowAffected;
@@ -44,7 +39,7 @@ Class Model_Quiz extends Model
         Dao_Quizzes::update()->where('id', '=', $this->id)
             ->set('title',       $this->title)
             ->set('description', $this->description)
-            ->set('json',        $this->json)
+            ->set('quiz_data',   $this->quiz_data)
             ->set('dt_update',   $this->dt_update)
             ->clearcache($this->id)
             ->execute();
@@ -56,6 +51,7 @@ Class Model_Quiz extends Model
         $quiz = Dao_Quizzes::select()
             ->where('id', '=', $id)
             ->limit(1)
+            ->cached(DATE::MINUTE * 5, $id)
             ->execute();
 
         $this->fillByRow($quiz);
@@ -70,7 +66,7 @@ Class Model_Quiz extends Model
             $this->id           = $quiz_row['id'];
             $this->title        = $quiz_row['title'];
             $this->description  = $quiz_row['description'];
-            $this->json         = $quiz_row['json'];
+            $this->quiz_data    = $quiz_row['quiz_data'];
             $this->dt_create    = $quiz_row['dt_create'];
             $this->dt_update    = $quiz_row['dt_update'];
         }
@@ -84,11 +80,6 @@ Class Model_Quiz extends Model
             ->where('is_removed', '=', 0)
             ->execute();
 
-        $list = array();
-        foreach ($quizzes as $quiz) {
-            $list[] = array('id' => $quiz['id'], 'title' => $quiz['title']);
-        }
-
-        return $list;
+        return $quizzes;
     }
 }

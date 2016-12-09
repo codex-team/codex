@@ -21,7 +21,7 @@ Class Model_Article extends Model
     public $dt_update;
     public $is_removed;
     public $is_published;
-    public $quiz;
+    public $quiz_id;
     /**
     * @var bool $marked — позволяет выделить важную статью в списке
     */
@@ -56,7 +56,7 @@ Class Model_Article extends Model
                                 ->set('text',           $this->text)
                                 ->set('json',           $this->json)
                                 ->set('description',    $this->description)
-                                ->set('quiz',           $this->quiz)
+                                ->set('quiz_id',        $this->quiz_id)
                                 ->set('cover',          $this->cover)
                                 ->set('user_id',        $this->user_id)
                                 ->set('marked',         $this->marked)
@@ -94,7 +94,7 @@ Class Model_Article extends Model
             $this->text         = $article_row['text'];
             $this->json         = $article_row['json'];
             $this->description  = $article_row['description'];
-            $this->quiz         = $article_row['quiz'];
+            $this->quiz_id      = $article_row['quiz_id'];
             $this->cover        = $article_row['cover'];
             $this->user_id      = $article_row['user_id'];
             $this->marked       = $article_row['marked'];
@@ -143,7 +143,7 @@ Class Model_Article extends Model
             ->set('text',           $this->text)
             ->set('json',           $this->json)
             ->set('description',    $this->description)
-            ->set('quiz',           $this->quiz)
+            ->set('quiz_id',        $this->quiz_id)
             ->set('cover',          $this->cover)
             ->set('marked',         $this->marked)
             ->set('order',          $this->order)

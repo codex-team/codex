@@ -151,13 +151,11 @@
 }
 
 .quiz__result-title {
-    width: 100%;
     font-size: 1.5em;
     text-align: center;
 }
 
 .quiz__result-score {
-    width: 100%;
     margin: 1em 0;
     font-size: 2.5em;
     font-weight: bold;
@@ -165,14 +163,12 @@
 }
 
 .quiz__result-message {
-    width: 100%;
     font-style: italic;
     text-align: center;
 }
 
 
 .quiz__retry-button {
-    width: 100%;
     font-size: 0.8em;
     font-style: italic;
     text-align: center;
@@ -180,7 +176,6 @@
 }
 
 .quiz__sharing{
-    width: 100%;
     text-align: center;
     padding: 30px 0;
     border-radius: 3px;
