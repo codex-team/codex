@@ -94,7 +94,7 @@ quiz = (function() {
 
         answerSelected: function(answer) {
 
-            answer.classList.add('quiz__question-label-selected');
+            answer.classList.add('quiz__question-answer-selected');
 
             UI_.questionElems.options.map(function(current, i) {
                 current.removeEventListener('click', gameProcessing_.getUserAnswer);
@@ -109,7 +109,7 @@ quiz = (function() {
             }
 
             UI_.showAnswer(answer);
-            
+
             currentQuestion++;
         },
         /**
@@ -123,7 +123,7 @@ quiz = (function() {
             var answerStyle = answer.dataset.score > 0 ? '_right' :  '_wrong',
                 answerIndex = answer.dataset.index;
 
-            answer.classList.add('quiz__question-label' + answerStyle);
+            answer.classList.add('quiz__question-answer' + answerStyle);
 
             var answerMessage = UI_.createElem('div', 'quiz__answer-message');
 
