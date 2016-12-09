@@ -1,7 +1,11 @@
 /**
- * Code Plugin\
+ * Code Plugin
  * Creates code tag and adds content to this tag
+ *
+ * @author Codex Team
+ * @version 1.0.0
  */
+
 var codeTool = {
 
     baseClass : "ce-code",
@@ -49,24 +53,7 @@ var codeTool = {
 
         return data;
 
-    },
+    }
 
 };
 
-/**
- * Now plugin is ready.
- * Add it to redactor tools
- */
-cEditor.tools.code = {
-
-    type             : 'code',
-    iconClassname    : 'ce-icon-code',
-    make             : codeTool.make,
-    appendCallback   : null,
-    settings         : null,
-    render           : codeTool.render,
-    save             : codeTool.save,
-    displayInToolbox : true,
-    enableLineBreaks : true
-
-};

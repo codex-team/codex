@@ -32,14 +32,28 @@
 
         <section class="editor-form__section">
 
-            <label for="course_id">Выберите курс, к которому относится статья</label>
-            <select name="course_id">
-                <option value="0">---</option>
+            <label for="courses_id">Выберите курс, к которому относится статья</label>
+            <select name="courses_ids[]" multiple>
                 <? foreach ($courses as $course): ?>
-                    <option value="<?= $course['id']; ?>">
+                    <? $is_selected = is_array($selected_courses)?in_array($course['id'], $selected_courses):false; ?>
+                    <option value="<?= $course['id']; ?>" <?= $is_selected?'selected':''; ?>>
                         <?= $course['name']; ?>
                     </option>
                 <? endforeach; ?>
+            </select>
+
+        </section>
+
+        <section class="editor-form__section">
+
+            <label for="item_below_key">Выводить над (в списке первые 5 элементов фида, если не выбрать, статья останется на своем месте)</label>
+            <select name="item_below_key">
+                <option value="0">---</option>
+                <? foreach ($topFeed as $item): ?>
+                    <option value="<?= $item::FEED_TYPE.':'.$item->id; ?>">
+                        <?= $item->title; ?>
+                    </option>
+                <? endforeach ?>
             </select>
 
         </section>
@@ -56,12 +70,6 @@
 
         </section>
 
-        <section class="editor-form__section">
-
-            <label for="order">Порядок в списке (если не задавать, будет в порядке убывания даты)</label>
-            <input type="text" name="order" value="<?= $article->order ?: ''; ?>">
-
-        </section>
 
         <span id="submitButton" class="button master" style="margin: 40px 139px 40px">Отправить</span>
     </form>
@@ -95,19 +103,140 @@
             count : json.length,
         };
 
-        cEditor.start({
+        codex.editor.start({
             textareaId: 'codex_editor',
+
+            tools : {
+                paragraph : {
+                    type             : 'paragraph',
+                    iconClassname    : 'ce-icon-paragraph',
+                    make             : paragraphTool.make,
+                    appendCallback   : null,
+                    settings         : null,
+                    render           : paragraphTool.render,
+                    save             : paragraphTool.save,
+                    displayInToolbox : false,
+                    enableLineBreaks : false,
+                    allowedToPaste   : true
+                },
+                paste : {
+                    type             : 'paste',
+                    iconClassname    : '',
+                    prepare          : pasteTool.prepare,
+                    make             : pasteTool.make,
+                    appendCallback   : null,
+                    settings         : null,
+                    render           : null,
+                    save             : pasteTool.save,
+                    displayInToolbox : false,
+                    enableLineBreaks : false,
+                    callbacks        : pasteTool.callbacks,
+                    allowedToPaste   : false
+                },
+                header : {
+                    type             : 'header',
+                    iconClassname    : 'ce-icon-header',
+                    make             : headerTool.make,
+                    appendCallback   : headerTool.appendCallback,
+                    settings         : headerTool.makeSettings(),
+                    render           : headerTool.render,
+                    save             : headerTool.save
+                },
+                code : {
+                    type             : 'code',
+                    iconClassname    : 'ce-icon-code',
+                    make             : codeTool.make,
+                    appendCallback   : null,
+                    settings         : null,
+                    render           : codeTool.render,
+                    save             : codeTool.save,
+                    displayInToolbox : true,
+                    enableLineBreaks : true
+                },
+                link : {
+                    type             : 'link',
+                    iconClassname    : 'ce-icon-link',
+                    make             : linkTool.makeNewBlock,
+                    appendCallback   : linkTool.appendCallback,
+                    render           : linkTool.render,
+                    save             : linkTool.save,
+                    displayInToolbox : true,
+                    enableLineBreaks : true
+                },
+                list : {
+                    type             : 'list',
+                    iconClassname    : 'ce-icon-list-bullet',
+                    make             : listTool.make,
+                    appendCallback   : null,
+                    settings         : listTool.makeSettings(),
+                    render           : listTool.render,
+                    save             : listTool.save,
+                    displayInToolbox : true,
+                    enableLineBreaks : true
+                },
+                quote : {
+                    type             : 'quote',
+                    iconClassname    : 'ce-icon-quote',
+                    make             : quoteTools.makeBlockToAppend,
+                    appendCallback   : null,
+                    settings         : quoteTools.makeSettings(),
+                    render           : quoteTools.render,
+                    save             : quoteTools.save,
+                    displayInToolbox : true,
+                    enableLineBreaks : true,
+                    allowedToPaste   : true
+                },
+                image : {
+                    type             : 'image',
+                    iconClassname    : 'ce-icon-picture',
+                    make             : ceImage.make,
+                    appendCallback   : ceImage.appendCallback,
+                    settings         : ceImage.makeSettings(),
+                    render           : ceImage.render,
+                    save             : ceImage.save,
+                    isStretched      : true,
+                    displayInToolbox : true,
+                    enableLineBreaks : false
+                },
+                instagram : {
+                    type             : 'instagram',
+                    iconClassname    : 'ce-icon-instagram',
+                    prepare          : instagramTool.prepare,
+                    make             : instagramTool.make,
+                    appendCallback   : null,
+                    settings         : null,
+                    render           : instagramTool.reneder,
+                    save             : instagramTool.save,
+                    displayInToolbox : false,
+                    enableLineBreaks : false,
+                    allowedToPaste   : false
+                },
+                twitter : {
+                    type             : 'twitter',
+                    iconClassname    : 'ce-icon-twitter',
+                    prepare          : twitterTool.prepare,
+                    make             : twitterTool.make,
+                    appendCallback   : null,
+                    settings         : null,
+                    render           : twitterTool.render,
+                    save             : twitterTool.save,
+                    displayInToolbox : false,
+                    enableLineBreaks : false,
+                    allowedToPaste   : false
+                }
+            },
+            
             data : INPUT
         });
 
         /** Save redactors block and submit form */
         submit.addEventListener('click', function() {
 
-            cEditor.saver.saveBlocks();
+            codex.editor.saver.saveBlocks();
 
             setTimeout(function() {
 
-                article.innerHTML = JSON.stringify(cEditor.state.jsonOutput);
+                article.innerHTML = JSON.stringify(codex.editor.state.jsonOutput);
 
                 form.submit();
 
@@ -117,9 +246,6 @@
 
     })
 </script>
-
-<script src="/public/extensions/codex.editor/codex-editor.js"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/codex-editor.css">
 
 <script src="/public/extensions/codex.editor/plugins/paragraph/paragraph.js"></script>
 <link rel="stylesheet" href="/public/extensions/codex.editor/plugins/paragraph/paragraph.css" />
@@ -151,3 +277,5 @@
 <script src="/public/extensions/codex.editor/plugins/twitter/twitter.js"></script>
 <link rel="stylesheet" href="/public/extensions/codex.editor/plugins/twitter/twitter.css">
 
+<script src="/public/extensions/codex.editor/codex-editor.js"></script>
+<link rel="stylesheet" href="/public/extensions/codex.editor/codex-editor.css">

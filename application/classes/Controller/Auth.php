@@ -200,6 +200,6 @@ class Controller_Auth extends Controller_Base_preDispatch
      */
     private function get_vk_name($profile)
     {
-        return join(' ', [$profile->first_name, $profile->last_name]);
+        return join(' ', array($profile->first_name, $profile->last_name));
     }
 }
