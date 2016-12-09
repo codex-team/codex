@@ -159,7 +159,7 @@ Class Model_Courses extends Model
                                         ->where('article_id', '=', $article->id)
                                         ->execute('course_id');
 
-        return $selectedCourses?array_keys($selectedCourses):array();
+        return $selectedCourses ? array_keys($selectedCourses):array();
     }
 
     /**
@@ -289,5 +289,13 @@ Class Model_Courses extends Model
         }
 
         return Dao_CoursesArticles::select('article_id')->where('course_id', '=', $course_id)->execute();
+    }
+    
+    public static function getArticleFromCourse($article_id, $course_id) {
+
+        if (!$article_id || !$course_id)
+            return false;
+
+        return Model_Article::get($article_id);
     }
 }

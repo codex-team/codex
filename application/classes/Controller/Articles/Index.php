@@ -9,7 +9,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
         $this->title = "Статьи команды CodeX";
         $this->description = "Здесь собраны заметки о нашем опыте и исследованиях в области веб-разработки, дизайна, маркетинга и организации рабочих процессов";
-        
+
         if (Arr::get($_GET, 'feed')){
             $feed->addActiveArticles();
         }
@@ -33,6 +33,57 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $needClearCache = Arr::get($_GET, 'clear');
 
         $article = Model_Article::get($articleId, $needClearCache);
+
+        /**
+         * get first course that article included in
+         */
+        $inCourse = Model_Courses::getCoursesByArticleId($article);
+        $courseId = Arr::get($inCourse, '0');
+
+        if ($courseId) {
+
+            /** getting all articles from course */
+            $course_articles = Model_Courses::getArticles($courseId);
+
+            /**
+             * search in array of article ids the position of current article
+             */
+            $counter = 0;
+            foreach ($course_articles as $articles) {
+
+                $articleList[] = Model_Article::get($articles['article_id']);
+
+                if ($articles['article_id'] == $articleId) {
+                    $position = $counter;
+                }
+
+                $counter ++;
+            }
+
+            /**
+             * We know the position of this article in course.
+             * If next or previous article exists, then we send it to view
+             */
+            if ($position + 1 < count($course_articles)) {
+
+
+                $nextArticleId = $course_articles[$position + 1]['article_id'];
+                $nextArticle = Model_Courses::getArticleFromCourse($nextArticleId, $courseId);
+
+                $this->view["nextArticle"] = $nextArticle;
+            }
+
+            if ($position - 1 >= 0) {
+
+                $previousArticleId = $course_articles[$position - 1]['article_id'];
+                $previousArticle = Model_Courses::getArticleFromCourse($previousArticleId, $courseId);
+
+                $this->view["previousArticle"] = $previousArticle;
+            }
+
+
+            $this->view["articlesFromCourse"] = $articleList;
+        }
 
         if ($article->id == 0 || $article->is_removed)
             throw new HTTP_Exception_404();

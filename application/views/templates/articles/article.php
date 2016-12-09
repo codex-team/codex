@@ -1,30 +1,34 @@
 <link rel="stylesheet" href="/public/css/article.css?v=<?= filemtime("public/css/article.css") ?>">
 
 <div class="center_side clear">
-
-    <?= View::factory('templates/articles/course_list'); ?>
-
+    <? if (isset($articlesFromCourse)): ?>
+        <?= View::factory('templates/articles/course_list')->set('articles', $articlesFromCourse); ?>
+    <? endif; ?>
 </div>
 
 <div class="article-wrapper" name="js-article-wrapper">
 
-    <div class="course-navigation-wrapper course-navigation-wrapper--previous" name="js-course-navigation">
-        <a class="course-navigation course-navigation--previous" href="#">
-            <div class="course-navigation__icon course-navigation__icon--previous"></div>
-            <div class="course-navigation__title">Публикация статистики из Яндекс.Метрики в Telegram</div>
-            <img class="course-navigation__avatar" src="https://ifmo.su/upload/users/qNgjN82zGBE_quad_1451238345.jpg" itemprop="image">
-            <div class="course-navigation__author">Владислав Третьяк</div>
-        </a>
-    </div>
+    <? if (isset($previousArticle)): ?>
+        <div class="course-navigation-wrapper course-navigation-wrapper--previous" name="js-course-navigation">
+            <a class="course-navigation course-navigation--previous" href="<?=URL::site($previousArticle->uri ?: '/article/' . $previousArticle->id); ?>">
+                <div class="course-navigation__icon course-navigation__icon--previous"></div>
+                <div class="course-navigation__title"><?=$previousArticle->title; ?></div>
+                <img class="course-navigation__avatar" src="<?=$previousArticle->author->photo; ?>" itemprop="image">
+                <div class="course-navigation__author"><?=$previousArticle->author->name; ?></div>
+            </a>
+        </div>
+    <? endif; ?>
 
-    <div class="course-navigation-wrapper course-navigation-wrapper--next" name="js-course-navigation">
-        <a class="course-navigation course-navigation--next" href="#">
-            <div class="course-navigation__icon course-navigation__icon--next"></div>
-            <div class="course-navigation__title">Почему моя программа не работает?</div>
-            <img class="course-navigation__avatar" src="https://ifmo.su/upload/users/qNgjN82zGBE_quad_1451238345.jpg" itemprop="image">
-            <div class="course-navigation__author">Владислав Третьяк</div>
-        </a>
-    </div>
+    <? if (isset($nextArticle)): ?>
+        <div class="course-navigation-wrapper course-navigation-wrapper--next" name="js-course-navigation">
+            <a class="course-navigation course-navigation--next" href="<?=URL::site($nextArticle->uri ?: '/article/' . $nextArticle->id); ?>">
+                <div class="course-navigation__icon course-navigation__icon--next"></div>
+                <div class="course-navigation__title"><?=$nextArticle->title; ?></div>
+                <img class="course-navigation__avatar" src="<?=$nextArticle->author->photo; ?>" itemprop="image">
+                <div class="course-navigation__author"><?=$nextArticle->author->name; ?></div>
+            </a>
+        </div>
+    <? endif; ?>
 
     <div class="center_side">
         <article class="article" itemscope itemtype="http://schema.org/Article">
@@ -97,6 +101,8 @@
 </div>
 
 <div class="center_side clear">
-    <?=View::factory('templates/articles/course_list'); ?>
+    <? if (isset($articlesFromCourse)) : ?>
+        <?=View::factory('templates/articles/course_list')->set('articles', $articlesFromCourse); ?>
+    <? endif; ?>
 </div>
 
