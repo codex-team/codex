@@ -92,6 +92,26 @@ quiz = (function() {
             UI_.currentQuestionObj.answers.map(UI_.createOption);
         },
 
+        answerSelected: function(answer) {
+
+            answer.classList.add('quiz__question-label-selected');
+
+            UI_.questionElems.options.map(function(current, i) {
+                current.removeEventListener('click', gameProcessing_.getUserAnswer);
+            });
+
+            UI_.questionElems.nextButton.disabled = false;
+
+            if (currentQuestion < numberOfQuestions  - 1) {
+                UI_.questionElems.nextButton.addEventListener('click', UI_.showQuestion);
+            } else {
+                UI_.questionElems.nextButton.addEventListener('click', UI_.showResult);
+            }
+
+            UI_.showAnswer(answer);
+            
+            currentQuestion++;
+        },
         /**
          * Добавляем стили и выводим сообщение для выбранного варианта ответа
          * Открываем доступ к следующему вопросу
@@ -101,11 +121,9 @@ quiz = (function() {
         showAnswer: function(answer) {
 
             var answerStyle = answer.dataset.score > 0 ? '_right' :  '_wrong',
-                answerIndex = parseInt(answer.getAttribute('for'));
+                answerIndex = answer.dataset.index;
 
             answer.classList.add('quiz__question-label' + answerStyle);
-
-            UI_.questionElems.options[answerIndex].input.setAttribute('checked', true);
 
             var answerMessage = UI_.createElem('div', 'quiz__answer-message');
 
@@ -113,20 +131,19 @@ quiz = (function() {
 
             UI_.insertAfter(answerMessage, answer);
 
-            for (var k in UI_.questionElems.options) {
-                UI_.questionElems.options[k].label.removeEventListener('click', gameProcessing_.getUserAnswer);
-                UI_.questionElems.options[k].input.disabled = true;
+            if (answer.dataset.score == 0) {
+                UI_.showCorrectAnswers();
             }
+        },
 
-            UI_.questionElems.nextButton.disabled = false;
+        showCorrectAnswers: function() {
 
-            if (currentQuestion < numberOfQuestions  - 1) {
-                UI_.questionElems.nextButton.addEventListener('click', UI_.showQuestion);
-            } else {
-                UI_.questionElems.nextButton.addEventListener('click', UI_.showResult.bind(UI_));
-            }
+            UI_.questionElems.options.map(function(answer, i) {
+                if (answer.dataset.score > 0) {
+                    UI_.showAnswer(answer);
+                }
+            })
 
-            currentQuestion++;
         },
 
         showResult: function() {
@@ -198,23 +215,18 @@ quiz = (function() {
          */
         createOption: function (answer, i) {
 
-            var input = UI_.createElem('input','quiz__question-radiobutton'),
-                label = UI_.createElem('label','quiz__question-label');
+            var answerObj = UI_.createElem('div','quiz__question-answer');
 
-            input.setAttribute('name','r');
-            input.setAttribute('id', i+'_'+answer.text);
-            input.setAttribute('type','radio');
-
-            label.dataset.score = answer.score;
-            label.setAttribute('for', i+'_'+answer.text);
-            label.textContent = answer.text;
+            answerObj.dataset.score = answer.score;
+            answerObj.dataset.index = i;
+            answerObj.textContent = answer.text;
 
             //Вешаем слушатель на вариант ответа
-            label.addEventListener('click', gameProcessing_.getUserAnswer);
+            answerObj.addEventListener('click', gameProcessing_.getUserAnswer);
 
-            UI_.questionElems.options.push({label:label, input: input});
+            UI_.questionElems.options.push(answerObj);
 
-            UI_.append([input,label], UI_.questionElems.optionsHolder);
+            UI_.append(answerObj, UI_.questionElems.optionsHolder);
 
         },
 
@@ -308,10 +320,9 @@ quiz = (function() {
 
             var answer = e.currentTarget;
 
-            score += answer.dataset.score;
+            score += parseFloat(answer.dataset.score);
 
-
-            UI_.showAnswer(answer);
+            UI_.answerSelected(answer);
 
         },
 
