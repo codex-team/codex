@@ -14,7 +14,7 @@ class Controller_Quiz extends Controller_Base_preDispatch
 
         $csrfToken = Arr::get($_POST, 'csrf_token');
 
-        $quiz_id = $this->request->param('id') ? $this->request->param('id') : 0;
+        $quiz_id = $this->request->param('id', 0);
 
         $quiz = new Model_Quiz($quiz_id);
 

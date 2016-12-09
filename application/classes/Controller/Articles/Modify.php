@@ -47,7 +47,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             $article->marked       = Arr::get($_POST, 'marked') ? 1 : 0;
             $article->order        = (int) Arr::get($_POST, 'order');
             $article->description  = Arr::get($_POST, 'description');
-            $article->quiz         = Arr::get($_POST, 'id');
+            $article->quiz_id      = Arr::get($_POST, 'quiz_id');
             $course_id             = Arr::get($_POST, 'course_id', 0);
 
             if ($article->title && $article->json && $article->description) {
