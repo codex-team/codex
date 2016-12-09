@@ -4,5 +4,5 @@
 <div id="quiz"></div>
 
 <script>
-    quiz.init( <?= json_encode($quizData); ?>, 'quiz');
+    quiz.init( <?= $quizData; ?>, 'quiz');
 </script>

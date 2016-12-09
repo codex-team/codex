@@ -48,7 +48,7 @@
         </div>
   
         <? if(!empty($quiz)): ?>
-            <?= View::factory('templates/quizzes/quiz', array('quizData' => json_decode($quiz->quiz_data))); ?>
+            <?= View::factory('templates/quizzes/quiz', array('quizData' => $quiz->quiz_data)); ?>
         <? endif ?>
         
         <?= View::factory('templates/blocks/share', array('share' => array(
