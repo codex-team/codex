@@ -140,7 +140,9 @@ quiz = (function() {
 
             UI_.questionElems.options.map(function(answer, i) {
                 if (answer.dataset.score > 0) {
-                    UI_.showAnswer(answer);
+                    answer.classList.add('quiz__question-answer_right');
+                } else {
+                    answer.classList.add('quiz__question-answer_wrong');
                 }
             })
 
