@@ -65,8 +65,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
              * If next or previous article exists, then we send it to view
              */
             if ($position + 1 < count($course_articles)) {
-
-
+                
                 $nextArticleId = $course_articles[$position + 1]['article_id'];
                 $nextArticle = Model_Courses::getArticleFromCourse($nextArticleId, $courseId);
 
@@ -80,8 +79,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
                 $this->view["previousArticle"] = $previousArticle;
             }
-
-
+            
             $this->view["articlesFromCourse"] = $articleList;
         }
 
