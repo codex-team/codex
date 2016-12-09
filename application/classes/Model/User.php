@@ -116,6 +116,7 @@ Class Model_User extends Model
         $model = new Model_User();
         if (!empty($user['id'])) {
             $model->id            = $user['id'];
+            $model->uri           = $user['uri'];
             $model->name          = $user['name'];
             $model->photo         = $user['photo'];
             $model->photo_small   = $user['photo_small'];
@@ -202,6 +203,7 @@ Class Model_User extends Model
     {
         $update = Dao_Users::update()
             ->set('name',          $this->name)
+            ->set('uri',           $this->uri)
             ->set('github_id',     $this->github_id)
             ->set('github_uri',    $this->github_uri)
             ->set('photo',         $this->photo)

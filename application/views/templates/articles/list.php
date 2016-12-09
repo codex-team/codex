@@ -1,4 +1,4 @@
-<? foreach ($feed as $i => $item): ?>
+<? foreach ($feed_items as $i => $item): ?>
 
     <article class="feed-item <?= $item->marked ? 'feed-item_big' : ''?>">
 
