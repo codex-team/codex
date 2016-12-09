@@ -1,17 +1,27 @@
-/* Стили для handler */
+/**
+* Quiz module styles
+*/
+
+
+/**
+* Quiz holder
+*/
 .quiz {
     position: relative;
     margin: auto;
     max-width: 700px;
     background: #fff;
     padding: 40px;
+    box-sizing: border-box;
     border: 1px #ECEFF6 solid;
     border-radius: 3px;
     font-size: 1.5em;
     overflow: hidden; //для позиционирования кнопки "далее"
 }
 
-/*Стили для слайда с вопросом*/
+/*
+* Стили для слайда с вопросом
+*/
 .quiz__question-title {
     font-size: 1.25em;
     font-weight: 600;
@@ -85,7 +95,7 @@
     cursor: pointer;
 }
 
-.quiz__question-label:before:hover { 
+.quiz__question-label:before:hover {
     border-color: #a3a3a3;
 }
 
@@ -99,7 +109,7 @@
     cursor: default;
 }
 
- .quiz__question-radiobutton:disabled + .quiz__question-label:before:hover {  
+ .quiz__question-radiobutton:disabled + .quiz__question-label:before:hover {
     border-color: #333;
 }
 
