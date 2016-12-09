@@ -248,6 +248,27 @@ CREATE TABLE IF NOT EXISTS `Users` (
   `instagram_uri` varchar(64) DEFAULT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `Quizzes`
+--
+
+CREATE TABLE IF NOT EXISTS `Quizzes` (
+  `id` int(11) NOT NULL,
+  `title` varchar(25) NOT NULL,
+  `description` text NOT NULL,
+  `quiz_data` text NOT NULL,
+  `dt_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `dt_update` timestamp NULL DEFAULT NULL,
+  `is_removed` tinyint(4) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `Articles`
+  ADD `quiz_id` INT NULL DEFAULT '0' AFTER `description`;
+
+-- --------------------------------------------------------
+
 --
 -- Indexes for dumped tables
 --
@@ -322,6 +343,11 @@ ALTER TABLE `Courses`
 ALTER TABLE `Courses_articles`
   ADD PRIMARY KEY (`id`);
 
+--
+-- Индексы таблицы `Quizzes`
+--
+ALTER TABLE `Quizzes`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for table `Alias`
@@ -378,7 +404,12 @@ ALTER TABLE `Courses_articles`
 --
 ALTER TABLE `Courses`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-  
+--
+-- AUTO_INCREMENT для таблицы `Quizzes`
+--
+ALTER TABLE `Quizzes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- Constraints for dumped tables
 --
@@ -402,6 +433,8 @@ ADD CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `Users` (`id
 ALTER TABLE `Tags_articles`
 ADD CONSTRAINT `tags_articles_ibfk_1` FOREIGN KEY (`tag_id`) REFERENCES `Tags` (`id`),
 ADD CONSTRAINT `tags_articles_ibfk_2` FOREIGN KEY (`article_id`) REFERENCES `Articles` (`id`);
+
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
