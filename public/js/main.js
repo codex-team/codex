@@ -272,7 +272,7 @@ codex.sharer = (function( sharer ){
 
     sharer.init = function () {
 
-        var shareButtons = document.querySelectorAll('.sharing .but, .sharing .main_but');
+        var shareButtons = document.querySelectorAll('.sharing .but, .sharing .main_but, .quiz__sharing .but');
 
         for (var i = shareButtons.length - 1; i >= 0; i--) {
 
@@ -283,11 +283,13 @@ codex.sharer = (function( sharer ){
 
     sharer.click = function (event) {
 
+        var target = event.target;
+
         /**
         * Social provider stores in data 'shareType' attribute on share-button
         * But click may be fired on child-element in button, so we need to handle it.
         */
-        var type = event.target.dataset.shareType || event.target.parentNode.dataset.shareType;
+        var type = target.dataset.shareType || target.parentNode.dataset.shareType;
 
         if (!sharer[type]) return;
 
@@ -299,10 +301,18 @@ codex.sharer = (function( sharer ){
         //      window.shareData[key] = encodeURIComponent(window.shareData[key]);
         // }
 
+        var shareData = {
+            url:    target.dataset.url || target.parentNode.dataset.url,
+            title:  target.dataset.title || target.parentNode.dataset.title,
+            desc:   target.dataset.desc || target.parentNode.dataset.desc,
+            img:    target.dataset.img || target.parentNode.dataset.title
+        };
+
         /**
         * Fire click handler
         */
-        sharer[type](window.shareData);
+
+        sharer[type](shareData);
 
     };
 
@@ -778,13 +788,6 @@ var xhr = (function(xhr){
 * Document ready callback
 */
 codex.docReady(function(){
-
-    if (window.shareData) {
-
-        codex.sharer.init();
-
-    }
-
 
     var joinBlank = document.getElementById('joinBlank');
     if ( typeof joinBlank != 'undefined' && joinBlank !== null ){

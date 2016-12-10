@@ -13,30 +13,30 @@ quiz = (function() {
      * Публичный метод init.
      *
      * @param {object} quizDataInput  - объект с информацией о тесте
-     * @param {string} handler - id элемента, в который будет выводиться тест
+     * @param {string} holder - id элемента, в который будет выводиться тест
      */
-    var init = function(quizDataInput, handler) {
+    var init = function(quizDataInput, holder) {
 
         quizData = quizDataInput;
         numberOfQuestions = quizData.questions.length;
         currentQuestion = 0;
         score = 0;
 
-        UI_.prepare(handler);
+        UI_.prepare(holder);
         UI_.setupQuestionInterface();
     };
 
     var UI_ = {
 
-        handler: null,
+        holder: null,
         currentQuestionObj: null,
 
         //Объект, в котором будут храниться DOM-элементы, связанные с отображением вопроса
         questionElems: null,
 
-        prepare: function(handler) {
-            UI_.handler = document.getElementById(handler);
-            UI_.handler.classList.add('quiz');
+        prepare: function(holder) {
+            UI_.holder = document.getElementById(holder);
+            UI_.holder.classList.add('quiz');
         },
 
         /**
@@ -150,6 +150,8 @@ quiz = (function() {
 
         showResult: function() {
 
+            var result =  score + '/' + quizData.questions.length;
+
             UI_.questionElems.nextButton.removeEventListener('click', UI_.showResult);
 
             UI_.clear();
@@ -158,54 +160,71 @@ quiz = (function() {
             resultTitle.textContent = 'Ваш результат:';
 
             var resultScore = UI_.createElem('div', 'quiz__result-score');
-            resultScore.textContent = score + '/' + quizData.questions.length;
+            resultScore.textContent = result;
 
             var resultMessage = UI_.createElem('div', 'quiz__result-message');
             resultMessage.textContent = gameProcessing_.getMessage();
 
             var social = UI_.createElem('div', 'quiz__sharing');
-            UI_.createSocial(social);
+            UI_.createSocial(social, result);
 
             var retry = UI_.createElem('div', 'quiz__retry-button');
             retry.textContent = 'Пройти еще раз';
-            retry.addEventListener('click', init.bind(null, quizData, UI_.handler.id));
+            retry.addEventListener('click', init.bind(null, quizData, UI_.holder.id));
 
             UI_.append([resultTitle, resultScore, resultMessage, social, retry]);
+
+            codex.sharer.init();
         },
 
         /**
-         * Создаем кнопки социальных сетей и добавляем их в handler
+         * Создаем кнопки социальных сетей и добавляем их в holder
          *
-         * @param {Element} handler
+         * @param {Element} holder
          */
-        createSocial: function(handler) {
+        createSocial: function(holder, result) {
 
-            var vk = UI_.createElem('span', ['but', 'vk']);
-            var tg = UI_.createElem('span', ['but', 'tg']);
-            var tw = UI_.createElem('span', ['but', 'tw']);
-            var fb = UI_.createElem('span', ['but', 'fb']);
+            var networks = [
+                {
+                    title: 'Share on the VK',
+                    shareType: 'vkontakte',
+                    class: 'vk',
+                    icon: 'icon-vkontakte'
+                },
+                {
+                    title: 'Share on the Facebook',
+                    shareType: 'facebook',
+                    class: 'fb',
+                    icon: 'icon-facebook-squared'
+                },
+                {
+                    title: 'Tweet',
+                    shareType: 'twitter',
+                    class: 'tw',
+                    icon: 'icon-twitter'
+                },
+                {
+                    title: 'Forward in Telegramm',
+                    shareType: 'telegram',
+                    class: 'tg',
+                    icon: 'icon-paper-plane'
+                }
+            ];
 
-            vk.setAttribute('data-share-type', 'vkontakte');
-            tg.setAttribute('data-share-type', 'telegram');
-            tw.setAttribute('data-share-type', 'twitter');
-            fb.setAttribute('data-share-type', 'facebook');
+            networks.map(function(current, i) {
+                var button = UI_.createElem('span', ['but', current.class]),
+                    icon   = UI_.createElem('i', current.icon);
 
-            vk.setAttribute('title', 'Share on the Vkontakte');
-            tg.setAttribute('title', 'Forward in Telegram');
-            tw.setAttribute('title', 'Tweet');
-            fb.setAttribute('title', 'Share on the Facebook');
+                button.dataset.shareType = current.shareType;
+                button.setAttribute('title', current.title);
 
-            var vk_icon = UI_.createElem('i', 'icon-vkontakte');
-            var tg_icon = UI_.createElem('i', 'icon-paper-plane');
-            var tw_icon = UI_.createElem('i', 'icon-twitter');
-            var fb_icon = UI_.createElem('i', 'icon-facebook-squared');
+                button.dataset.url = window.location.href;
+                button.dataset.title = 'Я набрал ' + result + ' в ' + (quizData.title || 'тесте от команды CodeX');
+                button.dataset.desc = quizData.description || '';
 
-            UI_.append(vk_icon, vk);
-            UI_.append(tg_icon, tg);
-            UI_.append(tw_icon, tw);
-            UI_.append(fb_icon, fb);
-
-            UI_.append([vk,tg,tw,fb], handler);
+                UI_.append(icon, button);
+                UI_.append(button, holder)
+            });
         },
 
         /**
@@ -260,11 +279,11 @@ quiz = (function() {
          * Добавляет элементы в переданный элемент
          *
          * @param {Element|Array} elems - элемент или массив элементов
-         * @param {Element|null} parent - родитель или UI_.handler, если передан NULL
+         * @param {Element|null} parent - родитель или UI_.holder, если передан NULL
          */
         append: function(elems, parent) {
 
-            parent = parent || UI_.handler;
+            parent = parent || UI_.holder;
 
             if (!(elems instanceof Element)) {
 
@@ -301,7 +320,7 @@ quiz = (function() {
          * @param {Element} parent
          */
         clear: function(parent) {
-            parent = parent || UI_.handler;
+            parent = parent || UI_.holder;
 
             while (parent.firstChild) {
                 parent.removeChild(parent.firstChild);
