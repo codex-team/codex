@@ -75,10 +75,7 @@ codex.core = {
 
     }
 
-},
-
-
-
+};
 
 codex.content = {
 
@@ -153,8 +150,6 @@ codex.content = {
     },
     
     /**
-     * @private
-     *
      * Calculates offset of DOM element
      *
      * @param el
@@ -232,37 +227,42 @@ codex.scrollUp = {
 /**
  * Fixes columns
  */
-codex.fixColumns = {
+codex.fixColumns = (function() {
 
-    init : function() {
+    var makeFixedColumns = function(columns) {
+
+        columns.forEach(function(item) {
+
+            item.style.position = "";
+            item.style.top = "";
+
+            var offset = codex.content.getOffset(item);
+
+            if (document.body.scrollTop >= offset.top) {
+                item.style.position = "fixed";
+                item.style.top = 0;
+
+            }
+
+        });
+
+    };
+
+    var init = function() {
 
         var courseNavigation = document.getElementsByName('js-course-navigation');
 
-        var makeFixedColumns = function(columns) {
-
-            columns.forEach(function(item) {
-
-                item.style.position = "";
-                item.style.top = "";
-
-                var offset = codex.content.getOffset(item);
-
-                if (document.body.scrollTop >= offset.top) {
-                    item.style.position = "fixed";
-                    item.style.top = 0;
-
-                }
-
-            });
-
-        };
-
         document.addEventListener('scroll', function() {
-            makeFixedColumns(courseNavigation);
+            makeFixedColumns(courseNavigation)
         }, false);
 
-    }
-};
+    };
+
+    return {
+        init : init
+    };
+
+})();
 
 codex.sharer = (function( sharer ){
 
