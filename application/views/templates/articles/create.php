@@ -36,7 +36,7 @@
             <select name="quiz_id">
                 <option value="0">Тест не выбран</option>
                 <? foreach ($quizzes as $quiz): ?>
-                    <option value="<?= $quiz['id']; ?>">
+                    <option value="<?= $quiz['id']; ?>" <?= $quiz['id'] == $article->quiz_id?'selected':''; ?>>
                         <?= $quiz['title']; ?>
                     </option>
                 <? endforeach; ?>
