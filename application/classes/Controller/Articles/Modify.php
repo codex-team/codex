@@ -92,6 +92,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
                     $current_courses = Model_Courses::getCoursesByArticleId($article);
 
                     if ($current_courses) {
+
                         $courses_to_delete = array_diff($current_courses, $courses_ids);
                         $courses_to_add = array_diff($courses_ids, $current_courses);
 
@@ -101,8 +102,15 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
                             Model_Courses::addArticle($article->id, $course_id);
                         }
 
-                        $feed->remove($article->id);
+                    } else {
+
+                        foreach ($courses_ids as $course_id) {
+                            Model_Courses::addArticle($article->id, $course_id);
+                        }
+
                     }
+
+                    $feed->remove($article->id);
                 }
 
                 // Если поле uri пустое, то редиректить на обычный роут /article/id
