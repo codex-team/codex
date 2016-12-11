@@ -159,7 +159,7 @@ Class Model_Courses extends Model
                                         ->where('article_id', '=', $article->id)
                                         ->execute('course_id');
 
-        return $selectedCourses?array_keys($selectedCourses):array();
+        return $selectedCourses ? array_keys($selectedCourses) : array();
     }
 
     /**

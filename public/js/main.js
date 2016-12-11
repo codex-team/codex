@@ -75,10 +75,7 @@ codex.core = {
 
     }
 
-},
-
-
-
+};
 
 codex.content = {
 
@@ -150,6 +147,25 @@ codex.content = {
             button.classList.add('hide');
         }
 
+    },
+    
+    /**
+     * Calculates offset of DOM element
+     *
+     * @param el
+     * @returns {{top: number, left: number}}
+     */
+    getOffset : function ( el ) {
+
+        var _x = 0;
+        var _y = 0;
+
+        while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
+            _x += (el.offsetLeft + el.clientLeft);
+            _y += (el.offsetTop + el.clientTop);
+            el = el.offsetParent;
+        }
+        return { top: _y, left: _x };
     }
 
 
@@ -207,6 +223,46 @@ codex.scrollUp = {
     }
 
 };
+
+/**
+ * Fixes columns
+ */
+codex.fixColumns = (function() {
+
+    /**
+     * Contains array of DOM elements which we want to make fixed (position: fix)
+     */
+    var columns;
+
+    var makeFixedColumns = function() {
+
+        codex.fixColumns.columns.forEach(function(item) {
+
+            item.style.position = "";
+            item.style.top = "";
+
+            var offset = codex.content.getOffset(item);
+
+            if (document.body.scrollTop >= offset.top) {
+                item.style.position = "fixed";
+                item.style.top = 0;
+
+            }
+
+        });
+
+    };
+
+    var init = function(columns) {
+        codex.fixColumns.columns = columns;
+        document.addEventListener('scroll', makeFixedColumns, false);
+    };
+
+    return {
+        init : init
+    };
+
+})();
 
 codex.sharer = (function( sharer ){
 
