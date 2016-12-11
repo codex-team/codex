@@ -11,58 +11,53 @@
     margin: auto;
     max-width: 700px;
     background: #fff;
-    padding: 40px;
+    padding: 30px 50px;
     box-sizing: border-box;
     border: 1px #ECEFF6 solid;
     border-radius: 3px;
-    font-size: 1.5em;
-    overflow: hidden; //для позиционирования кнопки "далее"
+    font-size: 15px;
 }
 
 /*
 * Стили для слайда с вопросом
 */
 .quiz__question-title {
-    font-size: 1.05em;
+    font-size: 1.15em;
     font-weight: 600;
-    margin-bottom: 1.5em;
+    margin-bottom: 1em;
 }
 
 .quiz__question-counter {
     float: right;
     color: #828282;
+    letter-spacing: 3px;
 }
 
 .quiz__question-button{
-    padding: 5px 10px;
-    font: inherit;
-    font-size: 0.66em;
-    color: #4e88d6;
-    background-color: #fff;
-    border: #4e88d6 solid 1px;
-    border-radius: 5px;
+    padding: 10px 28px;
+    margin-top: 22px;
+    border: 0;
+    border-radius: 30px;
     outline: none;
-    transition: background .5s, color .5s;
+    font: inherit;
+    background: #5c95cf;
+    color: #fff;
 }
 
 .quiz__question-button:hover,
 .quiz__question-button:focus{
-    background: #4e88d6;
+    background: #3c7ab9;
     color: #fff;
 }
 
 .quiz__question-button:disabled,
 .quiz__question-button:disabled:hover,
 .quiz__question-button:disabled:focus {
-    border-color: #b3b6bd;
-    color: #b3b6bd;
-    background-color: #fff;
     cursor: default;
 }
 
 .quiz__question-button_next {
 	cursor: pointer;
-    float: right;
 }
 
 
@@ -72,33 +67,36 @@
 */
 .quiz__question-answer{
     position: relative;
-    padding: .5em 0 .5em 40px;
+    padding: .5em 0 .5em 36px;
     cursor: pointer;
     line-height: 1.4em;
+}
+.quiz__question-answer:not(:last-of-type){
+    margin-bottom: .4em;
 }
 .quiz__question-answer:before{
     position: absolute;
     left: 0;
-    top: .4em;
+    top: .46em;
     display: inline-block;
     content: '';
-    width: 22px;
-    height: 22px;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
     border: 4px solid #404040;
-    box-shadow: inset 0 0 0 5px #fff;
+    box-shadow: inset 0 0 0 4px #fff;
 }
 .quiz__question-answer:hover::before{
     background: #404040;
 }
 
 .quiz__question-answer_right:before{
-    border-color: #18d586;
-    background: #18d586 !important;
+    border-color: #34b98e;
+    background: #34b98e !important;
 }
 .quiz__question-answer_wrong:before{
-    border-color: #e94d4d;
-    background: #e94d4d !important;
+    border-color: #ec6d6d;
+    background: #ec6d6d !important;
 }
 
 
@@ -117,51 +115,81 @@
 
 
 .quiz__answer-message {
-    margin-left: 40px;
-    font-style: italic;
-    color: #b3b6bd;
-}
-
-.quiz__result-title {
-    font-size: 1.5em;
-    text-align: center;
+    margin: -.5em 0 .5em 36px;
+    color: #717888;
 }
 
 .quiz__result-score {
-    margin: 1em 0;
-    font-size: 2.5em;
+    margin: 0.7em 0 1em;
+    font-size: 2.7em;
     font-weight: bold;
     text-align: center;
+    letter-spacing: 0.2em;
+    color: #0081d2;
 }
 
 .quiz__result-message {
-    font-style: italic;
     text-align: center;
+    font-size: 2em;
+    line-height: 1.25em;
+    letter-spacing: .02em;
+    font-weight: bold;
 }
 
 
 .quiz__retry-button {
-    font-size: 0.8em;
-    font-style: italic;
-    text-align: center;
+    position: relative;
+    left: 40%;
+    display: inline-block;
     cursor: pointer;
+    border-bottom: 1px solid #abbee8;
+    color: #186ebd;
 }
 
 .quiz__sharing{
     text-align: center;
-    padding: 30px 0;
+    padding: 40px 0 30px;
     border-radius: 3px;
     color: #616C98;
 }
 
 .quiz__sharing .but{
     margin: 0 10px;
+    padding: 6px 20px;
+    border-radius: 20px;
     cursor: pointer;
-    color: #a1acc1;
-    font-size: 30px;
+    color: #fff;
+    background: #3c7dce;
+    font-size: 1.2em !important;
+    box-sizing: border-box;
 }
 
-.quiz__sharing .but:hover{color: #5D75BD;}
-.quiz__sharing .tw:hover{color: #6E98FD;}
-.quiz__sharing .tg:hover{color: #41ADFF;}
-.quiz__sharing .tg{font-size: 25px;}
+.quiz__sharing .but:hover{
+    background: transparent;
+    box-shadow: inset 0 0 0 2px #5D75BD;
+    color: #5D75BD;
+}
+.quiz__sharing .tw:hover{
+    box-shadow: inset 0 0 0 2px #6E98FD;
+    color: #6E98FD;
+}
+.quiz__sharing .tg:hover{
+    box-shadow: inset 0 0 0 2px #41ADFF;
+    color: #41ADFF;
+}
+
+@media all and (max-width: 800px) {
+    .quiz__sharing .but{
+        display: inline-block;
+        padding: 0;
+        font-size: 1em;
+        width: 40px;
+        height: 40px;
+    }
+    .quiz__sharing .but i{
+        line-height: 40px;
+    }
+    .quiz__retry-button{
+        left: 26%;
+    }
+}

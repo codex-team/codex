@@ -37,6 +37,7 @@ quiz = (function() {
         prepare: function(holder) {
             UI_.holder = document.getElementById(holder);
             UI_.holder.classList.add('quiz');
+            UI_.holder.classList.add('clearfix');
         },
 
         /**
@@ -156,9 +157,6 @@ quiz = (function() {
 
             UI_.clear();
 
-            var resultTitle = UI_.createElem('div', 'quiz__result-title');
-            resultTitle.textContent = 'Ваш результат:';
-
             var resultScore = UI_.createElem('div', 'quiz__result-score');
             resultScore.textContent = result;
 
@@ -172,7 +170,7 @@ quiz = (function() {
             retry.textContent = 'Пройти еще раз';
             retry.addEventListener('click', init.bind(null, quizData, UI_.holder.id));
 
-            UI_.append([resultTitle, resultScore, resultMessage, social, retry]);
+            UI_.append([resultScore, resultMessage, social, retry]);
 
             codex.sharer.init();
         },
