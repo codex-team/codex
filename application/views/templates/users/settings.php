@@ -23,16 +23,19 @@
                 <input type="hidden" name="csrf" value="<?= Security::token() ?>" />
 
                 <label for="name">Name</label>
-                <input type="text" id="name" name="name" value="<?= $user->name?>" required/>
+                <input type="text" id="name" name="name" value="<?= $user->name ?>" required/>
 
                 <label for="bio">About</label>
                 <textarea rows="2" id="bio" name="bio"><?= $user->bio?></textarea>
 
+                <label for="alias">Alias</label>
+                <input type="text" id="alias" name="alias" value="<?= $user->uri ?>" required/>
+
                 <label for="vk_uri"><i class="icon-vkontakte"></i> vk.com</label>
-                <input type="text" id="vk_uri" name="vk_uri" value="<?= $user->vk_uri?>"/>
+                <input type="text" id="vk_uri" name="vk_uri" value="<?= $user->vk_uri ?>"/>
 
                 <label for="instagram_uri"> <i class="icon-instagram"></i> Instagram</label>
-                <input type="text" id="instagram_uri" name="instagram_uri" value="<?=$user->instagram_uri?>"/>
+                <input type="text" id="instagram_uri" name="instagram_uri" value="<?=$user->instagram_uri ?>"/>
 
                 <br>
 
