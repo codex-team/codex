@@ -229,6 +229,9 @@ codex.scrollUp = {
  */
 codex.fixColumns = (function() {
 
+    /**
+     * Contains array of DOM elements which we want to make fixed (position: fix)
+     */
     var columns;
 
     var makeFixedColumns = function() {
