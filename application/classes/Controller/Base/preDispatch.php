@@ -91,6 +91,8 @@ class Controller_Base_preDispatch extends Controller_Template
                     $sub_value = stripos( $sub_value, 'سمَـَّوُوُحخ ̷̴̐خ ̷̴̐خ ̷̴̐خ امارتيخ ̷̴̐خ') !== false ? '' : $sub_value ;
                     $_POST[$key][$sub_key] = Security::xss_clean(HTML::chars($sub_value));
                 }
+
+                continue;
             }
 
             $value = stripos($value, 'سمَـَّوُوُحخ ̷̴̐خ ̷̴̐خ ̷̴̐خ امارتيخ ̷̴̐خ') !== false ? '' : $value ;
