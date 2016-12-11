@@ -112,3 +112,7 @@
     <? endif; ?>
 </div>
 
+<script>
+    codex.fixColumns.columns = document.getElementsByName('js-course-navigation');
+</script>
+

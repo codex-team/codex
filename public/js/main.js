@@ -229,9 +229,11 @@ codex.scrollUp = {
  */
 codex.fixColumns = (function() {
 
-    var makeFixedColumns = function(columns) {
+    var columns;
 
-        columns.forEach(function(item) {
+    var makeFixedColumns = function() {
+
+        codex.fixColumns.columns.forEach(function(item) {
 
             item.style.position = "";
             item.style.top = "";
@@ -249,16 +251,11 @@ codex.fixColumns = (function() {
     };
 
     var init = function() {
-
-        var courseNavigation = document.getElementsByName('js-course-navigation');
-
-        document.addEventListener('scroll', function() {
-            makeFixedColumns(courseNavigation)
-        }, false);
-
+        document.addEventListener('scroll', makeFixedColumns, false);
     };
 
     return {
+        columns : columns,
         init : init
     };
 
