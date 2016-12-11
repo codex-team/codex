@@ -19,7 +19,8 @@ Class Model_Courses extends Model
     public $is_removed;
     public $is_published;
     public $marked;
-    public $order;
+
+    const FEED_TYPE = 'course';
 
     /**
      * Пустой конструктор для модели курсов, если нужно получить курс из хранилища, нужно пользоваться статическими
@@ -45,7 +46,6 @@ Class Model_Courses extends Model
             ->set('is_removed',     $this->is_removed)
             ->set('is_published',   $this->is_published)
             ->set('marked',         $this->marked)
-            ->set('order',          $this->order)
             ->clearcache('courses_list')
             ->execute();
 
@@ -106,7 +106,7 @@ Class Model_Courses extends Model
      */
     public function update()
     {
-        Dao_Contests::update()->where('id', '=', $this->id)
+        Dao_Courses::update()->where('id', '=', $this->id)
             ->set('uri',            $this->uri)
             ->set('title',          $this->title)
             ->set('text',           $this->text)
@@ -125,9 +125,9 @@ Class Model_Courses extends Model
      * Добавляет статью к курсу.
      * @param $article_id
      * @param $course_id
-     * @return DB::insert
+     * @return Dao_CoursesArticles::insert
      */
-    public static function addArticleToCourse($article_id, $course_id) {
+    public static function addArticle($article_id, $course_id) {
         $article = Model_Article::get($article_id);
         if (!$article->id) {
             return false;
@@ -138,30 +138,47 @@ Class Model_Courses extends Model
             return false;
         }
 
-        return DB::insert('Courses_articles', array('course_id', 'article_id', 'article_index'))->values(array($course_id, $article_id, 0))->execute();
+        return Dao_CoursesArticles::insert()
+                        ->set('course_id', $course_id)
+                        ->set('article_id', $article_id)
+                        ->set('article_index', 0)
+                        ->execute();
     }
 
     /**
      * Получить список курсов, в которые включена данная статья.
      * @param $article
-     * @return bool|object
+     * @return bool|array
      */
-    public static function getCurrentCoursesIds($article) {
+    public static function getCoursesByArticleId($article) {
         if (!$article) {
             return false;
         }
 
-        return DB::select('course_id')->from('Courses_articles')->where('article_id', '=', $article->id)->execute();
+        $selectedCourses = Dao_CoursesArticles::select('course_id')
+                                        ->where('article_id', '=', $article->id)
+                                        ->execute('course_id');
+
+        return $selectedCourses ? array_keys($selectedCourses) : array();
     }
 
     /**
-     * Открепляет статью ото всех курсов.
-     * TODO: временное решение, пока у нас статья может быть добавлена только к отдному курсу.
-     * @param $article_id
-     * @return DB:remove
+     * Открепляет статью от курсов.
+     *
+     * @param int $article_id
+     * @param {int|array} $courses_ids - если передан, то открепляет статью от указанных курсов, иначе ото всех
+     * @return Dao_CoursesArticles:remove
      */
-    public static function delArticleFromCourses($article_id) {
-        return DB::delete('Courses_articles')->where('article_id', '=', $article_id)->execute();
+    public static function deleteArticles($article_id, $courses_ids = 0) {
+
+        $deleteQuery = Dao_CoursesArticles::delete()->where('article_id', '=', $article_id);
+
+        if (!$courses_ids) {
+            return $deleteQuery->execute();
+        }
+
+        return $deleteQuery->where_in('course_id', $courses_ids)->execute();
+
     }
 
     /**
@@ -257,5 +274,20 @@ Class Model_Courses extends Model
         }
 
         return $courses;
+    }
+
+    /**
+     * Получить id статей, входящих в курс
+     *
+     * @param $course_id
+     * @return bool|object
+     */
+    public static function getArticles($course_id)
+    {
+        if (!$course_id) {
+            return false;
+        }
+
+        return Dao_CoursesArticles::select('article_id')->where('course_id', '=', $course_id)->execute();
     }
 }

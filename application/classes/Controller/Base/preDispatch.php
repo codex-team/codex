@@ -86,7 +86,16 @@ class Controller_Base_preDispatch extends Controller_Template
 
         foreach ($_POST as $key => $value){
 
-            $value = stripos( $value, 'سمَـَّوُوُحخ ̷̴̐خ ̷̴̐خ ̷̴̐خ امارتيخ ̷̴̐خ') !== false ? '' : $value ;
+            if (is_array($value)) {
+                foreach ($value as $sub_key => $sub_value) {
+                    $sub_value = stripos( $sub_value, 'سمَـَّوُوُحخ ̷̴̐خ ̷̴̐خ ̷̴̐خ امارتيخ ̷̴̐خ') !== false ? '' : $sub_value ;
+                    $_POST[$key][$sub_key] = Security::xss_clean(HTML::chars($sub_value));
+                }
+
+                continue;
+            }
+
+            $value = stripos($value, 'سمَـَّوُوُحخ ̷̴̐خ ̷̴̐خ ̷̴̐خ امارتيخ ̷̴̐خ') !== false ? '' : $value ;
 
             if ( in_array($key, $exceptions) === false ){
                 $_POST[$key] = Security::xss_clean(HTML::chars($value));

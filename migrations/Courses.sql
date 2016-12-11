@@ -37,8 +37,7 @@ CREATE TABLE IF NOT EXISTS `Courses` (
   `dt_update` timestamp NULL DEFAULT NULL,
   `is_removed` tinyint(1) NOT NULL DEFAULT '0',
   `is_published` tinyint(1) NOT NULL DEFAULT '0',
-  `marked` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Помечает курс в списке как важный',
-  `order` int(11) NOT NULL DEFAULT '0' COMMENT 'Порядок вывода статей и курсов'
+  `marked` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Помечает курс в списке как важный'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
