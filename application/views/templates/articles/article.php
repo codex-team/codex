@@ -113,6 +113,6 @@
 </div>
 
 <script>
-    codex.fixColumns.columns = document.getElementsByName('js-course-navigation');
+    codex.fixColumns.init(document.getElementsByName('js-course-navigation'));
 </script>
 

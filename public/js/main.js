@@ -253,12 +253,12 @@ codex.fixColumns = (function() {
 
     };
 
-    var init = function() {
+    var init = function(columns) {
+        codex.fixColumns.columns = columns;
         document.addEventListener('scroll', makeFixedColumns, false);
     };
 
     return {
-        columns : columns,
         init : init
     };
 
@@ -892,9 +892,6 @@ codex.docReady(function(){
 
     /** Initialize scroll up button */
     codex.scrollUp.init();
-
-    /** Fix previous and next article columns if they exist on page */
-    codex.fixColumns.init();
 
 });
 
