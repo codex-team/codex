@@ -3,22 +3,23 @@
 class Controller_Users_Index extends Controller_Base_preDispatch
 {
 
-		/*
-		* Если в ссылке /user/<user_id> передан user_id, тогда пользователя находят в БД по его id
-		* Если в ссылке не передан user_id, тогда пользователя находят в текущей сессии авторизации.
-		* Если пользователя нет в БД, тогда выводится сообщение об ошибке и просьбе авторизоваться.
-		*/
+        /*
+        * Если в ссылке /user/<user_id> передан user_id, тогда пользователя находят в БД по его id
+        * Если в ссылке не передан user_id, тогда пользователя находят в текущей сессии авторизации.
+        * Если пользователя нет в БД, тогда выводится сообщение об ошибке и просьбе авторизоваться.
+        */
 
 
     public function action_show()
     {
-        $user_id = $this->request->param('user_id');
+        $user_id = $this->request->param('user_id') ?: $this->request->query('user_id');
 
-	    if ( !empty($user_id) ){
-		    $viewUser = Model_User::get( $user_id );
-	    } else {
-	        $viewUser = $this->user;
-	    }
+        if ( !empty($user_id) ){
+            $viewUser = Model_User::get( $user_id );
+            $this->redirect($viewUser->uri);
+        } else {
+            $viewUser = $this->user;
+        }
 
         if (!$viewUser->id) {
             throw new HTTP_Exception_404();
@@ -28,7 +29,7 @@ class Controller_Users_Index extends Controller_Base_preDispatch
         * Clear cache hook
         */
         $needClearCache = Arr::get($_GET, 'clear') == 1;
-        $this->view["articles"]  = Model_Article::getArticlesByUserId($viewUser->id, $needClearCache);
+        $this->view["feed_items"]  = Model_Article::getArticlesByUserId($viewUser->id, $needClearCache);
 
         $this->view['join_requests'] = $viewUser->getUserRequests();
 
@@ -57,14 +58,20 @@ class Controller_Users_Index extends Controller_Base_preDispatch
         } else {
             $name          = Arr::get($_POST, 'name');
             $bio           = Arr::get($_POST, 'bio');
+            $alias         = Arr::get($_POST, 'alias');
 
             $instagram_uri = $this->methods->parseUri(Arr::get($_POST, 'instagram_uri'));
             $vk_uri        = $this->methods->parseUri(Arr::get($_POST, 'vk_uri'));
 
-            $fields = array('name'          => $name,
+            $fields = array(
+                'name'          => $name,
                 'vk_uri'        => $vk_uri,
                 'instagram_uri' => $instagram_uri,
-                'bio'           => $bio);
+                'bio'           => $bio,
+                'uri'           => $alias
+                );
+
+            Model_Alias::updateAlias( $this->user->uri, $alias, Model_Uri::USER, $this->user->id );
 
             /**
              * Занесение данных в модель пользователя и в бд.
