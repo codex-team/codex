@@ -132,8 +132,9 @@
     position: relative;
     left: 40%;
     display: inline-block;
+    margin-top: .5em;
     cursor: pointer;
-    border-bottom: 1px solid #abbee8;
+
     color: #186ebd;
 }
 
@@ -141,6 +142,7 @@
     content: '';
     display: inline-block;
     margin-bottom: -.3em;
+    margin-right: .4em;
     background-image: url(/public/img/quizzes/retry.svg);
     background-size: cover;
     height: 20px;
