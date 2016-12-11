@@ -86,6 +86,9 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
      */
     private function getArticlesFromCourse($articleId, $courseId)
     {
+        /** Course information */
+        $course = Model_Courses::get($courseId);
+
         /** getting all articles from course */
         $course_articles = Model_Courses::getArticles($courseId);
 
@@ -127,6 +130,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
             $this->view["previousArticle"] = $previousArticle;
         }
 
+        $this->view["course"] = $course;
         $this->view["articlesFromCourse"] = $articleList;
     }
 }

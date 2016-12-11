@@ -1,6 +1,6 @@
 <section class="course">
 
-    <h2 class="course__title">«Изучение Python»</h2>
+    <h2 class="course__title"><?=$course->title; ?></h2>
 
     <ul class="courses-list">
         <? for($i = 0; isset($articles) && $i < count($articles); $i++) : ?>

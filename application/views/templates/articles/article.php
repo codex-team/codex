@@ -2,7 +2,10 @@
 
 <div class="center_side clear">
     <? if (isset($articlesFromCourse)): ?>
-        <?= View::factory('templates/articles/course_list')->set('articles', $articlesFromCourse); ?>
+        <?= View::factory('templates/articles/course_list')
+            ->set('articles', $articlesFromCourse)
+            ->set('course', $course)
+        ?>
     <? endif; ?>
 </div>
 
@@ -102,7 +105,10 @@
 
 <div class="center_side clear">
     <? if (isset($articlesFromCourse)) : ?>
-        <?=View::factory('templates/articles/course_list')->set('articles', $articlesFromCourse); ?>
+        <?=View::factory('templates/articles/course_list')
+            ->set('articles', $articlesFromCourse)
+            ->set('course', $course)
+        ?>
     <? endif; ?>
 </div>
 
