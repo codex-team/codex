@@ -6,7 +6,8 @@ quiz = (function() {
     var quizData            = null,
         numberOfQuestions   = null,
         currentQuestion     = null,
-        score               = null;
+        score               = null,
+        maxScore            = null;
 
 
     /**
@@ -22,6 +23,7 @@ quiz = (function() {
         currentQuestion = 0;
         score = 0;
 
+        gameProcessing_.prepare();
         UI_.prepare(holder);
         UI_.setupQuestionInterface();
     };
@@ -95,7 +97,7 @@ quiz = (function() {
 
         answerSelected: function(answer) {
 
-            answer.classList.add('quiz__question-answer-selected');
+            answer.classList.add('quiz__question-answer_selected');
 
             UI_.questionElems.options.map(function(current, i) {
                 current.removeEventListener('click', gameProcessing_.getUserAnswer);
@@ -151,7 +153,7 @@ quiz = (function() {
 
         showResult: function() {
 
-            var result =  score + '/' + quizData.questions.length;
+            var result =  score + '/' + maxScore;
 
             UI_.questionElems.nextButton.removeEventListener('click', UI_.showResult);
 
@@ -211,14 +213,21 @@ quiz = (function() {
 
             networks.map(function(current, i) {
                 var button = UI_.createElem('span', ['but', current.class]),
-                    icon   = UI_.createElem('i', current.icon);
+                    icon   = UI_.createElem('i', current.icon),
+                    shareMessage = null;
 
                 button.dataset.shareType = current.shareType;
                 button.setAttribute('title', current.title);
 
-                button.dataset.url = window.location.href;
-                button.dataset.title = 'Я набрал ' + result + ' в ' + (quizData.title || 'тесте от команды CodeX');
-                button.dataset.desc = quizData.description || '';
+                if (quizData.shareMessage) {
+                    shareMessage =  quizData.shareMessage.replace('$score', result);
+                }
+
+                shareMessage = shareMessage || 'Я набрал ' + result + ' в ' + (quizData.title || 'тесте от команды CodeX');
+
+                button.dataset.url      = window.location.href;
+                button.dataset.title    = shareMessage;
+                button.dataset.desc     = quizData.description || '';
 
                 UI_.append(icon, button);
                 UI_.append(button, holder)
@@ -259,6 +268,10 @@ quiz = (function() {
         createElem: function(tag, classes) {
 
             var elem = document.createElement(tag);
+
+            if (!classes) {
+                return elem;
+            }
 
             if (classes instanceof Array) {
 
@@ -329,6 +342,20 @@ quiz = (function() {
     };
 
     var gameProcessing_ = {
+
+        prepare: function() {
+
+            maxScore = 0;
+
+            quizData.questions.map(function(current, i) {
+
+                current.answers.map(function(current, i) {
+                    maxScore += parseFloat(current.score);
+                });
+
+            });
+
+        },
 
         /**
          * Добавляет баллы за ответ

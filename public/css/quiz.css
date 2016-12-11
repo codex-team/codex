@@ -90,29 +90,21 @@
     background: #404040;
 }
 
-.quiz__question-answer_right:before{
+.quiz__question-answer_selected.quiz__question-answer_right:before{
     border-color: #34b98e;
-    background: #34b98e !important;
+    box-shadow: none;
+    background: #34b98e url(/public/img/quizzes/checked.svg) !important;
+    background-size: cover !important;
 }
-.quiz__question-answer_wrong:before{
+.quiz__question-answer_selected.quiz__question-answer_wrong:before{
     border-color: #ec6d6d;
     background: #ec6d6d !important;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.quiz__question-answer_right:before{
+    border-color: #34b98e;
+    background: #34b98e !important;
+}
 
 .quiz__answer-message {
     margin: -.5em 0 .5em 36px;
@@ -136,7 +128,6 @@
     font-weight: bold;
 }
 
-
 .quiz__retry-button {
     position: relative;
     left: 40%;
@@ -144,6 +135,16 @@
     cursor: pointer;
     border-bottom: 1px solid #abbee8;
     color: #186ebd;
+}
+
+.quiz__retry-button:before {
+    content: '';
+    display: inline-block;
+    margin-bottom: -.3em;
+    background-image: url(/public/img/quizzes/retry.svg);
+    background-size: cover;
+    height: 20px;
+    width: 20px;
 }
 
 .quiz__sharing{
