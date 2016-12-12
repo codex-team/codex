@@ -22,15 +22,13 @@ Class Model_Article extends Model
     public $is_removed;
     public $is_published;
     public $quiz_id;
+
+    const FEED_TYPE = 'article';
+
     /**
     * @var bool $marked — позволяет выделить важную статью в списке
     */
     public $marked = false;
-
-    /**
-    * @var null|int $order — позволяет изменять порядок вывода статей
-    */
-    public $order = null;
 
     public $author;
     public $commentsCount;
@@ -60,7 +58,6 @@ Class Model_Article extends Model
                                 ->set('cover',          $this->cover)
                                 ->set('user_id',        $this->user_id)
                                 ->set('marked',         $this->marked)
-                                ->set('order',          $this->order)
                                 ->set('is_published',   $this->is_published)
                                 ->clearcache('articles_list')
                                 ->execute();
@@ -98,7 +95,6 @@ Class Model_Article extends Model
             $this->cover        = Arr::get($article_row, 'cover');
             $this->user_id      = Arr::get($article_row, 'user_id');
             $this->marked       = Arr::get($article_row, 'marked');
-            $this->order        = Arr::get($article_row, 'order');
             $this->dt_create    = Arr::get($article_row, 'dt_create');
             $this->dt_update    = Arr::get($article_row, 'dt_update');
             $this->is_removed   = Arr::get($article_row, 'is_removed');
@@ -146,7 +142,6 @@ Class Model_Article extends Model
             ->set('quiz_id',        $this->quiz_id)
             ->set('cover',          $this->cover)
             ->set('marked',         $this->marked)
-            ->set('order',          $this->order)
             ->set('user_id',        $this->user_id)
             ->set('is_published',   $this->is_published)
             ->set('dt_update',      $this->dt_update)      // TODO(#38) remove

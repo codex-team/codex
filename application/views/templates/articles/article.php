@@ -1,73 +1,120 @@
 <link rel="stylesheet" href="/public/css/article.css?v=<?= filemtime("public/css/article.css") ?>">
 
 <div class="center_side clear">
+    <? if (isset($articlesFromCourse)): ?>
+        <?= View::factory('templates/articles/course_list')
+            ->set('articles', $articlesFromCourse)
+            ->set('course', $course)
+        ?>
+    <? endif; ?>
+</div>
 
-    <article class="article" itemscope itemtype="http://schema.org/Article">
+<div class="article-wrapper" name="js-article-wrapper">
 
-        <? if (isset($article->dt_update)): ?>
-            <meta itemprop="dateModified" content="<?= date(DATE_ISO8601, strtotime($article->dt_update)) ?>" />
-        <? endif; ?>
-        <meta itemprop="datePublished" content="<?= date(DATE_ISO8601, strtotime($article->dt_create)) ?>" />
+    <? if (isset($previousArticle)): ?>
+        <div class="course-navigation-wrapper course-navigation-wrapper--previous" name="js-course-navigation">
+            <a class="course-navigation course-navigation--previous" href="<?=URL::site($previousArticle->uri ?: '/article/' . $previousArticle->id); ?>">
+                <div class="course-navigation__icon course-navigation__icon--previous"></div>
+                <div class="course-navigation__title"><?=$previousArticle->title; ?></div>
+                <img class="course-navigation__avatar" src="<?=$previousArticle->author->photo; ?>" itemprop="image">
+                <div class="course-navigation__author"><?=$previousArticle->author->name; ?></div>
+            </a>
+        </div>
+    <? endif; ?>
 
-        <h1 class="article__title" itemprop="headline">
-            <?= $article->title ?>
-        </h1>
+    <? if (isset($nextArticle)): ?>
+        <div class="course-navigation-wrapper course-navigation-wrapper--next" name="js-course-navigation">
+            <a class="course-navigation course-navigation--next" href="<?=URL::site($nextArticle->uri ?: '/article/' . $nextArticle->id); ?>">
+                <div class="course-navigation__icon course-navigation__icon--next"></div>
+                <div class="course-navigation__title"><?=$nextArticle->title; ?></div>
+                <img class="course-navigation__avatar" src="<?=$nextArticle->author->photo; ?>" itemprop="image">
+                <div class="course-navigation__author"><?=$nextArticle->author->name; ?></div>
+            </a>
+        </div>
+    <? endif; ?>
 
-        <div class="article-info">
-            <div class="article-info__author" itemscope itemtype="http://schema.org/Person" itemprop="author">
+    <div class="center_side">
+        <article class="article" itemscope itemtype="http://schema.org/Article">
 
-                <meta itemprop="url" href="https://ifmo.su/user/<?= $article->user_id ?>" />
+            <? if (isset($article->dt_update)): ?>
+                <meta itemprop="dateModified" content="<?= date(DATE_ISO8601, strtotime($article->dt_update)) ?>" />
+            <? endif; ?>
+            <meta itemprop="datePublished" content="<?= date(DATE_ISO8601, strtotime($article->dt_create)) ?>" />
 
-                <time class="article-info__date"><?= Date::fuzzy_span(strtotime($article->dt_create)) ?></time>
-                <img class="article-info__photo" src="<?= $article->author->photo ?>" alt="https://ifmo.su/<?= $article->author->name ?>"  itemprop="image">
-                <a class="article-info__name" itemprop="name" href="https://ifmo.su/user/<?= $article->author->id ?>"><?= $article->author->name ?></a>
+            <h1 class="article__title" itemprop="headline">
+                <?= $article->title ?>
+            </h1>
+
+            <div class="article-info">
+                <div class="article-info__author" itemscope itemtype="http://schema.org/Person" itemprop="author">
+
+                    <meta itemprop="url" href="https://ifmo.su/user/<?= $article->user_id ?>" />
+
+                    <time class="article-info__date"><?= Date::fuzzy_span(strtotime($article->dt_create)) ?></time>
+                    <img class="article-info__photo" src="<?= $article->author->photo ?>" alt="https://ifmo.su/<?= $article->author->name ?>"  itemprop="image">
+                    <a class="article-info__name" itemprop="name" href="https://ifmo.su/user/<?= $article->author->id ?>"><?= $article->author->name ?></a>
+
+                </div>
+            </div>
+
+            <div class="article_content <?= !empty($article->text) ? 'article_content--old' : '' ?>" itemprop="articleBody">
+
+                <?
+                /**
+                 * For articles craeted with Codex.Editor
+                 */
+                ?>
+                <? foreach ($article->blocks as $block): ?>
+                    <?= $block; ?>
+                <? endforeach; ?>
+
+                <?
+                /**
+                 * For articles with HTML content (old editor mode)
+                 */
+                ?>
+                <? if (!empty($article->text)) : ?>
+                    <?=$article->text; ?>
+                <? endif; ?>
 
             </div>
-        </div>
 
-        <div class="article_content <?= !empty($article->text) ? 'article_content--old' : '' ?>" itemprop="articleBody">
+            <? if(!empty($quiz)): ?>
+                <?= View::factory('templates/quizzes/quiz', array('quizData' => $quiz->quiz_data)); ?>
+            <? endif ?>
 
-            <?
-                /**
-                * For articles craeted with Codex.Editor
-                */
-            ?>
-            <? foreach ($article->blocks as $block): ?>
-                <?= $block; ?>
-            <? endforeach; ?>
-
-            <?
-                /**
-                * For articles with HTML content (old editor mode)
-                */
-            ?>
-            <? if (!empty($article->text)) : ?>
-                <?=$article->text; ?>
-            <? endif; ?>
-
-        </div>
-  
-        <? if(!empty($quiz)): ?>
-            <?= View::factory('templates/quizzes/quiz', array('quizData' => $quiz->quiz_data)); ?>
-        <? endif ?>
-        
-        <?= View::factory('templates/blocks/share', array('share' => array(
-            'offer' => 'Если вам понравилась статья, поделитесь ссылкой на нее',
-            'url'   => 'https://' . Arr::get($_SERVER, 'HTTP_HOST', Arr::get($_SERVER, 'SERVER_NAME', 'ifmo.su')) . '/article/' . $article->id,
-            'title' => html_entity_decode($article->title),
-            'desc'  => html_entity_decode($article->description),
-        )))->render(); ?>
+            <?= View::factory('templates/blocks/share', array('share' => array(
+                'offer' => 'Если вам понравилась статья, поделитесь ссылкой на нее',
+                'url'   => 'https://' . Arr::get($_SERVER, 'HTTP_HOST', Arr::get($_SERVER, 'SERVER_NAME', 'ifmo.su')) . '/article/' . $article->id,
+                'title' => html_entity_decode($article->title),
+                'desc'  => html_entity_decode($article->description),
+            ))); ?>
 
 
-        <ul class="random_articles">
-            <h3>Читайте далее</h3>
-            <p>Мы расскажем вам о крутых и интересных технологиях и приведём примеры их использования в наших проектах.</p>
+            <ul class="random_articles">
+                <h3>Читайте далее</h3>
+                <p>Мы расскажем вам о крутых и интересных технологиях и приведём примеры их использования в наших проектах.</p>
 
-            <? foreach ($popularArticles as $popularArticle): ?>
-                <li><a href="/<?= $popularArticle->uri ?: ('article/' . $popularArticle->id) ; ?>"><?= $popularArticle->title; ?></a></li>
-            <? endforeach; ?>
+                <? foreach ($popularArticles as $popularArticle): ?>
+                    <li><a href="/<?= $popularArticle->uri ?: ('article/' . $popularArticle->id) ; ?>"><?= $popularArticle->title; ?></a></li>
+                <? endforeach; ?>
 
-        </ul>
+            </ul>
 
-    </article>
+        </article>
+    </div>
+
 </div>
+
+<div class="center_side clear">
+    <? if (isset($articlesFromCourse)) : ?>
+        <?=View::factory('templates/articles/course_list')
+            ->set('articles', $articlesFromCourse)
+            ->set('course', $course)
+        ?>
+    <? endif; ?>
+</div>
+
+<script>
+    codex.fixColumns.init(document.getElementsByName('js-course-navigation'));
+</script>
