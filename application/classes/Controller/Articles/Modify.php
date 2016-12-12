@@ -65,9 +65,15 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
                     $article->uri = Model_Alias::updateAlias($article->uri, $alias, Model_Uri::ARTICLE, $article_id);
                     $article->dt_update = date('Y-m-d H:i:s');
                     $article->update();
+                } else {
+                    $article->user_id = $this->user->id;
+                    $insertedId = $article->insert();
+                    $article->uri = Model_Alias::addAlias($alias, Model_Uri::ARTICLE, $insertedId);
+                    $article->update();
                 }
 
                 if (!$courses_ids) {
+
                     Model_Courses::deleteArticles($article->id);
 
                     if ($article->is_published && !$article->is_removed) {
@@ -111,6 +117,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
                     $this->redirect($redirect);
 
                 }
+
             } else {
                 $this->view['error'] = true;
             }
@@ -132,7 +139,11 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         $article_id = $this->request->param('article_id') ?: $this->request->query('id');
 
         if (!empty($article_id) && !empty($user_id)) {
-            Model_Article::get($article_id)->remove($user_id);
+            $article = Model_Article::get($article_id);
+            $article->remove($user_id);
+
+            $feed = new Model_Feed($article::FEED_TYPE);
+            $feed->remove($article->id);
         }
 
         $this->redirect('/admin/articles');
