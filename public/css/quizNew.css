@@ -1,0 +1,123 @@
+form {
+    margin : 30px 0;
+}
+
+form * {
+    display : block;
+}
+
+.quiz-form__button {
+    width         : 200px;
+    height        : 40px;
+    line-height   : 40px;
+    text-align    : center;
+    cursor        : pointer;
+    background    : #5c95cf;
+    color         : white;
+    border        : none;
+    border-radius : 20px;
+}
+
+.quiz-form__button:hover {
+    background : #3c7ab9;
+}
+
+form .quiz-form__button:not([type="button"]) {
+    float : right;
+}
+
+#insertBlock {
+    margin     : auto;
+    border     : 1px solid #3c7ab9;
+    color      : #3c7ab9;
+    background : transparent;
+}
+
+#insertBlock:hover {
+    color : white;
+    background : #3c7ab9;
+}
+
+input[type="text"],
+textarea,
+input[type="text"]:focus,
+textarea:focus {
+    display    : block;
+    width      : auto;
+    background : none;
+}
+
+form .quiz-form__input-title,
+form .question__heading {
+    font-size : 2em;
+}
+
+form .quiz-form__input-title,
+form .quiz-form__textarea-description {
+    padding : 0 0 10px 0;
+}
+
+form .question {
+    position      : relative;
+    margin        : 30px 0;
+    border        : 1px solid #eceff6;
+    border-radius : 2px;
+}
+
+form .question__number,
+form .question__remove-block {
+    float  : right;
+    margin : 20px;
+}
+
+form .question__heading,
+form .question__body,
+form .question__answer-wrap {
+    margin  : 20px 0;
+    padding : 0 20px;
+}
+
+form .question__body,
+form .question__answer {
+    font-size : 1.2em;
+}
+
+form .question__answer-wrap {
+    position : relative;
+}
+
+form .question__answer {
+    padding : 0.5px 0 0.5px 30px;
+}
+
+form span.question__correct {
+    display       : none;
+    position      : absolute;
+    width         : 12px;
+    height        : 12px;
+    margin        : 2px;
+    background    : #4f4f4f;
+    border-radius : 8px;
+}
+
+form input.question__correct:checked + label.question__correct span.question__correct {
+    display : block;
+}
+
+form label.question__correct {
+    width         : 20px;
+    height        : 20px;
+    position      : absolute;
+    left          : 20px;
+    box-sizing    : border-box;
+    border        : 2px solid #4f4f4f;
+    border-radius : 10px;
+}
+
+form .question__remove-block {
+    position : absolute;
+    bottom   : 0;
+    right    : 0;
+    margin   : 20px;
+    cursor   : pointer;
+}
