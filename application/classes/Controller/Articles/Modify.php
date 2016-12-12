@@ -111,12 +111,11 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
                     }
 
                     $feed->remove($article->id);
+                }
 
                     // Если поле uri пустое, то редиректить на обычный роут /article/id
                     $redirect = ($uri) ? $article->uri : '/article/' . $article->id;
                     $this->redirect($redirect);
-
-                }
 
             } else {
                 $this->view['error'] = true;
