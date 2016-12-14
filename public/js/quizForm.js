@@ -15,7 +15,7 @@ var quizForm = (function(quiz) {
 
     /**
     * Nodes list
-    * @var {object} quiz.nodes - dict of DOM elements of questions and messages
+    * @var {object} quiz.nodes - dict of DOM elements of questions and result messages
     */
     quiz.nodes = {
         'csrfToken': null,
@@ -23,7 +23,7 @@ var quizForm = (function(quiz) {
         'title': null,
         'description': null,
         'questions': [],
-        'messages': []
+        'resultMessages': []
     };
 
 
@@ -35,7 +35,7 @@ var quizForm = (function(quiz) {
 
 
     /**
-    * Message insert button and anchor for new messages at the same time
+    * Message insert button and anchor for new resultMessages at the same time
     * @var {Element} quiz.messageInsertButton - DOM element of message insert button
     */
     quiz.messageInsertButton = document.getElementById('messageInsertButton');
@@ -65,10 +65,10 @@ var quizForm = (function(quiz) {
     /**
     * @private
     * Message block creating function
-    * Creates a message JS object with DOM elements in it and appends it to the messages list
+    * Creates a result message DOM element and appends it to the result messages list
     */
-    var appendMessageBlock_ = function() {
-        var messageIndex = quiz.nodes.messages.length;
+    var appendResultMessageBlock_ = function() {
+        var messageIndex = quiz.nodes.resultMessages.length;
 
         var holder = newDOMElement_('div', {'class': 'quiz-form__message-holder'});
 
@@ -100,7 +100,7 @@ var quizForm = (function(quiz) {
             holder.appendChild(holder.destroyButton);
         }
 
-        quiz.nodes.messages.push(holder);
+        quiz.nodes.resultMessages.push(holder);
     };
 
 
@@ -111,8 +111,8 @@ var quizForm = (function(quiz) {
     * @param {number} questionIndex - index of question which answer to be appended to
     */
     var appendAnswerBlock_ = function(questionIndex) {
-    var question = quiz.nodes.questions[questionIndex];
-    var answerIndex = question.answers.length;
+        var question = quiz.nodes.questions[questionIndex];
+        var answerIndex = question.answers.length;
 
         var holder = newDOMElement_('div', {
             'class': 'quiz-form__question-answer-holder'
@@ -161,7 +161,7 @@ var quizForm = (function(quiz) {
 
     /**
     * @private
-    * Question block creating function
+    * Question element creating function
     * Creates a question JS object with DOM elements in it and appends it to the questions list
     */
     var appendQuestionBlock_ = function(fromJson) {
@@ -261,7 +261,7 @@ var quizForm = (function(quiz) {
         } else if (element.text) {
             container = element.parentNode.answers;
         } else {
-            container = quiz.nodes.messages;
+            container = quiz.nodes.resultMessages;
         }
 
         element.parentNode.removeChild(element);
@@ -275,14 +275,6 @@ var quizForm = (function(quiz) {
     }
 
 
-    var setInitialFormParams_ = function() {
-        quiz.nodes.csrfToken = quiz.form.querySelector('[name="csrf_token"]').value;
-        quiz.nodes.quizId = quiz.form.querySelector('[name="quiz_id"]').value;
-        quiz.nodes.title = quiz.form.querySelector('[name="title"]').value;
-        quiz.nodes.description = quiz.form.querySelector('[name="description"]').value;
-    }
-
-
     /**
     * @private
     * Event listeners setting function
@@ -292,15 +284,14 @@ var quizForm = (function(quiz) {
         quiz.form.onsubmit = function(event) {
             event.preventDefault();
 
-            setInitialFormParams_();
+            quiz.nodes.title = quiz.form.querySelector('[name="title"]').value;
+            quiz.nodes.description = quiz.form.querySelector('[name="description"]').value;
 
             var json = {
-                'csrfToken': quiz.nodes.csrfToken,
-                'quizId': quiz.nodes.quizId,
                 'title': quiz.nodes.quizTitleInput,
                 'description': quiz.nodes.description,
                 'questions': [],
-                'messages': []
+                'resultMessages': []
             };
 
             for (var question in quiz.nodes.questions) {
@@ -322,14 +313,19 @@ var quizForm = (function(quiz) {
                 json.questions.push(jsonQuestion);
             }
 
-            for (var message in quiz.nodes.messages) {
+            for (var message in quiz.nodes.resultMessages) {
                 var jsonMessage = {};
 
                 jsonMessage.score = message.score.value;
                 jsonMessage.message = message.message.value;
 
-                json.messages.push(jsonMessage);
+                json.resultMessages.push(jsonMessage);
             };
+
+            for (input in quiz.form.querySelectorAll('input:not([type="hidden"])')) {
+                quiz.form.removeChild(input);
+            }
+            quiz.form.removeChild(quiz.form.querySelector('textarea'));
 
             quiz.form.appendChild(newDOMElement_('input', {
                 'type': 'hidden',
@@ -341,23 +337,23 @@ var quizForm = (function(quiz) {
         }
 
 
-        quiz.insertQuestion.onclick = function() {
-            insertDataBlock_(appendQuestionBlock_())
+        quiz.questionInsertButton.onclick = function() {
+            appendQuestionBlock_();
         };
 
 
-        quiz.insertMessage.onclick = function() {
-            insertDataBlock_(appendMessageBlock_());
+        quiz.messageInsertButton.onclick = function() {
+            appendMessageBlock_();
         }
 
 
         quiz.form.onclick = function(event) {
-            if (event.target.className == 'quiz-form__question-destroy' ||
-                event.target.className == 'quiz-form__question-answer-destroy' ||
-                event.target.className == 'quiz-form__message-destroy') {
-                destroyDataBlock_(event.target.dataBlock);
-            } else if (event.target.className == 'quiz-form__question-add-answer') {
-                insertDataBlock_(appendAnswerBlock_(quiz.questions.indexOf(event.target.dataBlock)));
+            if (event.target.className == 'quiz-form__question-destroy-button' ||
+                event.target.className == 'quiz-form__question-answer-destroy-button' ||
+                event.target.className == 'quiz-form__message-destroy-button') {
+                destroyDOMElement_(event.target.parentNode);
+            } else if (event.target.className == 'quiz-form__question-add-answer-button') {
+                appendAnswerBlock_(quiz.nodes.questions.indexOf(event.target.parentNode));
             };
         };
     }
@@ -365,11 +361,11 @@ var quizForm = (function(quiz) {
 
     /**
     * @private
-    * First message adding function
-    * Inserts message with number 1 to the form
+    * First result message adding function
+    * Inserts result message with number 1 to the form
     */
-    var addInitialMessage_ = function() {
-        insertDataBlock_(appendMessageBlock_());
+    var addInitialResultMessage_ = function() {
+        appendResultMessageBlock_();
     }
 
 
@@ -379,16 +375,18 @@ var quizForm = (function(quiz) {
     * Inserts question with number 1 to the form
     */
     var addInitialQuestion_ = function() {
-        insertDataBlock_(appendQuestionBlock_());
+        appendQuestionBlock_();
     }
 
 
     /**
     * @public
     * Initialization function
-    * Initializes quiz form: inserts initial data blocks, sets initial event listeners, etc
+    * Initializes quiz form: inserts initial DOM elements, sets initial event listeners, etc
     */
     quiz.init = function() {
+        quiz.form = document.forms.quizForm;
+
         setEventListeners_();
         addInitialMessage_();
         addInitialQuestion_();
