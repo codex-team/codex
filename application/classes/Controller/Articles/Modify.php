@@ -21,7 +21,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
          * так как срабатывает обычный роут, то при отправке формы передается переменная contest_id.
          * Форма отправляет POST запрос
          */
-        if ( $this->request->post()) {
+        if ($this->request->post()) {
             $article_id = Arr::get($_POST, 'article_id');
             $article = Model_Article::get($article_id, true);
         }
@@ -29,7 +29,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         * Редактирование через Алиас
         * Здесь сперва запрос получает Controller_Uri, которая будет передавать id сущности через query('id')
         */
-        elseif ( $article_id = $this->request->query('id') ?: $this->request->param('id')) {
+        elseif ($article_id = $this->request->query('id') ?: $this->request->param('id')) {
             $article = Model_Article::get($article_id, true);
         } else {
             $article = new Model_Article();
@@ -46,20 +46,20 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             $article->json         = Arr::get($_POST, 'article_json', '');
             $article->is_published = Arr::get($_POST, 'is_published') ? 1 : 0;
             $article->marked       = Arr::get($_POST, 'marked') ? 1 : 0;
-            $article->order        = (int) Arr::get($_POST, 'order');
             $article->description  = Arr::get($_POST, 'description');
+            $article->quiz_id      = Arr::get($_POST, 'quiz_id');
             $courses_ids           = Arr::get($_POST, 'courses_ids', 0);
 
             /**
              * @var string $item_below_key
              * Ключ элемента в фиде, над которым нужно поставить данную статью ('[article|course]:<id>')
              * */
-            $item_below_key         = Arr::get($_POST, 'item_below_key', 0);
+            $item_below_key = Arr::get($_POST, 'item_below_key', 0);
 
             if ($article->title && $article->json && $article->description) {
 
                 $uri = Arr::get($_POST, 'uri');
-                $alias = Model_Alias::generateUri( $uri );
+                $alias = Model_Alias::generateUri($uri);
 
                 if ($article_id) {
                     $article->uri = Model_Alias::updateAlias($article->uri, $alias, Model_Uri::ARTICLE, $article_id);
@@ -115,7 +115,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
 
                 // Если поле uri пустое, то редиректить на обычный роут /article/id
                 $redirect = ($uri) ? $article->uri : '/article/' . $article->id;
-                $this->redirect( $redirect );
+                $this->redirect($redirect);
 
             } else {
                 $this->view['error'] = true;
@@ -126,6 +126,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         $this->view['courses']          = Model_Courses::getActiveCoursesNames();
         $this->view['selected_courses'] = Model_Courses::getCoursesByArticleId($article);
         $this->view['topFeed']          = $feed->get(5);
+        $this->view['quizzes']          = Model_Quiz::getTitles();
 
         $this->template->content = View::factory('templates/articles/create', $this->view);
     }

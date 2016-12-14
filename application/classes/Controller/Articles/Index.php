@@ -66,6 +66,11 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $article->blocks = $article->blocks ?: array();
         $article->json   = $article->json ?: '';
 
+        if ($article->quiz_id) {
+            $quiz = new Model_Quiz($article->quiz_id);
+            $this->view['quiz'] = $quiz;
+        }
+
         $this->stats->hit(Model_Stats::ARTICLE, $articleId);
 
         $this->view["article"]         = $article;

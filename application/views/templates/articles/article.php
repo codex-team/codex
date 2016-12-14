@@ -60,18 +60,18 @@
             <div class="article_content <?= !empty($article->text) ? 'article_content--old' : '' ?>" itemprop="articleBody">
 
                 <?
-                    /**
-                    * For articles craeted with Codex.Editor
-                    */
+                /**
+                 * For articles craeted with Codex.Editor
+                 */
                 ?>
                 <? foreach ($article->blocks as $block): ?>
                     <?= $block; ?>
                 <? endforeach; ?>
 
                 <?
-                    /**
-                    * For articles with HTML content (old editor mode)
-                    */
+                /**
+                 * For articles with HTML content (old editor mode)
+                 */
                 ?>
                 <? if (!empty($article->text)) : ?>
                     <?=$article->text; ?>
@@ -79,6 +79,9 @@
 
             </div>
 
+            <? if(!empty($quiz)): ?>
+                <?= View::factory('templates/quizzes/quiz', array('quizData' => $quiz->quiz_data)); ?>
+            <? endif ?>
 
             <?= View::factory('templates/blocks/share', array('share' => array(
                 'offer' => 'Если вам понравилась статья, поделитесь ссылкой на нее',
@@ -115,4 +118,3 @@
 <script>
     codex.fixColumns.init(document.getElementsByName('js-course-navigation'));
 </script>
-

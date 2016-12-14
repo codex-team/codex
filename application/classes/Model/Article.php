@@ -21,6 +21,7 @@ Class Model_Article extends Model
     public $dt_update;
     public $is_removed;
     public $is_published;
+    public $quiz_id;
 
     const FEED_TYPE = 'article';
 
@@ -53,6 +54,7 @@ Class Model_Article extends Model
                                 ->set('text',           $this->text)
                                 ->set('json',           $this->json)
                                 ->set('description',    $this->description)
+                                ->set('quiz_id',        $this->quiz_id)
                                 ->set('cover',          $this->cover)
                                 ->set('user_id',        $this->user_id)
                                 ->set('marked',         $this->marked)
@@ -83,20 +85,20 @@ Class Model_Article extends Model
     {
         if (!empty($article_row['id'])) {
 
-            $this->id           = $article_row['id'];
-            $this->uri          = $article_row['uri'];
-            $this->title        = $article_row['title'];
-            $this->text         = $article_row['text'];
-            $this->json         = $article_row['json'];
-            $this->description  = $article_row['description'];
-            $this->cover        = $article_row['cover'];
-            $this->user_id      = $article_row['user_id'];
-            $this->marked       = $article_row['marked'];
-            $this->order        = $article_row['order'];
-            $this->dt_create    = $article_row['dt_create'];
-            $this->dt_update    = $article_row['dt_update'];
-            $this->is_removed   = $article_row['is_removed'];
-            $this->is_published = $article_row['is_published'];
+            $this->id           = Arr::get($article_row, 'id');
+            $this->uri          = Arr::get($article_row, 'uri');
+            $this->title        = Arr::get($article_row, 'title');
+            $this->text         = Arr::get($article_row, 'text');
+            $this->json         = Arr::get($article_row, 'json');
+            $this->description  = Arr::get($article_row, 'description');
+            $this->quiz_id      = Arr::get($article_row, 'quiz_id');
+            $this->cover        = Arr::get($article_row, 'cover');
+            $this->user_id      = Arr::get($article_row, 'user_id');
+            $this->marked       = Arr::get($article_row, 'marked');
+            $this->dt_create    = Arr::get($article_row, 'dt_create');
+            $this->dt_update    = Arr::get($article_row, 'dt_update');
+            $this->is_removed   = Arr::get($article_row, 'is_removed');
+            $this->is_published = Arr::get($article_row, 'is_published');
 
             $this->author           = Model_User::get($this->user_id);
             $this->commentsCount    = Model_Comment::countCommentsByArticle($this->id);
@@ -137,9 +139,9 @@ Class Model_Article extends Model
             ->set('text',           $this->text)
             ->set('json',           $this->json)
             ->set('description',    $this->description)
+            ->set('quiz_id',        $this->quiz_id)
             ->set('cover',          $this->cover)
             ->set('marked',         $this->marked)
-            ->set('order',          $this->order)
             ->set('user_id',        $this->user_id)
             ->set('is_published',   $this->is_published)
             ->set('dt_update',      $this->dt_update)      // TODO(#38) remove
