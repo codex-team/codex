@@ -49,7 +49,10 @@ Route::set('ADD_QUIZ_SCRIPT', 'quiz/add')->defaults(array(
 	'action' => 'save'
 ));
 
-Route::set('SAVE_QUIZ_SCRIPT', 'quiz/<id>/save')->defaults(array(
+Route::set('SAVE_QUIZ_SCRIPT', 'quiz/(<id>)(/<method>)', array(
+	'id' => $DIGIT,
+	'method' => 'add|save'
+))->defaults(array(
 	'controller' => 'Quiz',
 	'action' => 'save'
 ));
