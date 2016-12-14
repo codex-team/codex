@@ -1,8 +1,8 @@
 <?
     if (empty($share['url'])) return;
 
-    $share['title'] =  addslashes($share['title']);
-    $share['desc']  =  addslashes($share['desc']);
+    $share['title'] =  htmlspecialchars($share['title']);
+    $share['desc']  =  htmlspecialchars($share['desc']);
 ?>
 <div class="sharing">
 
