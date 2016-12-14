@@ -5,7 +5,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
     public function action_showAll()
     {
-        $feed = new Model_Feed_Feed();
+        $feed = new Model_Feed_Articles();
 
         $this->title = "Статьи команды CodeX";
         $this->description = "Здесь собраны заметки о нашем опыте и исследованиях в области веб-разработки, дизайна, маркетинга и организации рабочих процессов";

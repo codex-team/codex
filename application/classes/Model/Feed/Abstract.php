@@ -1,11 +1,11 @@
 <?php
 
-class Model_Feed_AbstractFeed extends Model {
+class Model_Feed_Abstract extends Model {
 
     protected $redis;
     protected $prefix;
 
-    protected $redis_key = 'feed';
+    protected $timeline_key = null;
 
     /**
      * Timeline constructor.
@@ -17,7 +17,8 @@ class Model_Feed_AbstractFeed extends Model {
     public function __construct($prefix = '')
     {
         $this->redis = Controller_Base_preDispatch::_redis();
-        $this->prefix = $prefix . ':';
+
+        $this->prefix = $prefix ? $prefix . ':' : '';
     }
 
     /**
@@ -44,17 +45,17 @@ class Model_Feed_AbstractFeed extends Model {
     {
         $item_value = $this->composeValueIdentity($item_id);
 
-        if ($this->redis->zRank($this->redis_key, $item_value) === false) {
+        if ($this->redis->zRank($this->timeline_key, $item_value) === false) {
             return false;
         }
 
-        if($this->redis->zRank($this->redis_key, $item_below_value) === false) {
+        if($this->redis->zRank($this->timeline_key, $item_below_value) === false) {
             return false;
         }
 
-        $interval = $this->redis->zScore($this->redis_key, $item_below_value) - $this->redis->zScore($this->redis_key, $item_value);
+        $interval = $this->redis->zScore($this->timeline_key, $item_below_value) - $this->redis->zScore($this->timeline_key, $item_value);
 
-        return $this->redis->zIncrBy($this->redis_key, $interval + 1, $item_value);
+        return $this->redis->zIncrBy($this->timeline_key, $interval + 1, $item_value);
     }
 
     /**
@@ -69,11 +70,11 @@ class Model_Feed_AbstractFeed extends Model {
     {
         $value = $this->composeValueIdentity($item_id);
 
-        if ($this->redis->zRank($this->redis_key, $value) !== false) {
+        if ($this->redis->zRank($this->timeline_key, $value) !== false) {
             return false;
         }
 
-        return $this->redis->zAdd($this->redis_key, $item_score, $value);
+        return $this->redis->zAdd($this->timeline_key, $item_score, $value);
     }
 
     /**
@@ -85,7 +86,7 @@ class Model_Feed_AbstractFeed extends Model {
     {
         $value = $this->composeValueIdentity($item_id);
 
-        $this->redis->zRem($this->redis_key, $value);
+        $this->redis->zRem($this->timeline_key, $value);
     }
 
 
@@ -99,9 +100,9 @@ class Model_Feed_AbstractFeed extends Model {
      */
     public function get($numberOfItems = 0) {
 
-        $numberOfItems = $this->redis->zCard($this->redis_key) > $numberOfItems ? $numberOfItems : 0;
+        $numberOfItems = $this->redis->zCard($this->timeline_key) > $numberOfItems ? $numberOfItems : 0;
 
-        $items = $this->redis->zRevRange($this->redis_key, 0, $numberOfItems - 1);
+        $items = $this->redis->zRevRange($this->timeline_key, 0, $numberOfItems - 1);
 
         return $items;
     }
@@ -122,6 +123,6 @@ class Model_Feed_AbstractFeed extends Model {
      * Очистить фид
      */
     public function clear() {
-        $this->redis->del($this->redis_key);
+        $this->redis->del($this->timeline_key);
     }
 }

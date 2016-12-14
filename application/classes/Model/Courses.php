@@ -20,7 +20,7 @@ Class Model_Courses extends Model
     public $is_published;
     public $marked;
 
-    const FEED_TYPE = 'course';
+    const FEED_PREFIX = 'course';
 
     /**
      * Пустой конструктор для модели курсов, если нужно получить курс из хранилища, нужно пользоваться статическими

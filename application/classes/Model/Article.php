@@ -23,7 +23,7 @@ Class Model_Article extends Model
     public $is_published;
     public $quiz_id;
 
-    const FEED_TYPE = 'article';
+    const FEED_PREFIX = 'article';
 
     /**
     * @var bool $marked — позволяет выделить важную статью в списке

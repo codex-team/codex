@@ -4,7 +4,7 @@
 
         <time class="feed-item__time"><?= date_format(date_create($item->dt_create), 'd M'); ?></time>
 
-        <? if ($item::FEED_TYPE == 'article'): ?>
+        <? if ($item::FEED_PREFIX == 'article'): ?>
 
             <a class="feed-item__title" href="/<?= $item->uri ?: 'article/' . $item->id;  ?>"><?= $item->title ?></a>
             <a class="feed-item__author" href="/user/<?= $item->author->id ?>">

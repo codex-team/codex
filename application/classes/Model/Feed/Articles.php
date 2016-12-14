@@ -1,6 +1,8 @@
 <?php
 
-class Model_Feed_Feed extends Model_Feed_AbstractFeed {
+class Model_Feed_Articles extends Model_Feed_Abstract {
+
+    protected $timeline_key = 'feed';
 
     /**
      * Добавляем элемент в фид, передав в score дату создания
@@ -35,11 +37,11 @@ class Model_Feed_Feed extends Model_Feed_AbstractFeed {
 
                 switch ($type) {
 
-                    case 'article':
+                    case Model_Article::FEED_PREFIX:
                         $models_list[] = Model_Article::get($id);
                         break;
 
-                    case 'course':
+                    case Model_Courses::FEED_PREFIX:
                         $models_list[] = Model_Courses::get($id);
                         break;
 
