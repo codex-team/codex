@@ -3,15 +3,15 @@
 <div class="center_side clear">
     <form class="quiz-form" name="quizForm" action="/quiz/add" method="POST">
 
-        <input type="hidden" name="quiz_id" value="<?=  $quiz->id ?>" />
+        <input type="hidden" name="quiz_id" value="<?= $quiz->id ?>" />
         <input type="hidden" name="csrf_token" value="<?= Security::token(); ?>" />
 
-        <button class="button" type="submit">Сохранить тест</button>
+        <button class="quiz-form__button-submit" type="submit">Сохранить тест</button>
 
         <input class="quiz-form__quiz-title" type="text" name="title" placeholder="Название теста" required/>
         <textarea class="quiz-form__quiz-description" name="description" placeholder="Описание теста"></textarea>
 
-        <a id="messageInsertButton">Добавить сообщение</a>
+        <span id="messageInsertButton">Добавить сообщение</a>
 
         <button class="button" type="button" id="questionInsertButton">Добавить вопрос</button>
 

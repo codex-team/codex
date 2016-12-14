@@ -1,8 +1,12 @@
 /**
-* Codex Team
-* @author Khaydarov Murod
-*/
+ * Quote Plugin
+ *
+ * @author Codex Team
+ * @copyright Khaydarov Murod
+ * @version 1.0.0
+ */
 
+/** Include to Build css */
 var quoteTools = {
 
     /** Default path to redactors images */
@@ -115,7 +119,7 @@ var quoteTools = {
     changeStyleClicked : function() {
 
         var changeStyleButton = this,
-            quote = cEditor.content.currentNode.querySelector('.' + quoteTools.styles.ce_quote),
+            quote = codex.content.currentNode.querySelector('.' + quoteTools.styles.ce_quote),
             newStyle = changeStyleButton.dataset.style,
             styleSelectors = this.parentNode.childNodes;
 
@@ -169,13 +173,13 @@ var quoteTools = {
             var parsedOldQuote  = quoteTools.parseBlockQuote(),
                 newStyledQuote  = quoteStyle(parsedOldQuote);
 
-            var wrapper = cEditor.content.composeNewBlock(newStyledQuote, 'quote');
+            var wrapper = codex.content.composeNewBlock(newStyledQuote, 'quote');
                 wrapper.appendChild(newStyledQuote);
 
-            cEditor.content.switchBlock(cEditor.content.currentNode, newStyledQuote, 'quote');
+            codex.content.switchBlock(codex.content.currentNode, newStyledQuote, 'quote');
 
             /** Close settings after replacing */
-            cEditor.toolbar.settings.close();
+            codex.toolbar.settings.close();
 
         }, false);
 
@@ -282,7 +286,7 @@ var quoteTools = {
 
     parseBlockQuote : function(block) {
 
-        var currentNode = block || cEditor.content.currentNode,
+        var currentNode = block || codex.content.currentNode,
             photo       = currentNode.getElementsByTagName('img')[0],
             author      = currentNode.querySelector('.' + quoteTools.styles.quoteAuthor),
             job         = currentNode.querySelector('.' + quoteTools.styles.authorsJob),
@@ -319,7 +323,7 @@ var quoteTools = {
         var success = quoteTools.photoUploadingCallbacks.success,
             error   = quoteTools.photoUploadingCallbacks.error;
 
-        cEditor.transport.selectAndUpload({
+        codex.transport.selectAndUpload({
             success,
             error,
         });
@@ -417,7 +421,7 @@ quoteTools.photoUploadingCallbacks = {
 
         var parsed   = JSON.parse(result),
             filename = parsed.filename,
-            uploadImageWrapper = cEditor.content.currentNode.querySelector('.' + quoteTools.styles.withPhoto.photo),
+            uploadImageWrapper = codex.content.currentNode.querySelector('.' + quoteTools.styles.withPhoto.photo),
             authorsPhoto = quoteTools.ui.img(quoteTools.styles.authorsPhoto);
 
         authorsPhoto.src = quoteTools.path + 'b_' + filename;
@@ -434,23 +438,8 @@ quoteTools.photoUploadingCallbacks = {
     error : function(result) {
 
         console.log('Can\'t upload an image');
-        cEditor.notifications.errorThrown();
+        codex.notifications.errorThrown();
 
     }
-
-};
-
-cEditor.tools.quote = {
-
-    type             : 'quote',
-    iconClassname    : 'ce-icon-quote',
-    make             : quoteTools.makeBlockToAppend,
-    appendCallback   : null,
-    settings         : quoteTools.makeSettings(),
-    render           : quoteTools.render,
-    save             : quoteTools.save,
-    displayInToolbox : true,
-    enableLineBreaks : true,
-    allowedToPaste   : true
 
 };

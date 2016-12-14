@@ -11,7 +11,7 @@
     background : none;
 }
 
-.quiz-form .button[type="submit"] {
+.quiz-form__button-submit {
     float : right;
 }
 

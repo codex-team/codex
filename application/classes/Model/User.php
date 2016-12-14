@@ -18,6 +18,7 @@ Class Model_User extends Model
     public $bio         = '';
     public $role        = 1;
     public $is_removed  = 0;
+    public $isAdmin     = 0;
 
 
 
@@ -31,6 +32,30 @@ Class Model_User extends Model
      */
     public function __construct()
     {
+    }
+
+    /**
+    * Returns users models by specified ids
+    * @param    array  $ids     ids to select
+    * @return   array of Model_User
+    */
+    public function getUsersByIds($ids)
+    {
+        $users = Dao_Users::select()
+                    ->where_in('id', $ids)
+                    ->cached(Date::MINUTE * 10, 'users_by_ids:' . implode(',', $ids))
+                    ->execute();
+
+        if (!$users)
+            return array();
+
+        $models = array();
+
+        foreach ($users as $user_row) {
+            $models[] = $this->rowToModel($user_row);
+        }
+
+        return $models;
     }
 
     /**
@@ -91,6 +116,7 @@ Class Model_User extends Model
         $model = new Model_User();
         if (!empty($user['id'])) {
             $model->id            = $user['id'];
+            $model->uri           = $user['uri'];
             $model->name          = $user['name'];
             $model->photo         = $user['photo'];
             $model->photo_small   = $user['photo_small'];
@@ -104,8 +130,9 @@ Class Model_User extends Model
             $model->fb_uri        = $user['fb_uri'];
             $model->instagram_uri = $user['instagram_uri'];
             $model->bio           = $user['bio'];
-            $model->role          = $user['role'];
+            $model->role          = (int) $user['role'];
             $model->is_removed    = $user['is_removed'];
+            $model->isAdmin       = $model->role === self::ROLE_ADMIN ? true : false;
         }
 
         return $model;
@@ -176,6 +203,7 @@ Class Model_User extends Model
     {
         $update = Dao_Users::update()
             ->set('name',          $this->name)
+            ->set('uri',           $this->uri)
             ->set('github_id',     $this->github_id)
             ->set('github_uri',    $this->github_uri)
             ->set('photo',         $this->photo)

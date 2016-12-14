@@ -35,6 +35,8 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
             $course = new Model_Courses();
         }
 
+        $feed = new Model_Feed($course::FEED_TYPE);
+
         if (Security::check($csrfToken)) {
             $course->title          = Arr::get($_POST, 'title');
             $course->text           = Arr::get($_POST, 'course_text');
@@ -45,7 +47,13 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
             $course->is_removed     = Arr::get($_POST, 'is_removed', '0');
             $course->dt_close       = Arr::get($_POST, 'duration');
             $course->order          = Arr::get($_POST, 'order');
-            $course->uri          = Arr::get($_POST, 'uri');
+            $course->uri            = Arr::get($_POST, 'uri');
+
+            /**
+             * @var string $item_below_key
+             * Ключ элемента в фиде, над которым нужно поставить данную статью ('[article|course]:<id>')
+             * */
+            $item_below_key         = Arr::get($_POST, 'item_below_key', 0);
 
             $uri = Arr::get($_POST, 'uri');
             $alias = Model_Alias::generateUri($uri);
@@ -61,6 +69,19 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
                     $course->uri = Model_Alias::addAlias($alias, Model_Uri::COURSE, $insertedId);
                 }
 
+                if ($course->is_published && !$course->is_removed) {
+                    //Добавляем курс в фид
+                    $feed->add($course->id, $course->dt_create);
+
+                    //Ставим курс в переданное место в фиде, если это было указано
+                    if ($item_below_key) {
+                        $feed->putAbove($course->id, $item_below_key);
+                    }
+                } else {
+                    $feed->remove($course->id);
+                }
+
+
                 // Если поле uri пустое, то редиректить на обычный роут /course/id
                 $redirect = ($uri) ? $course->uri : '/course/' . $course->id;
                 $this->redirect( $redirect );
@@ -70,6 +91,7 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
             }
         }
         $this->view['course'] = $course;
+        $this->view['topFeed'] = $feed->get(5);
         $this->template->content = View::factory('templates/courses/create', $this->view);
     }
 
@@ -80,7 +102,11 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
 
         if (!empty($course_id) && !empty($user_id))
         {
-            Model_Courses::get($course_id)->remove();
+            $course = Model_Courses::get($course_id);
+            $course->remove();
+
+            $feed = new Model_Feed($course::FEED_TYPE);
+            $feed->remove($course->id);
         }
 
         $this->redirect('/admin/courses');

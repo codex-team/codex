@@ -1,9 +1,9 @@
 /**
- * Created by nostr on 29.06.16.
- */
-
-/**
  * Link tool plugin
+ *
+ * @author Codex Team
+ * @copyright n0str
+ * @version 1.0.0
  */
 var linkTool = {
 
@@ -17,7 +17,7 @@ var linkTool = {
         image       : "tool-link-image",
         title       : "tool-link-title",
         description : "tool-link-description",
-        loader      : "tool-link-loader",
+        loader      : "ce-redactor__loader",
         error       : "tool-link-error"
     },
 
@@ -159,7 +159,7 @@ var linkTool = {
 
                 block.classList.add(linkTool.elementClasses.error);
 
-                cEditor.core.log('Error while doing things with link paste: %o', 'error', error);
+                codex.editor.core.log('Error while doing things with link paste: %o', 'error', error);
             });
 
     },
@@ -302,19 +302,6 @@ linkTool.ui = {
         descriptionTag.innerHTML = descriptionText;
 
         return descriptionTag;
-    },
-
-};
-
-cEditor.tools.link = {
-
-    type             : 'link',
-    iconClassname    : 'ce-icon-link',
-    make             : linkTool.makeNewBlock,
-    appendCallback   : linkTool.appendCallback,
-    render           : linkTool.render,
-    save             : linkTool.save,
-    displayInToolbox : true,
-    enableLineBreaks : true
+    }
 
 };

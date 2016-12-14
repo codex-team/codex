@@ -31,14 +31,14 @@ var quizForm = (function(quiz) {
     * Question insert button and anchor for new questions at the same time
     * @var {Element} quiz.questionInsertButton - DOM element of question insert button
     */
-    quiz.questionInsertButton = document.getElementById('questionInsertButton');
+    quiz.questionInsertButton = null;
 
 
     /**
     * Message insert button and anchor for new resultMessages at the same time
     * @var {Element} quiz.messageInsertButton - DOM element of message insert button
     */
-    quiz.messageInsertButton = document.getElementById('messageInsertButton');
+    quiz.messageInsertButton = null;
 
 
     /**
@@ -88,7 +88,7 @@ var quizForm = (function(quiz) {
         });
 
         if (!messageIndex) {
-            holder.destroyButton = newDOMElement_('a', {
+            holder.destroyButton = newDOMElement_('span', {
                 'class': 'quiz-form__message-destroy-button'
             }, 'Удалить');
         }
@@ -126,7 +126,7 @@ var quizForm = (function(quiz) {
         });
 
         if (!answerIndex) {
-            holder.destroyButton = newDOMElement_('a', {
+            holder.destroyButton = newDOMElement_('span', {
                 'class': 'quiz-form__question-answer-destroy-button'
             }, 'Удалить');
         }
@@ -176,7 +176,7 @@ var quizForm = (function(quiz) {
         }, 'Вопрос ' + (questionIndex + 1));
 
         if (!questionIndex) {
-            holder.destroyButton = newDOMElement_('a', {
+            holder.destroyButton = newDOMElement_('span', {
                 'class': 'quiz-form__question-destroy-button'
             }, 'Удалить');
         }
@@ -392,6 +392,8 @@ var quizForm = (function(quiz) {
     */
     quiz.init = function() {
         quiz.form = document.forms.quizForm;
+        quiz.questionInsertButton = document.getElementById('questionInsertButton');
+        quiz.resultMessageInsertButton = document.getElementById('resultMessageInsertButton');
 
         addInitialResultMessage_();
         addInitialQuestion_();

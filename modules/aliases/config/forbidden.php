@@ -15,6 +15,8 @@
             'Courses',
             'Course',
             'Admin',
+            'User',
+            'Users'
         )
     )
 

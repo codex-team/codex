@@ -1,7 +1,11 @@
 /**
-* Example of making plugin
-* H e a d e r
-*/
+ * Example of making plugin
+ * H e a d e r
+ *
+ * @author Codex Team
+ * @version 1.0.0
+ */
+
 var headerTool = {
 
     /**
@@ -137,7 +141,7 @@ var headerTool = {
         var old_header, new_header;
 
         /** Now current header stored as a currentNode */
-        old_header = cEditor.content.currentNode.querySelector('[contentEditable]');
+        old_header = codex.editor.content.currentNode.querySelector('[contentEditable]');
 
         /** Making new header */
         new_header = document.createElement(type);
@@ -149,28 +153,11 @@ var headerTool = {
 
         new_header.dataset.headerData = type;
 
-        cEditor.content.switchBlock(old_header, new_header, 'header');
+        codex.editor.content.switchBlock(old_header, new_header, 'header');
 
         /** Close settings after replacing */
-        cEditor.toolbar.settings.close();
-    },
+        codex.editor.toolbar.settings.close();
+    }
 
 };
 
-/**
-* Now plugin is ready.
-* Add it to redactor tools
-*/
-cEditor.tools.header = {
-
-    type             : 'header',
-    iconClassname    : 'ce-icon-header',
-    make             : headerTool.make,
-    appendCallback   : headerTool.appendCallback,
-    settings         : headerTool.makeSettings(),
-    render           : headerTool.render,
-    save             : headerTool.save,
-    displayInToolbox : true,
-    enableLineBreaks : false
-
-};
