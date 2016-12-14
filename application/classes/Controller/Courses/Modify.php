@@ -35,7 +35,7 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
             $course = new Model_Courses();
         }
 
-        $feed = new Model_Feed($course::FEED_TYPE);
+        $feed = new Model_Feed_Feed($course::FEED_TYPE);
 
         if (Security::check($csrfToken)) {
             $course->title          = Arr::get($_POST, 'title');
