@@ -1,5 +1,8 @@
 <?
     if (empty($share['url'])) return;
+
+    $share['title'] =  addslashes($share['title']);
+    $share['desc']  =  addslashes($share['desc']);
 ?>
 <div class="sharing">
 
