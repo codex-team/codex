@@ -171,32 +171,32 @@ var quizForm = (function(quiz) {
             'class': 'quiz-form__question-holder'
         });
 
-        var number = newDOMElement_('span', {
+        holder.number = newDOMElement_('span', {
             'class': 'quiz-form__question-number'
         }, 'Вопрос ' + (questionIndex + 1));
 
-        if (questionNumber != 1) {
-            var destroyButton = newDOMElement_('a', {
+        if (!questionIndex) {
+            holder.destroyButton = newDOMElement_('a', {
                 'class': 'quiz-form__question-destroy-button'
             }, 'Удалить');
         }
 
-        var title = newDOMElement_('input', {
+        holder.title = newDOMElement_('input', {
             'type': 'text',
             'class': 'quiz-form__question-title',
             'placeholder': 'Текст вопроса',
             'required': ''
         });
 
-        var addAnswerButton = newDOMElement_('a', {
+        holder.addAnswerButton = newDOMElement_('a', {
             'class': 'quiz-form__question-add-answer-button'
         }, 'Добавить ответ');
 
         holder.answers = [];
 
-        holder.appendChild(title);
-        holder.appendChild(addAnswerButton);
-        holder.appendChild(number);
+        holder.appendChild(holder.title);
+        holder.appendChild(holder.addAnswerButton);
+        holder.appendChild(holder.number);
 
         if (!questionIndex) {
             holder.appendChild(destroyButton);
@@ -212,10 +212,10 @@ var quizForm = (function(quiz) {
     * @private
     * Element shifting function
     * Sets numbers in the element with child elements to given index
-    * @param {object} element - block in which numbers to be set
+    * @param {object} element - element in which numbers to be set
     * @param {number} index - index to which child elements' attributes to be set
     */
-    var setBlockNumber_ = function(element, numberTo) {
+    var setElementNumber_ = function(element, numberTo) {
         if (element.answers) {
             element.number.textContent = 'Вопрос ' + numberTo;
         } else if (element.text) {
@@ -270,7 +270,7 @@ var quizForm = (function(quiz) {
 
         container.splice(elementIndex, 1);
         for (var i = elementIndex; i < container.length; i++) {
-            setBlockNumber_(container[i], i);
+            setElementNumber_(container[i], i);
         }
     }
 
@@ -281,7 +281,9 @@ var quizForm = (function(quiz) {
     * Set event listeners for insert and destroy buttons and form submission
     */
     var setEventListeners_ = function() {
+        console.log('Setting event listeners');
         quiz.form.onsubmit = function(event) {
+            console.log('Setting form submission listener');
             event.preventDefault();
 
             quiz.nodes.title = quiz.form.querySelector('[name="title"]').value;
@@ -338,12 +340,14 @@ var quizForm = (function(quiz) {
 
 
         quiz.questionInsertButton.onclick = function() {
+            console.log('Setting question insert button click listener');
             appendQuestionBlock_();
         };
 
 
         quiz.messageInsertButton.onclick = function() {
-            appendMessageBlock_();
+            console.log('Setting result message insert button click listener');
+            appendResultMessageBlock_();
         }
 
 
@@ -365,6 +369,7 @@ var quizForm = (function(quiz) {
     * Inserts result message with number 1 to the form
     */
     var addInitialResultMessage_ = function() {
+        console.log('Adding initial result message element');
         appendResultMessageBlock_();
     }
 
@@ -375,6 +380,7 @@ var quizForm = (function(quiz) {
     * Inserts question with number 1 to the form
     */
     var addInitialQuestion_ = function() {
+        console.log('Adding initial question element');
         appendQuestionBlock_();
     }
 
@@ -387,9 +393,9 @@ var quizForm = (function(quiz) {
     quiz.init = function() {
         quiz.form = document.forms.quizForm;
 
-        setEventListeners_();
-        addInitialMessage_();
+        addInitialResultMessage_();
         addInitialQuestion_();
+        setEventListeners_();
     }
 
 
