@@ -31,11 +31,11 @@ class Model_Feed_Articles extends Model_Feed_Abstract {
         if (is_array($items)) {
             $models_list = array();
 
-            foreach ($items as $item) {
+            foreach ($items as $item_identity) {
 
-                list($type, $id) = explode(':', $item);
+                list($prefix, $id) = $this->decomposeValueIdentity($item_identity);
 
-                switch ($type) {
+                switch ($prefix) {
 
                     case Model_Article::FEED_PREFIX:
                         $models_list[] = Model_Article::get($id);

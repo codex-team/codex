@@ -18,7 +18,7 @@ class Model_Feed_Abstract extends Model {
     {
         $this->redis = Controller_Base_preDispatch::_redis();
 
-        $this->prefix = $prefix ? $prefix . ':' : '';
+        $this->prefix = $prefix;
     }
 
     /**
@@ -29,7 +29,22 @@ class Model_Feed_Abstract extends Model {
      */
     public function composeValueIdentity($id)
     {
-        return $this->prefix.$id;
+        if (!$this->prefix) {
+            return $id;
+        }
+
+        return $this->prefix.':'.$id;
+    }
+
+    /**
+     * Разбиваем идентефикатор на префих и id
+     *
+     * @param string $identity
+     *
+     * @return array - массив из двух элементов (prefix, id)
+     */
+    public function decomposeValueIdentity($identity) {
+        return explode(':', $identity);
     }
 
     /**
