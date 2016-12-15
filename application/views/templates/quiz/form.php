@@ -6,7 +6,7 @@
         <input type="hidden" name="quiz_id" value="<?= $quiz->id ?>" />
         <input type="hidden" name="csrf_token" value="<?= Security::token(); ?>" />
 
-        <button class="quiz-form__button-submit" type="submit">Сохранить тест</button>
+        <button class="button quiz-form__button-submit" type="submit">Сохранить тест</button>
 
         <input class="quiz-form__quiz-title" type="text" name="title" placeholder="Название теста" required/>
         <textarea class="quiz-form__quiz-description" name="description" placeholder="Описание теста"></textarea>

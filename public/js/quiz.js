@@ -379,7 +379,7 @@ quiz = (function() {
          */
         getMessage: function() {
 
-            var messages = quizData.messages,
+            var messages = quizData.resultMessages,
                 message;
 
             if (!messages.length) {
