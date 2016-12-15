@@ -37,7 +37,7 @@
             <select name="item_below_key">
                 <option value="0">---</option>
                 <? foreach ($topFeed as $item): ?>
-                    <option value="<?= $item::FEED_TYPE.':'.$item->id; ?>">
+                    <option value="<?= $item::FEED_PREFIX.':'.$item->id; ?>">
                         <?= $item->title; ?>
                     </option>
                 <? endforeach ?>

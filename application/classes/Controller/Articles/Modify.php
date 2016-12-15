@@ -35,7 +35,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             $article = new Model_Article();
         }
 
-        $feed = new Model_Feed($article::FEED_TYPE);
+        $feed = new Model_Feed_Articles($article::FEED_PREFIX);
 
         /*
          * Articles Title.
@@ -141,7 +141,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             $article = Model_Article::get($article_id);
             $article->remove($user_id);
 
-            $feed = new Model_Feed($article::FEED_TYPE);
+            $feed = new Model_Feed_Articles($article::FEED_PREFIX);
             $feed->remove($article->id);
         }
 
