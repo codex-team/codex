@@ -68,12 +68,14 @@ var quizForm = (function(quiz) {
     * Creates a result message DOM element and appends it to the result messages list
     */
     var appendResultMessageBlock_ = function() {
-        var message = {},
-            messageIndex = quiz.nodes.resultMessages.length;
+        var message = {};
+        var objectIndex = quiz.nodes.resultMessages.length;
+
+        console.log('Appending result message block with index ' + objectIndex);
 
         message.holder = newDOMElement_('div', {
             'class': 'quiz-form__message-holder',
-            'data-message-index': messageIndex
+            'data-object-index': objectIndex
         });
 
         message.score = newDOMElement_('input', {
@@ -91,7 +93,7 @@ var quizForm = (function(quiz) {
             'required': ''
         });
 
-        if (!messageIndex) {
+        if (objectIndex) {
             message.destroyButton = newDOMElement_('span', {
                 'class': 'quiz-form__message-destroy-button'
             }, 'Удалить');
@@ -100,13 +102,15 @@ var quizForm = (function(quiz) {
         message.holder.appendChild(message.score);
         message.holder.appendChild(message.message);
 
-        if (!messageIndex) {
+        if (objectIndex) {
             message.holder.appendChild(message.destroyButton);
         }
 
         quiz.nodes.resultMessages.push(message);
 
         insertDOMElement_(message);
+
+        console.log(message);
     };
 
 
@@ -117,35 +121,35 @@ var quizForm = (function(quiz) {
     * @param {number} questionIndex - index of question which answer to be appended to
     */
     var appendAnswerBlock_ = function(questionIndex) {
-        var answer = {},
-            question = quiz.nodes.questions[questionIndex],
-            answerIndex = question.answers.length;
+        var answer = {};
+        var question = quiz.nodes.questions[questionIndex];
 
-        console.log('Appending answer block of question ' + questionIndex + ' with index ' + answerIndex);
+        console.log(questionIndex);
+        console.log(question);
+        console.log(question.answers);
+
+        var objectIndex = question.answers.length;
+
+        console.log('Appending answer block of question ' + questionIndex + ' with index ' + objectIndex);
 
         answer.holder = newDOMElement_('div', {
             'class': 'quiz-form__question-answer-holder',
             'data-question-index': questionIndex,
-            'data-answer-index': answerIndex
+            'data-object-index': objectIndex
         });
-
-        console.log(answer.holder);
 
         answer.text = newDOMElement_('input', {
             'type': 'text',
             'class': 'quiz-form__question-answer-text',
-            'placeholder': 'Ответ ' + (answerIndex + 1),
+            'placeholder': 'Ответ ' + (objectIndex + 1),
             'required': ''
         });
 
-        console.log(answer.text);
-
-        if (!answerIndex) {
+        if (objectIndex) {
             answer.destroyButton = newDOMElement_('span', {
                 'class': 'quiz-form__question-answer-destroy-button'
             }, 'Удалить');
 
-            console.log(answer.destroyButton);
         }
 
         answer.score = newDOMElement_('input', {
@@ -156,8 +160,6 @@ var quizForm = (function(quiz) {
             'required': ''
         });
 
-        console.log(answer.score);
-
         answer.message = newDOMElement_('input', {
             'type': 'text',
             'class': 'quiz-form__question-answer-message',
@@ -165,11 +167,9 @@ var quizForm = (function(quiz) {
             'required': ''
         });
 
-        console.log(answer.message);
-
         answer.holder.appendChild(answer.text);
 
-        if (!answerIndex) {
+        if (objectIndex) {
             answer.holder.appendChild(answer.destroyButton);
         }
 
@@ -179,6 +179,8 @@ var quizForm = (function(quiz) {
         question.answers.push(answer);
 
         insertDOMElement_(answer);
+
+        console.log(answer);
     }
 
 
@@ -188,30 +190,24 @@ var quizForm = (function(quiz) {
     * Creates a question JS object with DOM elements in it and appends it to the questions list
     */
     var appendQuestionBlock_ = function(fromJson) {
-        var question = {},
-            questionIndex = quiz.nodes.questions.length;
+        var question = {};
+        var objectIndex = quiz.nodes.questions.length;
 
-        console.log('Appending question block with index ' + questionIndex);
+        console.log('Appending question block with index ' + objectIndex);
 
         question.holder = newDOMElement_('div', {
             'class': 'quiz-form__question-holder',
-            'data-question-index': questionIndex
+            'data-object-index': objectIndex
         });
-
-        console.log(question.holder);
 
         question.number = newDOMElement_('span', {
             'class': 'quiz-form__question-number'
-        }, 'Вопрос ' + (questionIndex + 1));
+        }, 'Вопрос ' + (objectIndex + 1));
 
-        console.log(question.number);
-
-        if (!questionIndex) {
+        if (objectIndex) {
             question.destroyButton = newDOMElement_('span', {
                 'class': 'quiz-form__question-destroy-button'
             }, 'Удалить');
-
-            console.log(question.destroyButton);
         }
 
         question.title = newDOMElement_('input', {
@@ -221,13 +217,9 @@ var quizForm = (function(quiz) {
             'required': ''
         });
 
-        console.log(question.title);
-
-        question.addAnswerButton = newDOMElement_('a', {
+        question.addAnswerButton = newDOMElement_('span', {
             'class': 'quiz-form__question-add-answer-button'
         }, 'Добавить ответ');
-
-        console.log(question.addAnswerButton);
 
         question.answers = [];
 
@@ -235,16 +227,19 @@ var quizForm = (function(quiz) {
         question.holder.appendChild(question.addAnswerButton);
         question.holder.appendChild(question.number);
 
-        if (!questionIndex) {
+        if (objectIndex) {
             question.holder.appendChild(question.destroyButton);
         }
 
         quiz.nodes.questions.push(question);
-        console.log(quiz.nodes.questions);
 
-        appendAnswerBlock_(questionIndex);
+        console.log(quiz.nodes.questions);
+        console.log(objectIndex);
+        appendAnswerBlock_(objectIndex);
 
         insertDOMElement_(question);
+
+        console.log(question);
     };
 
 
@@ -256,6 +251,15 @@ var quizForm = (function(quiz) {
     * @param {number} index - index to which child elements' attributes to be set
     */
     var setObjectNumber_ = function(obj, numberTo) {
+        console.log('Shifting ',
+                    obj,
+                    ' from index ',
+                    parseInt(obj.holder.dataset.objectIndex),
+                    ' to index',
+                    numberTo - 1);
+
+        obj.holder.dataset.objectIndex = numberTo - 1;
+
         if (obj.answers) {
             obj.number.textContent = 'Вопрос ' + numberTo;
         } else if (obj.text) {
@@ -271,23 +275,20 @@ var quizForm = (function(quiz) {
     * @param {object} obj - object in which DOM element to be inserted
     */
     var insertDOMElement_ = function(obj) {
-        var before,
-            parent;
+        var before;
+        var parent;
 
         if (obj.answers) {
             before = quiz.questionInsertButton;
             parent = quiz.form;
         } else if (obj.text) {
-            before = quiz.nodes.questions[obj.holder.dataset.questionIndex].addAnswerButton;
-            parent = quiz.nodes.questions[obj.holder.dataset.questionIndex].holder;
+            before = quiz.nodes.questions[parseInt(obj.holder.dataset.questionIndex)].addAnswerButton;
+            parent = quiz.nodes.questions[parseInt(obj.holder.dataset.questionIndex)].holder;
         } else {
             before = quiz.resultMessageInsertButton;
             parent = quiz.form;
         }
 
-        console.log(parent);
-        console.log(obj.holder);
-        console.log(before);
         parent.insertBefore(obj.holder, before);
     }
 
@@ -296,24 +297,13 @@ var quizForm = (function(quiz) {
     * @private
     * Element object destroying function
     * Removes the DOM element of object from DOM and destroys object itself
-    * @param {object} obj - object to be destroyed
+    * @param {object} container - list where object to be destroyed
+    * @param {number} elementIndex - index of object in list
     */
-    var destroyObject_ = function(obj) {
-        var container,
-            elementIndex;
-
-        if (obj.answers) {
-            container = quiz.nodes.questions;
-            elementIndex = obj.holder.dataset.questionIndex;
-        } else if (obj.text) {
-            container = quiz.nodes.questions[obj.holder.dataset.questionIndex].answers;
-            elementIndex = obj.holder.dataset.answerIndex;
-        } else {
-            container = quiz.nodes.resultMessages;
-            elementIndex = obj.holder.dataset.messageIndex;
-        }
-
-        obj.holder.parentNode.removeChild(obj.holder);
+    var destroyObject_ = function(container, elementIndex) {
+        console.log(container);
+        console.log(elementIndex);
+        container[elementIndex].holder.parentNode.removeChild(container[elementIndex].holder);
 
         container.splice(elementIndex, 1);
         for (var i = elementIndex; i < container.length; i++) {
@@ -329,8 +319,9 @@ var quizForm = (function(quiz) {
     */
     var setEventListeners_ = function() {
         console.log('Setting event listeners');
+        console.log('Setting form submission listener');
+
         quiz.form.onsubmit = function(event) {
-            console.log('Setting form submission listener');
             event.preventDefault();
 
             var json = {
@@ -382,40 +373,47 @@ var quizForm = (function(quiz) {
             quiz.form.submit();
         }
 
+        console.log('Setting question insert button click listener');
 
         quiz.questionInsertButton.onclick = function() {
-            console.log('Setting question insert button click listener');
             appendQuestionBlock_();
         }
 
+        console.log('Setting result message insert button click listener');
 
-        quiz.messageInsertButton.onclick = function() {
-            console.log('Setting result message insert button click listener');
+        quiz.resultMessageInsertButton.onclick = function() {
             appendResultMessageBlock_();
         }
 
 
         quiz.form.onclick = function(event) {
+            var container;
+            var elementIndex = parseInt(event.target.parentNode.dataset.objectIndex);
+
             switch (event.target.className) {
                 case 'quiz-form__question-destroy-button':
-                    object = quiz.nodes.questions[event.target.parentNode.dataset.questionIndex];
+                    container = quiz.nodes.questions;
                     break;
 
                 case 'quiz-form__question-answer-destroy-button':
-                    object = quiz.nodes.questions[
-                        event.target.parentNode.dataset.questionIndex
-                    ].answers[
-                        event.target.parentNode.dataset.answerIndex
-                    ];
+                    container = quiz.nodes.questions[
+                        parseInt(event.target.parentNode.dataset.questionIndex)
+                    ].answers;
                     break;
 
                 case 'quiz-form__message-destroy-button':
-                    object = quiz.nodes.messages[event.target.parentNode.messageIndex];
+                    container = quiz.nodes.resultMessages;
                     break;
 
                 case 'quiz-form__question-add-answer-button':
-                    appendAnswerBlock_(event.target.parentNode.dataset.questionIndex);
+                    container = null;
                     break;
+            }
+
+            if (container === null) {
+                appendAnswerBlock_(elementIndex);
+            } else if (container !== undefined) {
+                destroyObject_(container, elementIndex);
             }
         }
     }

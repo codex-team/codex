@@ -11,7 +11,7 @@
         <input class="quiz-form__quiz-title" type="text" name="title" placeholder="Название теста" required/>
         <textarea class="quiz-form__quiz-description" name="description" placeholder="Описание теста"></textarea>
 
-        <span id="messageInsertButton">Добавить сообщение</a>
+        <span id="resultMessageInsertButton">Добавить сообщение</span>
 
         <button class="button" type="button" id="questionInsertButton">Добавить вопрос</button>
 
