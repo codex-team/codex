@@ -82,6 +82,7 @@ var quizForm = (function(quiz) {
             'type': 'number',
             'min': '0',
             'step': '0.1',
+            'value': '0',
             'class': 'quiz-form__message-score',
             'required': ''
         });
@@ -156,6 +157,7 @@ var quizForm = (function(quiz) {
             'type': 'number',
             'min': '0',
             'step': '0.1',
+            'value': '0',
             'class': 'quiz-form__question-answer-score',
             'required': ''
         });
