@@ -15,6 +15,11 @@
     float : right;
 }
 
+.quiz-form__question-add-answer-button {
+    color : #688fcc;
+    cursor : pointer;
+}
+
 .quiz-form__quiz-title,
 .quiz-form__question-title {
     font-size : 2em !important;
@@ -36,13 +41,15 @@
 }
 
 .quiz-form__question-number,
-.quiz-form__question-destroy {
+.quiz-form__question-destroy-button {
     display : block;
     float : right;
 }
 
 .quiz-form__question-number {
-    margin-bottom: 10px;
+    margin-bottom : 10px;
+    font-size : 1.2em;
+    color : #333;
 }
 
 .quiz-form__quiz-title
@@ -51,12 +58,12 @@
 }
 
 .quiz-form__quiz-description,
+.quiz-form__share-message,
 .quiz-form__question-answer-text {
     font-size : 1.2em;
 }
 
-.quiz-form__question-destroy {
-    display : block;
+.quiz-form__question-destroy-button {
     margin-top : 10px;
     font-size : 1em;
     color : #eb5757;
@@ -64,27 +71,36 @@
 }
 
 .quiz-form__question-answer-holder {
-    position : relative;
+    margin : 20px 0;
 }
 
 .quiz-form__question-answer-text {
     width : auto !important;
 }
 
+.quiz-form__message-holder {
+    margin : 20px 0;
+}
+
 .quiz-form__message-score,
 .quiz-form__question-answer-score {
-    display : inline-block;
-    width : 40px;
-    padding : 5px 5px 5px 0;
-    border : none;
-    font-size : 1.4em;
-}
-
-.quiz-form__message-message,
-.quiz-form__question-answer-message {
     display : inline;
+    width : 38px;
+    padding : 8px 8px 8px 0;
+    border : none;
+    font-size : 1.2em;
+    color : #333;
 }
 
-#insertQuestion {
+.quiz-form__question-answer-message {
+    padding-left : 0 !important;
+}
+
+.quiz-form__message-message {
+    display : inline;
+    width : auto !important;
+}
+
+#questionInsertButton {
     margin : auto;
 }

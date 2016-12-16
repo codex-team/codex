@@ -21,7 +21,8 @@ var quizForm = (function(quiz) {
         'title': null,
         'description': null,
         'questions': [],
-        'resultMessages': []
+        'resultMessages': [],
+        'shareMessage': null
     };
 
 
@@ -139,6 +140,15 @@ var quizForm = (function(quiz) {
             'data-object-index': objectIndex
         });
 
+        answer.score = newDOMElement_('input', {
+            'type': 'number',
+            'min': '0',
+            'step': '0.1',
+            'value': '0',
+            'class': 'quiz-form__question-answer-score',
+            'required': ''
+        });
+
         answer.text = newDOMElement_('input', {
             'type': 'text',
             'class': 'quiz-form__question-answer-text',
@@ -153,15 +163,6 @@ var quizForm = (function(quiz) {
 
         }
 
-        answer.score = newDOMElement_('input', {
-            'type': 'number',
-            'min': '0',
-            'step': '0.1',
-            'value': '0',
-            'class': 'quiz-form__question-answer-score',
-            'required': ''
-        });
-
         answer.message = newDOMElement_('input', {
             'type': 'text',
             'class': 'quiz-form__question-answer-message',
@@ -169,13 +170,13 @@ var quizForm = (function(quiz) {
             'required': ''
         });
 
+        answer.holder.appendChild(answer.score);
         answer.holder.appendChild(answer.text);
 
         if (objectIndex) {
             answer.holder.appendChild(answer.destroyButton);
         }
 
-        answer.holder.appendChild(answer.score);
         answer.holder.appendChild(answer.message);
 
         question.answers.push(answer);
@@ -225,13 +226,14 @@ var quizForm = (function(quiz) {
 
         question.answers = [];
 
-        question.holder.appendChild(question.title);
-        question.holder.appendChild(question.addAnswerButton);
         question.holder.appendChild(question.number);
 
         if (objectIndex) {
             question.holder.appendChild(question.destroyButton);
         }
+
+        question.holder.appendChild(question.title);
+        question.holder.appendChild(question.addAnswerButton);
 
         quiz.nodes.questions.push(question);
 
@@ -330,7 +332,8 @@ var quizForm = (function(quiz) {
                 'title': quiz.form.getElementsByName('title')[0].value,
                 'description': quiz.form.getElementsByName('description')[0].value,
                 'questions': [],
-                'resultMessages': []
+                'resultMessages': [],
+                'shareMessage': quiz.form.getElementsByName('shareMessage')[0].value
             };
 
             for (var question in quiz.nodes.questions) {
