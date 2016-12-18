@@ -111,8 +111,6 @@ var quizForm = (function(quiz) {
         quiz.nodes.resultMessages.push(message);
 
         insertDOMElement_(message);
-
-        console.log(message);
     };
 
 
@@ -125,10 +123,6 @@ var quizForm = (function(quiz) {
     var appendAnswerBlock_ = function(questionIndex) {
         var answer = {};
         var question = quiz.nodes.questions[questionIndex];
-
-        console.log(questionIndex);
-        console.log(question);
-        console.log(question.answers);
 
         var objectIndex = question.answers.length;
 
@@ -182,8 +176,6 @@ var quizForm = (function(quiz) {
         question.answers.push(answer);
 
         insertDOMElement_(answer);
-
-        console.log(answer);
     }
 
 
@@ -237,13 +229,9 @@ var quizForm = (function(quiz) {
 
         quiz.nodes.questions.push(question);
 
-        console.log(quiz.nodes.questions);
-        console.log(objectIndex);
         appendAnswerBlock_(objectIndex);
 
         insertDOMElement_(question);
-
-        console.log(question);
     };
 
 
@@ -305,8 +293,6 @@ var quizForm = (function(quiz) {
     * @param {number} elementIndex - index of object in list
     */
     var destroyObject_ = function(container, elementIndex) {
-        console.log(container);
-        console.log(elementIndex);
         container[elementIndex].holder.parentNode.removeChild(container[elementIndex].holder);
 
         container.splice(elementIndex, 1);
@@ -329,20 +315,20 @@ var quizForm = (function(quiz) {
             event.preventDefault();
 
             var json = {
-                'title': quiz.form.getElementsByName('title')[0].value,
-                'description': quiz.form.getElementsByName('description')[0].value,
+                'title': quiz.form.querySelector('[name="title"]').value,
+                'description': quiz.form.querySelector('[name="description"]').value,
                 'questions': [],
                 'resultMessages': [],
-                'shareMessage': quiz.form.getElementsByName('shareMessage')[0].value
+                'shareMessage': quiz.form.querySelector('[name="shareMessage"]').value
             };
 
-            for (var question in quiz.nodes.questions) {
+            for (question of quiz.nodes.questions) {
                 var jsonQuestion = {};
 
                 jsonQuestion.title = question.title.value;
                 jsonQuestion.answers = [];
 
-                for (var answer in question.answers) {
+                for (answer of question.answers) {
                     var jsonAnswer = {};
 
                     jsonAnswer.text = answer.text.value;
@@ -355,7 +341,7 @@ var quizForm = (function(quiz) {
                 json.questions.push(jsonQuestion);
             }
 
-            for (var message in quiz.nodes.resultMessages) {
+            for (message of quiz.nodes.resultMessages) {
                 var jsonMessage = {};
 
                 jsonMessage.score = message.score.value;
@@ -364,10 +350,12 @@ var quizForm = (function(quiz) {
                 json.resultMessages.push(jsonMessage);
             };
 
-            for (input in quiz.form.querySelectorAll('input:not([type="hidden"])')) {
+            document.querySelectorAll('.quiz-form > *:not(div)').forEach(function(input, i, arr) {
+                console.log(arr);
+                console.log(i);
+                console.log(input);
                 quiz.form.removeChild(input);
-            }
-            quiz.form.removeChild(quiz.form.getElementsByTagName('textarea')[0]);
+            });
 
             quiz.form.appendChild(newDOMElement_('input', {
                 'type': 'hidden',
