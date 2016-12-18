@@ -35,7 +35,7 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
             $course = new Model_Courses();
         }
 
-        $feed = new Model_Feed($course::FEED_TYPE);
+        $feed = new Model_Feed_Articles($course::FEED_PREFIX);
 
         if (Security::check($csrfToken)) {
             $course->title          = Arr::get($_POST, 'title');
@@ -105,7 +105,7 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
             $course = Model_Courses::get($course_id);
             $course->remove();
 
-            $feed = new Model_Feed($course::FEED_TYPE);
+            $feed = new Model_Feed_Articles($course::FEED_PREFIX);
             $feed->remove($course->id);
         }
 
