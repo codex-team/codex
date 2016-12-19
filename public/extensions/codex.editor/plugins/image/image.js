@@ -398,6 +398,6 @@ ceImage.photoUploadingCallbacks = {
     error : function(result) {
         console.log('Choosen file is not an image or image is corrupted');
         codex.editor.notifications.errorThrown();
-    },
+    }
 
 };
