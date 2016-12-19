@@ -119,7 +119,7 @@ var quoteTools = {
     changeStyleClicked : function() {
 
         var changeStyleButton = this,
-            quote = codex.content.currentNode.querySelector('.' + quoteTools.styles.ce_quote),
+            quote = codex.editor.content.currentNode.querySelector('.' + quoteTools.styles.ce_quote),
             newStyle = changeStyleButton.dataset.style,
             styleSelectors = this.parentNode.childNodes;
 
@@ -173,13 +173,13 @@ var quoteTools = {
             var parsedOldQuote  = quoteTools.parseBlockQuote(),
                 newStyledQuote  = quoteStyle(parsedOldQuote);
 
-            var wrapper = codex.content.composeNewBlock(newStyledQuote, 'quote');
+            var wrapper = codex.editor.content.composeNewBlock(newStyledQuote, 'quote');
                 wrapper.appendChild(newStyledQuote);
 
-            codex.content.switchBlock(codex.content.currentNode, newStyledQuote, 'quote');
+            codex.editor.content.switchBlock(codex.editor.content.currentNode, newStyledQuote, 'quote');
 
             /** Close settings after replacing */
-            codex.toolbar.settings.close();
+            codex.editor.toolbar.settings.close();
 
         }, false);
 
@@ -286,7 +286,7 @@ var quoteTools = {
 
     parseBlockQuote : function(block) {
 
-        var currentNode = block || codex.content.currentNode,
+        var currentNode = block || codex.editor.content.currentNode,
             photo       = currentNode.getElementsByTagName('img')[0],
             author      = currentNode.querySelector('.' + quoteTools.styles.quoteAuthor),
             job         = currentNode.querySelector('.' + quoteTools.styles.authorsJob),
@@ -323,7 +323,7 @@ var quoteTools = {
         var success = quoteTools.photoUploadingCallbacks.success,
             error   = quoteTools.photoUploadingCallbacks.error;
 
-        codex.transport.selectAndUpload({
+        codex.editor.transport.selectAndUpload({
             success,
             error,
         });
@@ -421,7 +421,7 @@ quoteTools.photoUploadingCallbacks = {
 
         var parsed   = JSON.parse(result),
             filename = parsed.filename,
-            uploadImageWrapper = codex.content.currentNode.querySelector('.' + quoteTools.styles.withPhoto.photo),
+            uploadImageWrapper = codex.editor.content.currentNode.querySelector('.' + quoteTools.styles.withPhoto.photo),
             authorsPhoto = quoteTools.ui.img(quoteTools.styles.authorsPhoto);
 
         authorsPhoto.src = quoteTools.path + 'b_' + filename;
@@ -438,7 +438,7 @@ quoteTools.photoUploadingCallbacks = {
     error : function(result) {
 
         console.log('Can\'t upload an image');
-        codex.notifications.errorThrown();
+        codex.editor.notifications.errorThrown();
 
     }
 
