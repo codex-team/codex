@@ -356,7 +356,7 @@ var quizForm = (function(quiz) {
 
             quiz.form.appendChild(newDOMElement_('input', {
                 'type': 'hidden',
-                'name': 'json',
+                'name': 'quiz_data',
                 'value': JSON.stringify(json)
             }));
 
