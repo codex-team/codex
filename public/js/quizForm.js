@@ -82,7 +82,7 @@ var quizForm = (function(quiz) {
         message.score = newDOMElement_('input', {
             'type': 'number',
             'min': '0',
-            'step': '0.1',
+            'step': '1',
             'value': '0',
             'class': 'quiz-form__message-score',
             'required': ''
@@ -137,7 +137,7 @@ var quizForm = (function(quiz) {
         answer.score = newDOMElement_('input', {
             'type': 'number',
             'min': '0',
-            'step': '0.1',
+            'step': '1',
             'value': '0',
             'class': 'quiz-form__question-answer-score',
             'required': ''
@@ -350,10 +350,7 @@ var quizForm = (function(quiz) {
                 json.resultMessages.push(jsonMessage);
             };
 
-            document.querySelectorAll('.quiz-form > *:not(div)').forEach(function(input, i, arr) {
-                console.log(arr);
-                console.log(i);
-                console.log(input);
+            document.querySelectorAll('.quiz-form > *:not(.protected)').forEach(function(input, i, arr) {
                 quiz.form.removeChild(input);
             });
 
