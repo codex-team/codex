@@ -68,9 +68,10 @@ var quizForm = (function(quiz) {
     * Message block creating function
     * Creates a result message DOM element and appends it to the result messages list
     */
-    var appendResultMessageBlock_ = function() {
+    var appendResultMessageBlock_ = function(messageData) {
         var message = {};
         var objectIndex = quiz.nodes.resultMessages.length;
+        messageData = messageData || {};
 
         console.log('Appending result message block with index ' + objectIndex);
 
@@ -83,7 +84,7 @@ var quizForm = (function(quiz) {
             'type': 'number',
             'min': '0',
             'step': '1',
-            'value': '0',
+            'value': messageData.score || '0',
             'class': 'quiz-form__message-score',
             'required': ''
         });
@@ -92,6 +93,7 @@ var quizForm = (function(quiz) {
             'type': 'text',
             'class': 'quiz-form__message-message',
             'placeholder': 'Сообщение',
+            'value': messageData.message || '',
             'required': ''
         });
 
@@ -120,9 +122,10 @@ var quizForm = (function(quiz) {
     * Creates a couple of DOM elements and appends them to question answers list
     * @param {number} questionIndex - index of question which answer to be appended to
     */
-    var appendAnswerBlock_ = function(questionIndex) {
+    var appendAnswerBlock_ = function(questionIndex, answerData) {
         var answer = {};
         var question = quiz.nodes.questions[questionIndex];
+        answerData = answerData || {};
 
         var objectIndex = question.answers.length;
 
@@ -138,7 +141,7 @@ var quizForm = (function(quiz) {
             'type': 'number',
             'min': '0',
             'step': '1',
-            'value': '0',
+            'value': answerData.score || '0',
             'class': 'quiz-form__question-answer-score',
             'required': ''
         });
@@ -147,6 +150,7 @@ var quizForm = (function(quiz) {
             'type': 'text',
             'class': 'quiz-form__question-answer-text',
             'placeholder': 'Ответ ' + (objectIndex + 1),
+            'value': answerData.text || '',
             'required': ''
         });
 
@@ -161,6 +165,7 @@ var quizForm = (function(quiz) {
             'type': 'text',
             'class': 'quiz-form__question-answer-message',
             'placeholder': 'Сообщение',
+            'value': answerData.message || '',
             'required': ''
         });
 
@@ -175,6 +180,7 @@ var quizForm = (function(quiz) {
 
         question.answers.push(answer);
 
+
         insertDOMElement_(answer);
     }
 
@@ -184,9 +190,10 @@ var quizForm = (function(quiz) {
     * Question element creating function
     * Creates a question JS object with DOM elements in it and appends it to the questions list
     */
-    var appendQuestionBlock_ = function(fromJson) {
+    var appendQuestionBlock_ = function(questionData) {
         var question = {};
         var objectIndex = quiz.nodes.questions.length;
+        questionData = questionData || {};
 
         console.log('Appending question block with index ' + objectIndex);
 
@@ -209,6 +216,7 @@ var quizForm = (function(quiz) {
             'type': 'text',
             'class': 'quiz-form__question-title',
             'placeholder': 'Текст вопроса',
+            'value': questionData.title || '',
             'required': ''
         });
 
@@ -229,7 +237,13 @@ var quizForm = (function(quiz) {
 
         quiz.nodes.questions.push(question);
 
-        appendAnswerBlock_(objectIndex);
+        if (questionData.answers) {
+            questionData.answers.map(function(current, i) {
+                appendAnswerBlock_(objectIndex, current);
+            })
+        } else {
+            appendAnswerBlock_(objectIndex);
+        }
 
         insertDOMElement_(question);
     };
@@ -442,22 +456,50 @@ var quizForm = (function(quiz) {
         quiz.resultMessageInsertButton = document.getElementById('resultMessageInsertButton');
     }
 
+    var render = function(quizData) {
+        var questions = quizData.questions,
+            resultMessages = quizData.resultMessages;
+
+        document.querySelector('[name="title"]').value = quizData.title;
+        document.querySelector('textarea[name="description"]').textContent = quizData.description;
+        document.querySelector('[name="shareMessage"]').value = quizData.shareMessage;
+
+        console.log(quizData);
+
+        setInitialFormParams_();
+
+        resultMessages.map(function(current, i) {
+            appendResultMessageBlock_(current);
+        });
+
+        questions.map(function(current, i) {
+            appendQuestionBlock_(current);
+        });
+
+        setEventListeners_();
+
+    }
+
 
     /**
-    * @public
-    * Initialization function
-    * Initializes quiz form: inserts initial DOM elements, sets initial event listeners, etc
-    */
-    quiz.init = function() {
+     * @public
+     * Initialization function
+     * Initializes quiz form: inserts initial DOM elements, sets initial event listeners, etc
+     */
+    quiz.init = function(quizData) {
+
+        if (quizData) {
+            render(quizData);
+            return;
+        }
+
         setInitialFormParams_();
         addInitialResultMessage_();
         addInitialQuestion_();
         setEventListeners_();
     }
 
-
     return quiz;
 
 })({});
 
-quizForm.init();

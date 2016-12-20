@@ -1,7 +1,7 @@
 <link type="text/css" href="/public/css/quizForm.css?v=<?= filemtime("public/css/quizForm.css") ?>" rel="stylesheet" />
 
 <div class="center_side clear">
-    <form class="quiz-form" name="quizForm" action="/quiz/add" method="POST">
+    <form class="quiz-form" name="quizForm" action="" method="POST">
 
         <input class="protected" type="hidden" name="quiz_id" value="<?= $quiz->id ?>" />
         <input class="protected" type="hidden" name="csrf_token" value="<?= Security::token(); ?>" />
@@ -21,3 +21,6 @@
 </div>
 
 <script type="text/javascript" src="/public/js/quizForm.js?v=<?= filemtime("public/js/quizForm.js") ?>"></script>
+<script>
+    quizForm.init(<?= $quiz->quiz_data; ?>);
+</script>
