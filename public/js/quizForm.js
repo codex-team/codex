@@ -47,7 +47,8 @@ var quizForm = (function(quiz) {
     * @param {string} tag - HTML tag of the element
     * @param {object} attributes - dictionary with attributes to be added to the element
     */
-    var newDOMElement_ = function(tag, attributes, text = '') {
+    var newDOMElement_ = function(tag, attributes, text) {
+        text = text || '';
         var element = document.createElement(tag);
         var textNode = document.createTextNode(text);
 
@@ -336,18 +337,18 @@ var quizForm = (function(quiz) {
                 'shareMessage': quiz.form.querySelector('[name="shareMessage"]').value
             };
 
-            for (question of quiz.nodes.questions) {
+            for (var i in quiz.nodes.questions) {
                 var jsonQuestion = {};
 
-                jsonQuestion.title = question.title.value;
+                jsonQuestion.title = quiz.nodes.questions[i].title.value;
                 jsonQuestion.answers = [];
 
-                for (answer of question.answers) {
+                for (var j in quiz.nodes.questions[i].answers) {
                     var jsonAnswer = {};
 
-                    jsonAnswer.text = answer.text.value;
-                    jsonAnswer.score = answer.score.value;
-                    jsonAnswer.message = answer.message.value;
+                    jsonAnswer.text = quiz.nodes.questions[i].answers[j].text.value;
+                    jsonAnswer.score = quiz.nodes.questions[i].answers[j].score.value;
+                    jsonAnswer.message = quiz.nodes.questions[i].answers[j].message.value;
 
                     jsonQuestion.answers.push(jsonAnswer);
                 }
@@ -355,11 +356,11 @@ var quizForm = (function(quiz) {
                 json.questions.push(jsonQuestion);
             }
 
-            for (message of quiz.nodes.resultMessages) {
+            for (var i in quiz.nodes.resultMessages) {
                 var jsonMessage = {};
 
-                jsonMessage.score = message.score.value;
-                jsonMessage.message = message.message.value;
+                jsonMessage.score = quiz.nodes.resultMessages[i].score.value;
+                jsonMessage.message = quiz.nodes.resultMessages[i].message.value;
 
                 json.resultMessages.push(jsonMessage);
             };
@@ -502,4 +503,3 @@ var quizForm = (function(quiz) {
     return quiz;
 
 })({});
-
