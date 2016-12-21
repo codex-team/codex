@@ -2,21 +2,19 @@
 
 <div class="center_side clear">
     <form class="quiz-form" name="quizForm" action="" method="POST">
-
-        <input class="protected" type="hidden" name="quiz_id" value="<?= $quiz->id ?>" />
-        <input class="protected" type="hidden" name="csrf_token" value="<?= Security::token(); ?>" />
+        <input type="hidden" name="quiz_id" value="<?= $quiz->id ?>" />
+        <input type="hidden" name="csrf_token" value="<?= Security::token(); ?>" />
 
         <button class="button quiz-form__button-submit" type="submit">Сохранить тест</button>
 
-        <input class="quiz-form__quiz-title protected" type="text" name="title" placeholder="Название теста" required/>
-        <textarea class="quiz-form__quiz-description protected" name="description" placeholder="Описание теста"></textarea>
+        <input class="quiz-form__quiz-title" type="text" name="title" placeholder="Название теста" required/>
+        <textarea class="quiz-form__quiz-description" name="description" placeholder="Описание теста"></textarea>
 
         <button class="button" type="button" id="resultMessageInsertButton">Добавить сообщение</button>
 
         <button class="button" type="button" id="questionInsertButton">Добавить вопрос</button>
 
-        <textarea class="quiz-form__share-message" name="shareMessage" placeholder="Сообщение при экспорте результатов в соцсети"></textarea>
-
+        <textarea class="quiz-form__share-message" name="shareMessage" form="undefined" placeholder="Сообщение при экспорте результатов в соцсети"></textarea>
     </form>
 </div>
 

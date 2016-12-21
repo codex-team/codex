@@ -87,7 +87,8 @@ var quizForm = (function(quiz) {
             'step': '1',
             'value': messageData.score || '0',
             'class': 'quiz-form__message-score',
-            'required': ''
+            'required': '',
+            'form': 'undefined'
         });
 
         message.message = newDOMElement_('input', {
@@ -95,7 +96,8 @@ var quizForm = (function(quiz) {
             'class': 'quiz-form__message-message',
             'placeholder': 'Сообщение',
             'value': messageData.message || '',
-            'required': ''
+            'required': '',
+            'form': 'undefined'
         });
 
         if (objectIndex) {
@@ -144,7 +146,8 @@ var quizForm = (function(quiz) {
             'step': '1',
             'value': answerData.score || '0',
             'class': 'quiz-form__question-answer-score',
-            'required': ''
+            'required': '',
+            'form': 'undefined'
         });
 
         answer.text = newDOMElement_('input', {
@@ -152,7 +155,8 @@ var quizForm = (function(quiz) {
             'class': 'quiz-form__question-answer-text',
             'placeholder': 'Ответ ' + (objectIndex + 1),
             'value': answerData.text || '',
-            'required': ''
+            'required': '',
+            'form': 'undefined'
         });
 
         if (objectIndex) {
@@ -167,7 +171,8 @@ var quizForm = (function(quiz) {
             'class': 'quiz-form__question-answer-message',
             'placeholder': 'Сообщение',
             'value': answerData.message || '',
-            'required': ''
+            'required': '',
+            'form': 'undefined'
         });
 
         answer.holder.appendChild(answer.score);
@@ -218,7 +223,8 @@ var quizForm = (function(quiz) {
             'class': 'quiz-form__question-title',
             'placeholder': 'Текст вопроса',
             'value': questionData.title || '',
-            'required': ''
+            'required': '',
+            'form': 'undefined'
         });
 
         question.addAnswerButton = newDOMElement_('span', {
@@ -364,10 +370,6 @@ var quizForm = (function(quiz) {
 
                 json.resultMessages.push(jsonMessage);
             };
-
-            document.querySelectorAll('.quiz-form > *:not(.protected)').forEach(function(input, i, arr) {
-                quiz.form.removeChild(input);
-            });
 
             quiz.form.appendChild(newDOMElement_('input', {
                 'type': 'hidden',
