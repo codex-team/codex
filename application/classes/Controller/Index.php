@@ -21,11 +21,11 @@ class Controller_Index extends Controller_Base_preDispatch
         * Select best developers
         */
         $modelUser = new Model_User();
-        $bestDevelopersIds = array(
-            186, // Egor
-            24, // @n0str
-            // 115, // Murod
-        );
+
+        $developersList = new Model_Feed_Developers();
+
+        $bestDevelopersIds = $developersList->get();
+
         $this->view['bestDevelopers'] = $modelUser->getUsersByIds($bestDevelopersIds);
 
 

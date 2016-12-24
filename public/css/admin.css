@@ -76,6 +76,24 @@
             line-height: 1.4em;
         }
 
+    .p_table .check{
+        font-size: 13px;
+        color: #8C929E;
+        text-align: center;
+        line-height: 1em;
+    }
+        .p_table .check b{
+            display: block;
+            line-height: 1.4em;
+        }
+
+         .p_table .check input{
+            width: 0.9em;
+            height: 0.9em;
+        }
+
+
+
 
 .list_user_ava{
     position: relative;

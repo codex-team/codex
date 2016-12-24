@@ -45,9 +45,20 @@
                             <b>0</b>
                             articles
                         </td>
+                        <td class="check">
+                            <b>
+                                <? $is_best = array_search($user->id, $bestDevs)!==false ?>
+                                <input type="checkbox" id="<?= $user->id ?>" <?= $is_best?'checked':''; ?> class="developer-checkbox">
+                            </b>
+                            <label for="<?=  $user->id ?>">best developer</label>
+                        </td>
                     </tr>
                 <? endif; ?>
             <? endforeach; ?>
         </table>
     <? endif; ?>
 </div>
+<script src="/public/js/addDeveloper.js?v=<?= filemtime('public/js/addDeveloper.js'); ?>"></script>
+<script>
+    developer.bind();
+</script>
