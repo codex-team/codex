@@ -4,11 +4,8 @@ var developer = function() {
 
         var chBoxes = document.querySelectorAll('.developer-checkbox');
 
-        for (key in chBoxes) {
-            if (!chBoxes.hasOwnProperty(key)) continue;
-
-            chBoxes[key].addEventListener('change', toggle);
-
+        for (var i = chBoxes.length-1; i > -1; i--) {
+            chBoxes[i].addEventListener('change', toggle);
         }
 
     };
