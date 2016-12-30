@@ -186,6 +186,7 @@
 
 /** Image styles */
 .ce-plugin-image__uploaded--centered {
+    max-width: 700px;
     margin: 0 auto !important;
     display: block;
 }
