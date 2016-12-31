@@ -157,7 +157,7 @@
 }
 .article__code{
     margin: 0 auto;
-    white-space: pre-wrap;
+    white-space: pre;
 }
 
 
