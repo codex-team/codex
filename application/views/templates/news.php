@@ -2,7 +2,7 @@
     $news = array(
         array(
             'text' => 'Вышла новая статья о <a href="/js-modules">модульной разработке в JavaScript</a>',
-            'date' => '13 dec'
+            'date' => '31 dec'
         ),
         array(
             'text' => 'Опубликовали статью о том, <a href="/docker-php">как использовать Docker-контейнер</a>',
