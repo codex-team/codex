@@ -968,6 +968,9 @@ codex.dragndrop = function() {
 
     var onMouseUp = function(e) {
 
+        if (e.which != 1) return;
+        if (!dragElem.elem || !dragElem.avatar) return;
+
         var target = document.elementFromPoint(e.clientX, e.clientY).closest('.list-item');
 
         if (target) {
