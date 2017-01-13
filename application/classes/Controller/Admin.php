@@ -17,6 +17,9 @@ class Controller_Admin extends Controller_Base_preDispatch
 
         switch ($category) {
 
+            case 'feed' :
+                $pageContent = self::feed();
+                break;
             case 'articles' :
                 $pageContent = self::articles();
                 break;
@@ -80,6 +83,28 @@ class Controller_Admin extends Controller_Base_preDispatch
 
     }
 
+    public function feed()
+    {
+        if (!$this->request->is_ajax()) {
+            $feed = new Model_Feed_Articles();
+
+            $this->view["feed"] = $feed->get();
+
+            return View::factory('templates/admin/articles/feed_list', $this->view);
+        }
+
+        $item_id = $_GET['item_id'];
+        $feed_type = $_GET['feed_type'];
+        $item_below_value = $_GET['item_below_value'];
+        $feed = new Model_Feed_Articles($feed_type);
+
+        $feed->putAbove($item_id, $item_below_value);
+
+
+        $this->auto_render = false;
+
+    }
+
     public function contests()
     {
 
@@ -112,7 +137,7 @@ class Controller_Admin extends Controller_Base_preDispatch
 
         $requests = Dao_Requests::select()->execute();
 
-        $request_list = [];
+        $request_list = array();
 
         foreach ($requests as $request)
         {

@@ -913,6 +913,97 @@ if ( !String.prototype.includes ) {
   };
 }
 
+codex.dragndrop = function() {
 
+    var clickedAt = {},
+        dragElem = {};
+
+
+    var onMouseDown = function(e) {
+
+        if (e.which != 1) return;
+
+        clickedAt.x = e.pageX;
+        clickedAt.y = e.pageY;
+
+        dragElem.elem = findDraggable(e);
+    };
+
+    var onMouseMove = function(e) {
+
+        if (!dragElem.elem) return;
+
+        if (Math.abs(e.pageX - clickedAt.x) < 5 && Math.abs(e.pageY - clickedAt.y) < 5) return;
+
+        if (!dragElem.avatar) {
+
+            dragElem.avatar = dragElem.elem.cloneNode(true);
+            dragElem.avatar.classList.add('dnd-avatar');
+
+            dragElem.elem.parentNode.insertBefore(dragElem.avatar, dragElem.elem.nextSibling);
+            dragElem.elem.style.display = 'none';
+
+        }
+
+        dragElem.newTarget = document.elementFromPoint(e.clientX, e.clientY).closest('.list-item');
+
+        if (dragElem.newTarget != dragElem.target) {
+
+            if (dragElem.newTarget) {
+
+                if (dragElem.newTarget != dragElem.avatar.nextElementSibling) {
+                    dragElem.newTarget.parentNode.insertBefore(dragElem.avatar, dragElem.newTarget);
+                } else {
+                    dragElem.newTarget.parentNode.insertBefore(dragElem.avatar, dragElem.newTarget.nextSibling);
+                }
+
+            }
+
+            dragElem.target = dragElem.newTarget;
+
+        }
+
+
+    };
+
+    var onMouseUp = function(e) {
+
+        var target = document.elementFromPoint(e.clientX, e.clientY).closest('.list-item');
+
+        if (target) {
+            target.parentNode.insertBefore(dragElem.elem, target.nextSibling);
+        }
+
+        dragElem.avatar.parentNode.removeChild(dragElem.avatar);
+        dragElem.elem.style = '';
+
+        var feed_id = dragElem.elem.dataset.id,
+            feed_type = dragElem.elem.dataset.type;
+            next_sibling_feed_id = dragElem.elem.nextElementSibling.dataset.type+':'+dragElem.elem.nextElementSibling.dataset.id;
+
+        codex.core.ajax({url: '/admin/feed?item_id='+feed_id+'&feed_type='+feed_type+'&item_below_value='+next_sibling_feed_id});
+
+        dragElem = {};
+
+    };
+
+    var findDraggable = function(e) {
+        return e.target.closest('.draggable');
+    };
+
+    var getCoords = function (elem) {
+        var rect = elem.getBoundingClientRect();
+
+        return {
+            y: rect.top + pageYOffset,
+            x: rect.left + pageXOffset
+        };
+    };
+
+    document.addEventListener('mousedown', onMouseDown);
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+    document.ondragstart = function(){return false};
+}();
 
 

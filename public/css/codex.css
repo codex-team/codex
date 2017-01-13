@@ -9,6 +9,17 @@
 */
 @import url("icons.css");
 
+.dnd-target td {
+    border-bottom: 3px red solid !important;
+}
+
+.dnd-avatar td {
+    background: #ececec;
+}
+
+.draggable {
+    user-select: none;
+}
 
 
 

@@ -42,6 +42,7 @@
 .p_table{
     width: 100%;
     margin: 0 30px;
+    border-spacing: 0;
 }
     .p_table td{
         padding: 15px;
