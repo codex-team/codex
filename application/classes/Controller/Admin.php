@@ -89,17 +89,19 @@ class Controller_Admin extends Controller_Base_preDispatch
             $feed = new Model_Feed_Articles();
 
             $this->view["feed"] = $feed->get();
+            $this->view["mode"] = !empty($_GET['mode'])? $_GET['mode'] : 'list';
 
-            return View::factory('templates/admin/articles/feed_list', $this->view);
+            return View::factory('templates/admin/articles/feed', $this->view);
         }
 
         $item_id = $_GET['item_id'];
-        $feed_type = $_GET['feed_type'];
+        $item_type = $_GET['item_type'];
         $item_below_value = $_GET['item_below_value'];
-        $feed = new Model_Feed_Articles($feed_type);
+
+        $feed = new Model_Feed_Articles($item_type);
 
         $feed->putAbove($item_id, $item_below_value);
-
+        var_dump($_GET);
 
         $this->auto_render = false;
 

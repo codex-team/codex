@@ -21,8 +21,11 @@
                             <?= $item->dt_update ?>
                         <? endif; ?>
                     </td>
+                    <td class="id">
+                        <?= $item->marked?'big':'small' ?>
+                    </td>
                 </tr>
             <? endforeach; ?>
-        </table>    
+        </table>
     <? endif; ?>
 </div>

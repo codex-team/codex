@@ -1,0 +1,11 @@
+.dnd-avatar {
+    background: #ececec;
+}
+
+.dnd-avatar td {
+    background: #ececec;
+}
+
+.draggable {
+    user-select: none;
+}

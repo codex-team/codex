@@ -913,93 +913,149 @@ if ( !String.prototype.includes ) {
   };
 }
 
-codex.dragndrop = function() {
+codex.core.dragndrop = function(settings){
 
-    var clickedAt = {},
-        dragElem = {};
+    defaultHandlers = {
+        findDraggable: function(e) {
+            return e.target.closest('.'+draggableClass);
+        },
 
+        findDropable: function(e) {
+            return document.elementFromPoint(e.clientX, e.clientY).closest('.'+dropableClass);
+        },
+
+        makeAvatar: function(elem) {
+
+            var avatar = {};
+
+            var avatarRollback = function() {
+
+                avatar.elem.style = '';
+
+                if (avatar.nextSibling)
+                    avatar.parentNode.insertBefore(avatar.elem, avatar.nextSibling);
+                else
+                    avatar.parentNode.appendChild(avatar.elem);
+
+                delete(dragObj.avatar);
+            };
+
+            avatar = {
+                elem: elem,
+                parentNode: elem.parentNode,
+                nextSibling: elem.nextElementSibling,
+                rollback: avatarRollback
+            };
+
+            avatar.elem.style = 'position: absolute; pointer-events: none; z-index: 100;';
+
+            return avatar;
+        },
+
+        targetChanged: function(target, newTarget) {
+
+            if (target) target.style = '';
+
+            if (newTarget) newTarget.style = 'border: 1px #ccc solid;'
+
+        },
+
+        move: function(e, avatar, shift) {
+
+            avatar.elem.style.left = e.pageX - shift.x + 'px';
+            avatar.elem.style.top = e.pageY - shift.y + 'px';
+
+        },
+
+        targetReached: function(target, avatar, elem) {
+            target.style = '';
+            target.parentNode.insertBefore(elem, target.nextElementSibling);
+            elem.style = '';
+        }
+    };
+
+    var draggableClass  = settings.draggableClass   || 'draggable',
+        dropableClass   = settings.dropableClass    || 'dropable',
+        findDraggable   = settings.findDraggable    || defaultHandlers.findDraggable,
+        findDropable    = settings.findDropable     || defaultHandlers.findDropable,
+        makeAvatar      = settings.makeAvatar       || defaultHandlers.makeAvatar,
+        targetChanged   = settings.targetChanged    || defaultHandlers.targetChanged,
+        move            = settings.move             || defaultHandlers.move,
+        targetReached   = settings.targetReached    || defaultHandlers.targetReached
+
+    var dragObj = {};
 
     var onMouseDown = function(e) {
 
         if (e.which != 1) return;
 
-        clickedAt.x = e.pageX;
-        clickedAt.y = e.pageY;
+        dragObj.clickedAt = {
+            x: e.pageX,
+            y: e.pageY
+        };
 
-        dragElem.elem = findDraggable(e);
+        dragObj.elem = findDraggable(e);
+
+        if (!dragObj.elem) return;
+
+        var coords = getCoords(dragObj.elem);
+
+        dragObj.shift = {
+            x: e.pageX - coords.x,
+            y: e.pageY - coords.y
+        }
+
     };
 
     var onMouseMove = function(e) {
 
-        if (!dragElem.elem) return;
+        if (!dragObj.elem) return;
 
-        if (Math.abs(e.pageX - clickedAt.x) < 5 && Math.abs(e.pageY - clickedAt.y) < 5) return;
 
-        if (!dragElem.avatar) {
+        if (Math.abs(e.pageX - dragObj.clickedAt.x) < 5 && Math.abs(e.pageY - dragObj.clickedAt.y) < 5) return;
 
-            dragElem.avatar = dragElem.elem.cloneNode(true);
-            dragElem.avatar.classList.add('dnd-avatar');
-
-            dragElem.elem.parentNode.insertBefore(dragElem.avatar, dragElem.elem.nextSibling);
-            dragElem.elem.style.display = 'none';
-
+        if (!dragObj.avatar) {
+            dragObj.avatar = makeAvatar(dragObj.elem);
         }
 
-        dragElem.newTarget = document.elementFromPoint(e.clientX, e.clientY).closest('.list-item');
+        var newTarget = findDropable(e);
 
-        if (dragElem.newTarget != dragElem.target) {
 
-            if (dragElem.newTarget) {
+        if (newTarget != dragObj.target) {
 
-                if (dragElem.newTarget != dragElem.avatar.nextElementSibling) {
-                    dragElem.newTarget.parentNode.insertBefore(dragElem.avatar, dragElem.newTarget);
-                } else {
-                    dragElem.newTarget.parentNode.insertBefore(dragElem.avatar, dragElem.newTarget.nextSibling);
-                }
+            targetChanged(dragObj.target, newTarget, dragObj.avatar);
 
-            }
-
-            dragElem.target = dragElem.newTarget;
-
+            dragObj.target = newTarget;
         }
 
 
+        move(e, dragObj.avatar, dragObj.shift);
     };
 
     var onMouseUp = function(e) {
 
         if (e.which != 1) return;
-        if (!dragElem.elem || !dragElem.avatar) return;
-
-        var target = document.elementFromPoint(e.clientX, e.clientY).closest('.list-item');
-
-        if (target) {
-            target.parentNode.insertBefore(dragElem.elem, target.nextSibling);
+        if (!dragObj.avatar) {
+            dragObj = {};
+            return;
         }
 
-        dragElem.avatar.parentNode.removeChild(dragElem.avatar);
-        dragElem.elem.style = '';
+        var target = findDropable(e);
 
-        var feed_id = dragElem.elem.dataset.id,
-            feed_type = dragElem.elem.dataset.type;
-            next_sibling_feed_id = dragElem.elem.nextElementSibling.dataset.type+':'+dragElem.elem.nextElementSibling.dataset.id;
+        if (target)
+            targetReached(target, dragObj.avatar, dragObj.elem);
+        else
+            dragObj.avatar.rollback();
 
-        codex.core.ajax({url: '/admin/feed?item_id='+feed_id+'&feed_type='+feed_type+'&item_below_value='+next_sibling_feed_id});
-
-        dragElem = {};
-
-    };
-
-    var findDraggable = function(e) {
-        return e.target.closest('.draggable');
+        dragObj = {};
     };
 
     var getCoords = function (elem) {
         var rect = elem.getBoundingClientRect();
 
         return {
-            y: rect.top + pageYOffset,
-            x: rect.left + pageXOffset
+            x: rect.left + pageXOffset,
+            y: rect.top + pageYOffset
         };
     };
 
@@ -1007,6 +1063,4 @@ codex.dragndrop = function() {
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
     document.ondragstart = function(){return false};
-}();
-
-
+};

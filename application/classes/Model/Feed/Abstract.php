@@ -68,7 +68,17 @@ class Model_Feed_Abstract extends Model {
             return false;
         }
 
-        $interval = $this->redis->zScore($this->timeline_key, $item_below_value) - $this->redis->zScore($this->timeline_key, $item_value);
+        $item_score = $this->redis->zScore($this->timeline_key, $item_value);
+        $item_below_score = $this->redis->zScore($this->timeline_key, $item_below_value);
+
+        //Увеличиваем всем элементам после $item_below_value значение на 1, чтобы точно вставить элемент в нужное место
+        $elements_below = $this->redis->zRangeByScore($this->timeline_key, $item_below_score+1, '+inf');
+
+        foreach ($elements_below as $element_value) {
+            $this->redis->zIncrBy($this->timeline_key, 1, $element_value);
+        }
+
+        $interval = $item_below_score - $item_score;
 
         return $this->redis->zIncrBy($this->timeline_key, $interval + 1, $item_value);
     }
@@ -106,18 +116,18 @@ class Model_Feed_Abstract extends Model {
 
 
     /**
-     * Получаем индентефикаторы первых $numberOfItems элементов в фиде.
-     * Если $numberOfItems не указано, то получаем весь фид.
+     * Получаем индентефикаторы элементов фида с $offset по $numberOfItems
      *
-     * @param int $numberOfItems
+     * @param int $numberOfItems - если не указан, возвращает элементы с $offset до последнего
+     * @param int $offset - если не указан, возвращает элементы с первого до $numberOfItems
      *
      * @return array - массив идентефикаторов элементов
      */
-    public function get($numberOfItems = 0) {
+    public function get($numberOfItems = 0, $offset = 0) {
 
         $numberOfItems = $this->redis->zCard($this->timeline_key) > $numberOfItems ? $numberOfItems : 0;
 
-        $items = $this->redis->zRevRange($this->timeline_key, 0, $numberOfItems - 1);
+        $items = $this->redis->zRevRange($this->timeline_key, $offset, $numberOfItems - 1);
 
         return $items;
     }
@@ -131,6 +141,17 @@ class Model_Feed_Abstract extends Model {
     {
         foreach ($items as $item) {
             $this->add($item['id'], $item['dt_create']);
+        }
+    }
+
+    /**
+     * Метод для переиндексации списка (индексация с 0)
+     */
+    public function reindexing() {
+        $elements = $this->redis->zRange($this->timeline_key, 0, -1);
+
+        foreach ($elements as $i => $element) {
+            $this->redis->zAdd($this->timeline_key, $i, $element);
         }
     }
 
