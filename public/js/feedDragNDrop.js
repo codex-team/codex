@@ -41,15 +41,26 @@ codex.core.dragndrop({
 
         var item_id = elem.dataset.id,
             item_type = elem.dataset.type,
-            next_sibling_item_id = elem.nextElementSibling.dataset.type+':'+elem.nextElementSibling.dataset.id;
+            item_below_value = null,
+            nextSibling;
+
+            if (nextSibling = elem.nextElementSibling)
+                item_below_value = nextSibling.dataset.type+':'+nextSibling.dataset.id;
 
         var ajaxData = {
             success: function(){
                 document.getElementById('saved').classList.remove('top-menu__saved_hidden');
                 setTimeout(function() {document.getElementById('saved').classList.add('top-menu__saved_hidden')}, 1000);
             },
-            url: '/admin/feed?item_id='+item_id+'&item_type='+item_type+'&item_below_value='+next_sibling_item_id
+            type: 'POST',
+            url: '/admin/feed',
+            data: JSON.stringify({
+             item_id: item_id,
+             item_type: item_type,
+             item_below_value: item_below_value
+             })
         };
+
 
         codex.core.ajax(ajaxData);
     }

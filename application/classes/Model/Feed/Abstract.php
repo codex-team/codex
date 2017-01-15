@@ -50,9 +50,10 @@ class Model_Feed_Abstract extends Model {
     /**
      * Меняем порядок элементов в фиде
      *
-     * @param $item_id - id элемента, который переставляем
-     * @param $item_below_value - value элемента,
-     * после которого в sorted set вставляем $item (перед которым $item будет выводиться)
+     * @param int           $item_id - id элемента, который переставляем
+     * @param string|null   $item_below_value - value элемента,
+     * после которого в sorted set вставляем $item (перед которым $item будет выводиться).
+     * Если передан null, вставляем $item в начало sored set, то есть в конец фида
      *
      * @return string|bool - false при ошибке или новое значение score, представленное в строке
      */
@@ -64,11 +65,19 @@ class Model_Feed_Abstract extends Model {
             return false;
         }
 
+
+        //Если в качестве $item_below_value передан null, переставляем элемент в самое начало списка
+        if (is_null($item_below_value)) {
+            $first_item_value = $this->redis->zRange($this->timeline_key, 0, 0); //actually, array([0] => first_item_value)
+            $first_item_score = $this->redis->zScore($this->timeline_key, $first_item_value[0]);
+
+            $this->redis->zAdd($this->timeline_key, $first_item_score-1, $item_value);
+        }
+
         if($this->redis->zRank($this->timeline_key, $item_below_value) === false) {
             return false;
         }
 
-        $item_score = $this->redis->zScore($this->timeline_key, $item_value);
         $item_below_score = $this->redis->zScore($this->timeline_key, $item_below_value);
 
         //Увеличиваем всем элементам после $item_below_value значение на 1, чтобы точно вставить элемент в нужное место
@@ -78,9 +87,7 @@ class Model_Feed_Abstract extends Model {
             $this->redis->zIncrBy($this->timeline_key, 1, $element_value);
         }
 
-        $interval = $item_below_score - $item_score;
-
-        return $this->redis->zIncrBy($this->timeline_key, $interval + 1, $item_value);
+        return $this->redis->zAdd($this->timeline_key, $item_below_score + 1, $item_value);
     }
 
     /**

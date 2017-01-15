@@ -94,14 +94,14 @@ class Controller_Admin extends Controller_Base_preDispatch
             return View::factory('templates/admin/articles/feed', $this->view);
         }
 
-        $item_id = $_GET['item_id'];
-        $item_type = $_GET['item_type'];
-        $item_below_value = $_GET['item_below_value'];
 
-        $feed = new Model_Feed_Articles($item_type);
+        $json_data = json_decode(file_get_contents(
+            'php://input'
+        ));
 
-        $feed->putAbove($item_id, $item_below_value);
-        var_dump($_GET);
+        $feed = new Model_Feed_Articles($json_data->item_type);
+
+        $feed->putAbove($json_data->item_id, $json_data->item_below_value);
 
         $this->auto_render = false;
 
