@@ -132,11 +132,11 @@ class Model_Feed_Abstract extends Model {
      */
     public function get($numberOfItems = 0, $offset = 0) {
 
-        $numberOfItems = $this->redis->zCard($this->timeline_key) > $numberOfItems ? $numberOfItems : 0;
+        $end = $numberOfItems + $offset;
 
-        $items = $this->redis->zRevRange($this->timeline_key, $offset, $numberOfItems - 1);
+        $end = $this->redis->zCard($this->timeline_key) > $end ? $end : 0;
 
-        return $items;
+        return $this->redis->zRevRange($this->timeline_key, $offset, $end - 1);
     }
 
     /**
