@@ -981,13 +981,15 @@ codex.core.dragndrop = function(settings){
         makeAvatar      = settings.makeAvatar       || defaultHandlers.makeAvatar,
         targetChanged   = settings.targetChanged    || defaultHandlers.targetChanged,
         move            = settings.move             || defaultHandlers.move,
-        targetReached   = settings.targetReached    || defaultHandlers.targetReached
+        targetReached   = settings.targetReached    || defaultHandlers.targetReached;
 
     var dragObj = {};
 
     var onMouseDown = function(e) {
 
-        if (e.which != 1) return;
+        if (e.which > 1 || (e.touches && e.changedTouches[0].force < 0.19)) return;
+
+        e = touchSupported(e);
 
         dragObj.clickedAt = {
             x: e.pageX,
@@ -1011,6 +1013,9 @@ codex.core.dragndrop = function(settings){
 
         if (!dragObj.elem) return;
 
+        e.preventDefault();
+
+        e = touchSupported(e);
 
         if (Math.abs(e.pageX - dragObj.clickedAt.x) < 5 && Math.abs(e.pageY - dragObj.clickedAt.y) < 5) return;
 
@@ -1019,7 +1024,6 @@ codex.core.dragndrop = function(settings){
         }
 
         var newTarget = findDropable(e);
-
 
         if (newTarget != dragObj.target) {
 
@@ -1034,11 +1038,14 @@ codex.core.dragndrop = function(settings){
 
     var onMouseUp = function(e) {
 
-        if (e.which != 1) return;
+        if (e.which > 1) return;
+
         if (!dragObj.avatar) {
             dragObj = {};
             return;
         }
+
+        e = touchSupported(e);
 
         var target = findDropable(e);
 
@@ -1059,8 +1066,36 @@ codex.core.dragndrop = function(settings){
         };
     };
 
+    var touchSupported = function(e) {
+
+        if (e.changedTouches)
+            var touch = e.changedTouches[0];
+        else
+            return e;
+
+        e.pageX = touch.pageX;
+        e.pageY = touch.pageY;
+
+        e.clientX = touch.clientX;
+        e.clientY = touch.clientY;
+
+        e.screenX = touch.screenX;
+        e.screenY = touch.screenY;
+
+        e.target = touch.target;
+
+        return e;
+    };
+
+
     document.addEventListener('mousedown', onMouseDown);
+    document.addEventListener('touchstart', onMouseDown);
+
     document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('touchmove', onMouseMove);
+
     document.addEventListener('mouseup', onMouseUp);
+    document.addEventListener('touchend', onMouseUp);
+
     document.ondragstart = function(){return false};
 };
