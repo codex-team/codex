@@ -16,7 +16,6 @@
                             </g>
                         </svg>
                     </td>
-                    <td class="id"><?= $item->id ?></td>
                     <td class="id"><?= $item::FEED_PREFIX ?></td>
                     <td class="title">
                         <a href="/<?= $item::FEED_PREFIX ?>/<?= $item->id ?>">
