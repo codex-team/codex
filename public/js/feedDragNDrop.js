@@ -1,6 +1,14 @@
 codex.core.dragndrop({
     dropableClass: 'list-item',
 
+    findDraggable: function(e){
+        var target = e.target.closest('.draggable');
+
+        if (target) return target.closest('.list-item');
+
+        return null;
+    },
+
     makeAvatar: function(elem) {
         var avatar = {};
 

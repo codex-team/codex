@@ -1,9 +1,6 @@
-.dnd-avatar {
-    background: #ececec;
-}
-
+.dnd-avatar,
 .dnd-avatar td {
-    background: #ececec;
+    background: #fafafd;
 }
 
 .draggable {

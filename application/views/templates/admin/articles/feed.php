@@ -15,9 +15,11 @@
     </div>
 <? endif; ?>
 <? if ($mode == 'cards'): ?>
+
     <div class="center_side feed clearfix">
-    <?= View::factory('templates/articles/list', array( 'feed_items' => $feed)); ?>
+        <?= View::factory('templates/articles/list', array( 'feed_items' => $feed)); ?>
     </div>
+
     <script>
         var items = document.querySelectorAll('.feed-item');
 
