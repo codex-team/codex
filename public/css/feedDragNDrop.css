@@ -1,8 +1,17 @@
 .dnd-avatar,
 .dnd-avatar td {
-    background: #fafafd;
+    background: #fafafd !important;
 }
 
 .draggable {
     user-select: none;
+}
+
+.feed {
+    background: #ccc;
+}
+
+.feed-item {
+    background: #fff;
+    border: 1px #ccc solid;
 }
