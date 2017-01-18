@@ -146,8 +146,8 @@ class Controller_Admin extends Controller_Base_preDispatch
 
         $developersList = new Model_Feed_Developers();
 
-        $is_best = $_GET['value'];
-        $id = $_GET['id'];
+        $is_best = Arr::get($_GET, 'value');
+        $id      = Arr::get($_GET, 'id');
 
         if ($is_best) {
             $developersList->add($id, time());
