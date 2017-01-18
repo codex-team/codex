@@ -65,6 +65,13 @@ textarea {
     overflow: hidden;
 }
 
+/**
+* No-selection shorthand
+ */
+
+.no-selection {
+    user-select: none;
+}
 
 
 /**

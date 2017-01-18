@@ -1000,6 +1000,8 @@ codex.core.dragndrop = function(settings){
 
         if (!dragObj.elem) return;
 
+        toggleSelection();
+
         var coords = getCoords(dragObj.elem);
 
         dragObj.shift = {
@@ -1055,6 +1057,8 @@ codex.core.dragndrop = function(settings){
             dragObj.avatar.rollback();
 
         dragObj = {};
+
+        toggleSelection();
     };
 
     var getCoords = function (elem) {
@@ -1086,6 +1090,12 @@ codex.core.dragndrop = function(settings){
 
         return e;
     };
+
+    var toggleSelection = function() {
+
+        document.body.classList.toggle('no-selection');
+
+    }
 
 
     document.addEventListener('mousedown', onMouseDown);
