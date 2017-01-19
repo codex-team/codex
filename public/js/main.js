@@ -1065,9 +1065,8 @@ codex.dragndrop = function(settings){
 
         /**
          * Check mouse (which=1 - right mouse button) or touch (which=0 - touch) event.
-         * If event is touch check touch force. Force<0.19 means that touch is accidental
          */
-        if (e.which > 1 || (e.touches && e.changedTouches[0].force < 0.19)) return;
+        if (e.which > 1) return;
 
         e = touchSupported(e);
 
