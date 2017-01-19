@@ -1,5 +1,5 @@
 <div class="center_side clear">
-    <? if (count($feed) == 0): ?>
+    <? if (!$feed): ?>
         <article class="article">
             <p>Здесь пока нет статей.</p>
         </article>

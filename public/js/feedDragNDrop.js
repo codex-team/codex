@@ -1,5 +1,5 @@
-codex.core.dragndrop({
-    dropableClass: 'list-item',
+codex.dragndrop({
+    droppableClass: 'list-item',
 
     findDraggable: function(e){
         var target = e.target.closest('.draggable');
@@ -20,22 +20,24 @@ codex.core.dragndrop({
 
         avatar.rollback = function () {
             avatar.elem.parentNode.removeChild(avatar.elem);
-            elem.style = '';
+            elem.setAttribute('style', '');
         };
 
         return avatar;
     },
 
     targetChanged: function(target, newTarget, avatar){
-        if (newTarget) {
 
-            if (newTarget != avatar.elem.nextElementSibling) {
-                newTarget.parentNode.insertBefore(avatar.elem, newTarget);
-            } else {
-                newTarget.parentNode.insertBefore(avatar.elem, newTarget.nextSibling);
-            }
+        if (!newTarget) return;
 
+        var targetPosition = newTarget.compareDocumentPosition(avatar.elem);
+
+        if (targetPosition&4) {
+            newTarget.parentNode.insertBefore(avatar.elem, newTarget);
+        } else if (targetPosition&2) {
+            newTarget.parentNode.insertBefore(avatar.elem, newTarget.nextSibling);
         }
+
     },
 
     move: function(){},
@@ -45,7 +47,7 @@ codex.core.dragndrop({
         target.parentNode.insertBefore(elem, target.nextSibling);
 
         avatar.elem.parentNode.removeChild(avatar.elem);
-        elem.style = '';
+        elem.setAttribute('style', '');
 
         var item_id = elem.dataset.id,
             item_type = elem.dataset.type,

@@ -913,17 +913,86 @@ if ( !String.prototype.includes ) {
   };
 }
 
-codex.core.dragndrop = function(settings){
 
-    defaultHandlers = {
+/**
+ * Polyfill for Element.prototype.matches method
+ */
+if (!Element.prototype.matches) {
+
+    Element.prototype.matches = Element.prototype.matchesSelector ||
+                                Element.prototype.webkitMatchesSelector ||
+                                Element.prototype.mozMatchesSelector ||
+                                Element.prototype.msMatchesSelector;
+
+}
+
+/**
+ * Polyfill for Element.prototype.closest method
+ */
+if (!Element.prototype.closest) {
+
+    Element.prototype.closest = function (selector) {
+        var node = this;
+
+        while (node) {
+            if (node.matches(selector)) return node;
+            node = node.parentElement;
+        }
+
+        return null;
+    }
+
+};
+
+
+/**
+ * Flexible drag'n'drop module.
+ * If called w/o any settings uses defaultHandler methods
+ *
+ *
+ * @param Object settings - object with your methods for drag'n'drop
+ *
+ * Setting can contain some of these methods and properties (if doesn`t contain, module uses defaultHandlers methods):
+ *      - draggableClass    - class of draggable elements for searching via Element.prototype.closest
+ *      - droppableClass    - class of droppable elements for searching via Element.prototype.closest
+ *
+ *      - findDraggable(e)  - method for searching draggable elements. Takes touch or mouse event object as argument.
+ *                            Must return DOM element
+ *
+ *      - findDroppable(e)  - method for searching droppable elements. Takes touch or mouse event objec as argument
+ *                            Must return DOM element
+ *
+ *      - makeAvatar(elem)  - method for creating avatar (element that will move). Takes current draggable element as argument.
+ *                            Returns object that must contains rollback property. Rollback define avatar and element conduct if drop isn`t success.
+ *                            Avatar object can contains any other properties you need.
+ *
+ *      - targetChanged(target, newTarget, avatar) - method that define conduct of avatar and droppable elements under cursor while dragging
+ *
+ *      - move(e, avatar, shift) - method for avatar movements. Takes touch or mouse event, avatar object and shift.
+ *                                 Shift is object with x and y properties. Shift is difference between click and element coords.
+ *
+ *      - targetReached(target, avatar, elem, e) - method that define conduct of avatar and element when drop is success.
+ *                                                 Takes target, avatar obj, element and touch or mouse event as arguments.
+ *
+ * You can see example of these methods in defaultHandlers object.
+ */
+codex.dragndrop = function(settings){
+
+    var defaultHandlers = {
         findDraggable: function(e) {
             return e.target.closest('.'+draggableClass);
         },
 
-        findDropable: function(e) {
-            return document.elementFromPoint(e.clientX, e.clientY).closest('.'+dropableClass);
+        findDroppable: function(e) {
+            return document.elementFromPoint(e.clientX, e.clientY).closest('.'+droppableClass);
         },
 
+        /**
+         * The simplest makeAvatar method.
+         *
+         * Just set elem to avatar.elem. And remembers element position in document.
+         * If drop isn`t success, returns elem to start position.
+         */
         makeAvatar: function(elem) {
 
             var avatar = {};
@@ -947,16 +1016,20 @@ codex.core.dragndrop = function(settings){
                 rollback: avatarRollback
             };
 
+            //Set avatar position: absolute; for drag'n'drop
             avatar.elem.style = 'position: absolute; pointer-events: none; z-index: 100;';
 
             return avatar;
         },
 
+        /**
+         * Highlights droppable elements under cursor with border
+         */
         targetChanged: function(target, newTarget) {
 
             if (target) target.style = '';
 
-            if (newTarget) newTarget.style = 'border: 1px #ccc solid;'
+            if (newTarget) newTarget.style = 'border: 1px #eee solid;'
 
         },
 
@@ -967,6 +1040,9 @@ codex.core.dragndrop = function(settings){
 
         },
 
+        /**
+         * Inserts elem into document if drop is success
+         */
         targetReached: function(target, avatar, elem) {
             target.style = '';
             target.parentNode.insertBefore(elem, target.nextElementSibling);
@@ -975,9 +1051,9 @@ codex.core.dragndrop = function(settings){
     };
 
     var draggableClass  = settings.draggableClass   || 'draggable',
-        dropableClass   = settings.dropableClass    || 'dropable',
+        droppableClass   = settings.droppableClass    || 'droppable',
         findDraggable   = settings.findDraggable    || defaultHandlers.findDraggable,
-        findDropable    = settings.findDropable     || defaultHandlers.findDropable,
+        findDroppable    = settings.findDroppable     || defaultHandlers.findDroppable,
         makeAvatar      = settings.makeAvatar       || defaultHandlers.makeAvatar,
         targetChanged   = settings.targetChanged    || defaultHandlers.targetChanged,
         move            = settings.move             || defaultHandlers.move,
@@ -987,6 +1063,10 @@ codex.core.dragndrop = function(settings){
 
     var onMouseDown = function(e) {
 
+        /**
+         * Check mouse (which=1 - right mouse button) or touch (which=0 - touch) event.
+         * If event is touch check touch force. Force<0.19 means that touch is accidental
+         */
         if (e.which > 1 || (e.touches && e.changedTouches[0].force < 0.19)) return;
 
         e = touchSupported(e);
@@ -1015,17 +1095,19 @@ codex.core.dragndrop = function(settings){
 
         if (!dragObj.elem) return;
 
+        //Prevent touchmove scroll
         e.preventDefault();
 
         e = touchSupported(e);
 
+        //Check mouse offset. If x or y offset <5, assume that it`s accidental move
         if (Math.abs(e.pageX - dragObj.clickedAt.x) < 5 && Math.abs(e.pageY - dragObj.clickedAt.y) < 5) return;
 
         if (!dragObj.avatar) {
             dragObj.avatar = makeAvatar(dragObj.elem);
         }
 
-        var newTarget = findDropable(e);
+        var newTarget = findDroppable(e);
 
         if (newTarget != dragObj.target) {
 
@@ -1049,10 +1131,10 @@ codex.core.dragndrop = function(settings){
 
         e = touchSupported(e);
 
-        var target = findDropable(e);
+        var target = findDroppable(e);
 
         if (target)
-            targetReached(target, dragObj.avatar, dragObj.elem);
+            targetReached(target, dragObj.avatar, dragObj.elem, e);
         else
             dragObj.avatar.rollback();
 
@@ -1095,7 +1177,7 @@ codex.core.dragndrop = function(settings){
 
         document.body.classList.toggle('no-selection');
 
-    }
+    };
 
 
     document.addEventListener('mousedown', onMouseDown);
