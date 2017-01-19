@@ -999,7 +999,7 @@ codex.dragndrop = function(settings){
 
             var avatarRollback = function() {
 
-                avatar.elem.style = '';
+                avatar.elem.classList.remove('dnd-default-avatar');
 
                 if (avatar.nextSibling)
                     avatar.parentNode.insertBefore(avatar.elem, avatar.nextSibling);
@@ -1017,7 +1017,7 @@ codex.dragndrop = function(settings){
             };
 
             //Set avatar position: absolute; for drag'n'drop
-            avatar.elem.style = 'position: absolute; pointer-events: none; z-index: 100;';
+            avatar.elem.classList.add('dnd-default-avatar');
 
             return avatar;
         },
@@ -1027,9 +1027,9 @@ codex.dragndrop = function(settings){
          */
         targetChanged: function(target, newTarget) {
 
-            if (target) target.style = '';
+            if (target) target.classList('dnd-default-target-highlight');
 
-            if (newTarget) newTarget.style = 'border: 1px #eee solid;'
+            if (newTarget) newTarget.classList.add('dnd-default-target-highlight');
 
         },
 
@@ -1044,9 +1044,9 @@ codex.dragndrop = function(settings){
          * Inserts elem into document if drop is success
          */
         targetReached: function(target, avatar, elem) {
-            target.style = '';
+            target.classList.remove('dnd-default-target-highlight');
             target.parentNode.insertBefore(elem, target.nextElementSibling);
-            elem.style = '';
+            avatar.elem.classList.remove('dnd-default-avatar');
         }
     };
 

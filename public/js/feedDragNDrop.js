@@ -16,11 +16,11 @@ codex.dragndrop({
         avatar.elem.classList.add('dnd-avatar');
 
         elem.parentNode.insertBefore(avatar.elem, elem.nextSibling);
-        elem.style.display = 'none';
+        elem.classList.add('no-display');
 
         avatar.rollback = function () {
             avatar.elem.parentNode.removeChild(avatar.elem);
-            elem.setAttribute('style', '');
+            elem.classList.remove('no-display');
         };
 
         return avatar;
@@ -47,7 +47,7 @@ codex.dragndrop({
         target.parentNode.insertBefore(elem, target.nextSibling);
 
         avatar.elem.parentNode.removeChild(avatar.elem);
-        elem.setAttribute('style', '');
+        elem.classList.remove('no-display');
 
         var item_id = elem.dataset.id,
             item_type = elem.dataset.type,

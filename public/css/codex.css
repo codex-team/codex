@@ -76,6 +76,17 @@ textarea {
     -ms-user-select: none;
 }
 
+/**
+* Drag'n'drop defaul styles
+ */
+.dnd-default-avatar {
+    position: absolute;
+    pointer-events: none;
+    z-index: 100;
+}
+.dnd-default-target-highlight {
+    border: 1px #eee solid;
+}
 
 /**
 * Forms elements

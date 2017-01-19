@@ -12,7 +12,7 @@
     <div class="center_side clear">
         <?= View::factory('templates/admin/articles/feed_list', array( 'feed' => $feed )); ?>
     </div>
-<? else: if($mode == 'cards'): ?>
+<? elseif($mode == 'cards'): ?>
 
     <div class="center_side feed clearfix">
         <?= View::factory('templates/articles/list', array( 'feed_items' => $feed)); ?>
@@ -28,7 +28,6 @@
 
     </script>
 
-    <? endif; ?>
 <? endif; ?>
 <script src="/public/js/feedDragNDrop.js"></script>
 <link rel="stylesheet" href="/public/css/feedDragNDrop.css">
