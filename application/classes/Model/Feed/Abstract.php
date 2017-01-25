@@ -50,9 +50,10 @@ class Model_Feed_Abstract extends Model {
     /**
      * Меняем порядок элементов в фиде
      *
-     * @param $item_id - id элемента, который переставляем
-     * @param $item_below_value - value элемента,
-     * после которого в sorted set вставляем $item (перед которым $item будет выводиться)
+     * @param int           $item_id - id элемента, который переставляем
+     * @param string|null   $item_below_value - value элемента,
+     * после которого в sorted set вставляем $item (перед которым $item будет выводиться).
+     * Если передан null, вставляем $item в начало sored set, то есть в конец фида
      *
      * @return string|bool - false при ошибке или новое значение score, представленное в строке
      */
@@ -64,13 +65,29 @@ class Model_Feed_Abstract extends Model {
             return false;
         }
 
+
+        //Если в качестве $item_below_value передан null, переставляем элемент в самое начало списка
+        if (is_null($item_below_value)) {
+            $first_item_value = $this->redis->zRange($this->timeline_key, 0, 0); //actually, array([0] => first_item_value)
+            $first_item_score = $this->redis->zScore($this->timeline_key, $first_item_value[0]);
+
+            $this->redis->zAdd($this->timeline_key, $first_item_score-1, $item_value);
+        }
+
         if($this->redis->zRank($this->timeline_key, $item_below_value) === false) {
             return false;
         }
 
-        $interval = $this->redis->zScore($this->timeline_key, $item_below_value) - $this->redis->zScore($this->timeline_key, $item_value);
+        $item_below_score = $this->redis->zScore($this->timeline_key, $item_below_value);
 
-        return $this->redis->zIncrBy($this->timeline_key, $interval + 1, $item_value);
+        //Увеличиваем всем элементам после $item_below_value значение на 1, чтобы точно вставить элемент в нужное место
+        $elements_below = $this->redis->zRangeByScore($this->timeline_key, $item_below_score+1, '+inf');
+
+        foreach ($elements_below as $element_value) {
+            $this->redis->zIncrBy($this->timeline_key, 1, $element_value);
+        }
+
+        return $this->redis->zAdd($this->timeline_key, $item_below_score + 1, $item_value);
     }
 
     /**
@@ -106,20 +123,20 @@ class Model_Feed_Abstract extends Model {
 
 
     /**
-     * Получаем индентефикаторы первых $numberOfItems элементов в фиде.
-     * Если $numberOfItems не указано, то получаем весь фид.
+     * Получаем индентефикаторы элементов фида с $offset по $numberOfItems
      *
-     * @param int $numberOfItems
+     * @param int $numberOfItems - если не указан, возвращает элементы с $offset до последнего
+     * @param int $offset - если не указан, возвращает элементы с первого до $numberOfItems
      *
      * @return array - массив идентефикаторов элементов
      */
-    public function get($numberOfItems = 0) {
+    public function get($numberOfItems = 0, $offset = 0) {
 
-        $numberOfItems = $this->redis->zCard($this->timeline_key) > $numberOfItems ? $numberOfItems : 0;
+        $end = $numberOfItems + $offset;
 
-        $items = $this->redis->zRevRange($this->timeline_key, 0, $numberOfItems - 1);
+        $end = $this->redis->zCard($this->timeline_key) > $end ? $end : 0;
 
-        return $items;
+        return $this->redis->zRevRange($this->timeline_key, $offset, $end - 1);
     }
 
     /**
@@ -131,6 +148,17 @@ class Model_Feed_Abstract extends Model {
     {
         foreach ($items as $item) {
             $this->add($item['id'], $item['dt_create']);
+        }
+    }
+
+    /**
+     * Метод для переиндексации списка (индексация с 0)
+     */
+    public function reindexing() {
+        $elements = $this->redis->zRange($this->timeline_key, 0, -1);
+
+        foreach ($elements as $i => $element) {
+            $this->redis->zAdd($this->timeline_key, $i, $element);
         }
     }
 

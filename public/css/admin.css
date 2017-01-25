@@ -37,11 +37,30 @@
     padding: 150px 0;
 }
 
+.top-menu{
+    width: 100%;
+    margin: 10px 30px;
+    font-size: 15px;
+}
 
+.top-menu__link{
+    float: right;
+    margin-left: 15px;
+}
+
+.top-menu__saved{
+    float: right;
+    color: #ccc;
+}
+
+.top-menu__saved_hidden{
+    visibility: hidden;
+}
 
 .p_table{
     width: 100%;
     margin: 0 30px;
+    border-spacing: 0;
 }
     .p_table td{
         padding: 15px;
