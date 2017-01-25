@@ -9,9 +9,9 @@
 </div>
 
 <? if ($mode == 'list'): ?>
-    <div class="center_side clear">
+
         <?= View::factory('templates/admin/articles/feed_list', array( 'feed' => $feed )); ?>
-    </div>
+
 <? elseif($mode == 'cards'): ?>
 
     <div class="center_side feed clearfix">

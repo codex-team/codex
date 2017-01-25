@@ -301,6 +301,16 @@ html {
 }
 
 
+.site-header__button{
+    display: inline-block;
+    float: right;
+    padding: 18px 0;
+    color: #04A670;
+}
+.site-header__button i{
+    margin-right: 0.2em;
+}
+
 
 /**
 *
@@ -966,6 +976,10 @@ html {
     .site-header__menu a:not(:first-child),
     .site-header__profile{
         margin-left: 10px;
+    }
+
+    .site-header__button {
+        display: none;
     }
 
     /**
