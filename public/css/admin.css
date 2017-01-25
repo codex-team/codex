@@ -39,13 +39,12 @@
 
 .top-menu{
     width: 100%;
-    margin: 10px 30px;
+    margin: 10px 0;
     font-size: 15px;
 }
 
 .top-menu__link{
     float: right;
-    margin-left: 15px;
 }
 
 .top-menu__saved{
@@ -59,7 +58,6 @@
 
 .p_table{
     width: 100%;
-    margin: 0 30px;
     border-spacing: 0;
 }
     .p_table td{
@@ -148,23 +146,3 @@
         margin: 1px;
         line-height: 1.7em;
     }
-
-.site-header__button{
-    display: inline-block;
-    float: right;
-    padding: 18px 0;
-    color: #04A670;
-}
-.site-header__button i{
-    margin-right: 0.2em;
-}
-
-
-
-@media all and (max-width: 800px){
-
-    .site-header__button {
-        display: none;
-    }
-
-}
