@@ -19,9 +19,6 @@
 
     <link rel="stylesheet" href="/public/css/normalize.css">
     <link rel="stylesheet" href="/public/css/codex.css?v=<?= filemtime('public/css/codex.css') ?>">
-    <? if ($user->isAdmin): ?>
-        <link rel="stylesheet" href="/public/css/admin.css?v=<?= filemtime('public/css/admin.css') ?>">
-    <? endif ?>
 
     <link rel="icon" type="image/png" href="/public/img/fav_shield@3x.png?v=985" id="favicon" />
 

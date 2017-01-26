@@ -144,6 +144,7 @@
 .article_content ol,
 .article_content blockquote,
 .article_content--old code,
+.ce-plugin-image__uploaded--centered,
 .article__code {
     max-width: 700px;
 }
@@ -156,6 +157,7 @@
 }
 .article__code{
     margin: 0 auto;
+    white-space: pre;
 }
 
 

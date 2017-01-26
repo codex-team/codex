@@ -91,12 +91,12 @@ var listTool = {
 
         orderedButton.addEventListener('click', function (event) {
             listTool.changeBlockStyle(event, 'ol');
-            codex.toolbar.settings.close();
+            codex.editor.toolbar.settings.close();
         });
 
         unorderedButton.addEventListener('click', function (event) {
             listTool.changeBlockStyle(event, 'ul');
-            codex.toolbar.settings.close();
+            codex.editor.toolbar.settings.close();
         });
 
         holder.appendChild(orderedButton);
@@ -108,7 +108,7 @@ var listTool = {
 
     changeBlockStyle : function (event, blockType) {
 
-        var currentBlock = codex.content.currentNode,
+        var currentBlock = codex.editor.content.currentNode,
             newEditable = listTool.ui.make(blockType),
             oldEditable = currentBlock.querySelector("[contenteditable]");
 
@@ -116,7 +116,7 @@ var listTool = {
             newEditable.innerHTML = oldEditable.innerHTML;
             newEditable.classList.add('ce-list');
 
-            codex.content.switchBlock(currentBlock, newEditable, 'list');
+            codex.editor.content.switchBlock(currentBlock, newEditable, 'list');
     }
 
 };

@@ -1,0 +1,21 @@
+.dnd-avatar,
+.dnd-avatar td {
+    background: #fafafd !important;
+}
+
+.draggable {
+    cursor: move;
+}
+
+.feed {
+    background: #e8ecf2;
+}
+
+.feed-item {
+    background: #fff;
+    border: 1px #e8ecf2 solid;
+}
+
+.no-display {
+    display: none;
+}
