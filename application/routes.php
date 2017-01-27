@@ -178,6 +178,10 @@ Route::set('ADMIN_EDIT_ARTICLE', 'article/<article_id>/edit', array('article_id'
     'action' => 'edit'
 ));
 
+Route::set('ADMIN_TOGGLE_BEST_DEVELOPER', 'admin/developer')->defaults(array(
+    'controller' => 'admin',
+    'action'     => 'developer'
+));
 
 Route::set('ADMIN', 'admin(/<category>(/<list>))', array('category' => 'articles|feed|users|contests|courses|requests',
                                                                 'list' => 'unpublished|deleted'))

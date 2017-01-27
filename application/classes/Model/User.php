@@ -41,6 +41,11 @@ Class Model_User extends Model
     */
     public function getUsersByIds($ids)
     {
+
+        if (empty($ids)) {
+            return;
+        }
+
         $users = Dao_Users::select()
                     ->where_in('id', $ids)
                     ->cached(Date::MINUTE * 10, 'users_by_ids:' . implode(',', $ids))
