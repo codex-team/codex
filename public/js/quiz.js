@@ -382,6 +382,10 @@ quiz = (function() {
             var messages = quizData.resultMessages,
                 message;
 
+            messages.sort(function(a, b){
+               return a['score'] - b['score'];
+            });
+
             if (!messages.length) {
                 return;
             }
