@@ -27,17 +27,28 @@ var quizForm = (function(quiz) {
 
 
     /**
-    * Question insert button and anchor for new questions at the same time
+    * Question insert button and anchor for new questions
+    * @var {Element} quiz.questionInsertAnchor - DOM element of question insert anchor
     * @var {Element} quiz.questionInsertButton - DOM element of question insert button
     */
+    quiz.questionInsertAnchor = null;
     quiz.questionInsertButton = null;
 
 
     /**
-    * Result message insert button and anchor for new resultMessages at the same time
+    * Result message insert button and anchor for new resultMessages
+    * @var {Element} quiz.resultMessageInsertAnchor - DOM element of result message insert anchor
     * @var {Element} quiz.resultMessageInsertButton - DOM element of result message insert button
     */
+    quiz.resultMessageInsertAnchor = null;
     quiz.resultMessageInsertButton = null;
+
+
+    /**
+    * Result messages holder element
+    * @var {Element} quiz.resultMessagesHolder - DOM element of result messages holder
+    */
+    quiz.resultMessagesHolder = null;
 
 
     /**
@@ -66,61 +77,6 @@ var quizForm = (function(quiz) {
 
     /**
     * @private
-    * Message block creating function
-    * Creates a result message DOM element and appends it to the result messages list
-    */
-    var appendResultMessageBlock_ = function(messageData) {
-        var message = {};
-        var objectIndex = quiz.nodes.resultMessages.length;
-        messageData = messageData || {};
-
-        console.log('Appending result message block with index ' + objectIndex);
-
-        message.holder = newDOMElement_('div', {
-            'class': 'quiz-form__message-holder',
-            'data-object-index': objectIndex
-        });
-
-        message.score = newDOMElement_('input', {
-            'type': 'number',
-            'min': '0',
-            'step': '1',
-            'value': messageData.score || '0',
-            'class': 'quiz-form__message-score',
-            'required': '',
-            'form': 'undefined'
-        });
-
-        message.message = newDOMElement_('input', {
-            'type': 'text',
-            'class': 'quiz-form__message-message',
-            'placeholder': 'Сообщение',
-            'value': messageData.message || '',
-            'required': '',
-            'form': 'undefined'
-        });
-
-        if (objectIndex) {
-            message.destroyButton = newDOMElement_('span', {
-                'class': 'quiz-form__message-destroy-button'
-            }, 'Удалить');
-        }
-
-        message.holder.appendChild(message.score);
-        message.holder.appendChild(message.message);
-
-        if (objectIndex) {
-            message.holder.appendChild(message.destroyButton);
-        }
-
-        quiz.nodes.resultMessages.push(message);
-
-        insertDOMElement_(message);
-    };
-
-
-    /**
-    * @private
     * Answer block creating function
     * Creates a couple of DOM elements and appends them to question answers list
     * @param {number} questionIndex - index of question which answer to be appended to
@@ -140,6 +96,15 @@ var quizForm = (function(quiz) {
             'data-object-index': objectIndex
         });
 
+        answer.text = newDOMElement_('input', {
+            'type': 'text',
+            'class': 'quiz-form__question-answer-text',
+            'placeholder': 'Введите ответ',
+            'value': answerData.text || '',
+            'required': '',
+            'form': 'null'
+        });
+
         answer.score = newDOMElement_('input', {
             'type': 'number',
             'min': '0',
@@ -147,47 +112,33 @@ var quizForm = (function(quiz) {
             'value': answerData.score || '0',
             'class': 'quiz-form__question-answer-score',
             'required': '',
-            'form': 'undefined'
+            'form': 'null'
         });
-
-        answer.text = newDOMElement_('input', {
-            'type': 'text',
-            'class': 'quiz-form__question-answer-text',
-            'placeholder': 'Ответ ' + (objectIndex + 1),
-            'value': answerData.text || '',
-            'required': '',
-            'form': 'undefined'
-        });
-
-        if (objectIndex) {
-            answer.destroyButton = newDOMElement_('span', {
-                'class': 'quiz-form__question-answer-destroy-button'
-            }, 'Удалить');
-
-        }
 
         answer.message = newDOMElement_('input', {
             'type': 'text',
             'class': 'quiz-form__question-answer-message',
-            'placeholder': 'Сообщение',
+            'placeholder': 'Введите комментарий к ответу',
             'value': answerData.message || '',
             'required': '',
-            'form': 'undefined'
+            'form': 'null'
         });
 
-        answer.holder.appendChild(answer.score);
+        answer.destroyButton = newDOMElement_('button', {
+            'class': 'quiz-form__question-answer-destroy-button',
+            'type': 'button'
+        }, '×');
+
         answer.holder.appendChild(answer.text);
-
-        if (objectIndex) {
-            answer.holder.appendChild(answer.destroyButton);
-        }
-
+        answer.holder.appendChild(answer.score);
+        answer.holder.appendChild(answer.destroyButton);
         answer.holder.appendChild(answer.message);
 
         question.answers.push(answer);
 
-
         insertDOMElement_(answer);
+
+        updateDestroyIcons_(question.answers);
     }
 
 
@@ -212,35 +163,51 @@ var quizForm = (function(quiz) {
             'class': 'quiz-form__question-number'
         }, 'Вопрос ' + (objectIndex + 1));
 
-        if (objectIndex) {
-            question.destroyButton = newDOMElement_('span', {
-                'class': 'quiz-form__question-destroy-button'
-            }, 'Удалить');
-        }
+        question.titleLabel = newDOMElement_('label', {
+            'class': 'quiz-form__label quiz-form__question-title-label'
+        }, 'Заголовок вопроса');
 
         question.title = newDOMElement_('input', {
             'type': 'text',
             'class': 'quiz-form__question-title',
-            'placeholder': 'Текст вопроса',
+            'placeholder': 'Введите заголовок вопроса',
             'value': questionData.title || '',
             'required': '',
-            'form': 'undefined'
+            'form': 'null'
         });
 
-        question.addAnswerButton = newDOMElement_('span', {
-            'class': 'quiz-form__question-add-answer-button'
-        }, 'Добавить ответ');
+        question.answersLabel = newDOMElement_('label', {
+            'class': 'quiz-form__label quiz-form__question-answers-label'
+        }, 'Ответы');
+
+        question.scoresLabel = newDOMElement_('label', {
+            'class': 'quiz-form__label quiz-form__question-scores-label'
+        }, 'Баллы');
+
+        question.messagesLabel = newDOMElement_('label', {
+            'class': 'quiz-form__label quiz-form__question-messages-label'
+        }, 'Комментарии к ответам');
 
         question.answers = [];
 
+        question.addAnswerButton = newDOMElement_('button', {
+            'class': 'quiz-form__question-add-answer-button button',
+            'type': 'button'
+        }, 'Добавить ответ');
+
+        question.destroyButton = newDOMElement_('button', {
+            'class': 'quiz-form__question-destroy-button button',
+            'type': 'button'
+        }, 'Удалить вопрос');
+
         question.holder.appendChild(question.number);
-
-        if (objectIndex) {
-            question.holder.appendChild(question.destroyButton);
-        }
-
+        question.holder.appendChild(question.titleLabel);
         question.holder.appendChild(question.title);
+        question.holder.appendChild(question.answersLabel);
+        question.holder.appendChild(question.scoresLabel);
+        question.holder.appendChild(question.messagesLabel);
         question.holder.appendChild(question.addAnswerButton);
+        question.holder.appendChild(question.destroyButton);
 
         quiz.nodes.questions.push(question);
 
@@ -253,30 +220,90 @@ var quizForm = (function(quiz) {
         }
 
         insertDOMElement_(question);
+
+        updateDestroyIcons_(quiz.nodes.questions);
+    };
+
+
+    /**
+    * @private
+    * Message block creating function
+    * Creates a result message DOM element and appends it to the result messages list
+    */
+    var appendResultMessageBlock_ = function(messageData) {
+        var message = {};
+        var objectIndex = quiz.nodes.resultMessages.length;
+        messageData = messageData || {};
+
+        console.log('Appending result message block with index ' + objectIndex);
+
+        message.holder = newDOMElement_('div', {
+            'class': 'quiz-form__message-holder',
+            'data-object-index': objectIndex
+        });
+
+        message.message = newDOMElement_('input', {
+            'type': 'text',
+            'class': 'quiz-form__message-message',
+            'placeholder': 'Введите сообщение',
+            'value': messageData.message || '',
+            'required': '',
+            'form': 'null'
+        });
+
+        message.score = newDOMElement_('input', {
+            'type': 'number',
+            'min': '0',
+            'step': '1',
+            'value': messageData.score || '0',
+            'class': 'quiz-form__message-score',
+            'required': '',
+            'form': 'null'
+        });
+
+        message.destroyButton = newDOMElement_('button', {
+            'class': 'quiz-form__message-destroy-button',
+            'type': 'button'
+        }, '×');
+
+        message.holder.appendChild(message.message);
+        message.holder.appendChild(message.score);
+        message.holder.appendChild(message.destroyButton);
+
+        quiz.nodes.resultMessages.push(message);
+
+        insertDOMElement_(message);
+
+        updateDestroyIcons_(quiz.nodes.resultMessages);
     };
 
 
     /**
     * @private
     * Object shifting function
-    * Sets numbers in the object with child elements to given index
+    * Sets numbers in the question with child elements to given index
     * @param {object} obj - object in which numbers to be set
     * @param {number} index - index to which child elements' attributes to be set
     */
-    var setObjectNumber_ = function(obj, numberTo) {
-        console.log('Shifting ',
-                    obj,
-                    ' from index ',
-                    parseInt(obj.holder.dataset.objectIndex),
-                    ' to index',
-                    numberTo - 1);
-
+    var setQuestionNumber_ = function(obj, numberTo) {
         obj.holder.dataset.objectIndex = numberTo - 1;
+        obj.number.textContent = 'Вопрос ' + numberTo;
+    }
 
-        if (obj.answers) {
-            obj.number.textContent = 'Вопрос ' + numberTo;
-        } else if (obj.text) {
-            obj.text.placeholder = 'Ответ ' + numberTo;
+
+    /**
+    * @private
+    * Updating destroy icons function
+    * Disables or enables destroy icon for the only element in container
+    * @param {object} container - object in which icon is to be disabled or enabled
+    */
+    var updateDestroyIcons_ = function(container) {
+        if (container.length == 1) {
+            console.log('Disabling button of the first element of ', container);
+            container[0].destroyButton.setAttribute('disabled', '');
+        } else {
+            console.log('Enabling button of the first element of ', container);
+            container[0].destroyButton.removeAttribute('disabled');
         }
     }
 
@@ -292,14 +319,14 @@ var quizForm = (function(quiz) {
         var parent;
 
         if (obj.answers) {
-            before = quiz.questionInsertButton;
+            before = quiz.questionInsertAnchor;
             parent = quiz.form;
         } else if (obj.text) {
             before = quiz.nodes.questions[parseInt(obj.holder.dataset.questionIndex)].addAnswerButton;
             parent = quiz.nodes.questions[parseInt(obj.holder.dataset.questionIndex)].holder;
         } else {
-            before = quiz.resultMessageInsertButton;
-            parent = quiz.form;
+            before = quiz.resultMessageInsertAnchor;
+            parent = quiz.resultMessagesHolder;
         }
 
         parent.insertBefore(obj.holder, before);
@@ -320,6 +347,8 @@ var quizForm = (function(quiz) {
         for (var i = elementIndex; i < container.length; i++) {
             setObjectNumber_(container[i], i + 1);
         }
+
+        updateDestroyIcons_(container);
     }
 
 
@@ -397,24 +426,16 @@ var quizForm = (function(quiz) {
             var container;
             var elementIndex = parseInt(event.target.parentNode.dataset.objectIndex);
 
-            switch (event.target.className) {
-                case 'quiz-form__question-destroy-button':
-                    container = quiz.nodes.questions;
-                    break;
-
-                case 'quiz-form__question-answer-destroy-button':
-                    container = quiz.nodes.questions[
-                        parseInt(event.target.parentNode.dataset.questionIndex)
-                    ].answers;
-                    break;
-
-                case 'quiz-form__message-destroy-button':
-                    container = quiz.nodes.resultMessages;
-                    break;
-
-                case 'quiz-form__question-add-answer-button':
-                    container = null;
-                    break;
+            if (event.target.classList.contains('quiz-form__question-destroy-button')) {
+                container = quiz.nodes.questions;
+            } else if (event.target.classList.contains('quiz-form__question-answer-destroy-button')) {
+                container = quiz.nodes.questions[
+                    parseInt(event.target.parentNode.dataset.questionIndex)
+                ].answers;
+            } else if (event.target.classList.contains('quiz-form__message-destroy-button')) {
+                container = quiz.nodes.resultMessages;
+            } else if (event.target.classList.contains('quiz-form__question-add-answer-button')) {
+                container = null;
             }
 
             if (container === null) {
@@ -455,9 +476,25 @@ var quizForm = (function(quiz) {
     */
     var setInitialFormParams_ = function() {
         quiz.form = document.forms.quizForm;
+        quiz.questionInsertAnchor = document.getElementById('questionInsertAnchor');
         quiz.questionInsertButton = document.getElementById('questionInsertButton');
+        quiz.resultMessageInsertAnchor = document.getElementById('resultMessageInsertAnchor');
         quiz.resultMessageInsertButton = document.getElementById('resultMessageInsertButton');
+        quiz.resultMessagesHolder = document.getElementById('resultMessagesHolder');
     }
+
+
+    /**
+    * @private
+    * Initial destroy icons updating function
+    * Updates initially placed destroy icons
+    */
+    var updateInitialDestroyIcons_ = function() {
+        updateDestroyIcons_(quiz.nodes.questions);
+        updateDestroyIcons_(quiz.nodes.resultMessages);
+        updateDestroyIcons_(quiz.nodes.questions[0].answers);
+    }
+
 
     var render = function(quizData) {
         var questions = quizData.questions,
@@ -481,6 +518,8 @@ var quizForm = (function(quiz) {
 
         setEventListeners_();
 
+        updateInitialDestroyIcons_();
+
     }
 
 
@@ -497,9 +536,10 @@ var quizForm = (function(quiz) {
         }
 
         setInitialFormParams_();
-        addInitialResultMessage_();
         addInitialQuestion_();
+        addInitialResultMessage_();
         setEventListeners_();
+        updateInitialDestroyIcons_();
     }
 
     return quiz;
