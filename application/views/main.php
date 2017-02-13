@@ -48,6 +48,7 @@
                 <a href="/">CodeX</a>
                 <a href="/articles">Articles</a>
                 <a href="/contests">Contests</a>
+                <a href="/feedback">Feedback</a>
             </div>
             <a class="site-header__social" href="//vk.com/codex_team" target="_blank"><i class="icon-vkontakte"></i></a>
         </div>

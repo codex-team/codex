@@ -27,6 +27,11 @@ Route::set('CONTESTS_LIST', 'contests')->defaults(array(
 	'action' => 'showAll',
 ));
 
+Route::set('FEEDBACK_PAGE', 'feedback')->defaults(array(
+	'controller' => 'Feedback',
+	'action' => 'posts',
+));
+
 // Add Substance
 
 Route::set('ADD_ARTICLE_SCRIPT', 'article/add')->defaults(array(
