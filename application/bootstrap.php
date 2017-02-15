@@ -72,7 +72,18 @@ I18n::lang('en-us');
 if (isset($_SERVER['KOHANA_ENV']))
 {
     Kohana::$environment = constant('Kohana::'.strtoupper($_SERVER['KOHANA_ENV']));
-} 
+}
+
+/**
+ * Set the environment status by the domain.
+ */
+if (strpos($_SERVER['HTTP_HOST'], 'ifmo.su') !== FALSE)
+{
+    Kohana::$environment = Kohana::PRODUCTION;
+
+    // Turn off notices and strict errors
+    error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT);
+}
 
 /**
  * Initialize Kohana, setting the default options.
@@ -89,9 +100,8 @@ if (isset($_SERVER['KOHANA_ENV']))
  * - boolean  caching     enable or disable internal caching                 FALSE
  * - boolean  expose      set the X-Powered-By header                        FALSE
  */
-
 Kohana::init(array(
-    'errors' => true,
+    'errors' => Kohana::$environment !== Kohana::PRODUCTION,
     'base_url'   => '/',
     'index_file' => false
 ));
