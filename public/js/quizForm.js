@@ -86,14 +86,21 @@ var quizForm = (function(quiz) {
         var question = quiz.nodes.questions[questionIndex];
         answerData = answerData || {};
 
+        console.log(question);
+        console.log(quiz.nodes.questions);
+        console.log(questionIndex);
         var objectIndex = question.answers.length;
 
         console.log('Appending answer block of question ' + questionIndex + ' with index ' + objectIndex);
 
-        answer.holder = newDOMElement_('div', {
+        answer.holder = newDOMElement_('tr', {
             'class': 'quiz-form__question-answer-holder',
             'data-question-index': questionIndex,
             'data-object-index': objectIndex
+        });
+
+        answer.textColumn = newDOMElement_('td', {
+            'class': 'quiz-form__question-answer-text-column'
         });
 
         answer.text = newDOMElement_('input', {
@@ -103,6 +110,10 @@ var quizForm = (function(quiz) {
             'value': answerData.text || '',
             'required': '',
             'form': 'null'
+        });
+
+        answer.scoreColumn = newDOMElement_('td', {
+            'class': 'quiz-form__question-answer-score-column'
         });
 
         answer.score = newDOMElement_('input', {
@@ -115,6 +126,10 @@ var quizForm = (function(quiz) {
             'form': 'null'
         });
 
+        answer.messageColumn = newDOMElement_('td', {
+            'class': 'quiz-form__question-answer-message-column'
+        });
+
         answer.message = newDOMElement_('input', {
             'type': 'text',
             'class': 'quiz-form__question-answer-message',
@@ -124,15 +139,24 @@ var quizForm = (function(quiz) {
             'form': 'null'
         });
 
+        answer.destroyButtonColumn = newDOMElement_('td', {
+            'class': 'quiz-form__question-answer-destroy-button-column'
+        });
+
         answer.destroyButton = newDOMElement_('button', {
             'class': 'quiz-form__question-answer-destroy-button',
             'type': 'button'
         }, '×');
 
-        answer.holder.appendChild(answer.text);
-        answer.holder.appendChild(answer.score);
-        answer.holder.appendChild(answer.destroyButton);
-        answer.holder.appendChild(answer.message);
+        answer.textColumn.appendChild(answer.text);
+        answer.scoreColumn.appendChild(answer.score);
+        answer.messageColumn.appendChild(answer.message);
+        answer.destroyButtonColumn.appendChild(answer.destroyButton);
+
+        answer.holder.appendChild(answer.textColumn);
+        answer.holder.appendChild(answer.scoreColumn);
+        answer.holder.appendChild(answer.messageColumn);
+        answer.holder.appendChild(answer.destroyButtonColumn);
 
         question.answers.push(answer);
 
@@ -159,7 +183,7 @@ var quizForm = (function(quiz) {
             'data-object-index': objectIndex
         });
 
-        question.number = newDOMElement_('span', {
+        question.number = newDOMElement_('label', {
             'class': 'quiz-form__question-number'
         }, 'Вопрос ' + (objectIndex + 1));
 
@@ -176,19 +200,32 @@ var quizForm = (function(quiz) {
             'form': 'null'
         });
 
-        question.answersLabel = newDOMElement_('label', {
+        question.answers = [];
+
+        question.answersHolder = newDOMElement_('table', {
+            'class': 'quiz-form__question-answers-holder'
+        });
+
+        question.answersHead = newDOMElement_('thead', {
+            'class': 'quiz-form__question-answers-head'
+        });
+
+        question.answersLabel = newDOMElement_('th', {
             'class': 'quiz-form__label quiz-form__question-answers-label'
         }, 'Ответы');
 
-        question.scoresLabel = newDOMElement_('label', {
+        question.scoresLabel = newDOMElement_('th', {
             'class': 'quiz-form__label quiz-form__question-scores-label'
         }, 'Баллы');
 
-        question.messagesLabel = newDOMElement_('label', {
-            'class': 'quiz-form__label quiz-form__question-messages-label'
+        question.messagesLabel = newDOMElement_('th', {
+            'class': 'quiz-form__label quiz-form__question-messages-label',
+            'colspan': '2'
         }, 'Комментарии к ответам');
 
-        question.answers = [];
+        question.addAnswerButtonRow = newDOMElement_('tr', {
+            'class': 'quiz-form__question-add-answer-button-row'
+        });
 
         question.addAnswerButton = newDOMElement_('button', {
             'class': 'quiz-form__question-add-answer-button button',
@@ -203,10 +240,18 @@ var quizForm = (function(quiz) {
         question.holder.appendChild(question.number);
         question.holder.appendChild(question.titleLabel);
         question.holder.appendChild(question.title);
-        question.holder.appendChild(question.answersLabel);
-        question.holder.appendChild(question.scoresLabel);
-        question.holder.appendChild(question.messagesLabel);
-        question.holder.appendChild(question.addAnswerButton);
+
+        question.answersHead.appendChild(question.answersLabel);
+        question.answersHead.appendChild(question.scoresLabel);
+        question.answersHead.appendChild(question.messagesLabel);
+
+        question.answersHolder.appendChild(question.answersHead);
+
+        question.addAnswerButtonRow.appendChild(question.addAnswerButton);
+
+        question.answersHolder.appendChild(question.addAnswerButtonRow);
+
+        question.holder.appendChild(question.answersHolder);
         question.holder.appendChild(question.destroyButton);
 
         quiz.nodes.questions.push(question);
@@ -237,9 +282,13 @@ var quizForm = (function(quiz) {
 
         console.log('Appending result message block with index ' + objectIndex);
 
-        message.holder = newDOMElement_('div', {
+        message.holder = newDOMElement_('tr', {
             'class': 'quiz-form__message-holder',
             'data-object-index': objectIndex
+        });
+
+        message.messageColumn = newDOMElement_('td', {
+            'class': 'quiz-form__message-message-column'
         });
 
         message.message = newDOMElement_('input', {
@@ -249,6 +298,10 @@ var quizForm = (function(quiz) {
             'value': messageData.message || '',
             'required': '',
             'form': 'null'
+        });
+
+        message.scoreColumn = newDOMElement_('td', {
+            'class': 'quiz-form__message-score-column'
         });
 
         message.score = newDOMElement_('input', {
@@ -261,14 +314,22 @@ var quizForm = (function(quiz) {
             'form': 'null'
         });
 
+        message.destroyButtonColumn = newDOMElement_('td', {
+            'class': 'quiz-form__message-destroy-button-column'
+        });
+
         message.destroyButton = newDOMElement_('button', {
             'class': 'quiz-form__message-destroy-button',
             'type': 'button'
         }, '×');
 
-        message.holder.appendChild(message.message);
-        message.holder.appendChild(message.score);
-        message.holder.appendChild(message.destroyButton);
+        message.messageColumn.appendChild(message.message);
+        message.scoreColumn.appendChild(message.score);
+        message.destroyButtonColumn.appendChild(message.destroyButton);
+
+        message.holder.appendChild(message.messageColumn);
+        message.holder.appendChild(message.scoreColumn);
+        message.holder.appendChild(message.destroyButtonColumn);
 
         quiz.nodes.resultMessages.push(message);
 
@@ -285,9 +346,12 @@ var quizForm = (function(quiz) {
     * @param {object} obj - object in which numbers to be set
     * @param {number} index - index to which child elements' attributes to be set
     */
-    var setQuestionNumber_ = function(obj, numberTo) {
+    var setObjectNumber_ = function(obj, numberTo) {
         obj.holder.dataset.objectIndex = numberTo - 1;
-        obj.number.textContent = 'Вопрос ' + numberTo;
+
+        if (obj.number) {
+            obj.number.textContent = 'Вопрос ' + numberTo;
+        }
     }
 
 
@@ -322,8 +386,8 @@ var quizForm = (function(quiz) {
             before = quiz.questionInsertAnchor;
             parent = quiz.form;
         } else if (obj.text) {
-            before = quiz.nodes.questions[parseInt(obj.holder.dataset.questionIndex)].addAnswerButton;
-            parent = quiz.nodes.questions[parseInt(obj.holder.dataset.questionIndex)].holder;
+            before = quiz.nodes.questions[parseInt(obj.holder.dataset.questionIndex)].addAnswerButtonRow;
+            parent = quiz.nodes.questions[parseInt(obj.holder.dataset.questionIndex)].answersHolder;
         } else {
             before = quiz.resultMessageInsertAnchor;
             parent = quiz.resultMessagesHolder;
@@ -341,11 +405,14 @@ var quizForm = (function(quiz) {
     * @param {number} elementIndex - index of object in list
     */
     var destroyObject_ = function(container, elementIndex) {
+        console.log(container, elementIndex);
         container[elementIndex].holder.parentNode.removeChild(container[elementIndex].holder);
 
         container.splice(elementIndex, 1);
-        for (var i = elementIndex; i < container.length; i++) {
-            setObjectNumber_(container[i], i + 1);
+        if (container.answers) {
+            for (var i = elementIndex; i < container.length; i++) {
+                setObjectNumber_(container[i], i + 1);
+            }
         }
 
         updateDestroyIcons_(container);
@@ -423,19 +490,24 @@ var quizForm = (function(quiz) {
 
 
         quiz.form.onclick = function(event) {
+            console.log(event.target);
             var container;
-            var elementIndex = parseInt(event.target.parentNode.dataset.objectIndex);
+            var elementIndex;
 
             if (event.target.classList.contains('quiz-form__question-destroy-button')) {
                 container = quiz.nodes.questions;
+                elementIndex = parseInt(event.target.parentNode.parentNode.parentNode.dataset.objectIndex);
             } else if (event.target.classList.contains('quiz-form__question-answer-destroy-button')) {
                 container = quiz.nodes.questions[
-                    parseInt(event.target.parentNode.dataset.questionIndex)
+                    parseInt(event.target.parentNode.parentNode.dataset.questionIndex)
                 ].answers;
+                elementIndex = parseInt(event.target.parentNode.parentNode.dataset.objectIndex);
             } else if (event.target.classList.contains('quiz-form__message-destroy-button')) {
                 container = quiz.nodes.resultMessages;
+                elementIndex = parseInt(event.target.parentNode.parentNode.dataset.objectIndex);
             } else if (event.target.classList.contains('quiz-form__question-add-answer-button')) {
                 container = null;
+                elementIndex = parseInt(event.target.parentNode.parentNode.parentNode.dataset.objectIndex);
             }
 
             if (container === null) {

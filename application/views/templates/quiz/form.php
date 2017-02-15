@@ -5,7 +5,7 @@
         <input type="hidden" name="quiz_id" value="<?= $quiz->id ?>" />
         <input type="hidden" name="csrf_token" value="<?= Security::token(); ?>" />
 
-        <h1 id="title"><? if ($quiz->id): ?>Редактирование<? else: ?>Создание<? endif; ?> теста</h1>
+        <h1 class="quiz-form__page-title"><? if ($quiz->id): ?>Редактирование<? else: ?>Создание<? endif; ?> теста</h1>
 
         <label class="quiz-form__label quiz-form__quiz-title-label">Название теста</label>
         <input class="quiz-form__quiz-title" type="text" name="title" placeholder="Введите название теста" required/>
@@ -15,19 +15,31 @@
 
         <a id="questionInsertAnchor" style="display:none;"></a>
 
-        <button class="button master" type="button" id="questionInsertButton">Добавить вопрос</button>
+        <button class="quiz-form__add-question-button button master" type="button" id="questionInsertButton">Добавить вопрос</button>
 
-        <label class="quiz-form__label quiz-form__message-message-label">Сообщения результатов теста</label>
-        <label class="quiz-form__label quiz-form__message-score-label">Порог</label>
-        <label class="quiz-form__label quiz-form__share-message-label">Сообщение для экспорта в соцсети</label>
-
-        <div id="resultMessagesHolder">
-            <a id="resultMessageInsertAnchor" style="display:none;"></a>
-
-            <button class="button" type="button" id="resultMessageInsertButton">Добавить сообщение</button>
-        </div>
-
-        <textarea class="quiz-form__share-message" name="shareMessage" form="null" placeholder="Введите сообщение (для вставки в сообщение количества набранных баллов используйте переменную $score)"></textarea>
+        <table class="quiz-form__messages">
+            <thead>
+                <th class="quiz-form__label quiz-form__label quiz-form__message-message-label">Сообщения результатов теста</th>
+                <th class="quiz-form__label quiz-form__message-score-label">Порог</th>
+                <th class="quiz-form__label quiz-form__share-message-label">Сообщение для экспорта в соцсети</th>
+            </thead>
+            <tr>
+                <td colspan="2">
+                    <table class="quiz-form__messages-holder">
+                        <tbody id="resultMessagesHolder">
+                            <tr id="resultMessageInsertAnchor">
+                                <td>
+                                    <button class="quiz-form__add-message-button button" type="button" id="resultMessageInsertButton">Добавить сообщение</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    <textarea class="quiz-form__share-message" name="shareMessage" form="null" placeholder="Введите сообщение (для вставки в сообщение количества набранных баллов используйте переменную $score)"></textarea>
+                </td>
+            </tr>
+        </table>
 
         <div class="quiz-form__quiz-buttons-holder">
             <button class="button master quiz-form__button-submit" type="submit" formaction="/quiz/<?= $quiz->id ? "$quiz->id" + '/' : '' ?>save">Сохранить тест</button>
