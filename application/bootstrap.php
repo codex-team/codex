@@ -75,7 +75,7 @@ require VENDORPATH . 'autoload.php';
 */
 if (is_file(APPPATH.'../.env')) {
 
-    $dotenv = new Dotenv\Dotenv(__DIR__);
+    $dotenv = new Dotenv\Dotenv(DOCROOT);
     $dotenv->load();
 
 }
