@@ -64,6 +64,23 @@ ini_set('unserialize_callback_func', 'spl_autoload_call');
 I18n::lang('en-us');
 
 /**
+* Composer autoloader
+*/
+require VENDORPATH . 'autoload.php';
+
+/**
+* Load Dotenv
+* @see https://github.com/vlucas/phpdotenv
+* @since 2017.16.02 @neSpecc
+*/
+if (is_file(APPPATH.'../.env')) {
+
+    $dotenv = new Dotenv\Dotenv(__DIR__);
+    $dotenv->load();
+
+}
+
+/**
  * Set Kohana::$environment if a 'KOHANA_ENV' environment variable has been supplied.
  *
  * Note: If you supply an invalid environment name, a PHP warning will be thrown
@@ -75,14 +92,13 @@ if (isset($_SERVER['KOHANA_ENV']))
 }
 
 /**
- * Set the environment status by the domain.
- */
-if (strpos($_SERVER['HTTP_HOST'], 'ifmo.su') !== FALSE)
-{
-    Kohana::$environment = Kohana::PRODUCTION;
+* Turn off notices and strict errors on production
+* @since 2017.16.02 @neSpecc
+*/
+if ( Kohana::$environment === Kohana::PRODUCTION ) {
 
-    // Turn off notices and strict errors
     error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT);
+
 }
 
 /**
@@ -101,7 +117,7 @@ if (strpos($_SERVER['HTTP_HOST'], 'ifmo.su') !== FALSE)
  * - boolean  expose      set the X-Powered-By header                        FALSE
  */
 Kohana::init(array(
-    'errors' => Kohana::$environment !== Kohana::PRODUCTION,
+    'errors' => true, // We need errors=true for errors catching
     'base_url'   => '/',
     'index_file' => false
 ));

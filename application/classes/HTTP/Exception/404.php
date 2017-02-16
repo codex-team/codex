@@ -14,8 +14,6 @@ class HTTP_Exception_404 extends Kohana_HTTP_Exception_404 {
         } else {
 
             $view = new View('templates/errors/404');
-            $view->set('title',   "Sorry, it's 404");
-
             $response = Response::factory()->status(404)->body($view->render());
 
             return $response;

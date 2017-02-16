@@ -17,7 +17,6 @@ class Kohana_Exception extends Kohana_Kohana_Exception {
         } else {
 
             $view = new View('templates/errors/default');
-            $view->set('title',   "We've got this.");
 
             /**
             * Send notification to the Telegram
@@ -34,11 +33,15 @@ class Kohana_Exception extends Kohana_Kohana_Exception {
     * Compose error trace for Telegram
     * @param Exception $e - kohana exception object
     */
-    private function formatErrorForTelegrams( $e )
+    private static function formatErrorForTelegrams( $e )
     {
 
         $protocol = HTTP::$protocol == 'HTTP' ? 'http://' : 'https://';
-        $path     = $protocol . Arr::get($_SERVER, 'SERVER_NAME') . Request::current()->url();
+        if (!empty(Request::current())){
+            $path = $protocol . Arr::get($_SERVER, 'SERVER_NAME') . Request::current()->url();
+        } else {
+            $path = '';
+        }
 
         $telegramMsg = '⚠️ ' . $e->getMessage() . '';
         $telegramMsg .= PHP_EOL .     $e->getFile() . ': ' . $e->getLine() .  PHP_EOL . PHP_EOL;
