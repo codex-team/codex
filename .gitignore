@@ -2,6 +2,8 @@ phpmyadmin/*
 application/cache/*
 application/logs/*
 upload/*
+vendor/*
+.env
 
 # Editor files
 node_modules/
