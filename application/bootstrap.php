@@ -73,7 +73,7 @@ require VENDORPATH . 'autoload.php';
 * @see https://github.com/vlucas/phpdotenv
 * @since 2017.16.02 @neSpecc
 */
-if (is_file(APPPATH.'../.env')) {
+if (is_file(DOCROOT.'.env')) {
 
     $dotenv = new Dotenv\Dotenv(DOCROOT);
     $dotenv->load();
