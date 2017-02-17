@@ -38,3 +38,54 @@
 .quiz-form__question-title {
     margin : 5px 0 20px;
 }
+
+.quiz-form__question-answers-holder,
+.quiz-form__messages-holder {
+    width : 100%;
+    #table-layout : fixed;
+    border-spacing : 0;
+    border-collapse : collapse;
+}
+
+.quiz-form__question-answers-label,
+.quiz-form__question-answer-text-column,
+.quiz-form__question-answer-message-column,
+.quiz-form__question-messages-label,
+.quiz-form__question-answer-destroy-button-column {
+    width : auto;
+}
+
+.quiz-form__question-scores-label,
+.quiz-form__question-answer-score-column {
+    width : 70px;
+}
+
+.quiz-form__question-answer-score,
+.quiz-form__message-score,
+.quiz-form__question-answer-destroy-button,
+.quiz-form__message-destroy-button {
+    box-sizing : border-box;
+    padding : 10px;
+    border : none;
+    border-radius : 2px;
+    outline : none;
+    background : #f4f5f8;
+}
+
+.quiz-form__question-answer-score:focus,
+.quiz-form__message-score:focus {
+    background : #eef5fd;
+}
+
+
+.quiz-form__question-answer-destroy-button,
+.quiz-form__message-destroy-button {
+    line-height : 17px;
+    font-size : 2.5em;
+    color : #bd2c00;
+}
+
+.quiz-form__question-answer-destroy-button[disabled],
+.quiz-form__message-destroy-button[disabled] {
+    color : #b4a5a8;
+}
