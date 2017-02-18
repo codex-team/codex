@@ -105,8 +105,7 @@
     padding : 10px 0;
 }
 
-.quiz-form__question-add-answer-button,
-.quiz-form__add-message-button {
+.quiz-form__question-add-answer-button {
     color : #3c7ab9;
     background : #f9fafd;
 }
