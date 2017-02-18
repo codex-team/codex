@@ -219,12 +219,19 @@ var quizForm = (function(quiz) {
         }, 'Баллы');
 
         question.messagesLabel = newDOMElement_('th', {
-            'class': 'quiz-form__label quiz-form__question-messages-label',
-            'colspan': '2'
+            'class': 'quiz-form__label quiz-form__question-messages-label'
         }, 'Комментарии к ответам');
+
+        question.destroyButtonLabel = newDOMElement_('th', {
+            'class': 'quiz-form__question-destroy-buttons-label'
+        });
 
         question.addAnswerButtonRow = newDOMElement_('tr', {
             'class': 'quiz-form__question-add-answer-button-row'
+        });
+
+        question.addAnswerButtonColumn = newDOMElement_('td', {
+            'class': 'quiz-form__question-add-answer-button-column'
         });
 
         question.addAnswerButton = newDOMElement_('button', {
@@ -244,10 +251,13 @@ var quizForm = (function(quiz) {
         question.answersHead.appendChild(question.answersLabel);
         question.answersHead.appendChild(question.scoresLabel);
         question.answersHead.appendChild(question.messagesLabel);
+        question.answersHead.appendChild(question.destroyButtonLabel);
 
         question.answersHolder.appendChild(question.answersHead);
 
-        question.addAnswerButtonRow.appendChild(question.addAnswerButton);
+        question.addAnswerButtonColumn.appendChild(question.addAnswerButton);
+
+        question.addAnswerButtonRow.appendChild(question.addAnswerButtonColumn);
 
         question.answersHolder.appendChild(question.addAnswerButtonRow);
 
@@ -496,7 +506,7 @@ var quizForm = (function(quiz) {
 
             if (event.target.classList.contains('quiz-form__question-destroy-button')) {
                 container = quiz.nodes.questions;
-                elementIndex = parseInt(event.target.parentNode.parentNode.parentNode.dataset.objectIndex);
+                elementIndex = parseInt(event.target.parentNode.dataset.objectIndex);
             } else if (event.target.classList.contains('quiz-form__question-answer-destroy-button')) {
                 container = quiz.nodes.questions[
                     parseInt(event.target.parentNode.parentNode.dataset.questionIndex)
@@ -507,7 +517,7 @@ var quizForm = (function(quiz) {
                 elementIndex = parseInt(event.target.parentNode.parentNode.dataset.objectIndex);
             } else if (event.target.classList.contains('quiz-form__question-add-answer-button')) {
                 container = null;
-                elementIndex = parseInt(event.target.parentNode.parentNode.parentNode.dataset.objectIndex);
+                elementIndex = parseInt(event.target.parentNode.parentNode.parentNode.parentNode.dataset.objectIndex);
             }
 
             if (container === null) {

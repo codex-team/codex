@@ -41,29 +41,31 @@
 
 .quiz-form__question-answers-holder,
 .quiz-form__messages-holder {
-    width : 100%;
-    #table-layout : fixed;
-    border-spacing : 0;
     border-collapse : collapse;
+}
+
+.quiz-form__question-answers-head,
+.quiz-form__messages-head {
+    border-bottom : 5px solid transparent;
 }
 
 .quiz-form__question-answers-label,
 .quiz-form__question-answer-text-column,
-.quiz-form__question-answer-message-column,
 .quiz-form__question-messages-label,
-.quiz-form__question-answer-destroy-button-column {
-    width : auto;
+.quiz-form__question-answer-message-column {
+    width : 44%;
 }
 
-.quiz-form__question-scores-label,
-.quiz-form__question-answer-score-column {
-    width : 70px;
+.quiz-form__question-answer-text-column,
+.quiz-form__message-message-column {
+    padding-left : 0;
 }
 
 .quiz-form__question-answer-score,
 .quiz-form__message-score,
 .quiz-form__question-answer-destroy-button,
 .quiz-form__message-destroy-button {
+    height : 37px;
     box-sizing : border-box;
     padding : 10px;
     border : none;
@@ -72,11 +74,19 @@
     background : #f4f5f8;
 }
 
+.quiz-form__question-answer-score,
+.quiz-form__message-score {
+    width : 100%;
+}
+
 .quiz-form__question-answer-score:focus,
 .quiz-form__message-score:focus {
     background : #eef5fd;
 }
 
+.quiz-form__question-answer-destroy-button-column {
+    padding-right : 0;
+}
 
 .quiz-form__question-answer-destroy-button,
 .quiz-form__message-destroy-button {
@@ -88,4 +98,55 @@
 .quiz-form__question-answer-destroy-button[disabled],
 .quiz-form__message-destroy-button[disabled] {
     color : #b4a5a8;
+}
+
+.quiz-form__question-add-answer-button-column,
+.quiz-form__add-message-button-column {
+    padding : 10px 0;
+}
+
+.quiz-form__question-add-answer-button,
+.quiz-form__add-message-button {
+    color : #3c7ab9;
+    background : #f9fafd;
+}
+
+.quiz-form__question-destroy-button:hover {
+    background : #d25555;
+}
+
+.quiz-form__messages {
+    width : 100%;
+    margin-top : 20px;
+    table-layout : fixed;
+}
+
+.quiz-form__message-message-label {
+    width : 38%;
+}
+
+.quiz-form__message-score-label {
+    width : 12%;
+}
+
+.quiz-form__share-message-label {
+    width : 50%;
+}
+
+.quiz-form__messages-holder-column {
+    padding : 0;
+}
+
+.quiz-form__messages-holder-column,
+.quiz-form__share-message-column {
+    width : 50%;
+    vertical-align : top;
+}
+
+.quiz-form__message-message-column {
+    width : 76.4%;
+}
+
+.quiz-form__quiz-buttons-holder {
+    margin-top : 20px;
 }

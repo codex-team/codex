@@ -18,24 +18,24 @@
         <button class="quiz-form__add-question-button button master" type="button" id="questionInsertButton">Добавить вопрос</button>
 
         <table class="quiz-form__messages">
-            <thead>
-                <th class="quiz-form__label quiz-form__label quiz-form__message-message-label">Сообщения результатов теста</th>
+            <thead class="quiz-form__messages-head">
+                <th class="quiz-form__label quiz-form__message-message-label">Сообщения результатов теста</th>
                 <th class="quiz-form__label quiz-form__message-score-label">Порог</th>
                 <th class="quiz-form__label quiz-form__share-message-label">Сообщение для экспорта в соцсети</th>
             </thead>
             <tr>
-                <td colspan="2">
+                <td class="quiz-form__messages-holder-column" colspan="2">
                     <table class="quiz-form__messages-holder">
                         <tbody id="resultMessagesHolder">
                             <tr id="resultMessageInsertAnchor">
-                                <td>
+                                <td class="quiz-form__add-message-button-column">
                                     <button class="quiz-form__add-message-button button" type="button" id="resultMessageInsertButton">Добавить сообщение</button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </td>
-                <td>
+                <td class="quiz-form__share-message-column">
                     <textarea class="quiz-form__share-message" name="shareMessage" form="null" placeholder="Введите сообщение (для вставки в сообщение количества набранных баллов используйте переменную $score)"></textarea>
                 </td>
             </tr>
