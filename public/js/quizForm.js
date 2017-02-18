@@ -357,6 +357,8 @@ var quizForm = (function(quiz) {
     * @param {number} index - index to which child elements' attributes to be set
     */
     var setObjectNumber_ = function(obj, numberTo) {
+        console.log(obj, numberTo);
+        console.log('Shifting number of', obj, 'to', numberTo);
         obj.holder.dataset.objectIndex = numberTo - 1;
 
         if (obj.number) {
@@ -411,18 +413,18 @@ var quizForm = (function(quiz) {
     * @private
     * Element object destroying function
     * Removes the DOM element of object from DOM and destroys object itself
-    * @param {object} container - list where object to be destroyed
+    * @param {object} container - list where object is to be destroyed
     * @param {number} elementIndex - index of object in list
     */
     var destroyObject_ = function(container, elementIndex) {
-        console.log(container, elementIndex);
+        console.log(elementIndex);
+        console.log('Destroying a child of', container, 'with index', elementIndex);
+
         container[elementIndex].holder.parentNode.removeChild(container[elementIndex].holder);
 
         container.splice(elementIndex, 1);
-        if (container.answers) {
-            for (var i = elementIndex; i < container.length; i++) {
-                setObjectNumber_(container[i], i + 1);
-            }
+        for (var i = elementIndex; i < container.length; i++) {
+            setObjectNumber_(container[i], i + 1);
         }
 
         updateDestroyIcons_(container);
