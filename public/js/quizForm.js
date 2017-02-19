@@ -84,14 +84,9 @@ var quizForm = (function(quiz) {
     var appendAnswerBlock_ = function(questionIndex, answerData) {
         var answer = {};
         var question = quiz.nodes.questions[questionIndex];
-        answerData = answerData || {};
-
-        console.log(question);
-        console.log(quiz.nodes.questions);
-        console.log(questionIndex);
         var objectIndex = question.answers.length;
-
-        console.log('Appending answer block of question ' + questionIndex + ' with index ' + objectIndex);
+        
+        answerData = answerData || {};
 
         answer.holder = newDOMElement_('tr', {
             'class': 'quiz-form__question-answer-holder',
@@ -180,8 +175,6 @@ var quizForm = (function(quiz) {
         var question = {};
         var objectIndex = quiz.nodes.questions.length;
         questionData = questionData || {};
-
-        console.log('Appending question block with index ' + objectIndex);
 
         question.holder = newDOMElement_('div', {
             'class': 'quiz-form__question-holder',
@@ -312,8 +305,6 @@ var quizForm = (function(quiz) {
         var objectIndex = quiz.nodes.resultMessages.length;
         messageData = messageData || {};
 
-        console.log('Appending result message block with index ' + objectIndex);
-
         message.holder = newDOMElement_('tr', {
             'class': 'quiz-form__message-holder',
             'data-object-index': objectIndex
@@ -385,8 +376,6 @@ var quizForm = (function(quiz) {
     * @param {number} index - index to which child elements' attributes to be set
     */
     var setObjectNumber_ = function(obj, numberTo) {
-        console.log(obj, numberTo);
-        console.log('Shifting number of', obj, 'to', numberTo);
         obj.holder.dataset.objectIndex = numberTo - 1;
 
         if (obj.number) {
@@ -403,14 +392,12 @@ var quizForm = (function(quiz) {
     */
     var updateDestroyIcons_ = function(container) {
         if (container.length <= 1) {
-            console.log('Disabling button of the first element of ', container);
             container[0].destroyButton.style.display = 'none';
 
             if (container[0].firstChild) {
                 container[0].firstChild.style.display = 'none';
             }
         } else {
-            console.log('Enabling button of the first element of ', container);
             container[0].destroyButton.style.display = '';
 
             if (container[0].firstChild) {
@@ -453,9 +440,6 @@ var quizForm = (function(quiz) {
     * @param {number} elementIndex - index of object in list
     */
     var destroyObject_ = function(container, elementIndex) {
-        console.log(elementIndex);
-        console.log('Destroying a child of', container, 'with index', elementIndex);
-
         container[elementIndex].holder.parentNode.removeChild(container[elementIndex].holder);
 
         container.splice(elementIndex, 1);
@@ -473,9 +457,6 @@ var quizForm = (function(quiz) {
     * Set event listeners for insert and destroy buttons and form submission
     */
     var setEventListeners_ = function() {
-        console.log('Setting event listeners');
-        console.log('Setting form submission listener');
-
         quiz.form.onsubmit = function(event) {
             event.preventDefault();
 
@@ -524,13 +505,9 @@ var quizForm = (function(quiz) {
             quiz.form.submit();
         }
 
-        console.log('Setting question insert button click listener');
-
         quiz.questionInsertButton.onclick = function() {
             appendQuestionBlock_();
         }
-
-        console.log('Setting result message insert button click listener');
 
         quiz.resultMessageInsertButton.onclick = function() {
             appendResultMessageBlock_();
@@ -538,7 +515,6 @@ var quizForm = (function(quiz) {
 
 
         quiz.form.onclick = function(event) {
-            console.log(event.target);
             var container;
             var elementIndex;
 
@@ -581,7 +557,6 @@ var quizForm = (function(quiz) {
     * Inserts result message with number 1 to the form
     */
     var addInitialResultMessage_ = function() {
-        console.log('Adding initial result message element');
         appendResultMessageBlock_();
     }
 
@@ -592,7 +567,6 @@ var quizForm = (function(quiz) {
     * Inserts question with number 1 to the form
     */
     var addInitialQuestion_ = function() {
-        console.log('Adding initial question element');
         appendQuestionBlock_();
     }
 
@@ -631,8 +605,6 @@ var quizForm = (function(quiz) {
         document.querySelector('[name="title"]').value = quizData.title;
         document.querySelector('textarea[name="description"]').textContent = quizData.description;
         document.querySelector('[name="shareMessage"]').value = quizData.shareMessage;
-
-        console.log(quizData);
 
         setInitialFormParams_();
 
