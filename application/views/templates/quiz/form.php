@@ -8,10 +8,10 @@
         <h1 class="quiz-form__page-title"><? if ($quiz->id): ?>Редактирование<? else: ?>Создание<? endif; ?> теста</h1>
 
         <label class="quiz-form__label quiz-form__quiz-title-label">Название теста</label>
-        <input class="quiz-form__quiz-title" type="text" name="title" placeholder="Введите название теста" required/>
+        <input class="quiz-form__quiz-title" type="text" name="title" required/>
 
         <label class="quiz-form__label quiz-form__quiz-description-label">Описание теста</label>
-        <textarea class="quiz-form__quiz-description" name="description" placeholder="Введите описание теста"></textarea>
+        <textarea class="quiz-form__quiz-description" name="description"></textarea>
 
         <a id="questionInsertAnchor" style="display:none;"></a>
 
@@ -36,7 +36,7 @@
                     </table>
                 </td>
                 <td class="quiz-form__share-message-column">
-                    <textarea class="quiz-form__share-message" name="shareMessage" form="null" placeholder="Введите сообщение (для вставки в сообщение количества набранных баллов используйте переменную $score)"></textarea>
+                    <textarea class="quiz-form__share-message" name="shareMessage" form="null" placeholder="Я прошел тест и набрал $score баллов"></textarea>
                 </td>
             </tr>
         </table>

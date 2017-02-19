@@ -106,7 +106,6 @@ var quizForm = (function(quiz) {
         answer.text = newDOMElement_('input', {
             'type': 'text',
             'class': 'quiz-form__question-answer-text',
-            'placeholder': 'Введите ответ',
             'value': answerData.text || '',
             'required': '',
             'form': 'null'
@@ -133,7 +132,6 @@ var quizForm = (function(quiz) {
         answer.message = newDOMElement_('input', {
             'type': 'text',
             'class': 'quiz-form__question-answer-message',
-            'placeholder': 'Введите комментарий к ответу',
             'value': answerData.message || '',
             'required': '',
             'form': 'null'
@@ -194,7 +192,6 @@ var quizForm = (function(quiz) {
         question.title = newDOMElement_('input', {
             'type': 'text',
             'class': 'quiz-form__question-title',
-            'placeholder': 'Введите заголовок вопроса',
             'value': questionData.title || '',
             'required': '',
             'form': 'null'
@@ -306,7 +303,6 @@ var quizForm = (function(quiz) {
         message.message = newDOMElement_('input', {
             'type': 'text',
             'class': 'quiz-form__message-message',
-            'placeholder': 'Введите сообщение',
             'value': messageData.message || '',
             'required': '',
             'form': 'null'
