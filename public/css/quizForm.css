@@ -38,17 +38,6 @@
 
 .quiz-form__question-destroy-button {
     float : right;
-    padding : 0;
-    font-size : 32px;
-    line-height : 16px;
-    border : none;
-    cursor : pointer;
-    color : #bd2c00;
-    background : none;
-}
-
-.quiz-form__question-destroy-button[disabled] {
-    display : none;
 }
 
 .quiz-form__question-title-label {
@@ -110,17 +99,18 @@
     padding-right : 0;
 }
 
+
+.quiz-form__question-destroy-button,
 .quiz-form__question-answer-destroy-button,
 .quiz-form__message-destroy-button {
     cursor : pointer;
-    color : #bd2c00;
-    background : none;
+    opacity : 0.3;
 }
 
-.quiz-form__question-answer-destroy-button[disabled],
-.quiz-form__message-destroy-button[disabled] {
-    cursor : default;
-    color : #b4a5a8;
+.quiz-form__question-destroy-button:hover,
+.quiz-form__question-answer-destroy-button:hover,
+.quiz-form__message-destroy-button:hover {
+    opacity : 1;
 }
 
 .quiz-form__question-add-answer-button-column,

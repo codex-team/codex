@@ -545,6 +545,9 @@ var quizForm = (function(quiz) {
             if (event.target.classList.contains('quiz-form__question-destroy-button')) {
                 container = quiz.nodes.questions;
                 elementIndex = parseInt(event.target.parentNode.dataset.objectIndex);
+            } else if (event.target.parentNode.classList.contains('quiz-form__question-destroy-button')) {
+                container = quiz.nodes.questions;
+                elementIndex = parseInt(event.target.parentNode.parentNode.dataset.objectIndex);
             } else if (event.target.classList.contains('quiz-form__question-answer-destroy-button')) {
                 container = quiz.nodes.questions[
                     parseInt(event.target.parentNode.parentNode.dataset.questionIndex)
