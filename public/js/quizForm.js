@@ -185,6 +185,11 @@ var quizForm = (function(quiz) {
             'class': 'quiz-form__question-number'
         }, 'Вопрос ' + (objectIndex + 1));
 
+        question.destroyButton = newDOMElement_('button', {
+            'class': 'quiz-form__question-destroy-button',
+            'type': 'button'
+        }, '×');
+
         question.titleLabel = newDOMElement_('label', {
             'class': 'quiz-form__label quiz-form__question-title-label'
         }, 'Заголовок вопроса');
@@ -240,12 +245,8 @@ var quizForm = (function(quiz) {
             'src': '/public/img/quizzes/plus.svg'
         });
 
-        question.destroyButton = newDOMElement_('button', {
-            'class': 'quiz-form__question-destroy-button button',
-            'type': 'button'
-        }, 'Удалить вопрос');
-
         question.holder.appendChild(question.number);
+        question.holder.appendChild(question.destroyButton);
         question.holder.appendChild(question.titleLabel);
         question.holder.appendChild(question.title);
 
@@ -268,7 +269,6 @@ var quizForm = (function(quiz) {
         question.answersHolder.appendChild(question.addAnswerButtonRow);
 
         question.holder.appendChild(question.answersHolder);
-        question.holder.appendChild(question.destroyButton);
 
         quiz.nodes.questions.push(question);
 
