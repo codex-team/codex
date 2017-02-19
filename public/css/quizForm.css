@@ -26,6 +26,9 @@
 
 .quiz-form__question-holder {
     margin : 20px 0;
+    padding: 25px;
+    border: 1px solid #e5e7e8;
+    border-radius: 3px;
 }
 
 .quiz-form__question-number {
