@@ -29,7 +29,10 @@
                         <tbody id="resultMessagesHolder">
                             <tr id="resultMessageInsertAnchor">
                                 <td class="quiz-form__add-message-button-column">
-                                    <button class="quiz-form__add-message-button button" type="button" id="resultMessageInsertButton">Добавить сообщение</button>
+                                    <button class="quiz-form__add-message-button button" type="button" id="resultMessageInsertButton">
+                                        <img class="quiz-form__button-plus" src="/public/img/quizzes/plus.svg">
+                                        <span class="quiz-form__button-text">Добавить сообщение</span>
+                                    </button>
                                 </td>
                             </tr>
                         </tbody>

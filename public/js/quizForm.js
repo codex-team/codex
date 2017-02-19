@@ -234,7 +234,16 @@ var quizForm = (function(quiz) {
         question.addAnswerButton = newDOMElement_('button', {
             'class': 'quiz-form__question-add-answer-button button',
             'type': 'button'
+        });
+
+        question.addAnswerButtonText = newDOMElement_('span', {
+            'class': 'quiz-form__button-text'
         }, 'Добавить ответ');
+
+        question.addAnswerButtonPlus = newDOMElement_('img', {
+            'class': 'quiz-form__button-plus',
+            'src': '/public/img/quizzes/plus.svg'
+        });
 
         question.destroyButton = newDOMElement_('button', {
             'class': 'quiz-form__question-destroy-button button',
@@ -251,6 +260,9 @@ var quizForm = (function(quiz) {
         question.answersHead.appendChild(question.destroyButtonLabel);
 
         question.answersHolder.appendChild(question.answersHead);
+
+        question.addAnswerButton.appendChild(question.addAnswerButtonPlus);
+        question.addAnswerButton.appendChild(question.addAnswerButtonText);
 
         question.addAnswerButtonColumn.appendChild(question.addAnswerButton);
 

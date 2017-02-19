@@ -108,9 +108,27 @@
     padding : 10px 0;
 }
 
-.quiz-form__question-add-answer-button {
-    color : #3c7ab9;
-    background : #f9fafd;
+.quiz-form__question-add-answer-button,
+.quiz-form__add-message-button {
+    padding : 12px 0;
+    color : #454c5d;
+    background : none;
+}
+
+.quiz-form__question-add-answer-button:hover,
+.quiz-form__add-message-button:hover {
+    text-decoration : underline;
+    color : #454c5d;
+    background : none;
+}
+
+.quiz-form__button-plus {
+    padding-right : 5px;
+}
+
+.quiz-form__button-text {
+    line-height : 16px;
+    vertical-align : top;
 }
 
 .quiz-form__question-destroy-button:hover {
