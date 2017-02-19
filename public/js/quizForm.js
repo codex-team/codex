@@ -272,6 +272,8 @@ var quizForm = (function(quiz) {
             })
         } else {
             appendAnswerBlock_(objectIndex);
+            appendAnswerBlock_(objectIndex);
+            appendAnswerBlock_(objectIndex);
         }
 
         insertDOMElement_(question);
