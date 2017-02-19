@@ -141,14 +141,21 @@ var quizForm = (function(quiz) {
             'class': 'quiz-form__question-answer-destroy-button-column'
         });
 
-        answer.destroyButton = newDOMElement_('button', {
-            'class': 'quiz-form__question-answer-destroy-button',
-            'type': 'button'
-        }, '×');
+        answer.destroyButton = newDOMElement_('span', {
+            'class': 'quiz-form__question-answer-destroy-button'
+        });
+
+        answer.destroyButtonCross = newDOMElement_('img', {
+            'class': 'quiz-form__button-cross',
+            'src': '/public/img/quizzes/cross.svg'
+        });
 
         answer.textColumn.appendChild(answer.text);
         answer.scoreColumn.appendChild(answer.score);
         answer.messageColumn.appendChild(answer.message);
+
+        answer.destroyButton.appendChild(answer.destroyButtonCross);
+
         answer.destroyButtonColumn.appendChild(answer.destroyButton);
 
         answer.holder.appendChild(answer.textColumn);
@@ -185,10 +192,14 @@ var quizForm = (function(quiz) {
             'class': 'quiz-form__question-number'
         }, 'Вопрос ' + (objectIndex + 1));
 
-        question.destroyButton = newDOMElement_('button', {
-            'class': 'quiz-form__question-destroy-button',
-            'type': 'button'
-        }, '×');
+        question.destroyButton = newDOMElement_('span', {
+            'class': 'quiz-form__question-destroy-button'
+        });
+
+        question.destroyButtonCross = newDOMElement_('img', {
+            'class': 'quiz-form__button-cross',
+            'src': '/public/img/quizzes/cross.svg'
+        });
 
         question.titleLabel = newDOMElement_('label', {
             'class': 'quiz-form__label quiz-form__question-title-label'
@@ -246,6 +257,9 @@ var quizForm = (function(quiz) {
         });
 
         question.holder.appendChild(question.number);
+
+        question.destroyButton.appendChild(question.destroyButtonCross);
+
         question.holder.appendChild(question.destroyButton);
         question.holder.appendChild(question.titleLabel);
         question.holder.appendChild(question.title);
@@ -335,13 +349,20 @@ var quizForm = (function(quiz) {
             'class': 'quiz-form__message-destroy-button-column'
         });
 
-        message.destroyButton = newDOMElement_('button', {
-            'class': 'quiz-form__message-destroy-button',
-            'type': 'button'
-        }, '×');
+        message.destroyButton = newDOMElement_('span', {
+            'class': 'quiz-form__message-destroy-button'
+        });
+
+        message.destroyButtonCross = newDOMElement_('img', {
+            'class': 'quiz-form__button-cross',
+            'src': '/public/img/quizzes/cross.svg'
+        });
 
         message.messageColumn.appendChild(message.message);
         message.scoreColumn.appendChild(message.score);
+
+        message.destroyButton.appendChild(message.destroyButtonCross);
+
         message.destroyButtonColumn.appendChild(message.destroyButton);
 
         message.holder.appendChild(message.messageColumn);
@@ -381,12 +402,20 @@ var quizForm = (function(quiz) {
     * @param {object} container - object in which icon is to be disabled or enabled
     */
     var updateDestroyIcons_ = function(container) {
-        if (container.length == 1) {
+        if (container.length <= 1) {
             console.log('Disabling button of the first element of ', container);
-            container[0].destroyButton.setAttribute('disabled', '');
+            container[0].destroyButton.style.display = 'none';
+
+            if (container[0].firstChild) {
+                container[0].firstChild.style.display = 'none';
+            }
         } else {
             console.log('Enabling button of the first element of ', container);
-            container[0].destroyButton.removeAttribute('disabled');
+            container[0].destroyButton.style.display = '';
+
+            if (container[0].firstChild) {
+                container[0].firstChild.style.display = '';
+            }
         }
     }
 
@@ -521,6 +550,11 @@ var quizForm = (function(quiz) {
                     parseInt(event.target.parentNode.parentNode.dataset.questionIndex)
                 ].answers;
                 elementIndex = parseInt(event.target.parentNode.parentNode.dataset.objectIndex);
+            } else if (event.target.parentNode.classList.contains('quiz-form__question-answer-destroy-button')) {
+                container = quiz.nodes.questions[
+                    parseInt(event.target.parentNode.parentNode.parentNode.dataset.questionIndex)
+                ].answers;
+                elementIndex = parseInt(event.target.parentNode.parentNode.parentNode.dataset.objectIndex);
             } else if (event.target.classList.contains('quiz-form__message-destroy-button')) {
                 container = quiz.nodes.resultMessages;
                 elementIndex = parseInt(event.target.parentNode.parentNode.dataset.objectIndex);
