@@ -15,7 +15,7 @@
 
         <a id="questionInsertAnchor" style="display:none;"></a>
 
-        <button class="quiz-form__add-question-button button master" type="button" id="questionInsertButton">Добавить вопрос</button>
+        <span class="quiz-form__add-question-button" id="questionInsertButton"><img class="quiz-form__button-plus" src="/public/img/quizzes/plus.svg">Добавить вопрос</span>
 
         <table class="quiz-form__messages">
             <thead class="quiz-form__messages-head">
@@ -29,10 +29,7 @@
                         <tbody id="resultMessagesHolder">
                             <tr id="resultMessageInsertAnchor">
                                 <td class="quiz-form__add-message-button-column">
-                                    <button class="quiz-form__add-message-button button" type="button" id="resultMessageInsertButton">
-                                        <img class="quiz-form__button-plus" src="/public/img/quizzes/plus.svg">
-                                        <span class="quiz-form__button-text">Добавить сообщение</span>
-                                    </button>
+                                    <span class="quiz-form__add-message-button" id="resultMessageInsertButton"><img class="quiz-form__button-plus" src="/public/img/quizzes/plus.svg">Добавить сообщение</span>
                                 </td>
                             </tr>
                         </tbody>
