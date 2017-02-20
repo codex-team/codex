@@ -77,7 +77,10 @@ class Controller_Admin extends Controller_Base_preDispatch
     public function users()
     {
 
-        $this->view["users"] = Model_User::getAll();
+        $bestDevelopers = new Model_Feed_Developers();
+
+        $this->view["users"]    = Model_User::getAll();
+        $this->view["bestDevs"] = $bestDevelopers->get();
 
         return View::factory('templates/admin/users/list', $this->view);
 
@@ -158,6 +161,26 @@ class Controller_Admin extends Controller_Base_preDispatch
 
         return View::factory('templates/admin/requests/list', $this->view);
 
+    }
+
+    public function action_developer()
+    {
+        if (!$this->request->is_ajax()) {
+            return;
+        }
+
+        $this->auto_render = false;
+
+        $developersList = new Model_Feed_Developers();
+
+        $is_best = Arr::get($_GET, 'value');
+        $id      = Arr::get($_GET, 'id');
+
+        if ($is_best) {
+            $developersList->add($id, time());
+        } else {
+            $developersList->remove($id);
+        }
     }
 
 }

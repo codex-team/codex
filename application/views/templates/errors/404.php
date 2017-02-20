@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>We've got this</title>
+    <title>Sorry, it's 404</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -15,8 +15,9 @@
             left: 50%;
             transform: translate(-50%, -50%);
         }
-        a {
-            color: inherit;
+        h1 {
+            font-size: 50px;
+            margin: 0;
         }
     </style>
 </head>
@@ -25,8 +26,7 @@
         <a href="/">
             <? include(DOCROOT . "public/img/codex-logo.svg") ?>
         </a>
-        <h1>We've got the error</h1>
-        <a href="#" onclick="history.back();">Back</a>
+        <h1>404</h1>
     </div>
 </body>
 </html>
