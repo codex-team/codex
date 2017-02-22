@@ -39,7 +39,7 @@ class Controller_Quiz extends Controller_Base_preDispatch
                 $this->view['error'] = true;
             }
 
-            $this->redirect( '/' );
+            $this->redirect('/admin');
         }
 
         $this->view['quiz'] = $quiz;
