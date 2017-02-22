@@ -11,7 +11,6 @@ class Controller_Quiz extends Controller_Base_preDispatch
 
     public function action_save()
     {
-
         $csrfToken = Arr::get($_POST, 'csrf_token');
 
         $quiz_id = $this->request->param('id', 0);
@@ -40,7 +39,7 @@ class Controller_Quiz extends Controller_Base_preDispatch
                 $this->view['error'] = true;
             }
 
-            $this->redirect( '/' );
+            $this->redirect('/admin');
         }
 
         $this->view['quiz'] = $quiz;

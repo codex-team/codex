@@ -35,11 +35,13 @@
             <label for="quiz_id">Выберите тест, который относится к статье</label>
             <select name="quiz_id">
                 <option value="0">Тест не выбран</option>
-                <? foreach ($quizzes as $quiz): ?>
-                    <option value="<?= $quiz['id']; ?>" <?= $quiz['id'] == $article->quiz_id?'selected':''; ?>>
-                        <?= $quiz['title']; ?>
-                    </option>
-                <? endforeach; ?>
+                <? if ($quizzes): ?>
+                    <? foreach ($quizzes as $quiz): ?>
+                        <option value="<?= $quiz['id']; ?>" <?= $quiz['id'] == $article->quiz_id?'selected':''; ?>>
+                            <?= $quiz['title']; ?>
+                        </option>
+                    <? endforeach; ?>
+                <? endif; ?>
             </select>
 
         </section>

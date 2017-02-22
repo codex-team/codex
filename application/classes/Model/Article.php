@@ -251,7 +251,7 @@ Class Model_Article extends Model
         /**
         * Сначала сортируем по 'order', затем по дате
         */
-        $article_rows = $articlesQuery->order_by('order', 'DESC')->order_by('id', 'DESC')->execute();
+        $article_rows = $articlesQuery->order_by('id', 'DESC')->execute();
 
         return self::rowsToModels($article_rows);
     }

@@ -44,6 +44,14 @@ Route::set('ADD_COURSE_SCRIPT', 'course/add')->defaults(array(
 	'action' => 'save'
 ));
 
+Route::set('SAVE_QUIZ_SCRIPT', 'quiz/(<id>/)(<method>)', array(
+   'id' => $DIGIT,
+   'method' => 'add|save'
+))->defaults(array(
+   'controller' => 'Quiz',
+   'action' => 'save'
+));
+
 // Show Substances which doesn't have Uri
 
 Route::set('SHOWARTICLE', 'article(/<id>)')->defaults(array(
