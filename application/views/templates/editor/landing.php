@@ -239,7 +239,7 @@
 */
 var INPUT = {
     items : [],
-    count : 0,
+    count : 0
 };
 
 /**
@@ -247,7 +247,7 @@ var INPUT = {
 */
 var _INPUT = {
     items : [],
-    count : 23,
+    count : 23
 };
 
 /** Fill with example data */

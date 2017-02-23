@@ -1,5 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
+use CodexEditor\CodexEditor;
+
 class Controller_Editor extends Controller_Base_preDispatch
 {
 
@@ -19,9 +21,13 @@ class Controller_Editor extends Controller_Base_preDispatch
         $html = Arr::get($_POST, 'html');
         $json = Arr::get($_POST, 'article_json');
 
+        $editor = new CodexEditor($json);
+        echo Debug::vars($editor->getData());
+        exit;
+
         $article = new Model_Article();
         $article->title = 'Codex Editor';
-        
+
         $blocks = json_decode($json);
 
         for($i = 0; $i < count($blocks); $i++)
