@@ -214,7 +214,7 @@
                     renderOnPastePatterns: embed.pastePatterns
                 }
             },
-            data : INPUT
+            data : _INPUT
         });
 
         cPreview.show({
@@ -253,25 +253,25 @@ var _INPUT = {
 /** Fill with example data */
 _INPUT.items = [
     {
-        type : 'paragraph',
+        type : 'text',
         data : {
             text : '<p>Ladies and gentlemen, prepare yourself for a pivotal moment in the history of web development…</p>'
         }
     },
     // {
-    //     type : 'paragraph',
+    //     type : 'text',
     //     data : {
     //         text : '<p><i>[Drumroll begins]</i></p><p>Promises have arrived natively in JavaScript!</p><p><i>[Fireworks explode, glittery paper rains from above, the crowd goes wild]</i></p>'
     //     }
     // },
     {
-        type : 'paragraph',
+        type : 'text',
         data : {
             text : "The promise constructor takes one argument, a callback with two parameters, resolve and reject. Do something within the callback, perhaps async, then call resolve if everything worked, otherwise call reject.Like 'throw' in plain old JavaScript, it's customary, but not required, to reject with an Error object. The benefit of Error objects is they capture a stack trace, making debugging tools more helpful. Here's how you use that promise:",
         }
     },
     {
-        type : 'paragraph',
+        type : 'text',
         data : {
             text : 'At this point you fall into one of these categories:'
         }
@@ -313,7 +313,7 @@ _INPUT.items = [
         }
     },
     {
-        type : 'paragraph',
+        type : 'text',
         data : {
             text : 'JavaScript is single threaded, meaning that two bits of script cannot run at the same time, they have to run one after another. In browsers, JavaScript shares a thread with a load of other stuff. What that stuff is differs from browser to browser, but typically JavaScript is in the same queue as painting, updating styles, and handling user actions (such as highlighting text and interacting with form controls). Activity in one of these things delays the others.'
         }
@@ -336,7 +336,7 @@ _INPUT.items = [
         }
     },
     {
-        type : 'paragraph',
+        type : 'text',
         data : {
             text : 'Promises have been around for a while in the form of libraries, such as:',
         }
@@ -355,7 +355,7 @@ _INPUT.items = [
 
     },
     {
-        type : 'paragraph',
+        type : 'text',
         data : {
             text : "The above and JavaScript promises share a common, standardised behaviour called Promises/A+. If you're a jQuery user, they have something similar called Deferreds. However, Deferreds aren't compliant, which makes them subtly different and less useful, so beware. jQuery also has a Promise type, but this is just a subset of Deferred and has the same issues. Although promise implementations follow a standardised behaviour, their overall APIs differ. JavaScript promises are similar in API to RSVP.js. Here's how you create a promise:",
         }
@@ -390,7 +390,7 @@ _INPUT.items = [
         }
     },
     {
-        type : 'paragraph',
+        type : 'text',
         data : {
             text : "The promise constructor takes one argument, a callback with two parameters, resolve and reject. Do something within the callback, perhaps async, then call resolve if everything worked, otherwise call reject.Like 'throw' in plain old JavaScript, it's customary, but not required, to reject with an Error object. The benefit of Error objects is they capture a stack trace, making debugging tools more helpful. Here's how you use that promise:",
         }
@@ -403,7 +403,7 @@ _INPUT.items = [
         }
     },
     {
-        type : 'paragraph',
+        type : 'text',
         data : {
             text : "There are already implementations of promises in browsers today. As of Chrome 32, Opera 19, Firefox 29, Safari 8 & Microsoft Edge, promises are enabled by default. To bring browsers that lack a complete promises implementation up to spec compliance, or add promises to other browsers and Node.js, check out the polyfill (2k gzipped).",
         }
@@ -426,7 +426,7 @@ _INPUT.items = [
         }
     },
     {
-        type : 'paragraph',
+        type : 'text',
         data : {
             text : "The JavaScript promises API will treat anything with a then method as promise-like (or thenable in promise-speak *sigh*), so if you use a library that returns a Q promise, that's fine, it'll play nice with the new JavaScript promises. Although, as I mentioned, jQuery's Deferreds are a bit… unhelpful. Thankfully you can cast them to standard promises, which is worth doing as soon as possible:",
         }
@@ -445,7 +445,7 @@ _INPUT.items = [
         }
     },
     {
-        type : 'paragraph',
+        type : 'text',
         data : {
             text : "Right, let's code some things. Say we want to:",
         }
@@ -465,7 +465,7 @@ _INPUT.items = [
         }
     },
     {
-        type : 'paragraph',
+        type : 'text',
         data : {
             text : "…but also tell the user if something went wrong along the way. We'll want to stop the spinner at that point too, else it'll keep on spinning, get dizzy, and crash into some other UI. Of course, you wouldn't use JavaScript to deliver a story, serving as HTML is faster, but this pattern is pretty common when dealing with APIs: Multiple data fetches, then do something when it's all done.",
         }
@@ -535,7 +535,7 @@ saveButton.addEventListener('click', function() {
         INPUT.items = codex.editor.state.jsonOutput;
         INPUT.count = INPUT.items.length;
 
-        JSONinput.innerHTML = JSON.stringify(codex.editor.state.jsonOutput);
+        JSONinput.innerHTML = JSON.stringify({data:codex.editor.state.jsonOutput});
 
         /**
          * Send form
@@ -609,7 +609,7 @@ INPUT.items = [];
             string = string.replace( /"(\w+)"\s?\:/g , '"<span class=sc_key>$1</span>" :');
 
             /** Stylize tool names */
-            string = string.replace( /"(paragraph|quote|list|header|link|code|image)"/g , '"<span class=sc_toolname>$1</span>"');
+            string = string.replace( /"(text|quote|list|header|link|code|image)"/g , '"<span class=sc_toolname>$1</span>"');
 
             /** Stylize HTML tags */
             string = string.replace( /(&lt;[\/a-z]+(&gt;)?)/gi , '<span class=sc_tag>$1</span>' );

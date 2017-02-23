@@ -18,17 +18,15 @@ class Controller_Editor extends Controller_Base_preDispatch
 
     public function action_preview()
     {
+        $article = new Model_Article();
+        $article->title = 'Codex Editor';
+
         $html = Arr::get($_POST, 'html');
         $json = Arr::get($_POST, 'article_json');
 
         $editor = new CodexEditor($json);
-        echo Debug::vars($editor->getData());
-        exit;
-
-        $article = new Model_Article();
-        $article->title = 'Codex Editor';
-
-        $blocks = json_decode($json);
+        $data = json_decode($editor->getData());
+        $blocks = $data->data;
 
         for($i = 0; $i < count($blocks); $i++)
         {

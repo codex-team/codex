@@ -116,132 +116,136 @@
 
         var INPUT = {
             items : json,
-            count : json.length,
+            count : json.length
         };
 
         codex.editor.start({
             textareaId: 'codex_editor',
-
-            tools : {
-                paragraph : {
-                    type             : 'paragraph',
+            uploadImagesUrl : '/writing/uploadImage',
+            initialBlockPlugin : 'text',
+            tools: {
+                text : {
+                    type             : 'text',
                     iconClassname    : 'ce-icon-paragraph',
-                    make             : paragraphTool.make,
-                    appendCallback   : null,
-                    settings         : null,
-                    render           : paragraphTool.render,
-                    save             : paragraphTool.save,
-                    displayInToolbox : false,
-                    enableLineBreaks : false,
-                    allowedToPaste   : true
+                    render           : paragraph.render,
+                    validate         : paragraph.validate,
+                    save             : paragraph.save,
+                    allowedToPaste   : true,
+                    showInlineToolbar: true,
+                    destroy: paragraph.destroy,
+                    allowRenderOnPaste: true,
+                    config           : {}
                 },
-                paste : {
-                    type             : 'paste',
-                    iconClassname    : '',
-                    prepare          : pasteTool.prepare,
-                    make             : pasteTool.make,
-                    appendCallback   : null,
-                    settings         : null,
-                    render           : null,
-                    save             : pasteTool.save,
-                    displayInToolbox : false,
-                    enableLineBreaks : false,
-                    callbacks        : pasteTool.callbacks,
-                    allowedToPaste   : false
-                },
-                header : {
-                    type             : 'header',
+                heading_styled : {
+                    type             : 'heading_styled',
                     iconClassname    : 'ce-icon-header',
-                    make             : headerTool.make,
-                    appendCallback   : headerTool.appendCallback,
-                    settings         : headerTool.makeSettings(),
-                    render           : headerTool.render,
-                    save             : headerTool.save
-                },
-                code : {
-                    type             : 'code',
-                    iconClassname    : 'ce-icon-code',
-                    make             : codeTool.make,
-                    appendCallback   : null,
-                    settings         : null,
-                    render           : codeTool.render,
-                    save             : codeTool.save,
+                    appendCallback   : header.appendCallback,
+                    makeSettings     : header.makeSettings,
+                    validate         : header.validate,
+                    render           : header.render,
+                    save             : header.save,
                     displayInToolbox : true,
-                    enableLineBreaks : true
+                    enableLineBreaks : false,
+                    destroy: header.destroy,
+                    config           : {}
                 },
-                link : {
-                    type             : 'link',
+                link_embed : {
+                    type             : 'link_embed',
                     iconClassname    : 'ce-icon-link',
-                    make             : linkTool.makeNewBlock,
-                    appendCallback   : linkTool.appendCallback,
-                    render           : linkTool.render,
-                    save             : linkTool.save,
-                    displayInToolbox : true,
-                    enableLineBreaks : true
-                },
-                list : {
-                    type             : 'list',
-                    iconClassname    : 'ce-icon-list-bullet',
-                    make             : listTool.make,
-                    appendCallback   : null,
-                    settings         : listTool.makeSettings(),
-                    render           : listTool.render,
-                    save             : listTool.save,
-                    displayInToolbox : true,
-                    enableLineBreaks : true
-                },
-                quote : {
-                    type             : 'quote',
-                    iconClassname    : 'ce-icon-quote',
-                    make             : quoteTools.makeBlockToAppend,
-                    appendCallback   : null,
-                    settings         : quoteTools.makeSettings(),
-                    render           : quoteTools.render,
-                    save             : quoteTools.save,
+                    prepare          : link.prepare,
+                    appendCallback   : link.appendCallback,
+                    render           : link.render,
+                    save             : link.save,
                     displayInToolbox : true,
                     enableLineBreaks : true,
-                    allowedToPaste   : true
+                    destroy: link.destroy,
+                    config           : {
+                        fetchUrl : '/club/linkInfo'
+                    }
                 },
-                image : {
-                    type             : 'image',
+                list: {
+                    type: 'list',
+                    iconClassname: 'ce-icon-list-bullet',
+                    make: list.make,
+                    appendCallback: null,
+                    makeSettings: list.makeSettings,
+                    render: list.render,
+                    validate: list.validate,
+                    save: list.save,
+                    destroy: list.destroy,
+                    displayInToolbox: true,
+                    showInlineToolbar: true,
+                    enableLineBreaks: true,
+                    allowedToPaste: true
+                },
+                quote_styled : {
+                    type             : 'quote_styled',
+                    iconClassname    : 'ce-icon-quote',
+                    makeSettings     : quote.makeSettings,
+                    render           : quote.render,
+                    prepare          : quote.prepare,
+                    validate         : quote.validate,
+                    save             : quote.save,
+                    displayInToolbox : true,
+                    enableLineBreaks : true,
+                    showInlineToolbar: true,
+                    allowedToPaste   : true,
+                    destroy: quote.destroy,
+                    config           : {
+                        defaultStyle : 'withPhoto'
+                    }
+                },
+                image_extended : {
+                    type             : 'image_extended',
                     iconClassname    : 'ce-icon-picture',
-                    make             : ceImage.make,
-                    appendCallback   : ceImage.appendCallback,
-                    settings         : ceImage.makeSettings(),
-                    render           : ceImage.render,
-                    save             : ceImage.save,
+                    appendCallback   : image.appendCallback,
+                    makeSettings     : image.makeSettings,
+                    prepare          : image.prepare,
+                    render           : image.render,
+                    save             : image.save,
                     isStretched      : true,
                     displayInToolbox : true,
-                    enableLineBreaks : false
+                    showInlineToolbar: true,
+                    enableLineBreaks : true,
+                    destroy: image.destroy,
+                    renderOnPastePatterns: image.pastePatterns,
+                    config : {
+                        uploadUrl : '/club/fetchImage'
+                    }
                 },
                 instagram : {
                     type             : 'instagram',
                     iconClassname    : 'ce-icon-instagram',
-                    prepare          : instagramTool.prepare,
-                    make             : instagramTool.make,
-                    appendCallback   : null,
-                    settings         : null,
-                    render           : instagramTool.reneder,
-                    save             : instagramTool.save,
-                    displayInToolbox : false,
-                    enableLineBreaks : false,
-                    allowedToPaste   : false
+                    prepare          : instagram.prepare,
+                    make             : instagram.make,
+                    render           : instagram.render,
+                    save             : instagram.save,
+                    destroy: instagram.destroy,
+                    renderOnPastePatterns: instagram.pastePatterns
                 },
-                twitter : {
-                    type             : 'twitter',
+                tweet : {
+                    type             : 'tweet',
                     iconClassname    : 'ce-icon-twitter',
-                    prepare          : twitterTool.prepare,
-                    make             : twitterTool.make,
-                    appendCallback   : null,
-                    settings         : null,
-                    render           : twitterTool.render,
-                    save             : twitterTool.save,
-                    displayInToolbox : false,
-                    enableLineBreaks : false,
-                    allowedToPaste   : false
+                    prepare          : twitter.prepare,
+                    make             : twitter.make,
+                    render           : twitter.render,
+                    save             : twitter.save,
+                    showInlineToolbar: true,
+                    destroy: twitter.destroy,
+                    renderOnPastePatterns: twitter.pastePatterns,
+                    config           : {
+                        fetchUrl : '/writing/tweetInfo'
+                    }
+                },
+                video_extended : {
+                    type             : 'video_extended',
+                    render           : embed.render,
+                    save             : embed.save,
+                    validate         : embed.validate,
+                    destroy: embed.destroy,
+                    renderOnPastePatterns: embed.pastePatterns
                 }
             },
-
             data : INPUT
         });
 
@@ -263,35 +267,14 @@
     })
 </script>
 
-<script src="/public/extensions/codex.editor/plugins/paragraph/paragraph.js"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/paragraph/paragraph.css" />
+<!-- Developers plugin -->
+<? $plugins = ['paragraph', 'header', 'code', 'link', 'list', 'image', 'quote', 'twitter', 'instagram', 'embed']; ?>
 
-<script src="/public/extensions/codex.editor/plugins/header/header.js"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/header/header.css" />
+<? foreach ($plugins as $plugin) : ?>
+    <script src="https://cdn.ifmo.su/editor/v1.5/plugins/<?=$plugin . DIRECTORY_SEPARATOR . $plugin . '.js'; ?>"></script>
+    <link rel="stylesheet" href="https://cdn.ifmo.su/editor/v1.5/plugins/<?=$plugin . DIRECTORY_SEPARATOR . $plugin . '.css'; ?>">
+<? endforeach; ?>
 
-<script src="/public/extensions/codex.editor/plugins/link/link.js"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/link/link.css" />
-
-<script src="/public/extensions/codex.editor/plugins/code/code.js"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/code/code.css" />
-
-<script src="/public/extensions/codex.editor/plugins/quote/quote.js"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/quote/quote.css" />
-
-<script src="/public/extensions/codex.editor/plugins/list/list.js"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/list/list.css" />
-
-<script src="/public/extensions/codex.editor/plugins/image/image.js"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/image/image.css" />
-
-<script src="/public/extensions/codex.editor/plugins/paste/paste.js"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/paste/paste.css">
-
-<script src="/public/extensions/codex.editor/plugins/instagram/instagram.js"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/instagram/instagram.css">
-
-<script src="/public/extensions/codex.editor/plugins/twitter/twitter.js"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/twitter/twitter.css">
-
-<script src="/public/extensions/codex.editor/codex-editor.js"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/codex-editor.css">
+<!-- Editor scripts and styles -->
+<script src="https://cdn.ifmo.su/editor/v1.5/codex-editor.js"></script>
+<link rel="stylesheet" href="https://cdn.ifmo.su/editor/v1.5/codex-editor.css" />
