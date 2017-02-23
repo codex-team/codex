@@ -117,11 +117,16 @@ class Controller_Base_preDispatch extends Controller_Template
         }
 
         $redisConfig = Kohana::$config->load('redis.default');
-        $redis       = new Redis();
 
-        $redis->connect($redisConfig['hostname'], $redisConfig['port']);
-        $redis->auth($redisConfig['password']);
+        $redisHost = isset($redisConfig['hostname']) ? $redisConfig['hostname'] : '127.0.0.1';
+        $redisPort = isset($redisConfig['port'])     ? $redisConfig['port']     : '6379';
+        $redisPswd = isset($redisConfig['password']) ? $redisConfig['password'] : '';
+
+        $redis = new Redis();
+        $redis->connect($redisHost, $redisPort);
+        $redis->auth($redisPswd);
         $redis->select(0);
+
         return $redis;
     }
 
