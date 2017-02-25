@@ -279,12 +279,17 @@ class Model_Methods extends Model
 
         $telegramConfig = Kohana::$config->load($telegramConfigFilename);
 
-        if (!property_exists($telegramConfig, 'url') || !$telegramConfig->url) {
+        if (!property_exists($telegramConfig, 'url')) {
             throw new Kohana_Exception("No $telegramConfigFilename config file was found!");
             return;
         }
 
         $url = $telegramConfig->url;
+
+        if (!$url) {
+            throw new Kohana_Exception("URL for telegram notifications was not found.");
+            return;
+        }
 
         $params = array(
             'message' => $text
