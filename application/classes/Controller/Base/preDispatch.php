@@ -118,9 +118,9 @@ class Controller_Base_preDispatch extends Controller_Template
 
         $redisConfig = Kohana::$config->load('redis.default');
 
-        $redisHost = isset($redisConfig['hostname']) ? $redisConfig['hostname'] : '127.0.0.1';
-        $redisPort = isset($redisConfig['port'])     ? $redisConfig['port']     : '6379';
-        $redisPswd = isset($redisConfig['password']) ? $redisConfig['password'] : '';
+        $redisHost = Arr::get($redisConfig, 'hostname', '127.0.0.1');
+        $redisPort = Arr::get($redisConfig, 'port', '6379');
+        $redisPswd = Arr::get($redisConfig, 'password', '');
 
         $redis = new Redis();
         $redis->connect($redisHost, $redisPort);
