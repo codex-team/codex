@@ -198,6 +198,11 @@ Route::set('ADMIN', 'admin(/<category>(/<list>))', array('category' => 'articles
         'action' => 'index'
     ));
 
+Route::set('SCRIPTS', 'admin/scripts(/<script>)', array('script' => 'resetArticlesTimeline'))->defaults(array(
+    'controller' => 'admin',
+    'action' => 'scripts'
+));
+
 
 // - viz redaktor -
 
