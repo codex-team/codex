@@ -43,7 +43,7 @@ class Controller_Admin extends Controller_Base_preDispatch
         $this->template->content = View::factory("templates/admin/wrapper", array("content" => $pageContent));
 
     }
-    
+
     public function action_edit()
     {
         $article_id = $this->request->param('article_id');
@@ -181,6 +181,49 @@ class Controller_Admin extends Controller_Base_preDispatch
         } else {
             $developersList->remove($id);
         }
+    }
+
+    /**
+     * Scripts part
+     */
+
+    public function action_scripts()
+    {
+        $category = $this->request->param('script');
+
+        $result = '';
+
+        switch ($category) {
+            case 'resetArticlesTimeline':
+                $result = self::scripts_resetArticlesTimeline();
+                break;
+            default:
+                break;
+        }
+
+        $this->view['result'] = $result;
+        $content = View::factory('templates/admin/scripts/list', $this->view);
+        $this->template->content = View::factory("templates/admin/wrapper", array("content" => $content));
+    }
+
+    public function scripts_resetArticlesTimeline()
+    {
+        $articles = Model_Article::getActiveArticles();
+
+        /** rebuld array*/
+        foreach ($articles as $key => $value) {
+            $article = array(
+                'id' => $articles[$key]->id,
+                'dt_create' => $articles[$key]->dt_create,
+            );
+            $articles[$key] = $article;
+        }
+
+        // #TODO add to $feed array with courses later
+        $feed = new Model_Feed_Articles('article');
+        $feed->init($articles);
+
+        return 'Articles timeline was successfully updated';
     }
 
 }
