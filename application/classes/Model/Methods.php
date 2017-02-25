@@ -279,7 +279,7 @@ class Model_Methods extends Model
 
         $telegramConfig = Kohana::$config->load($telegramConfigFilename);
 
-        if (!isset($telegramConfig->url) || !$telegramConfig->url) {
+        if (!property_exists($telegramConfig, 'url') || !$telegramConfig->url) {
             throw new Kohana_Exception("No $telegramConfigFilename config file was found!");
             return;
         }
