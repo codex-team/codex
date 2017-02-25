@@ -277,7 +277,8 @@ class Model_Methods extends Model
     {
         $telegramConfig = Kohana::$config->load('telegram-notification');
 
-        if (!isset($telegramConfig->url) || !$telegramConfig->url) {
+		if (!isset($telegramConfig->url) || !$telegramConfig->url) {
+            throw new Exception('No telegram-notification.php config file was found!');
             return;
         }
 
