@@ -275,10 +275,12 @@ class Model_Methods extends Model
 
     public static function sendBotNotification($text)
     {
-        $telegramConfig = Kohana::$config->load('telegram-notification');
+        $telegramConfigFilename = 'telegram-notification';
 
-		if (!isset($telegramConfig->url) || !$telegramConfig->url) {
-            throw new Exception('No telegram-notification.php config file was found!');
+        $telegramConfig = Kohana::$config->load($telegramConfigFilename);
+
+        if (!isset($telegramConfig->url) || !$telegramConfig->url) {
+            throw new Kohana_Exception("No $telegramConfigFilename config file was found!");
             return;
         }
 
