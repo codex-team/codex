@@ -38,6 +38,13 @@
                     </tr>
                 <? endif; ?>
             <? endforeach; ?>
-        </table>    
+        </table>
+
+        <div class="page_footer">
+            <a class="button" href="/admin/scripts/resetArticlesTimeline">
+                Collect articles in timeline
+            </a>
+        </div>
+
     <? endif; ?>
 </div>

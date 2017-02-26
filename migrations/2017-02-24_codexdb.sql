@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.3deb1.precise~ppa.1
+-- version 4.2.12deb2+deb8u2
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 08, 2016 at 06:25 PM
--- Server version: 5.5.44-0+deb7u1
--- PHP Version: 5.4.45-0+deb7u1
+-- Generation Time: Feb 24, 2017 at 12:52 AM
+-- Server version: 5.5.53-0+deb8u1
+-- PHP Version: 5.6.29-0+deb8u1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `codex-db`
+-- Database: `codexdb`
 --
 CREATE DATABASE IF NOT EXISTS `codexdb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `codexdb`;
@@ -28,6 +28,7 @@ USE `codexdb`;
 -- Table structure for table `Alias`
 --
 
+DROP TABLE IF EXISTS `Alias`;
 CREATE TABLE IF NOT EXISTS `Alias` (
 `id_alias` int(18) NOT NULL,
   `uri` text NOT NULL,
@@ -36,21 +37,22 @@ CREATE TABLE IF NOT EXISTS `Alias` (
   `id` int(18) NOT NULL,
   `dt_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `deprecated` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB AUTO_INCREMENT=229 DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
 
 --
 -- Table structure for table `Articles`
 --
 
+DROP TABLE IF EXISTS `Articles`;
 CREATE TABLE IF NOT EXISTS `Articles` (
 `id` int(10) unsigned NOT NULL,
-  `uri` varchar(128) NULL,
+  `uri` varchar(128) DEFAULT NULL,
   `title` varchar(128) NOT NULL,
   `text` text,
   `json` longtext NOT NULL,
   `description` text,
+  `quiz_id` int(11) DEFAULT '0',
   `cover` varchar(32) DEFAULT NULL,
   `user_id` int(10) unsigned NOT NULL,
   `dt_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -58,15 +60,17 @@ CREATE TABLE IF NOT EXISTS `Articles` (
   `is_removed` tinyint(1) NOT NULL DEFAULT '0',
   `is_published` tinyint(1) NOT NULL DEFAULT '0',
   `deprecated` tinyint(1) NOT NULL DEFAULT '0',
-  `marked` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Помечает статью в списке как важную'
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `marked` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Помечает статью в списке как важную',
+  `order` int(11) NOT NULL DEFAULT '0' COMMENT 'Порядок вывода статей'
+) ENGINE=InnoDB AUTO_INCREMENT=123 DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
+
 
 --
 -- Table structure for table `Comments`
 --
 
+DROP TABLE IF EXISTS `Comments`;
 CREATE TABLE IF NOT EXISTS `Comments` (
 `id` int(10) unsigned NOT NULL,
   `user_id` int(10) unsigned NOT NULL,
@@ -78,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `Comments` (
   `dt_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `dt_update` timestamp NULL DEFAULT NULL,
   `is_removed` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -86,9 +90,10 @@ CREATE TABLE IF NOT EXISTS `Comments` (
 -- Table structure for table `Contests`
 --
 
+DROP TABLE IF EXISTS `Contests`;
 CREATE TABLE IF NOT EXISTS `Contests` (
 `id` int(11) NOT NULL,
-  `uri` varchar(128) NULL,
+  `uri` varchar(128) DEFAULT NULL,
   `title` varchar(128) NOT NULL,
   `description` text,
   `list_icon` varchar(100) DEFAULT NULL,
@@ -100,17 +105,16 @@ CREATE TABLE IF NOT EXISTS `Contests` (
   `dt_close` timestamp NULL DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '0',
   `winner` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `Courses`
 --
 
+DROP TABLE IF EXISTS `Courses`;
 CREATE TABLE IF NOT EXISTS `Courses` (
-  `id` int(10) unsigned NOT NULL,
-  `uri` varchar(128) NOT NULL,
+`id` int(11) NOT NULL,
+  `uri` varchar(128) DEFAULT NULL,
   `title` varchar(128) NOT NULL,
   `text` text,
   `description` text,
@@ -119,17 +123,17 @@ CREATE TABLE IF NOT EXISTS `Courses` (
   `dt_update` timestamp NULL DEFAULT NULL,
   `is_removed` tinyint(1) NOT NULL DEFAULT '0',
   `is_published` tinyint(1) NOT NULL DEFAULT '0',
-  `marked` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Помечает курс в списке как важный'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
+  `marked` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Помечает курс в списке как важный',
+  `order` int(11) NOT NULL DEFAULT '0' COMMENT 'Порядок вывода статей и курсов'
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `Courses_articles`
 --
 
+DROP TABLE IF EXISTS `Courses_articles`;
 CREATE TABLE IF NOT EXISTS `Courses_articles` (
-  `id` int(11) NOT NULL,
+`id` int(11) NOT NULL,
   `course_id` int(11) NOT NULL,
   `article_id` int(11) NOT NULL,
   `article_index` int(11) NOT NULL COMMENT 'Порядковый номер статьи в курсе'
@@ -141,10 +145,11 @@ CREATE TABLE IF NOT EXISTS `Courses_articles` (
 -- Table structure for table `ForbiddenAliases`
 --
 
+DROP TABLE IF EXISTS `ForbiddenAliases`;
 CREATE TABLE IF NOT EXISTS `ForbiddenAliases` (
 `id` int(18) NOT NULL,
   `uri` varchar(18) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `ForbiddenAliases`
@@ -165,7 +170,27 @@ INSERT INTO `ForbiddenAliases` (`id`, `uri`) VALUES
 (12, 'special'),
 (13, 'task'),
 (14, 'course'),
-(15, 'courses');
+(15, 'courses'),
+(16, ''),
+(17, 'test'),
+(18, 'quiz');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Quizzes`
+--
+
+DROP TABLE IF EXISTS `Quizzes`;
+CREATE TABLE IF NOT EXISTS `Quizzes` (
+`id` int(11) NOT NULL,
+  `title` varchar(25) NOT NULL,
+  `description` text NOT NULL,
+  `quiz_data` text NOT NULL,
+  `dt_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `dt_update` timestamp NULL DEFAULT NULL,
+  `is_removed` tinyint(4) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -173,6 +198,7 @@ INSERT INTO `ForbiddenAliases` (`id`, `uri`) VALUES
 -- Table structure for table `Requests`
 --
 
+DROP TABLE IF EXISTS `Requests`;
 CREATE TABLE IF NOT EXISTS `Requests` (
 `id` int(11) NOT NULL,
   `uid` int(11) unsigned DEFAULT NULL,
@@ -182,14 +208,14 @@ CREATE TABLE IF NOT EXISTS `Requests` (
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `name` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
 
 --
 -- Table structure for table `Sessions`
 --
 
+DROP TABLE IF EXISTS `Sessions`;
 CREATE TABLE IF NOT EXISTS `Sessions` (
 `id` int(10) unsigned NOT NULL,
   `user_id` int(10) unsigned NOT NULL,
@@ -197,7 +223,7 @@ CREATE TABLE IF NOT EXISTS `Sessions` (
   `dt_login` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user_agent` text NOT NULL,
   `access_token` varchar(128) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB AUTO_INCREMENT=547 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -205,10 +231,12 @@ CREATE TABLE IF NOT EXISTS `Sessions` (
 -- Table structure for table `Tags`
 --
 
+DROP TABLE IF EXISTS `Tags`;
 CREATE TABLE IF NOT EXISTS `Tags` (
 `id` int(10) unsigned NOT NULL,
   `name` varchar(128) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
 
 -- --------------------------------------------------------
 
@@ -216,6 +244,7 @@ CREATE TABLE IF NOT EXISTS `Tags` (
 -- Table structure for table `Tags_articles`
 --
 
+DROP TABLE IF EXISTS `Tags_articles`;
 CREATE TABLE IF NOT EXISTS `Tags_articles` (
   `tag_id` int(10) unsigned NOT NULL,
   `article_id` int(10) unsigned NOT NULL
@@ -227,9 +256,10 @@ CREATE TABLE IF NOT EXISTS `Tags_articles` (
 -- Table structure for table `Users`
 --
 
+DROP TABLE IF EXISTS `Users`;
 CREATE TABLE IF NOT EXISTS `Users` (
 `id` int(10) unsigned NOT NULL,
-  `uri` varchar(128) NULL,
+  `uri` varchar(128) DEFAULT NULL,
   `name` varchar(128) NOT NULL,
   `vk_id` bigint(20) unsigned DEFAULT NULL,
   `vk_uri` varchar(128) DEFAULT NULL,
@@ -246,31 +276,12 @@ CREATE TABLE IF NOT EXISTS `Users` (
   `is_removed` tinyint(1) NOT NULL DEFAULT '0',
   `bio` tinytext,
   `instagram_uri` varchar(64) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `Quizzes`
---
-
-CREATE TABLE IF NOT EXISTS `Quizzes` (
-  `id` int(11) NOT NULL,
-  `title` varchar(25) NOT NULL,
-  `description` text NOT NULL,
-  `quiz_data` text NOT NULL,
-  `dt_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `dt_update` timestamp NULL DEFAULT NULL,
-  `is_removed` tinyint(4) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-ALTER TABLE `Articles`
-  ADD `quiz_id` INT NULL DEFAULT '0' AFTER `description`;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB AUTO_INCREMENT=205 DEFAULT CHARSET=utf8;
 
 --
 -- Indexes for dumped tables
+--
+
 --
 -- Indexes for table `Alias`
 --
@@ -296,9 +307,27 @@ ALTER TABLE `Contests`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `Courses`
+--
+ALTER TABLE `Courses`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `Courses_articles`
+--
+ALTER TABLE `Courses_articles`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `ForbiddenAliases`
 --
 ALTER TABLE `ForbiddenAliases`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `Quizzes`
+--
+ALTER TABLE `Quizzes`
  ADD PRIMARY KEY (`id`);
 
 --
@@ -332,33 +361,19 @@ ALTER TABLE `Users`
  ADD PRIMARY KEY (`id`);
 
 --
--- Индексы таблицы `Courses`
+-- AUTO_INCREMENT for dumped tables
 --
-ALTER TABLE `Courses`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `Courses_articles`
---
-ALTER TABLE `Courses_articles`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `Quizzes`
---
-ALTER TABLE `Quizzes`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for table `Alias`
 --
 ALTER TABLE `Alias`
-MODIFY `id_alias` int(18) NOT NULL AUTO_INCREMENT;
+MODIFY `id_alias` int(18) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=229;
 --
 -- AUTO_INCREMENT for table `Articles`
 --
 ALTER TABLE `Articles`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=123;
 --
 -- AUTO_INCREMENT for table `Comments`
 --
@@ -368,48 +383,47 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `Contests`
 --
 ALTER TABLE `Contests`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `Courses`
+--
+ALTER TABLE `Courses`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `Courses_articles`
+--
+ALTER TABLE `Courses_articles`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `ForbiddenAliases`
 --
 ALTER TABLE `ForbiddenAliases`
-MODIFY `id` int(18) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+MODIFY `id` int(18) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
+--
+-- AUTO_INCREMENT for table `Quizzes`
+--
+ALTER TABLE `Quizzes`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `Requests`
 --
 ALTER TABLE `Requests`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=105;
 --
 -- AUTO_INCREMENT for table `Sessions`
 --
 ALTER TABLE `Sessions`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=547;
 --
 -- AUTO_INCREMENT for table `Tags`
 --
 ALTER TABLE `Tags`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `Users`
 --
 ALTER TABLE `Users`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `Courses_articles`
---
-ALTER TABLE `Courses_articles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `Courses`
---
-ALTER TABLE `Courses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `Quizzes`
---
-ALTER TABLE `Quizzes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=205;
 --
 -- Constraints for dumped tables
 --
@@ -433,8 +447,6 @@ ADD CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `Users` (`id
 ALTER TABLE `Tags_articles`
 ADD CONSTRAINT `tags_articles_ibfk_1` FOREIGN KEY (`tag_id`) REFERENCES `Tags` (`id`),
 ADD CONSTRAINT `tags_articles_ibfk_2` FOREIGN KEY (`article_id`) REFERENCES `Articles` (`id`);
-
-
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
