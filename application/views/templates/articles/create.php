@@ -99,20 +99,22 @@
         var submit  = document.getElementById('submitButton'),
             form    = document.forms['codex_article'],
             article = document.getElementById('codex_editor'),
-            content;
+            pageContent,
+            blocks;
 
         /** If we want to edit article */
         if (article.textContent.length) {
 
             /** get content that was written before and render with Codex.Editor */
-            content = JSON.parse(article.textContent);
-
+            pageContent = JSON.parse(article.textContent);
 
         }
 
+        blocks = pageContent ? pageContent.data : [];
+
         var INPUT = {
-            items : content.data || [],
-            count : content.data.length || 0
+            items : blocks,
+            count : blocks.length
         };
 
         codex.editor.start({
