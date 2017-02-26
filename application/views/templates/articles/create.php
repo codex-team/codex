@@ -99,45 +99,41 @@
         var submit  = document.getElementById('submitButton'),
             form    = document.forms['codex_article'],
             article = document.getElementById('codex_editor'),
-            json;
+            content;
 
         /** If we want to edit article */
         if (article.textContent.length) {
 
             /** get content that was written before and render with Codex.Editor */
-            json = JSON.parse(article.textContent);
+            content = JSON.parse(article.textContent);
 
-        } else {
-
-            /** for new article */
-            json = [];
 
         }
 
         var INPUT = {
-            items : json,
-            count : json.length
+            items : content.data || [],
+            count : content.data.length || 0
         };
 
         codex.editor.start({
             textareaId: 'codex_editor',
-            uploadImagesUrl : '/writing/uploadImage',
-            initialBlockPlugin : 'text',
+            uploadImagesUrl : '/editor/transport/',
+            initialBlockPlugin : 'paragraph',
             tools: {
-                text : {
-                    type             : 'text',
+                paragraph : {
+                    type             : 'paragraph',
                     iconClassname    : 'ce-icon-paragraph',
                     render           : paragraph.render,
                     validate         : paragraph.validate,
                     save             : paragraph.save,
                     allowedToPaste   : true,
                     showInlineToolbar: true,
-                    destroy: paragraph.destroy,
-                    allowRenderOnPaste: true,
-                    config           : {}
+                    destroy             : paragraph.destroy,
+                    allowRenderOnPaste  : true,
+                    config              : {}
                 },
-                heading_styled : {
-                    type             : 'heading_styled',
+                header : {
+                    type             : 'header',
                     iconClassname    : 'ce-icon-header',
                     appendCallback   : header.appendCallback,
                     makeSettings     : header.makeSettings,
@@ -146,11 +142,11 @@
                     save             : header.save,
                     displayInToolbox : true,
                     enableLineBreaks : false,
-                    destroy: header.destroy,
+                    destroy          : header.destroy,
                     config           : {}
                 },
-                link_embed : {
-                    type             : 'link_embed',
+                link : {
+                    type             : 'link',
                     iconClassname    : 'ce-icon-link',
                     prepare          : link.prepare,
                     appendCallback   : link.appendCallback,
@@ -178,8 +174,8 @@
                     enableLineBreaks: true,
                     allowedToPaste: true
                 },
-                quote_styled : {
-                    type             : 'quote_styled',
+                quote : {
+                    type             : 'quote',
                     iconClassname    : 'ce-icon-quote',
                     makeSettings     : quote.makeSettings,
                     render           : quote.render,
@@ -195,8 +191,8 @@
                         defaultStyle : 'withPhoto'
                     }
                 },
-                image_extended : {
-                    type             : 'image_extended',
+                image : {
+                    type             : 'image',
                     iconClassname    : 'ce-icon-picture',
                     appendCallback   : image.appendCallback,
                     makeSettings     : image.makeSettings,
@@ -237,12 +233,12 @@
                         fetchUrl : '/writing/tweetInfo'
                     }
                 },
-                video_extended : {
-                    type             : 'video_extended',
+                embed : {
+                    type             : 'embed',
                     render           : embed.render,
                     save             : embed.save,
                     validate         : embed.validate,
-                    destroy: embed.destroy,
+                    destroy          : embed.destroy,
                     renderOnPastePatterns: embed.pastePatterns
                 }
             },
@@ -256,7 +252,7 @@
 
             setTimeout(function() {
 
-                article.innerHTML = JSON.stringify(codex.editor.state.jsonOutput);
+                article.innerHTML = JSON.stringify({ data: codex.editor.state.jsonOutput });
 
                 form.submit();
 

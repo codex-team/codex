@@ -1,5 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
+use \CodexEditor\CodexEditor;
+
 class Controller_Articles_Index extends Controller_Base_preDispatch
 {
 
@@ -49,7 +51,22 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
          *  type - plugins type
          *  data - plugins content
          */
-        $blocks = json_decode($article->json) ?: array();
+        try {
+
+            $editor = new CodexEditor($article->json);
+            $pageContent = json_decode($editor->getData());
+
+            // get only blocks
+            if (property_exists($pageContent, 'data')) {
+                $blocks = $pageContent->data;
+            }
+
+
+        } catch (Kohana_Exception $e) {
+
+            throw new Kohana_Exception($e->getMessage());
+
+        }
 
         /**
          * Using PHP renderer for Articles
@@ -59,6 +76,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
             $article->blocks[] = View::factory('templates/editor/plugins/' . $blocks[$i]->type, array('block' => $blocks[$i]->data))
                 ->render();
         }
+
         $article->blocks = $article->blocks ?: array();
         $article->json   = $article->json ?: '';
 

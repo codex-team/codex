@@ -25,8 +25,18 @@ class Controller_Editor extends Controller_Base_preDispatch
         $json = Arr::get($_POST, 'article_json');
 
         $editor = new CodexEditor($json);
-        $data = json_decode($editor->getData());
-        $blocks = $data->data;
+
+        try {
+
+            $data = json_decode($editor->getData());
+            // get only block
+            $blocks = $data->data;
+
+        } catch (Exception $e) {
+
+            throw new Kohana_Exception($e->getMessage());
+
+        }
 
         for($i = 0; $i < count($blocks); $i++)
         {

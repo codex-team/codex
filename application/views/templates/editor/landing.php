@@ -104,8 +104,8 @@
                     allowRenderOnPaste: true,
                     config           : {}
                 },
-                heading_styled : {
-                    type             : 'heading_styled',
+                header : {
+                    type             : 'header',
                     iconClassname    : 'ce-icon-header',
                     appendCallback   : header.appendCallback,
                     makeSettings     : header.makeSettings,
@@ -117,8 +117,8 @@
                     destroy: header.destroy,
                     config           : {}
                 },
-                link_embed : {
-                    type             : 'link_embed',
+                link : {
+                    type             : 'link',
                     iconClassname    : 'ce-icon-link',
                     prepare          : link.prepare,
                     appendCallback   : link.appendCallback,
@@ -146,8 +146,8 @@
                     enableLineBreaks: true,
                     allowedToPaste: true
                 },
-                quote_styled : {
-                    type             : 'quote_styled',
+                quote : {
+                    type             : 'quote',
                     iconClassname    : 'ce-icon-quote',
                     makeSettings     : quote.makeSettings,
                     render           : quote.render,
@@ -163,8 +163,8 @@
                         defaultStyle : 'withPhoto'
                     }
                 },
-                image_extended : {
-                    type             : 'image_extended',
+                image : {
+                    type             : 'image',
                     iconClassname    : 'ce-icon-picture',
                     appendCallback   : image.appendCallback,
                     makeSettings     : image.makeSettings,
@@ -205,8 +205,8 @@
                         fetchUrl : '/writing/tweetInfo'
                     }
                 },
-                video_extended : {
-                    type             : 'video_extended',
+                embed : {
+                    type             : 'embed',
                     render           : embed.render,
                     save             : embed.save,
                     validate         : embed.validate,
@@ -214,7 +214,7 @@
                     renderOnPastePatterns: embed.pastePatterns
                 }
             },
-            data : _INPUT
+            data : INPUT
         });
 
         cPreview.show({
