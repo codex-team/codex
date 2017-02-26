@@ -158,7 +158,7 @@
                     enableLineBreaks : true,
                     destroy: link.destroy,
                     config           : {
-                        fetchUrl : '/club/linkInfo'
+                        fetchUrl : ''
                     }
                 },
                 list: {
@@ -208,7 +208,7 @@
                     destroy: image.destroy,
                     renderOnPastePatterns: image.pastePatterns,
                     config : {
-                        uploadUrl : '/club/fetchImage'
+                        uploadUrl : ''
                     }
                 },
                 instagram : {
@@ -232,7 +232,7 @@
                     destroy: twitter.destroy,
                     renderOnPastePatterns: twitter.pastePatterns,
                     config           : {
-                        fetchUrl : '/writing/tweetInfo'
+                        fetchUrl : ''
                     }
                 },
                 embed : {
