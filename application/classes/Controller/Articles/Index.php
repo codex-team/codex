@@ -42,43 +42,14 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
             $this->getArticlesFromCourse($articleId, $courseId);
         }
 
-        if ($article->id == 0 || $article->is_removed)
+        if ($article->id == 0 || $article->is_removed){
             throw new HTTP_Exception_404();
-
-        /**
-         * @var $blocks - Array of JSON objects.
-         * Each object contains:
-         *  type - plugins type
-         *  data - plugins content
-         */
-        try {
-
-            $editor = new CodexEditor($article->json);
-            $pageContent = json_decode($editor->getData());
-
-            // get only blocks
-            if (property_exists($pageContent, 'data')) {
-                $blocks = $pageContent->data;
-            }
-
-
-        } catch (Kohana_Exception $e) {
-
-            throw new Kohana_Exception($e->getMessage());
-
         }
 
-        /**
-         * Using PHP renderer for Articles
-         */
-        for($i = 0; $i < count($blocks); $i++)
-        {
-            $article->blocks[] = View::factory('templates/editor/plugins/' . $blocks[$i]->type, array('block' => $blocks[$i]->data))
-                ->render();
+        if ($article->json) {
+            $article->blocks = $this->drawArticleBlocks($article->json);
         }
 
-        $article->blocks = $article->blocks ?: array();
-        $article->json   = $article->json ?: '';
 
         if ($article->quiz_id) {
             $quiz = new Model_Quiz($article->quiz_id);
@@ -94,6 +65,41 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $this->description = $article->description;
 
         $this->template->content = View::factory('templates/articles/article', $this->view);
+    }
+
+
+    /**
+     * Renders template for each block
+     * @param string $content - json encoded data
+     * @return array
+     */
+    private function drawArticleBlocks( $content ){
+
+        try {
+
+            $editor = new CodexEditor($content);
+            $blocks = $editor->getBlocks();
+
+
+        } catch (Kohana_Exception $e) {
+
+            throw new Kohana_Exception($e->getMessage());
+
+        }
+
+        $renderedBlocks = [];
+
+        /**
+         * Using PHP renderer for Articles
+         */
+        for($i = 0; $i < count($blocks); $i++)
+        {
+            $renderedBlocks[] = View::factory('templates/editor/plugins/' . $blocks[$i]->type, array('block' => $blocks[$i]->data))
+                ->render();
+        }
+
+        return $renderedBlocks;
+
     }
 
     /**
