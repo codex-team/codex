@@ -46,6 +46,12 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
             throw new HTTP_Exception_404();
         }
 
+
+        /**
+         * Array with rendered blocks
+         */
+        $article->blocks = [];
+
         if ($article->json) {
             $article->blocks = $this->drawArticleBlocks($article->json);
         }
