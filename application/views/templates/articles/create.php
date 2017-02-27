@@ -147,6 +147,19 @@
                     destroy          : header.destroy,
                     config           : {}
                 },
+                code : {
+                    type             : 'code',
+                    iconClassname    : 'ce-icon-code',
+                    appendCallback   : null,
+                    makeSettings     : null,
+                    render           : code.render,
+                    validate         : code.validate,
+                    save             : code.save,
+                    destroy          : code.destroy,
+                    displayInToolbox : true,
+                    enableLineBreaks : true,
+                    config           : {}
+                },
                 link : {
                     type             : 'link',
                     iconClassname    : 'ce-icon-link',
