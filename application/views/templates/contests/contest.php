@@ -9,8 +9,11 @@
         <? endif; ?>
         <meta itemprop="datePublished" content="<?= date(DATE_ISO8601, strtotime($contest->dt_create)) ?>" />
 
+        <div class="contest__header">
+            <img src="<?= $contest->list_icon ?: '/public/img/contest_icon_default@2x.png' ?>">
+        </div>
+
         <div class="disclaimer">конкурс от команды codex</div>
-        <div class="line"></div>
 
         <h1 class="article__title" itemprop="headline">
             <?= $contest->title ?>

@@ -68,17 +68,23 @@
 * Contest page
 */
 
+.contest__header {
+    padding-top: 30px;
+    text-align: center;
+
+}
+
 .contest{
     padding: 30px 0;
 }
 .contest .disclaimer{
-    color: #988e8e;
+    color: #a3a9b7;
     font-variant: small-caps;
     letter-spacing: 1.4px;
 }
 .contest .disclaimer{
     font-size: 14px;
-    margin: 40px;
+    margin: 15px 0 30px;
     text-align: center;
 }
 
