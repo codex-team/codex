@@ -8,5 +8,5 @@
 
 ?>
 
-<img class="<?= $class; ?>" src="<?=$block->file->url; ?>" alt="">
+<img class="<?= $class; ?>" src="<?=$block->file['url']; ?>" alt="">
 <div class="ce-plugin-image__caption"><?=$block->caption; ?></div>
