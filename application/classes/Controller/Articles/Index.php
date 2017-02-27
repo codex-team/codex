@@ -100,7 +100,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
          */
         for($i = 0; $i < count($blocks); $i++)
         {
-            $renderedBlocks[] = View::factory('templates/editor/plugins/' . $blocks[$i]->type, array('block' => $blocks[$i]->data))
+            $renderedBlocks[] = View::factory('templates/editor/plugins/' . $blocks[$i]['type'], array('block' => (object) $blocks[$i]['data']))
                 ->render();
         }
 
