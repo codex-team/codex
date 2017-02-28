@@ -1,5 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
+use CodexEditor\CodexEditor;
+
 class Controller_Contests_Modify extends Controller_Base_preDispatch
 {
     /**
@@ -36,6 +38,13 @@ class Controller_Contests_Modify extends Controller_Base_preDispatch
         }
 
         if (Security::check($csrfToken)) {
+
+            $content = Arr::get($_POST, 'contest_content');
+
+            if (!empty($content)) {
+                $contest->content = $this->getJSONContent($content);
+            }
+
             $contest->title        = Arr::get($_POST, 'title');
             $contest->text         = Arr::get($_POST, 'contest_text');
             $contest->status       = Arr::get($_POST, 'status') ? 1 : 0;
@@ -47,7 +56,7 @@ class Controller_Contests_Modify extends Controller_Base_preDispatch
             $uri = Arr::get($_POST, 'uri');
             $alias = Model_Alias::generateUri($uri);
 
-            if ($contest->title && $contest->text && $contest->description && $contest->dt_close) {
+            if ($contest->title && ( $contest->text || $contest->content ) && $contest->description && $contest->dt_close) {
 
                 if ($contest_id) {
                     $contest->dt_update = date('Y-m-d H:i:s');
@@ -81,6 +90,20 @@ class Controller_Contests_Modify extends Controller_Base_preDispatch
         }
 
         $this->redirect('/admin/contests');
+    }
+
+    private function getJSONContent($content)
+    {
+        try {
+
+            $editor = new CodexEditor($content);
+            return $editor->getData();
+
+        } catch ( Exception $e) {
+
+            throw new Kohana_HTTP_Exception_500($e->getMessage());
+
+        }
     }
 
 }

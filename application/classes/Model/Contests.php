@@ -12,6 +12,8 @@ Class Model_Contests extends Model
     public $uri;
     public $title;
     public $text;
+    public $content;
+    public $blocks;
     public $description;
     public $results;
     public $prize;
@@ -40,6 +42,7 @@ Class Model_Contests extends Model
         $idAndRowAffected = Dao_Contests::insert()
                                 ->set('title',          $this->title)
                                 ->set('text',           $this->text)
+                                ->set('content',        $this->content)
                                 ->set('prize',          $this->prize)
                                 ->set('dt_close',       $this->dt_close)
                                 ->set('status',         $this->status)
@@ -109,6 +112,7 @@ Class Model_Contests extends Model
             ->set('uri',            $this->uri)
             ->set('title',          $this->title)
             ->set('text',           $this->text)
+            ->set('content',        $this->content)
             ->set('results',        $this->results)
             ->set('prize',          $this->prize)
             ->set('dt_close',       $this->dt_close)

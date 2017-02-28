@@ -1,5 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
+use CodexEditor\CodexEditor;
+
 class Controller_Contests_Index extends Controller_Base_preDispatch
 {
 
@@ -38,6 +40,9 @@ class Controller_Contests_Index extends Controller_Base_preDispatch
             throw new HTTP_Exception_404();
         }
 
+        if (!empty($contest->content)) {
+            $contest->blocks = $this->getContentBlocks($contest->content);
+        }
 
         /** Add remaining days value */
         if ($contest->dt_close){
@@ -59,6 +64,32 @@ class Controller_Contests_Index extends Controller_Base_preDispatch
         $this->description = $contest->description;
 
         $this->template->content = View::factory('templates/contests/contest', $this->view);
+    }
+
+    private function getContentBlocks($content)
+    {
+        try {
+
+            $editor = new CodexEditor($content);
+            $blocks = $editor->getBlocks();
+            $renderedBlocks = array();
+            /**
+             * Using PHP renderer for Contenst
+             */
+            for ( $i = 0; $i < count($blocks); $i++ ){
+
+                $renderedBlocks[] = View::factory('templates/editor/plugins/' . $blocks[$i]['type'], array(
+                    'block' => (object) $blocks[$i]['data']
+                ))->render();
+            }
+
+            return $renderedBlocks;
+
+        } catch (Exception $e) {
+
+            throw new Kohana_HTTP_Exception_500($e->getMessage());
+
+        }
     }
 
 }

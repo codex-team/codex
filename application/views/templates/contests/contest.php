@@ -48,9 +48,19 @@
         <? endif ?>
     </div>
     <div class="center_side">
-        <div class="article_content"  itemprop="contestBody">
-            <?= nl2br($contest->text) ?>
-        </div>
+
+        <? if ($contest->text) : ?>
+            <div class="article_content"  itemprop="contestBody">
+                <?= nl2br($contest->text) ?>
+            </div>
+        <? elseif ($contest->blocks) : ?>
+            <div class="article_content"  itemprop="contestBody">
+                <? foreach ($contest->blocks as $block): ?>
+                    <?= $block; ?>
+                <? endforeach; ?>
+            </div>
+        <? endif; ?>
+
     </div>
     <? if ($contest->results): ?>
         <div class="result" id="results">

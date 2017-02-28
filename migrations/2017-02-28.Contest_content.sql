@@ -1,0 +1,1 @@
+ALTER TABLE `Contests` ADD `content` TEXT NOT NULL AFTER `text`;
