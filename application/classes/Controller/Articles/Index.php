@@ -50,7 +50,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         /**
          * Array with rendered blocks
          */
-        $article->blocks = [];
+        $article->blocks = array();
 
         if ($article->json) {
             $article->blocks = $this->drawArticleBlocks($article->json);
@@ -93,15 +93,16 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
         }
 
-        $renderedBlocks = [];
+        $renderedBlocks = array();
 
         /**
          * Using PHP renderer for Articles
          */
-        for($i = 0; $i < count($blocks); $i++)
-        {
-            $renderedBlocks[] = View::factory('templates/editor/plugins/' . $blocks[$i]['type'], array('block' => (object) $blocks[$i]['data']))
-                ->render();
+        for ( $i = 0; $i < count($blocks); $i++ ){
+
+            $renderedBlocks[] = View::factory('templates/editor/plugins/' . $blocks[$i]['type'], array(
+                'block' => (object) $blocks[$i]['data']
+            ))->render();
         }
 
         return $renderedBlocks;
