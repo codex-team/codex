@@ -1,5 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
+use \CodexEditor\CodexEditor;
+
 class Controller_Articles_Modify extends Controller_Base_preDispatch
 {
     /**
@@ -42,8 +44,20 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
          */
         if (Security::check($csrfToken)) {
 
+            $pageContent = Arr::get($_POST, 'article_json', '');
+
+            try {
+
+                $editor = new CodexEditor($pageContent);
+
+            } catch (Kohana_Exception $e) {
+
+                throw new Kohana_Exception($e->getMessage());
+
+            }
+
             $article->title        = Arr::get($_POST, 'title');
-            $article->json         = Arr::get($_POST, 'article_json', '');
+            $article->json         = $editor->getData();
             $article->is_published = Arr::get($_POST, 'is_published') ? 1 : 0;
             $article->marked       = Arr::get($_POST, 'marked') ? 1 : 0;
             $article->description  = Arr::get($_POST, 'description');
