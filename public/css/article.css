@@ -146,7 +146,7 @@
 .article_content--old code,
 .ce-plugin-image__uploaded--centered,
 .article__code {
-    max-width: 700px;
+    max-width: 700px !important;
 }
 
 
