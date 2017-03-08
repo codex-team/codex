@@ -2,7 +2,7 @@
 
     $class = 'ce-plugin-image__uploaded--centered';
 
-    if ( !empty($block->isStretch) && $block->isStretch == 'true'){
+    if ( !empty($block->isstretch) && $block->isstretch == 'true'){
         $class = 'ce-plugin-image__uploaded--stretched';
     }
 
