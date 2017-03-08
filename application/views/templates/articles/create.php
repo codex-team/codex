@@ -267,7 +267,7 @@
 
             setTimeout(function() {
 
-                article.innerHTML = JSON.stringify({ data: codex.editor.state.jsonOutput });
+                article.value = JSON.stringify({ data: codex.editor.state.jsonOutput });
 
                 form.submit();
 
