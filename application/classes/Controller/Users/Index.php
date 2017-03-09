@@ -12,11 +12,12 @@ class Controller_Users_Index extends Controller_Base_preDispatch
 
     public function action_show()
     {
-        $user_id = $this->request->param('user_id') ?: $this->request->query('user_id');
-
+        $user_id = $this->request->param('id') ?: $this->request->query('id');
+        $isAlias = $this->request->query('id');
+        
         if ( !empty($user_id) ){
             $viewUser = Model_User::get( $user_id );
-            if ($viewUser->uri)
+            if ($viewUser->uri && !$isAlias)
                 $this->redirect($viewUser->uri);
         } else {
             $viewUser = $this->user;

@@ -143,7 +143,7 @@ Route::set('CONTEST_PAGE', 'contest/<contest_id>', array('contest_id' => $DIGIT)
 
 */
 // Scripts for users
-Route::set('USER_PROFILE', 'user(/<user_id>)', array('user_id' => $DIGIT))
+Route::set('USER_PROFILE', 'user(/<id>)', array('id' => $DIGIT))
 	->defaults(array(
 	'controller' => 'users_index',
 	'action'     => 'show'
