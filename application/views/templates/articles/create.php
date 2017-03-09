@@ -278,14 +278,21 @@
     })
 </script>
 
-<!-- Developers plugin -->
-<? $plugins = ['paragraph', 'header', 'code', 'link', 'list', 'image', 'quote', 'twitter', 'instagram', 'embed']; ?>
+<? // Load Editor plugins ?>
+<?
+    $plugins    = array('paragraph', 'header', 'code', 'link', 'list', 'image', 'quote', 'twitter', 'instagram', 'embed');
+    $editorPath = 'https://cdn.ifmo.su/editor/v1.5';
+
+    if ( Kohana::$environment === Kohana::DEVELOPMENT ){
+        $editorPath = '/public/extensions/codex.editor';
+    }
+?>
 
 <? foreach ($plugins as $plugin) : ?>
-    <script src="https://cdn.ifmo.su/editor/v1.5/plugins/<?=$plugin . DIRECTORY_SEPARATOR . $plugin . '.js'; ?>"></script>
-    <link rel="stylesheet" href="https://cdn.ifmo.su/editor/v1.5/plugins/<?=$plugin . DIRECTORY_SEPARATOR . $plugin . '.css'; ?>">
+    <script src="<?= $editorPath ?>/plugins/<?= $plugin . DIRECTORY_SEPARATOR . $plugin . '.js'; ?>"></script>
+    <link rel="stylesheet" href="<?= $editorPath ?>/plugins/<?= $plugin . DIRECTORY_SEPARATOR . $plugin . '.css'; ?>">
 <? endforeach; ?>
 
-<!-- Editor scripts and styles -->
-<script src="https://cdn.ifmo.su/editor/v1.5/codex-editor.js"></script>
-<link rel="stylesheet" href="https://cdn.ifmo.su/editor/v1.5/codex-editor.css" />
+<? // Load CodeX Editor ?>
+<script src="<?= $editorPath ?>/codex-editor.js"></script>
+<link rel="stylesheet" href="<?= $editorPath ?>/codex-editor.css" />

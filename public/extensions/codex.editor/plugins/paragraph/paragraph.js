@@ -1,23 +1,22 @@
 /**
- * Paragraph Plugin
- * Creates P tag and adds content to this tag
- *
- * @author Codex Team
- * @copyright Khaydarov Murod
- */
+* Paragraph Plugin
+* Creates DIV tag and adds content to this tag
+*/
 
-var paragraphTool = {
+var paragraph = (function(paragraph_plugin) {
 
     /**
-    * Make initial header block
-    * @param {object} JSON with block data
-    * @return {Element} element to append
-    */
-    make : function (data) {
+     * @private
+     *
+     * Make initial paragraph block
+     * @param {object} JSON with block data
+     * @return {Element} element to append
+     */
 
-        var tag = document.createElement('DIV');
+    var make_ = function (data) {
 
-        tag.classList.add('ce-paragraph');
+        /** Create Empty DIV */
+        var tag = codex.editor.draw.node('DIV', ['ce-paragraph'], {});
 
         if (data && data.text) {
             tag.innerHTML = data.text;
@@ -25,46 +24,80 @@ var paragraphTool = {
 
         tag.contentEditable = true;
 
-        /**
-         * if plugin need to add placeholder
-         * tag.setAttribute('data-placeholder', 'placehoder');
-         */
-
-        /**
-         * @uses Paste tool callback.
-         * Function analyzes pasted data
-         * If pasted URL from instagram, twitter or Image
-         * it renders via Social widgets content or uploads image and uses Image tool to render
-         */
-        tag.addEventListener('paste', pasteTool.callbacks.pasted, false);
-
         return tag;
 
-    },
+    };
 
     /**
-    * Method to render HTML block from JSON
-    */
-    render : function (data) {
+     * @private
+     *
+     * Handles input data for save
+     * @param data
+     */
+    var prepareDataForSave_ = function(data) {
 
-       return paragraphTool.make(data);
-
-    },
+    };
 
     /**
-    * Method to extract JSON data from HTML block
-    */
-    save : function (blockContent){
+     * @public
+     *
+     * Plugins should have prepare method
+     * @param config
+     */
+    paragraph_plugin.prepare = function(config) {
+
+    };
+
+    /*
+     * @public
+     *
+     * Method to render HTML block from JSON
+     */
+    paragraph_plugin.render = function (data) {
+
+        return make_(data);
+
+    };
+
+    /**
+     * @public
+     *
+     * Check output data for validity.
+     * Should be defined by developer
+     */
+    paragraph_plugin.validate = function(output) {
+
+        if (output.text === '')
+            return;
+
+        return output;
+    };
+
+    /**
+     * @public
+     *
+     * Method to extract JSON data from HTML block
+     */
+    paragraph_plugin.save = function (blockContent){
+
+        var wrappedText = codex.editor.content.wrapTextWithParagraphs(blockContent.innerHTML);
 
         var data = {
-                text : null,
-            };
-
-        data.text = blockContent.innerHTML;
+            "text": wrappedText,
+            "format": "html",
+            "introText": '<<same>>'
+        };
 
         return data;
 
-    }
+    };
 
-};
+    paragraph_plugin.destroy = function () {
 
+        paragraph = null;
+
+    };
+
+    return paragraph_plugin;
+
+})({});

@@ -1,12 +1,15 @@
 <?
+    $classes = array();
 
-    $class = 'ce-plugin-image__uploaded--centered';
+    if ( !empty($block->isstretch) && $block->isstretch == 'true'){
+        $classes[] = 'article__image--stretched';
+    }
 
-    if ( !empty($block->isStretch) && $block->isStretch == 'true'){
-        $class = 'ce-plugin-image__uploaded--stretched';
+    if ( !empty($block->border) && $block->border == 'true'){
+        $classes[] = 'article__image--bordered';
     }
 
 ?>
 
-<img class="<?= $class; ?>" src="<?=$block->file['url']; ?>" alt="">
-<div class="ce-plugin-image__caption"><?=$block->caption; ?></div>
+<img class="article__image <?= implode(' ', $classes); ?>" src="<?=$block->file['url']; ?>" alt="">
+<div class="article__image-caption"><?=$block->caption; ?></div>
