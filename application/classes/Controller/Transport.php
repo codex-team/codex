@@ -54,7 +54,7 @@ class Controller_Transport extends Controller_Base_preDispatch {
 			$this->transportResponse['success'] = 1;
 			$this->transportResponse['data'] = array(
 				'file' => array(
-					'url' => '/upload/redactor_images/' . $filename,
+					'url' => '/upload/redactor_images/o_' . $filename,
 					'width' => null,
 					'height' => null
 				)
