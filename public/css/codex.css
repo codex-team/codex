@@ -945,6 +945,16 @@ html {
 
 
 
+.error-message {
+    background: #FDF4F4;
+    color: #7E2226;
+    font-size: 15px;
+    padding: 20px;
+    border-radius: 2px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
 
 /**
 * End

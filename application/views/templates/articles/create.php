@@ -4,12 +4,18 @@
 
     <form class="editor-form" name="codex_article" method="POST" action="/<?= $article->id && $article->uri ? $article->uri . '/save' : 'article/add' ?>" enctype="multipart/form-data" id="edit_article_form" class="edit_article_form">
 
+        <? if (!empty($error)): ?>
+            <div class="error-message">
+                <?= $error ?: 'Ошибочка во время сохранения' ?>
+            </div>
+        <? endif ?>
+
         <input type="hidden" name="csrf" value="<?= Security::token() ?>" />
         <input type="hidden" name="article_id" value="<?= $article->id ?: ''; ?>">
 
         <section class="editor-form__section">
             <label for="title">Заголовок</label>
-            <input type="text" name="title" value="<?= $article->title ?: ''; ?>">
+            <input type="text" name="title" required value="<?= $article->title ?: ''; ?>">
         </section>
 
         <div class="redactor_zone">
@@ -25,8 +31,8 @@
 
         <section class="editor-form__section">
 
-            <label for="description">Описание статьи</label>
-            <textarea name="description" rows="5"><?= $article->description ?: ''; ?></textarea>
+            <label for="description">Описание статьи (обязательно)</label>
+            <textarea name="description" required rows="5"><?= $article->description ?: ''; ?></textarea>
 
         </section>
 
@@ -278,14 +284,21 @@
     })
 </script>
 
-<!-- Developers plugin -->
-<? $plugins = ['paragraph', 'header', 'code', 'link', 'list', 'image', 'quote', 'twitter', 'instagram', 'embed']; ?>
+<? // Load Editor plugins ?>
+<?
+    $plugins    = array('paragraph', 'header', 'code', 'link', 'list', 'image', 'quote', 'twitter', 'instagram', 'embed');
+    $editorPath = 'https://cdn.ifmo.su/editor/v1.5';
+
+    if ( Kohana::$environment === Kohana::DEVELOPMENT ){
+        $editorPath = '/public/extensions/codex.editor';
+    }
+?>
 
 <? foreach ($plugins as $plugin) : ?>
-    <script src="https://cdn.ifmo.su/editor/v1.5/plugins/<?=$plugin . DIRECTORY_SEPARATOR . $plugin . '.js'; ?>"></script>
-    <link rel="stylesheet" href="https://cdn.ifmo.su/editor/v1.5/plugins/<?=$plugin . DIRECTORY_SEPARATOR . $plugin . '.css'; ?>">
+    <script src="<?= $editorPath ?>/plugins/<?= $plugin . DIRECTORY_SEPARATOR . $plugin . '.js'; ?>"></script>
+    <link rel="stylesheet" href="<?= $editorPath ?>/plugins/<?= $plugin . DIRECTORY_SEPARATOR . $plugin . '.css'; ?>">
 <? endforeach; ?>
 
-<!-- Editor scripts and styles -->
-<script src="https://cdn.ifmo.su/editor/v1.5/codex-editor.js"></script>
-<link rel="stylesheet" href="https://cdn.ifmo.su/editor/v1.5/codex-editor.css" />
+<? // Load CodeX Editor ?>
+<script src="<?= $editorPath ?>/codex-editor.js"></script>
+<link rel="stylesheet" href="<?= $editorPath ?>/codex-editor.css" />

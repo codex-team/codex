@@ -1,101 +1,225 @@
 /**
- * Code Plugin
+ * Code Plugin\
  * Creates code tag and adds content to this tag
- *
- * @author Codex Team
- * @copyright Khaydarov Murod
  */
-
-var listTool = {
-
-    baseClass : "tool-list",
-    elementClasses : {
-        li  : "tool-list-li"
-    },
+var list = (function(list_plugin) {
 
     /**
-     * Make initial header block
-     * @param {object} JSON with block data
-     * @return {Element} element to append
-     */
-    make : function () {
+    * CSS class names
+    */
+    var elementClasses_ = {
+        pluginWrapper: 'cdx-plugin-list',
+        li:            'cdx-plugin-list__li',
+        settings:      'cdx-plugin-list__settings',
+        settingsItem:  'cdx-plugin-settings__item'
+    };
 
-        var tag = listTool.ui.make(),
-            li  = listTool.ui.block("li", "tool-link-li");
+    var LIST_ITEM_TAG = 'LI';
 
-        var br = document.createElement("br");
+    var ui = {
 
-        li.appendChild(br);
-        tag.appendChild(li);
+        make: function (blockType) {
 
-        tag.classList.add('ce-list');
+            var wrapper = this.block(blockType || 'UL', elementClasses_.pluginWrapper);
 
-        return tag;
+            wrapper.dataset.type = blockType;
+            wrapper.contentEditable = true;
 
-    },
+            wrapper.addEventListener('keydown', methods_.keyDown);
+
+            return wrapper;
+
+        },
+
+        block: function (blockType, blockClass) {
+
+            var block = document.createElement(blockType);
+
+            if (blockClass) block.classList.add(blockClass);
+
+            return block;
+
+        },
+
+        button: function (buttonType) {
+
+            var types = {
+                    unordered: '<i class="ce-icon-list-bullet"></i>Обычный',
+                    ordered: '<i class="ce-icon-list-numbered"></i>Нумерованный'
+                },
+                button = document.createElement('DIV');
+
+            button.innerHTML = types[buttonType];
+
+            button.classList.add(elementClasses_.settingsItem);
+
+            return button;
+        }
+    };
+
+    var methods_ = {
+
+        /**
+         * Changes block type => OL or UL
+         * @param event
+         * @param blockType
+         */
+        changeBlockStyle : function (event, blockType) {
+
+            var currentBlock = codex.editor.content.currentNode,
+                newEditable = ui.make(blockType),
+                oldEditable = currentBlock.querySelector("[contenteditable]");
+
+            newEditable.dataset.type = blockType;
+            newEditable.innerHTML = oldEditable.innerHTML;
+            newEditable.classList.add(elementClasses_.pluginWrapper);
+
+            codex.editor.content.switchBlock(currentBlock, newEditable);
+        },
+        keyDown: function (e) {
+
+            var controlKeyPressed = e.ctrlKey || e.metaKey,
+                keyCodeForA = 65;
+
+            /**
+            * If CTRL+A (CMD+A) was pressed, we should select only one list item,
+            * not all <OL> or <UI>
+            */
+            if (controlKeyPressed && e.keyCode == keyCodeForA) {
+
+                e.preventDefault();
+
+                /**
+                * Select <LI> content
+                */
+                methods_.selectListItem();
+
+            }
+
+        },
+
+        /**
+        * Select all content of <LI> with caret
+        */
+        selectListItem : function () {
+
+            var selection = window.getSelection(),
+                currentSelectedNode = selection.anchorNode.parentNode,
+                range = new Range();
+
+            /**
+            * Search for <LI> element
+            */
+            while ( currentSelectedNode && currentSelectedNode.tagName != LIST_ITEM_TAG ) {
+
+                currentSelectedNode = currentSelectedNode.parentNode;
+
+            }
+
+            range.selectNodeContents(currentSelectedNode);
+
+            selection.removeAllRanges();
+            selection.addRange(range);
+
+        }
+    };
 
     /**
      * Method to render HTML block from JSON
      */
-    render : function (data) {
+    list_plugin.render = function (data) {
 
-        var type = data.type == 'ordered' ? 'OL' : 'UL',
-            tag  = listTool.ui.make(type);
+        var type = data && (data.type == 'ordered' || data.type == 'OL') ? 'OL' : 'UL',
+            tag  = ui.make(type),
+            newLi;
 
-        tag.classList.add('ce-list');
+        if (data && data.items) {
 
-        data.items.forEach(function (element, index, array) {
+            data.items.forEach(function (element, index, array) {
 
-            var newLi = listTool.ui.block("li", listTool.elementClasses.li);
+                newLi = ui.block('li', elementClasses_.li);
 
-            newLi.innerHTML = element;
+                newLi.innerHTML = element || '';
 
-            tag.dataset.type = data.type;
+                tag.appendChild(newLi);
+
+            });
+
+        } else {
+
+            newLi = ui.block('li', elementClasses_.li);
+
             tag.appendChild(newLi);
 
-        });
+        }
 
         return tag;
 
-    },
+    };
+
+    list_plugin.validate = function(data) {
+
+        var isEmpty = data.items.every(function(item){
+            return item.trim() === '';
+        });
+
+        if (isEmpty){
+            return;
+        }
+
+        if (data.type != 'UL' && data.type != 'OL'){
+            console.warn('CodeX Editor List-tool: wrong list type passed %o', data.type);
+            return;
+        }
+
+        return true;
+    };
 
     /**
      * Method to extract JSON data from HTML block
      */
-    save : function (blockContent){
+    list_plugin.save = function (blockContent){
 
         var data = {
-                type  : null,
-                items : [],
-            };
+            type  : null,
+            items : []
+        },
+        litsItemContent = '',
+        isEmptyItem = false;
 
-        for(var index = 0; index < blockContent.childNodes.length; index++)
-            data.items[index] = blockContent.childNodes[index].textContent;
+        for (var index = 0; index < blockContent.childNodes.length; index++){
+
+            litsItemContent = blockContent.childNodes[index].innerHTML;
+            isEmptyItem = !blockContent.childNodes[index].textContent.trim();
+
+            if (!isEmptyItem) {
+                data.items.push(litsItemContent);
+            }
+        }
 
         data.type = blockContent.dataset.type;
 
         return data;
 
-    },
+    };
 
-    makeSettings : function(data) {
+    list_plugin.makeSettings = function () {
 
-        var holder  = document.createElement('DIV'),
-            selectTypeButton;
+        var holder  = document.createElement('DIV');
 
         /** Add holder classname */
-        holder.className = 'ce_plugin_list--settings';
+        holder.className = elementClasses_.settings;
 
-        var orderedButton = listTool.ui.button("ordered"),
-            unorderedButton = listTool.ui.button("unordered");
+        var orderedButton = ui.button("ordered"),
+            unorderedButton = ui.button("unordered");
 
         orderedButton.addEventListener('click', function (event) {
-            listTool.changeBlockStyle(event, 'ol');
+            methods_.changeBlockStyle(event, 'OL');
             codex.editor.toolbar.settings.close();
         });
 
         unorderedButton.addEventListener('click', function (event) {
-            listTool.changeBlockStyle(event, 'ul');
+            methods_.changeBlockStyle(event, 'UL');
             codex.editor.toolbar.settings.close();
         });
 
@@ -104,58 +228,14 @@ var listTool = {
 
         return holder;
 
-    },
+    };
 
-    changeBlockStyle : function (event, blockType) {
+    list_plugin.destroy = function () {
 
-        var currentBlock = codex.editor.content.currentNode,
-            newEditable = listTool.ui.make(blockType),
-            oldEditable = currentBlock.querySelector("[contenteditable]");
+        list = null;
 
-            newEditable.dataset.type = blockType;
-            newEditable.innerHTML = oldEditable.innerHTML;
-            newEditable.classList.add('ce-list');
+    };
 
-            codex.editor.content.switchBlock(currentBlock, newEditable, 'list');
-    }
+    return list_plugin;
 
-};
-
-listTool.ui = {
-
-    make : function (blockType) {
-
-        var wrapper = this.block(blockType || 'UL', listTool.baseClass);
-
-        wrapper.dataset.type    = 'ul';
-        wrapper.contentEditable = true;
-
-        return wrapper;
-
-    },
-
-    block : function (blockType, blockClass) {
-
-        var block = document.createElement(blockType);
-
-        if ( blockClass ) block.classList.add(blockClass);
-
-        return block;
-
-    },
-
-    button : function (buttonType) {
-
-        var types   = {
-                unordered    : '<i class="ce-icon-list-bullet"></i>Обычный список',
-                ordered      : '<i class="ce-icon-list-numbered"></i>Нумерованный список'
-            },
-            button = document.createElement('SPAN');
-
-        button.innerHTML = types[buttonType];
-
-        button.className   = 'ce_plugin_list--select_button';
-
-        return button;
-    }
-};
+})({});
