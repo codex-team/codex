@@ -218,6 +218,10 @@
   color: #898a8c;
 }
 
+.article_content--old img{
+    max-width: 100%;
+}
+
 /** Quote styles */
 .quoteStyle-simple--text {
   padding: 1.2em 2.1em;

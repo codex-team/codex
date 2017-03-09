@@ -227,7 +227,7 @@
                     destroy: image.destroy,
                     renderOnPastePatterns: image.pastePatterns,
                     config : {
-                        uploadUrl : ''
+                        uploadImage : '/editor/transport'
                     }
                 },
                 instagram : {
