@@ -4,12 +4,18 @@
 
     <form class="editor-form" name="codex_article" method="POST" action="/<?= $article->id && $article->uri ? $article->uri . '/save' : 'article/add' ?>" enctype="multipart/form-data" id="edit_article_form" class="edit_article_form">
 
+        <? if (!empty($error)): ?>
+            <div class="error-message">
+                <?= $error ?: 'Ошибочка во время сохранения' ?>
+            </div>
+        <? endif ?>
+
         <input type="hidden" name="csrf" value="<?= Security::token() ?>" />
         <input type="hidden" name="article_id" value="<?= $article->id ?: ''; ?>">
 
         <section class="editor-form__section">
             <label for="title">Заголовок</label>
-            <input type="text" name="title" value="<?= $article->title ?: ''; ?>">
+            <input type="text" name="title" required value="<?= $article->title ?: ''; ?>">
         </section>
 
         <div class="redactor_zone">
@@ -25,8 +31,8 @@
 
         <section class="editor-form__section">
 
-            <label for="description">Описание статьи</label>
-            <textarea name="description" rows="5"><?= $article->description ?: ''; ?></textarea>
+            <label for="description">Описание статьи (обязательно)</label>
+            <textarea name="description" required rows="5"><?= $article->description ?: ''; ?></textarea>
 
         </section>
 
