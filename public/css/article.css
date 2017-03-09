@@ -108,8 +108,10 @@
 * Code block styles
 */
 .article__code-wrapper {
-  padding: 2em 0;
+  padding: 0.5em 0;
   background-color: #f9fafd;
+  max-width: 730px;
+  border-radius: 5px;
 }
 
 .article__code,
