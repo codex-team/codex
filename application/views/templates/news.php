@@ -1,6 +1,10 @@
 <?
     $news = array(
         array(
+            'text' => 'Помучили GPU и CPU на <a href="https://vk.com/codex_team?w=wall-103229636_232">CodeX Meetup: Chrome DevTools</a>',
+            'date' => '3 mar'
+        ),
+        array(
             'text' => 'Прошел первый открытый мастер-класс <a href="https://vk.com/codex_team?w=wall-103229636_229">CodeX Meetup</a>, посвященный основам разработки real-time приложений на node.js и WebSockets',
             'date' => '17 feb'
         ),
