@@ -1,6 +1,14 @@
 <?
     $news = array(
         array(
+            'text' => 'Прошел грандиозный <a href="https://github.com/codex-team/html-css-practice">CodeX Meetup: HTML+CSS practice</a>',
+            'date' => '17 mar'
+        ),
+        array(
+            'text' => 'Опубликовали статью о <a href="/macos-web-server">настройке окружения для веб-разработки на macOS</a>',
+            'date' => '13 mar'
+        ),
+        array(
             'text' => 'Помучили GPU и CPU на <a href="https://vk.com/codex_team?w=wall-103229636_232">CodeX Meetup: Chrome DevTools</a>',
             'date' => '3 mar'
         ),
