@@ -261,6 +261,17 @@
                     validate         : embed.validate,
                     destroy          : embed.destroy,
                     renderOnPastePatterns: embed.pastePatterns
+                },
+                raw : {
+                    type: 'raw',
+                    displayInToolbox: true,
+                    iconClassname: 'raw-plugin-icon',
+                    render: rawPlugin.render,
+                    save: rawPlugin.save,
+                    validate: rawPlugin.validate,
+                    destroy: rawPlugin.destroy,
+                    enableLineBreaks: true,
+                    allowPasteHTML: true
                 }
             },
             data : INPUT
@@ -286,7 +297,7 @@
 
 <? // Load Editor plugins ?>
 <?
-    $plugins    = array('paragraph', 'header', 'code', 'link', 'list', 'image', 'quote', 'twitter', 'instagram', 'embed');
+    $plugins    = array('paragraph', 'header', 'code', 'link', 'list', 'image', 'quote', 'twitter', 'instagram', 'embed', 'raw');
     $editorPath = 'https://cdn.ifmo.su/editor/v1.5';
 
     if ( Kohana::$environment === Kohana::DEVELOPMENT ){
@@ -294,11 +305,11 @@
     }
 ?>
 
+<? // Load CodeX Editor ?>
+<script src="<?= $editorPath ?>/codex-editor.js"></script>
+<link rel="stylesheet" href="<?= $editorPath ?>/codex-editor.css" />
+
 <? foreach ($plugins as $plugin) : ?>
     <script src="<?= $editorPath ?>/plugins/<?= $plugin . DIRECTORY_SEPARATOR . $plugin . '.js'; ?>"></script>
     <link rel="stylesheet" href="<?= $editorPath ?>/plugins/<?= $plugin . DIRECTORY_SEPARATOR . $plugin . '.css'; ?>">
 <? endforeach; ?>
-
-<? // Load CodeX Editor ?>
-<script src="<?= $editorPath ?>/codex-editor.js"></script>
-<link rel="stylesheet" href="<?= $editorPath ?>/codex-editor.css" />
