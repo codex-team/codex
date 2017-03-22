@@ -1,6 +1,10 @@
 <?
     $news = array(
         array(
+            'text' => 'Написали простую инструкцию о том, <a href="https://ifmo.su/ssl">как бесплатно и просто настроить HTTPS с помощью Let\'s Encrypt</a>',
+            'date' => '22 mar'
+        ),
+        array(
             'text' => 'Прошел грандиозный <a href="https://github.com/codex-team/html-css-practice">CodeX Meetup: HTML+CSS practice</a>',
             'date' => '17 mar'
         ),
