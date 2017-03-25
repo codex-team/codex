@@ -1,59 +1,80 @@
 /**
- * Code Plugin
+ * Code Plugin\
  * Creates code tag and adds content to this tag
- *
- * @author Codex Team
- * @version 1.0.0
  */
 
-var codeTool = {
+var code = (function(code_plugin) {
 
-    baseClass : "ce-code",
+    var baseClass = "ce-code";
 
     /**
      * Make initial header block
      * @param {object} JSON with block data
      * @return {Element} element to append
      */
-    make : function (data) {
+    var make_ = function (data) {
 
-        var tag = document.createElement('code');
-
-        tag.classList.add(codeTool.baseClass);
+        var tag = codex.editor.draw.node('TEXTAREA', [baseClass], {});
 
         if (data && data.text) {
-            tag.innerHTML = data.text;
+            tag.value = data.text;
         }
 
-        tag.contentEditable = true;
-
         return tag;
+    };
 
-    },
+    /**
+     * Escapes HTML chars
+     * @param  {string} str input
+     * @return {string} with escaped < , > etc symbols
+     */
+    var escapeHTML_ = function (str) {
+
+        var div = document.createElement('DIV'),
+            text = document.createTextNode(str);
+
+        div.appendChild(text);
+
+        return div.innerHTML;
+
+    };
 
     /**
      * Method to render HTML block from JSON
      */
-    render : function (data) {
+    code_plugin.render = function (data) {
 
-        return codeTool.make(data);
-
-    },
+        return make_(data);
+    };
 
     /**
      * Method to extract JSON data from HTML block
      */
-    save : function (blockContent){
+    code_plugin.save = function (blockContent) {
+
+        var HTMLescaped = escapeHTML_(blockContent.value);
 
         var data = {
-                text : null,
-            };
-
-        data.text = blockContent.innerHTML;
-
+            text : HTMLescaped
+        };
         return data;
 
-    }
+    };
 
-};
+    code_plugin.validate = function (data) {
 
+        if (data.text.trim() === '')
+            return;
+
+        return true;
+    };
+
+    code_plugin.destroy = function () {
+
+        code = null;
+
+    };
+
+    return code_plugin;
+
+})({});

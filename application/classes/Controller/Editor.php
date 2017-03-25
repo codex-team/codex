@@ -1,5 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
+use CodexEditor\CodexEditor;
+
 class Controller_Editor extends Controller_Base_preDispatch
 {
 
@@ -16,13 +18,25 @@ class Controller_Editor extends Controller_Base_preDispatch
 
     public function action_preview()
     {
+        $article = new Model_Article();
+        $article->title = 'Codex Editor';
+
         $html = Arr::get($_POST, 'html');
         $json = Arr::get($_POST, 'article_json');
 
-        $article = new Model_Article();
-        $article->title = 'Codex Editor';
-        
-        $blocks = json_decode($json);
+        $editor = new CodexEditor($json);
+
+        try {
+
+            $data = json_decode($editor->getData());
+            // get only block
+            $blocks = $data->data;
+
+        } catch (Exception $e) {
+
+            throw new Kohana_Exception($e->getMessage());
+
+        }
 
         for($i = 0; $i < count($blocks); $i++)
         {

@@ -27,7 +27,13 @@ class Controller_Transport extends Controller_Base_preDispatch {
 
 			if ($filename) {
 				$this->transportResponse['success'] = 1;
-				$this->transportResponse['filename'] = $filename;
+				$this->transportResponse['data'] = array(
+					'file' => array(
+						'url' => $filename,
+						'width' => null,
+						'height' => null
+					)
+				);
 			}
 			goto finish;
 		}
@@ -46,7 +52,13 @@ class Controller_Transport extends Controller_Base_preDispatch {
 
 		if ($filename) {
 			$this->transportResponse['success'] = 1;
-			$this->transportResponse['filename'] = $filename;
+			$this->transportResponse['data'] = array(
+				'file' => array(
+					'url' => '/upload/redactor_images/o_' . $filename,
+					'width' => null,
+					'height' => null
+				)
+			);
 		}
 
 		finish:
@@ -63,7 +75,7 @@ class Controller_Transport extends Controller_Base_preDispatch {
 			$this->transportResponse['message'] = 'Error while saving';
 			return false;
 		}
-        
+
 		return $filename;
 	}
 }

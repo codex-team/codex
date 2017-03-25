@@ -44,6 +44,14 @@ Route::set('ADD_COURSE_SCRIPT', 'course/add')->defaults(array(
 	'action' => 'save'
 ));
 
+Route::set('SAVE_QUIZ_SCRIPT', 'quiz/(<id>/)(<method>)', array(
+   'id' => $DIGIT,
+   'method' => 'add|save'
+))->defaults(array(
+   'controller' => 'Quiz',
+   'action' => 'save'
+));
+
 // Show Substances which doesn't have Uri
 
 Route::set('SHOWARTICLE', 'article(/<id>)')->defaults(array(
@@ -135,7 +143,7 @@ Route::set('CONTEST_PAGE', 'contest/<contest_id>', array('contest_id' => $DIGIT)
 
 */
 // Scripts for users
-Route::set('USER_PROFILE', 'user(/<user_id>)', array('user_id' => $DIGIT))
+Route::set('USER_PROFILE', 'user(/<id>)', array('id' => $DIGIT))
 	->defaults(array(
 	'controller' => 'users_index',
 	'action'     => 'show'
@@ -189,6 +197,11 @@ Route::set('ADMIN', 'admin(/<category>(/<list>))', array('category' => 'articles
         'controller' => 'admin',
         'action' => 'index'
     ));
+
+Route::set('SCRIPTS', 'admin/scripts(/<script>)', array('script' => 'resetArticlesTimeline'))->defaults(array(
+    'controller' => 'admin',
+    'action' => 'scripts'
+));
 
 
 // - viz redaktor -

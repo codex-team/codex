@@ -72,168 +72,148 @@
 </div>
 
 <!-- Developers plugin -->
-<script src="/public/extensions/codex.editor/plugins/header/header.js?v=<?=filemtime('public/extensions/codex.editor/plugins/header/header.js'); ?>"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/header/header.css">
+<? $plugins = ['paragraph', 'header', 'code', 'link', 'list', 'image', 'quote', 'twitter', 'instagram', 'embed']; ?>
 
-<script src="/public/extensions/codex.editor/plugins/paragraph/paragraph.js?v=<?=filemtime('public/extensions/codex.editor/plugins/paragraph/paragraph.js'); ?>"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/paragraph/paragraph.css">
-
-<script src="/public/extensions/codex.editor/plugins/paste/paste.js?v=<?=filemtime('public/extensions/codex.editor/plugins/code/code.js'); ?>"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/paste/paste.css">
-
-<script src="/public/extensions/codex.editor/plugins/code/code.js?v=<?=filemtime('public/extensions/codex.editor/plugins/code/code.js'); ?>"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/code/code.css">
-
-<script src="/public/extensions/codex.editor/plugins/link/link.js?v=<?=filemtime('public/extensions/codex.editor/plugins/link/link.js'); ?>"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/link/link.css">
-
-<script src="/public/extensions/codex.editor/plugins/list/list.js?v=<?=filemtime('public/extensions/codex.editor/plugins/list/list.js'); ?>"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/list/list.css">
-
-<script src="/public/extensions/codex.editor/plugins/image/image.js?v=<?=filemtime('public/extensions/codex.editor/plugins/image/image.js'); ?>"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/image/image.css">
-
-<script src="/public/extensions/codex.editor/plugins/quote/quote.js?v=<?=filemtime('public/extensions/codex.editor/plugins/quote/quote.js'); ?>"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/quote/quote.css">
-
-<script src="/public/extensions/codex.editor/plugins/instagram/instagram.js?v=<?=filemtime('public/extensions/codex.editor/plugins/instagram/instagram.js'); ?>"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/instagram/instagram.css">
-
-<script src="/public/extensions/codex.editor/plugins/twitter/twitter.js?v=<?=filemtime('public/extensions/codex.editor/plugins/twitter/twitter.js'); ?>"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/plugins/twitter/twitter.css">
+<? foreach ($plugins as $plugin) : ?>
+    <script src="https://cdn.ifmo.su/editor/v1.5/plugins/<?=$plugin . DIRECTORY_SEPARATOR . $plugin . '.js'; ?>"></script>
+    <link rel="stylesheet" href="https://cdn.ifmo.su/editor/v1.5/plugins/<?=$plugin . DIRECTORY_SEPARATOR . $plugin . '.css'; ?>">
+<? endforeach; ?>
 
 <!-- Editor scripts and styles -->
-<script src="/public/extensions/codex.editor/codex-editor.js?v=?<?=filemtime('public/extensions/codex.editor/codex-editor.js'); ?>"></script>
-<link rel="stylesheet" href="/public/extensions/codex.editor/codex-editor.css?v=<?=filemtime('public/extensions/codex.editor/codex-editor.css'); ?>" />
+<script src="https://cdn.ifmo.su/editor/v1.5/codex-editor.js"></script>
+<link rel="stylesheet" href="https://cdn.ifmo.su/editor/v1.5/codex-editor.css" />
 
 <script>
 
     /** Document is ready */
     codex.docReady(function() {
         codex.editor.start({
-
             textareaId: 'codex_editor',
-
-            tools : {
-                paragraph : {
-                    type             : 'paragraph',
+            uploadImagesUrl : '/writing/uploadImage',
+            initialBlockPlugin : 'text',
+            tools: {
+                text : {
+                    type             : 'text',
                     iconClassname    : 'ce-icon-paragraph',
-                    make             : paragraphTool.make,
-                    appendCallback   : null,
-                    settings         : null,
-                    render           : paragraphTool.render,
-                    save             : paragraphTool.save,
-                    displayInToolbox : false,
-                    enableLineBreaks : false,
-                    allowedToPaste   : true
-                },
-                paste : {
-                    type             : 'paste',
-                    iconClassname    : '',
-                    prepare          : pasteTool.prepare,
-                    make             : pasteTool.make,
-                    appendCallback   : null,
-                    settings         : null,
-                    render           : null,
-                    save             : pasteTool.save,
-                    displayInToolbox : false,
-                    enableLineBreaks : false,
-                    callbacks        : pasteTool.callbacks,
-                    allowedToPaste   : false
+                    render           : paragraph.render,
+                    validate         : paragraph.validate,
+                    save             : paragraph.save,
+                    allowedToPaste   : true,
+                    showInlineToolbar: true,
+                    destroy: paragraph.destroy,
+                    allowRenderOnPaste: true,
+                    config           : {}
                 },
                 header : {
                     type             : 'header',
                     iconClassname    : 'ce-icon-header',
-                    make             : headerTool.make,
-                    appendCallback   : headerTool.appendCallback,
-                    settings         : headerTool.makeSettings(),
-                    render           : headerTool.render,
-                    save             : headerTool.save
-                },
-                code : {
-                    type             : 'code',
-                    iconClassname    : 'ce-icon-code',
-                    make             : codeTool.make,
-                    appendCallback   : null,
-                    settings         : null,
-                    render           : codeTool.render,
-                    save             : codeTool.save,
+                    appendCallback   : header.appendCallback,
+                    makeSettings     : header.makeSettings,
+                    validate         : header.validate,
+                    render           : header.render,
+                    save             : header.save,
                     displayInToolbox : true,
-                    enableLineBreaks : true
+                    enableLineBreaks : false,
+                    destroy: header.destroy,
+                    config           : {}
                 },
                 link : {
                     type             : 'link',
                     iconClassname    : 'ce-icon-link',
-                    make             : linkTool.makeNewBlock,
-                    appendCallback   : linkTool.appendCallback,
-                    render           : linkTool.render,
-                    save             : linkTool.save,
+                    prepare          : link.prepare,
+                    appendCallback   : link.appendCallback,
+                    render           : link.render,
+                    save             : link.save,
                     displayInToolbox : true,
-                    enableLineBreaks : true
+                    enableLineBreaks : true,
+                    destroy: link.destroy,
+                    config           : {
+                        fetchUrl : '/club/linkInfo'
+                    }
                 },
-                list : {
-                    type             : 'list',
-                    iconClassname    : 'ce-icon-list-bullet',
-                    make             : listTool.make,
-                    appendCallback   : null,
-                    settings         : listTool.makeSettings(),
-                    render           : listTool.render,
-                    save             : listTool.save,
-                    displayInToolbox : true,
-                    enableLineBreaks : true
+                list: {
+                    type: 'list',
+                    iconClassname: 'ce-icon-list-bullet',
+                    make: list.make,
+                    appendCallback: null,
+                    makeSettings: list.makeSettings,
+                    render: list.render,
+                    validate: list.validate,
+                    save: list.save,
+                    destroy: list.destroy,
+                    displayInToolbox: true,
+                    showInlineToolbar: true,
+                    enableLineBreaks: true,
+                    allowedToPaste: true
                 },
                 quote : {
                     type             : 'quote',
                     iconClassname    : 'ce-icon-quote',
-                    make             : quoteTools.makeBlockToAppend,
-                    appendCallback   : null,
-                    settings         : quoteTools.makeSettings(),
-                    render           : quoteTools.render,
-                    save             : quoteTools.save,
+                    makeSettings     : quote.makeSettings,
+                    render           : quote.render,
+                    prepare          : quote.prepare,
+                    validate         : quote.validate,
+                    save             : quote.save,
                     displayInToolbox : true,
                     enableLineBreaks : true,
-                    allowedToPaste   : true
+                    showInlineToolbar: true,
+                    allowedToPaste   : true,
+                    destroy: quote.destroy,
+                    config           : {
+                        defaultStyle : 'withPhoto'
+                    }
                 },
                 image : {
                     type             : 'image',
                     iconClassname    : 'ce-icon-picture',
-                    make             : ceImage.make,
-                    appendCallback   : ceImage.appendCallback,
-                    settings         : ceImage.makeSettings(),
-                    render           : ceImage.render,
-                    save             : ceImage.save,
+                    appendCallback   : image.appendCallback,
+                    makeSettings     : image.makeSettings,
+                    prepare          : image.prepare,
+                    render           : image.render,
+                    save             : image.save,
                     isStretched      : true,
                     displayInToolbox : true,
-                    enableLineBreaks : false
+                    showInlineToolbar: true,
+                    enableLineBreaks : true,
+                    destroy: image.destroy,
+                    renderOnPastePatterns: image.pastePatterns,
+                    config : {
+                        uploadUrl : '/club/fetchImage'
+                    }
                 },
                 instagram : {
                     type             : 'instagram',
                     iconClassname    : 'ce-icon-instagram',
-                    prepare          : instagramTool.prepare,
-                    make             : instagramTool.make,
-                    appendCallback   : null,
-                    settings         : null,
-                    render           : instagramTool.reneder,
-                    save             : instagramTool.save,
-                    displayInToolbox : false,
-                    enableLineBreaks : false,
-                    allowedToPaste   : false
+                    prepare          : instagram.prepare,
+                    make             : instagram.make,
+                    render           : instagram.render,
+                    save             : instagram.save,
+                    destroy: instagram.destroy,
+                    renderOnPastePatterns: instagram.pastePatterns
                 },
-                twitter : {
-                    type             : 'twitter',
+                tweet : {
+                    type             : 'tweet',
                     iconClassname    : 'ce-icon-twitter',
-                    prepare          : twitterTool.prepare,
-                    make             : twitterTool.make,
-                    appendCallback   : null,
-                    settings         : null,
-                    render           : twitterTool.render,
-                    save             : twitterTool.save,
-                    displayInToolbox : false,
-                    enableLineBreaks : false,
-                    allowedToPaste   : false
+                    prepare          : twitter.prepare,
+                    make             : twitter.make,
+                    render           : twitter.render,
+                    save             : twitter.save,
+                    showInlineToolbar: true,
+                    destroy: twitter.destroy,
+                    renderOnPastePatterns: twitter.pastePatterns,
+                    config           : {
+                        fetchUrl : '/writing/tweetInfo'
+                    }
+                },
+                embed : {
+                    type             : 'embed',
+                    render           : embed.render,
+                    save             : embed.save,
+                    validate         : embed.validate,
+                    destroy: embed.destroy,
+                    renderOnPastePatterns: embed.pastePatterns
                 }
             },
-
             data : INPUT
         });
 
@@ -259,7 +239,7 @@
 */
 var INPUT = {
     items : [],
-    count : 0,
+    count : 0
 };
 
 /**
@@ -267,31 +247,31 @@ var INPUT = {
 */
 var _INPUT = {
     items : [],
-    count : 23,
+    count : 23
 };
 
 /** Fill with example data */
 _INPUT.items = [
     {
-        type : 'paragraph',
+        type : 'text',
         data : {
             text : '<p>Ladies and gentlemen, prepare yourself for a pivotal moment in the history of web development…</p>'
         }
     },
     // {
-    //     type : 'paragraph',
+    //     type : 'text',
     //     data : {
     //         text : '<p><i>[Drumroll begins]</i></p><p>Promises have arrived natively in JavaScript!</p><p><i>[Fireworks explode, glittery paper rains from above, the crowd goes wild]</i></p>'
     //     }
     // },
     {
-        type : 'paragraph',
+        type : 'text',
         data : {
             text : "The promise constructor takes one argument, a callback with two parameters, resolve and reject. Do something within the callback, perhaps async, then call resolve if everything worked, otherwise call reject.Like 'throw' in plain old JavaScript, it's customary, but not required, to reject with an Error object. The benefit of Error objects is they capture a stack trace, making debugging tools more helpful. Here's how you use that promise:",
         }
     },
     {
-        type : 'paragraph',
+        type : 'text',
         data : {
             text : 'At this point you fall into one of these categories:'
         }
@@ -333,7 +313,7 @@ _INPUT.items = [
         }
     },
     {
-        type : 'paragraph',
+        type : 'text',
         data : {
             text : 'JavaScript is single threaded, meaning that two bits of script cannot run at the same time, they have to run one after another. In browsers, JavaScript shares a thread with a load of other stuff. What that stuff is differs from browser to browser, but typically JavaScript is in the same queue as painting, updating styles, and handling user actions (such as highlighting text and interacting with form controls). Activity in one of these things delays the others.'
         }
@@ -356,7 +336,7 @@ _INPUT.items = [
         }
     },
     {
-        type : 'paragraph',
+        type : 'text',
         data : {
             text : 'Promises have been around for a while in the form of libraries, such as:',
         }
@@ -375,7 +355,7 @@ _INPUT.items = [
 
     },
     {
-        type : 'paragraph',
+        type : 'text',
         data : {
             text : "The above and JavaScript promises share a common, standardised behaviour called Promises/A+. If you're a jQuery user, they have something similar called Deferreds. However, Deferreds aren't compliant, which makes them subtly different and less useful, so beware. jQuery also has a Promise type, but this is just a subset of Deferred and has the same issues. Although promise implementations follow a standardised behaviour, their overall APIs differ. JavaScript promises are similar in API to RSVP.js. Here's how you create a promise:",
         }
@@ -410,7 +390,7 @@ _INPUT.items = [
         }
     },
     {
-        type : 'paragraph',
+        type : 'text',
         data : {
             text : "The promise constructor takes one argument, a callback with two parameters, resolve and reject. Do something within the callback, perhaps async, then call resolve if everything worked, otherwise call reject.Like 'throw' in plain old JavaScript, it's customary, but not required, to reject with an Error object. The benefit of Error objects is they capture a stack trace, making debugging tools more helpful. Here's how you use that promise:",
         }
@@ -423,7 +403,7 @@ _INPUT.items = [
         }
     },
     {
-        type : 'paragraph',
+        type : 'text',
         data : {
             text : "There are already implementations of promises in browsers today. As of Chrome 32, Opera 19, Firefox 29, Safari 8 & Microsoft Edge, promises are enabled by default. To bring browsers that lack a complete promises implementation up to spec compliance, or add promises to other browsers and Node.js, check out the polyfill (2k gzipped).",
         }
@@ -446,7 +426,7 @@ _INPUT.items = [
         }
     },
     {
-        type : 'paragraph',
+        type : 'text',
         data : {
             text : "The JavaScript promises API will treat anything with a then method as promise-like (or thenable in promise-speak *sigh*), so if you use a library that returns a Q promise, that's fine, it'll play nice with the new JavaScript promises. Although, as I mentioned, jQuery's Deferreds are a bit… unhelpful. Thankfully you can cast them to standard promises, which is worth doing as soon as possible:",
         }
@@ -465,7 +445,7 @@ _INPUT.items = [
         }
     },
     {
-        type : 'paragraph',
+        type : 'text',
         data : {
             text : "Right, let's code some things. Say we want to:",
         }
@@ -485,7 +465,7 @@ _INPUT.items = [
         }
     },
     {
-        type : 'paragraph',
+        type : 'text',
         data : {
             text : "…but also tell the user if something went wrong along the way. We'll want to stop the spinner at that point too, else it'll keep on spinning, get dizzy, and crash into some other UI. Of course, you wouldn't use JavaScript to deliver a story, serving as HTML is faster, but this pattern is pretty common when dealing with APIs: Multiple data fetches, then do something when it's all done.",
         }
@@ -555,7 +535,7 @@ saveButton.addEventListener('click', function() {
         INPUT.items = codex.editor.state.jsonOutput;
         INPUT.count = INPUT.items.length;
 
-        JSONinput.innerHTML = JSON.stringify(codex.editor.state.jsonOutput);
+        JSONinput.innerHTML = JSON.stringify({data:codex.editor.state.jsonOutput});
 
         /**
          * Send form
@@ -629,7 +609,7 @@ INPUT.items = [];
             string = string.replace( /"(\w+)"\s?\:/g , '"<span class=sc_key>$1</span>" :');
 
             /** Stylize tool names */
-            string = string.replace( /"(paragraph|quote|list|header|link|code|image)"/g , '"<span class=sc_toolname>$1</span>"');
+            string = string.replace( /"(text|quote|list|header|link|code|image)"/g , '"<span class=sc_toolname>$1</span>"');
 
             /** Stylize HTML tags */
             string = string.replace( /(&lt;[\/a-z]+(&gt;)?)/gi , '<span class=sc_tag>$1</span>' );

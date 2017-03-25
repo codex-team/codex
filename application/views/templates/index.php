@@ -5,6 +5,7 @@
 <?
     /** Joining meetup */
     // include 'landings/meetup.php';
+    // include 'landings/masterclass.php';
 ?>
 <div class="index-page">
     <div class="center_side">

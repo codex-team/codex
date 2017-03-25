@@ -1,6 +1,26 @@
 <?
     $news = array(
         array(
+            'text' => 'Написали простую инструкцию о том, <a href="https://ifmo.su/ssl">как бесплатно и просто настроить HTTPS с помощью Let\'s Encrypt</a>',
+            'date' => '22 mar'
+        ),
+        array(
+            'text' => 'Прошел грандиозный <a href="https://github.com/codex-team/html-css-practice">CodeX Meetup: HTML+CSS practice</a>',
+            'date' => '17 mar'
+        ),
+        array(
+            'text' => 'Опубликовали статью о <a href="/macos-web-server">настройке окружения для веб-разработки на macOS</a>',
+            'date' => '13 mar'
+        ),
+        array(
+            'text' => 'Помучили GPU и CPU на <a href="https://vk.com/codex_team?w=wall-103229636_232">CodeX Meetup: Chrome DevTools</a>',
+            'date' => '3 mar'
+        ),
+        array(
+            'text' => 'Прошел первый открытый мастер-класс <a href="https://vk.com/codex_team?w=wall-103229636_229">CodeX Meetup</a>, посвященный основам разработки real-time приложений на node.js и WebSockets',
+            'date' => '17 feb'
+        ),
+        array(
             'text' => 'Вышла новая статья о <a href="/js-modules">модульной разработке в JavaScript</a>',
             'date' => '31 dec'
         ),

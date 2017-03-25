@@ -64,6 +64,23 @@ ini_set('unserialize_callback_func', 'spl_autoload_call');
 I18n::lang('en-us');
 
 /**
+* Composer autoloader
+*/
+require VENDORPATH . 'autoload.php';
+
+/**
+* Load Dotenv
+* @see https://github.com/vlucas/phpdotenv
+* @since 2017.16.02 @neSpecc
+*/
+if (is_file(DOCROOT.'.env')) {
+
+    $dotenv = new Dotenv\Dotenv(DOCROOT);
+    $dotenv->load();
+
+}
+
+/**
  * Set Kohana::$environment if a 'KOHANA_ENV' environment variable has been supplied.
  *
  * Note: If you supply an invalid environment name, a PHP warning will be thrown
@@ -72,7 +89,17 @@ I18n::lang('en-us');
 if (isset($_SERVER['KOHANA_ENV']))
 {
     Kohana::$environment = constant('Kohana::'.strtoupper($_SERVER['KOHANA_ENV']));
-} 
+}
+
+/**
+* Turn off notices and strict errors on production
+* @since 2017.16.02 @neSpecc
+*/
+if ( Kohana::$environment === Kohana::PRODUCTION ) {
+
+    error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT);
+
+}
 
 /**
  * Initialize Kohana, setting the default options.
@@ -89,9 +116,8 @@ if (isset($_SERVER['KOHANA_ENV']))
  * - boolean  caching     enable or disable internal caching                 FALSE
  * - boolean  expose      set the X-Powered-By header                        FALSE
  */
-
 Kohana::init(array(
-    'errors' => true,
+    'errors' => true, // We need errors=true for errors catching
     'base_url'   => '/',
     'index_file' => false
 ));

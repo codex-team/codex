@@ -30,7 +30,16 @@
             display: none;
         }
 
+.page_footer{
+    margin: 20px auto;
+}
 
+.full-width-notifier {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #ECF3F9;
+    color: #3F4B63;
+}
 
 .no_data{
     text-align: center;
