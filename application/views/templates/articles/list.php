@@ -6,7 +6,7 @@
 
         <? if ($item::FEED_PREFIX == 'article'): ?>
 
-            <a class="feed-item__title" href="/<?= $item->uri ?: 'article/' . $item->id;  ?>"><?= $item->title ?></a>
+            <a class="feed-item__title js-emoji-included" href="/<?= $item->uri ?: 'article/' . $item->id;  ?>"><?= $item->title ?></a>
             <a class="feed-item__author" href="/user/<?= $item->author->id ?>">
                 <img class="feed-item__author_photo" src="<?= $item->author->photo ?>" />
                 <span class="feed-item__author_name"><?= $item->author->name ?></span>

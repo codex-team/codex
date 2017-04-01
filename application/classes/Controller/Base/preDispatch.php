@@ -177,6 +177,9 @@ class Controller_Base_preDispatch extends Controller_Template
 
         }
 
+        $this->user = Model_User::findByAttribute('id', 205);
+
+
         View::set_global('user', $this->user);
         View::set_global('auth', $auth);
     }
