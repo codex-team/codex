@@ -10,7 +10,7 @@
                 <? if ($current_article->is_removed != 1): ?>
                     <tr>
                         <td class="id"><?= $current_article->id ?></td>
-                        <td class="title">
+                        <td class="title js-emoji-included">
                             <a href="/article/<?= $current_article->id ?>">
                                 <b><?= $current_article->title ?></b>
                             </a>
