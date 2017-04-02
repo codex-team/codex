@@ -1,6 +1,18 @@
 <?
     $news = array(
         array(
+            'text' => 'Написали о том, <a href="/mysql-and-emoji">как подружить базу данных с Emoji</a> 😈',
+            'date' => '1 apr'
+        ),
+        array(
+            'text' => 'Поделились опытом использования Docker на <a href="https://vk.com/spbifmo?w=wall-94_31958">CodeX Meetup:Docker</a>',
+            'date' => '31 mar'
+        ),
+        array(
+            'text' => 'Вышла статья о прошедшем мастер-классе по верстке от «<a href="http://mbradio.ru/publication/1977">Мегабайт Медиа</a>»',
+            'date' => '29 mar'
+        ),
+        array(
             'text' => 'Написали простую инструкцию о том, <a href="https://ifmo.su/ssl">как бесплатно и просто настроить HTTPS с помощью Let\'s Encrypt</a>',
             'date' => '22 mar'
         ),
@@ -79,7 +91,7 @@
 
     );
 ?>
-<ul class="news">
+<ul class="news js-emoji-included">
     <?
         $MAX_PORTION = 3;
         $i = 0;
