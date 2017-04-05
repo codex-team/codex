@@ -9,7 +9,7 @@
             'date' => '31 mar'
         ),
         array(
-            'text' => 'Вышла статья о прошедшем мастер-классе по верстке от «<a href="http://mbradio.ru/publication/1977">Мегабайт Медиа</a>»',
+            'text' => 'Вышла статья о прошедшем мастер-классе по верстке от «<a href="http://mbradio.ru/publication/1977/">Мегабайт Медиа</a>»',
             'date' => '29 mar'
         ),
         array(
