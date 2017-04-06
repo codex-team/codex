@@ -41,7 +41,7 @@
             <? endif; ?>
             <meta itemprop="datePublished" content="<?= date(DATE_ISO8601, strtotime($article->dt_create)) ?>" />
 
-            <h1 class="article__title" itemprop="headline">
+            <h1 class="article__title js-emoji-included" itemprop="headline">
                 <?= $article->title ?>
             </h1>
 
@@ -57,7 +57,7 @@
                 </div>
             </div>
 
-            <div class="article_content <?= !empty($article->text) ? 'article_content--old' : '' ?>" itemprop="articleBody">
+            <div class="article_content js-emoji-included <?= !empty($article->text) ? 'article_content--old' : '' ?>" itemprop="articleBody">
 
                 <?
                 /**
@@ -96,7 +96,7 @@
                 <p>Мы расскажем вам о крутых и интересных технологиях и приведём примеры их использования в наших проектах.</p>
 
                 <? foreach ($popularArticles as $popularArticle): ?>
-                    <li><a href="/<?= $popularArticle->uri ?: ('article/' . $popularArticle->id) ; ?>"><?= $popularArticle->title; ?></a></li>
+                    <li><a href="/<?= $popularArticle->uri ?: ('article/' . $popularArticle->id) ; ?>" class="js-emoji-included"><?= $popularArticle->title; ?></a></li>
                 <? endforeach; ?>
 
             </ul>
