@@ -27,8 +27,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $articleId = $this->request->param('id') ?: $this->request->query('id');
         $isAlias = $this->request->query('id');
 
-        if (!empty($articleId))
-        {
+        if (!empty($articleId)) {
             $viewArticle = Model_Article::get($articleId);
             if ($viewArticle->uri && !$isAlias)
                 $this->redirect($viewArticle->uri);
