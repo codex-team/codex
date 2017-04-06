@@ -11,7 +11,7 @@
                     <tr>
                         <td class="id"><?= $current_article->id ?></td>
                         <td class="title">
-                            <a href="/<?= $item->alias ?: 'article/' . $current_article->id; ?>">
+                            <a href="/<?= $current_article->uri ?: 'article/' . $current_article->id; ?>">
                                 <b><?= $current_article->title ?></b>
                             </a>
                         </td>
