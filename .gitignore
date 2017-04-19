@@ -4,6 +4,7 @@ application/logs/*
 upload/*
 vendor/*
 .env
+composer.lock
 
 # Editor files
 node_modules/
