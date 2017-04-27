@@ -1,6 +1,28 @@
 <?
     $news = array(
         array(
+            'text' => 'Опубликовали в NPM <a href="https://www.npmjs.com/package/codex.editor.personality">плагин «Персона»</a> для CodeX Editor',
+            'date' => '25 apr',
+            'release' => true
+        ),
+        array(
+            'text' => 'Представляем CodeX Media — <a href="/media">платформу для создания UGC-медиа</a>',
+            'date' => '24 apr',
+            'release' => true
+        ),
+        array(
+            'text' => 'Вышла статья от Университета ИТМО о встрече <a href="http://news.ifmo.ru/ru/startups_and_business/initiative/news/6604/">CodeX Meetup: Docker</a>',
+            'date' => '21 apr'
+        ),
+        array(
+            'text' => 'Написали о <a href="/webpack-tutorial">сборке JavaScript модулей</a> с помощью Webpack',
+            'date' => '15 apr'
+        ),
+        array(
+            'text' => '<a href="https://vk.com/codex_team?w=wall-103229636_251">CodeX Meetup: Webpack</a>',
+            'date' => '14 apr'
+        ),
+        array(
             'text' => 'Написали о том, <a href="/mysql-and-emoji">как подружить базу данных с Emoji</a> 😈',
             'date' => '1 apr'
         ),
