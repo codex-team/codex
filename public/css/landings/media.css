@@ -145,7 +145,7 @@
 
     .codex-media__title{
         font-size: 50px;
-        max-width: none;
+        max-width: 250px;
     }
 
     .codex-media__logo svg {
