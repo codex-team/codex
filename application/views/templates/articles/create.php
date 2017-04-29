@@ -298,7 +298,7 @@
 <? // Load Editor plugins ?>
 <?
     $plugins    = array('paragraph', 'header', 'code', 'link', 'list', 'image', 'quote', 'twitter', 'instagram', 'embed', 'raw');
-    $editorPath = 'https://cdn.ifmo.su/editor/v1.5';
+    $editorPath = 'https://cdn.ifmo.su/editor/v1.6';
 
     if ( Kohana::$environment === Kohana::DEVELOPMENT ){
         $editorPath = '/public/extensions/codex.editor';
