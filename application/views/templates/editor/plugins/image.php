@@ -11,5 +11,5 @@
 
 ?>
 
-<img class="article__image <?= implode(' ', $classes); ?>" src="<?=$block->file['url']; ?>" alt="">
+<img class="article__image <?= implode(' ', $classes); ?>" src="<?=$block->file['url'] ?: $block->url; ?>" alt="">
 <div class="article__image-caption"><?=$block->caption; ?></div>
