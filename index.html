@@ -3,14 +3,15 @@
     <head>
         <meta charset="utf-8">
         <link rel="stylesheet" href="C:\Users\nicki_000\Documents\codex\ifmo.su-layout\main.css">
+        <link rel="stylesheet" href="C:\Users\nicki_000\Documents\codex\ifmo.su-layout\css\font-awesome.min.css">
         <title></title>
     </head>
     <body>
         <header class='site-header'>
-            <div class="center-side">
+            <div class="center_side">
 
                 <a class="site-header__profile">
-                    <img src="" alt="" class="site-header__profile_photo" id="header-avatar-updatable"/>Profile
+                    <img src="https://avatars0.githubusercontent.com/u/15807234?v=3" alt="" class="site-header__profile_photo" id="header-avatar-updatable"/>Profile
                 </a>
 
                 <a href="" class="site-header__button" >
@@ -21,7 +22,7 @@
                 <div class="site-header__menu">
                     <a href="/">CodeX</a>
                     <a href="/articles">Article</a>
-                    <a href="/contests"></a>
+                    <a href="/contests">Contests</a>
 
                 </div>
 
@@ -30,11 +31,11 @@
                     </i>
                 </a>
 
-                <a class="site-header__login">
+                <!-- <a class="site-header__login">
                         <img src="C:\Users\nicki_000\Downloads\github.svg" class="github-icon"  alt="">
                     login
 
-                </a>
+                </a> -->
 
             </div>
 
@@ -42,7 +43,7 @@
 
         <div class="index-page">
 
-            <div class="center-side">
+            <div class="center_side">
 
                 <div class="codex-logo">
 
@@ -56,13 +57,31 @@
                     Наша цель — собрать команду молодых специалистов с горящими глазами и идеалистическим настроем.
                 </p>
 
-                <ul class="news-js-emoji-included">
+                <ul class="news">
+                    <li class="news__list_item" '' data-time ="25 apr">
+                        <span class="news__bage">release</span>
+                        Опубликовали в NPM
+                        <a href="https://www.npmjs.com/package/codex.editor.personality">плагин "Персона"</a>
+                        для CodeX Editor
+                    </li>
 
-                    <li>Написали о том, как подружить базу данных с Emoji </li>
-                    <li>Поделились опытом использования Docker на CodeX Meetup:Docker</li>
-                    <li>Вышла статья о прошедшем мастер-классе по верстке от «Мегабайт Медиа»</li>
+                    <li class="news__list_item" '' data-time ="24 apr">
+                        <span class="news__bage">release</span>
+                        Представляем CodeX Media —
+                        <a href="/media">платформу для создания UGC-медиа</a>
+                    </li>
+
+                    <li class="news__list_item" '' data-time ="24 apr">
+                        Вышла статья от Университета ИТМО о встрече
+                        <a href="http://news.ifmo.ru/ru/startups_and_business/initiative/news/6604/">
+                            CodeX Meetup: Docker
+                        </a>
+
+                    </li>
 
                 </ul>
+
+                <br>
 
                 <a class="button button-green button-indexpage">Вступить в клуб</a>
 
@@ -76,7 +95,7 @@
 
             <div class="site-footer">
 
-                <div class="center-side clearfix">
+                <div class="center_side clearfix">
 
                     <section class="site-footer__section fl_l">
                         <h5>
@@ -134,5 +153,6 @@
 
             </div>
         </footer>
+        <div class="scroll-up show"></div>
     </body>
 </html>

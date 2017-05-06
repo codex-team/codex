@@ -1,9 +1,14 @@
-@import url("icons.css");
+@import url("https://ifmo.su/public/css/icons.css");
 
 .hide {display: none !important}
 .block {display: block}
 .p_rel {position: relative}
 .pointer {cursor: pointer}
+
+.icon-vkontakte:before {
+    font-family: FontAwesome;
+    content: '\f189';
+}
 
 a {
     color: #4e88d6;
@@ -188,7 +193,7 @@ html {
 .site-header__login,
 .site-header__profile {
     display: inline-block;
-    padding: 18px
+    padding: 18px 0;
 }
 
 .github-icon {
@@ -206,6 +211,7 @@ html {
     height: 22px;
     vertical-align: bottom;
     margin-right: 5px;
+    /*background: url('C:\\Users\\nicki_000\\Downloads\\gh.png');*/
 }
 
 .site-header__social {
@@ -215,6 +221,28 @@ html {
     margin-left: -.75em;
     font-size: 22px;
 }
+
+.site-header__button {
+    display: inline-block;
+    float: right;
+    padding: 18px 0;
+    color: #04A670;
+}
+
+.site-header__button {
+    margin-right: 0.2em;
+}
+
+.icon-pencil:before {
+    font-family: FontAwesome;
+    content:  '\f040';
+}
+
+.icon-instagram:before {
+    font-family: FontAwesome;
+    content: '\f16d';
+}
+
 
 .follow-us{
     width: 33%;
@@ -345,16 +373,65 @@ html {
     }
 
     .site-footer{
-        padding: 25px 0;
+        border-top: 1px solid #eceff6;
+        padding: 30px 0;
+        margin-top: 30px;
+        font-size: 13px;
     }
     .site-footer__section{
-        float: none;
-        max-width: none;
-        margin: 0 0 20px;
-    }
-    .site-footer__section:last-child{
-        margin-bottom: 0;
+        max-width: 400px;
     }
     .site-footer__section:not(:first-child){
-        margin-left: 0;
+        margin-left: 45px;
+    }
+        .site-footer__section ul{
+            list-style: none;
+            padding-left: 0;
+            line-height: 1.8em;
+        }
+        .site-footer section a{
+            text-decoration: none;
+        }
+    .site-footer h5{
+        margin: 0 0 10px;
+        font-size: 1.02em;
+    }
+    .site-footer h5 a{
+        color: inherit;
+        text-decoration: none;
+    }
+    .site-footer p{
+        margin: 0;
+    }
+    .site-footer.desclimer{
+        color: #aaa;
+    }
+
+.scroll-up {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    padding: 32px 27px;
+    border-radius: 2px;
+    background: rgba(93, 104, 156, 0.08);
+    font-size: 18px;
+    text-align: center;
+    cursor: pointer;
+    color: rgba(85, 97, 125, 0.6);
+    opacity: 0;
+    transition: opacity 150ms ease-in;
+
+}
+
+    .scroll-up:hover {
+        background: rgba(93, 104, 156, 0.15);
+    }
+
+    .scroll-up:before {
+        font-family: FontAwesome;
+        content: '\f062';
+    }
+
+    .scroll-up.show {
+        opacity: 1;
     }
