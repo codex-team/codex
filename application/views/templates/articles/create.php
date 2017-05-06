@@ -18,9 +18,8 @@
             <input type="text" name="title" required value="<?= $article->title ?: ''; ?>">
         </section>
 
-        <div class="redactor_zone">
-            <textarea name="article_json" id="codex_editor" rows="10" hidden><?= $article->json ?: ''; ?></textarea>
-        </div>
+        <textarea name="article_json" id="article_json" hidden rows="10" hidden><?= $article->json ?: ''; ?></textarea>
+        <div id="codex-editor"></div>
 
         <section class="editor-form__section">
 
@@ -104,7 +103,7 @@
 
         var submit  = document.getElementById('submitButton'),
             form    = document.forms['codex_article'],
-            article = document.getElementById('codex_editor'),
+            article = document.getElementById('article_json'),
             pageContent,
             blocks;
 
@@ -124,7 +123,7 @@
         };
 
         codex.editor.start({
-            textareaId: 'codex_editor',
+            holderId: 'codex-editor',
             uploadImagesUrl : '/editor/transport/',
             initialBlockPlugin : 'paragraph',
             tools: {
@@ -298,7 +297,7 @@
 <? // Load Editor plugins ?>
 <?
     $plugins    = array('paragraph', 'header', 'code', 'link', 'list', 'image', 'quote', 'twitter', 'instagram', 'embed', 'raw');
-    $editorPath = 'https://cdn.ifmo.su/editor/v1.5';
+    $editorPath = 'https://cdn.ifmo.su/editor/v1.6';
 
     if ( Kohana::$environment === Kohana::DEVELOPMENT ){
         $editorPath = '/public/extensions/codex.editor';

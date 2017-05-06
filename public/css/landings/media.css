@@ -1,0 +1,172 @@
+/**
+ * CodeX Media landing
+ */
+.codex-media {
+    padding: 120px 0;
+    color: #a1a1a1;
+    font-size: 15px;
+}
+
+.codex-media__title {
+    margin: 0 0 30px;
+    max-width: 500px;
+    font-size: 113px;
+    color: #fff;
+    letter-spacing: 0.04em;
+    line-height: 0.97em;
+    font-weight: 500;
+}
+
+.codex-media__caption {
+    font-size: 39px;
+    line-height: 1.2em;
+    font-weight: 100;
+}
+
+.codex-media__advants {
+    list-style: none;
+    margin: 80px 0 15px;
+    padding: 0;
+    color: #fff;
+    font-weight: 200;
+}
+
+.codex-media__advants li {
+    margin: 5px 0;
+}
+
+.codex-media__link {
+    display: inline-block;
+    color: #398ee8;
+    margin-right: 25px;
+    text-decoration: none;
+}
+
+.codex-media a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+.codex-media__footer {
+    margin-top: 20px;
+    padding: 20px 0;
+    border-top: 1px solid #181616;
+    max-width: 500px;
+    color: #656565;
+}
+
+.codex-media__footer a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.codex-media__footer-caption {
+    float: right;
+    font-size: 12px;
+}
+
+.codex-media__logo {
+    display: block;
+    float: right;
+}
+
+.codex-media__logo svg {
+    height: 260px;
+    width: auto;
+}
+
+.codex-media__logo .bg {
+    transition: all 350ms ease-in;
+    will-change: fill;
+}
+
+.codex-media__logo .layer {
+    transition: all 350ms ease-out;
+    will-change: fill;
+}
+
+
+.codex-media__logo:hover .bg {
+    fill: #D40D0D;
+}
+
+.codex-media__logo:hover .layer {
+    fill: #6D1212;
+}
+
+.codex-media__logo .eye{
+    animation: blink_infinite 4000ms 1s infinite;
+}
+
+.codex-media__logo:hover .eye{
+    animation: blink_once 200ms 350ms 1;
+}
+
+@keyframes blink_once {
+    60% { fill: #fdce06; }
+    80% { fill: #090909; }
+    100% { fill: #fdce06; }
+}
+
+@keyframes blink_infinite {
+    0% { fill: #fdce06; }
+    12% { fill: #fdce06; }
+    15% { fill: #090909; }
+    17% { fill: #fdce06; }
+    100% { fill: #fdce06; }
+}
+
+/**
+ * Site style overrides
+ */
+.site-header,
+.site-footer {
+    border-color: #181616;
+    color: #333;
+}
+
+.site-header a,
+.site-footer a {
+    color: #595A5C;
+}
+
+.site-footer h5 {
+    color: #bbb;
+}
+
+.site-footer .desclimer {
+    color: inherit;
+}
+
+@media all and (max-width: 980px) {
+    .codex-media {
+        padding: 70px 0
+    }
+
+    .codex-media__title{
+        font-size: 50px;
+        max-width: 250px;
+    }
+
+    .codex-media__logo svg {
+        display: inherit;
+        height: 70px;
+        width: 70px;
+        margin: 0 auto 20px;
+    }
+
+    .codex-media__caption {
+        font-size: 20px;
+    }
+
+    .codex-media__link {
+        display: block;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .codex-media__footer-caption {
+        float: none;
+        margin-bottom: 5px;
+    }
+}
