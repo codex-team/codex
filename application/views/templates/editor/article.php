@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="/public/build/bundle.css?v=<?= filemtime("public/build/bundle.css") ?>">
-
 <div class="center_side clear">
     <article class="article" itemscope itemtype="http://schema.org/Article">
 

@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="/public/build/bundle.css?v=<?= filemtime("public/build/bundle.css") ?>">
-
 <div class="center_side clear">
     <? if (isset($articlesFromCourse)): ?>
         <?= View::factory('templates/articles/course_list')

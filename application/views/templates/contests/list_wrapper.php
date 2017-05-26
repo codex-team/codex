@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="/public/build/bundle.css?v=<?= filemtime("public/build/bundle.css") ?>">
 <div class="center_side clear">
 
     <div class="page-header clearfix">

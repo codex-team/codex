@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="/public/build/bundle.css?v=<?= filemtime("public/build/bundle.css") ?>">
-<script src="/public/build/bundle.js?v=<?= filemtime('public/build/bundle.js') ?>"></script>
 <? if (!empty($success)): ?>
     <div class="success_alert">
         <h2>Спасибо!</h2>
