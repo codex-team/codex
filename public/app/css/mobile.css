@@ -1,0 +1,204 @@
+@media all and (max-width: 800px){
+
+    /**
+    * Center side section margins
+    */
+    .center_side{
+        padding: 0 20px;
+    }
+
+    /**
+    * Site header mobile
+    */
+    .site-header__social{
+        display: none;
+    }
+    .site-header__menu a:not(:first-child),
+    .site-header__profile{
+        margin-left: 10px;
+    }
+
+    .site-header__button {
+        display: none;
+    }
+
+    /**
+    * Site footer mobile
+    */
+    .site-footer{
+        padding: 25px 0;
+    }
+    .site-footer__section{
+        float: none;
+        max-width: none;
+        margin: 0 0 20px;
+    }
+    .site-footer__section:last-child{
+        margin-bottom: 0;
+    }
+    .site-footer__section:not(:first-child){
+        margin-left: 0;
+    }
+
+    /**
+    * Index page mobile
+    */
+    .index-page{
+        padding: 50px 0;
+    }
+    .index-page p{
+        padding: 0 10px
+    }
+
+
+    /**
+    * Mobile scroll up button
+    */
+    .scroll-up{
+        left: auto;
+        bottom: 0;
+        right: 0;
+        padding: 12px 14px;
+        font-size: 12px;
+    }
+
+    /**
+    * News block
+    */
+    .news{
+        padding: 30px 0;
+        margin: 30px 0;
+    }
+    .news__list_item:before{
+        position: static;
+        display: block;
+        text-align: left;
+        margin: 1em 0 .6em;
+    }
+
+    /**
+    * Event alert on index page
+    */
+    .event_alert{
+        font-size: 1.5em;
+    }
+    .event_alert__description:before,
+    .event_alert__description:after{
+        display: none;
+    }
+
+    /**
+    * Follow us mobile
+    */
+    .follow-us{
+        width: auto;
+        float: none;
+        margin: 0 0 50px 0;
+    }
+
+
+    /**
+    * Blogs feed mobile
+    */
+    .feed-item{
+        width: 100%;
+        border: 0 0 1px 0;
+        padding: 25px 0;
+    }
+    .feed-item__title{
+        margin: 15px 20px 20px;
+        font-size: 1.2em;
+    }
+    .feed-item_big .feed-item__title{
+        font-size: 2em;
+    }
+
+    /**
+    * Users profiles
+    */
+    .profile{
+        padding: 70px 0;
+    }
+
+    /**
+    * Profile settings
+    */
+    .profile-settings .button{
+        margin-top: -38px;
+    }
+    .profile-settings .fl_l{
+        float: none;
+    }
+    .profile-settings__form{
+        margin-left: 0;
+        padding-left: 0;
+        border-left: 0;
+    }
+
+
+    /**
+    * Recommendations block
+    */
+    .random_articles {
+        margin: 0;
+        padding-bottom: 0;
+    }
+    .random_articles a{
+        line-height: 1.7em;
+        font-size: 1.1em;
+    }
+
+    /**
+    * Sharing
+    */
+    .sharing{
+        margin: 30px 0 0;
+        padding:  30px;
+        text-align: center;
+    }
+    .sharing .main_but{
+        float: none;
+        display: block;
+        margin: 0 0 15px;
+    }
+    .sharing .but{
+        display: inline-block;
+        float: none;
+        margin: 0 7px 18px;
+    }
+
+
+    /**
+    * Contest promo link on index page
+    */
+    .contest_alert a{
+        margin: 20px 0;
+    }
+
+    /**
+    * Best developers on index-page mobile viewport
+    */
+    .best-developers{
+        position: static;
+        width: auto;
+        max-width: 300px;
+        margin: 50px auto 0;
+        text-align: center;
+    }
+    .best-developers__heading{
+        max-width: none;
+    }
+    .best-developers__item{
+        line-height: 1.8em;
+        padding-left: 0;
+    }
+    .best-developers__photo{
+        position: static;
+        vertical-align: text-bottom;
+        width: 24px;
+        height: 24px;
+    }
+
+    /** End of mobile viewport */
+
+}

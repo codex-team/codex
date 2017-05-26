@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/public/css/contests.css?v=<?= filemtime("public/css/contests.css") ?>">
+<link rel="stylesheet" href="/public/build/bundle.css?v=<?= filemtime("public/build/bundle.css") ?>">
 <div class="center_side clear">
 
     <div class="page-header clearfix">

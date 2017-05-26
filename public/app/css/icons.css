@@ -1,11 +1,11 @@
 
 @font-face {
   font-family: 'codex_ic';
-  src: url('../fonts/codex_icons/codex_ic.eot?2');
-  src: url('../fonts/codex_icons/codex_ic.eot?2#iefix') format('embedded-opentype'),
-       url('../fonts/codex_icons/codex_ic.woff?2') format('woff'),
-       url('../fonts/codex_icons/codex_ic.ttf?2') format('truetype'),
-       url('../fonts/codex_icons/codex_ic.svg?2#codex_ic') format('svg');
+  src: url('/public/app/fonts/codex_icons/codex_ic.eot?2');
+  src: url('/public/app/fonts/codex_icons/codex_ic.eot?2#iefix') format('embedded-opentype'),
+       url('/public/app/fonts/codex_icons/codex_ic.woff?2') format('woff'),
+       url('/public/app/fonts/codex_icons/codex_ic.ttf?2') format('truetype'),
+       url('/public/app/fonts/codex_icons/codex_ic.svg?2#codex_ic') format('svg');
   font-weight: normal;
   font-style: normal;
 }

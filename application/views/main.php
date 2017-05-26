@@ -17,15 +17,15 @@
     <meta name="format-detection" content="telephone=no">
 
 
-    <link rel="stylesheet" href="/public/css/normalize.css">
-    <link rel="stylesheet" href="/public/css/codex.css?v=<?= filemtime('public/css/codex.css') ?>">
+    <link rel="stylesheet" href="/public/build/bundle.css">
+    <link rel="stylesheet" href="/public/build/bundle.css?v=<?= filemtime('public/build/bundle.css') ?>">
 
     <link rel="icon" type="image/png" href="/public/img/fav_shield@3x.png?v=985" id="favicon" />
 
     <meta id="metaImage" name="image" property="og:image"  content="https://ifmo.su/public/img/meta_img.png" />
     <link id="linkImage" rel="image_src" href="https://ifmo.su/public/img/meta_img.png" />
 
-    <script src="/public/js/main.js?v=<?= filemtime('public/js/main.js') ?>"></script>
+    <script src="/public/build/bundle.js?v=<?= filemtime('public/build/bundle.js') ?>"></script>
 
 </head>
 <body>
@@ -81,6 +81,13 @@
             </section>
         </div>
     </footer>
+
+    <script>
+        codex.docReady(function () {
+            codex.init();
+        });
+    </script>
+
 
     <? if ($user->id): ?>
         <div id="utils" class="hidden" style="display: none">

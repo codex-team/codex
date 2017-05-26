@@ -1,0 +1,202 @@
+/**
+* CodeX logo on index page
+*/
+.codex-logo{
+    display: inline-block;
+    background: url('/public/app/img/codex-logo.svg') no-repeat;
+    width: 224px;
+    height: 224px;
+}
+
+
+.index-page{
+    padding: 100px 0 70px;
+    text-align: center;
+}
+    .index-page p{
+        max-width: 500px;
+        margin: 15px auto;
+    }
+    .index-page .codex-logo{
+        margin-bottom: 50px;
+    }
+
+/**
+* Best developers block
+*/
+.best-developers{
+    position: absolute;
+    right: 30px;
+    top: 90px;
+    width: 150px;
+    text-align: left;
+    font-size: 13px;
+}
+.best-developers__heading{
+    max-width: 120px;
+    border-bottom: 1px solid #E8E6E3;
+    padding-bottom: .5em;
+    font-weight: normal;
+    line-height: 1.2em;
+    font-size: 1em;
+    color: #AC7C0D;
+}
+.best-developers__item{
+    position: relative;
+    display: block;
+    padding-left: 50px;
+    margin-bottom: 10px;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    line-height: 1.4em;
+}
+.best-developers__photo{
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin-top: -17px;
+    width: 34px;
+    height: 34px;
+    border-radius: 18px;
+}
+
+
+/**
+* News block on index page
+*/
+.news{
+    display: inline-block;
+    max-width: 500px;
+    border-top: 1px solid #eceff6;
+    padding: 50px 0;
+    margin: 50px 0 0;
+    text-align: left;
+}
+    .news__list_item{
+        position: relative;
+        padding: 5px 0;
+        list-style: none;
+        line-height: 1.6em;
+    }
+    .news__list_item:before{
+        content: attr(data-time);
+        position: absolute;
+        left: -70px;
+        width: 50px;
+        text-align: right;
+        color: #8B8E99;
+    }
+    .news__bage{
+        display: inline-block;
+        margin-right: .8em;
+        color: #B33232;
+        letter-spacing: 2px;
+        font-size: 1.1em;
+        font-variant: small-caps;
+    }
+    .news__showmore{
+        display: inline-block;
+        margin-top: 1.5em;
+        border-bottom: 1px solid #dae1ec;
+        padding-bottom: 1px;
+        cursor: pointer;
+        color: #768293;
+    }
+        .news__showmore:hover{
+            color: #d25555;
+            border-color: #f5dfdf;
+        }
+
+
+/**
+* Event promo block on the index page
+*/
+.event_alert{
+    padding: 80px 0px;
+    max-width: 700px;
+    margin: 0 auto;
+    border-bottom: 1px solid #ebe8e8;
+    text-align: center;
+    font-size: 1.8em;
+}
+    .event_alert__day{
+        min-width: 70px;
+        line-height: 1.3em;
+        letter-spacing: 1.2px;
+        font-size: 2.3em;
+    }
+    .event_alert__month{
+        letter-spacing: 2px;
+    }
+    .event_alert__title{
+        margin-top: 1.4em;
+        font-size: .62em;
+        color: #ea6e6e;
+    }
+    .event_alert__description{
+        margin-top: 1em;
+        font-size: .64em;
+    }
+    .event_alert__link{
+        display: inline-block;
+        text-decoration: none;
+        color: inherit;
+    }
+        .event_alert__link:hover{
+            text-decoration: none;
+        }
+    .event_alert__icon_delimiter{
+        font-size: .7em;
+    }
+
+/**
+* Some promo link on index page
+*/
+
+.contest_alert a{
+    display: block;
+    margin: -20px 40px 40px;
+    text-align: center;
+    text-decoration: none;
+    font-variant: small-caps;
+    letter-spacing: 1.4px;
+    color: #988e8e;
+}
+.contest_alert .line{
+    position: relative;
+    margin: 0 70px 70px;
+    height: 1px;
+    background: #ebe8e8;
+}
+.contest_alert .line:before{
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -19px;
+    width: 40px;
+    height: 40px;
+    margin-left: -20px;
+    background: #fff url('../img/contest_icon_goblet.png') no-repeat 50% 50%;
+}
+
+    
+/**
+* Mobile viewport styles
+* =================================
+*/
+@media (max-width: 800px) {
+    /**
+    * News block
+    */
+    .news{
+        padding: 30px 0;
+        margin: 30px 0;
+    }
+    .news__list_item:before{
+        position: static;
+        display: block;
+        text-align: left;
+        margin: 1em 0 .6em;
+    }
+}

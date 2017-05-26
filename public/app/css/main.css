@@ -1,0 +1,17 @@
+@import url("icons.css");
+@import url('normalize.css');
+@import url('base.css');
+
+@import url('components/header.css');
+@import url('components/footer.css');
+@import url('components/article.css');
+@import url('components/articlesFeed.css');
+@import url('components/followUs.css');
+@import url('components/indexPage.css');
+@import url('components/scrollUp.css');
+@import url('components/sharing.css');
+@import url('components/userProfile.css');
+@import url('components/contests.css');
+@import url('components/admin.css');
+@import url('components/editor-form.css');
+@import url('components/task.css');

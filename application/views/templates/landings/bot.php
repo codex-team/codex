@@ -31,4 +31,5 @@
     </div>
 </div>
 
-<script src="/public/js/bot.js?v=1468920212"></script>
+<!-- <script src="/public/js/bot.js?v=1468920212"></script> -->
+<script type="text/javascript">codex.bot.bindEvents();</script>

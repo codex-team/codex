@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/public/css/article.css?v=<?= filemtime("public/css/article.css") ?>">
+<link rel="stylesheet" href="/public/build/bundle.css?v=<?= filemtime("public/build/bundle.css") ?>">
 
 <div class="center_side clear">
     <? if (isset($articlesFromCourse)): ?>

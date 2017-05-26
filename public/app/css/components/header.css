@@ -1,0 +1,82 @@
+/**
+*
+* Site header
+*
+*/
+.site-header{
+    position: relative;
+    border-bottom: 1px solid #eceff6;
+}
+    .site-header a{
+        text-decoration: none;
+        letter-spacing: .2px;
+    }
+
+.site-header__menu{
+    display: inline-block;
+}
+.site-header__profile,
+.site-header__login{
+    float: right;
+}
+    .site-header__login i{
+        vertical-align: text-bottom;
+        line-height: .7em;
+        font-size: 1.66em;
+    }
+.site-header__menu a,
+.site-header__profile,
+.site-header__login{
+    display: inline-block;
+    padding: 18px 0;
+}
+    .site-header__menu a:not(:first-child),
+    .site-header__profile{
+        margin-left: 30px;
+    }
+.site-header__profile_photo{
+    border-radius: 15px;
+    width: 22px;
+    height: 22px;
+    vertical-align: bottom;
+    margin-right: 5px;
+}
+.site-header__social{
+    position: absolute;
+    top: 17px;
+    left: 50%;
+    margin-left: -.75em;
+    font-size: 22px;
+}
+
+
+.site-header__button{
+    display: inline-block;
+    float: right;
+    padding: 18px 0;
+    color: #04A670;
+}
+.site-header__button i{
+    margin-right: 0.2em;
+}
+
+/**
+* Mobile viewport styles
+* =================================
+*/
+@media all and (max-width: 800px){
+    /**
+    * Site header mobile
+    */
+    .site-header__social{
+        display: none;
+    }
+    .site-header__menu a:not(:first-child),
+    .site-header__profile{
+        margin-left: 10px;
+    }
+
+    .site-header__button {
+        display: none;
+    }
+}

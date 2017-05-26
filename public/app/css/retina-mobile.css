@@ -1,0 +1,14 @@
+@media print, (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 1.25dppx), (min-resolution: 120dpi) {
+
+    .icon_telegram{
+        background: url('../img/icon_telegram@2x.png') no-repeat;
+        background-size: 28px 28px;
+    }
+    .profile-ava__settings{
+        background: #fff url('../img/icon_gear@2x.png') no-repeat center center;
+        background-size: 21px 21px;
+    }
+
+
+
+}

@@ -1,7 +1,7 @@
 /**
  * Модуль quiz с единственным публичным методом quiz.init()
  */
-quiz = (function() {
+module.exports = (function () {
 
     var quizData            = null,
         numberOfQuestions   = null,
@@ -16,7 +16,7 @@ quiz = (function() {
      * @param {object} quizDataInput  - объект с информацией о тесте
      * @param {string} holder - id элемента, в который будет выводиться тест
      */
-    var init = function(quizDataInput, holder) {
+    var init = function (quizDataInput, holder) {
 
         quizData = quizDataInput;
         numberOfQuestions = quizData.questions.length;
@@ -26,6 +26,7 @@ quiz = (function() {
         gameProcessing_.prepare();
         UI_.prepare(holder);
         UI_.setupQuestionInterface();
+
     };
 
     var UI_ = {
@@ -33,19 +34,22 @@ quiz = (function() {
         holder: null,
         currentQuestionObj: null,
 
-        //Объект, в котором будут храниться DOM-элементы, связанные с отображением вопроса
+        // Объект, в котором будут храниться DOM-элементы, связанные с отображением вопроса
         questionElems: null,
 
-        prepare: function(holder) {
+        prepare: function (holder) {
+
             UI_.holder = document.getElementById(holder);
             UI_.holder.classList.add('quiz');
             UI_.holder.classList.add('clearfix');
+
         },
 
         /**
          * Создаем элементы для вывода теста, заносим их в UI_.questionElems и выводим на страницу.
          */
-        setupQuestionInterface: function() {
+        setupQuestionInterface: function () {
+
             UI_.clear();
 
             var title,
@@ -75,12 +79,13 @@ quiz = (function() {
             UI_.append(UI_.questionElems);
 
             UI_.showQuestion();
+
         },
 
         /**
          * Выводим текущий вопрос на страницу (вопрос, варианты ответа и счетчик)
          */
-        showQuestion: function (){
+        showQuestion: function () {
 
             UI_.clear(UI_.questionElems.optionsHolder);
             UI_.questionElems.options = [];
@@ -93,27 +98,35 @@ quiz = (function() {
             UI_.questionElems.counter.textContent = currentQuestion + 1 + '/' + numberOfQuestions;
 
             UI_.currentQuestionObj.answers.map(UI_.createOption);
+
         },
 
-        answerSelected: function(answer) {
+        answerSelected: function (answer) {
 
             answer.classList.add('quiz__question-answer_selected');
 
-            UI_.questionElems.options.map(function(current, i) {
+            UI_.questionElems.options.map(function (current, i) {
+
                 current.removeEventListener('click', gameProcessing_.getUserAnswer);
+
             });
 
             UI_.questionElems.nextButton.disabled = false;
 
             if (currentQuestion < numberOfQuestions  - 1) {
+
                 UI_.questionElems.nextButton.addEventListener('click', UI_.showQuestion);
+
             } else {
+
                 UI_.questionElems.nextButton.addEventListener('click', UI_.showResult);
+
             }
 
             UI_.showAnswer(answer);
 
             currentQuestion++;
+
         },
         /**
          * Добавляем стили и выводим сообщение для выбранного варианта ответа
@@ -121,7 +134,7 @@ quiz = (function() {
          *
          * @param answer - DOM-элемент выбранного ответа
          */
-        showAnswer: function(answer) {
+        showAnswer: function (answer) {
 
             var answerStyle = answer.dataset.score > 0 ? '_right' :  '_wrong',
                 answerIndex = answer.dataset.index;
@@ -135,23 +148,32 @@ quiz = (function() {
             UI_.insertAfter(answerMessage, answer);
 
             if (answer.dataset.score == 0) {
+
                 UI_.showCorrectAnswers();
+
             }
+
         },
 
-        showCorrectAnswers: function() {
+        showCorrectAnswers: function () {
 
-            UI_.questionElems.options.map(function(answer, i) {
+            UI_.questionElems.options.map(function (answer, i) {
+
                 if (answer.dataset.score > 0) {
+
                     answer.classList.add('quiz__question-answer_right');
+
                 } else {
+
                     answer.classList.add('quiz__question-answer_wrong');
+
                 }
-            })
+
+            });
 
         },
 
-        showResult: function() {
+        showResult: function () {
 
             var result =  score + '/' + maxScore;
 
@@ -160,21 +182,26 @@ quiz = (function() {
             UI_.clear();
 
             var resultScore = UI_.createElem('div', 'quiz__result-score');
+
             resultScore.textContent = result;
 
             var resultMessage = UI_.createElem('div', 'quiz__result-message');
+
             resultMessage.textContent = gameProcessing_.getMessage();
 
             var social = UI_.createElem('div', 'quiz__sharing');
+
             UI_.createSocial(social, result);
 
             var retry = UI_.createElem('div', 'quiz__retry-button');
+
             retry.textContent = 'Пройти еще раз';
             retry.addEventListener('click', init.bind(null, quizData, UI_.holder.id));
 
             UI_.append([resultScore, resultMessage, social, retry]);
 
             codex.sharer.init();
+
         },
 
         /**
@@ -182,7 +209,7 @@ quiz = (function() {
          *
          * @param {Element} holder
          */
-        createSocial: function(holder, result) {
+        createSocial: function (holder, result) {
 
             var networks = [
                 {
@@ -211,7 +238,8 @@ quiz = (function() {
                 }
             ];
 
-            networks.map(function(current, i) {
+            networks.map(function (current, i) {
+
                 var button = UI_.createElem('span', ['but', current.class]),
                     icon   = UI_.createElem('i', current.icon),
                     shareMessage = null;
@@ -220,7 +248,9 @@ quiz = (function() {
                 button.setAttribute('title', current.title);
 
                 if (quizData.shareMessage) {
+
                     shareMessage =  quizData.shareMessage.replace('$score', result);
+
                 }
 
                 shareMessage = shareMessage || 'Я набрал ' + result + ' в ' + (quizData.title || 'тесте от команды CodeX');
@@ -230,8 +260,10 @@ quiz = (function() {
                 button.dataset.desc     = quizData.description || '';
 
                 UI_.append(icon, button);
-                UI_.append(button, holder)
+                UI_.append(button, holder);
+
             });
+
         },
 
         /**
@@ -243,13 +275,13 @@ quiz = (function() {
          */
         createOption: function (answer, i) {
 
-            var answerObj = UI_.createElem('div','quiz__question-answer');
+            var answerObj = UI_.createElem('div', 'quiz__question-answer');
 
             answerObj.dataset.score = answer.score;
             answerObj.dataset.index = i;
             answerObj.textContent = answer.text;
 
-            //Вешаем слушатель на вариант ответа
+            // Вешаем слушатель на вариант ответа
             answerObj.addEventListener('click', gameProcessing_.getUserAnswer);
 
             UI_.questionElems.options.push(answerObj);
@@ -265,25 +297,32 @@ quiz = (function() {
          * @param {string|Array} classes - имя или массив имен классов
          * @returns {Element}
          */
-        createElem: function(tag, classes) {
+        createElem: function (tag, classes) {
 
             var elem = document.createElement(tag);
 
             if (!classes) {
+
                 return elem;
+
             }
 
             if (classes instanceof Array) {
 
                 for (var i in classes) {
+
                     elem.classList.add(classes[i]);
+
                 }
 
             } else {
+
                 elem.classList.add(classes);
+
             }
 
             return elem;
+
         },
 
         /**
@@ -292,20 +331,26 @@ quiz = (function() {
          * @param {Element|Array} elems - элемент или массив элементов
          * @param {Element|null} parent - родитель или UI_.holder, если передан NULL
          */
-        append: function(elems, parent) {
+        append: function (elems, parent) {
 
             parent = parent || UI_.holder;
 
             if (!(elems instanceof Element)) {
 
                 for (var i in elems) {
+
                     if (elems[i] instanceof Element) {
+
                         parent.appendChild(elems[i]);
+
                     }
+
                 }
 
             } else {
+
                 parent.appendChild(elems);
+
             }
 
         },
@@ -317,12 +362,18 @@ quiz = (function() {
          * @param {Element} elem
          * @param {Element} elemBefore
          */
-        insertAfter: function(elem, elemBefore) {
+        insertAfter: function (elem, elemBefore) {
+
             if (elemBefore.nextSibling) {
+
                 UI_.questionElems.optionsHolder.insertBefore(elem, elemBefore.nextSibling);
+
             } else {
+
                 UI_.append(elem, elemBefore.parentNode);
+
             }
+
         },
 
         /**
@@ -330,11 +381,14 @@ quiz = (function() {
          *
          * @param {Element} parent
          */
-        clear: function(parent) {
+        clear: function (parent) {
+
             parent = parent || UI_.holder;
 
             while (parent.firstChild) {
+
                 parent.removeChild(parent.firstChild);
+
             }
 
         }
@@ -343,14 +397,16 @@ quiz = (function() {
 
     var gameProcessing_ = {
 
-        prepare: function() {
+        prepare: function () {
 
             maxScore = 0;
 
-            quizData.questions.map(function(current, i) {
+            quizData.questions.map(function (current, i) {
 
-                current.answers.map(function(current, i) {
+                current.answers.map(function (current, i) {
+
                     maxScore += parseFloat(current.score);
+
                 });
 
             });
@@ -362,7 +418,7 @@ quiz = (function() {
          *
          * @param {Object} e - объект события клика по варианту ответа
          */
-        getUserAnswer: function(e) {
+        getUserAnswer: function (e) {
 
             var answer = e.currentTarget;
 
@@ -377,34 +433,43 @@ quiz = (function() {
          *
          * @returns {string} message
          */
-        getMessage: function() {
+        getMessage: function () {
 
             var messages = quizData.resultMessages,
                 message;
 
-            messages.sort(function(a, b){
-               return a['score'] - b['score'];
+            messages.sort(function (a, b) {
+
+                return a['score'] - b['score'];
+
             });
 
             if (!messages.length) {
+
                 return;
+
             }
 
             for (var i in messages) {
+
                 if (score < messages[i]['score']) {
+
                     break;
+
                 }
 
                 message = messages[i]['message'];
+
             }
 
             return message;
+
         }
 
     };
 
     return {
         init: init
-    }
+    };
 
 })();

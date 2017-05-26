@@ -1,4 +1,9 @@
-<link rel="stylesheet" href="/public/css/editor-form.css?v=<?= filemtime("public/css/editor-form.css") ?>">
+<link rel="stylesheet" href="/public/build/bundle.css?v=<?= filemtime("public/build/bundle.css") ?>">
+<style type="text/css">
+    body {
+        background: #f0f3f9;
+    }
+</style>
 
 <div class="center_side">
 

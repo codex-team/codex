@@ -1,24 +1,26 @@
+
 /**
  * Created by dsnos on 20.09.2016.
  */
 
-codex.docReady(function(){
-    bot.bindEvents();
-});
 
-var bot = (function(bot) {
+// codex.docReady(function(){
+//     bot.bindEvents();
+// });
+
+var bot = (function (bot) {
 
     bot.chatBox      = null;
     bot.sendButton   = null;
     bot.sendTextarea = null;
 
-    bot.bindEvents = function (){
+    bot.bindEvents = function () {
 
-        bot.sendButton = document.getElementsByClassName("chat__send")[0];
-        bot.sendTextarea = document.getElementsByClassName("chat__input_textarea")[0];
-        bot.chatBox = document.getElementsByClassName("chat__messages")[0];
+        bot.sendButton = document.getElementsByClassName('chat__send')[0];
+        bot.sendTextarea = document.getElementsByClassName('chat__input_textarea')[0];
+        bot.chatBox = document.getElementsByClassName('chat__messages')[0];
 
-        bot.cmdList = ["/start", "/help", "/github", "/metrika", "/today", "/weekly", "/monthly"];
+        bot.cmdList = ['/start', '/help', '/github', '/metrika', '/today', '/weekly', '/monthly'];
 
 
         /**
@@ -26,14 +28,16 @@ var bot = (function(bot) {
         */
         delegateEvent_(document, '.chat__message_text_highlighted', 'click', commandClickedEvent_ );
 
-        bot.sendButton.addEventListener("click", sendClickedEvent_ );
-        bot.sendTextarea.addEventListener("keypress", keyPressEvent_ );
+        bot.sendButton.addEventListener('click', sendClickedEvent_ );
+        bot.sendTextarea.addEventListener('keypress', keyPressEvent_ );
 
         /**
         * Start random GitHub notification
         */
-        setTimeout(function() {
+        setTimeout(function () {
+
             setInterval( sendGitHubNofify_, 15000);
+
         }, 10000);
 
 
@@ -49,17 +53,18 @@ var bot = (function(bot) {
     * @param {string} eventName      - name of event
     * @param {function} callback     - callback function
     */
-    function delegateEvent_ (parentNode, targetSelector, eventName, callback ) {
+    function delegateEvent_(parentNode, targetSelector, eventName, callback ) {
 
-        parentNode.addEventListener(eventName, function(event) {
+        parentNode.addEventListener(eventName, function (event) {
 
             var el = event.target, matched;
 
-            while ( el && !matched ){
+            while ( el && !matched ) {
 
                 matched = el.matches(targetSelector);
 
                 if ( !matched ) el = el.parentElement;
+
             }
 
             if (matched) {
@@ -78,13 +83,13 @@ var bot = (function(bot) {
     *
     * Returns random {int} between numbers
     */
-    function random_ (min, max) {
+    function random_(min, max) {
 
         return Math.floor(Math.random() * (max - min + 1)) + min;
 
     }
 
-    function sendGitHubNofify_ (){
+    function sendGitHubNofify_() {
 
         var randomDelay = random_(100, 1000);
 
@@ -92,7 +97,7 @@ var bot = (function(bot) {
 
     }
 
-    function appendGitHubNofify_ (){
+    function appendGitHubNofify_() {
 
         var wrapper = document.createElement('DIV'),
             message = MESSAGES_.gitHubEvent(),
@@ -100,7 +105,7 @@ var bot = (function(bot) {
 
         wrapper.innerHTML = message;
 
-        answer = bot.buildMessage("CodeX Bot", wrapper);
+        answer = bot.buildMessage('CodeX Bot', wrapper);
 
         appendMessage_(answer);
 
@@ -110,39 +115,45 @@ var bot = (function(bot) {
     /**
     * @private
     */
-    function commandClickedEvent_ (event) {
+    function commandClickedEvent_(event) {
 
         var commandElement = event.target,
             commandName = commandElement.textContent;
 
         bot.sendCommand(commandName);
+
     }
 
     /**
     * @private
     */
-    function keyPressEvent_ (event) {
+    function keyPressEvent_(event) {
 
         if ( event.keyCode != 13 ) {
+
             return;
+
         }
 
         event.preventDefault();
         bot.sendCommand(bot.sendTextarea.value);
+
     }
 
     /**
     * @private
     */
-    function sendClickedEvent_ (event) {
+    function sendClickedEvent_(event) {
+
         bot.sendCommand(bot.sendTextarea.value);
+
     }
 
     /**
     * @private
     * @param {Element} message
     */
-    function appendMessage_ ( message ) {
+    function appendMessage_( message ) {
 
         bot.chatBox.appendChild(message);
         bot.chatBox.scrollTop = bot.chatBox.scrollHeight;
@@ -154,7 +165,9 @@ var bot = (function(bot) {
     bot.sendCommand = function (cmd) {
 
         if (!cmd.length) {
+
             return false;
+
         }
 
         var selfMessage = bot.buildSelfMessage(cmd),
@@ -162,31 +175,36 @@ var bot = (function(bot) {
 
         bot.chatBox.appendChild(selfMessage);
 
-        setTimeout(function() {
+        setTimeout(function () {
+
             appendMessage_(botAnswer);
+
         }, 750);
 
-        bot.sendTextarea.value = "";
+        bot.sendTextarea.value = '';
         bot.chatBox.scrollTop = bot.chatBox.scrollHeight;
 
     };
 
     bot.buildMessage = function (name, message) {
+
         var messageBox      = document.createElement( 'div' ),
             messageImage    = document.createElement( 'img' ),
             messageName     = document.createElement( 'div' ),
             messageText     = document.createElement( 'div' );
 
-        messageBox.classList.add("chat__message");
-        messageImage.classList.add("chat__message_photo");
-        messageName.classList.add("chat__message_name");
+        messageBox.classList.add('chat__message');
+        messageImage.classList.add('chat__message_photo');
+        messageName.classList.add('chat__message_name');
 
-        if (name ==  "You") {
-            messageName.classList.add("chat__message_name_self");
-            messageImage.setAttribute("alt", "You");
+        if (name ==  'You') {
+
+            messageName.classList.add('chat__message_name_self');
+            messageImage.setAttribute('alt', 'You');
+
         }
-        messageText.classList.add("chat__message_text");
-        messageImage.setAttribute("src", "/public/img/logo160.png");
+        messageText.classList.add('chat__message_text');
+        messageImage.setAttribute('src', '/public/img/logo160.png');
 
         messageText.appendChild(message);
 
@@ -197,26 +215,31 @@ var bot = (function(bot) {
         messageBox.appendChild(messageText);
 
         return messageBox;
+
     };
 
     bot.buildSelfMessage = function (message) {
 
         var span = document.createElement( 'span' );
+
         span.textContent = message;
 
         if (bot.cmdList.indexOf(message) != -1) {
+
             span = buildCommand_(message);
+
         }
 
-        return bot.buildMessage("You", span);
+        return bot.buildMessage('You', span);
 
     };
 
-    function buildCommand_ (message) {
+    function buildCommand_(message) {
 
         var span = document.createElement( 'span' );
+
         span.textContent = message;
-        span.classList.add("chat__message_text_highlighted");
+        span.classList.add('chat__message_text_highlighted');
 
         return span;
 
@@ -228,7 +251,7 @@ var bot = (function(bot) {
             message,
             answer;
 
-        switch (command){
+        switch (command) {
             case '/start'   :  message = MESSAGES_.start(); break;
             case '/help'   :  message = MESSAGES_.help(); break;
             case '/github' :  message = MESSAGES_.gitHubHelp(); break;
@@ -241,7 +264,7 @@ var bot = (function(bot) {
 
         wrapper.innerHTML = message;
 
-        return bot.buildMessage("CodeX Bot", wrapper);
+        return bot.buildMessage('CodeX Bot', wrapper);
 
     };
 
@@ -250,7 +273,7 @@ var bot = (function(bot) {
     *
     * Returns random element from arrat
     */
-    function randomFrom_ (arr){
+    function randomFrom_(arr) {
 
         return arr[random_(0, arr.length - 1)];
 
@@ -264,7 +287,7 @@ var bot = (function(bot) {
     */
     var MESSAGES_ = {
 
-        default : function(){
+        default : function () {
 
             var answers = [
                 'Уже работаем над этим!',
@@ -280,12 +303,14 @@ var bot = (function(bot) {
 
         },
 
-        start : function(){
+        start : function () {
+
             return 'Для начала можете ознакомиться со справкой, введя команду ' +
                     '<span class="chat__message_text_highlighted">/help</span>';
+
         },
 
-        help : function(){
+        help : function () {
 
             return ''.concat(
                 'Инструкция по работе с ботом. Выберите раздел для просмотра доступных команд.', '<br>',
@@ -300,7 +325,7 @@ var bot = (function(bot) {
 
         },
 
-        gitHubHelp : function(){
+        gitHubHelp : function () {
 
             return ''.concat(
                 'Модуль для работы с сервисом GitHub.', '<br>',
@@ -311,12 +336,13 @@ var bot = (function(bot) {
                 '<br>',
                 'Модуль активирован для сайта ifmo.su'
             );
+
         },
 
         gitHubEvent : function () {
 
             var users = ['@neSpecc', '@guryn', '@khaydarovm', '@dn0str', '@polinashneider'],
-                branches = [ 'master', 'master', 'master', 'redesign', 'client-updates', 'new-editor'],
+                branches = ['master', 'master', 'master', 'redesign', 'client-updates', 'new-editor'],
                 repos = ['ifmo.su', 'codex.editor', 'codex.bot', 'kohana.aliases', 'codex.special'],
                 commits = [
                     '* meet up land mobile view improved',
@@ -336,20 +362,20 @@ var bot = (function(bot) {
                 ];
 
             return ''.concat(
-                randomFrom_(users), ' pushed commit to ' , randomFrom_(branches) , ' [codex-team/', randomFrom_(repos), ']',
-                '<br/>','<br/>',
+                randomFrom_(users), ' pushed commit to ', randomFrom_(branches), ' [codex-team/', randomFrom_(repos), ']',
+                '<br/>', '<br/>',
                 randomFrom_(commits), '<br/>',
                 '<br/>',
                 'Modified files:',
                 '<br/>',
-                randomFrom_(files),'<br/>',
+                randomFrom_(files), '<br/>',
                 '<br/>',
-                '<a>https://github.com/codex-team/codex/compare/' , random_(1111,9999) ,'dbdb34ae...0c0153afc00e<a>'
+                '<a>https://github.com/codex-team/codex/compare/', random_(1111, 9999), 'dbdb34ae...0c0153afc00e<a>'
             );
 
         },
 
-        metrikaHelp : function (){
+        metrikaHelp : function () {
 
             return ''.concat(
                 '<span class="chat__message_text_highlighted">/today</span> — Получить значения счетчиков за день.',
@@ -361,13 +387,13 @@ var bot = (function(bot) {
 
         },
 
-        metrikaSuccessConnection : function(){
+        metrikaSuccessConnection : function () {
 
             return 'Яндекс.Метрика успешно подключена для сайта <mono>ifmo.su</i>.';
 
         },
 
-        today : function(){
+        today : function () {
 
             return ''.concat(
                 buildDate_(), '<br>',
@@ -379,10 +405,10 @@ var bot = (function(bot) {
 
         },
 
-        weekly : function(){
+        weekly : function () {
 
             return ''.concat(
-                'С понедельника по сегодняшний день','<br>',
+                'С понедельника по сегодняшний день', '<br>',
                 '<br>',
                 'ifmo.su:', '<br>',
                 '2 452 уникальных посетителя', '<br>',
@@ -391,7 +417,7 @@ var bot = (function(bot) {
 
         },
 
-        monthly : function(){
+        monthly : function () {
 
             return ''.concat(
                 'Данные за текущий месяц',
@@ -409,7 +435,7 @@ var bot = (function(bot) {
     /**
     * @private
     */
-    function buildDate_ () {
+    function buildDate_() {
 
         var date    = new Date(),
             dd      = date.getDate(),
@@ -419,28 +445,38 @@ var bot = (function(bot) {
             yyyy    = date.getFullYear(),
             today;
 
-        if ( dd < 10 ){
+        if ( dd < 10 ) {
+
             dd = '0' + dd;
+
         }
 
-        if ( mm < 10 ){
+        if ( mm < 10 ) {
+
             mm = '0' + mm;
+
         }
 
-        if ( hh < 10 ){
+        if ( hh < 10 ) {
+
             hh = '0' + hh;
+
         }
 
-        if ( minmin < 10 ){
+        if ( minmin < 10 ) {
+
             minmin = '0' + minmin;
+
         }
 
         today = dd + '/' + mm + '/' + yyyy;
 
-        return "Сегодня " + dd + "." + mm + "." + yyyy + ". Данные к " + hh + ":" + minmin;
+        return 'Сегодня ' + dd + '.' + mm + '.' + yyyy + '. Данные к ' + hh + ':' + minmin;
 
     }
 
     return bot;
 
 })({});
+
+module.exports = bot;

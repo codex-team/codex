@@ -1,4 +1,5 @@
-<link rel="stylesheet" href="/public/css/task.css?v=<?= filemtime("public/css/task.css") ?>">
+<link rel="stylesheet" href="/public/build/bundle.css?v=<?= filemtime("public/build/bundle.css") ?>">
+<script src="/public/build/bundle.js?v=<?= filemtime('public/build/bundle.js') ?>"></script>
 <? if (!empty($success)): ?>
     <div class="success_alert">
         <h2>Спасибо!</h2>
@@ -77,10 +78,10 @@
                 </div>
 
                 <label for="blankSkillsTextarea">Расскажите о своих навыках и опыте</label>
-                <textarea name="skills" id="blankSkillsTextarea" rows="5" required=""><?= Arr::get($_POST, 'skills') ?></textarea>
+                <textarea name="skills" id="blankSkillsTextarea" class="js-join-input" rows="5" required=""><?= Arr::get($_POST, 'skills') ?></textarea>
 
                 <label for="blankWishesTextarea">Чем бы вам хотелось заниматься в клубе?</label>
-                <textarea name="wishes" id="blankWishesTextarea" rows="5"><?= Arr::get($_POST, 'wishes') ?></textarea>
+                <textarea name="wishes" id="blankWishesTextarea" class="js-join-input" rows="5"><?= Arr::get($_POST, 'wishes') ?></textarea>
 
                 <input type="submit" class="master" id="blankSendButton" value="Отправить" />
 
@@ -111,5 +112,30 @@
             </div>
 
         <? endif ; ?>
+        <script type="text/javascript">
+            codex.docReady(function () {
+
+                document.addEventListener("change", function (eventArgs) {
+                var target = eventArgs.target;
+                var elementToLookFor = "textarea";
+                while (target !== null) {
+                if (target.tagName.toLowerCase() === elementToLookFor) {
+                    // Do magic stuff with the paragraph
+                    console.log(target);
+                }
+                    target = target.parentElement;
+                }
+                });
+
+                var textareas = document.getElementsByTagName("textarea");
+                for(var i = 0; i < textareas.length; i++) {
+                // Add listener.
+                textareas[i].addEventListener("change",
+                    codex.callbacks.checkUserCanEdit(), false);
+                }
+
+            });
+            
+        </script>
     </div>
 </div>

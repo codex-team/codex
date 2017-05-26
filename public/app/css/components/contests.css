@@ -96,7 +96,7 @@
         width: 40px;
         height: 40px;
         margin-left: -20px;
-        background: #fff url('../img/contest_icon_goblet.png') no-repeat 50% 50%;
+        background: #fff url('/public/app/img/contest_icon_goblet.png') no-repeat 50% 50%;
     }
 
 .contest img{
@@ -252,13 +252,13 @@
 
 
     .contest .line:before{
-        background: #fff url('../img/contest_icon_goblet@2x.png') no-repeat 50% 50%;
+        background: #fff url('/public/app/img/contest_icon_goblet@2x.png') no-repeat 50% 50%;
         background-size: 18px auto;
     }
 
     .contest .nick::before,
     .contest .nick::after{
-        background: url('../img/branches@2x.png') no-repeat;
+        background: url('/public/app/img/branches@2x.png') no-repeat;
         background-size: 110px auto;
     }
     .contest .nick::after{
