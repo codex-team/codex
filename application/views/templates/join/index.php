@@ -111,29 +111,7 @@
 
         <? endif ; ?>
         <script type="text/javascript">
-            codex.docReady(function () {
-
-                document.addEventListener("change", function (eventArgs) {
-                var target = eventArgs.target;
-                var elementToLookFor = "textarea";
-                while (target !== null) {
-                if (target.tagName.toLowerCase() === elementToLookFor) {
-                    // Do magic stuff with the paragraph
-                    console.log(target);
-                }
-                    target = target.parentElement;
-                }
-                });
-
-                var textareas = document.getElementsByTagName("textarea");
-                for(var i = 0; i < textareas.length; i++) {
-                // Add listener.
-                textareas[i].addEventListener("change",
-                    codex.callbacks.checkUserCanEdit(), false);
-                }
-
-            });
-            
+            codex.join.init();
         </script>
     </div>
 </div>

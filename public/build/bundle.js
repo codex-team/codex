@@ -64,7 +64,7 @@ var codex =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -340,6 +340,44 @@ module.exports = content;
 /* 4 */
 /***/ (function(module, exports) {
 
+join = {
+
+        init : function ( textarea ) {
+            textareas = document.getElementsByClassName("js-join-input");
+            blankAuthBlock = document.getElementById("blankAuthBlock");
+
+            console.log(blankAuthBlock);
+
+            for(var i = 0; i < textareas.length; i++) {
+
+                textareas[i].addEventListener("keyup", function() {
+
+                    if (blankAuthBlock && this.value.length) {
+
+                        setTimeout(function () {
+
+                            blankAuthBlock.classList.remove('wobble');
+
+                        }, 450);
+
+                        this.value = '';
+
+                        blankAuthBlock.classList.add('wobble');
+                    } 
+                    
+                });
+            }
+        }
+}
+
+module.exports = join;
+
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
 scrollUp = {
 
     /**
@@ -394,7 +432,7 @@ scrollUp = {
 module.exports = scrollUp;
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(0);
@@ -438,10 +476,11 @@ codex.docReady = function (f) {
 
 
 codex.content = __webpack_require__(3);
-codex.scrollUp = __webpack_require__(4);
+codex.scrollUp = __webpack_require__(5);
 // codex.dragndrop = require('./modules/dragndrop');
 // codex.Polyfill = require('./modules/Polyfill');
 // codex.xhr = require('./modules/xhr');
+codex.join = __webpack_require__(4);
 codex.callbacks = __webpack_require__(2);
 // codex.load = require('./modules/load');
 // codex.helpers = require('./modules/helpers');

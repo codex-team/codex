@@ -43,6 +43,7 @@ codex.scrollUp = require('./modules/scrollUp');
 // codex.dragndrop = require('./modules/dragndrop');
 // codex.Polyfill = require('./modules/Polyfill');
 // codex.xhr = require('./modules/xhr');
+codex.join = require('./modules/join');
 codex.callbacks = require('./modules/callbacks');
 // codex.load = require('./modules/load');
 // codex.helpers = require('./modules/helpers');
