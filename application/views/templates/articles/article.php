@@ -114,5 +114,6 @@
 </div>
 
 <script>
-    codex.fixColumns.init(document.getElementsByName('js-course-navigation'));
+    // codex.fixColumns.init(document.getElementsByName('js-course-navigation'));
+    codex.simpleCode.init(".article__code");
 </script>
