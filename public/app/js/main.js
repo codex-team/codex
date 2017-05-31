@@ -53,11 +53,9 @@ codex.sharer = require('./modules/sharer');
 
 codex.core = require('./modules/core');
 codex.developer = require('./modules/bestDevelopers');
-// codex.ce = require('./modules/ce_interface');
 // codex.dragndrop = require('./modules/feedDragNDrop');
 codex.simpleCode = require('./modules/simpleCodeStyling');
 // codex.bot = require('./modules/bot');
-// codex.editor = require('./modules/editor');
 // codex.quiz = require('./modules/quiz');
 // codex.quizForm = require('./modules/quizForm');
 // codex.transport = require('./modules/transport');

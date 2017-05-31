@@ -796,11 +796,9 @@ codex.sharer = __webpack_require__(7);
 
 codex.core = __webpack_require__(4);
 codex.developer = __webpack_require__(1);
-// codex.ce = require('./modules/ce_interface');
 // codex.dragndrop = require('./modules/feedDragNDrop');
 codex.simpleCode = __webpack_require__(8);
 // codex.bot = require('./modules/bot');
-// codex.editor = require('./modules/editor');
 // codex.quiz = require('./modules/quiz');
 // codex.quizForm = require('./modules/quizForm');
 // codex.transport = require('./modules/transport');
