@@ -64,7 +64,7 @@ var codex =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -340,6 +340,70 @@ module.exports = content;
 /* 4 */
 /***/ (function(module, exports) {
 
+core = {
+
+    /**
+    * Native ajax method.
+    */
+    ajax : function (data) {
+
+        if (!data || !data.url) {
+
+            return;
+
+        }
+
+        var XMLHTTP          = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP'),
+            success_function = function () {};
+
+        data.async           = true;
+        data.type            = data.type || 'GET';
+        data.data            = data.data || '';
+        data['content-type'] = data['content-type'] || 'application/json; charset=utf-8';
+        success_function     = data.success || success_function ;
+
+        if (data.type == 'GET' && data.data) {
+
+            data.url = /\?/.test(data.url) ? data.url + '&' + data.data : data.url + '?' + data.data;
+
+        }
+
+        if (data.withCredentials) {
+
+            XMLHTTP.withCredentials = true;
+
+        }
+
+        if (data.beforeSend && typeof data.beforeSend == 'function') {
+
+            data.beforeSend.call();
+
+        }
+
+        XMLHTTP.open( data.type, data.url, data.async );
+        XMLHTTP.setRequestHeader('Content-type', data['content-type'] );
+        XMLHTTP.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        XMLHTTP.onreadystatechange = function () {
+
+            if (XMLHTTP.readyState == 4 && XMLHTTP.status == 200) {
+
+                success_function(XMLHTTP.responseText);
+
+            }
+
+        };
+
+        XMLHTTP.send(data.data);
+
+    }
+
+};
+module.exports = core;
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
 join = {
 
         init : function ( textarea ) {
@@ -375,7 +439,7 @@ module.exports = join;
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports) {
 
 scrollUp = {
@@ -432,204 +496,7 @@ scrollUp = {
 module.exports = scrollUp;
 
 /***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-/**
-* Minimal, lightview and universal code highilting
-* @author Savchenko Peter (vk.com/specc)
-*/
-var simpleCode = (function (simpleCode) {
-
-    simpleCode.rules = {
-
-        comments: function (str) {
-
-            return str.replace(/(\/\*([^*]|[\r\n]|(\*+([^*\/]|[\r\n])))*\*\/)/g, '<span class=sc_comment>$1</span>');
-
-        },
-        comments_inline: function (str) {
-
-            return str.replace(/[^\w:](\/\/[^\n]+)/g, '<span class=sc_comment>$1</span>');
-
-        },
-        tags : function (str) {
-
-            return str.replace( /(&lt;[\/a-z]+(&gt;)?)/gi, '<span class=sc_tag>$1</span>' );
-
-        },
-        attrs : function (str) {
-
-            return str.replace( /"([^"]+)"/gi, '"<span class=sc_attr>$1</span>"' );
-
-        },
-        strings : function (str) {
-
-            return str.replace( /'([^']+)'/gi, '\'<span class=sc_attr>$1</span>\'' );
-
-        },
-        keywords : function (str) {
-
-            return str.replace(/\b(var|const|function|typeof|return|endif|endforeach|foreach|if|for|in|while|break|continue|switch|case|int|void|python|from|import|install|def|virtualenv|source|sudo|git)([^a-z0-9\$_])/g, '<span class=sc_keyword>$1</span>$2');
-
-        },
-        digits : function (str) {
-
-            return str.replace(/\b(\d+)\b/g, '<span class=sc_digt>$1</span>');
-
-        },
-        vars : function (str) {
-
-            return str.replace(/(\$[^\s\[\]\{\}\'\"\(\)]+)\b/g, '<span class=sc_var>$1</span>');
-
-        },
-        colors : function (str) {
-
-            return str.replace(/(#[a-z0-9]{3,6})/ig, '<span class=sc_color style=border-bottom-color:$1>$1</span>');
-
-        }
-
-    };
-
-    simpleCode.process = function (el) {
-
-        var origin = el.innerHTML;
-
-        for (var rule in simpleCode.rules) {
-
-            origin = simpleCode.rules[rule](origin);
-
-        }
-
-        el.innerHTML = origin;
-
-    };
-
-    simpleCode.addStyles = function () {
-
-        var styleInstance = 'simpleCodeStylingCss',
-            style         = document.getElementById(styleInstance),
-            css =   '.sc_attr{color: #F57975;}' +
-                    '.sc_tag{color: #7DA3F4;}' +
-                    '.sc_keyword{color: #d87ccf;}' +
-                    '.sc_digt{color: #37D755;}'+
-                    '.sc_var{color: #8199C6;}' +
-                    '.sc_comment{color: #acb1bd;}' +
-                    '.sc_color{display: inline-block;line-height: 1em;border-bottom-width:2px;border-bottom-style:solid;}';
-
-        if (!style) {
-
-            style = document.createElement('style');
-            style.id = styleInstance;
-            style.innerHTML = css;
-
-            document.head.appendChild(style);
-
-        }
-
-    };
-
-    simpleCode.init = function (selector) {
-
-        simpleCode.addStyles();
-
-        var code_elements = document.querySelectorAll(selector);
-
-        for (var i = code_elements.length - 1; i >= 0; i--) {
-
-            simpleCode.process(code_elements[i]);
-
-        }
-
-    };
-
-    return simpleCode;
-
-})({});
-
-module.exports = simpleCode;
-
-
-/***/ }),
 /* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(0);
-
-var codex = (function (codex) {
-
-    codex.settings = {};
-
-    /**
-    * Preparation method
-    */
-    codex.init = function (settings) {
-
-        /** Save settings or use defaults */
-        for (var set in settings ) {
-
-            this.settings[set] = settings[set] || this.settings[set] || null;
-
-        }
-
-        codex.scrollUp.init();
-
-    };
-
-
-
-    return codex;
-
-
-})({});
-
-/**
-* Document ready event listener
-* @usage codex.docReady(function(){ # code ... } );
-*/
-codex.docReady = function (f) {
-
-    return /in/.test(document.readyState) ? setTimeout(codex.docReady, 9, f) : f();
-
-};
-
-
-codex.content = __webpack_require__(3);
-codex.scrollUp = __webpack_require__(5);
-// codex.dragndrop = require('./modules/dragndrop');
-// codex.Polyfill = require('./modules/Polyfill');
-// codex.xhr = require('./modules/xhr');
-codex.join = __webpack_require__(4);
-codex.callbacks = __webpack_require__(2);
-// codex.load = require('./modules/load');
-// codex.helpers = require('./modules/helpers');
-codex.sharer = __webpack_require__(14);
-// codex.fixColumns = require('./modules/fixColumns');
-
-
-// codex.core = require('./modules/core');
-codex.developer = __webpack_require__(1);
-// codex.ce = require('./modules/ce_interface');
-// codex.dragndrop = require('./modules/feedDragNDrop');
-codex.simpleCode = __webpack_require__(6);
-// codex.bot = require('./modules/bot');
-// codex.editor = require('./modules/editor');
-// codex.quiz = require('./modules/quiz');
-// codex.quizForm = require('./modules/quizForm');
-// codex.transport = require('./modules/transport');
-
-module.exports = codex;
-
-
-
-/***/ }),
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */,
-/* 12 */,
-/* 13 */,
-/* 14 */
 /***/ (function(module, exports) {
 
 module.exports = (function ( sharer ) {
@@ -750,6 +617,197 @@ module.exports = (function ( sharer ) {
     return sharer;
 
 })({});
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports) {
+
+/**
+* Minimal, lightview and universal code highilting
+* @author Savchenko Peter (vk.com/specc)
+*/
+var simpleCode = (function (simpleCode) {
+
+    simpleCode.rules = {
+
+        comments: function (str) {
+
+            return str.replace(/(\/\*([^*]|[\r\n]|(\*+([^*\/]|[\r\n])))*\*\/)/g, '<span class=sc_comment>$1</span>');
+
+        },
+        comments_inline: function (str) {
+
+            return str.replace(/[^\w:](\/\/[^\n]+)/g, '<span class=sc_comment>$1</span>');
+
+        },
+        tags : function (str) {
+
+            return str.replace( /(&lt;[\/a-z]+(&gt;)?)/gi, '<span class=sc_tag>$1</span>' );
+
+        },
+        attrs : function (str) {
+
+            return str.replace( /"([^"]+)"/gi, '"<span class=sc_attr>$1</span>"' );
+
+        },
+        strings : function (str) {
+
+            return str.replace( /'([^']+)'/gi, '\'<span class=sc_attr>$1</span>\'' );
+
+        },
+        keywords : function (str) {
+
+            return str.replace(/\b(var|const|function|typeof|return|endif|endforeach|foreach|if|for|in|while|break|continue|switch|case|int|void|python|from|import|install|def|virtualenv|source|sudo|git)([^a-z0-9\$_])/g, '<span class=sc_keyword>$1</span>$2');
+
+        },
+        digits : function (str) {
+
+            return str.replace(/\b(\d+)\b/g, '<span class=sc_digt>$1</span>');
+
+        },
+        vars : function (str) {
+
+            return str.replace(/(\$[^\s\[\]\{\}\'\"\(\)]+)\b/g, '<span class=sc_var>$1</span>');
+
+        },
+        colors : function (str) {
+
+            return str.replace(/(#[a-z0-9]{3,6})/ig, '<span class=sc_color style=border-bottom-color:$1>$1</span>');
+
+        }
+
+    };
+
+    simpleCode.process = function (el) {
+
+        var origin = el.innerHTML;
+
+        for (var rule in simpleCode.rules) {
+
+            origin = simpleCode.rules[rule](origin);
+
+        }
+
+        el.innerHTML = origin;
+
+    };
+
+    simpleCode.addStyles = function () {
+
+        var styleInstance = 'simpleCodeStylingCss',
+            style         = document.getElementById(styleInstance),
+            css =   '.sc_attr{color: #F57975;}' +
+                    '.sc_tag{color: #7DA3F4;}' +
+                    '.sc_keyword{color: #d87ccf;}' +
+                    '.sc_digt{color: #37D755;}'+
+                    '.sc_var{color: #8199C6;}' +
+                    '.sc_comment{color: #acb1bd;}' +
+                    '.sc_color{display: inline-block;line-height: 1em;border-bottom-width:2px;border-bottom-style:solid;}';
+
+        if (!style) {
+
+            style = document.createElement('style');
+            style.id = styleInstance;
+            style.innerHTML = css;
+
+            document.head.appendChild(style);
+
+        }
+
+    };
+
+    simpleCode.init = function (selector) {
+
+        simpleCode.addStyles();
+
+        var code_elements = document.querySelectorAll(selector);
+
+        for (var i = code_elements.length - 1; i >= 0; i--) {
+
+            simpleCode.process(code_elements[i]);
+
+        }
+
+    };
+
+    return simpleCode;
+
+})({});
+
+module.exports = simpleCode;
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(0);
+
+var codex = (function (codex) {
+
+    codex.settings = {};
+
+    /**
+    * Preparation method
+    */
+    codex.init = function (settings) {
+
+        /** Save settings or use defaults */
+        for (var set in settings ) {
+
+            this.settings[set] = settings[set] || this.settings[set] || null;
+
+        }
+
+        codex.scrollUp.init();
+
+    };
+
+
+
+    return codex;
+
+
+})({});
+
+/**
+* Document ready event listener
+* @usage codex.docReady(function(){ # code ... } );
+*/
+codex.docReady = function (f) {
+
+    return /in/.test(document.readyState) ? setTimeout(codex.docReady, 9, f) : f();
+
+};
+
+
+codex.content = __webpack_require__(3);
+codex.scrollUp = __webpack_require__(6);
+// codex.dragndrop = require('./modules/dragndrop');
+// codex.Polyfill = require('./modules/Polyfill');
+// codex.xhr = require('./modules/xhr');
+codex.join = __webpack_require__(5);
+codex.callbacks = __webpack_require__(2);
+// codex.load = require('./modules/load');
+// codex.helpers = require('./modules/helpers');
+codex.sharer = __webpack_require__(7);
+// codex.fixColumns = require('./modules/fixColumns');
+
+
+codex.core = __webpack_require__(4);
+codex.developer = __webpack_require__(1);
+// codex.ce = require('./modules/ce_interface');
+// codex.dragndrop = require('./modules/feedDragNDrop');
+codex.simpleCode = __webpack_require__(8);
+// codex.bot = require('./modules/bot');
+// codex.editor = require('./modules/editor');
+// codex.quiz = require('./modules/quiz');
+// codex.quizForm = require('./modules/quizForm');
+// codex.transport = require('./modules/transport');
+
+module.exports = codex;
+
+
 
 /***/ })
 /******/ ]);

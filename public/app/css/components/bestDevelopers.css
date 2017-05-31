@@ -1,0 +1,39 @@
+/**
+* Best developers block
+*/
+.best-developers{
+    position: absolute;
+    right: 30px;
+    top: 90px;
+    width: 150px;
+    text-align: left;
+    font-size: 13px;
+}
+.best-developers__heading{
+    max-width: 120px;
+    border-bottom: 1px solid #E8E6E3;
+    padding-bottom: .5em;
+    font-weight: normal;
+    line-height: 1.2em;
+    font-size: 1em;
+    color: #AC7C0D;
+}
+.best-developers__item{
+    position: relative;
+    display: block;
+    padding-left: 50px;
+    margin-bottom: 10px;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    line-height: 1.4em;
+}
+.best-developers__photo{
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin-top: -17px;
+    width: 34px;
+    height: 34px;
+    border-radius: 18px;
+}

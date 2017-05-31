@@ -51,8 +51,8 @@ codex.sharer = require('./modules/sharer');
 // codex.fixColumns = require('./modules/fixColumns');
 
 
-// codex.core = require('./modules/core');
-codex.developer = require('./modules/addDeveloper');
+codex.core = require('./modules/core');
+codex.developer = require('./modules/bestDevelopers');
 // codex.ce = require('./modules/ce_interface');
 // codex.dragndrop = require('./modules/feedDragNDrop');
 codex.simpleCode = require('./modules/simpleCodeStyling');
