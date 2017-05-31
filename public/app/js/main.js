@@ -47,7 +47,7 @@ codex.join = require('./modules/join');
 codex.callbacks = require('./modules/callbacks');
 // codex.load = require('./modules/load');
 // codex.helpers = require('./modules/helpers');
-// codex.sharer = require('./modules/sharer');
+codex.sharer = require('./modules/sharer');
 // codex.fixColumns = require('./modules/fixColumns');
 
 
