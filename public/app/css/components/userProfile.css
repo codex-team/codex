@@ -114,6 +114,12 @@
 .profile-settings__ava{
     margin-bottom: 20px;
 }
+
+.profile_join_requests{
+    color: #9A9A9A;
+    font-style: italic;
+}
+
 @media all and (max-width: 800px){
     /**
     * Users profiles
