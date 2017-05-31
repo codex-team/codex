@@ -37,3 +37,29 @@
     height: 34px;
     border-radius: 18px;
 }
+
+@media all and (max-width: 800px) {
+    /**
+    * Best developers on index-page mobile viewport
+    */
+    .best-developers{
+        position: static;
+        width: auto;
+        max-width: 300px;
+        margin: 50px auto 0;
+        text-align: center;
+    }
+    .best-developers__heading{
+        max-width: none;
+    }
+    .best-developers__item{
+        line-height: 1.8em;
+        padding-left: 0;
+    }
+    .best-developers__photo{
+        position: static;
+        vertical-align: text-bottom;
+        width: 24px;
+        height: 24px;
+    }
+}
