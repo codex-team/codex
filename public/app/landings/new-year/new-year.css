@@ -5,7 +5,7 @@
 */
 .ny_land{
     padding: 40px;
-    background: #b00303 url('/public/img/new_year_pattern.png');
+    background: #b00303 url('/public/app/img/new_year_pattern.png');
     color: #fff;
     text-align: center;
 }

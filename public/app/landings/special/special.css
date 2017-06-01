@@ -36,7 +36,7 @@
 }
 .landing__tryout{
     display: inline-block;
-    background: url('/public/img/landings/special/try-out.svg') no-repeat;
+    background: url('./img/try-out.svg') no-repeat;
     width: 64px;
     height: 47px;
     margin: 30px 0 17px;

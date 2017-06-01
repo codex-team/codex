@@ -1,20 +1,4 @@
 /**
-* Page header block
-* with description and follow-us block
-*/
-.page-header{
-    padding: 60px 0;
-}
-.page-header__title{
-    font-size: 1.68em;
-    line-height: 1.2em;
-    letter-spacing: .2px;
-}
-.page-header__description{
-    max-width: 500px;
-}
-.hide {display: none !important}
-/**
 * Blogs feed
 */
 .feed{
@@ -109,6 +93,12 @@
     }
     .feed-item_big .feed-item__title{
         font-size: 2em;
+    }
+    /**
+    * Contest promo link on index page
+    */
+    .contest_alert a{
+        margin: 20px 0;
     }
 
 }

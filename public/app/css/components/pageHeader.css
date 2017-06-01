@@ -1,4 +1,19 @@
 /**
+* Page header block
+* with description and follow-us block
+*/
+.page-header{
+    padding: 60px 0;
+}
+.page-header__title{
+    font-size: 1.68em;
+    line-height: 1.2em;
+    letter-spacing: .2px;
+}
+.page-header__description{
+    max-width: 500px;
+}
+/**
 * Follow-us block
 * uses on articles and contests lists
 */

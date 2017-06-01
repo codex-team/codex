@@ -2,14 +2,15 @@
 @import url('normalize.css');
 @import url('base.css');
 
-@import url('components/header.css');
+@import url('components/siteHeader.css');
 @import url('components/bestDevelopers.css');
 @import url('components/breadcrumbs.css');
 @import url('components/footer.css');
 @import url('components/article.css');
 @import url('components/recommendedArticles.css');
 @import url('components/articlesFeed.css');
-@import url('components/followUs.css');
+@import url('components/pageHeader.css');
+@import url('components/news.css');
 @import url('components/indexPage.css');
 @import url('components/scrollUp.css');
 @import url('components/sharing.css');

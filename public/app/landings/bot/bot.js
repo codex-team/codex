@@ -204,7 +204,7 @@ var bot = (function (bot) {
 
         }
         messageText.classList.add('chat__message_text');
-        messageImage.setAttribute('src', '/public/img/logo160.png');
+        messageImage.setAttribute('src', '/public/app/img/logo160.png');
 
         messageText.appendChild(message);
 
@@ -478,5 +478,3 @@ var bot = (function (bot) {
     return bot;
 
 })({});
-
-module.exports = bot;
