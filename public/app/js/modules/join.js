@@ -1,37 +1,32 @@
-    join.checkUserCanEdit = function (event) {
-        console.log(123);
-        var textarea       = event.target,
-            blankAuthBlock = document.getElementById('blankAuthBlock'),
-            emailInput     = document.getElementById('blankEmailInput');
+join = {
 
-        // var blankSkillsTextarea = document.getElementById('blankSkillsTextarea'),
-        //     blankWishesTextarea = document.getElementById('blankWishesTextarea'),
-        //     blankSendButton     = document.getElementById('blankSendButton');
+        init : function ( textarea ) {
+            textareas = document.getElementsByClassName("js-join-input");
+            blankAuthBlock = document.getElementById("blankAuthBlock");
 
-        textareas = document.getElementsByClassName("js-join-input");
-        if (textareas.length > 0) {console.log("It works!");}
+            console.log(blankAuthBlock);
 
-        if (blankAuthBlock && !emailInput.value.length ) {
+            for(var i = 0; i < textareas.length; i++) {
 
-            if (!blankAuthBlock.className.includes('wobble')) {
+                textareas[i].addEventListener("keyup", function() {
 
-                blankAuthBlock.className += ' wobble';
-                setTimeout(function () {
+                    if (blankAuthBlock && this.value.length) {
 
-                    blankAuthBlock.className = blankAuthBlock.className.replace('wobble', '');
+                        setTimeout(function () {
 
-                }, 450);
+                            blankAuthBlock.classList.remove('wobble');
 
-                textarea.value = '';
+                        }, 450);
 
+                        this.value = '';
+
+                        blankAuthBlock.classList.add('wobble');
+                    } 
+                    
+                });
             }
-
         }
+}
 
-        // if (blankSkillsTextarea.value.length && blankWishesTextarea.value.length) {
-        //     console.log(blankSendButton);
-        //     blankSendButton.removeAttribute('disabled');
-        // };
+module.exports = join;
 
-
-    };

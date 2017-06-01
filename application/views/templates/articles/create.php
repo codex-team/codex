@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="/public/build/bundle.css?v=<?= filemtime("public/build/bundle.css") ?>">
 <style type="text/css">
     body {
         background: #f0f3f9;

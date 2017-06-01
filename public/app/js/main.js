@@ -43,10 +43,11 @@ codex.scrollUp = require('./modules/scrollUp');
 // codex.dragndrop = require('./modules/dragndrop');
 // codex.Polyfill = require('./modules/Polyfill');
 // codex.xhr = require('./modules/xhr');
+codex.join = require('./modules/join');
 codex.callbacks = require('./modules/callbacks');
 // codex.load = require('./modules/load');
 // codex.helpers = require('./modules/helpers');
-// codex.sharer = require('./modules/sharer');
+codex.sharer = require('./modules/sharer');
 // codex.fixColumns = require('./modules/fixColumns');
 
 
@@ -54,7 +55,7 @@ codex.callbacks = require('./modules/callbacks');
 codex.developer = require('./modules/addDeveloper');
 // codex.ce = require('./modules/ce_interface');
 // codex.dragndrop = require('./modules/feedDragNDrop');
-// codex.simpleCode = require('./modules/simpleCodeStyling');
+codex.simpleCode = require('./modules/simpleCodeStyling');
 // codex.bot = require('./modules/bot');
 // codex.editor = require('./modules/editor');
 // codex.quiz = require('./modules/quiz');

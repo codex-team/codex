@@ -64,7 +64,7 @@ var codex =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -340,6 +340,44 @@ module.exports = content;
 /* 4 */
 /***/ (function(module, exports) {
 
+join = {
+
+        init : function ( textarea ) {
+            textareas = document.getElementsByClassName("js-join-input");
+            blankAuthBlock = document.getElementById("blankAuthBlock");
+
+            console.log(blankAuthBlock);
+
+            for(var i = 0; i < textareas.length; i++) {
+
+                textareas[i].addEventListener("keyup", function() {
+
+                    if (blankAuthBlock && this.value.length) {
+
+                        setTimeout(function () {
+
+                            blankAuthBlock.classList.remove('wobble');
+
+                        }, 450);
+
+                        this.value = '';
+
+                        blankAuthBlock.classList.add('wobble');
+                    } 
+                    
+                });
+            }
+        }
+}
+
+module.exports = join;
+
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
 scrollUp = {
 
     /**
@@ -394,7 +432,126 @@ scrollUp = {
 module.exports = scrollUp;
 
 /***/ }),
-/* 5 */
+/* 6 */
+/***/ (function(module, exports) {
+
+/**
+* Minimal, lightview and universal code highilting
+* @author Savchenko Peter (vk.com/specc)
+*/
+var simpleCode = (function (simpleCode) {
+
+    simpleCode.rules = {
+
+        comments: function (str) {
+
+            return str.replace(/(\/\*([^*]|[\r\n]|(\*+([^*\/]|[\r\n])))*\*\/)/g, '<span class=sc_comment>$1</span>');
+
+        },
+        comments_inline: function (str) {
+
+            return str.replace(/[^\w:](\/\/[^\n]+)/g, '<span class=sc_comment>$1</span>');
+
+        },
+        tags : function (str) {
+
+            return str.replace( /(&lt;[\/a-z]+(&gt;)?)/gi, '<span class=sc_tag>$1</span>' );
+
+        },
+        attrs : function (str) {
+
+            return str.replace( /"([^"]+)"/gi, '"<span class=sc_attr>$1</span>"' );
+
+        },
+        strings : function (str) {
+
+            return str.replace( /'([^']+)'/gi, '\'<span class=sc_attr>$1</span>\'' );
+
+        },
+        keywords : function (str) {
+
+            return str.replace(/\b(var|const|function|typeof|return|endif|endforeach|foreach|if|for|in|while|break|continue|switch|case|int|void|python|from|import|install|def|virtualenv|source|sudo|git)([^a-z0-9\$_])/g, '<span class=sc_keyword>$1</span>$2');
+
+        },
+        digits : function (str) {
+
+            return str.replace(/\b(\d+)\b/g, '<span class=sc_digt>$1</span>');
+
+        },
+        vars : function (str) {
+
+            return str.replace(/(\$[^\s\[\]\{\}\'\"\(\)]+)\b/g, '<span class=sc_var>$1</span>');
+
+        },
+        colors : function (str) {
+
+            return str.replace(/(#[a-z0-9]{3,6})/ig, '<span class=sc_color style=border-bottom-color:$1>$1</span>');
+
+        }
+
+    };
+
+    simpleCode.process = function (el) {
+
+        var origin = el.innerHTML;
+
+        for (var rule in simpleCode.rules) {
+
+            origin = simpleCode.rules[rule](origin);
+
+        }
+
+        el.innerHTML = origin;
+
+    };
+
+    simpleCode.addStyles = function () {
+
+        var styleInstance = 'simpleCodeStylingCss',
+            style         = document.getElementById(styleInstance),
+            css =   '.sc_attr{color: #F57975;}' +
+                    '.sc_tag{color: #7DA3F4;}' +
+                    '.sc_keyword{color: #d87ccf;}' +
+                    '.sc_digt{color: #37D755;}'+
+                    '.sc_var{color: #8199C6;}' +
+                    '.sc_comment{color: #acb1bd;}' +
+                    '.sc_color{display: inline-block;line-height: 1em;border-bottom-width:2px;border-bottom-style:solid;}';
+
+        if (!style) {
+
+            style = document.createElement('style');
+            style.id = styleInstance;
+            style.innerHTML = css;
+
+            document.head.appendChild(style);
+
+        }
+
+    };
+
+    simpleCode.init = function (selector) {
+
+        simpleCode.addStyles();
+
+        var code_elements = document.querySelectorAll(selector);
+
+        for (var i = code_elements.length - 1; i >= 0; i--) {
+
+            simpleCode.process(code_elements[i]);
+
+        }
+
+    };
+
+    return simpleCode;
+
+})({});
+
+module.exports = simpleCode;
+
+
+/***/ }),
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(0);
@@ -438,14 +595,15 @@ codex.docReady = function (f) {
 
 
 codex.content = __webpack_require__(3);
-codex.scrollUp = __webpack_require__(4);
+codex.scrollUp = __webpack_require__(5);
 // codex.dragndrop = require('./modules/dragndrop');
 // codex.Polyfill = require('./modules/Polyfill');
 // codex.xhr = require('./modules/xhr');
+codex.join = __webpack_require__(4);
 codex.callbacks = __webpack_require__(2);
 // codex.load = require('./modules/load');
 // codex.helpers = require('./modules/helpers');
-// codex.sharer = require('./modules/sharer');
+codex.sharer = __webpack_require__(14);
 // codex.fixColumns = require('./modules/fixColumns');
 
 
@@ -453,7 +611,7 @@ codex.callbacks = __webpack_require__(2);
 codex.developer = __webpack_require__(1);
 // codex.ce = require('./modules/ce_interface');
 // codex.dragndrop = require('./modules/feedDragNDrop');
-// codex.simpleCode = require('./modules/simpleCodeStyling');
+codex.simpleCode = __webpack_require__(6);
 // codex.bot = require('./modules/bot');
 // codex.editor = require('./modules/editor');
 // codex.quiz = require('./modules/quiz');
@@ -463,6 +621,135 @@ codex.developer = __webpack_require__(1);
 module.exports = codex;
 
 
+
+/***/ }),
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */,
+/* 12 */,
+/* 13 */,
+/* 14 */
+/***/ (function(module, exports) {
+
+module.exports = (function ( sharer ) {
+
+    sharer.vkontakte = function (data) {
+
+        var link  = 'https://vk.com/share.php?';
+
+        link += 'url='          + data.url;
+        link += '&title='       + data.title;
+        link += '&description=' + data.desc;
+        link += '&image='       + data.img;
+        link += '&noparse=true';
+
+        sharer.popup( link, 'vkontakte'  );
+
+    };
+
+    sharer.facebook = function (data) {
+
+        var FB_APP_ID = 1740455756240878,
+            link      = 'https://www.facebook.com/dialog/share?display=popup';
+
+        link += '&app_id='       + FB_APP_ID;
+        link += '&href='         + data.url;
+        link += '&redirect_uri=' + document.location.href;
+
+        sharer.popup( link, 'facebook' );
+
+    };
+    sharer.twitter = function (data) {
+
+        var link = 'https://twitter.com/share?';
+
+        link += 'text='      + data.title;
+        link += '&url='      + data.url;
+        link += '&counturl=' + data.url;
+
+        sharer.popup( link, 'twitter' );
+
+    };
+
+    sharer.telegram = function (data) {
+
+        var link  = 'https://telegram.me/share/url';
+
+        link += '?text=' + data.title;
+        link += '&url='  + data.url;
+
+        sharer.popup( link, 'telegram' );
+
+    };
+
+    sharer.popup = function ( url, social_type ) {
+
+        window.open( url, '', 'toolbar=0,status=0,width=626,height=436' );
+
+        /**
+        * Write analytics goal
+        */
+        if ( window.yaCounter32652805 ) {
+
+            window.yaCounter32652805.reachGoal('article-share', function () {}, this, {type: social_type, url: url});
+
+        }
+
+    };
+
+    sharer.init = function () {
+
+        var shareButtons = document.querySelectorAll('.sharing .but, .sharing .main_but, .quiz__sharing .but');
+
+        for (var i = shareButtons.length - 1; i >= 0; i--) {
+
+            shareButtons[i].addEventListener('click', sharer.click, true);
+
+        }
+
+    };
+
+    sharer.click = function (event) {
+
+        var target = event.target;
+
+        /**
+        * Social provider stores in data 'shareType' attribute on share-button
+        * But click may be fired on child-element in button, so we need to handle it.
+        */
+        var type = target.dataset.shareType || target.parentNode.dataset.shareType;
+
+        if (!sharer[type]) return;
+
+        /**
+        * Sanitize share params
+        * @todo test for taint strings
+        */
+        // for (key in window.shareData){
+        //      window.shareData[key] = encodeURIComponent(window.shareData[key]);
+        // }
+
+        var shareData = {
+            url:    target.dataset.url || target.parentNode.dataset.url,
+            title:  target.dataset.title || target.parentNode.dataset.title,
+            desc:   target.dataset.desc || target.parentNode.dataset.desc,
+            img:    target.dataset.img || target.parentNode.dataset.title
+        };
+
+        /**
+        * Fire click handler
+        */
+
+        sharer[type](shareData);
+
+    };
+
+
+
+    return sharer;
+
+})({});
 
 /***/ })
 /******/ ]);
