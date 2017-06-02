@@ -1,5 +1,41 @@
 core = {
 
+      /** Logging method */
+    log : function (str, prefix, type, arg) {
+
+        var staticLength = 32;
+
+        if (prefix) {
+
+            prefix = prefix.length < staticLength ? prefix : prefix.substr( 0, staticLength - 2 );
+
+            while (prefix.length < staticLength - 1) {
+
+                prefix += ' ';
+
+            }
+
+            prefix += ':';
+            str = prefix + str;
+
+        }
+
+        type = type || 'log';
+
+        try {
+
+            if ('console' in window && window.console[ type ]) {
+
+                if (arg) console[type](str, arg);
+                else console[type](str);
+
+            }
+
+        } catch(e) {}
+
+    },
+
+
     /**
     * Native ajax method.
     */

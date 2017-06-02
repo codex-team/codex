@@ -64,7 +64,7 @@ var codex =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 10);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -75,6 +75,146 @@ var codex =
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports) {
+
+/**
+ * Admin page methods
+ */
+module.exports = function (admin) {
+
+	/**
+	 * Initializes dragndrop module
+	 * @uses  codex.dragndrop
+	 */
+	function initDragNDrop() {
+
+		codex.dragndrop({
+		    droppableClass: 'list-item',
+
+		    findDraggable: function (e) {
+
+		        var target = e.target.closest('.draggable');
+
+		        if (target) return target.closest('.list-item');
+
+		        return null;
+
+		    },
+
+		    makeAvatar: function (elem) {
+
+		        var avatar = {};
+
+		        avatar.elem = elem.cloneNode(true);
+		        avatar.elem.classList.add('dnd-avatar');
+
+		        elem.parentNode.insertBefore(avatar.elem, elem.nextSibling);
+		        elem.classList.add('no-display');
+
+		        avatar.rollback = function () {
+
+		            avatar.elem.parentNode.removeChild(avatar.elem);
+		            elem.classList.remove('no-display');
+
+		        };
+
+		        return avatar;
+
+		    },
+
+		    targetChanged: function (target, newTarget, avatar) {
+
+		        if (!newTarget) return;
+
+		        var targetPosition = newTarget.compareDocumentPosition(avatar.elem);
+
+		        if (targetPosition&4) {
+
+		            newTarget.parentNode.insertBefore(avatar.elem, newTarget);
+
+		        } else if (targetPosition&2) {
+
+		            newTarget.parentNode.insertBefore(avatar.elem, newTarget.nextSibling);
+
+		        }
+
+		    },
+
+		    move: function () {},
+
+		    targetReached: function (target, avatar, elem) {
+
+		        target.parentNode.insertBefore(elem, target.nextSibling);
+
+		        avatar.elem.parentNode.removeChild(avatar.elem);
+		        elem.classList.remove('no-display');
+
+		        var item_id = elem.dataset.id,
+		            item_type = elem.dataset.type,
+		            item_below_value = null,
+		            nextSibling;
+
+		        if (nextSibling = elem.nextElementSibling)
+		            item_below_value = nextSibling.dataset.type+':'+nextSibling.dataset.id;
+
+		        var ajaxData = {
+		            success: function () {
+
+		                document.getElementById('saved').classList.remove('top-menu__saved_hidden');
+		                setTimeout(function () {
+
+		                    document.getElementById('saved').classList.add('top-menu__saved_hidden');
+
+		                }, 1000);
+
+		            },
+		            type: 'POST',
+		            url: '/admin/feed',
+		            data: JSON.stringify({
+		                item_id: item_id,
+		                item_type: item_type,
+		                item_below_value: item_below_value
+		            })
+		        };
+
+
+		        codex.core.ajax(ajaxData);
+
+		    }
+		});
+		// body...
+	}
+
+	/**
+	 * Module initialization
+	 * @param  {Object} 	 params 			- init params
+	 * @param  {String|null} params.listType 	- feed list type ("cars"|"list")
+	 */
+	admin.init = function( params ){
+
+		codex.core.log('Initialized.', 'Module admin');
+
+		if ( params.listType == 'cards' ){
+
+			 var items = document.querySelectorAll('.feed-item');
+
+	        for (var i = items.length-1; i > -1; i--) {
+	            items[i].classList.add('draggable');
+	            items[i].classList.add('list-item');
+	        }
+
+		}
+
+		initDragNDrop();
+
+	}
+
+	return admin;
+
+}({})
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports) {
 
 var developer = function () {
@@ -112,235 +252,46 @@ module.exports = developer;
 
 
 /***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-module.exports = (function (callbacks) {
-
-    callbacks.checkUserCanEdit = function (event) {
-        console.log(123);
-        var textarea       = event.target,
-            blankAuthBlock = document.getElementById('blankAuthBlock'),
-            emailInput     = document.getElementById('blankEmailInput');
-
-        // var blankSkillsTextarea = document.getElementById('blankSkillsTextarea'),
-        //     blankWishesTextarea = document.getElementById('blankWishesTextarea'),
-        //     blankSendButton     = document.getElementById('blankSendButton');
-
-        if (blankAuthBlock && !emailInput.value.length ) {
-
-            if (!blankAuthBlock.className.includes('wobble')) {
-
-                blankAuthBlock.className += ' wobble';
-                setTimeout(function () {
-
-                    blankAuthBlock.className = blankAuthBlock.className.replace('wobble', '');
-
-                }, 450);
-
-                textarea.value = '';
-
-            }
-
-        }
-
-        // if (blankSkillsTextarea.value.length && blankWishesTextarea.value.length) {
-        //     console.log(blankSendButton);
-        //     blankSendButton.removeAttribute('disabled');
-        // };
-
-
-    };
-
-    callbacks.showAdditionalFields = function (event) {
-
-        var blankAdditionalFields = document.getElementById('blankAdditionalFields');
-
-        if (blankAdditionalFields.className.includes('hide')) {
-
-            blankAdditionalFields.className = blankAdditionalFields.className.replace('hide', '');
-
-        } else {
-
-            blankAdditionalFields.className += ' hide';
-
-        }
-
-
-    };
-
-    callbacks.checkUser = function (event, uid) {
-
-        var checker = document.getElementById('u' + uid);
-
-        uid = parseInt(uid, 10);
-
-        xhr.call({
-            url : '/admin/checkUser.php?uid=' + uid,
-            success : function (response) {
-
-                response = JSON.parse(response);
-
-                if (response.result == 'success') {
-
-                    if (response.new == 1) {
-
-                        checker.className += ' checked bounceIn';
-
-                    } else {
-
-                        checker.className = checker.className.replace('checked', '');
-                        checker.className = checker.className.replace('bounceIn', '');
-
-                    }
-
-                }
-
-            }
-        });
-
-    };
-
-    callbacks.saveProfilePhoto = {
-
-        success: function (new_photo_name) {
-
-            var settings_avatar = document.getElementById('profile-photo-updatable'),
-                header_avatar   = document.getElementById('header-avatar-updatable');
-
-            settings_avatar.src = new_photo_name;
-            header_avatar.src   = new_photo_name;
-
-        }
-
-    };
-
-    return callbacks;
-
-})({});
-
-/***/ }),
 /* 3 */
 /***/ (function(module, exports) {
 
-content = {
-
-    /**
-    * Module uses for toggle custom checkboxes
-    * that has 'js-custom-checkbox' class and input[type="checkbox"] included
-    * Example:
-    * <span class="js-custom-checkbox">
-    *    <input type="checkbox" name="" value="1"/>
-    * </span>
-    */
-    customCheckboxes : {
-
-        /**
-        * This class specifies checked custom-checkbox
-        * You may set it on serverisde
-        */
-        CHECKED_CLASS : 'checked',
-
-        init : function () {
-
-            var checkboxes = document.getElementsByClassName('js-custom-checkbox');
-
-            if (checkboxes.length) for (var i = checkboxes.length - 1; i >= 0; i--) {
-
-                checkboxes[i].addEventListener('click', codex.content.customCheckboxes.clicked, false);
-
-            }
-
-        },
-
-        clicked : function () {
-
-            var checkbox  = this,
-                input     = this.querySelector('input'),
-                isChecked = this.classList.contains(codex.content.customCheckboxes.CHECKED_CLASS);
-
-            checkbox.classList.toggle(codex.content.customCheckboxes.CHECKED_CLASS);
-
-            if (isChecked) {
-
-                input.removeAttribute('checked');
-
-            } else {
-
-                input.setAttribute('checked', 'checked');
-
-            }
-
-        }
-
-    },
-
-    /**
-    * Helper for 'show more news' button
-    * @param {Element} button   - appender button
-    */
-    showMoreNews : function ( button ) {
-
-        var PORTION = 5;
-
-        var news = document.querySelectorAll('.news__list_item'),
-            hided = [];
-
-        for (var i = 0, newsItem; !!(newsItem = news[i]); i++) {
-
-            if ( newsItem.classList.contains('hide') ) {
-
-                hided.push(newsItem);
-
-            }
-
-        }
-
-        hided.splice(0, PORTION).map(function (item) {
-
-            item.classList.remove('hide');
-
-        });
-
-        if (!hided.length) {
-
-            button.classList.add('hide');
-
-        }
-
-    },
-
-    /**
-     * Calculates offset of DOM element
-     *
-     * @param el
-     * @returns {{top: number, left: number}}
-     */
-    getOffset : function ( el ) {
-
-        var _x = 0;
-        var _y = 0;
-
-        while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
-
-            _x += (el.offsetLeft + el.clientLeft);
-            _y += (el.offsetTop + el.clientTop);
-            el = el.offsetParent;
-
-        }
-        return { top: _y, left: _x };
-
-    }
-};
-
-module.exports = content;
-
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports) {
-
 core = {
+
+      /** Logging method */
+    log : function (str, prefix, type, arg) {
+
+        var staticLength = 32;
+
+        if (prefix) {
+
+            prefix = prefix.length < staticLength ? prefix : prefix.substr( 0, staticLength - 2 );
+
+            while (prefix.length < staticLength - 1) {
+
+                prefix += ' ';
+
+            }
+
+            prefix += ':';
+            str = prefix + str;
+
+        }
+
+        type = type || 'log';
+
+        try {
+
+            if ('console' in window && window.console[ type ]) {
+
+                if (arg) console[type](str, arg);
+                else console[type](str);
+
+            }
+
+        } catch(e) {}
+
+    },
+
 
     /**
     * Native ajax method.
@@ -401,7 +352,252 @@ core = {
 module.exports = core;
 
 /***/ }),
-/* 5 */
+/* 4 */
+/***/ (function(module, exports) {
+
+module.exports = function (settings) {
+
+    var defaultHandlers = {
+        findDraggable: function (e) {
+
+            return e.target.closest('.'+draggableClass);
+
+        },
+
+        findDroppable: function (e) {
+
+            return document.elementFromPoint(e.clientX, e.clientY).closest('.'+droppableClass);
+
+        },
+
+        /**
+         * The simplest makeAvatar method.
+         *
+         * Just set elem to avatar.elem. And remembers element position in document.
+         * If drop isn`t success, returns elem to start position.
+         */
+        makeAvatar: function (elem) {
+
+            var avatar = {};
+
+            var avatarRollback = function () {
+
+                avatar.elem.classList.remove('dnd-default-avatar');
+
+                if (avatar.nextSibling)
+                    avatar.parentNode.insertBefore(avatar.elem, avatar.nextSibling);
+                else
+                    avatar.parentNode.appendChild(avatar.elem);
+
+                delete(dragObj.avatar);
+
+            };
+
+            avatar = {
+                elem: elem,
+                parentNode: elem.parentNode,
+                nextSibling: elem.nextElementSibling,
+                rollback: avatarRollback
+            };
+
+            // Set avatar position: absolute; for drag'n'drop
+            avatar.elem.classList.add('dnd-default-avatar');
+
+            return avatar;
+
+        },
+
+        /**
+         * Highlights droppable elements under cursor with border
+         */
+        targetChanged: function (target, newTarget) {
+
+            if (target) target.classList('dnd-default-target-highlight');
+
+            if (newTarget) newTarget.classList.add('dnd-default-target-highlight');
+
+        },
+
+        move: function (e, avatar, shift) {
+
+            avatar.elem.style.left = e.pageX - shift.x + 'px';
+            avatar.elem.style.top = e.pageY - shift.y + 'px';
+
+        },
+
+        /**
+         * Inserts elem into document if drop is success
+         */
+        targetReached: function (target, avatar, elem) {
+
+            target.classList.remove('dnd-default-target-highlight');
+            target.parentNode.insertBefore(elem, target.nextElementSibling);
+            avatar.elem.classList.remove('dnd-default-avatar');
+
+        }
+    };
+
+    var draggableClass  = settings.draggableClass   || 'draggable',
+        droppableClass   = settings.droppableClass    || 'droppable',
+        findDraggable   = settings.findDraggable    || defaultHandlers.findDraggable,
+        findDroppable    = settings.findDroppable     || defaultHandlers.findDroppable,
+        makeAvatar      = settings.makeAvatar       || defaultHandlers.makeAvatar,
+        targetChanged   = settings.targetChanged    || defaultHandlers.targetChanged,
+        move            = settings.move             || defaultHandlers.move,
+        targetReached   = settings.targetReached    || defaultHandlers.targetReached;
+
+    var dragObj = {};
+
+    var onMouseDown = function (e) {
+
+        /**
+         * Check mouse (which=1 - right mouse button) or touch (which=0 - touch) event.
+         */
+        if (e.which > 1) return;
+
+        e = touchSupported(e);
+
+        dragObj.clickedAt = {
+            x: e.pageX,
+            y: e.pageY
+        };
+
+        dragObj.elem = findDraggable(e);
+
+        if (!dragObj.elem) return;
+
+        toggleSelection();
+
+        var coords = getCoords(dragObj.elem);
+
+        dragObj.shift = {
+            x: e.pageX - coords.x,
+            y: e.pageY - coords.y
+        };
+
+    };
+
+    var onMouseMove = function (e) {
+
+        if (!dragObj.elem) return;
+
+        // Prevent touchmove scroll
+        e.preventDefault();
+
+        e = touchSupported(e);
+
+        // Check mouse offset. If x or y offset <5, assume that it`s accidental move
+        if (Math.abs(e.pageX - dragObj.clickedAt.x) < 5 && Math.abs(e.pageY - dragObj.clickedAt.y) < 5) return;
+
+        if (!dragObj.avatar) {
+
+            dragObj.avatar = makeAvatar(dragObj.elem);
+
+        }
+
+        var newTarget = findDroppable(e);
+
+        if (newTarget != dragObj.target) {
+
+            targetChanged(dragObj.target, newTarget, dragObj.avatar);
+
+            dragObj.target = newTarget;
+
+        }
+
+
+        move(e, dragObj.avatar, dragObj.shift);
+
+    };
+
+    var onMouseUp = function (e) {
+
+        if (e.which > 1) return;
+
+        if (!dragObj.avatar) {
+
+            dragObj = {};
+            return;
+
+        }
+
+        e = touchSupported(e);
+
+        var target = findDroppable(e);
+
+        if (target)
+            targetReached(target, dragObj.avatar, dragObj.elem, e);
+        else
+            dragObj.avatar.rollback();
+
+        dragObj = {};
+
+        toggleSelection();
+
+    };
+
+    var getCoords = function (elem) {
+
+        var rect = elem.getBoundingClientRect();
+
+        return {
+            x: rect.left + pageXOffset,
+            y: rect.top + pageYOffset
+        };
+
+    };
+
+    var touchSupported = function (e) {
+
+        if (e.changedTouches)
+            var touch = e.changedTouches[0];
+
+        else
+            return e;
+
+        e.pageX = touch.pageX;
+        e.pageY = touch.pageY;
+
+        e.clientX = touch.clientX;
+        e.clientY = touch.clientY;
+
+        e.screenX = touch.screenX;
+        e.screenY = touch.screenY;
+
+        e.target = touch.target;
+
+        return e;
+
+    };
+
+    var toggleSelection = function () {
+
+        document.body.classList.toggle('no-selection');
+
+    };
+
+
+    document.addEventListener('mousedown', onMouseDown);
+    document.addEventListener('touchstart', onMouseDown);
+
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('touchmove', onMouseMove);
+
+    document.addEventListener('mouseup', onMouseUp);
+    document.addEventListener('touchend', onMouseUp);
+
+    document.ondragstart = function () {
+
+        return false;
+
+    };
+
+};
+
+
+/***/ }),
+/* 5 */,
+/* 6 */
 /***/ (function(module, exports) {
 
 join = {
@@ -439,7 +635,7 @@ module.exports = join;
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports) {
 
 scrollUp = {
@@ -496,7 +692,7 @@ scrollUp = {
 module.exports = scrollUp;
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports) {
 
 module.exports = (function ( sharer ) {
@@ -619,7 +815,7 @@ module.exports = (function ( sharer ) {
 })({});
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports) {
 
 /**
@@ -738,7 +934,7 @@ module.exports = simpleCode;
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(0);
@@ -781,30 +977,168 @@ codex.docReady = function (f) {
 };
 
 
-codex.content = __webpack_require__(3);
-codex.scrollUp = __webpack_require__(6);
-// codex.dragndrop = require('./modules/dragndrop');
+/**
+* Pages
+*/
+codex.admin = __webpack_require__(1);
+codex.join = __webpack_require__(6);
+
+
+/**
+ * Modules
+ */
+codex.core = __webpack_require__(3);
+codex.dragndrop = __webpack_require__(4);
+codex.scrollUp = __webpack_require__(7);
+codex.sharer = __webpack_require__(8);
+codex.developer = __webpack_require__(2);
+codex.simpleCode = __webpack_require__(9);
+
+codex.content = __webpack_require__(16);
+
 // codex.Polyfill = require('./modules/Polyfill');
 // codex.xhr = require('./modules/xhr');
-codex.join = __webpack_require__(5);
-codex.callbacks = __webpack_require__(2);
+
+// codex.callbacks = require('./modules/callbacks');
 // codex.load = require('./modules/load');
 // codex.helpers = require('./modules/helpers');
-codex.sharer = __webpack_require__(7);
+
 // codex.fixColumns = require('./modules/fixColumns');
 
 
-codex.core = __webpack_require__(4);
-codex.developer = __webpack_require__(1);
-// codex.dragndrop = require('./modules/feedDragNDrop');
-codex.simpleCode = __webpack_require__(8);
-// codex.bot = require('./modules/bot');
+
+
+
+
+
 // codex.quiz = require('./modules/quiz');
 // codex.quizForm = require('./modules/quizForm');
 // codex.transport = require('./modules/transport');
 
 module.exports = codex;
 
+
+
+/***/ }),
+/* 11 */,
+/* 12 */,
+/* 13 */,
+/* 14 */,
+/* 15 */,
+/* 16 */
+/***/ (function(module, exports) {
+
+content = {
+
+    /**
+    * Module uses for toggle custom checkboxes
+    * that has 'js-custom-checkbox' class and input[type="checkbox"] included
+    * Example:
+    * <span class="js-custom-checkbox">
+    *    <input type="checkbox" name="" value="1"/>
+    * </span>
+    */
+    customCheckboxes : {
+
+        /**
+        * This class specifies checked custom-checkbox
+        * You may set it on serverisde
+        */
+        CHECKED_CLASS : 'checked',
+
+        init : function () {
+
+            var checkboxes = document.getElementsByClassName('js-custom-checkbox');
+
+            if (checkboxes.length) for (var i = checkboxes.length - 1; i >= 0; i--) {
+
+                checkboxes[i].addEventListener('click', codex.content.customCheckboxes.clicked, false);
+
+            }
+
+        },
+
+        clicked : function () {
+
+            var checkbox  = this,
+                input     = this.querySelector('input'),
+                isChecked = this.classList.contains(codex.content.customCheckboxes.CHECKED_CLASS);
+
+            checkbox.classList.toggle(codex.content.customCheckboxes.CHECKED_CLASS);
+
+            if (isChecked) {
+
+                input.removeAttribute('checked');
+
+            } else {
+
+                input.setAttribute('checked', 'checked');
+
+            }
+
+        }
+
+    },
+
+    /**
+    * Helper for 'show more news' button
+    * @param {Element} button   - appender button
+    */
+    showMoreNews : function ( button ) {
+
+        var PORTION = 5;
+
+        var news = document.querySelectorAll('.news__list_item'),
+            hided = [];
+
+        for (var i = 0, newsItem; !!(newsItem = news[i]); i++) {
+
+            if ( newsItem.classList.contains('hide') ) {
+
+                hided.push(newsItem);
+
+            }
+
+        }
+
+        hided.splice(0, PORTION).map(function (item) {
+
+            item.classList.remove('hide');
+
+        });
+
+        if (!hided.length) {
+
+            button.classList.add('hide');
+
+        }
+
+    },
+
+    /**
+     * Calculates offset of DOM element
+     *
+     * @param el
+     * @returns {{top: number, left: number}}
+     */
+    getOffset : function ( el ) {
+
+        var _x = 0;
+        var _y = 0;
+
+        while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
+
+            _x += (el.offsetLeft + el.clientLeft);
+            _y += (el.offsetTop + el.clientTop);
+            el = el.offsetParent;
+
+        }
+        return { top: _y, left: _x };
+
+    }
+};
+
+module.exports = content;
 
 
 /***/ })

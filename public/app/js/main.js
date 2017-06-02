@@ -38,24 +38,40 @@ codex.docReady = function (f) {
 };
 
 
-codex.content = require('./modules/content');
+/**
+* Pages
+*/
+codex.admin = require('./modules/admin');
+codex.join = require('./modules/join');
+
+
+/**
+ * Modules
+ */
+codex.core = require('./modules/core');
+codex.dragndrop = require('./modules/dragndrop');
 codex.scrollUp = require('./modules/scrollUp');
-// codex.dragndrop = require('./modules/dragndrop');
+codex.sharer = require('./modules/sharer');
+codex.developer = require('./modules/bestDevelopers');
+codex.simpleCode = require('./modules/simpleCodeStyling');
+
+codex.content = require('./modules/content');
+
 // codex.Polyfill = require('./modules/Polyfill');
 // codex.xhr = require('./modules/xhr');
-codex.join = require('./modules/join');
-codex.callbacks = require('./modules/callbacks');
+
+// codex.callbacks = require('./modules/callbacks');
 // codex.load = require('./modules/load');
 // codex.helpers = require('./modules/helpers');
-codex.sharer = require('./modules/sharer');
+
 // codex.fixColumns = require('./modules/fixColumns');
 
 
-codex.core = require('./modules/core');
-codex.developer = require('./modules/bestDevelopers');
-// codex.dragndrop = require('./modules/feedDragNDrop');
-codex.simpleCode = require('./modules/simpleCodeStyling');
-// codex.bot = require('./modules/bot');
+
+
+
+
+
 // codex.quiz = require('./modules/quiz');
 // codex.quizForm = require('./modules/quizForm');
 // codex.transport = require('./modules/transport');
