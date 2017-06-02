@@ -1,5 +1,4 @@
-<link rel="stylesheet" href="/public/css/task.css?v=<?= filemtime("public/css/task.css") ?>">
-<link rel="stylesheet" href="/public/css/article.css?v=<?= filemtime("public/css/article.css") ?>">
+<link rel="stylesheet" href="/public/build/bundle.css?v=<?= filemtime("public/build/bundle.css") ?>">
 
 <div class="center_side">
     <article class="article">
@@ -63,7 +62,7 @@
                 <li class="front">
                     Реализовать вывод теста в виде презентации: сперва виден первый вопрос, после ответа на который отображается следующий.
                     <p>
-                        <img src="/public/img/task/test-scheme.png">
+                        <img src="/public/app/img/task/test-scheme.png">
                     </p>
                 </li>
                 <li class="back">Добавить возможность редактирования созданного теста.</li>

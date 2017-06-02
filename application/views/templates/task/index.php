@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="/public/css/task.css?v=<?= filemtime("public/css/task.css") ?>">
-<link rel="stylesheet" href="/public/css/article.css?v=<?= filemtime("public/css/article.css") ?>">
+<link rel="stylesheet" href="/public/build/bundle.css?v=<?= filemtime("public/build/bundle.css") ?>">
+
 
 <div class="center_side clear">
     <article class="article">
@@ -32,7 +32,7 @@
             <div class="align_c" style="margin-top: 70px">
                 <h3>Just do it!</h3>
                 <a href="http://www.youtube.com/watch?v=ZXsQAXx_ao0" target="_blank">
-                    <img width="220" src="/public/img/shia.gif" alt="Just Do It!">
+                    <img width="220" src="/public/app/img/shia.gif" alt="Just Do It!">
                 </a>
             </div>
         </div>
