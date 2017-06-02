@@ -1,6 +1,6 @@
 <div class="center_side clear">
-    <div class="courses-list__button-add">
-        <a href="/course/add">Добавить новый курс</a>
+    <div>
+        <a class="button" href="/course/add">Добавить новый курс</a>
     </div>
     <? if (count($courses) == 0): ?>
         <article class="article">
