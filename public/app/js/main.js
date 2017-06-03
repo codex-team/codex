@@ -72,8 +72,8 @@ codex.content = require('./modules/content');
 
 
 
-// codex.quiz = require('./modules/quiz');
-// codex.quizForm = require('./modules/quizForm');
+codex.quiz = require('./modules/quiz');
+codex.quizForm = require('./modules/quizForm');
 // codex.transport = require('./modules/transport');
 
 module.exports = codex;

@@ -1,4 +1,4 @@
-<link type="text/css" href="/public/css/quizForm.css?v=<?= filemtime("public/css/quizForm.css") ?>" rel="stylesheet" />
+<link type="text/css" href="/public/build/bundle.css?v=<?= filemtime("public/build/bundle.css") ?>" rel="stylesheet" />
 
 <div class="center_side clear">
     <form class="quiz-form" name="quizForm" method="POST">
@@ -15,7 +15,7 @@
 
         <a id="questionInsertAnchor" style="display:none;"></a>
 
-        <span class="quiz-form__add-question-button" id="questionInsertButton"><img class="quiz-form__button-plus" src="/public/img/quizzes/plus.svg">Добавить вопрос</span>
+        <span class="quiz-form__add-question-button" id="questionInsertButton"><img class="quiz-form__button-plus" src="/public/app/img/quizzes/plus.svg">Добавить вопрос</span>
 
         <table class="quiz-form__messages">
             <thead class="quiz-form__messages-head">
@@ -29,7 +29,7 @@
                         <tbody id="resultMessagesHolder">
                             <tr id="resultMessageInsertAnchor">
                                 <td class="quiz-form__add-message-button-column">
-                                    <span class="quiz-form__add-message-button" id="resultMessageInsertButton"><img class="quiz-form__button-plus" src="/public/img/quizzes/plus.svg">Добавить сообщение</span>
+                                    <span class="quiz-form__add-message-button" id="resultMessageInsertButton"><img class="quiz-form__button-plus" src="/public/app/img/quizzes/plus.svg">Добавить сообщение</span>
                                 </td>
                             </tr>
                         </tbody>
@@ -48,5 +48,6 @@
     </form>
 </div>
 
-<script type="text/javascript" src="/public/js/quizForm.js?v=<?= filemtime("public/js/quizForm.js") ?>"></script>
-<script>quizForm.init(<?= $quiz->quiz_data; ?>);</script>
+<script>
+    codex.quizForm.init(<?= $quiz->quiz_data; ?>);
+</script>

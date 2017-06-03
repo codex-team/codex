@@ -64,7 +64,7 @@ var codex =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -754,6 +754,1233 @@ module.exports = join;
 /* 7 */
 /***/ (function(module, exports) {
 
+/**
+ * Модуль quiz с единственным публичным методом quiz.init()
+ */
+module.exports = (function () {
+
+    var quizData            = null,
+        numberOfQuestions   = null,
+        currentQuestion     = null,
+        score               = null,
+        maxScore            = null;
+
+
+    /**
+     * Публичный метод init.
+     *
+     * @param {object} quizDataInput  - объект с информацией о тесте
+     * @param {string} holder - id элемента, в который будет выводиться тест
+     */
+    var init = function (quizDataInput, holder) {
+
+        quizData = quizDataInput;
+        numberOfQuestions = quizData.questions.length;
+        currentQuestion = 0;
+        score = 0;
+
+        gameProcessing_.prepare();
+        UI_.prepare(holder);
+        UI_.setupQuestionInterface();
+
+    };
+
+    var UI_ = {
+
+        holder: null,
+        currentQuestionObj: null,
+
+        // Объект, в котором будут храниться DOM-элементы, связанные с отображением вопроса
+        questionElems: null,
+
+        prepare: function (holder) {
+
+            UI_.holder = document.getElementById(holder);
+            UI_.holder.classList.add('quiz');
+            UI_.holder.classList.add('clearfix');
+
+        },
+
+        /**
+         * Создаем элементы для вывода теста, заносим их в UI_.questionElems и выводим на страницу.
+         */
+        setupQuestionInterface: function () {
+
+            UI_.clear();
+
+            var title,
+                optionsHolder,
+                counter,
+                nextButton;
+
+            title = UI_.createElem('div', 'quiz__question-title');
+
+            optionsHolder = UI_.createElem('div', 'quiz__question-options');
+
+            counter = UI_.createElem('div', 'quiz__question-counter');
+
+            nextButton = UI_.createElem('input', ['quiz__question-button', 'quiz__question-button_next']);
+
+            nextButton.setAttribute('type', 'button');
+            nextButton.setAttribute('value', 'Далее →');
+
+            UI_.questionElems = {
+                counter: counter,
+                title: title,
+                optionsHolder: optionsHolder,
+                options: [],
+                nextButton: nextButton
+            };
+
+            UI_.append(UI_.questionElems);
+
+            UI_.showQuestion();
+
+        },
+
+        /**
+         * Выводим текущий вопрос на страницу (вопрос, варианты ответа и счетчик)
+         */
+        showQuestion: function () {
+
+            UI_.clear(UI_.questionElems.optionsHolder);
+            UI_.questionElems.options = [];
+            UI_.questionElems.nextButton.removeEventListener('click', UI_.showQuestion);
+            UI_.currentQuestionObj = quizData.questions[currentQuestion];
+
+            UI_.questionElems.nextButton.setAttribute('disabled', true);
+
+            UI_.questionElems.title.textContent = UI_.currentQuestionObj.title;
+            UI_.questionElems.counter.textContent = currentQuestion + 1 + '/' + numberOfQuestions;
+
+            UI_.currentQuestionObj.answers.map(UI_.createOption);
+
+        },
+
+        answerSelected: function (answer) {
+
+            answer.classList.add('quiz__question-answer_selected');
+
+            UI_.questionElems.options.map(function (current, i) {
+
+                current.removeEventListener('click', gameProcessing_.getUserAnswer);
+
+            });
+
+            UI_.questionElems.nextButton.disabled = false;
+
+            if (currentQuestion < numberOfQuestions  - 1) {
+
+                UI_.questionElems.nextButton.addEventListener('click', UI_.showQuestion);
+
+            } else {
+
+                UI_.questionElems.nextButton.addEventListener('click', UI_.showResult);
+
+            }
+
+            UI_.showAnswer(answer);
+
+            currentQuestion++;
+
+        },
+        /**
+         * Добавляем стили и выводим сообщение для выбранного варианта ответа
+         * Открываем доступ к следующему вопросу
+         *
+         * @param answer - DOM-элемент выбранного ответа
+         */
+        showAnswer: function (answer) {
+
+            var answerStyle = answer.dataset.score > 0 ? '_right' :  '_wrong',
+                answerIndex = answer.dataset.index;
+
+            answer.classList.add('quiz__question-answer' + answerStyle);
+
+            var answerMessage = UI_.createElem('div', 'quiz__answer-message');
+
+            answerMessage.textContent = UI_.currentQuestionObj.answers[answerIndex].message;
+
+            UI_.insertAfter(answerMessage, answer);
+
+            if (answer.dataset.score == 0) {
+
+                UI_.showCorrectAnswers();
+
+            }
+
+        },
+
+        showCorrectAnswers: function () {
+
+            UI_.questionElems.options.map(function (answer, i) {
+
+                if (answer.dataset.score > 0) {
+
+                    answer.classList.add('quiz__question-answer_right');
+
+                } else {
+
+                    answer.classList.add('quiz__question-answer_wrong');
+
+                }
+
+            });
+
+        },
+
+        showResult: function () {
+
+            var result =  score + '/' + maxScore;
+
+            UI_.questionElems.nextButton.removeEventListener('click', UI_.showResult);
+
+            UI_.clear();
+
+            var resultScore = UI_.createElem('div', 'quiz__result-score');
+
+            resultScore.textContent = result;
+
+            var resultMessage = UI_.createElem('div', 'quiz__result-message');
+
+            resultMessage.textContent = gameProcessing_.getMessage();
+
+            var social = UI_.createElem('div', 'quiz__sharing');
+
+            UI_.createSocial(social, result);
+
+            var retry = UI_.createElem('div', 'quiz__retry-button');
+
+            retry.textContent = 'Пройти еще раз';
+            retry.addEventListener('click', init.bind(null, quizData, UI_.holder.id));
+
+            UI_.append([resultScore, resultMessage, social, retry]);
+
+            codex.sharer.init();
+
+        },
+
+        /**
+         * Создаем кнопки социальных сетей и добавляем их в holder
+         *
+         * @param {Element} holder
+         */
+        createSocial: function (holder, result) {
+
+            var networks = [
+                {
+                    title: 'Share on the VK',
+                    shareType: 'vkontakte',
+                    class: 'vk',
+                    icon: 'icon-vkontakte'
+                },
+                {
+                    title: 'Share on the Facebook',
+                    shareType: 'facebook',
+                    class: 'fb',
+                    icon: 'icon-facebook-squared'
+                },
+                {
+                    title: 'Tweet',
+                    shareType: 'twitter',
+                    class: 'tw',
+                    icon: 'icon-twitter'
+                },
+                {
+                    title: 'Forward in Telegramm',
+                    shareType: 'telegram',
+                    class: 'tg',
+                    icon: 'icon-paper-plane'
+                }
+            ];
+
+            networks.map(function (current, i) {
+
+                var button = UI_.createElem('span', ['but', current.class]),
+                    icon   = UI_.createElem('i', current.icon),
+                    shareMessage = null;
+
+                button.dataset.shareType = current.shareType;
+                button.setAttribute('title', current.title);
+
+                if (quizData.shareMessage) {
+
+                    shareMessage =  quizData.shareMessage.replace('$score', result);
+
+                }
+
+                shareMessage = shareMessage || 'Я набрал ' + result + ' в ' + (quizData.title || 'тесте от команды CodeX');
+
+                button.dataset.url      = window.location.href;
+                button.dataset.title    = shareMessage;
+                button.dataset.desc     = quizData.description || '';
+
+                UI_.append(icon, button);
+                UI_.append(button, holder);
+
+            });
+
+        },
+
+        /**
+         * Создаем i-й вариант ответа и выводим в UI_.questionElems.optionsHolder
+         * И добавляем в UI_.questionElems.options
+         *
+         * @param {Object} answer - объект варианта ответа
+         * @param {int} i - его номер в вопросе
+         */
+        createOption: function (answer, i) {
+
+            var answerObj = UI_.createElem('div', 'quiz__question-answer');
+
+            answerObj.dataset.score = answer.score;
+            answerObj.dataset.index = i;
+            answerObj.textContent = answer.text;
+
+            // Вешаем слушатель на вариант ответа
+            answerObj.addEventListener('click', gameProcessing_.getUserAnswer);
+
+            UI_.questionElems.options.push(answerObj);
+
+            UI_.append(answerObj, UI_.questionElems.optionsHolder);
+
+        },
+
+        /**
+         * Создает новый DOM-элемент с набором переданных классов
+         *
+         * @param {string} tag - имя тега
+         * @param {string|Array} classes - имя или массив имен классов
+         * @returns {Element}
+         */
+        createElem: function (tag, classes) {
+
+            var elem = document.createElement(tag);
+
+            if (!classes) {
+
+                return elem;
+
+            }
+
+            if (classes instanceof Array) {
+
+                for (var i in classes) {
+
+                    elem.classList.add(classes[i]);
+
+                }
+
+            } else {
+
+                elem.classList.add(classes);
+
+            }
+
+            return elem;
+
+        },
+
+        /**
+         * Добавляет элементы в переданный элемент
+         *
+         * @param {Element|Array} elems - элемент или массив элементов
+         * @param {Element|null} parent - родитель или UI_.holder, если передан NULL
+         */
+        append: function (elems, parent) {
+
+            parent = parent || UI_.holder;
+
+            if (!(elems instanceof Element)) {
+
+                for (var i in elems) {
+
+                    if (elems[i] instanceof Element) {
+
+                        parent.appendChild(elems[i]);
+
+                    }
+
+                }
+
+            } else {
+
+                parent.appendChild(elems);
+
+            }
+
+        },
+
+
+        /**
+         * Вставляет элемент после переданного элемента
+         *
+         * @param {Element} elem
+         * @param {Element} elemBefore
+         */
+        insertAfter: function (elem, elemBefore) {
+
+            if (elemBefore.nextSibling) {
+
+                UI_.questionElems.optionsHolder.insertBefore(elem, elemBefore.nextSibling);
+
+            } else {
+
+                UI_.append(elem, elemBefore.parentNode);
+
+            }
+
+        },
+
+        /**
+         * Удалаяет все дочерние элементы элемента parent
+         *
+         * @param {Element} parent
+         */
+        clear: function (parent) {
+
+            parent = parent || UI_.holder;
+
+            while (parent.firstChild) {
+
+                parent.removeChild(parent.firstChild);
+
+            }
+
+        }
+
+    };
+
+    var gameProcessing_ = {
+
+        prepare: function () {
+
+            maxScore = 0;
+
+            quizData.questions.map(function (current, i) {
+
+                current.answers.map(function (current, i) {
+
+                    maxScore += parseFloat(current.score);
+
+                });
+
+            });
+
+        },
+
+        /**
+         * Добавляет баллы за ответ
+         *
+         * @param {Object} e - объект события клика по варианту ответа
+         */
+        getUserAnswer: function (e) {
+
+            var answer = e.currentTarget;
+
+            score += parseFloat(answer.dataset.score);
+
+            UI_.answerSelected(answer);
+
+        },
+
+        /**
+         * Получает сообщение о результате для набранного количества баллов
+         *
+         * @returns {string} message
+         */
+        getMessage: function () {
+
+            var messages = quizData.resultMessages,
+                message;
+
+            messages.sort(function (a, b) {
+
+                return a['score'] - b['score'];
+
+            });
+
+            if (!messages.length) {
+
+                return;
+
+            }
+
+            for (var i in messages) {
+
+                if (score < messages[i]['score']) {
+
+                    break;
+
+                }
+
+                message = messages[i]['message'];
+
+            }
+
+            return message;
+
+        }
+
+    };
+
+    return {
+        init: init
+    };
+
+})();
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports) {
+
+/**
+* Quiz form client handler
+* Author: @ndawn
+* Date: 09/12/16
+*/
+
+module.exports = (function (quiz) {
+
+    /**
+    * Quiz form
+    * @var {null} quiz.form - form DOM element
+    */
+    quiz.form = null;
+
+
+    /**
+    * Nodes list
+    * @var {object} quiz.nodes - dict of DOM elements of questions and result messages
+    */
+    quiz.nodes = {
+        'title': null,
+        'description': null,
+        'questions': [],
+        'resultMessages': [],
+        'shareMessage': null
+    };
+
+
+    /**
+    * Question insert button and anchor for new questions
+    * @var {Element} quiz.questionInsertAnchor - DOM element of question insert anchor
+    * @var {Element} quiz.questionInsertButton - DOM element of question insert button
+    */
+    quiz.questionInsertAnchor = null;
+    quiz.questionInsertButton = null;
+
+
+    /**
+    * Result message insert button and anchor for new resultMessages
+    * @var {Element} quiz.resultMessageInsertAnchor - DOM element of result message insert anchor
+    * @var {Element} quiz.resultMessageInsertButton - DOM element of result message insert button
+    */
+    quiz.resultMessageInsertAnchor = null;
+    quiz.resultMessageInsertButton = null;
+
+
+    /**
+    * Result messages holder element
+    * @var {Element} quiz.resultMessagesHolder - DOM element of result messages holder
+    */
+    quiz.resultMessagesHolder = null;
+
+
+    /**
+    * @private
+    * DOM element creating function
+    * Creates a DOM element with given attributes
+    * @param {string} tag - HTML tag of the element
+    * @param {object} attributes - dictionary with attributes to be added to the element
+    */
+    var newDOMElement_ = function (tag, attributes, text) {
+
+        text = text || '';
+        var element = document.createElement(tag);
+        var textNode = document.createTextNode(text);
+
+        element.appendChild(textNode);
+
+        for (var attr in attributes) {
+
+            var attrNode = document.createAttribute(attr);
+
+            attrNode.value = attributes[attr];
+            element.setAttributeNode(attrNode);
+
+        }
+
+        return element;
+
+    };
+
+
+    /**
+    * @private
+    * Answer block creating function
+    * Creates a couple of DOM elements and appends them to question answers list
+    * @param {number} questionIndex - index of question which answer to be appended to
+    */
+    var appendAnswerBlock_ = function (questionIndex, answerData) {
+
+        var answer = {};
+        var question = quiz.nodes.questions[questionIndex];
+        var objectIndex = question.answers.length;
+
+        answerData = answerData || {};
+
+        answer.holder = newDOMElement_('tr', {
+            'class': 'quiz-form__question-answer-holder',
+            'data-question-index': questionIndex,
+            'data-object-index': objectIndex
+        });
+
+        answer.textColumn = newDOMElement_('td', {
+            'class': 'quiz-form__question-answer-text-column'
+        });
+
+        answer.text = newDOMElement_('input', {
+            'type': 'text',
+            'class': 'quiz-form__question-answer-text',
+            'value': answerData.text || '',
+            'required': '',
+            'form': 'null'
+        });
+
+        answer.scoreColumn = newDOMElement_('td', {
+            'class': 'quiz-form__question-answer-score-column'
+        });
+
+        answer.score = newDOMElement_('input', {
+            'type': 'number',
+            'min': '0',
+            'step': '1',
+            'value': answerData.score || '0',
+            'class': 'quiz-form__question-answer-score',
+            'required': '',
+            'form': 'null'
+        });
+
+        answer.messageColumn = newDOMElement_('td', {
+            'class': 'quiz-form__question-answer-message-column'
+        });
+
+        answer.message = newDOMElement_('input', {
+            'type': 'text',
+            'class': 'quiz-form__question-answer-message',
+            'value': answerData.message || '',
+            'required': '',
+            'form': 'null'
+        });
+
+        answer.destroyButtonColumn = newDOMElement_('td', {
+            'class': 'quiz-form__question-answer-destroy-button-column'
+        });
+
+        answer.destroyButton = newDOMElement_('span', {
+            'class': 'quiz-form__question-answer-destroy-button'
+        });
+
+        answer.destroyButtonCross = newDOMElement_('img', {
+            'class': 'quiz-form__button-cross',
+            'src': '/public/app/img/quizzes/cross.svg'
+        });
+
+        answer.textColumn.appendChild(answer.text);
+        answer.scoreColumn.appendChild(answer.score);
+        answer.messageColumn.appendChild(answer.message);
+
+        answer.destroyButton.appendChild(answer.destroyButtonCross);
+
+        answer.destroyButtonColumn.appendChild(answer.destroyButton);
+
+        answer.holder.appendChild(answer.textColumn);
+        answer.holder.appendChild(answer.scoreColumn);
+        answer.holder.appendChild(answer.messageColumn);
+        answer.holder.appendChild(answer.destroyButtonColumn);
+
+        question.answers.push(answer);
+
+        insertDOMElement_(answer);
+
+        updateDestroyIcons_(question.answers);
+
+    };
+
+
+    /**
+    * @private
+    * Question element creating function
+    * Creates a question JS object with DOM elements in it and appends it to the questions list
+    */
+    var appendQuestionBlock_ = function (questionData) {
+
+        var question = {};
+        var objectIndex = quiz.nodes.questions.length;
+
+        questionData = questionData || {};
+
+        question.holder = newDOMElement_('div', {
+            'class': 'quiz-form__question-holder',
+            'data-object-index': objectIndex
+        });
+
+        question.number = newDOMElement_('label', {
+            'class': 'quiz-form__question-number'
+        }, 'Вопрос ' + (objectIndex + 1));
+
+        question.destroyButton = newDOMElement_('span', {
+            'class': 'quiz-form__question-destroy-button'
+        });
+
+        question.destroyButtonCross = newDOMElement_('img', {
+            'class': 'quiz-form__button-cross',
+            'src': '/public/app/img/quizzes/cross.svg'
+        });
+
+        question.titleLabel = newDOMElement_('label', {
+            'class': 'quiz-form__label quiz-form__question-title-label'
+        }, 'Заголовок вопроса');
+
+        question.title = newDOMElement_('input', {
+            'type': 'text',
+            'class': 'quiz-form__question-title',
+            'value': questionData.title || '',
+            'required': '',
+            'form': 'null'
+        });
+
+        question.answers = [];
+
+        question.answersHolder = newDOMElement_('table', {
+            'class': 'quiz-form__question-answers-holder'
+        });
+
+        question.answersHead = newDOMElement_('thead', {
+            'class': 'quiz-form__question-answers-head'
+        });
+
+        question.answersLabel = newDOMElement_('th', {
+            'class': 'quiz-form__label quiz-form__question-answers-label'
+        }, 'Ответы');
+
+        question.scoresLabel = newDOMElement_('th', {
+            'class': 'quiz-form__label quiz-form__question-scores-label'
+        }, 'Баллы');
+
+        question.messagesLabel = newDOMElement_('th', {
+            'class': 'quiz-form__label quiz-form__question-messages-label'
+        }, 'Комментарии к ответам');
+
+        question.destroyButtonLabel = newDOMElement_('th', {
+            'class': 'quiz-form__question-destroy-buttons-label'
+        });
+
+        question.addAnswerButtonRow = newDOMElement_('tr', {
+            'class': 'quiz-form__question-add-answer-button-row'
+        });
+
+        question.addAnswerButtonColumn = newDOMElement_('td', {
+            'class': 'quiz-form__question-add-answer-button-column'
+        });
+
+        question.addAnswerButton = newDOMElement_('span', {
+            'class': 'quiz-form__question-add-answer-button'
+        }, 'Добавить ответ');
+
+        question.addAnswerButtonPlus = newDOMElement_('img', {
+            'class': 'quiz-form__button-plus',
+            'src': '/public/app/img/quizzes/plus.svg'
+        });
+
+        question.holder.appendChild(question.number);
+
+        question.destroyButton.appendChild(question.destroyButtonCross);
+
+        question.holder.appendChild(question.destroyButton);
+        question.holder.appendChild(question.titleLabel);
+        question.holder.appendChild(question.title);
+
+        question.answersHead.appendChild(question.answersLabel);
+        question.answersHead.appendChild(question.scoresLabel);
+        question.answersHead.appendChild(question.messagesLabel);
+        question.answersHead.appendChild(question.destroyButtonLabel);
+
+        question.answersHolder.appendChild(question.answersHead);
+
+        question.addAnswerButton.insertBefore(
+            question.addAnswerButtonPlus,
+            question.addAnswerButton.firstChild
+        );
+
+        question.addAnswerButtonColumn.appendChild(question.addAnswerButton);
+
+        question.addAnswerButtonRow.appendChild(question.addAnswerButtonColumn);
+
+        question.answersHolder.appendChild(question.addAnswerButtonRow);
+
+        question.holder.appendChild(question.answersHolder);
+
+        quiz.nodes.questions.push(question);
+
+        if (questionData.answers) {
+
+            questionData.answers.map(function (current, i) {
+
+                appendAnswerBlock_(objectIndex, current);
+
+            });
+
+        } else {
+
+            appendAnswerBlock_(objectIndex);
+            appendAnswerBlock_(objectIndex);
+            appendAnswerBlock_(objectIndex);
+
+        }
+
+        insertDOMElement_(question);
+
+        updateDestroyIcons_(quiz.nodes.questions);
+
+    };
+
+
+    /**
+    * @private
+    * Message block creating function
+    * Creates a result message DOM element and appends it to the result messages list
+    */
+    var appendResultMessageBlock_ = function (messageData) {
+
+        var message = {};
+        var objectIndex = quiz.nodes.resultMessages.length;
+
+        messageData = messageData || {};
+
+        message.holder = newDOMElement_('tr', {
+            'class': 'quiz-form__message-holder',
+            'data-object-index': objectIndex
+        });
+
+        message.messageColumn = newDOMElement_('td', {
+            'class': 'quiz-form__message-message-column'
+        });
+
+        message.message = newDOMElement_('input', {
+            'type': 'text',
+            'class': 'quiz-form__message-message',
+            'value': messageData.message || '',
+            'required': '',
+            'form': 'null'
+        });
+
+        message.scoreColumn = newDOMElement_('td', {
+            'class': 'quiz-form__message-score-column'
+        });
+
+        message.score = newDOMElement_('input', {
+            'type': 'number',
+            'min': '0',
+            'step': '1',
+            'value': messageData.score || '0',
+            'class': 'quiz-form__message-score',
+            'required': '',
+            'form': 'null'
+        });
+
+        message.destroyButtonColumn = newDOMElement_('td', {
+            'class': 'quiz-form__message-destroy-button-column'
+        });
+
+        message.destroyButton = newDOMElement_('span', {
+            'class': 'quiz-form__message-destroy-button'
+        });
+
+        message.destroyButtonCross = newDOMElement_('img', {
+            'class': 'quiz-form__button-cross',
+            'src': '/public/app/img/quizzes/cross.svg'
+        });
+
+        message.messageColumn.appendChild(message.message);
+        message.scoreColumn.appendChild(message.score);
+
+        message.destroyButton.appendChild(message.destroyButtonCross);
+
+        message.destroyButtonColumn.appendChild(message.destroyButton);
+
+        message.holder.appendChild(message.messageColumn);
+        message.holder.appendChild(message.scoreColumn);
+        message.holder.appendChild(message.destroyButtonColumn);
+
+        quiz.nodes.resultMessages.push(message);
+
+        insertDOMElement_(message);
+
+        updateDestroyIcons_(quiz.nodes.resultMessages);
+
+    };
+
+
+    /**
+    * @private
+    * Object shifting function
+    * Sets numbers in the question with child elements to given index
+    * @param {object} obj - object in which numbers to be set
+    * @param {number} index - index to which child elements' attributes to be set
+    */
+    var setObjectNumber_ = function (obj, numberTo) {
+
+        obj.holder.dataset.objectIndex = numberTo - 1;
+
+        if (obj.number) {
+
+            obj.number.textContent = 'Вопрос ' + numberTo;
+
+        }
+
+    };
+
+
+    /**
+    * @private
+    * Updating destroy icons function
+    * Disables or enables destroy icon for the only element in container
+    * @param {object} container - object in which icon is to be disabled or enabled
+    */
+    var updateDestroyIcons_ = function (container) {
+
+        if (container.length <= 1) {
+
+            container[0].destroyButton.style.display = 'none';
+
+            if (container[0].firstChild) {
+
+                container[0].firstChild.style.display = 'none';
+
+            }
+
+        } else {
+
+            container[0].destroyButton.style.display = '';
+
+            if (container[0].firstChild) {
+
+                container[0].firstChild.style.display = '';
+
+            }
+
+        }
+
+    };
+
+
+    /**
+    * @private
+    * DOM element inserting function
+    * Inserts DOM element to DOM
+    * @param {object} obj - object in which DOM element to be inserted
+    */
+    var insertDOMElement_ = function (obj) {
+
+        var before;
+        var parent;
+
+        if (obj.answers) {
+
+            before = quiz.questionInsertAnchor;
+            parent = quiz.form;
+
+        } else if (obj.text) {
+
+            before = quiz.nodes.questions[parseInt(obj.holder.dataset.questionIndex)].addAnswerButtonRow;
+            parent = quiz.nodes.questions[parseInt(obj.holder.dataset.questionIndex)].answersHolder;
+
+        } else {
+
+            before = quiz.resultMessageInsertAnchor;
+            parent = quiz.resultMessagesHolder;
+
+        }
+
+        parent.insertBefore(obj.holder, before);
+
+    };
+
+
+    /**
+    * @private
+    * Element object destroying function
+    * Removes the DOM element of object from DOM and destroys object itself
+    * @param {object} container - list where object is to be destroyed
+    * @param {number} elementIndex - index of object in list
+    */
+    var destroyObject_ = function (container, elementIndex) {
+
+        container[elementIndex].holder.parentNode.removeChild(container[elementIndex].holder);
+
+        container.splice(elementIndex, 1);
+        for (var i = elementIndex; i < container.length; i++) {
+
+            setObjectNumber_(container[i], i + 1);
+
+        }
+
+        updateDestroyIcons_(container);
+
+    };
+
+
+    /**
+    * @private
+    * Event listeners setting function
+    * Set event listeners for insert and destroy buttons and form submission
+    */
+    var setEventListeners_ = function () {
+
+        quiz.form.onsubmit = function (event) {
+
+            event.preventDefault();
+
+            var json = {
+                'title': quiz.form.querySelector('[name="title"]').value,
+                'description': quiz.form.querySelector('[name="description"]').value,
+                'questions': [],
+                'resultMessages': [],
+                'shareMessage': quiz.form.querySelector('[name="shareMessage"]').value
+            };
+
+            for (var i in quiz.nodes.questions) {
+
+                var jsonQuestion = {};
+
+                jsonQuestion.title = quiz.nodes.questions[i].title.value;
+                jsonQuestion.answers = [];
+
+                for (var j in quiz.nodes.questions[i].answers) {
+
+                    var jsonAnswer = {};
+
+                    jsonAnswer.text = quiz.nodes.questions[i].answers[j].text.value;
+                    jsonAnswer.score = quiz.nodes.questions[i].answers[j].score.value;
+                    jsonAnswer.message = quiz.nodes.questions[i].answers[j].message.value;
+
+                    jsonQuestion.answers.push(jsonAnswer);
+
+                }
+
+                json.questions.push(jsonQuestion);
+
+            }
+
+            for (var i in quiz.nodes.resultMessages) {
+
+                var jsonMessage = {};
+
+                jsonMessage.score = quiz.nodes.resultMessages[i].score.value;
+                jsonMessage.message = quiz.nodes.resultMessages[i].message.value;
+
+                json.resultMessages.push(jsonMessage);
+
+            };
+
+            quiz.form.appendChild(newDOMElement_('input', {
+                'type': 'hidden',
+                'name': 'quiz_data',
+                'value': JSON.stringify(json)
+            }));
+
+            quiz.form.submit();
+
+        };
+
+        quiz.questionInsertButton.onclick = function () {
+
+            appendQuestionBlock_();
+
+        };
+
+        quiz.resultMessageInsertButton.onclick = function () {
+
+            appendResultMessageBlock_();
+
+        };
+
+
+        quiz.form.onclick = function (event) {
+
+            var container;
+            var elementIndex;
+
+            if (event.target.classList.contains('quiz-form__question-destroy-button')) {
+
+                container = quiz.nodes.questions;
+                elementIndex = parseInt(event.target.parentNode.dataset.objectIndex);
+
+            } else if (event.target.parentNode.classList.contains('quiz-form__question-destroy-button')) {
+
+                container = quiz.nodes.questions;
+                elementIndex = parseInt(event.target.parentNode.parentNode.dataset.objectIndex);
+
+            } else if (event.target.classList.contains('quiz-form__question-answer-destroy-button')) {
+
+                container = quiz.nodes.questions[
+                    parseInt(event.target.parentNode.parentNode.dataset.questionIndex)
+                ].answers;
+                elementIndex = parseInt(event.target.parentNode.parentNode.dataset.objectIndex);
+
+            } else if (event.target.parentNode.classList.contains('quiz-form__question-answer-destroy-button')) {
+
+                container = quiz.nodes.questions[
+                    parseInt(event.target.parentNode.parentNode.parentNode.dataset.questionIndex)
+                ].answers;
+                elementIndex = parseInt(event.target.parentNode.parentNode.parentNode.dataset.objectIndex);
+
+            } else if (event.target.classList.contains('quiz-form__message-destroy-button')) {
+
+                container = quiz.nodes.resultMessages;
+                elementIndex = parseInt(event.target.parentNode.parentNode.dataset.objectIndex);
+
+            } else if (event.target.classList.contains('quiz-form__question-add-answer-button')) {
+
+                container = null;
+                elementIndex = parseInt(event.target.parentNode.parentNode.parentNode.parentNode.dataset.objectIndex);
+
+            }
+
+            if (container === null) {
+
+                appendAnswerBlock_(elementIndex);
+
+            } else if (container !== undefined) {
+
+                destroyObject_(container, elementIndex);
+
+            }
+
+        };
+
+    };
+
+
+    /**
+    * @private
+    * First result message adding function
+    * Inserts result message with number 1 to the form
+    */
+    var addInitialResultMessage_ = function () {
+
+        appendResultMessageBlock_();
+
+    };
+
+
+    /**
+    * @private
+    * First question adding function
+    * Inserts question with number 1 to the form
+    */
+    var addInitialQuestion_ = function () {
+
+        appendQuestionBlock_();
+
+    };
+
+
+    /**
+    * @private
+    * Initial form parameters setting adding function
+    * Sets form variable and insert buttons
+    */
+    var setInitialFormParams_ = function () {
+
+        quiz.form = document.forms.quizForm;
+        quiz.questionInsertAnchor = document.getElementById('questionInsertAnchor');
+        quiz.questionInsertButton = document.getElementById('questionInsertButton');
+        quiz.resultMessageInsertAnchor = document.getElementById('resultMessageInsertAnchor');
+        quiz.resultMessageInsertButton = document.getElementById('resultMessageInsertButton');
+        quiz.resultMessagesHolder = document.getElementById('resultMessagesHolder');
+
+    };
+
+
+    /**
+    * @private
+    * Initial destroy icons updating function
+    * Updates initially placed destroy icons
+    */
+    var updateInitialDestroyIcons_ = function () {
+
+        updateDestroyIcons_(quiz.nodes.questions);
+        updateDestroyIcons_(quiz.nodes.resultMessages);
+        updateDestroyIcons_(quiz.nodes.questions[0].answers);
+
+    };
+
+
+    var render = function (quizData) {
+
+        var questions = quizData.questions,
+            resultMessages = quizData.resultMessages;
+
+        document.querySelector('[name="title"]').value = quizData.title;
+        document.querySelector('textarea[name="description"]').textContent = quizData.description;
+        document.querySelector('[name="shareMessage"]').value = quizData.shareMessage;
+
+        setInitialFormParams_();
+
+        resultMessages.map(function (current, i) {
+
+            appendResultMessageBlock_(current);
+
+        });
+
+        questions.map(function (current, i) {
+
+            appendQuestionBlock_(current);
+
+        });
+
+        setEventListeners_();
+
+        updateInitialDestroyIcons_();
+
+    };
+
+
+    /**
+     * @public
+     * Initialization function
+     * Initializes quiz form: inserts initial DOM elements, sets initial event listeners, etc
+     */
+    quiz.init = function (quizData) {
+
+        if (quizData) {
+
+            render(quizData);
+            return;
+
+        }
+
+        setInitialFormParams_();
+        addInitialQuestion_();
+        addInitialResultMessage_();
+        setEventListeners_();
+        updateInitialDestroyIcons_();
+
+    };
+
+    return quiz;
+
+})({});
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports) {
+
 module.exports = function () {
 
     /**
@@ -812,7 +2039,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, exports) {
 
 module.exports = (function ( sharer ) {
@@ -935,7 +2162,7 @@ module.exports = (function ( sharer ) {
 })({});
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, exports) {
 
 /**
@@ -1054,7 +2281,7 @@ module.exports = simpleCode;
 
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(0);
@@ -1109,10 +2336,10 @@ codex.join = __webpack_require__(6);
  */
 codex.core = __webpack_require__(4);
 codex.dragndrop = __webpack_require__(5);
-codex.scrollUp = __webpack_require__(7);
-codex.sharer = __webpack_require__(8);
+codex.scrollUp = __webpack_require__(9);
+codex.sharer = __webpack_require__(10);
 codex.developer = __webpack_require__(2);
-codex.simpleCode = __webpack_require__(9);
+codex.simpleCode = __webpack_require__(11);
 
 codex.content = __webpack_require__(3);
 
@@ -1131,8 +2358,8 @@ codex.content = __webpack_require__(3);
 
 
 
-// codex.quiz = require('./modules/quiz');
-// codex.quizForm = require('./modules/quizForm');
+codex.quiz = __webpack_require__(7);
+codex.quizForm = __webpack_require__(8);
 // codex.transport = require('./modules/transport');
 
 module.exports = codex;

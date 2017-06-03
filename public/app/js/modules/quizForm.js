@@ -148,7 +148,7 @@ module.exports = (function (quiz) {
 
         answer.destroyButtonCross = newDOMElement_('img', {
             'class': 'quiz-form__button-cross',
-            'src': '/public/img/quizzes/cross.svg'
+            'src': '/public/app/img/quizzes/cross.svg'
         });
 
         answer.textColumn.appendChild(answer.text);
@@ -200,7 +200,7 @@ module.exports = (function (quiz) {
 
         question.destroyButtonCross = newDOMElement_('img', {
             'class': 'quiz-form__button-cross',
-            'src': '/public/img/quizzes/cross.svg'
+            'src': '/public/app/img/quizzes/cross.svg'
         });
 
         question.titleLabel = newDOMElement_('label', {
@@ -255,7 +255,7 @@ module.exports = (function (quiz) {
 
         question.addAnswerButtonPlus = newDOMElement_('img', {
             'class': 'quiz-form__button-plus',
-            'src': '/public/img/quizzes/plus.svg'
+            'src': '/public/app/img/quizzes/plus.svg'
         });
 
         question.holder.appendChild(question.number);
@@ -364,7 +364,7 @@ module.exports = (function (quiz) {
 
         message.destroyButtonCross = newDOMElement_('img', {
             'class': 'quiz-form__button-cross',
-            'src': '/public/img/quizzes/cross.svg'
+            'src': '/public/app/img/quizzes/cross.svg'
         });
 
         message.messageColumn.appendChild(message.message);
