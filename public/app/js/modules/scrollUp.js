@@ -1,52 +1,55 @@
-scrollUp = {
+module.exports = function () {
 
     /**
     * Page scroll offset to show scroll-up button
     */
-    SCROLL_UP_OFFSET: 100,
+    var SCROLL_UP_OFFSET = 100,
+        button = null;
 
-    button: null,
-
-    scrollPage : function () {
+    var scrollPage = function () {
 
         window.scrollTo(0, 0);
 
-    },
+    };
 
-    windowScrollHandler : function () {
+    var windowScrollHandler = function () {
 
-        if (window.pageYOffset > codex.scrollUp.SCROLL_UP_OFFSET) {
+        if (window.pageYOffset > SCROLL_UP_OFFSET) {
 
-            codex.scrollUp.button.classList.add('show');
+            button.classList.add('show');
 
         } else {
 
-            codex.scrollUp.button.classList.remove('show');
+            button.classList.remove('show');
 
         }
 
-    },
+    };
 
     /**
     * Init method
     * Fired after document is ready
     */
-    init : function () {
+   
+    var init = function () {
 
         /** Find scroll-up button */
-        this.button = document.createElement('DIV');
+        button = document.createElement('DIV');
 
-        this.button.classList.add('scroll-up');
-        document.body.appendChild(this.button);
+        button.classList.add('scroll-up');
+        document.body.appendChild(button);
 
         /** Bind click event on scroll-up button */
-        this.button.addEventListener('click', codex.scrollUp.scrollPage);
+        button.addEventListener('click', scrollPage);
 
         /** Global window scroll handler */
-        window.addEventListener('scroll', codex.scrollUp.windowScrollHandler);
+        window.addEventListener('scroll', windowScrollHandler);
 
+    };
+
+    return {
+        init : init
     }
 
-};
 
-module.exports = scrollUp;
+}();

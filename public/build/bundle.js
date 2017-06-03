@@ -255,6 +255,123 @@ module.exports = developer;
 /* 3 */
 /***/ (function(module, exports) {
 
+content = {
+
+    /**
+    * Module uses for toggle custom checkboxes
+    * that has 'js-custom-checkbox' class and input[type="checkbox"] included
+    * Example:
+    * <span class="js-custom-checkbox">
+    *    <input type="checkbox" name="" value="1"/>
+    * </span>
+    */
+    customCheckboxes : {
+
+        /**
+        * This class specifies checked custom-checkbox
+        * You may set it on serverisde
+        */
+        CHECKED_CLASS : 'checked',
+
+        init : function () {
+
+            var checkboxes = document.getElementsByClassName('js-custom-checkbox');
+
+            if (checkboxes.length) for (var i = checkboxes.length - 1; i >= 0; i--) {
+
+                checkboxes[i].addEventListener('click', codex.content.customCheckboxes.clicked, false);
+
+            }
+
+        },
+
+        clicked : function () {
+
+            var checkbox  = this,
+                input     = this.querySelector('input'),
+                isChecked = this.classList.contains(codex.content.customCheckboxes.CHECKED_CLASS);
+
+            checkbox.classList.toggle(codex.content.customCheckboxes.CHECKED_CLASS);
+
+            if (isChecked) {
+
+                input.removeAttribute('checked');
+
+            } else {
+
+                input.setAttribute('checked', 'checked');
+
+            }
+
+        }
+
+    },
+
+    /**
+    * Helper for 'show more news' button
+    * @param {Element} button   - appender button
+    */
+    showMoreNews : function ( button ) {
+
+        var PORTION = 5;
+
+        var news = document.querySelectorAll('.news__list_item'),
+            hided = [];
+
+        for (var i = 0, newsItem; !!(newsItem = news[i]); i++) {
+
+            if ( newsItem.classList.contains('hide') ) {
+
+                hided.push(newsItem);
+
+            }
+
+        }
+
+        hided.splice(0, PORTION).map(function (item) {
+
+            item.classList.remove('hide');
+
+        });
+
+        if (!hided.length) {
+
+            button.classList.add('hide');
+
+        }
+
+    },
+
+    /**
+     * Calculates offset of DOM element
+     *
+     * @param el
+     * @returns {{top: number, left: number}}
+     */
+    getOffset : function ( el ) {
+
+        var _x = 0;
+        var _y = 0;
+
+        while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
+
+            _x += (el.offsetLeft + el.clientLeft);
+            _y += (el.offsetTop + el.clientTop);
+            el = el.offsetParent;
+
+        }
+        return { top: _y, left: _x };
+
+    }
+};
+
+module.exports = content;
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
 core = {
 
       /** Logging method */
@@ -352,7 +469,7 @@ core = {
 module.exports = core;
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports) {
 
 module.exports = function (settings) {
@@ -596,7 +713,6 @@ module.exports = function (settings) {
 
 
 /***/ }),
-/* 5 */,
 /* 6 */
 /***/ (function(module, exports) {
 
@@ -638,58 +754,62 @@ module.exports = join;
 /* 7 */
 /***/ (function(module, exports) {
 
-scrollUp = {
+module.exports = function () {
 
     /**
     * Page scroll offset to show scroll-up button
     */
-    SCROLL_UP_OFFSET: 100,
+    var SCROLL_UP_OFFSET = 100,
+        button = null;
 
-    button: null,
-
-    scrollPage : function () {
+    var scrollPage = function () {
 
         window.scrollTo(0, 0);
 
-    },
+    };
 
-    windowScrollHandler : function () {
+    var windowScrollHandler = function () {
 
-        if (window.pageYOffset > codex.scrollUp.SCROLL_UP_OFFSET) {
+        if (window.pageYOffset > SCROLL_UP_OFFSET) {
 
-            codex.scrollUp.button.classList.add('show');
+            button.classList.add('show');
 
         } else {
 
-            codex.scrollUp.button.classList.remove('show');
+            button.classList.remove('show');
 
         }
 
-    },
+    };
 
     /**
     * Init method
     * Fired after document is ready
     */
-    init : function () {
+   
+    var init = function () {
 
         /** Find scroll-up button */
-        this.button = document.createElement('DIV');
+        button = document.createElement('DIV');
 
-        this.button.classList.add('scroll-up');
-        document.body.appendChild(this.button);
+        button.classList.add('scroll-up');
+        document.body.appendChild(button);
 
         /** Bind click event on scroll-up button */
-        this.button.addEventListener('click', codex.scrollUp.scrollPage);
+        button.addEventListener('click', scrollPage);
 
         /** Global window scroll handler */
-        window.addEventListener('scroll', codex.scrollUp.windowScrollHandler);
+        window.addEventListener('scroll', windowScrollHandler);
 
+    };
+
+    return {
+        init : init
     }
 
-};
 
-module.exports = scrollUp;
+}();
+
 
 /***/ }),
 /* 8 */
@@ -987,14 +1107,14 @@ codex.join = __webpack_require__(6);
 /**
  * Modules
  */
-codex.core = __webpack_require__(3);
-codex.dragndrop = __webpack_require__(4);
+codex.core = __webpack_require__(4);
+codex.dragndrop = __webpack_require__(5);
 codex.scrollUp = __webpack_require__(7);
 codex.sharer = __webpack_require__(8);
 codex.developer = __webpack_require__(2);
 codex.simpleCode = __webpack_require__(9);
 
-codex.content = __webpack_require__(16);
+codex.content = __webpack_require__(3);
 
 // codex.Polyfill = require('./modules/Polyfill');
 // codex.xhr = require('./modules/xhr');
@@ -1017,128 +1137,6 @@ codex.content = __webpack_require__(16);
 
 module.exports = codex;
 
-
-
-/***/ }),
-/* 11 */,
-/* 12 */,
-/* 13 */,
-/* 14 */,
-/* 15 */,
-/* 16 */
-/***/ (function(module, exports) {
-
-content = {
-
-    /**
-    * Module uses for toggle custom checkboxes
-    * that has 'js-custom-checkbox' class and input[type="checkbox"] included
-    * Example:
-    * <span class="js-custom-checkbox">
-    *    <input type="checkbox" name="" value="1"/>
-    * </span>
-    */
-    customCheckboxes : {
-
-        /**
-        * This class specifies checked custom-checkbox
-        * You may set it on serverisde
-        */
-        CHECKED_CLASS : 'checked',
-
-        init : function () {
-
-            var checkboxes = document.getElementsByClassName('js-custom-checkbox');
-
-            if (checkboxes.length) for (var i = checkboxes.length - 1; i >= 0; i--) {
-
-                checkboxes[i].addEventListener('click', codex.content.customCheckboxes.clicked, false);
-
-            }
-
-        },
-
-        clicked : function () {
-
-            var checkbox  = this,
-                input     = this.querySelector('input'),
-                isChecked = this.classList.contains(codex.content.customCheckboxes.CHECKED_CLASS);
-
-            checkbox.classList.toggle(codex.content.customCheckboxes.CHECKED_CLASS);
-
-            if (isChecked) {
-
-                input.removeAttribute('checked');
-
-            } else {
-
-                input.setAttribute('checked', 'checked');
-
-            }
-
-        }
-
-    },
-
-    /**
-    * Helper for 'show more news' button
-    * @param {Element} button   - appender button
-    */
-    showMoreNews : function ( button ) {
-
-        var PORTION = 5;
-
-        var news = document.querySelectorAll('.news__list_item'),
-            hided = [];
-
-        for (var i = 0, newsItem; !!(newsItem = news[i]); i++) {
-
-            if ( newsItem.classList.contains('hide') ) {
-
-                hided.push(newsItem);
-
-            }
-
-        }
-
-        hided.splice(0, PORTION).map(function (item) {
-
-            item.classList.remove('hide');
-
-        });
-
-        if (!hided.length) {
-
-            button.classList.add('hide');
-
-        }
-
-    },
-
-    /**
-     * Calculates offset of DOM element
-     *
-     * @param el
-     * @returns {{top: number, left: number}}
-     */
-    getOffset : function ( el ) {
-
-        var _x = 0;
-        var _y = 0;
-
-        while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
-
-            _x += (el.offsetLeft + el.clientLeft);
-            _y += (el.offsetTop + el.clientTop);
-            el = el.offsetParent;
-
-        }
-        return { top: _y, left: _x };
-
-    }
-};
-
-module.exports = content;
 
 
 /***/ })
