@@ -64,7 +64,7 @@ var codex =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 12);
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -255,127 +255,10 @@ module.exports = developer;
 /* 3 */
 /***/ (function(module, exports) {
 
-content = {
-
-    /**
-    * Module uses for toggle custom checkboxes
-    * that has 'js-custom-checkbox' class and input[type="checkbox"] included
-    * Example:
-    * <span class="js-custom-checkbox">
-    *    <input type="checkbox" name="" value="1"/>
-    * </span>
-    */
-    customCheckboxes : {
-
-        /**
-        * This class specifies checked custom-checkbox
-        * You may set it on serverisde
-        */
-        CHECKED_CLASS : 'checked',
-
-        init : function () {
-
-            var checkboxes = document.getElementsByClassName('js-custom-checkbox');
-
-            if (checkboxes.length) for (var i = checkboxes.length - 1; i >= 0; i--) {
-
-                checkboxes[i].addEventListener('click', codex.content.customCheckboxes.clicked, false);
-
-            }
-
-        },
-
-        clicked : function () {
-
-            var checkbox  = this,
-                input     = this.querySelector('input'),
-                isChecked = this.classList.contains(codex.content.customCheckboxes.CHECKED_CLASS);
-
-            checkbox.classList.toggle(codex.content.customCheckboxes.CHECKED_CLASS);
-
-            if (isChecked) {
-
-                input.removeAttribute('checked');
-
-            } else {
-
-                input.setAttribute('checked', 'checked');
-
-            }
-
-        }
-
-    },
-
-    /**
-    * Helper for 'show more news' button
-    * @param {Element} button   - appender button
-    */
-    showMoreNews : function ( button ) {
-
-        var PORTION = 5;
-
-        var news = document.querySelectorAll('.news__list_item'),
-            hided = [];
-
-        for (var i = 0, newsItem; !!(newsItem = news[i]); i++) {
-
-            if ( newsItem.classList.contains('hide') ) {
-
-                hided.push(newsItem);
-
-            }
-
-        }
-
-        hided.splice(0, PORTION).map(function (item) {
-
-            item.classList.remove('hide');
-
-        });
-
-        if (!hided.length) {
-
-            button.classList.add('hide');
-
-        }
-
-    },
-
-    /**
-     * Calculates offset of DOM element
-     *
-     * @param el
-     * @returns {{top: number, left: number}}
-     */
-    getOffset : function ( el ) {
-
-        var _x = 0;
-        var _y = 0;
-
-        while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
-
-            _x += (el.offsetLeft + el.clientLeft);
-            _y += (el.offsetTop + el.clientTop);
-            el = el.offsetParent;
-
-        }
-        return { top: _y, left: _x };
-
-    }
-};
-
-module.exports = content;
-
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports) {
-
-core = {
+module.exports =  function() {
 
       /** Logging method */
-    log : function (str, prefix, type, arg) {
+    var log = function (str, prefix, type, arg) {
 
         var staticLength = 32;
 
@@ -407,13 +290,12 @@ core = {
 
         } catch(e) {}
 
-    },
-
+    };
 
     /**
     * Native ajax method.
     */
-    ajax : function (data) {
+    var ajax = function (data) {
 
         if (!data || !data.url) {
 
@@ -463,13 +345,275 @@ core = {
 
         XMLHTTP.send(data.data);
 
+    };
+
+    var xhr = function( xhr ) {
+
+        var objectToQueryString = function (a) {
+
+            var prefix, s, add, name, r20, output;
+
+            s = [];
+            r20 = /%20/g;
+            add = function (key, value) {
+
+                // If value is a function, invoke it and return its value
+                value = ( typeof value == 'function' ) ? value() : ( value === null ? '' : value );
+                s[ s.length ] = encodeURIComponent(key) + '=' + encodeURIComponent(value);
+
+            };
+            if (a instanceof Array) {
+
+                for (name in a) {
+
+                    add(name, a[name]);
+
+                }
+
+            } else {
+
+                for (prefix in a) {
+
+                    buildParams(prefix, a[ prefix ], add);
+
+                }
+
+            }
+            output = s.join('&').replace(r20, '+');
+            return output;
+
+        };
+
+        var buildParams = function (prefix, obj, add) {
+
+            var name, i, l, rbracket;
+
+            rbracket = /\[\]$/;
+            if (obj instanceof Array) {
+
+                for (i = 0, l = obj.length; i < l; i++) {
+
+                    if (rbracket.test(prefix)) {
+
+                        add(prefix, obj[i]);
+
+                    } else {
+
+                        buildParams(prefix + '[' + ( typeof obj[i] === 'object' ? i : '' ) + ']', obj[i], add);
+
+                    }
+
+                }
+
+            } else if (typeof obj == 'object') {
+
+                // Serialize object item.
+                for (name in obj) {
+
+                    buildParams(prefix + '[' + name + ']', obj[ name ], add);
+
+                }
+
+            } else {
+
+                // Serialize scalar item.
+                add(prefix, obj);
+
+            }
+
+        };
+
+        xhr.call = function ( data ) {
+
+            if ( !data || !data.url ) {
+
+                console.warn('url wasn\'t passed into ajax method' );
+                return;
+
+            }
+
+            var XMLHTTP              = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP'),
+                successCallback;
+
+            data.type         = data.type || 'GET';
+            data.url          = data.url;
+            data.async        = data.async || false;
+            data.data         = data.data || '';
+            data.formData     = data.formData || false;
+            data['content-type'] = data.contentType || 'text/html';
+            successCallback      = data.success || successCallback ;
+
+            if ( data.type == 'GET' && data.data ) {
+
+                data.url = /\?/.test(data.url) ? data.url + '&' + data.data : data.url + '?' + data.data;
+
+            }
+
+            if (data.beforeSend && typeof data.beforeSend == 'function') {
+
+                data.beforeSend.call();
+
+            }
+
+            XMLHTTP.open( data.type, data.url, data.async );
+            XMLHTTP.setRequestHeader('Content-type', data['content-type'] );
+            XMLHTTP.setRequestHeader('Connection', 'close');
+            XMLHTTP.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            XMLHTTP.onreadystatechange = function () {
+
+                if ( XMLHTTP.readyState == 4 && XMLHTTP.status == 200 && successCallback) {
+
+                    successCallback.call(XMLHTTP.responseText);
+
+                }
+
+            };
+
+            XMLHTTP.send( data.formData || objectToQueryString(data.data) );
+
+        };
+
+
+        xhr.parseHTML = function (markup) {
+
+            var doc = document.implementation.createHTMLDocument('');
+
+            if (markup.toLowerCase().indexOf('<!doctype') > -1) {
+
+                doc.documentElement.innerHTML = markup;
+
+            } else {
+
+                doc.body.innerHTML = markup;
+
+            }
+            return doc;
+
+        };
+
+        /**
+         * Adapted from {@link http://www.bulgaria-web-developers.com/projects/javascript/serialize/}
+         * Changes:
+         *     Ensures proper URL encoding of name as well as value
+         *     Preserves element order
+         *     XHTML and JSLint-friendly
+         *     Disallows disabled form elements and reset buttons as per HTML4 [successful controls]{@link http://www.w3.org/TR/html401/interact/forms.html#h-17.13.2}
+         *         (as used in jQuery). Note: This does not serialize <object>
+         *         elements (even those without a declare attribute) or
+         *         <input type="file" />, as per jQuery, though it does serialize
+         *         the <button>'s (which are potential HTML4 successful controls) unlike jQuery
+         * @license MIT/GPL
+        */
+        xhr.serialize = function (form) {
+
+            'use strict';
+
+            var i, j, len, jLen, formElement, q = [];
+
+            function urlencode(str) {
+
+                // http://kevin.vanzonneveld.net
+                // Tilde should be allowed unescaped in future versions of PHP (as reflected below), but if you want to reflect current
+                // PHP behavior, you would need to add ".replace(/~/g, '%7E');" to the following.
+                return encodeURIComponent(str).replace(/!/g, '%21').replace(/'/g, '%27').replace(/\(/g, '%28').
+                    replace(/\)/g, '%29').replace(/\*/g, '%2A').replace(/%20/g, '+');
+
+            }
+            function addNameValue(name, value) {
+
+                q.push(urlencode(name) + '=' + urlencode(value));
+
+            }
+            if (!form || !form.nodeName || form.nodeName.toLowerCase() !== 'form') {
+
+                throw 'You must supply a form element';
+
+            }
+            for (i = 0, len = form.elements.length; i < len; i++) {
+
+                formElement = form.elements[i];
+                if (formElement.name === '' || formElement.disabled) {
+
+                    continue;
+
+                }
+                switch (formElement.nodeName.toLowerCase()) {
+                    case 'input':
+                        switch (formElement.type) {
+                            case 'text':
+                            case 'email':
+                            case 'hidden':
+                            case 'password':
+                            case 'button': // Not submitted when submitting form manually, though jQuery does serialize this and it can be an HTML4 successful control
+                            case 'submit':
+                                addNameValue(formElement.name, formElement.value);
+                                break;
+                            case 'checkbox':
+                            case 'radio':
+                                if (formElement.checked) {
+
+                                    addNameValue(formElement.name, formElement.value);
+
+                                }
+                                break;
+                            case 'file':
+                            // addNameValue(formElement.name, formElement.value); // Will work and part of HTML4 "successful controls", but not used in jQuery
+                                break;
+                            case 'reset':
+                                break;
+                        }
+                        break;
+                    case 'textarea':
+                        addNameValue(formElement.name, formElement.value);
+                        break;
+                    case 'select':
+                        switch (formElement.type) {
+                            case 'select-one':
+                                addNameValue(formElement.name, formElement.value);
+                                break;
+                            case 'select-multiple':
+                                for (j = 0, jLen = formElement.options.length; j < jLen; j++) {
+
+                                    if (formElement.options[j].selected) {
+
+                                        addNameValue(formElement.name, formElement.options[j].value);
+
+                                    }
+
+                                }
+                                break;
+                        }
+                        break;
+                    case 'button': // jQuery does not submit these, though it is an HTML4 successful control
+                        switch (formElement.type) {
+                            case 'reset':
+                            case 'submit':
+                            case 'button':
+                                addNameValue(formElement.name, formElement.value);
+                                break;
+                        }
+                        break;
+                }
+
+            }
+            
+            return q.join('&');
+
+        };
+
+
     }
 
-};
-module.exports = core;
+    return {
+        ajax : ajax,
+        log : log,
+        xhr : xhr       
+    }
+
+}();
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports) {
 
 module.exports = function (settings) {
@@ -713,7 +857,7 @@ module.exports = function (settings) {
 
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports) {
 
 join = {
@@ -748,6 +892,76 @@ join = {
 
 module.exports = join;
 
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+
+var polyfills = function() {
+
+    var init = function() {
+
+        /**
+        * Polyfilling ECMAScript 6 method String.includes
+        * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes#Browser_compatibility
+        */
+        if ( !String.prototype.includes ) {
+
+            String.prototype.includes = function () {
+
+            'use strict';
+
+            return String.prototype.indexOf.apply(this, arguments) !== -1;
+
+            };
+
+        }
+
+
+        /**
+        * Polyfill for Element.prototype.matches method
+        */
+        if (!Element.prototype.matches) {
+
+            Element.prototype.matches = Element.prototype.matchesSelector ||
+                                        Element.prototype.webkitMatchesSelector ||
+                                        Element.prototype.mozMatchesSelector ||
+                                        Element.prototype.msMatchesSelector;
+
+        }
+
+        /**
+        * Polyfill for Element.prototype.closest method
+        */
+        if (!Element.prototype.closest) {
+
+            Element.prototype.closest = function (selector) {
+
+                var node = this;
+
+                while (node) {
+
+                    if (node.matches(selector)) return node;
+                    node = node.parentElement;
+
+                }
+
+                return null;
+
+            };
+
+        };
+    };
+
+    return {
+        init : init
+    }
+
+}({});
+
+module.exports = polyfills;
 
 
 /***/ }),
@@ -2165,6 +2379,53 @@ module.exports = (function ( sharer ) {
 /* 11 */
 /***/ (function(module, exports) {
 
+var showMoreNews = function() {
+	/**
+    * Helper for 'show more news' button
+    * @param {Element} button   - appender button
+    */
+    var init = function ( button ) {
+
+        var PORTION = 5;
+
+        var news = document.querySelectorAll('.news__list_item'),
+            hided = [];
+
+        for (var i = 0, newsItem; !!(newsItem = news[i]); i++) {
+
+            if ( newsItem.classList.contains('news__list_item--hidden') ) {
+
+                hided.push(newsItem);
+
+            }
+
+        }
+
+        hided.splice(0, PORTION).map(function (item) {
+
+            item.classList.remove('news__list_item--hidden');
+
+        });
+
+        if (!hided.length) {
+
+            button.classList.add('news__list_item--hidden');
+
+        }
+
+    };
+
+    return {
+    	init : init
+    }
+}({})
+
+module.exports = showMoreNews;
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
 /**
 * Minimal, lightview and universal code highilting
 * @author Savchenko Peter (vk.com/specc)
@@ -2281,7 +2542,7 @@ module.exports = simpleCode;
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(0);
@@ -2328,22 +2589,22 @@ codex.docReady = function (f) {
 * Pages
 */
 codex.admin = __webpack_require__(1);
-codex.join = __webpack_require__(6);
+codex.join = __webpack_require__(5);
 
 
 /**
  * Modules
  */
-codex.core = __webpack_require__(4);
-codex.dragndrop = __webpack_require__(5);
+codex.core = __webpack_require__(3);
+codex.dragndrop = __webpack_require__(4);
 codex.scrollUp = __webpack_require__(9);
 codex.sharer = __webpack_require__(10);
 codex.developer = __webpack_require__(2);
-codex.simpleCode = __webpack_require__(11);
+codex.simpleCode = __webpack_require__(12);
 
-codex.content = __webpack_require__(3);
+codex.showMoreNews = __webpack_require__(11);
 
-// codex.Polyfill = require('./modules/Polyfill');
+codex.polyfills = __webpack_require__(6);
 // codex.xhr = require('./modules/xhr');
 
 // codex.callbacks = require('./modules/callbacks');

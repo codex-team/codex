@@ -1,7 +1,7 @@
 module.exports = (function (callbacks) {
 
     callbacks.checkUserCanEdit = function (event) {
-        console.log(123);
+       
         var textarea       = event.target,
             blankAuthBlock = document.getElementById('blankAuthBlock'),
             emailInput     = document.getElementById('blankEmailInput');

@@ -51,41 +51,6 @@ content = {
     },
 
     /**
-    * Helper for 'show more news' button
-    * @param {Element} button   - appender button
-    */
-    showMoreNews : function ( button ) {
-
-        var PORTION = 5;
-
-        var news = document.querySelectorAll('.news__list_item'),
-            hided = [];
-
-        for (var i = 0, newsItem; !!(newsItem = news[i]); i++) {
-
-            if ( newsItem.classList.contains('hide') ) {
-
-                hided.push(newsItem);
-
-            }
-
-        }
-
-        hided.splice(0, PORTION).map(function (item) {
-
-            item.classList.remove('hide');
-
-        });
-
-        if (!hided.length) {
-
-            button.classList.add('hide');
-
-        }
-
-    },
-
-    /**
      * Calculates offset of DOM element
      *
      * @param el

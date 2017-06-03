@@ -55,9 +55,9 @@ codex.sharer = require('./modules/sharer');
 codex.developer = require('./modules/bestDevelopers');
 codex.simpleCode = require('./modules/simpleCodeStyling');
 
-codex.content = require('./modules/content');
+codex.showMoreNews = require('./modules/showMoreNews');
 
-// codex.Polyfill = require('./modules/Polyfill');
+codex.polyfills = require('./modules/polyfills');
 // codex.xhr = require('./modules/xhr');
 
 // codex.callbacks = require('./modules/callbacks');

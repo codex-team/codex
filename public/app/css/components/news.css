@@ -15,6 +15,9 @@
         list-style: none;
         line-height: 1.6em;
     }
+    .news__list_item--hidden {
+        display: none !important;
+    }
     .news__list_item:before{
         content: attr(data-time);
         position: absolute;
