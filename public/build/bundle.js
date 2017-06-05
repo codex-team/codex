@@ -64,7 +64,7 @@ var codex =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 13);
+/******/ 	return __webpack_require__(__webpack_require__.s = 14);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -217,135 +217,7 @@ module.exports = function (admin) {
 /* 2 */
 /***/ (function(module, exports) {
 
-var developer = function () {
-
-    var bind = function () {
-
-        var chBoxes = document.querySelectorAll('.developer-checkbox');
-
-        for (var i = chBoxes.length-1; i > -1; i--) {
-
-            chBoxes[i].addEventListener('change', toggle);
-
-        }
-
-    };
-
-    var toggle = function (event) {
-
-        var data = {
-            data: 'id='+event.target.id+'&value='+(event.target.checked?1:0),
-            url: '/admin/developer'
-        };
-
-        codex.core.ajax(data);
-
-    };
-
-    return {
-        bind: bind
-    };
-
-}();
-
-module.exports = developer;
-
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports) {
-
-module.exports =  function() {
-
-      /** Logging method */
-    var log = function (str, prefix, type, arg) {
-
-        var staticLength = 32;
-
-        if (prefix) {
-
-            prefix = prefix.length < staticLength ? prefix : prefix.substr( 0, staticLength - 2 );
-
-            while (prefix.length < staticLength - 1) {
-
-                prefix += ' ';
-
-            }
-
-            prefix += ':';
-            str = prefix + str;
-
-        }
-
-        type = type || 'log';
-
-        try {
-
-            if ('console' in window && window.console[ type ]) {
-
-                if (arg) console[type](str, arg);
-                else console[type](str);
-
-            }
-
-        } catch(e) {}
-
-    };
-
-    /**
-    * Native ajax method.
-    */
-    var ajax = function (data) {
-
-        if (!data || !data.url) {
-
-            return;
-
-        }
-
-        var XMLHTTP          = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP'),
-            success_function = function () {};
-
-        data.async           = true;
-        data.type            = data.type || 'GET';
-        data.data            = data.data || '';
-        data['content-type'] = data['content-type'] || 'application/json; charset=utf-8';
-        success_function     = data.success || success_function ;
-
-        if (data.type == 'GET' && data.data) {
-
-            data.url = /\?/.test(data.url) ? data.url + '&' + data.data : data.url + '?' + data.data;
-
-        }
-
-        if (data.withCredentials) {
-
-            XMLHTTP.withCredentials = true;
-
-        }
-
-        if (data.beforeSend && typeof data.beforeSend == 'function') {
-
-            data.beforeSend.call();
-
-        }
-
-        XMLHTTP.open( data.type, data.url, data.async );
-        XMLHTTP.setRequestHeader('Content-type', data['content-type'] );
-        XMLHTTP.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-        XMLHTTP.onreadystatechange = function () {
-
-            if (XMLHTTP.readyState == 4 && XMLHTTP.status == 200) {
-
-                success_function(XMLHTTP.responseText);
-
-            }
-
-        };
-
-        XMLHTTP.send(data.data);
-
-    };
+var ajax = function () {
 
     var xhr = function( xhr ) {
 
@@ -601,19 +473,158 @@ module.exports =  function() {
 
         };
 
+	}
 
+    return {
+    	xhr : xhr
     }
+}({})
+module.exports = ajax;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
+var developer = function () {
+
+    var bind = function () {
+
+        var chBoxes = document.querySelectorAll('.developer-checkbox');
+
+        for (var i = chBoxes.length-1; i > -1; i--) {
+
+            chBoxes[i].addEventListener('change', toggle);
+
+        }
+
+    };
+
+    var toggle = function (event) {
+
+        var data = {
+            data: 'id='+event.target.id+'&value='+(event.target.checked?1:0),
+            url: '/admin/developer'
+        };
+
+        codex.core.ajax(data);
+
+    };
+
+    return {
+        bind: bind
+    };
+
+}();
+
+module.exports = developer;
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+module.exports =  function() {
+
+      /** Logging method */
+    var log = function (str, prefix, type, arg) {
+
+        var staticLength = 32;
+
+        if (prefix) {
+
+            prefix = prefix.length < staticLength ? prefix : prefix.substr( 0, staticLength - 2 );
+
+            while (prefix.length < staticLength - 1) {
+
+                prefix += ' ';
+
+            }
+
+            prefix += ':';
+            str = prefix + str;
+
+        }
+
+        type = type || 'log';
+
+        try {
+
+            if ('console' in window && window.console[ type ]) {
+
+                if (arg) console[type](str, arg);
+                else console[type](str);
+
+            }
+
+        } catch(e) {}
+
+    };
+
+    /**
+    * Native ajax method.
+    */
+    var ajax = function (data) {
+
+        if (!data || !data.url) {
+
+            return;
+
+        }
+
+        var XMLHTTP          = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP'),
+            success_function = function () {};
+
+        data.async           = true;
+        data.type            = data.type || 'GET';
+        data.data            = data.data || '';
+        data['content-type'] = data['content-type'] || 'application/json; charset=utf-8';
+        success_function     = data.success || success_function ;
+
+        if (data.type == 'GET' && data.data) {
+
+            data.url = /\?/.test(data.url) ? data.url + '&' + data.data : data.url + '?' + data.data;
+
+        }
+
+        if (data.withCredentials) {
+
+            XMLHTTP.withCredentials = true;
+
+        }
+
+        if (data.beforeSend && typeof data.beforeSend == 'function') {
+
+            data.beforeSend.call();
+
+        }
+
+        XMLHTTP.open( data.type, data.url, data.async );
+        XMLHTTP.setRequestHeader('Content-type', data['content-type'] );
+        XMLHTTP.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        XMLHTTP.onreadystatechange = function () {
+
+            if (XMLHTTP.readyState == 4 && XMLHTTP.status == 200) {
+
+                success_function(XMLHTTP.responseText);
+
+            }
+
+        };
+
+        XMLHTTP.send(data.data);
+
+    };
+
 
     return {
         ajax : ajax,
-        log : log,
-        xhr : xhr       
+        log : log       
     }
 
 }();
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports) {
 
 module.exports = function (settings) {
@@ -857,7 +868,7 @@ module.exports = function (settings) {
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports) {
 
 var join = function() {
@@ -939,7 +950,7 @@ module.exports = join;
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports) {
 
 
@@ -1002,7 +1013,7 @@ module.exports = polyfills;
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports) {
 
 /**
@@ -1483,7 +1494,7 @@ module.exports = (function () {
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports) {
 
 /**
@@ -2229,7 +2240,7 @@ module.exports = (function (quiz) {
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports) {
 
 module.exports = function () {
@@ -2290,7 +2301,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports) {
 
 module.exports = (function ( sharer ) {
@@ -2413,7 +2424,7 @@ module.exports = (function ( sharer ) {
 })({});
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports) {
 
 var showMoreNews = function() {
@@ -2460,7 +2471,7 @@ var showMoreNews = function() {
 module.exports = showMoreNews;
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports) {
 
 /**
@@ -2579,7 +2590,7 @@ module.exports = simpleCode;
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(0);
@@ -2626,23 +2637,23 @@ codex.docReady = function (f) {
 * Pages
 */
 codex.admin = __webpack_require__(1);
-codex.join = __webpack_require__(5);
+codex.join = __webpack_require__(6);
 
 
 /**
  * Modules
  */
-codex.core = __webpack_require__(3);
-codex.dragndrop = __webpack_require__(4);
-codex.scrollUp = __webpack_require__(9);
-codex.sharer = __webpack_require__(10);
-codex.developer = __webpack_require__(2);
-codex.simpleCode = __webpack_require__(12);
+codex.core = __webpack_require__(4);
+codex.dragndrop = __webpack_require__(5);
+codex.scrollUp = __webpack_require__(10);
+codex.sharer = __webpack_require__(11);
+codex.developer = __webpack_require__(3);
+codex.simpleCode = __webpack_require__(13);
 
-codex.showMoreNews = __webpack_require__(11);
+codex.showMoreNews = __webpack_require__(12);
 
-codex.polyfills = __webpack_require__(6);
-// codex.xhr = require('./modules/xhr');
+codex.polyfills = __webpack_require__(7);
+codex.ajax = __webpack_require__(2);
 
 // codex.callbacks = require('./modules/callbacks');
 // codex.load = require('./modules/load');
@@ -2656,8 +2667,8 @@ codex.polyfills = __webpack_require__(6);
 
 
 
-codex.quiz = __webpack_require__(7);
-codex.quizForm = __webpack_require__(8);
+codex.quiz = __webpack_require__(8);
+codex.quizForm = __webpack_require__(9);
 // codex.transport = require('./modules/transport');
 
 module.exports = codex;

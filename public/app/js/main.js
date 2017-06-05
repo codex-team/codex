@@ -58,7 +58,7 @@ codex.simpleCode = require('./modules/simpleCodeStyling');
 codex.showMoreNews = require('./modules/showMoreNews');
 
 codex.polyfills = require('./modules/polyfills');
-// codex.xhr = require('./modules/xhr');
+codex.ajax = require('./modules/ajax');
 
 // codex.callbacks = require('./modules/callbacks');
 // codex.load = require('./modules/load');
