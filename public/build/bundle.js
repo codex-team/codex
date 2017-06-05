@@ -860,38 +860,82 @@ module.exports = function (settings) {
 /* 5 */
 /***/ (function(module, exports) {
 
-join = {
+var join = function() {
 
-        init : function ( textarea ) {
-            textareas = document.getElementsByClassName("js-join-input");
-            blankAuthBlock = document.getElementById("blankAuthBlock");
+    var init = function() {
 
-            console.log(blankAuthBlock);
+        var joinBlank = document.getElementById('joinBlank');
 
-            for(var i = 0; i < textareas.length; i++) {
+        if ( typeof joinBlank != 'undefined' && joinBlank !== null ){
 
-                textareas[i].addEventListener("keyup", function() {
+            var joinBlankTextareas = joinBlank.getElementsByTagName('textarea');
 
-                    if (blankAuthBlock && this.value.length) {
+            if (joinBlankTextareas.length) {
 
-                        setTimeout(function () {
+                for (var i = joinBlankTextareas.length - 1; i >= 0; i--) {
 
-                            blankAuthBlock.classList.remove('wobble');
+                    joinBlankTextareas[i].addEventListener('keyup', checkUserCanEdit, false);
+                }
 
-                        }, 450);
-
-                        this.value = '';
-
-                        blankAuthBlock.classList.add('wobble');
-                    } 
-                    
-                });
             }
         }
-}
+
+        var blankShowAdditionalFieldsButton = document.getElementById('blankShowAdditionalFieldsButton');
+
+        if ( typeof blankShowAdditionalFieldsButton != 'undefined' && blankShowAdditionalFieldsButton !== null ){
+
+            blankShowAdditionalFieldsButton.addEventListener('click', showAdditionalFields, false);
+
+        }
+    };
+
+    checkUserCanEdit = function (event) {
+       
+        var textarea       = event.target,
+            blankAuthBlock = document.getElementById('blankAuthBlock'),
+            emailInput     = document.getElementById('blankEmailInput');
+
+        if (blankAuthBlock && !emailInput.value.length ) {
+
+            if (!blankAuthBlock.className.includes('wobble')) {
+
+                blankAuthBlock.className += ' wobble';
+                setTimeout(function () {
+
+                    blankAuthBlock.className = blankAuthBlock.className.replace('wobble', '');
+
+                }, 450);
+
+                textarea.value = '';
+
+            }
+
+        }
+
+    };
+
+    var showAdditionalFields = function (event) {
+
+        var blankAdditionalFields = document.getElementById('blankAdditionalFields');
+
+        if (blankAdditionalFields.className.includes('additional_fields--hide')) {
+
+            blankAdditionalFields.className = blankAdditionalFields.className.replace('additional_fields--hide', '');
+
+        } else {
+
+            blankAdditionalFields.className += ' additional_fields--hide';
+
+        }
+    };
+
+    return {
+        init : init
+    }
+
+}({})
 
 module.exports = join;
-
 
 
 /***/ }),

@@ -68,7 +68,7 @@
 
                 <? endif ?>
 
-                <div class="additional_fields hide" id="blankAdditionalFields">
+                <div class="additional_fields additional_fields--hide" id="blankAdditionalFields">
                     <label for="blankNameInput">Имя и Фамилия</label>
                     <input type="text" name="name" id="blankNameInput" value="<?= Arr::get($_POST, 'name') ?>">
                     <label for="blankEmailInput">Email</label>
@@ -111,7 +111,11 @@
 
         <? endif ; ?>
         <script type="text/javascript">
+        codex.docReady(function () {
+
             codex.join.init();
+
+        });
         </script>
     </div>
 </div>
