@@ -945,8 +945,6 @@ module.exports = join;
 
 var polyfills = function() {
 
-    var init = function() {
-
         /**
         * Polyfilling ECMAScript 6 method String.includes
         * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes#Browser_compatibility
@@ -997,11 +995,6 @@ var polyfills = function() {
             };
 
         };
-    };
-
-    return {
-        init : init
-    }
 
 }({});
 
