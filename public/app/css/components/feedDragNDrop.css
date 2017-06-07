@@ -27,7 +27,7 @@
     background: #e8ecf2;
 }
 
-.feed-item {
+.feed-item--dnd {
     background: #fff;
     border: 1px #e8ecf2 solid;
 }

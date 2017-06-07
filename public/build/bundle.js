@@ -64,7 +64,7 @@ var codex =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 15);
+/******/ 	return __webpack_require__(__webpack_require__.s = 16);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -200,6 +200,7 @@ module.exports = function (admin) {
 
 	        for (var i = items.length-1; i > -1; i--) {
 	            items[i].classList.add('draggable');
+	            items[i].classList.add('feed-item--dnd');
 	            items[i].classList.add('list-item');
 	        }
 
@@ -1017,6 +1018,36 @@ module.exports = polyfills;
 /***/ (function(module, exports) {
 
 /**
+ * Profile page methods
+ */
+module.exports = function () {
+
+	/**
+	 * Photo uploading success-callback
+	 * Fired by transport
+	 * @param  {string} newPhotoURL - uploaded file URL
+	 */
+    var uploadPhotoSuccess = function (newPhotoURL) {
+
+        var settings_avatar = document.getElementById('profile-photo-updatable'),
+            header_avatar   = document.getElementById('header-avatar-updatable');
+
+        settings_avatar.src = newPhotoURL;
+        header_avatar.src   = newPhotoURL;
+
+    }
+
+    return {
+    	'uploadPhotoSuccess': uploadPhotoSuccess,
+    }
+
+}();
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports) {
+
+/**
  * Модуль quiz с единственным публичным методом quiz.init()
  */
 module.exports = (function () {
@@ -1494,7 +1525,7 @@ module.exports = (function () {
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports) {
 
 /**
@@ -2240,7 +2271,7 @@ module.exports = (function (quiz) {
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports) {
 
 module.exports = function () {
@@ -2301,7 +2332,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports) {
 
 module.exports = (function ( sharer ) {
@@ -2424,7 +2455,7 @@ module.exports = (function ( sharer ) {
 })({});
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports) {
 
 var showMoreNews = function() {
@@ -2471,7 +2502,7 @@ var showMoreNews = function() {
 module.exports = showMoreNews;
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports) {
 
 /**
@@ -2590,7 +2621,7 @@ module.exports = simpleCode;
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports) {
 
 /**
@@ -2787,7 +2818,7 @@ module.exports = (function (transport) {
 })({});
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(0);
@@ -2842,17 +2873,17 @@ codex.join = __webpack_require__(6);
  */
 codex.core = __webpack_require__(4);
 codex.dragndrop = __webpack_require__(5);
-codex.scrollUp = __webpack_require__(10);
-codex.sharer = __webpack_require__(11);
+codex.scrollUp = __webpack_require__(11);
+codex.sharer = __webpack_require__(12);
 codex.developer = __webpack_require__(3);
-codex.simpleCode = __webpack_require__(13);
+codex.simpleCode = __webpack_require__(14);
 
-codex.showMoreNews = __webpack_require__(12);
+codex.showMoreNews = __webpack_require__(13);
 
 codex.polyfills = __webpack_require__(7);
 codex.ajax = __webpack_require__(2);
 
-codex.profile = __webpack_require__(22);
+codex.profile = __webpack_require__(8);
 // codex.load = require('./modules/load');
 // codex.helpers = require('./modules/helpers');
 
@@ -2864,49 +2895,13 @@ codex.profile = __webpack_require__(22);
 
 
 
-codex.quiz = __webpack_require__(8);
-codex.quizForm = __webpack_require__(9);
-codex.transport = __webpack_require__(14);
+codex.quiz = __webpack_require__(9);
+codex.quizForm = __webpack_require__(10);
+codex.transport = __webpack_require__(15);
 
 module.exports = codex;
 
 
-
-/***/ }),
-/* 16 */,
-/* 17 */,
-/* 18 */,
-/* 19 */,
-/* 20 */,
-/* 21 */,
-/* 22 */
-/***/ (function(module, exports) {
-
-/**
- * Profile page methods
- */
-module.exports = function () {
-
-	/**
-	 * Photo uploading success-callback
-	 * Fired by transport
-	 * @param  {string} newPhotoURL - uploaded file URL
-	 */
-    var uploadPhotoSuccess = function (newPhotoURL) {
-
-        var settings_avatar = document.getElementById('profile-photo-updatable'),
-            header_avatar   = document.getElementById('header-avatar-updatable');
-
-        settings_avatar.src = newPhotoURL;
-        header_avatar.src   = newPhotoURL;
-
-    }
-
-    return {
-    	'uploadPhotoSuccess': uploadPhotoSuccess,
-    }
-
-}();
 
 /***/ })
 /******/ ]);
