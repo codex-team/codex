@@ -5,7 +5,7 @@
  */
 class Controller_Auth extends Controller_Base_preDispatch
 {
-    public $cookiesLifetime = Date::YEAR * 100;
+    public $cookiesLifetime = Date::YEAR * 2;
 
     /**
      * Осуществляет авторизацию в ВК. В случае, если пользователь авторизован в первый раз - добавляет новую запись
