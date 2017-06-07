@@ -4,11 +4,12 @@
 */
 module.exports = (function (transport) {
 
-    transport.form  = document.getElementById('transportForm');
-    transport.input = document.getElementById('transportInput');
     transport.currentButtonClicked = {};
 
     transport.init = function (buttons) {
+
+        transport.form  = document.getElementById('transportForm');
+        transport.input = document.getElementById('transportInput');
 
         for (var i = buttons.length - 1; i >= 0; i--) {
 
@@ -115,12 +116,12 @@ module.exports = (function (transport) {
     * Fires from transport-frame window
     */
     transport.response = function ( response ) {
-
+        
         transport.currentButtonClicked.className = transport.currentButtonClicked.className.replace('loading', '');
 
         if (response.callback) {
 
-            response.callback.call();
+            eval(response.callback);
 
         }
 

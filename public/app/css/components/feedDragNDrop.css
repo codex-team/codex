@@ -20,6 +20,10 @@
 }
 
 .feed {
+    background: #fff;
+}
+
+.feed--gray {
     background: #e8ecf2;
 }
 

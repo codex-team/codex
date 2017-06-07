@@ -47,3 +47,16 @@
 
     </div>
 </div>
+
+<script>
+    codex.docReady(function () {
+
+        /** File transport button handlers */
+        var fileTransportButtons = document.getElementsByClassName("file-transport-button");
+
+        if (fileTransportButtons.length){
+            codex.transport.init(fileTransportButtons);
+        }
+
+    });
+</script>
