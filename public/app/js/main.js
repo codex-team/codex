@@ -54,24 +54,11 @@ codex.scrollUp = require('./modules/scrollUp');
 codex.sharer = require('./modules/sharer');
 codex.developer = require('./modules/bestDevelopers');
 codex.simpleCode = require('./modules/simpleCodeStyling');
-
 codex.showMoreNews = require('./modules/showMoreNews');
-
 codex.polyfills = require('./modules/polyfills');
 codex.ajax = require('./modules/ajax');
-
 codex.profile = require('./modules/profile');
-// codex.load = require('./modules/load');
-// codex.helpers = require('./modules/helpers');
-
-// codex.fixColumns = require('./modules/fixColumns');
-
-
-
-
-
-
-
+codex.helpers = require('./modules/helpers');
 codex.quiz = require('./modules/quiz');
 codex.quizForm = require('./modules/quizForm');
 codex.transport = require('./modules/transport');

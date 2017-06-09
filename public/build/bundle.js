@@ -2877,24 +2877,11 @@ codex.scrollUp = __webpack_require__(11);
 codex.sharer = __webpack_require__(12);
 codex.developer = __webpack_require__(3);
 codex.simpleCode = __webpack_require__(14);
-
 codex.showMoreNews = __webpack_require__(13);
-
 codex.polyfills = __webpack_require__(7);
 codex.ajax = __webpack_require__(2);
-
 codex.profile = __webpack_require__(8);
-// codex.load = require('./modules/load');
-// codex.helpers = require('./modules/helpers');
-
-// codex.fixColumns = require('./modules/fixColumns');
-
-
-
-
-
-
-
+codex.helpers = __webpack_require__(22);
 codex.quiz = __webpack_require__(9);
 codex.quizForm = __webpack_require__(10);
 codex.transport = __webpack_require__(15);
@@ -2902,6 +2889,71 @@ codex.transport = __webpack_require__(15);
 module.exports = codex;
 
 
+
+/***/ }),
+/* 17 */,
+/* 18 */,
+/* 19 */,
+/* 20 */,
+/* 21 */,
+/* 22 */
+/***/ (function(module, exports) {
+
+module.exports = (function (helpers) {
+
+    helpers.setCookie = function (name, value, expires, path, domain) {
+
+        var str = name + '='+value;
+
+        if (expires) str += '; expires=' + expires.toGMTString();
+        if (path)    str += '; path=' + path;
+        if (domain)  str += '; domain=' + domain;
+        document.cookie = str;
+
+    };
+
+    helpers.getCookie = function (name) {
+
+        var dc = document.cookie;
+
+        var prefix = name + '=';
+        var begin = dc.indexOf('; ' + prefix);
+
+        if (begin == -1) {
+
+            begin = dc.indexOf(prefix);
+            if (begin !== 0) return null;
+
+        } else
+            begin += 2;
+
+        var end = document.cookie.indexOf(';', begin);
+
+        if (end == -1) end = dc.length;
+
+        return unescape(dc.substring(begin + prefix.length, end));
+
+    };
+
+    helpers.getOffset = function ( el ) {
+
+        var _x = 0;
+        var _y = 0;
+
+        while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
+
+            _x += (el.offsetLeft + el.clientLeft);
+            _y += (el.offsetTop + el.clientTop);
+            el = el.offsetParent;
+
+        }
+        return { top: _y, left: _x };
+
+    }
+
+    return helpers;
+
+})({});
 
 /***/ })
 /******/ ]);
