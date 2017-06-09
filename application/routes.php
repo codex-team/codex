@@ -75,8 +75,8 @@ Route::set('EDIT_ARTICLE_SCRIPT', 'article/<id>(/<method>)', array(
   'id' => $DIGIT,
   'method' => 'save'
 ))->defaults(array(
-		'controller' => 'Articles_Modify',
-		'action' => 'save'
+	'controller' => 'Articles_Modify',
+	'action' => 'save'
 ));
 
 Route::set('EDIT_CONTEST_SCRIPT', 'contest/<id>/save', array('id' => $DIGIT))
