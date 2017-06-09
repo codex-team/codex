@@ -5,6 +5,7 @@
  */
 class Controller_Auth extends Controller_Base_preDispatch
 {
+    public $cookiesLifetime = Date::YEAR * 2;
 
     /**
      * Осуществляет авторизацию в ВК. В случае, если пользователь авторизован в первый раз - добавляет новую запись
@@ -20,7 +21,7 @@ class Controller_Auth extends Controller_Base_preDispatch
             if ($profile)
             {
                 $token = Session::instance()->get('vk_token');
-                Cookie::set("auth_token", $token);
+                Cookie::set("auth_token", $token, $this->cookiesLifetime);
 
                 $user = Model_User::findByAttribute('vk_id', $profile->uid);
                 if ($user->is_empty())
@@ -110,13 +111,13 @@ class Controller_Auth extends Controller_Base_preDispatch
         $gh = Oauth::instance('github');
 
         if ($gh->login())
-        { 
+        {
             $profile = $gh->get_user();
 
             if ($profile)
             {
                 $token = $gh->get_token();
-                Cookie::set("auth_token", $token);
+                Cookie::set("auth_token", $token, $this->cookiesLifetime);
 
                 $user = Model_User::findByAttribute('github_id', $profile->id);
                 if ($user->is_empty())
@@ -148,9 +149,9 @@ class Controller_Auth extends Controller_Base_preDispatch
         }
         else
         {
-           
+
         }
-        
+
         Controller::redirect($this->get_return_url());
     }
 
