@@ -93,7 +93,7 @@
 .quiz__question-answer_selected.quiz__question-answer_right:before{
     border-color: #34b98e;
     box-shadow: none;
-    background: #34b98e url(/public/img/quizzes/checked.svg) !important;
+    background: #34b98e url(/public/app/img/quizzes/checked.svg) !important;
     background-size: cover !important;
 }
 .quiz__question-answer_selected.quiz__question-answer_wrong:before{
@@ -143,7 +143,7 @@
     display: inline-block;
     margin-bottom: -.3em;
     margin-right: .4em;
-    background-image: url(/public/img/quizzes/retry.svg);
+    background-image: url(/public/app/img/quizzes/retry.svg);
     background-size: cover;
     height: 20px;
     width: 20px;
