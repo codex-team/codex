@@ -71,11 +71,12 @@ Route::set('SHOWCOURSE', 'course(/<id>)')->defaults(array(
 
 // Edit Substances
 
-Route::set('EDIT_ARTICLE_SCRIPT', 'article/<id>/save', array('id' => $DIGIT))
-	->defaults(array(
-		'controller' => 'Articles_Modify',
-		'action' => 'save'
-	));
+Route::set('EDIT_ARTICLE_SCRIPT', 'article/<id>/<action>', array(
+    'id' => $DIGIT,
+    'action' => 'save'
+))->defaults(array(
+    'controller' => 'Articles_Modify'
+));
 
 Route::set('EDIT_CONTEST_SCRIPT', 'contest/<id>/save', array('id' => $DIGIT))
 	->defaults(array(
