@@ -64,7 +64,7 @@ var codex =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 14);
+/******/ 	return __webpack_require__(__webpack_require__.s = 16);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -200,6 +200,7 @@ module.exports = function (admin) {
 
 	        for (var i = items.length-1; i > -1; i--) {
 	            items[i].classList.add('draggable');
+	            items[i].classList.add('feed-item--dnd');
 	            items[i].classList.add('list-item');
 	        }
 
@@ -1017,6 +1018,36 @@ module.exports = polyfills;
 /***/ (function(module, exports) {
 
 /**
+ * Profile page methods
+ */
+module.exports = function () {
+
+	/**
+	 * Photo uploading success-callback
+	 * Fired by transport
+	 * @param  {string} newPhotoURL - uploaded file URL
+	 */
+    var uploadPhotoSuccess = function (newPhotoURL) {
+
+        var settings_avatar = document.getElementById('profile-photo-updatable'),
+            header_avatar   = document.getElementById('header-avatar-updatable');
+
+        settings_avatar.src = newPhotoURL;
+        header_avatar.src   = newPhotoURL;
+
+    }
+
+    return {
+    	'uploadPhotoSuccess': uploadPhotoSuccess,
+    }
+
+}();
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports) {
+
+/**
  * Модуль quiz с единственным публичным методом quiz.init()
  */
 module.exports = (function () {
@@ -1494,7 +1525,7 @@ module.exports = (function () {
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports) {
 
 /**
@@ -2240,7 +2271,7 @@ module.exports = (function (quiz) {
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports) {
 
 module.exports = function () {
@@ -2301,7 +2332,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports) {
 
 module.exports = (function ( sharer ) {
@@ -2424,7 +2455,7 @@ module.exports = (function ( sharer ) {
 })({});
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports) {
 
 var showMoreNews = function() {
@@ -2471,7 +2502,7 @@ var showMoreNews = function() {
 module.exports = showMoreNews;
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports) {
 
 /**
@@ -2590,7 +2621,204 @@ module.exports = simpleCode;
 
 
 /***/ }),
-/* 14 */
+/* 15 */
+/***/ (function(module, exports) {
+
+/**
+* Ajax file transport module
+* @author Savchenko Peter (vk.com/specc)
+*/
+module.exports = (function (transport) {
+
+    transport.currentButtonClicked = {};
+
+    transport.init = function (buttons) {
+
+        transport.form  = document.getElementById('transportForm');
+        transport.input = document.getElementById('transportInput');
+
+        for (var i = buttons.length - 1; i >= 0; i--) {
+
+            buttons[i].addEventListener('click', transport.buttonCallback, false);
+
+        }
+
+        transport.input.addEventListener('change', transport.submitCallback, false );
+
+    };
+
+    transport.buttonCallback = function (event) {
+
+        var action        = this.dataset.action,
+            target_id     = this.dataset.id,
+            is_multiple   = !!this.dataset.multiple || false;
+
+        transport.fillForm({
+            action : action,
+            id     : target_id
+        });
+
+        if ( is_multiple ) {
+
+            transport.form.multiple = 'multiple';
+
+        }
+
+        transport.currentButtonClicked = this;
+        transport.input.click();
+
+    };
+
+    /**
+    * Append hidden inputs to tranport form
+    */
+    transport.fillForm = function (data) {
+
+        var input,
+            alreadyAddedInput;
+
+        for ( var field in data ) {
+
+            if (typeof data[field] == 'undefined') {
+
+                continue;
+
+            }
+
+            alreadyAddedInput = transport.form.querySelector('input[name=' + field + ']');
+
+            if (typeof alreadyAddedInput != 'undefined' && alreadyAddedInput !== null) {
+
+                input = alreadyAddedInput;
+
+            } else {
+
+                input = document.createElement('input');
+
+            }
+
+            input.type = 'hidden';
+            input.name = field;
+            input.value = data[field];
+
+            transport.form.appendChild(input);
+
+        }
+
+    };
+
+    transport.submitCallback = function () {
+
+        const FILE_MAX_SIZE = 30 * 1024 * 1024; // 30 MB
+
+        var files = transport.getFileObject( this );
+
+        for (var i = files.length - 1; i >= 0; i--) {
+
+            /** Validate file extension */
+            if ( !transport.validateExtension(files[i]) || !transport.validateMIME(files[i]) ) {
+
+                window.console && console.warn('Wrong file type: %o', + files[i].name);
+                return;
+
+            }
+
+            /** Validate file size */
+            if ( !transport.validateSize( files[i], FILE_MAX_SIZE) ) {
+
+                window.console && console.warn('File size exceeded limit: %o MB', files[i].size / (1024*1024).toFixed(2) );
+                return;
+
+            }
+
+        }
+
+        transport.currentButtonClicked.className += ' loading';
+        transport.form.submit();
+
+    };
+
+    /**
+    * Fires from transport-frame window
+    */
+    transport.response = function ( response ) {
+        
+        transport.currentButtonClicked.className = transport.currentButtonClicked.className.replace('loading', '');
+
+        if (response.callback) {
+
+            eval(response.callback);
+
+        }
+
+        if ( response.result ) {
+
+            if ( response.result == 'error' ) {
+
+                window.console && console.warn( response.error_description || 'error' );
+
+            }
+
+        }
+
+    };
+
+    transport.getFileObject = function ( fileInput ) {
+
+        if ( !fileInput ) return false;
+        /**
+        * Workaround with IE that doesn't support File API
+        * @todo test and delete this crutch
+        */
+        return typeof ActiveXObject == 'function' ? (new ActiveXObject('Scripting.FileSystemObject')).getFile(fileInput.value) : fileInput.files;
+
+    };
+
+    transport.validateMIME = function ( fileObj, accept ) {
+
+        accept = typeof accept == 'array' ? accept : ['image/jpeg', 'image/png'];
+
+        for (var i = accept.length - 1; i >= 0; i--) {
+
+            if ( fileObj.type == accept[i] ) return true;
+
+        }
+        return false;
+
+    };
+
+    transport.validateExtension = function ( fileObj, accept ) {
+
+        var ext = fileObj.name.match(/\.(\w+)($|#|\?)/);
+
+        if (!ext) return false;
+
+        ext = ext[1].toLowerCase();
+
+        accept = typeof accept == 'array' ? accept : ['jpg', 'jpeg', 'png'];
+
+        for (var i = accept.length - 1; i >= 0; i--) {
+
+            if ( ext == accept[i] ) return true;
+
+        }
+
+        return false;
+
+    };
+
+    transport.validateSize = function ( fileObj, max_size) {
+
+        return fileObj.size < max_size;
+
+    };
+
+    return transport;
+
+})({});
+
+/***/ }),
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(0);
@@ -2645,17 +2873,17 @@ codex.join = __webpack_require__(6);
  */
 codex.core = __webpack_require__(4);
 codex.dragndrop = __webpack_require__(5);
-codex.scrollUp = __webpack_require__(10);
-codex.sharer = __webpack_require__(11);
+codex.scrollUp = __webpack_require__(11);
+codex.sharer = __webpack_require__(12);
 codex.developer = __webpack_require__(3);
-codex.simpleCode = __webpack_require__(13);
+codex.simpleCode = __webpack_require__(14);
 
-codex.showMoreNews = __webpack_require__(12);
+codex.showMoreNews = __webpack_require__(13);
 
 codex.polyfills = __webpack_require__(7);
 codex.ajax = __webpack_require__(2);
 
-// codex.callbacks = require('./modules/callbacks');
+codex.profile = __webpack_require__(8);
 // codex.load = require('./modules/load');
 // codex.helpers = require('./modules/helpers');
 
@@ -2667,9 +2895,9 @@ codex.ajax = __webpack_require__(2);
 
 
 
-codex.quiz = __webpack_require__(8);
-codex.quizForm = __webpack_require__(9);
-// codex.transport = require('./modules/transport');
+codex.quiz = __webpack_require__(9);
+codex.quizForm = __webpack_require__(10);
+codex.transport = __webpack_require__(15);
 
 module.exports = codex;
 

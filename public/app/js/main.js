@@ -60,7 +60,7 @@ codex.showMoreNews = require('./modules/showMoreNews');
 codex.polyfills = require('./modules/polyfills');
 codex.ajax = require('./modules/ajax');
 
-// codex.callbacks = require('./modules/callbacks');
+codex.profile = require('./modules/profile');
 // codex.load = require('./modules/load');
 // codex.helpers = require('./modules/helpers');
 
@@ -74,7 +74,7 @@ codex.ajax = require('./modules/ajax');
 
 codex.quiz = require('./modules/quiz');
 codex.quizForm = require('./modules/quizForm');
-// codex.transport = require('./modules/transport');
+codex.transport = require('./modules/transport');
 
 module.exports = codex;
 

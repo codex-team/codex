@@ -121,6 +121,7 @@ module.exports = function (admin) {
 
 	        for (var i = items.length-1; i > -1; i--) {
 	            items[i].classList.add('draggable');
+	            items[i].classList.add('feed-item--dnd');
 	            items[i].classList.add('list-item');
 	        }
 
