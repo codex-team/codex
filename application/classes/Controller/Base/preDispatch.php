@@ -23,6 +23,9 @@ class Controller_Base_preDispatch extends Controller_Template
      */
     public function before()
     {
+        require_once 'modules/hawk/hawk.php';
+        HawkErrorManager::init();
+
         /** Disallow requests from other domains */
         if ( Kohana::$environment === Kohana::PRODUCTION ) {
 
