@@ -1,6 +1,10 @@
 <?
     $news = array(
         array(
+            'text' => 'Написали статью о создании <a href="/python-sockets">сокет сервера</a> на Python',
+            'date' => '4 may'
+        ),
+        array(
             'text' => 'Опубликовали в NPM <a href="https://www.npmjs.com/package/codex.editor.personality">плагин «Персона»</a> для CodeX Editor',
             'date' => '25 apr',
             'release' => true

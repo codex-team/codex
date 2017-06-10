@@ -11,7 +11,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
     {
         parent::before();
         if (!$this->user->checkAccess(array(Model_User::ROLE_ADMIN)))
-            $this->redirect('/');
+            throw new HTTP_Exception_403();
     }
 
     public function action_save()
