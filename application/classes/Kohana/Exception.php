@@ -9,8 +9,6 @@ class Kohana_Exception extends Kohana_Kohana_Exception {
 
     public static function response(Exception $e)
     {
-        require_once 'modules/hawk/hawk.php';
-        HawkErrorManager::sendCustomException("Error 404");
         // handle error
         if (Kohana::$environment >= Kohana::DEVELOPMENT){
 
