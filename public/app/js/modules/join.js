@@ -1,4 +1,14 @@
+/**
+ * Module used on join page
+ * @return codex.join.init()
+ */
+
 var join = function() {
+
+    /**
+     * @fires codex.join#[event:keyup]checkUserCanEdit which adds wobble effect to blankAuthBlock if user starts typing into textarea unauthorized
+     * @fires codex.join#[event:click]showAdditionalFields which toggles blankAdditionalFields on click blankShowAdditionalFieldsButton into view
+     */
 
     var init = function() {
 
@@ -27,6 +37,10 @@ var join = function() {
         }
     };
 
+    /**
+     * @param {[event:keyup]} event 
+     */
+
     checkUserCanEdit = function (event) {
        
         var textarea       = event.target,
@@ -51,6 +65,10 @@ var join = function() {
         }
 
     };
+
+    /**
+     * @param {[event:click]} event 
+     */
 
     var showAdditionalFields = function (event) {
 
