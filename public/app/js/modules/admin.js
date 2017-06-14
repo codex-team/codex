@@ -109,7 +109,7 @@ module.exports = function (admin) {
 	/**
 	 * Module initialization
 	 * @param  {Object} 	 params 			- init params
-	 * @param  {String|null} params.listType 	- feed list type ("cars"|"list")
+	 * @param  {String|null} params.listType 	- feed list type ("cards"|"list")
 	 */
 	admin.init = function( params ){
 

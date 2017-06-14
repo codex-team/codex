@@ -1,6 +1,8 @@
 /**
 * Minimal, lightview and universal code highilting
+* Used on articles page
 * @author Savchenko Peter (vk.com/specc)
+* @param {Object} simpleCode 
 */
 var simpleCode = (function (simpleCode) {
 
@@ -92,6 +94,10 @@ var simpleCode = (function (simpleCode) {
 
     };
 
+    /**
+     * @param {String} selector - CSS selector .article__code
+     * @usage codex.simpleCode.init(".article__code"); 
+     */
     simpleCode.init = function (selector) {
 
         simpleCode.addStyles();

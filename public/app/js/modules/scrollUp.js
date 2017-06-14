@@ -1,3 +1,6 @@
+/**
+* Module for scroll-up button
+*/
 module.exports = function () {
 
     /**

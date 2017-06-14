@@ -11,33 +11,26 @@ module.exports = {
   },
 
   module: {
-      rules: [
-        {
-          test : /\.(png|jpg|svg)$/,
-          use : "file-loader?name=[path][name].[ext]"
-        },
-        {
-          test: /\.css$/,
-          use: ExtractTextPlugin.extract([
-            {
-              loader: 'css-loader',
-              options: {
-                minimize: 1,
-                importLoaders: 1
-              }
-            },
-            'postcss-loader'
-          ])
-        },
-        // {
-        //   test : /\.js$/,
-        //   loader: "eslint-loader",
-        //   options : {
-        //     fix: true
-        //   }
-        // }
+    rules: [
+      {
+        test : /\.(png|jpg|svg)$/,
+        use : "file-loader?name=[path][name].[ext]"
+      },
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract([
+          {
+            loader: 'css-loader',
+            options: {
+              minimize: 1,
+              importLoaders: 1
+            }
+          },
+          'postcss-loader'
+        ])
+      },
     ]
-  },
+},
     plugins: [
         new ExtractTextPlugin("public/build/bundle.css")
     ],

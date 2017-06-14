@@ -1,6 +1,9 @@
+/**
+* Significant core methods
+*/
 module.exports =  function() {
 
-      /** Logging method */
+    /** Logging method */
     var log = function (str, prefix, type, arg) {
 
         var staticLength = 32;
@@ -37,6 +40,7 @@ module.exports =  function() {
 
     /**
     * Native ajax method.
+    * @param {Object} data
     */
     var ajax = function (data) {
 

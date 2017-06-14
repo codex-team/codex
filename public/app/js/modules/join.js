@@ -1,5 +1,13 @@
+/**
+ * Module used on join page
+ * Adds wobbling effects to blankAuthBlock
+ * Toggles into view blankAdditionalFields: Name and Surname, Email
+ */
 var join = function() {
-
+    
+    /**
+    * Module initialization
+    */
     var init = function() {
 
         var joinBlank = document.getElementById('joinBlank');
@@ -27,6 +35,10 @@ var join = function() {
         }
     };
 
+    /**
+     * Adds wobble effect to blankAuthBlock if user starts typing into textarea unauthorized
+     * @param {Event} event 
+     */
     checkUserCanEdit = function (event) {
        
         var textarea       = event.target,
@@ -52,6 +64,10 @@ var join = function() {
 
     };
 
+    /**
+     * Toggles into view blankAdditionalFields: Name and Surname, Email
+     * @param {Event} event 
+     */
     var showAdditionalFields = function (event) {
 
         var blankAdditionalFields = document.getElementById('blankAdditionalFields');

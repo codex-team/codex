@@ -64,7 +64,7 @@ var codex =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 16);
+/******/ 	return __webpack_require__(__webpack_require__.s = 17);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -188,7 +188,7 @@ module.exports = function (admin) {
 	/**
 	 * Module initialization
 	 * @param  {Object} 	 params 			- init params
-	 * @param  {String|null} params.listType 	- feed list type ("cars"|"list")
+	 * @param  {String|null} params.listType 	- feed list type ("cards"|"list")
 	 */
 	admin.init = function( params ){
 
@@ -486,6 +486,10 @@ module.exports = ajax;
 /* 3 */
 /***/ (function(module, exports) {
 
+/**
+ * codex.bestDevelopers module
+ * Sets best developers values in admin/user for further output in templates/developers.php
+ */
 var developer = function () {
 
     var bind = function () {
@@ -499,6 +503,12 @@ var developer = function () {
         }
 
     };
+
+    /**
+     * Sends ajax data 0 or 1, whether user is best developer or not
+     * @param {Event} event
+     * @uses codex.core.ajax 
+     */
 
     var toggle = function (event) {
 
@@ -524,9 +534,12 @@ module.exports = developer;
 /* 4 */
 /***/ (function(module, exports) {
 
+/**
+* Significant core methods
+*/
 module.exports =  function() {
 
-      /** Logging method */
+    /** Logging method */
     var log = function (str, prefix, type, arg) {
 
         var staticLength = 32;
@@ -563,6 +576,7 @@ module.exports =  function() {
 
     /**
     * Native ajax method.
+    * @param {Object} data
     */
     var ajax = function (data) {
 
@@ -872,8 +886,76 @@ module.exports = function (settings) {
 /* 6 */
 /***/ (function(module, exports) {
 
-var join = function() {
+module.exports = (function (helpers) {
 
+    helpers.setCookie = function (name, value, expires, path, domain) {
+
+        var str = name + '='+value;
+
+        if (expires) str += '; expires=' + expires.toGMTString();
+        if (path)    str += '; path=' + path;
+        if (domain)  str += '; domain=' + domain;
+        document.cookie = str;
+
+    };
+
+    helpers.getCookie = function (name) {
+
+        var dc = document.cookie;
+
+        var prefix = name + '=';
+        var begin = dc.indexOf('; ' + prefix);
+
+        if (begin == -1) {
+
+            begin = dc.indexOf(prefix);
+            if (begin !== 0) return null;
+
+        } else
+            begin += 2;
+
+        var end = document.cookie.indexOf(';', begin);
+
+        if (end == -1) end = dc.length;
+
+        return unescape(dc.substring(begin + prefix.length, end));
+
+    };
+
+    helpers.getOffset = function ( el ) {
+
+        var _x = 0;
+        var _y = 0;
+
+        while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
+
+            _x += (el.offsetLeft + el.clientLeft);
+            _y += (el.offsetTop + el.clientTop);
+            el = el.offsetParent;
+
+        }
+        return { top: _y, left: _x };
+
+    }
+
+    return helpers;
+
+})({});
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+/**
+ * Module used on join page
+ * Adds wobbling effects to blankAuthBlock
+ * Toggles into view blankAdditionalFields: Name and Surname, Email
+ */
+var join = function() {
+    
+    /**
+    * Module initialization
+    */
     var init = function() {
 
         var joinBlank = document.getElementById('joinBlank');
@@ -901,6 +983,10 @@ var join = function() {
         }
     };
 
+    /**
+     * Adds wobble effect to blankAuthBlock if user starts typing into textarea unauthorized
+     * @param {Event} event 
+     */
     checkUserCanEdit = function (event) {
        
         var textarea       = event.target,
@@ -926,6 +1012,10 @@ var join = function() {
 
     };
 
+    /**
+     * Toggles into view blankAdditionalFields: Name and Surname, Email
+     * @param {Event} event 
+     */
     var showAdditionalFields = function (event) {
 
         var blankAdditionalFields = document.getElementById('blankAdditionalFields');
@@ -949,9 +1039,8 @@ var join = function() {
 
 module.exports = join;
 
-
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports) {
 
 
@@ -1014,7 +1103,7 @@ module.exports = polyfills;
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports) {
 
 /**
@@ -1044,7 +1133,7 @@ module.exports = function () {
 }();
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports) {
 
 /**
@@ -1181,7 +1270,7 @@ module.exports = (function () {
          * Добавляем стили и выводим сообщение для выбранного варианта ответа
          * Открываем доступ к следующему вопросу
          *
-         * @param answer - DOM-элемент выбранного ответа
+         * @param {Element} answer - DOM-элемент выбранного ответа
          */
         showAnswer: function (answer) {
 
@@ -1525,7 +1614,7 @@ module.exports = (function () {
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports) {
 
 /**
@@ -2271,9 +2360,12 @@ module.exports = (function (quiz) {
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports) {
 
+/**
+* Module for scroll-up button
+*/
 module.exports = function () {
 
     /**
@@ -2332,11 +2424,16 @@ module.exports = function () {
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports) {
 
+/**
+ * Module for social sharing
+ */
 module.exports = (function ( sharer ) {
-
+    /**
+     * @param  {Object} data - Info about item we want to share
+     */
     sharer.vkontakte = function (data) {
 
         var link  = 'https://vk.com/share.php?';
@@ -2385,7 +2482,10 @@ module.exports = (function ( sharer ) {
         sharer.popup( link, 'telegram' );
 
     };
-
+    /**
+     * @param  {String} url         
+     * @param  {String} social_type 
+     */
     sharer.popup = function ( url, social_type ) {
 
         window.open( url, '', 'toolbar=0,status=0,width=626,height=436' );
@@ -2412,7 +2512,9 @@ module.exports = (function ( sharer ) {
         }
 
     };
-
+    /**
+     * @param  {Event} event 
+     */
     sharer.click = function (event) {
 
         var target = event.target;
@@ -2455,17 +2557,23 @@ module.exports = (function ( sharer ) {
 })({});
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports) {
 
+/**
+ * codex.showMoreNews module
+ * Used in news block
+ * Reveals more news when appender button is fired
+ * Usage onclick="codex.showMoreNews.init( this );"
+ */
 var showMoreNews = function() {
-	/**
+	/**  
     * Helper for 'show more news' button
     * @param {Element} button   - appender button
     */
     var init = function ( button ) {
 
-        var PORTION = 5;
+        var PORTION = 5; // Amount of news shown each time appender button is fired
 
         var news = document.querySelectorAll('.news__list_item'),
             hided = [];
@@ -2480,6 +2588,10 @@ var showMoreNews = function() {
 
         }
 
+        /**
+         * @param {Element} item 
+         * Remove PORTION of first elements from array hided
+         */
         hided.splice(0, PORTION).map(function (item) {
 
             item.classList.remove('news__list_item--hidden');
@@ -2502,12 +2614,14 @@ var showMoreNews = function() {
 module.exports = showMoreNews;
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports) {
 
 /**
 * Minimal, lightview and universal code highilting
+* Used on articles page
 * @author Savchenko Peter (vk.com/specc)
+* @param {Object} simpleCode 
 */
 var simpleCode = (function (simpleCode) {
 
@@ -2599,6 +2713,10 @@ var simpleCode = (function (simpleCode) {
 
     };
 
+    /**
+     * @param {String} selector - CSS selector .article__code
+     * @usage codex.simpleCode.init(".article__code"); 
+     */
     simpleCode.init = function (selector) {
 
         simpleCode.addStyles();
@@ -2621,17 +2739,21 @@ module.exports = simpleCode;
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports) {
 
 /**
 * Ajax file transport module
 * @author Savchenko Peter (vk.com/specc)
+* @param {Object} transport
 */
 module.exports = (function (transport) {
 
     transport.currentButtonClicked = {};
 
+    /**
+     * @param {Element} buttons
+     */
     transport.init = function (buttons) {
 
         transport.form  = document.getElementById('transportForm');
@@ -2647,6 +2769,9 @@ module.exports = (function (transport) {
 
     };
 
+    /**
+     * @param {Event} event 
+     */
     transport.buttonCallback = function (event) {
 
         var action        = this.dataset.action,
@@ -2671,6 +2796,7 @@ module.exports = (function (transport) {
 
     /**
     * Append hidden inputs to tranport form
+    * @param {Object} data
     */
     transport.fillForm = function (data) {
 
@@ -2740,6 +2866,7 @@ module.exports = (function (transport) {
 
     /**
     * Fires from transport-frame window
+    * @param {Object} response
     */
     transport.response = function ( response ) {
         
@@ -2762,7 +2889,10 @@ module.exports = (function (transport) {
         }
 
     };
-
+    /**
+     * @param  {[Element]} fileInput 
+     * @return {[type]}           [description]
+     */
     transport.getFileObject = function ( fileInput ) {
 
         if ( !fileInput ) return false;
@@ -2774,7 +2904,13 @@ module.exports = (function (transport) {
 
     };
 
+    /**
+     * @param {Object} accept
+     * @param {Object} fileObj
+     * @return {Boolean} 
+     */
     transport.validateMIME = function ( fileObj, accept ) {
+
 
         accept = typeof accept == 'array' ? accept : ['image/jpeg', 'image/png'];
 
@@ -2818,7 +2954,7 @@ module.exports = (function (transport) {
 })({});
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(0);
@@ -2865,7 +3001,7 @@ codex.docReady = function (f) {
 * Pages
 */
 codex.admin = __webpack_require__(1);
-codex.join = __webpack_require__(6);
+codex.join = __webpack_require__(7);
 
 
 /**
@@ -2873,87 +3009,22 @@ codex.join = __webpack_require__(6);
  */
 codex.core = __webpack_require__(4);
 codex.dragndrop = __webpack_require__(5);
-codex.scrollUp = __webpack_require__(11);
-codex.sharer = __webpack_require__(12);
+codex.scrollUp = __webpack_require__(12);
+codex.sharer = __webpack_require__(13);
 codex.developer = __webpack_require__(3);
-codex.simpleCode = __webpack_require__(14);
-codex.showMoreNews = __webpack_require__(13);
-codex.polyfills = __webpack_require__(7);
+codex.simpleCode = __webpack_require__(15);
+codex.showMoreNews = __webpack_require__(14);
+codex.polyfills = __webpack_require__(8);
 codex.ajax = __webpack_require__(2);
-codex.profile = __webpack_require__(8);
-codex.helpers = __webpack_require__(22);
-codex.quiz = __webpack_require__(9);
-codex.quizForm = __webpack_require__(10);
-codex.transport = __webpack_require__(15);
+codex.profile = __webpack_require__(9);
+codex.helpers = __webpack_require__(6);
+codex.quiz = __webpack_require__(10);
+codex.quizForm = __webpack_require__(11);
+codex.transport = __webpack_require__(16);
 
 module.exports = codex;
 
 
-
-/***/ }),
-/* 17 */,
-/* 18 */,
-/* 19 */,
-/* 20 */,
-/* 21 */,
-/* 22 */
-/***/ (function(module, exports) {
-
-module.exports = (function (helpers) {
-
-    helpers.setCookie = function (name, value, expires, path, domain) {
-
-        var str = name + '='+value;
-
-        if (expires) str += '; expires=' + expires.toGMTString();
-        if (path)    str += '; path=' + path;
-        if (domain)  str += '; domain=' + domain;
-        document.cookie = str;
-
-    };
-
-    helpers.getCookie = function (name) {
-
-        var dc = document.cookie;
-
-        var prefix = name + '=';
-        var begin = dc.indexOf('; ' + prefix);
-
-        if (begin == -1) {
-
-            begin = dc.indexOf(prefix);
-            if (begin !== 0) return null;
-
-        } else
-            begin += 2;
-
-        var end = document.cookie.indexOf(';', begin);
-
-        if (end == -1) end = dc.length;
-
-        return unescape(dc.substring(begin + prefix.length, end));
-
-    };
-
-    helpers.getOffset = function ( el ) {
-
-        var _x = 0;
-        var _y = 0;
-
-        while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
-
-            _x += (el.offsetLeft + el.clientLeft);
-            _y += (el.offsetTop + el.clientTop);
-            el = el.offsetParent;
-
-        }
-        return { top: _y, left: _x };
-
-    }
-
-    return helpers;
-
-})({});
 
 /***/ })
 /******/ ]);

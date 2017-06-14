@@ -1,5 +1,10 @@
+/**
+ * Module for social sharing
+ */
 module.exports = (function ( sharer ) {
-
+    /**
+     * @param  {Object} data - Info about item we want to share
+     */
     sharer.vkontakte = function (data) {
 
         var link  = 'https://vk.com/share.php?';
@@ -48,7 +53,10 @@ module.exports = (function ( sharer ) {
         sharer.popup( link, 'telegram' );
 
     };
-
+    /**
+     * @param  {String} url         
+     * @param  {String} social_type 
+     */
     sharer.popup = function ( url, social_type ) {
 
         window.open( url, '', 'toolbar=0,status=0,width=626,height=436' );
@@ -75,7 +83,9 @@ module.exports = (function ( sharer ) {
         }
 
     };
-
+    /**
+     * @param  {Event} event 
+     */
     sharer.click = function (event) {
 
         var target = event.target;

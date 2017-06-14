@@ -1,3 +1,7 @@
+/**
+ * codex.bestDevelopers module
+ * Sets best developers values in admin/user for further output in templates/developers.php
+ */
 var developer = function () {
 
     var bind = function () {
@@ -11,6 +15,12 @@ var developer = function () {
         }
 
     };
+
+    /**
+     * Sends ajax data 0 or 1, whether user is best developer or not
+     * @param {Event} event
+     * @uses codex.core.ajax 
+     */
 
     var toggle = function (event) {
 

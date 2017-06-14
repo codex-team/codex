@@ -1,11 +1,15 @@
 /**
 * Ajax file transport module
 * @author Savchenko Peter (vk.com/specc)
+* @param {Object} transport
 */
 module.exports = (function (transport) {
 
     transport.currentButtonClicked = {};
 
+    /**
+     * @param {Element} buttons
+     */
     transport.init = function (buttons) {
 
         transport.form  = document.getElementById('transportForm');
@@ -21,6 +25,9 @@ module.exports = (function (transport) {
 
     };
 
+    /**
+     * @param {Event} event 
+     */
     transport.buttonCallback = function (event) {
 
         var action        = this.dataset.action,
@@ -45,6 +52,7 @@ module.exports = (function (transport) {
 
     /**
     * Append hidden inputs to tranport form
+    * @param {Object} data
     */
     transport.fillForm = function (data) {
 
@@ -114,6 +122,7 @@ module.exports = (function (transport) {
 
     /**
     * Fires from transport-frame window
+    * @param {Object} response
     */
     transport.response = function ( response ) {
         
@@ -136,7 +145,10 @@ module.exports = (function (transport) {
         }
 
     };
-
+    /**
+     * @param  {[Element]} fileInput 
+     * @return {[type]}           [description]
+     */
     transport.getFileObject = function ( fileInput ) {
 
         if ( !fileInput ) return false;
@@ -148,7 +160,13 @@ module.exports = (function (transport) {
 
     };
 
+    /**
+     * @param {Object} accept
+     * @param {Object} fileObj
+     * @return {Boolean} 
+     */
     transport.validateMIME = function ( fileObj, accept ) {
+
 
         accept = typeof accept == 'array' ? accept : ['image/jpeg', 'image/png'];
 

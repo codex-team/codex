@@ -132,7 +132,7 @@ module.exports = (function () {
          * Добавляем стили и выводим сообщение для выбранного варианта ответа
          * Открываем доступ к следующему вопросу
          *
-         * @param answer - DOM-элемент выбранного ответа
+         * @param {Element} answer - DOM-элемент выбранного ответа
          */
         showAnswer: function (answer) {
 

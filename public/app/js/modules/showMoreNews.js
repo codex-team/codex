@@ -1,11 +1,17 @@
+/**
+ * codex.showMoreNews module
+ * Used in news block
+ * Reveals more news when appender button is fired
+ * Usage onclick="codex.showMoreNews.init( this );"
+ */
 var showMoreNews = function() {
-	/**
+	/**  
     * Helper for 'show more news' button
     * @param {Element} button   - appender button
     */
     var init = function ( button ) {
 
-        var PORTION = 5;
+        var PORTION = 5; // Amount of news shown each time appender button is fired
 
         var news = document.querySelectorAll('.news__list_item'),
             hided = [];
@@ -20,6 +26,10 @@ var showMoreNews = function() {
 
         }
 
+        /**
+         * @param {Element} item 
+         * Remove PORTION of first elements from array hided
+         */
         hided.splice(0, PORTION).map(function (item) {
 
             item.classList.remove('news__list_item--hidden');
