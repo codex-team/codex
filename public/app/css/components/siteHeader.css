@@ -28,12 +28,9 @@
 .site-header__profile,
 .site-header__login{
     display: inline-block;
-    padding: 18px 0;
+    padding: 18px 15px;
 }
-    .site-header__menu a:not(:first-child),
-    .site-header__profile{
-        margin-left: 30px;
-    }
+
 .site-header__profile_photo{
     border-radius: 15px;
     width: 22px;
@@ -71,6 +68,14 @@
     .site-header__social{
         display: none;
     }
+
+    .site-header__menu a,
+    .site-header__profile,
+    .site-header__login{
+        padding-right: 0;
+        padding-left: 0;
+    }
+
     .site-header__menu a:not(:first-child),
     .site-header__profile{
         margin-left: 10px;
