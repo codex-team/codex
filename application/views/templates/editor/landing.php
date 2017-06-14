@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/public/css/landings/editor.css?v=<?= filemtime("public/css/landings/editor.css") ?>">
+<link rel="stylesheet" href="/public/app/landings/editor/editor.css?v=<?= filemtime("public/app/landings/editor/editor.css") ?>">
 
 <article class="editor-landing">
 

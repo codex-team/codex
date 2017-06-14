@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/public/css/landings/new-year.css?v=<?= filemtime("public/css/landings/new-year.css") ?>">
+<link rel="stylesheet" href="/public/app/landings/new-year/new-year.css?v=<?= filemtime("public/app/landings/new-year/new-year.css") ?>">
 <? if ( !empty($ny_user_requests) ): ?>
 
     <?

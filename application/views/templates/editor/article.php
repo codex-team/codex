@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="/public/css/article.css?v=<?= filemtime("public/css/article.css") ?>">
-
 <div class="center_side clear">
     <article class="article" itemscope itemtype="http://schema.org/Article">
 

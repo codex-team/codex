@@ -1,0 +1,21 @@
+/**
+* Navigation line
+* Breadcrumbs
+*/
+.breadcrumb{
+    margin-bottom: 50px;
+    padding-left: 20px;
+    border-left: 3px solid #D6D6D6;
+    color: #A2A2A2;
+}
+.breadcrumb h1{
+    display: inline-block;
+    margin: 0 5px 0 5px;
+    font-size: inherit;
+    font-weight: normal;
+}
+.breadcrumb a{
+    display: inline-block;
+    margin-right: 5px;
+    color: inherit;
+}

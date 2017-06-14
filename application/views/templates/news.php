@@ -123,7 +123,7 @@
         $i = 0;
     ?>
     <? foreach ( $news as $event ): ?>
-        <li class="news__list_item <?= $i >= $MAX_PORTION ? 'hide' : ''?>" data-time="<?= $event['date'] ?>">
+        <li class="news__list_item <?= $i >= $MAX_PORTION ? 'news__list_item--hidden' : ''?>" data-time="<?= $event['date'] ?>">
             <? if (!empty($event['release'])): ?>
                 <span class="news__bage">release</span>
             <? endif ?>
@@ -131,5 +131,5 @@
         </li>
         <? $i++; ?>
     <? endforeach; ?>
-    <span class="news__showmore" onclick="codex.content.showMoreNews( this );">Показать больше новостей</span>
+    <span class="news__showmore" onclick="codex.showMoreNews.init( this );">Показать больше новостей</span>
 </ul>

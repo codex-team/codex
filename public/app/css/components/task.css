@@ -1,0 +1,222 @@
+/**
+* Joining and task pages styles
+*/
+.technic{
+    display: inline-block;
+    padding: 0 4px;
+    background-color: #F4F7FB;
+    font-family: 'monaco', 'consolas', 'courier';
+    font-size: 13px;
+    color: #456994;
+}
+
+.left_col{
+    width: 47%;
+    margin-right: 70px;
+}
+    .left_col article{
+        padding: 35px 0;
+    }
+.right_col{
+    padding-left: 58%;
+}
+
+
+
+.first_header{
+    margin-top: 0 !important;
+}
+.left_col{
+    padding-left: 0;
+}
+
+/**
+* Split for 2 sections on /task page
+*/
+.page_block{
+    max-width: 700px;
+    margin: 5em auto;
+}
+.block_link{
+    display: block;
+    max-width: 350px;
+    color: inherit;
+    text-decoration: none;
+}
+
+.additional_tasks{
+    margin: 0;
+    padding: 0;
+}
+    .additional_tasks li{
+        position: relative;
+        margin: 0 !important;
+        list-style-type: none;
+        padding: 20px 0 20px 30px;
+        border-bottom: 1px solid #e4eaf5;
+    }
+        .additional_tasks li:before{
+            position: absolute;
+            left: 0;
+            top: 1.9em;
+            width: 10px;
+            height: 10px;
+            display: inline-block;
+            border-radius: 5px;
+            background: #DFE7F5;
+            margin-right: 15px;
+            content: '';
+        }
+            .additional_tasks .back:before{background: #6699df}
+            .additional_tasks .front:before{background: #e87474}
+            .additional_tasks .ui:before{background: #9bf1b3}
+
+    .additional_tasks.legend li{
+        display: inline-block;
+        border-bottom: 0;
+        margin-right: 50px !important;
+        font-size: 14px;
+        font-weight: bold;
+    }
+    .additional_tasks.legend li:before{
+        top: 2em;
+    }
+
+
+/**
+* Joining page
+*/
+.join-page{
+    line-height: 1.64em;
+}
+.codex-logo--r-col{
+    display: block;
+    margin: 30px auto 50px;
+}
+
+.join-form label{
+    display: block;
+    margin-bottom: .7em;
+}
+.join-form textarea,
+.join-form input{
+    margin-bottom: 30px;
+}
+
+/**
+* Joining page auth form
+*/
+.join-form__auth{
+    margin-bottom: 30px;
+    color: #838ea1;
+}
+.join-form__auth .button{
+    vertical-align: middle;
+    margin-right: 20px;
+}
+
+
+
+
+/**
+* Authored user block on /join page
+*/
+.user-link{
+    font-size: 1.1em;
+    margin-bottom: 1.5em;
+}
+.user-link__photo{
+    width: 26px;
+    height: 26px;
+    border-radius: 13px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+.user-link__name{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.error-message{
+    margin: 15px 0;
+    color: #e04545;
+}
+
+.success_alert{
+    background: #F2F5FB;
+    color: #6F809A;
+    line-height: 1.6em;
+    font-size: 16px;
+    padding: 100px 200px;
+    text-align: center;
+}
+.success_alert.compact{
+    margin-top: 2em;
+    padding: 30px;
+    font-size: 14px;
+}
+
+
+.codex-logo--mobile{
+    display: none;
+}
+
+.additional_fields--hide {
+    display: none !important;
+}
+
+/**
+* Small screens viewport
+*/
+@media all and (max-width: 1000px){
+
+    .left_col{margin-right: 0;}
+    .right_col{padding-left: 56%;}
+
+}
+
+
+
+/**
+* Mobile viewport
+*/
+@media all and (max-width: 800px){
+
+    .codex-logo--r-col{
+        display: none;
+    }
+
+    .codex-logo--mobile{
+        display: block;
+        width: 160px;
+        height: 160px;
+        margin: 30px auto;
+        background-size: auto 160px
+    }
+
+    .left_col{
+        float: none;
+        width: auto;;
+    }
+    .left_col article{
+        padding: 10px 0;
+    }
+    .right_col{
+        padding: 0;
+    }
+    .join-form__auth{
+        text-align: center;
+    }
+    .join-form .button{
+        margin: 0;
+    }
+    .join-form .additional{
+        display: block;
+        margin-top: 15px;
+    }
+
+    .block_link a{
+        margin: 0 20px;
+    }
+
+}

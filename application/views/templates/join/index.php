@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="/public/css/task.css?v=<?= filemtime("public/css/task.css") ?>">
 <? if (!empty($success)): ?>
     <div class="success_alert">
         <h2>Спасибо!</h2>
@@ -69,7 +68,7 @@
 
                 <? endif ?>
 
-                <div class="additional_fields hide" id="blankAdditionalFields">
+                <div class="additional_fields additional_fields--hide" id="blankAdditionalFields">
                     <label for="blankNameInput">Имя и Фамилия</label>
                     <input type="text" name="name" id="blankNameInput" value="<?= Arr::get($_POST, 'name') ?>">
                     <label for="blankEmailInput">Email</label>
@@ -77,10 +76,10 @@
                 </div>
 
                 <label for="blankSkillsTextarea">Расскажите о своих навыках и опыте</label>
-                <textarea name="skills" id="blankSkillsTextarea" rows="5" required=""><?= Arr::get($_POST, 'skills') ?></textarea>
+                <textarea name="skills" id="blankSkillsTextarea" class="js-join-input" rows="5" required=""><?= Arr::get($_POST, 'skills') ?></textarea>
 
                 <label for="blankWishesTextarea">Чем бы вам хотелось заниматься в клубе?</label>
-                <textarea name="wishes" id="blankWishesTextarea" rows="5"><?= Arr::get($_POST, 'wishes') ?></textarea>
+                <textarea name="wishes" id="blankWishesTextarea" class="js-join-input" rows="5"><?= Arr::get($_POST, 'wishes') ?></textarea>
 
                 <input type="submit" class="master" id="blankSendButton" value="Отправить" />
 
@@ -111,5 +110,12 @@
             </div>
 
         <? endif ; ?>
+        <script type="text/javascript">
+        codex.docReady(function () {
+
+            codex.join.init();
+
+        });
+        </script>
     </div>
 </div>

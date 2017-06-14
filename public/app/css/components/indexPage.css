@@ -1,0 +1,120 @@
+/**
+* CodeX logo on index page
+*/
+.codex-logo{
+    display: inline-block;
+    background: url('/public/app/img/codex-logo.svg') no-repeat;
+    width: 224px;
+    height: 224px;
+}
+
+
+.index-page{
+    padding: 100px 0 70px;
+    text-align: center;
+}
+    .index-page p{
+        max-width: 500px;
+        margin: 15px auto;
+    }
+    .index-page .codex-logo{
+        margin-bottom: 50px;
+    }
+
+/**
+* Event promo block on the index page
+*/
+.event_alert{
+    padding: 80px 0px;
+    max-width: 700px;
+    margin: 0 auto;
+    border-bottom: 1px solid #ebe8e8;
+    text-align: center;
+    font-size: 1.8em;
+}
+    .event_alert__day{
+        min-width: 70px;
+        line-height: 1.3em;
+        letter-spacing: 1.2px;
+        font-size: 2.3em;
+    }
+    .event_alert__month{
+        letter-spacing: 2px;
+    }
+    .event_alert__title{
+        margin-top: 1.4em;
+        font-size: .62em;
+        color: #ea6e6e;
+    }
+    .event_alert__description{
+        margin-top: 1em;
+        font-size: .64em;
+    }
+    .event_alert__link{
+        display: inline-block;
+        text-decoration: none;
+        color: inherit;
+    }
+        .event_alert__link:hover{
+            text-decoration: none;
+        }
+    .event_alert__icon_delimiter{
+        font-size: .7em;
+    }
+
+/**
+* Some promo link on index page
+*/
+
+.contest_alert a{
+    display: block;
+    margin: -20px 40px 40px;
+    text-align: center;
+    text-decoration: none;
+    font-variant: small-caps;
+    letter-spacing: 1.4px;
+    color: #988e8e;
+}
+.contest_alert .line{
+    position: relative;
+    margin: 0 70px 70px;
+    height: 1px;
+    background: #ebe8e8;
+}
+.contest_alert .line:before{
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -19px;
+    width: 40px;
+    height: 40px;
+    margin-left: -20px;
+    background: #fff url('../img/contest_icon_goblet.png') no-repeat 50% 50%;
+}
+
+    
+/**
+* Mobile viewport styles
+* =================================
+*/
+@media (max-width: 800px) {
+    /**
+    * Index page mobile
+    */
+    .index-page{
+        padding: 50px 0;
+    }
+    .index-page p{
+        padding: 0 10px
+    }
+    /**
+    * Event alert on index page
+    */
+    .event_alert{
+        font-size: 1.5em;
+    }
+    .event_alert__description:before,
+    .event_alert__description:after{
+        display: none;
+    }
+}

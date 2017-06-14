@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="/public/css/editor-form.css?v=<?= filemtime("public/css/editor-form.css") ?>">
-
 <div class="center_side">
 
     <form class="editor-form" method="POST" action="/<?= $course->id && $course->uri ? $course->uri . '/save' : 'course/add' ?>" enctype="multipart/form-data" id="edit_article_form">

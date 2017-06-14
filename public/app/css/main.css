@@ -1,0 +1,24 @@
+@import url("icons.css");
+@import url('normalize.css');
+@import url('base.css');
+
+@import url('components/siteHeader.css');
+@import url('components/bestDevelopers.css');
+@import url('components/breadcrumbs.css');
+@import url('components/footer.css');
+@import url('components/article.css');
+@import url('components/feedDragNDrop.css');
+@import url('components/recommendedArticles.css');
+@import url('components/articlesFeed.css');
+@import url('components/pageHeader.css');
+@import url('components/news.css');
+@import url('components/indexPage.css');
+@import url('components/scrollUp.css');
+@import url('components/sharing.css');
+@import url('components/userProfile.css');
+@import url('components/contests.css');
+@import url('components/admin.css');
+@import url('components/editor-form.css');
+@import url('components/task.css');
+@import url('components/quiz.css');
+@import url('components/quizForm.css');

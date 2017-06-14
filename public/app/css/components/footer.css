@@ -1,0 +1,64 @@
+/**
+*
+* Footer
+*
+*/
+
+.site-footer{
+    border-top: 1px solid #eceff6;
+    padding: 30px 0;
+    margin-top: 30px;
+    font-size: 13px;
+}
+    .site-footer__section{
+        max-width: 400px;
+    }
+    .site-footer__section:not(:first-child){
+        margin-left: 45px;
+    }
+        .site-footer__section ul{
+            list-style: none;
+            padding-left: 0;
+            line-height: 1.8em;
+        }
+        .site-footer section a{
+            text-decoration: none;
+        }
+    .site-footer h5{
+        margin: 0 0 10px;
+        font-size: 1.02em;
+    }
+    .site-footer h5 a{
+        color: inherit;
+        text-decoration: none;
+    }
+    .site-footer p{
+        margin: 0;
+    }
+    .site-footer .desclimer{
+        color: #aaa;
+    }
+    
+/**
+* Mobile viewport styles
+* =================================
+*/
+@media all and (max-width: 800px){
+    /**
+    * Site footer mobile
+    */
+    .site-footer{
+        padding: 25px 0;
+    }
+    .site-footer__section{
+        float: none;
+        max-width: none;
+        margin: 0 0 20px;
+    }
+    .site-footer__section:last-child{
+        margin-bottom: 0;
+    }
+    .site-footer__section:not(:first-child){
+        margin-left: 0;
+    }
+}
