@@ -25,6 +25,10 @@
     <meta id="metaImage" name="image" property="og:image"  content="https://ifmo.su/public/img/meta_img.png" />
     <link id="linkImage" rel="image_src" href="https://ifmo.su/public/img/meta_img.png" />
 
+    <? if ($_SERVER['KOHANA_ENV'] === 'PRODUCTION' && !empty($_SERVER['HAWK_TOKEN'])): ?>
+        <script src="https://cdn.rawgit.com/codex-team/hawk.client/master/hawk.js" onload="hawk.init('<?= $_SERVER['HAWK_TOKEN'] ?>')"></script>
+    <? endif; ?>
+
     <script src="/public/js/main.js?v=<?= filemtime('public/js/main.js') ?>"></script>
 
 </head>
