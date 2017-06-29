@@ -236,16 +236,18 @@ codex.fixColumns = (function() {
 
     var makeFixedColumns = function() {
 
-        codex.fixColumns.columns.forEach(function(item) {
+        var items = codex.fixColumns.columns;
+        for (var i = 0; i < items.length; i++) {
 
-            item.style.position = "";
-            item.style.top = "";
+            items[i].style.position = "";
+            items[i].style.top = "";
 
-            var offset = codex.content.getOffset(item);
+            var offset = codex.content.getOffset(items[i]);
 
             if (document.body.scrollTop >= offset.top) {
-                item.style.position = "fixed";
-                item.style.top = 0;
+
+                items[i].style.position = "fixed";
+                items[i].style.top = 0;
 
             }
 
