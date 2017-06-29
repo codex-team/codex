@@ -251,7 +251,7 @@ codex.fixColumns = (function() {
 
             }
 
-        });
+        };
 
     };
 
