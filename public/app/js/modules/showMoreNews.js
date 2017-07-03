@@ -4,8 +4,9 @@
  * Reveals more news when appender button is fired
  * Usage onclick="codex.showMoreNews.init( this );"
  */
-var showMoreNews = function() {
-	/**  
+var showMoreNews = function () {
+
+	/**
     * Helper for 'show more news' button
     * @param {Element} button   - appender button
     */
@@ -27,7 +28,7 @@ var showMoreNews = function() {
         }
 
         /**
-         * @param {Element} item 
+         * @param {Element} item
          * Remove PORTION of first elements from array hided
          */
         hided.splice(0, PORTION).map(function (item) {
@@ -46,7 +47,8 @@ var showMoreNews = function() {
 
     return {
     	init : init
-    }
-}({})
+    };
+
+}({});
 
 module.exports = showMoreNews;

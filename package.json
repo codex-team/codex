@@ -7,7 +7,11 @@
     "webpack": "^2.5.1"
   },
   "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-preset-env": "^1.5.2",
     "css-loader": "^0.28.1",
+    "dotenv": "^4.0.0",
     "eslint": "^3.19.0",
     "eslint-loader": "^1.7.1",
     "extract-text-webpack-plugin": "^2.1.0",
@@ -19,7 +23,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build" : "webpack"
+    "build": "webpack"
   },
   "repository": {
     "type": "git",

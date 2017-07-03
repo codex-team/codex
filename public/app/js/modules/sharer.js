@@ -2,6 +2,7 @@
  * Module for social sharing
  */
 module.exports = (function ( sharer ) {
+
     /**
      * @param  {Object} data - Info about item we want to share
      */
@@ -54,8 +55,8 @@ module.exports = (function ( sharer ) {
 
     };
     /**
-     * @param  {String} url         
-     * @param  {String} social_type 
+     * @param  {String} url
+     * @param  {String} social_type
      */
     sharer.popup = function ( url, social_type ) {
 
@@ -84,7 +85,7 @@ module.exports = (function ( sharer ) {
 
     };
     /**
-     * @param  {Event} event 
+     * @param  {Event} event
      */
     sharer.click = function (event) {
 

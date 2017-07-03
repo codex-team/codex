@@ -48,7 +48,7 @@ module.exports = (function (helpers) {
         }
         return { top: _y, left: _x };
 
-    }
+    };
 
     return helpers;
 

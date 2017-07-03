@@ -1,7 +1,7 @@
 /**
 * Significant core methods
 */
-module.exports =  function() {
+module.exports =  function () {
 
     /** Logging method */
     var log = function (str, prefix, type, arg) {
@@ -97,7 +97,7 @@ module.exports =  function() {
 
     return {
         ajax : ajax,
-        log : log       
-    }
+        log : log
+    };
 
 }();

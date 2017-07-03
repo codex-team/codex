@@ -69,195 +69,178 @@ var codex =
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
+"use strict";
 
-/***/ }),
-/* 1 */
-/***/ (function(module, exports) {
 
 /**
  * Admin page methods
  */
 module.exports = function (admin) {
 
-	/**
-	 * Initializes dragndrop module
-	 * @uses  codex.dragndrop
-	 */
-	function initDragNDrop() {
+				/**
+     * Initializes dragndrop module
+     * @uses  codex.dragndrop
+     */
+				function initDragNDrop() {
 
-		codex.dragndrop({
-		    droppableClass: 'list-item',
+								codex.dragndrop({
+												droppableClass: 'list-item',
 
-		    findDraggable: function (e) {
+												findDraggable: function findDraggable(e) {
 
-		        var target = e.target.closest('.draggable');
+																var target = e.target.closest('.draggable');
 
-		        if (target) return target.closest('.list-item');
+																if (target) return target.closest('.list-item');
 
-		        return null;
+																return null;
+												},
 
-		    },
+												makeAvatar: function makeAvatar(elem) {
 
-		    makeAvatar: function (elem) {
+																var avatar = {};
 
-		        var avatar = {};
+																avatar.elem = elem.cloneNode(true);
+																avatar.elem.classList.add('dnd-avatar');
 
-		        avatar.elem = elem.cloneNode(true);
-		        avatar.elem.classList.add('dnd-avatar');
+																elem.parentNode.insertBefore(avatar.elem, elem.nextSibling);
+																elem.classList.add('no-display');
 
-		        elem.parentNode.insertBefore(avatar.elem, elem.nextSibling);
-		        elem.classList.add('no-display');
+																avatar.rollback = function () {
 
-		        avatar.rollback = function () {
+																				avatar.elem.parentNode.removeChild(avatar.elem);
+																				elem.classList.remove('no-display');
+																};
 
-		            avatar.elem.parentNode.removeChild(avatar.elem);
-		            elem.classList.remove('no-display');
+																return avatar;
+												},
 
-		        };
+												targetChanged: function targetChanged(target, newTarget, avatar) {
 
-		        return avatar;
+																if (!newTarget) return;
 
-		    },
+																var targetPosition = newTarget.compareDocumentPosition(avatar.elem);
 
-		    targetChanged: function (target, newTarget, avatar) {
+																if (targetPosition & 4) {
 
-		        if (!newTarget) return;
+																				newTarget.parentNode.insertBefore(avatar.elem, newTarget);
+																} else if (targetPosition & 2) {
 
-		        var targetPosition = newTarget.compareDocumentPosition(avatar.elem);
+																				newTarget.parentNode.insertBefore(avatar.elem, newTarget.nextSibling);
+																}
+												},
 
-		        if (targetPosition&4) {
+												move: function move() {},
 
-		            newTarget.parentNode.insertBefore(avatar.elem, newTarget);
+												targetReached: function targetReached(target, avatar, elem) {
 
-		        } else if (targetPosition&2) {
+																target.parentNode.insertBefore(elem, target.nextSibling);
 
-		            newTarget.parentNode.insertBefore(avatar.elem, newTarget.nextSibling);
+																avatar.elem.parentNode.removeChild(avatar.elem);
+																elem.classList.remove('no-display');
 
-		        }
+																var item_id = elem.dataset.id,
+																    item_type = elem.dataset.type,
+																    item_below_value = null,
+																    nextSibling;
 
-		    },
+																if (nextSibling = elem.nextElementSibling) item_below_value = nextSibling.dataset.type + ':' + nextSibling.dataset.id;
 
-		    move: function () {},
+																var ajaxData = {
+																				success: function success() {
 
-		    targetReached: function (target, avatar, elem) {
+																								document.getElementById('saved').classList.remove('top-menu__saved_hidden');
+																								setTimeout(function () {
 
-		        target.parentNode.insertBefore(elem, target.nextSibling);
+																												document.getElementById('saved').classList.add('top-menu__saved_hidden');
+																								}, 1000);
+																				},
+																				type: 'POST',
+																				url: '/admin/feed',
+																				data: JSON.stringify({
+																								item_id: item_id,
+																								item_type: item_type,
+																								item_below_value: item_below_value
+																				})
+																};
 
-		        avatar.elem.parentNode.removeChild(avatar.elem);
-		        elem.classList.remove('no-display');
+																codex.core.ajax(ajaxData);
+												}
+								});
+								// body...
+				}
 
-		        var item_id = elem.dataset.id,
-		            item_type = elem.dataset.type,
-		            item_below_value = null,
-		            nextSibling;
+				/**
+     * Module initialization
+     * @param  {Object} 	 params 			- init params
+     * @param  {String|null} params.listType 	- feed list type ("cards"|"list")
+     */
+				admin.init = function (params) {
 
-		        if (nextSibling = elem.nextElementSibling)
-		            item_below_value = nextSibling.dataset.type+':'+nextSibling.dataset.id;
+								codex.core.log('Initialized.', 'Module admin');
 
-		        var ajaxData = {
-		            success: function () {
+								if (params.listType == 'cards') {
 
-		                document.getElementById('saved').classList.remove('top-menu__saved_hidden');
-		                setTimeout(function () {
+												var items = document.querySelectorAll('.feed-item');
 
-		                    document.getElementById('saved').classList.add('top-menu__saved_hidden');
+												for (var i = items.length - 1; i > -1; i--) {
 
-		                }, 1000);
+																items[i].classList.add('draggable');
+																items[i].classList.add('feed-item--dnd');
+																items[i].classList.add('list-item');
+												}
+								}
 
-		            },
-		            type: 'POST',
-		            url: '/admin/feed',
-		            data: JSON.stringify({
-		                item_id: item_id,
-		                item_type: item_type,
-		                item_below_value: item_below_value
-		            })
-		        };
+								initDragNDrop();
+				};
 
-
-		        codex.core.ajax(ajaxData);
-
-		    }
-		});
-		// body...
-	}
-
-	/**
-	 * Module initialization
-	 * @param  {Object} 	 params 			- init params
-	 * @param  {String|null} params.listType 	- feed list type ("cards"|"list")
-	 */
-	admin.init = function( params ){
-
-		codex.core.log('Initialized.', 'Module admin');
-
-		if ( params.listType == 'cards' ){
-
-			 var items = document.querySelectorAll('.feed-item');
-
-	        for (var i = items.length-1; i > -1; i--) {
-	            items[i].classList.add('draggable');
-	            items[i].classList.add('feed-item--dnd');
-	            items[i].classList.add('list-item');
-	        }
-
-		}
-
-		initDragNDrop();
-
-	}
-
-	return admin;
-
-}({})
+				return admin;
+}({});
 
 /***/ }),
-/* 2 */
-/***/ (function(module, exports) {
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var ajax = function () {
 
-    var xhr = function( xhr ) {
+    var xhr = function xhr(_xhr) {
 
-        var objectToQueryString = function (a) {
+        var objectToQueryString = function objectToQueryString(a) {
 
             var prefix, s, add, name, r20, output;
 
             s = [];
             r20 = /%20/g;
-            add = function (key, value) {
+            add = function add(key, value) {
 
                 // If value is a function, invoke it and return its value
-                value = ( typeof value == 'function' ) ? value() : ( value === null ? '' : value );
-                s[ s.length ] = encodeURIComponent(key) + '=' + encodeURIComponent(value);
-
+                value = typeof value == 'function' ? value() : value === null ? '' : value;
+                s[s.length] = encodeURIComponent(key) + '=' + encodeURIComponent(value);
             };
             if (a instanceof Array) {
 
                 for (name in a) {
 
                     add(name, a[name]);
-
                 }
-
             } else {
 
                 for (prefix in a) {
 
-                    buildParams(prefix, a[ prefix ], add);
-
+                    buildParams(prefix, a[prefix], add);
                 }
-
             }
             output = s.join('&').replace(r20, '+');
             return output;
-
         };
 
-        var buildParams = function (prefix, obj, add) {
+        var buildParams = function buildParams(prefix, obj, add) {
 
             var name, i, l, rbracket;
 
@@ -269,99 +252,81 @@ var ajax = function () {
                     if (rbracket.test(prefix)) {
 
                         add(prefix, obj[i]);
-
                     } else {
 
-                        buildParams(prefix + '[' + ( typeof obj[i] === 'object' ? i : '' ) + ']', obj[i], add);
-
+                        buildParams(prefix + '[' + (_typeof(obj[i]) === 'object' ? i : '') + ']', obj[i], add);
                     }
-
                 }
-
-            } else if (typeof obj == 'object') {
+            } else if ((typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) == 'object') {
 
                 // Serialize object item.
                 for (name in obj) {
 
-                    buildParams(prefix + '[' + name + ']', obj[ name ], add);
-
+                    buildParams(prefix + '[' + name + ']', obj[name], add);
                 }
-
             } else {
 
                 // Serialize scalar item.
                 add(prefix, obj);
-
             }
-
         };
 
-        xhr.call = function ( data ) {
+        _xhr.call = function (data) {
 
-            if ( !data || !data.url ) {
+            if (!data || !data.url) {
 
-                console.warn('url wasn\'t passed into ajax method' );
+                console.warn('url wasn\'t passed into ajax method');
                 return;
-
             }
 
-            var XMLHTTP              = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP'),
+            var XMLHTTP = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP'),
                 successCallback;
 
-            data.type         = data.type || 'GET';
-            data.url          = data.url;
-            data.async        = data.async || false;
-            data.data         = data.data || '';
-            data.formData     = data.formData || false;
+            data.type = data.type || 'GET';
+            data.url = data.url;
+            data.async = data.async || false;
+            data.data = data.data || '';
+            data.formData = data.formData || false;
             data['content-type'] = data.contentType || 'text/html';
-            successCallback      = data.success || successCallback ;
+            successCallback = data.success || successCallback;
 
-            if ( data.type == 'GET' && data.data ) {
+            if (data.type == 'GET' && data.data) {
 
                 data.url = /\?/.test(data.url) ? data.url + '&' + data.data : data.url + '?' + data.data;
-
             }
 
             if (data.beforeSend && typeof data.beforeSend == 'function') {
 
                 data.beforeSend.call();
-
             }
 
-            XMLHTTP.open( data.type, data.url, data.async );
-            XMLHTTP.setRequestHeader('Content-type', data['content-type'] );
+            XMLHTTP.open(data.type, data.url, data.async);
+            XMLHTTP.setRequestHeader('Content-type', data['content-type']);
             XMLHTTP.setRequestHeader('Connection', 'close');
             XMLHTTP.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
             XMLHTTP.onreadystatechange = function () {
 
-                if ( XMLHTTP.readyState == 4 && XMLHTTP.status == 200 && successCallback) {
+                if (XMLHTTP.readyState == 4 && XMLHTTP.status == 200 && successCallback) {
 
                     successCallback.call(XMLHTTP.responseText);
-
                 }
-
             };
 
-            XMLHTTP.send( data.formData || objectToQueryString(data.data) );
-
+            XMLHTTP.send(data.formData || objectToQueryString(data.data));
         };
 
-
-        xhr.parseHTML = function (markup) {
+        _xhr.parseHTML = function (markup) {
 
             var doc = document.implementation.createHTMLDocument('');
 
             if (markup.toLowerCase().indexOf('<!doctype') > -1) {
 
                 doc.documentElement.innerHTML = markup;
-
             } else {
 
                 doc.body.innerHTML = markup;
-
             }
             return doc;
-
         };
 
         /**
@@ -377,30 +342,31 @@ var ajax = function () {
          *         the <button>'s (which are potential HTML4 successful controls) unlike jQuery
          * @license MIT/GPL
         */
-        xhr.serialize = function (form) {
+        _xhr.serialize = function (form) {
 
             'use strict';
 
-            var i, j, len, jLen, formElement, q = [];
+            var i,
+                j,
+                len,
+                jLen,
+                formElement,
+                q = [];
 
             function urlencode(str) {
 
                 // http://kevin.vanzonneveld.net
                 // Tilde should be allowed unescaped in future versions of PHP (as reflected below), but if you want to reflect current
                 // PHP behavior, you would need to add ".replace(/~/g, '%7E');" to the following.
-                return encodeURIComponent(str).replace(/!/g, '%21').replace(/'/g, '%27').replace(/\(/g, '%28').
-                    replace(/\)/g, '%29').replace(/\*/g, '%2A').replace(/%20/g, '+');
-
+                return encodeURIComponent(str).replace(/!/g, '%21').replace(/'/g, '%27').replace(/\(/g, '%28').replace(/\)/g, '%29').replace(/\*/g, '%2A').replace(/%20/g, '+');
             }
             function addNameValue(name, value) {
 
                 q.push(urlencode(name) + '=' + urlencode(value));
-
             }
             if (!form || !form.nodeName || form.nodeName.toLowerCase() !== 'form') {
 
                 throw 'You must supply a form element';
-
             }
             for (i = 0, len = form.elements.length; i < len; i++) {
 
@@ -408,7 +374,6 @@ var ajax = function () {
                 if (formElement.name === '' || formElement.disabled) {
 
                     continue;
-
                 }
                 switch (formElement.nodeName.toLowerCase()) {
                     case 'input':
@@ -426,11 +391,10 @@ var ajax = function () {
                                 if (formElement.checked) {
 
                                     addNameValue(formElement.name, formElement.value);
-
                                 }
                                 break;
                             case 'file':
-                            // addNameValue(formElement.name, formElement.value); // Will work and part of HTML4 "successful controls", but not used in jQuery
+                                // addNameValue(formElement.name, formElement.value); // Will work and part of HTML4 "successful controls", but not used in jQuery
                                 break;
                             case 'reset':
                                 break;
@@ -450,14 +414,13 @@ var ajax = function () {
                                     if (formElement.options[j].selected) {
 
                                         addNameValue(formElement.name, formElement.options[j].value);
-
                                     }
-
                                 }
                                 break;
                         }
                         break;
-                    case 'button': // jQuery does not submit these, though it is an HTML4 successful control
+                    case 'button':
+                        // jQuery does not submit these, though it is an HTML4 successful control
                         switch (formElement.type) {
                             case 'reset':
                             case 'submit':
@@ -467,24 +430,25 @@ var ajax = function () {
                         }
                         break;
                 }
-
             }
-            
+
             return q.join('&');
-
         };
-
-	}
+    };
 
     return {
-    	xhr : xhr
-    }
-}({})
+        xhr: xhr
+    };
+}({});
+
 module.exports = ajax;
 
 /***/ }),
-/* 3 */
-/***/ (function(module, exports) {
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 /**
  * codex.bestDevelopers module
@@ -492,169 +456,153 @@ module.exports = ajax;
  */
 var developer = function () {
 
-    var bind = function () {
+    var bind = function bind() {
 
         var chBoxes = document.querySelectorAll('.developer-checkbox');
 
-        for (var i = chBoxes.length-1; i > -1; i--) {
+        for (var i = chBoxes.length - 1; i > -1; i--) {
 
             chBoxes[i].addEventListener('change', toggle);
-
         }
-
     };
 
     /**
      * Sends ajax data 0 or 1, whether user is best developer or not
      * @param {Event} event
-     * @uses codex.core.ajax 
+     * @uses codex.core.ajax
      */
 
-    var toggle = function (event) {
+    var toggle = function toggle(event) {
 
         var data = {
-            data: 'id='+event.target.id+'&value='+(event.target.checked?1:0),
+            data: 'id=' + event.target.id + '&value=' + (event.target.checked ? 1 : 0),
             url: '/admin/developer'
         };
 
         codex.core.ajax(data);
-
     };
 
     return {
         bind: bind
     };
-
 }();
 
 module.exports = developer;
 
-
 /***/ }),
-/* 4 */
-/***/ (function(module, exports) {
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 /**
 * Significant core methods
 */
-module.exports =  function() {
+module.exports = function () {
 
     /** Logging method */
-    var log = function (str, prefix, type, arg) {
+    var log = function log(str, prefix, type, arg) {
 
         var staticLength = 32;
 
         if (prefix) {
 
-            prefix = prefix.length < staticLength ? prefix : prefix.substr( 0, staticLength - 2 );
+            prefix = prefix.length < staticLength ? prefix : prefix.substr(0, staticLength - 2);
 
             while (prefix.length < staticLength - 1) {
 
                 prefix += ' ';
-
             }
 
             prefix += ':';
             str = prefix + str;
-
         }
 
         type = type || 'log';
 
         try {
 
-            if ('console' in window && window.console[ type ]) {
+            if ('console' in window && window.console[type]) {
 
-                if (arg) console[type](str, arg);
-                else console[type](str);
-
+                if (arg) console[type](str, arg);else console[type](str);
             }
-
-        } catch(e) {}
-
+        } catch (e) {}
     };
 
     /**
     * Native ajax method.
     * @param {Object} data
     */
-    var ajax = function (data) {
+    var ajax = function ajax(data) {
 
         if (!data || !data.url) {
 
             return;
-
         }
 
-        var XMLHTTP          = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP'),
-            success_function = function () {};
+        var XMLHTTP = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP'),
+            success_function = function success_function() {};
 
-        data.async           = true;
-        data.type            = data.type || 'GET';
-        data.data            = data.data || '';
+        data.async = true;
+        data.type = data.type || 'GET';
+        data.data = data.data || '';
         data['content-type'] = data['content-type'] || 'application/json; charset=utf-8';
-        success_function     = data.success || success_function ;
+        success_function = data.success || success_function;
 
         if (data.type == 'GET' && data.data) {
 
             data.url = /\?/.test(data.url) ? data.url + '&' + data.data : data.url + '?' + data.data;
-
         }
 
         if (data.withCredentials) {
 
             XMLHTTP.withCredentials = true;
-
         }
 
         if (data.beforeSend && typeof data.beforeSend == 'function') {
 
             data.beforeSend.call();
-
         }
 
-        XMLHTTP.open( data.type, data.url, data.async );
-        XMLHTTP.setRequestHeader('Content-type', data['content-type'] );
+        XMLHTTP.open(data.type, data.url, data.async);
+        XMLHTTP.setRequestHeader('Content-type', data['content-type']);
         XMLHTTP.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
         XMLHTTP.onreadystatechange = function () {
 
             if (XMLHTTP.readyState == 4 && XMLHTTP.status == 200) {
 
                 success_function(XMLHTTP.responseText);
-
             }
-
         };
 
         XMLHTTP.send(data.data);
-
     };
 
-
     return {
-        ajax : ajax,
-        log : log       
-    }
-
+        ajax: ajax,
+        log: log
+    };
 }();
 
 /***/ }),
-/* 5 */
-/***/ (function(module, exports) {
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 module.exports = function (settings) {
 
     var defaultHandlers = {
-        findDraggable: function (e) {
+        findDraggable: function findDraggable(e) {
 
-            return e.target.closest('.'+draggableClass);
-
+            return e.target.closest('.' + draggableClass);
         },
 
-        findDroppable: function (e) {
+        findDroppable: function findDroppable(e) {
 
-            return document.elementFromPoint(e.clientX, e.clientY).closest('.'+droppableClass);
-
+            return document.elementFromPoint(e.clientX, e.clientY).closest('.' + droppableClass);
         },
 
         /**
@@ -663,21 +611,17 @@ module.exports = function (settings) {
          * Just set elem to avatar.elem. And remembers element position in document.
          * If drop isn`t success, returns elem to start position.
          */
-        makeAvatar: function (elem) {
+        makeAvatar: function makeAvatar(elem) {
 
             var avatar = {};
 
-            var avatarRollback = function () {
+            var avatarRollback = function avatarRollback() {
 
                 avatar.elem.classList.remove('dnd-default-avatar');
 
-                if (avatar.nextSibling)
-                    avatar.parentNode.insertBefore(avatar.elem, avatar.nextSibling);
-                else
-                    avatar.parentNode.appendChild(avatar.elem);
+                if (avatar.nextSibling) avatar.parentNode.insertBefore(avatar.elem, avatar.nextSibling);else avatar.parentNode.appendChild(avatar.elem);
 
-                delete(dragObj.avatar);
-
+                delete dragObj.avatar;
             };
 
             avatar = {
@@ -691,51 +635,47 @@ module.exports = function (settings) {
             avatar.elem.classList.add('dnd-default-avatar');
 
             return avatar;
-
         },
 
         /**
          * Highlights droppable elements under cursor with border
          */
-        targetChanged: function (target, newTarget) {
+        targetChanged: function targetChanged(target, newTarget) {
 
             if (target) target.classList('dnd-default-target-highlight');
 
             if (newTarget) newTarget.classList.add('dnd-default-target-highlight');
-
         },
 
-        move: function (e, avatar, shift) {
+        move: function move(e, avatar, shift) {
 
             avatar.elem.style.left = e.pageX - shift.x + 'px';
             avatar.elem.style.top = e.pageY - shift.y + 'px';
-
         },
 
         /**
          * Inserts elem into document if drop is success
          */
-        targetReached: function (target, avatar, elem) {
+        targetReached: function targetReached(target, avatar, elem) {
 
             target.classList.remove('dnd-default-target-highlight');
             target.parentNode.insertBefore(elem, target.nextElementSibling);
             avatar.elem.classList.remove('dnd-default-avatar');
-
         }
     };
 
-    var draggableClass  = settings.draggableClass   || 'draggable',
-        droppableClass   = settings.droppableClass    || 'droppable',
-        findDraggable   = settings.findDraggable    || defaultHandlers.findDraggable,
-        findDroppable    = settings.findDroppable     || defaultHandlers.findDroppable,
-        makeAvatar      = settings.makeAvatar       || defaultHandlers.makeAvatar,
-        targetChanged   = settings.targetChanged    || defaultHandlers.targetChanged,
-        move            = settings.move             || defaultHandlers.move,
-        targetReached   = settings.targetReached    || defaultHandlers.targetReached;
+    var draggableClass = settings.draggableClass || 'draggable',
+        droppableClass = settings.droppableClass || 'droppable',
+        findDraggable = settings.findDraggable || defaultHandlers.findDraggable,
+        findDroppable = settings.findDroppable || defaultHandlers.findDroppable,
+        makeAvatar = settings.makeAvatar || defaultHandlers.makeAvatar,
+        targetChanged = settings.targetChanged || defaultHandlers.targetChanged,
+        move = settings.move || defaultHandlers.move,
+        targetReached = settings.targetReached || defaultHandlers.targetReached;
 
     var dragObj = {};
 
-    var onMouseDown = function (e) {
+    var onMouseDown = function onMouseDown(e) {
 
         /**
          * Check mouse (which=1 - right mouse button) or touch (which=0 - touch) event.
@@ -761,10 +701,9 @@ module.exports = function (settings) {
             x: e.pageX - coords.x,
             y: e.pageY - coords.y
         };
-
     };
 
-    var onMouseMove = function (e) {
+    var onMouseMove = function onMouseMove(e) {
 
         if (!dragObj.elem) return;
 
@@ -779,7 +718,6 @@ module.exports = function (settings) {
         if (!dragObj.avatar) {
 
             dragObj.avatar = makeAvatar(dragObj.elem);
-
         }
 
         var newTarget = findDroppable(e);
@@ -789,15 +727,12 @@ module.exports = function (settings) {
             targetChanged(dragObj.target, newTarget, dragObj.avatar);
 
             dragObj.target = newTarget;
-
         }
 
-
         move(e, dragObj.avatar, dragObj.shift);
-
     };
 
-    var onMouseUp = function (e) {
+    var onMouseUp = function onMouseUp(e) {
 
         if (e.which > 1) return;
 
@@ -805,25 +740,20 @@ module.exports = function (settings) {
 
             dragObj = {};
             return;
-
         }
 
         e = touchSupported(e);
 
         var target = findDroppable(e);
 
-        if (target)
-            targetReached(target, dragObj.avatar, dragObj.elem, e);
-        else
-            dragObj.avatar.rollback();
+        if (target) targetReached(target, dragObj.avatar, dragObj.elem, e);else dragObj.avatar.rollback();
 
         dragObj = {};
 
         toggleSelection();
-
     };
 
-    var getCoords = function (elem) {
+    var getCoords = function getCoords(elem) {
 
         var rect = elem.getBoundingClientRect();
 
@@ -831,16 +761,11 @@ module.exports = function (settings) {
             x: rect.left + pageXOffset,
             y: rect.top + pageYOffset
         };
-
     };
 
-    var touchSupported = function (e) {
+    var touchSupported = function touchSupported(e) {
 
-        if (e.changedTouches)
-            var touch = e.changedTouches[0];
-
-        else
-            return e;
+        if (e.changedTouches) var touch = e.changedTouches[0];else return e;
 
         e.pageX = touch.pageX;
         e.pageY = touch.pageY;
@@ -854,15 +779,12 @@ module.exports = function (settings) {
         e.target = touch.target;
 
         return e;
-
     };
 
-    var toggleSelection = function () {
+    var toggleSelection = function toggleSelection() {
 
         document.body.classList.toggle('no-selection');
-
     };
-
 
     document.addEventListener('mousedown', onMouseDown);
     document.addEventListener('touchstart', onMouseDown);
@@ -876,27 +798,26 @@ module.exports = function (settings) {
     document.ondragstart = function () {
 
         return false;
-
     };
-
 };
 
-
 /***/ }),
-/* 6 */
-/***/ (function(module, exports) {
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = (function (helpers) {
+"use strict";
+
+
+module.exports = function (helpers) {
 
     helpers.setCookie = function (name, value, expires, path, domain) {
 
-        var str = name + '='+value;
+        var str = name + '=' + value;
 
         if (expires) str += '; expires=' + expires.toGMTString();
-        if (path)    str += '; path=' + path;
-        if (domain)  str += '; domain=' + domain;
+        if (path) str += '; path=' + path;
+        if (domain) str += '; domain=' + domain;
         document.cookie = str;
-
     };
 
     helpers.getCookie = function (name) {
@@ -910,57 +831,54 @@ module.exports = (function (helpers) {
 
             begin = dc.indexOf(prefix);
             if (begin !== 0) return null;
-
-        } else
-            begin += 2;
+        } else begin += 2;
 
         var end = document.cookie.indexOf(';', begin);
 
         if (end == -1) end = dc.length;
 
         return unescape(dc.substring(begin + prefix.length, end));
-
     };
 
-    helpers.getOffset = function ( el ) {
+    helpers.getOffset = function (el) {
 
         var _x = 0;
         var _y = 0;
 
-        while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
+        while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
 
-            _x += (el.offsetLeft + el.clientLeft);
-            _y += (el.offsetTop + el.clientTop);
+            _x += el.offsetLeft + el.clientLeft;
+            _y += el.offsetTop + el.clientTop;
             el = el.offsetParent;
-
         }
         return { top: _y, left: _x };
-
-    }
+    };
 
     return helpers;
-
-})({});
+}({});
 
 /***/ }),
-/* 7 */
-/***/ (function(module, exports) {
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 /**
  * Module used on join page
  * Adds wobbling effects to blankAuthBlock
  * Toggles into view blankAdditionalFields: Name and Surname, Email
  */
-var join = function() {
-    
+var join = function () {
+
     /**
     * Module initialization
     */
-    var init = function() {
+    var init = function init() {
 
         var joinBlank = document.getElementById('joinBlank');
 
-        if ( typeof joinBlank != 'undefined' && joinBlank !== null ){
+        if (typeof joinBlank != 'undefined' && joinBlank !== null) {
 
             var joinBlankTextareas = joinBlank.getElementsByTagName('textarea');
 
@@ -970,30 +888,28 @@ var join = function() {
 
                     joinBlankTextareas[i].addEventListener('keyup', checkUserCanEdit, false);
                 }
-
             }
         }
 
         var blankShowAdditionalFieldsButton = document.getElementById('blankShowAdditionalFieldsButton');
 
-        if ( typeof blankShowAdditionalFieldsButton != 'undefined' && blankShowAdditionalFieldsButton !== null ){
+        if (typeof blankShowAdditionalFieldsButton != 'undefined' && blankShowAdditionalFieldsButton !== null) {
 
             blankShowAdditionalFieldsButton.addEventListener('click', showAdditionalFields, false);
-
         }
     };
 
     /**
      * Adds wobble effect to blankAuthBlock if user starts typing into textarea unauthorized
-     * @param {Event} event 
+     * @param {Event} event
      */
-    checkUserCanEdit = function (event) {
-       
-        var textarea       = event.target,
-            blankAuthBlock = document.getElementById('blankAuthBlock'),
-            emailInput     = document.getElementById('blankEmailInput');
+    checkUserCanEdit = function checkUserCanEdit(event) {
 
-        if (blankAuthBlock && !emailInput.value.length ) {
+        var textarea = event.target,
+            blankAuthBlock = document.getElementById('blankAuthBlock'),
+            emailInput = document.getElementById('blankEmailInput');
+
+        if (blankAuthBlock && !emailInput.value.length) {
 
             if (!blankAuthBlock.className.includes('wobble')) {
 
@@ -1001,152 +917,138 @@ var join = function() {
                 setTimeout(function () {
 
                     blankAuthBlock.className = blankAuthBlock.className.replace('wobble', '');
-
                 }, 450);
 
                 textarea.value = '';
-
             }
-
         }
-
     };
 
     /**
      * Toggles into view blankAdditionalFields: Name and Surname, Email
-     * @param {Event} event 
+     * @param {Event} event
      */
-    var showAdditionalFields = function (event) {
+    var showAdditionalFields = function showAdditionalFields(event) {
 
         var blankAdditionalFields = document.getElementById('blankAdditionalFields');
 
         if (blankAdditionalFields.className.includes('additional_fields--hide')) {
 
             blankAdditionalFields.className = blankAdditionalFields.className.replace('additional_fields--hide', '');
-
         } else {
 
             blankAdditionalFields.className += ' additional_fields--hide';
-
         }
     };
 
     return {
-        init : init
-    }
-
-}({})
+        init: init
+    };
+}({});
 
 module.exports = join;
 
 /***/ }),
-/* 8 */
-/***/ (function(module, exports) {
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 
 
-var polyfills = function() {
+var polyfills = function () {
 
-        /**
-        * Polyfilling ECMAScript 6 method String.includes
-        * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes#Browser_compatibility
-        */
-        if ( !String.prototype.includes ) {
+    /**
+    * Polyfilling ECMAScript 6 method String.includes
+    * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes#Browser_compatibility
+    */
+    if (!String.prototype.includes) {
 
-            String.prototype.includes = function () {
+        String.prototype.includes = function () {
 
             'use strict';
 
             return String.prototype.indexOf.apply(this, arguments) !== -1;
-
-            };
-
-        }
-
-
-        /**
-        * Polyfill for Element.prototype.matches method
-        */
-        if (!Element.prototype.matches) {
-
-            Element.prototype.matches = Element.prototype.matchesSelector ||
-                                        Element.prototype.webkitMatchesSelector ||
-                                        Element.prototype.mozMatchesSelector ||
-                                        Element.prototype.msMatchesSelector;
-
-        }
-
-        /**
-        * Polyfill for Element.prototype.closest method
-        */
-        if (!Element.prototype.closest) {
-
-            Element.prototype.closest = function (selector) {
-
-                var node = this;
-
-                while (node) {
-
-                    if (node.matches(selector)) return node;
-                    node = node.parentElement;
-
-                }
-
-                return null;
-
-            };
-
         };
+    }
 
+    /**
+    * Polyfill for Element.prototype.matches method
+    */
+    if (!Element.prototype.matches) {
+
+        Element.prototype.matches = Element.prototype.matchesSelector || Element.prototype.webkitMatchesSelector || Element.prototype.mozMatchesSelector || Element.prototype.msMatchesSelector;
+    }
+
+    /**
+    * Polyfill for Element.prototype.closest method
+    */
+    if (!Element.prototype.closest) {
+
+        Element.prototype.closest = function (selector) {
+
+            var node = this;
+
+            while (node) {
+
+                if (node.matches(selector)) return node;
+                node = node.parentElement;
+            }
+
+            return null;
+        };
+    };
 }({});
 
 module.exports = polyfills;
 
-
 /***/ }),
-/* 9 */
-/***/ (function(module, exports) {
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 /**
  * Profile page methods
  */
 module.exports = function () {
 
-	/**
-	 * Photo uploading success-callback
-	 * Fired by transport
-	 * @param  {string} newPhotoURL - uploaded file URL
-	 */
-    var uploadPhotoSuccess = function (newPhotoURL) {
+    /**
+     * Photo uploading success-callback
+     * Fired by transport
+     * @param  {string} newPhotoURL - uploaded file URL
+     */
+    var uploadPhotoSuccess = function uploadPhotoSuccess(newPhotoURL) {
 
         var settings_avatar = document.getElementById('profile-photo-updatable'),
-            header_avatar   = document.getElementById('header-avatar-updatable');
+            header_avatar = document.getElementById('header-avatar-updatable');
 
         settings_avatar.src = newPhotoURL;
-        header_avatar.src   = newPhotoURL;
-
-    }
+        header_avatar.src = newPhotoURL;
+    };
 
     return {
-    	'uploadPhotoSuccess': uploadPhotoSuccess,
-    }
-
+        'uploadPhotoSuccess': uploadPhotoSuccess
+    };
 }();
 
 /***/ }),
-/* 10 */
-/***/ (function(module, exports) {
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 /**
  * Модуль quiz с единственным публичным методом quiz.init()
  */
-module.exports = (function () {
+module.exports = function () {
 
-    var quizData            = null,
-        numberOfQuestions   = null,
-        currentQuestion     = null,
-        score               = null,
-        maxScore            = null;
-
+    var quizData = null,
+        numberOfQuestions = null,
+        currentQuestion = null,
+        score = null,
+        maxScore = null;
 
     /**
      * Публичный метод init.
@@ -1154,7 +1056,7 @@ module.exports = (function () {
      * @param {object} quizDataInput  - объект с информацией о тесте
      * @param {string} holder - id элемента, в который будет выводиться тест
      */
-    var init = function (quizDataInput, holder) {
+    var init = function init(quizDataInput, holder) {
 
         quizData = quizDataInput;
         numberOfQuestions = quizData.questions.length;
@@ -1164,7 +1066,6 @@ module.exports = (function () {
         gameProcessing_.prepare();
         UI_.prepare(holder);
         UI_.setupQuestionInterface();
-
     };
 
     var UI_ = {
@@ -1175,25 +1076,21 @@ module.exports = (function () {
         // Объект, в котором будут храниться DOM-элементы, связанные с отображением вопроса
         questionElems: null,
 
-        prepare: function (holder) {
+        prepare: function prepare(holder) {
 
             UI_.holder = document.getElementById(holder);
             UI_.holder.classList.add('quiz');
             UI_.holder.classList.add('clearfix');
-
         },
 
         /**
          * Создаем элементы для вывода теста, заносим их в UI_.questionElems и выводим на страницу.
          */
-        setupQuestionInterface: function () {
+        setupQuestionInterface: function setupQuestionInterface() {
 
             UI_.clear();
 
-            var title,
-                optionsHolder,
-                counter,
-                nextButton;
+            var title, optionsHolder, counter, nextButton;
 
             title = UI_.createElem('div', 'quiz__question-title');
 
@@ -1217,13 +1114,12 @@ module.exports = (function () {
             UI_.append(UI_.questionElems);
 
             UI_.showQuestion();
-
         },
 
         /**
          * Выводим текущий вопрос на страницу (вопрос, варианты ответа и счетчик)
          */
-        showQuestion: function () {
+        showQuestion: function showQuestion() {
 
             UI_.clear(UI_.questionElems.optionsHolder);
             UI_.questionElems.options = [];
@@ -1236,35 +1132,30 @@ module.exports = (function () {
             UI_.questionElems.counter.textContent = currentQuestion + 1 + '/' + numberOfQuestions;
 
             UI_.currentQuestionObj.answers.map(UI_.createOption);
-
         },
 
-        answerSelected: function (answer) {
+        answerSelected: function answerSelected(answer) {
 
             answer.classList.add('quiz__question-answer_selected');
 
             UI_.questionElems.options.map(function (current, i) {
 
                 current.removeEventListener('click', gameProcessing_.getUserAnswer);
-
             });
 
             UI_.questionElems.nextButton.disabled = false;
 
-            if (currentQuestion < numberOfQuestions  - 1) {
+            if (currentQuestion < numberOfQuestions - 1) {
 
                 UI_.questionElems.nextButton.addEventListener('click', UI_.showQuestion);
-
             } else {
 
                 UI_.questionElems.nextButton.addEventListener('click', UI_.showResult);
-
             }
 
             UI_.showAnswer(answer);
 
             currentQuestion++;
-
         },
         /**
          * Добавляем стили и выводим сообщение для выбранного варианта ответа
@@ -1272,9 +1163,9 @@ module.exports = (function () {
          *
          * @param {Element} answer - DOM-элемент выбранного ответа
          */
-        showAnswer: function (answer) {
+        showAnswer: function showAnswer(answer) {
 
-            var answerStyle = answer.dataset.score > 0 ? '_right' :  '_wrong',
+            var answerStyle = answer.dataset.score > 0 ? '_right' : '_wrong',
                 answerIndex = answer.dataset.index;
 
             answer.classList.add('quiz__question-answer' + answerStyle);
@@ -1288,32 +1179,26 @@ module.exports = (function () {
             if (answer.dataset.score == 0) {
 
                 UI_.showCorrectAnswers();
-
             }
-
         },
 
-        showCorrectAnswers: function () {
+        showCorrectAnswers: function showCorrectAnswers() {
 
             UI_.questionElems.options.map(function (answer, i) {
 
                 if (answer.dataset.score > 0) {
 
                     answer.classList.add('quiz__question-answer_right');
-
                 } else {
 
                     answer.classList.add('quiz__question-answer_wrong');
-
                 }
-
             });
-
         },
 
-        showResult: function () {
+        showResult: function showResult() {
 
-            var result =  score + '/' + maxScore;
+            var result = score + '/' + maxScore;
 
             UI_.questionElems.nextButton.removeEventListener('click', UI_.showResult);
 
@@ -1339,7 +1224,6 @@ module.exports = (function () {
             UI_.append([resultScore, resultMessage, social, retry]);
 
             codex.sharer.init();
-
         },
 
         /**
@@ -1347,39 +1231,34 @@ module.exports = (function () {
          *
          * @param {Element} holder
          */
-        createSocial: function (holder, result) {
+        createSocial: function createSocial(holder, result) {
 
-            var networks = [
-                {
-                    title: 'Share on the VK',
-                    shareType: 'vkontakte',
-                    class: 'vk',
-                    icon: 'icon-vkontakte'
-                },
-                {
-                    title: 'Share on the Facebook',
-                    shareType: 'facebook',
-                    class: 'fb',
-                    icon: 'icon-facebook-squared'
-                },
-                {
-                    title: 'Tweet',
-                    shareType: 'twitter',
-                    class: 'tw',
-                    icon: 'icon-twitter'
-                },
-                {
-                    title: 'Forward in Telegramm',
-                    shareType: 'telegram',
-                    class: 'tg',
-                    icon: 'icon-paper-plane'
-                }
-            ];
+            var networks = [{
+                title: 'Share on the VK',
+                shareType: 'vkontakte',
+                class: 'vk',
+                icon: 'icon-vkontakte'
+            }, {
+                title: 'Share on the Facebook',
+                shareType: 'facebook',
+                class: 'fb',
+                icon: 'icon-facebook-squared'
+            }, {
+                title: 'Tweet',
+                shareType: 'twitter',
+                class: 'tw',
+                icon: 'icon-twitter'
+            }, {
+                title: 'Forward in Telegramm',
+                shareType: 'telegram',
+                class: 'tg',
+                icon: 'icon-paper-plane'
+            }];
 
             networks.map(function (current, i) {
 
                 var button = UI_.createElem('span', ['but', current.class]),
-                    icon   = UI_.createElem('i', current.icon),
+                    icon = UI_.createElem('i', current.icon),
                     shareMessage = null;
 
                 button.dataset.shareType = current.shareType;
@@ -1387,21 +1266,18 @@ module.exports = (function () {
 
                 if (quizData.shareMessage) {
 
-                    shareMessage =  quizData.shareMessage.replace('$score', result);
-
+                    shareMessage = quizData.shareMessage.replace('$score', result);
                 }
 
                 shareMessage = shareMessage || 'Я набрал ' + result + ' в ' + (quizData.title || 'тесте от команды CodeX');
 
-                button.dataset.url      = window.location.href;
-                button.dataset.title    = shareMessage;
-                button.dataset.desc     = quizData.description || '';
+                button.dataset.url = window.location.href;
+                button.dataset.title = shareMessage;
+                button.dataset.desc = quizData.description || '';
 
                 UI_.append(icon, button);
                 UI_.append(button, holder);
-
             });
-
         },
 
         /**
@@ -1411,7 +1287,7 @@ module.exports = (function () {
          * @param {Object} answer - объект варианта ответа
          * @param {int} i - его номер в вопросе
          */
-        createOption: function (answer, i) {
+        createOption: function createOption(answer, i) {
 
             var answerObj = UI_.createElem('div', 'quiz__question-answer');
 
@@ -1425,7 +1301,6 @@ module.exports = (function () {
             UI_.questionElems.options.push(answerObj);
 
             UI_.append(answerObj, UI_.questionElems.optionsHolder);
-
         },
 
         /**
@@ -1435,14 +1310,13 @@ module.exports = (function () {
          * @param {string|Array} classes - имя или массив имен классов
          * @returns {Element}
          */
-        createElem: function (tag, classes) {
+        createElem: function createElem(tag, classes) {
 
             var elem = document.createElement(tag);
 
             if (!classes) {
 
                 return elem;
-
             }
 
             if (classes instanceof Array) {
@@ -1450,17 +1324,13 @@ module.exports = (function () {
                 for (var i in classes) {
 
                     elem.classList.add(classes[i]);
-
                 }
-
             } else {
 
                 elem.classList.add(classes);
-
             }
 
             return elem;
-
         },
 
         /**
@@ -1469,7 +1339,7 @@ module.exports = (function () {
          * @param {Element|Array} elems - элемент или массив элементов
          * @param {Element|null} parent - родитель или UI_.holder, если передан NULL
          */
-        append: function (elems, parent) {
+        append: function append(elems, parent) {
 
             parent = parent || UI_.holder;
 
@@ -1480,19 +1350,13 @@ module.exports = (function () {
                     if (elems[i] instanceof Element) {
 
                         parent.appendChild(elems[i]);
-
                     }
-
                 }
-
             } else {
 
                 parent.appendChild(elems);
-
             }
-
         },
-
 
         /**
          * Вставляет элемент после переданного элемента
@@ -1500,18 +1364,15 @@ module.exports = (function () {
          * @param {Element} elem
          * @param {Element} elemBefore
          */
-        insertAfter: function (elem, elemBefore) {
+        insertAfter: function insertAfter(elem, elemBefore) {
 
             if (elemBefore.nextSibling) {
 
                 UI_.questionElems.optionsHolder.insertBefore(elem, elemBefore.nextSibling);
-
             } else {
 
                 UI_.append(elem, elemBefore.parentNode);
-
             }
-
         },
 
         /**
@@ -1519,23 +1380,21 @@ module.exports = (function () {
          *
          * @param {Element} parent
          */
-        clear: function (parent) {
+        clear: function clear(parent) {
 
             parent = parent || UI_.holder;
 
             while (parent.firstChild) {
 
                 parent.removeChild(parent.firstChild);
-
             }
-
         }
 
     };
 
     var gameProcessing_ = {
 
-        prepare: function () {
+        prepare: function prepare() {
 
             maxScore = 0;
 
@@ -1544,11 +1403,8 @@ module.exports = (function () {
                 current.answers.map(function (current, i) {
 
                     maxScore += parseFloat(current.score);
-
                 });
-
             });
-
         },
 
         /**
@@ -1556,14 +1412,13 @@ module.exports = (function () {
          *
          * @param {Object} e - объект события клика по варианту ответа
          */
-        getUserAnswer: function (e) {
+        getUserAnswer: function getUserAnswer(e) {
 
             var answer = e.currentTarget;
 
             score += parseFloat(answer.dataset.score);
 
             UI_.answerSelected(answer);
-
         },
 
         /**
@@ -1571,7 +1426,7 @@ module.exports = (function () {
          *
          * @returns {string} message
          */
-        getMessage: function () {
+        getMessage: function getMessage() {
 
             var messages = quizData.resultMessages,
                 message;
@@ -1579,13 +1434,11 @@ module.exports = (function () {
             messages.sort(function (a, b) {
 
                 return a['score'] - b['score'];
-
             });
 
             if (!messages.length) {
 
                 return;
-
             }
 
             for (var i in messages) {
@@ -1593,15 +1446,12 @@ module.exports = (function () {
                 if (score < messages[i]['score']) {
 
                     break;
-
                 }
 
                 message = messages[i]['message'];
-
             }
 
             return message;
-
         }
 
     };
@@ -1609,13 +1459,14 @@ module.exports = (function () {
     return {
         init: init
     };
-
-})();
-
+}();
 
 /***/ }),
-/* 11 */
-/***/ (function(module, exports) {
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 /**
 * Quiz form client handler
@@ -1623,14 +1474,13 @@ module.exports = (function () {
 * Date: 09/12/16
 */
 
-module.exports = (function (quiz) {
+module.exports = function (quiz) {
 
     /**
     * Quiz form
     * @var {null} quiz.form - form DOM element
     */
     quiz.form = null;
-
 
     /**
     * Nodes list
@@ -1644,7 +1494,6 @@ module.exports = (function (quiz) {
         'shareMessage': null
     };
 
-
     /**
     * Question insert button and anchor for new questions
     * @var {Element} quiz.questionInsertAnchor - DOM element of question insert anchor
@@ -1652,7 +1501,6 @@ module.exports = (function (quiz) {
     */
     quiz.questionInsertAnchor = null;
     quiz.questionInsertButton = null;
-
 
     /**
     * Result message insert button and anchor for new resultMessages
@@ -1662,13 +1510,11 @@ module.exports = (function (quiz) {
     quiz.resultMessageInsertAnchor = null;
     quiz.resultMessageInsertButton = null;
 
-
     /**
     * Result messages holder element
     * @var {Element} quiz.resultMessagesHolder - DOM element of result messages holder
     */
     quiz.resultMessagesHolder = null;
-
 
     /**
     * @private
@@ -1677,7 +1523,7 @@ module.exports = (function (quiz) {
     * @param {string} tag - HTML tag of the element
     * @param {object} attributes - dictionary with attributes to be added to the element
     */
-    var newDOMElement_ = function (tag, attributes, text) {
+    var newDOMElement_ = function newDOMElement_(tag, attributes, text) {
 
         text = text || '';
         var element = document.createElement(tag);
@@ -1691,13 +1537,10 @@ module.exports = (function (quiz) {
 
             attrNode.value = attributes[attr];
             element.setAttributeNode(attrNode);
-
         }
 
         return element;
-
     };
-
 
     /**
     * @private
@@ -1705,7 +1548,7 @@ module.exports = (function (quiz) {
     * Creates a couple of DOM elements and appends them to question answers list
     * @param {number} questionIndex - index of question which answer to be appended to
     */
-    var appendAnswerBlock_ = function (questionIndex, answerData) {
+    var appendAnswerBlock_ = function appendAnswerBlock_(questionIndex, answerData) {
 
         var answer = {};
         var question = quiz.nodes.questions[questionIndex];
@@ -1788,16 +1631,14 @@ module.exports = (function (quiz) {
         insertDOMElement_(answer);
 
         updateDestroyIcons_(question.answers);
-
     };
-
 
     /**
     * @private
     * Question element creating function
     * Creates a question JS object with DOM elements in it and appends it to the questions list
     */
-    var appendQuestionBlock_ = function (questionData) {
+    var appendQuestionBlock_ = function appendQuestionBlock_(questionData) {
 
         var question = {};
         var objectIndex = quiz.nodes.questions.length;
@@ -1892,10 +1733,7 @@ module.exports = (function (quiz) {
 
         question.answersHolder.appendChild(question.answersHead);
 
-        question.addAnswerButton.insertBefore(
-            question.addAnswerButtonPlus,
-            question.addAnswerButton.firstChild
-        );
+        question.addAnswerButton.insertBefore(question.addAnswerButtonPlus, question.addAnswerButton.firstChild);
 
         question.addAnswerButtonColumn.appendChild(question.addAnswerButton);
 
@@ -1912,30 +1750,25 @@ module.exports = (function (quiz) {
             questionData.answers.map(function (current, i) {
 
                 appendAnswerBlock_(objectIndex, current);
-
             });
-
         } else {
 
             appendAnswerBlock_(objectIndex);
             appendAnswerBlock_(objectIndex);
             appendAnswerBlock_(objectIndex);
-
         }
 
         insertDOMElement_(question);
 
         updateDestroyIcons_(quiz.nodes.questions);
-
     };
-
 
     /**
     * @private
     * Message block creating function
     * Creates a result message DOM element and appends it to the result messages list
     */
-    var appendResultMessageBlock_ = function (messageData) {
+    var appendResultMessageBlock_ = function appendResultMessageBlock_(messageData) {
 
         var message = {};
         var objectIndex = quiz.nodes.resultMessages.length;
@@ -2002,9 +1835,7 @@ module.exports = (function (quiz) {
         insertDOMElement_(message);
 
         updateDestroyIcons_(quiz.nodes.resultMessages);
-
     };
-
 
     /**
     * @private
@@ -2013,18 +1844,15 @@ module.exports = (function (quiz) {
     * @param {object} obj - object in which numbers to be set
     * @param {number} index - index to which child elements' attributes to be set
     */
-    var setObjectNumber_ = function (obj, numberTo) {
+    var setObjectNumber_ = function setObjectNumber_(obj, numberTo) {
 
         obj.holder.dataset.objectIndex = numberTo - 1;
 
         if (obj.number) {
 
             obj.number.textContent = 'Вопрос ' + numberTo;
-
         }
-
     };
-
 
     /**
     * @private
@@ -2032,7 +1860,7 @@ module.exports = (function (quiz) {
     * Disables or enables destroy icon for the only element in container
     * @param {object} container - object in which icon is to be disabled or enabled
     */
-    var updateDestroyIcons_ = function (container) {
+    var updateDestroyIcons_ = function updateDestroyIcons_(container) {
 
         if (container.length <= 1) {
 
@@ -2041,9 +1869,7 @@ module.exports = (function (quiz) {
             if (container[0].firstChild) {
 
                 container[0].firstChild.style.display = 'none';
-
             }
-
         } else {
 
             container[0].destroyButton.style.display = '';
@@ -2051,13 +1877,9 @@ module.exports = (function (quiz) {
             if (container[0].firstChild) {
 
                 container[0].firstChild.style.display = '';
-
             }
-
         }
-
     };
-
 
     /**
     * @private
@@ -2065,7 +1887,7 @@ module.exports = (function (quiz) {
     * Inserts DOM element to DOM
     * @param {object} obj - object in which DOM element to be inserted
     */
-    var insertDOMElement_ = function (obj) {
+    var insertDOMElement_ = function insertDOMElement_(obj) {
 
         var before;
         var parent;
@@ -2074,23 +1896,18 @@ module.exports = (function (quiz) {
 
             before = quiz.questionInsertAnchor;
             parent = quiz.form;
-
         } else if (obj.text) {
 
             before = quiz.nodes.questions[parseInt(obj.holder.dataset.questionIndex)].addAnswerButtonRow;
             parent = quiz.nodes.questions[parseInt(obj.holder.dataset.questionIndex)].answersHolder;
-
         } else {
 
             before = quiz.resultMessageInsertAnchor;
             parent = quiz.resultMessagesHolder;
-
         }
 
         parent.insertBefore(obj.holder, before);
-
     };
-
 
     /**
     * @private
@@ -2099,7 +1916,7 @@ module.exports = (function (quiz) {
     * @param {object} container - list where object is to be destroyed
     * @param {number} elementIndex - index of object in list
     */
-    var destroyObject_ = function (container, elementIndex) {
+    var destroyObject_ = function destroyObject_(container, elementIndex) {
 
         container[elementIndex].holder.parentNode.removeChild(container[elementIndex].holder);
 
@@ -2107,20 +1924,17 @@ module.exports = (function (quiz) {
         for (var i = elementIndex; i < container.length; i++) {
 
             setObjectNumber_(container[i], i + 1);
-
         }
 
         updateDestroyIcons_(container);
-
     };
-
 
     /**
     * @private
     * Event listeners setting function
     * Set event listeners for insert and destroy buttons and form submission
     */
-    var setEventListeners_ = function () {
+    var setEventListeners_ = function setEventListeners_() {
 
         quiz.form.onsubmit = function (event) {
 
@@ -2150,11 +1964,9 @@ module.exports = (function (quiz) {
                     jsonAnswer.message = quiz.nodes.questions[i].answers[j].message.value;
 
                     jsonQuestion.answers.push(jsonAnswer);
-
                 }
 
                 json.questions.push(jsonQuestion);
-
             }
 
             for (var i in quiz.nodes.resultMessages) {
@@ -2165,7 +1977,6 @@ module.exports = (function (quiz) {
                 jsonMessage.message = quiz.nodes.resultMessages[i].message.value;
 
                 json.resultMessages.push(jsonMessage);
-
             };
 
             quiz.form.appendChild(newDOMElement_('input', {
@@ -2175,21 +1986,17 @@ module.exports = (function (quiz) {
             }));
 
             quiz.form.submit();
-
         };
 
         quiz.questionInsertButton.onclick = function () {
 
             appendQuestionBlock_();
-
         };
 
         quiz.resultMessageInsertButton.onclick = function () {
 
             appendResultMessageBlock_();
-
         };
-
 
         quiz.form.onclick = function (event) {
 
@@ -2200,83 +2007,64 @@ module.exports = (function (quiz) {
 
                 container = quiz.nodes.questions;
                 elementIndex = parseInt(event.target.parentNode.dataset.objectIndex);
-
             } else if (event.target.parentNode.classList.contains('quiz-form__question-destroy-button')) {
 
                 container = quiz.nodes.questions;
                 elementIndex = parseInt(event.target.parentNode.parentNode.dataset.objectIndex);
-
             } else if (event.target.classList.contains('quiz-form__question-answer-destroy-button')) {
 
-                container = quiz.nodes.questions[
-                    parseInt(event.target.parentNode.parentNode.dataset.questionIndex)
-                ].answers;
+                container = quiz.nodes.questions[parseInt(event.target.parentNode.parentNode.dataset.questionIndex)].answers;
                 elementIndex = parseInt(event.target.parentNode.parentNode.dataset.objectIndex);
-
             } else if (event.target.parentNode.classList.contains('quiz-form__question-answer-destroy-button')) {
 
-                container = quiz.nodes.questions[
-                    parseInt(event.target.parentNode.parentNode.parentNode.dataset.questionIndex)
-                ].answers;
+                container = quiz.nodes.questions[parseInt(event.target.parentNode.parentNode.parentNode.dataset.questionIndex)].answers;
                 elementIndex = parseInt(event.target.parentNode.parentNode.parentNode.dataset.objectIndex);
-
             } else if (event.target.classList.contains('quiz-form__message-destroy-button')) {
 
                 container = quiz.nodes.resultMessages;
                 elementIndex = parseInt(event.target.parentNode.parentNode.dataset.objectIndex);
-
             } else if (event.target.classList.contains('quiz-form__question-add-answer-button')) {
 
                 container = null;
                 elementIndex = parseInt(event.target.parentNode.parentNode.parentNode.parentNode.dataset.objectIndex);
-
             }
 
             if (container === null) {
 
                 appendAnswerBlock_(elementIndex);
-
             } else if (container !== undefined) {
 
                 destroyObject_(container, elementIndex);
-
             }
-
         };
-
     };
-
 
     /**
     * @private
     * First result message adding function
     * Inserts result message with number 1 to the form
     */
-    var addInitialResultMessage_ = function () {
+    var addInitialResultMessage_ = function addInitialResultMessage_() {
 
         appendResultMessageBlock_();
-
     };
-
 
     /**
     * @private
     * First question adding function
     * Inserts question with number 1 to the form
     */
-    var addInitialQuestion_ = function () {
+    var addInitialQuestion_ = function addInitialQuestion_() {
 
         appendQuestionBlock_();
-
     };
-
 
     /**
     * @private
     * Initial form parameters setting adding function
     * Sets form variable and insert buttons
     */
-    var setInitialFormParams_ = function () {
+    var setInitialFormParams_ = function setInitialFormParams_() {
 
         quiz.form = document.forms.quizForm;
         quiz.questionInsertAnchor = document.getElementById('questionInsertAnchor');
@@ -2284,25 +2072,21 @@ module.exports = (function (quiz) {
         quiz.resultMessageInsertAnchor = document.getElementById('resultMessageInsertAnchor');
         quiz.resultMessageInsertButton = document.getElementById('resultMessageInsertButton');
         quiz.resultMessagesHolder = document.getElementById('resultMessagesHolder');
-
     };
-
 
     /**
     * @private
     * Initial destroy icons updating function
     * Updates initially placed destroy icons
     */
-    var updateInitialDestroyIcons_ = function () {
+    var updateInitialDestroyIcons_ = function updateInitialDestroyIcons_() {
 
         updateDestroyIcons_(quiz.nodes.questions);
         updateDestroyIcons_(quiz.nodes.resultMessages);
         updateDestroyIcons_(quiz.nodes.questions[0].answers);
-
     };
 
-
-    var render = function (quizData) {
+    var render = function render(quizData) {
 
         var questions = quizData.questions,
             resultMessages = quizData.resultMessages;
@@ -2316,21 +2100,17 @@ module.exports = (function (quiz) {
         resultMessages.map(function (current, i) {
 
             appendResultMessageBlock_(current);
-
         });
 
         questions.map(function (current, i) {
 
             appendQuestionBlock_(current);
-
         });
 
         setEventListeners_();
 
         updateInitialDestroyIcons_();
-
     };
-
 
     /**
      * @public
@@ -2343,7 +2123,6 @@ module.exports = (function (quiz) {
 
             render(quizData);
             return;
-
         }
 
         setInitialFormParams_();
@@ -2351,17 +2130,17 @@ module.exports = (function (quiz) {
         addInitialResultMessage_();
         setEventListeners_();
         updateInitialDestroyIcons_();
-
     };
 
     return quiz;
-
-})({});
-
+}({});
 
 /***/ }),
-/* 12 */
-/***/ (function(module, exports) {
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 /**
 * Module for scroll-up button
@@ -2374,32 +2153,28 @@ module.exports = function () {
     var SCROLL_UP_OFFSET = 100,
         button = null;
 
-    var scrollPage = function () {
+    var scrollPage = function scrollPage() {
 
         window.scrollTo(0, 0);
-
     };
 
-    var windowScrollHandler = function () {
+    var windowScrollHandler = function windowScrollHandler() {
 
         if (window.pageYOffset > SCROLL_UP_OFFSET) {
 
             button.classList.add('show');
-
         } else {
 
             button.classList.remove('show');
-
         }
-
     };
 
     /**
     * Init method
     * Fired after document is ready
     */
-   
-    var init = function () {
+
+    var init = function init() {
 
         /** Find scroll-up button */
         button = document.createElement('DIV');
@@ -2412,93 +2187,87 @@ module.exports = function () {
 
         /** Global window scroll handler */
         window.addEventListener('scroll', windowScrollHandler);
-
     };
 
     return {
-        init : init
-    }
-
-
+        init: init
+    };
 }();
 
-
 /***/ }),
-/* 13 */
-/***/ (function(module, exports) {
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 /**
  * Module for social sharing
  */
-module.exports = (function ( sharer ) {
+module.exports = function (sharer) {
+
     /**
      * @param  {Object} data - Info about item we want to share
      */
     sharer.vkontakte = function (data) {
 
-        var link  = 'https://vk.com/share.php?';
+        var link = 'https://vk.com/share.php?';
 
-        link += 'url='          + data.url;
-        link += '&title='       + data.title;
+        link += 'url=' + data.url;
+        link += '&title=' + data.title;
         link += '&description=' + data.desc;
-        link += '&image='       + data.img;
+        link += '&image=' + data.img;
         link += '&noparse=true';
 
-        sharer.popup( link, 'vkontakte'  );
-
+        sharer.popup(link, 'vkontakte');
     };
 
     sharer.facebook = function (data) {
 
         var FB_APP_ID = 1740455756240878,
-            link      = 'https://www.facebook.com/dialog/share?display=popup';
+            link = 'https://www.facebook.com/dialog/share?display=popup';
 
-        link += '&app_id='       + FB_APP_ID;
-        link += '&href='         + data.url;
+        link += '&app_id=' + FB_APP_ID;
+        link += '&href=' + data.url;
         link += '&redirect_uri=' + document.location.href;
 
-        sharer.popup( link, 'facebook' );
-
+        sharer.popup(link, 'facebook');
     };
     sharer.twitter = function (data) {
 
         var link = 'https://twitter.com/share?';
 
-        link += 'text='      + data.title;
-        link += '&url='      + data.url;
+        link += 'text=' + data.title;
+        link += '&url=' + data.url;
         link += '&counturl=' + data.url;
 
-        sharer.popup( link, 'twitter' );
-
+        sharer.popup(link, 'twitter');
     };
 
     sharer.telegram = function (data) {
 
-        var link  = 'https://telegram.me/share/url';
+        var link = 'https://telegram.me/share/url';
 
         link += '?text=' + data.title;
-        link += '&url='  + data.url;
+        link += '&url=' + data.url;
 
-        sharer.popup( link, 'telegram' );
-
+        sharer.popup(link, 'telegram');
     };
     /**
-     * @param  {String} url         
-     * @param  {String} social_type 
+     * @param  {String} url
+     * @param  {String} social_type
      */
-    sharer.popup = function ( url, social_type ) {
+    sharer.popup = function (url, social_type) {
 
-        window.open( url, '', 'toolbar=0,status=0,width=626,height=436' );
+        window.open(url, '', 'toolbar=0,status=0,width=626,height=436');
 
         /**
         * Write analytics goal
         */
-        if ( window.yaCounter32652805 ) {
+        if (window.yaCounter32652805) {
 
-            window.yaCounter32652805.reachGoal('article-share', function () {}, this, {type: social_type, url: url});
-
+            window.yaCounter32652805.reachGoal('article-share', function () {}, this, { type: social_type, url: url });
         }
-
     };
 
     sharer.init = function () {
@@ -2508,12 +2277,10 @@ module.exports = (function ( sharer ) {
         for (var i = shareButtons.length - 1; i >= 0; i--) {
 
             shareButtons[i].addEventListener('click', sharer.click, true);
-
         }
-
     };
     /**
-     * @param  {Event} event 
+     * @param  {Event} event
      */
     sharer.click = function (event) {
 
@@ -2536,10 +2303,10 @@ module.exports = (function ( sharer ) {
         // }
 
         var shareData = {
-            url:    target.dataset.url || target.parentNode.dataset.url,
-            title:  target.dataset.title || target.parentNode.dataset.title,
-            desc:   target.dataset.desc || target.parentNode.dataset.desc,
-            img:    target.dataset.img || target.parentNode.dataset.title
+            url: target.dataset.url || target.parentNode.dataset.url,
+            title: target.dataset.title || target.parentNode.dataset.title,
+            desc: target.dataset.desc || target.parentNode.dataset.desc,
+            img: target.dataset.img || target.parentNode.dataset.title
         };
 
         /**
@@ -2547,18 +2314,17 @@ module.exports = (function ( sharer ) {
         */
 
         sharer[type](shareData);
-
     };
 
-
-
     return sharer;
-
-})({});
+}({});
 
 /***/ }),
-/* 14 */
-/***/ (function(module, exports) {
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 /**
  * codex.showMoreNews module
@@ -2566,12 +2332,13 @@ module.exports = (function ( sharer ) {
  * Reveals more news when appender button is fired
  * Usage onclick="codex.showMoreNews.init( this );"
  */
-var showMoreNews = function() {
-	/**  
-    * Helper for 'show more news' button
-    * @param {Element} button   - appender button
-    */
-    var init = function ( button ) {
+var showMoreNews = function () {
+
+    /**
+       * Helper for 'show more news' button
+       * @param {Element} button   - appender button
+       */
+    var init = function init(button) {
 
         var PORTION = 5; // Amount of news shown each time appender button is fired
 
@@ -2580,97 +2347,86 @@ var showMoreNews = function() {
 
         for (var i = 0, newsItem; !!(newsItem = news[i]); i++) {
 
-            if ( newsItem.classList.contains('news__list_item--hidden') ) {
+            if (newsItem.classList.contains('news__list_item--hidden')) {
 
                 hided.push(newsItem);
-
             }
-
         }
 
         /**
-         * @param {Element} item 
+         * @param {Element} item
          * Remove PORTION of first elements from array hided
          */
         hided.splice(0, PORTION).map(function (item) {
 
             item.classList.remove('news__list_item--hidden');
-
         });
 
         if (!hided.length) {
 
             button.classList.add('news__list_item--hidden');
-
         }
-
     };
 
     return {
-    	init : init
-    }
-}({})
+        init: init
+    };
+}({});
 
 module.exports = showMoreNews;
 
 /***/ }),
-/* 15 */
-/***/ (function(module, exports) {
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 /**
 * Minimal, lightview and universal code highilting
 * Used on articles page
 * @author Savchenko Peter (vk.com/specc)
-* @param {Object} simpleCode 
+* @param {Object} simpleCode
 */
-var simpleCode = (function (simpleCode) {
+var simpleCode = function (simpleCode) {
 
     simpleCode.rules = {
 
-        comments: function (str) {
+        comments: function comments(str) {
 
             return str.replace(/(\/\*([^*]|[\r\n]|(\*+([^*\/]|[\r\n])))*\*\/)/g, '<span class=sc_comment>$1</span>');
-
         },
-        comments_inline: function (str) {
+        comments_inline: function comments_inline(str) {
 
             return str.replace(/[^\w:](\/\/[^\n]+)/g, '<span class=sc_comment>$1</span>');
-
         },
-        tags : function (str) {
+        tags: function tags(str) {
 
-            return str.replace( /(&lt;[\/a-z]+(&gt;)?)/gi, '<span class=sc_tag>$1</span>' );
-
+            return str.replace(/(&lt;[\/a-z]+(&gt;)?)/gi, '<span class=sc_tag>$1</span>');
         },
-        attrs : function (str) {
+        attrs: function attrs(str) {
 
-            return str.replace( /"([^"]+)"/gi, '"<span class=sc_attr>$1</span>"' );
-
+            return str.replace(/"([^"]+)"/gi, '"<span class=sc_attr>$1</span>"');
         },
-        strings : function (str) {
+        strings: function strings(str) {
 
-            return str.replace( /'([^']+)'/gi, '\'<span class=sc_attr>$1</span>\'' );
-
+            return str.replace(/'([^']+)'/gi, '\'<span class=sc_attr>$1</span>\'');
         },
-        keywords : function (str) {
+        keywords: function keywords(str) {
 
             return str.replace(/\b(var|const|function|typeof|return|endif|endforeach|foreach|if|for|in|while|break|continue|switch|case|int|void|python|from|import|install|def|virtualenv|source|sudo|git)([^a-z0-9\$_])/g, '<span class=sc_keyword>$1</span>$2');
-
         },
-        digits : function (str) {
+        digits: function digits(str) {
 
             return str.replace(/\b(\d+)\b/g, '<span class=sc_digt>$1</span>');
-
         },
-        vars : function (str) {
+        vars: function vars(str) {
 
             return str.replace(/(\$[^\s\[\]\{\}\'\"\(\)]+)\b/g, '<span class=sc_var>$1</span>');
-
         },
-        colors : function (str) {
+        colors: function colors(str) {
 
             return str.replace(/(#[a-z0-9]{3,6})/ig, '<span class=sc_color style=border-bottom-color:$1>$1</span>');
-
         }
 
     };
@@ -2682,24 +2438,16 @@ var simpleCode = (function (simpleCode) {
         for (var rule in simpleCode.rules) {
 
             origin = simpleCode.rules[rule](origin);
-
         }
 
         el.innerHTML = origin;
-
     };
 
     simpleCode.addStyles = function () {
 
         var styleInstance = 'simpleCodeStylingCss',
-            style         = document.getElementById(styleInstance),
-            css =   '.sc_attr{color: #F57975;}' +
-                    '.sc_tag{color: #7DA3F4;}' +
-                    '.sc_keyword{color: #d87ccf;}' +
-                    '.sc_digt{color: #37D755;}'+
-                    '.sc_var{color: #8199C6;}' +
-                    '.sc_comment{color: #acb1bd;}' +
-                    '.sc_color{display: inline-block;line-height: 1em;border-bottom-width:2px;border-bottom-style:solid;}';
+            style = document.getElementById(styleInstance),
+            css = '.sc_attr{color: #F57975;}' + '.sc_tag{color: #7DA3F4;}' + '.sc_keyword{color: #d87ccf;}' + '.sc_digt{color: #37D755;}' + '.sc_var{color: #8199C6;}' + '.sc_comment{color: #acb1bd;}' + '.sc_color{display: inline-block;line-height: 1em;border-bottom-width:2px;border-bottom-style:solid;}';
 
         if (!style) {
 
@@ -2708,14 +2456,12 @@ var simpleCode = (function (simpleCode) {
             style.innerHTML = css;
 
             document.head.appendChild(style);
-
         }
-
     };
 
     /**
      * @param {String} selector - CSS selector .article__code
-     * @usage codex.simpleCode.init(".article__code"); 
+     * @usage codex.simpleCode.init(".article__code");
      */
     simpleCode.init = function (selector) {
 
@@ -2726,28 +2472,27 @@ var simpleCode = (function (simpleCode) {
         for (var i = code_elements.length - 1; i >= 0; i--) {
 
             simpleCode.process(code_elements[i]);
-
         }
-
     };
 
     return simpleCode;
-
-})({});
+}({});
 
 module.exports = simpleCode;
 
-
 /***/ }),
-/* 16 */
-/***/ (function(module, exports) {
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 /**
 * Ajax file transport module
 * @author Savchenko Peter (vk.com/specc)
 * @param {Object} transport
 */
-module.exports = (function (transport) {
+module.exports = function (transport) {
 
     transport.currentButtonClicked = {};
 
@@ -2756,42 +2501,38 @@ module.exports = (function (transport) {
      */
     transport.init = function (buttons) {
 
-        transport.form  = document.getElementById('transportForm');
+        transport.form = document.getElementById('transportForm');
         transport.input = document.getElementById('transportInput');
 
         for (var i = buttons.length - 1; i >= 0; i--) {
 
             buttons[i].addEventListener('click', transport.buttonCallback, false);
-
         }
 
-        transport.input.addEventListener('change', transport.submitCallback, false );
-
+        transport.input.addEventListener('change', transport.submitCallback, false);
     };
 
     /**
-     * @param {Event} event 
+     * @param {Event} event
      */
     transport.buttonCallback = function (event) {
 
-        var action        = this.dataset.action,
-            target_id     = this.dataset.id,
-            is_multiple   = !!this.dataset.multiple || false;
+        var action = this.dataset.action,
+            target_id = this.dataset.id,
+            is_multiple = !!this.dataset.multiple || false;
 
         transport.fillForm({
-            action : action,
-            id     : target_id
+            action: action,
+            id: target_id
         });
 
-        if ( is_multiple ) {
+        if (is_multiple) {
 
             transport.form.multiple = 'multiple';
-
         }
 
         transport.currentButtonClicked = this;
         transport.input.click();
-
     };
 
     /**
@@ -2800,15 +2541,13 @@ module.exports = (function (transport) {
     */
     transport.fillForm = function (data) {
 
-        var input,
-            alreadyAddedInput;
+        var input, alreadyAddedInput;
 
-        for ( var field in data ) {
+        for (var field in data) {
 
             if (typeof data[field] == 'undefined') {
 
                 continue;
-
             }
 
             alreadyAddedInput = transport.form.querySelector('input[name=' + field + ']');
@@ -2816,11 +2555,9 @@ module.exports = (function (transport) {
             if (typeof alreadyAddedInput != 'undefined' && alreadyAddedInput !== null) {
 
                 input = alreadyAddedInput;
-
             } else {
 
                 input = document.createElement('input');
-
             }
 
             input.type = 'hidden';
@@ -2828,102 +2565,88 @@ module.exports = (function (transport) {
             input.value = data[field];
 
             transport.form.appendChild(input);
-
         }
-
     };
 
     transport.submitCallback = function () {
 
-        const FILE_MAX_SIZE = 30 * 1024 * 1024; // 30 MB
+        var FILE_MAX_SIZE = 30 * 1024 * 1024; // 30 MB
 
-        var files = transport.getFileObject( this );
+        var files = transport.getFileObject(this);
 
         for (var i = files.length - 1; i >= 0; i--) {
 
             /** Validate file extension */
-            if ( !transport.validateExtension(files[i]) || !transport.validateMIME(files[i]) ) {
+            if (!transport.validateExtension(files[i]) || !transport.validateMIME(files[i])) {
 
-                window.console && console.warn('Wrong file type: %o', + files[i].name);
+                window.console && console.warn('Wrong file type: %o', +files[i].name);
                 return;
-
             }
 
             /** Validate file size */
-            if ( !transport.validateSize( files[i], FILE_MAX_SIZE) ) {
+            if (!transport.validateSize(files[i], FILE_MAX_SIZE)) {
 
-                window.console && console.warn('File size exceeded limit: %o MB', files[i].size / (1024*1024).toFixed(2) );
+                window.console && console.warn('File size exceeded limit: %o MB', files[i].size / (1024 * 1024).toFixed(2));
                 return;
-
             }
-
         }
 
         transport.currentButtonClicked.className += ' loading';
         transport.form.submit();
-
     };
 
     /**
     * Fires from transport-frame window
     * @param {Object} response
     */
-    transport.response = function ( response ) {
-        
+    transport.response = function (response) {
+
         transport.currentButtonClicked.className = transport.currentButtonClicked.className.replace('loading', '');
 
         if (response.callback) {
 
             eval(response.callback);
-
         }
 
-        if ( response.result ) {
+        if (response.result) {
 
-            if ( response.result == 'error' ) {
+            if (response.result == 'error') {
 
-                window.console && console.warn( response.error_description || 'error' );
-
+                window.console && console.warn(response.error_description || 'error');
             }
-
         }
-
     };
     /**
-     * @param  {[Element]} fileInput 
+     * @param  {[Element]} fileInput
      * @return {[type]}           [description]
      */
-    transport.getFileObject = function ( fileInput ) {
+    transport.getFileObject = function (fileInput) {
 
-        if ( !fileInput ) return false;
+        if (!fileInput) return false;
         /**
         * Workaround with IE that doesn't support File API
         * @todo test and delete this crutch
         */
-        return typeof ActiveXObject == 'function' ? (new ActiveXObject('Scripting.FileSystemObject')).getFile(fileInput.value) : fileInput.files;
-
+        return typeof ActiveXObject == 'function' ? new ActiveXObject('Scripting.FileSystemObject').getFile(fileInput.value) : fileInput.files;
     };
 
     /**
      * @param {Object} accept
      * @param {Object} fileObj
-     * @return {Boolean} 
+     * @return {Boolean}
      */
-    transport.validateMIME = function ( fileObj, accept ) {
-
+    transport.validateMIME = function (fileObj, accept) {
 
         accept = typeof accept == 'array' ? accept : ['image/jpeg', 'image/png'];
 
         for (var i = accept.length - 1; i >= 0; i--) {
 
-            if ( fileObj.type == accept[i] ) return true;
-
+            if (fileObj.type == accept[i]) return true;
         }
         return false;
-
     };
 
-    transport.validateExtension = function ( fileObj, accept ) {
+    transport.validateExtension = function (fileObj, accept) {
 
         var ext = fileObj.name.match(/\.(\w+)($|#|\?)/);
 
@@ -2935,31 +2658,36 @@ module.exports = (function (transport) {
 
         for (var i = accept.length - 1; i >= 0; i--) {
 
-            if ( ext == accept[i] ) return true;
-
+            if (ext == accept[i]) return true;
         }
 
         return false;
-
     };
 
-    transport.validateSize = function ( fileObj, max_size) {
+    transport.validateSize = function (fileObj, max_size) {
 
         return fileObj.size < max_size;
-
     };
 
     return transport;
+}({});
 
-})({});
+/***/ }),
+/* 16 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ }),
 /* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(0);
+"use strict";
 
-var codex = (function (codex) {
+
+__webpack_require__(16);
+
+var codex = function (codex) {
 
     codex.settings = {};
 
@@ -2969,22 +2697,16 @@ var codex = (function (codex) {
     codex.init = function (settings) {
 
         /** Save settings or use defaults */
-        for (var set in settings ) {
+        for (var set in settings) {
 
             this.settings[set] = settings[set] || this.settings[set] || null;
-
         }
 
         codex.scrollUp.init();
-
     };
 
-
-
     return codex;
-
-
-})({});
+}({});
 
 /**
 * Document ready event listener
@@ -2992,39 +2714,35 @@ var codex = (function (codex) {
 */
 codex.docReady = function (f) {
 
-    return /in/.test(document.readyState) ? setTimeout(codex.docReady, 9, f) : f();
-
+    return (/in/.test(document.readyState) ? setTimeout(codex.docReady, 9, f) : f()
+    );
 };
-
 
 /**
 * Pages
 */
-codex.admin = __webpack_require__(1);
-codex.join = __webpack_require__(7);
-
+codex.admin = __webpack_require__(0);
+codex.join = __webpack_require__(6);
 
 /**
  * Modules
  */
-codex.core = __webpack_require__(4);
-codex.dragndrop = __webpack_require__(5);
-codex.scrollUp = __webpack_require__(12);
-codex.sharer = __webpack_require__(13);
-codex.developer = __webpack_require__(3);
-codex.simpleCode = __webpack_require__(15);
-codex.showMoreNews = __webpack_require__(14);
-codex.polyfills = __webpack_require__(8);
-codex.ajax = __webpack_require__(2);
-codex.profile = __webpack_require__(9);
-codex.helpers = __webpack_require__(6);
-codex.quiz = __webpack_require__(10);
-codex.quizForm = __webpack_require__(11);
-codex.transport = __webpack_require__(16);
+codex.core = __webpack_require__(3);
+codex.dragndrop = __webpack_require__(4);
+codex.scrollUp = __webpack_require__(11);
+codex.sharer = __webpack_require__(12);
+codex.developer = __webpack_require__(2);
+codex.simpleCode = __webpack_require__(14);
+codex.showMoreNews = __webpack_require__(13);
+codex.polyfills = __webpack_require__(7);
+codex.ajax = __webpack_require__(1);
+codex.profile = __webpack_require__(8);
+codex.helpers = __webpack_require__(5);
+codex.quiz = __webpack_require__(9);
+codex.quizForm = __webpack_require__(10);
+codex.transport = __webpack_require__(15);
 
 module.exports = codex;
-
-
 
 /***/ })
 /******/ ]);

@@ -16,10 +16,10 @@ module.exports = function () {
         settings_avatar.src = newPhotoURL;
         header_avatar.src   = newPhotoURL;
 
-    }
+    };
 
     return {
     	'uploadPhotoSuccess': uploadPhotoSuccess,
-    }
+    };
 
 }();

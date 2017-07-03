@@ -19,7 +19,7 @@ var developer = function () {
     /**
      * Sends ajax data 0 or 1, whether user is best developer or not
      * @param {Event} event
-     * @uses codex.core.ajax 
+     * @uses codex.core.ajax
      */
 
     var toggle = function (event) {

@@ -33,7 +33,7 @@ module.exports = function () {
     * Init method
     * Fired after document is ready
     */
-   
+
     var init = function () {
 
         /** Find scroll-up button */
@@ -52,7 +52,7 @@ module.exports = function () {
 
     return {
         init : init
-    }
+    };
 
 
 }();

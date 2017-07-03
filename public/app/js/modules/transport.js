@@ -26,7 +26,7 @@ module.exports = (function (transport) {
     };
 
     /**
-     * @param {Event} event 
+     * @param {Event} event
      */
     transport.buttonCallback = function (event) {
 
@@ -125,7 +125,7 @@ module.exports = (function (transport) {
     * @param {Object} response
     */
     transport.response = function ( response ) {
-        
+
         transport.currentButtonClicked.className = transport.currentButtonClicked.className.replace('loading', '');
 
         if (response.callback) {
@@ -146,7 +146,7 @@ module.exports = (function (transport) {
 
     };
     /**
-     * @param  {[Element]} fileInput 
+     * @param  {[Element]} fileInput
      * @return {[type]}           [description]
      */
     transport.getFileObject = function ( fileInput ) {
@@ -163,7 +163,7 @@ module.exports = (function (transport) {
     /**
      * @param {Object} accept
      * @param {Object} fileObj
-     * @return {Boolean} 
+     * @return {Boolean}
      */
     transport.validateMIME = function ( fileObj, accept ) {
 

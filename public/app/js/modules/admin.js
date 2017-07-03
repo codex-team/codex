@@ -7,9 +7,9 @@ module.exports = function (admin) {
 	 * Initializes dragndrop module
 	 * @uses  codex.dragndrop
 	 */
-	function initDragNDrop() {
+    function initDragNDrop() {
 
-		codex.dragndrop({
+        codex.dragndrop({
 		    droppableClass: 'list-item',
 
 		    findDraggable: function (e) {
@@ -102,35 +102,38 @@ module.exports = function (admin) {
 		        codex.core.ajax(ajaxData);
 
 		    }
-		});
+        });
 		// body...
-	}
+
+    }
 
 	/**
 	 * Module initialization
 	 * @param  {Object} 	 params 			- init params
 	 * @param  {String|null} params.listType 	- feed list type ("cards"|"list")
 	 */
-	admin.init = function( params ){
+    admin.init = function ( params ) {
 
-		codex.core.log('Initialized.', 'Module admin');
+        codex.core.log('Initialized.', 'Module admin');
 
-		if ( params.listType == 'cards' ){
+        if ( params.listType == 'cards' ) {
 
 			 var items = document.querySelectorAll('.feed-item');
 
 	        for (var i = items.length-1; i > -1; i--) {
+
 	            items[i].classList.add('draggable');
 	            items[i].classList.add('feed-item--dnd');
 	            items[i].classList.add('list-item');
-	        }
 
-		}
+        }
 
-		initDragNDrop();
+        }
 
-	}
+        initDragNDrop();
 
-	return admin;
+    };
 
-}({})
+    return admin;
+
+}({});

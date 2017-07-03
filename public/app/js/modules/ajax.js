@@ -1,6 +1,6 @@
 var ajax = function () {
 
-    var xhr = function( xhr ) {
+    var xhr = function ( xhr ) {
 
         var objectToQueryString = function (a) {
 
@@ -249,15 +249,17 @@ var ajax = function () {
                 }
 
             }
-            
+
             return q.join('&');
 
         };
 
-	}
+    };
 
     return {
     	xhr : xhr
-    }
-}({})
+    };
+
+}({});
+
 module.exports = ajax;
