@@ -1,8 +1,11 @@
 .landing {
     font-family: Lato;
 }
-.landing__about {
-    padding: 40px 0;
+    .landing__about {
+        padding: 40px 0;
+    }
+
+.about {
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -14,58 +17,59 @@
         border: 1px solid #F4F4F4;
         margin-right: 30px;
     }
-    .about__description {
-        display: flex;
-        flex-direction: column;
-    }
+
+.description {
+    display: flex;
+    flex-direction: column;
+}
     .description__info {
         color: #000;
         font-size: 18px;
         font-weight: 400;
         margin: 0;
     }
-        .description__name {
-            color: #000;
-            font-size: 51px;
-            font-weight: 700;
-            line-height: initial;
-            padding-bottom: 40px;
-        }
+    .description__name {
+        color: #000;
+        font-size: 51px;
+        font-weight: 700;
+        line-height: initial;
+        padding-bottom: 40px;
+    }
 
-        .description__links {
-            display: flex;
-            justify-content: space-between;
-        }
-            .links__item {
-                font-size: 19px;
-                color: #0050BA;
-                text-decoration: none;
-                padding-left: 15px;
-                padding-right: 15px;
-            }
-            .links__item--first {
-                padding-left: 0;
-            }
+.links {
+    display: flex;
+    justify-content: space-between;
+}
+    .links__item {
+        font-size: 19px;
+        color: #0050BA;
+        text-decoration: none;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .links__item--first {
+        padding-left: 0;
+    }
 
-    .about__buttons {
+.buttons {
+    display: flex;
+    flex-direction: column;
+}       
+    .buttons__item {
+        padding: 10px 15px;
+        background-color: #fff;
+        border-radius: 5px;
+        border: 1px solid #E7E7E7;
+        color: #000;
+        text-decoration: none;
         display: flex;
-        flex-direction: column;
-    }       
-        .buttons__item {
-            padding: 10px 15px;
-            background-color: #fff;
-            border-radius: 5px;
-            border: 1px solid #E7E7E7;
-            color: #000;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 2px 0 #E7E7E7;
+        align-items: center;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 2px 0 #E7E7E7;
+    }
+        .buttons__item-img {
+            margin-right: 15px;
         }
-            .buttons__item-img {
-                margin-right: 15px;
-            }
 
 .landing__integrations {
     padding-bottom: 200px;
@@ -87,6 +91,7 @@
             font-size: 15px;
             margin-left: 20px;
         }
+
     .integrations__item-block {
         display: flex;
     }
@@ -123,7 +128,7 @@
                 display: flex;
                 justify-content: space-between;
             }
-                .integrations__contributers {
+                .contributers {
                     display: flex;
                 }
                     .contributers__item {
@@ -137,6 +142,7 @@
                     font-size: 13px;
                     color: #626262;
                 }
+
 @media all and (max-width: 800px) {
     .landing__about {
         flex-direction: column;
@@ -149,21 +155,22 @@
         .about__description {
             margin: 25px 0;
         }
-            .description__info {
-                font-size: 16px;
-            }
-            .description__links {
-                flex-direction: column;
-            }
-            .description__name {
-                font-size: 30px;
-                padding-top: 10px;
-                padding-bottom: 15px;
-            }
+    .description__info {
+        font-size: 16px;
+    }
+    .description__name {
+        font-size: 30px;
+        padding-top: 10px;
+        padding-bottom: 15px;
+    }
+    .links {
+        flex-direction: column;
+    }      
         .links__item {
             font-size: 14px;
             padding: 0;
         }
+        
     .landing__integrations {
         padding-bottom: 40px;
     }  

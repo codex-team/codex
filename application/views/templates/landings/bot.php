@@ -3,18 +3,18 @@
 
 <div class="center_side">
     <div class="landing">
-        <div class="landing__about">
+        <div class="landing__about about">
             <img class="about__img" src="/public/img/landings/bot/codex_bot_logo.png">
-            <div class="about__description">
+            <div class="description">
                 <h2 class="description__info">Working team assistant</h2>
                 <div class="description__name">@codex_bot</div>
-                <div class="description__links">
+                <div class="links">
                     <a class="links__item links__item--first" href="">Getting Started </a>
                     <a class="links__item" href="">Documentation</a>
                     <a class="links__item" href="">View code</a>
                 </div>
             </div>
-            <div class="about__buttons">
+            <div class="buttons">
                 <a class="buttons__item" href="">
                     <img class="buttons__item-img" src="/public/img/landings/bot/slack_cmyk.png">
                     Add to <br><b>Slack</b>
@@ -39,7 +39,7 @@
                             Notifications about new issues, pull-requests, reviews. And other helpfully stuff.
                         </div>
                         <div class="integrations__item-footer">
-                            <div class="integrations__contributers">
+                            <div class="contributers">
                                 <div class="contributers__item"></div>
                                 <div class="contributers__item"></div>
                                 <div class="contributers__item"></div>
@@ -58,7 +58,7 @@
                             Yandex.Metrika assistant. Regular and requested reports.
                         </div>
                         <div class="integrations__item-footer">
-                            <div class="integrations__contributers">
+                            <div class="contributers">
                                 <div class="contributers__item"></div>
                                 <div class="contributers__item"></div>
                                 <div class="contributers__item"></div>
