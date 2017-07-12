@@ -14,41 +14,43 @@ module.exports = {
     },
 
     module: {
-        rules: [{
-            test : /\.(png|jpg|svg)$/,
-            use : "file-loader?name=[path][name].[ext]"
-        },
-        {
-            test: /\.css$/,
-            use: ExtractTextPlugin.extract([{
-                loader: 'css-loader',
-                options: {
-                    minimize: 1,
-                    importLoaders: 1
-                }
+        rules: [
+            {
+                test : /\.(png|jpg|svg)$/,
+                use : "file-loader?name=[path][name].[ext]"
             },
-            'postcss-loader'
-            ])
-        },
-        {
-            test: /\.js$/,
-            use: [
-                /** Babel loader */
-                {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['env']
+            {
+                test: /\.css$/,
+                use: ExtractTextPlugin.extract([
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            minimize: 1,
+                            importLoaders: 1
+                        }
+                    },
+                    'postcss-loader'
+                ])
+            },
+            {
+                test: /\.js$/,
+                use: [
+                    /** Babel loader */
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: ['env']
+                        }
+                    },
+                    /** ES lint For webpack build */
+                    {
+                        loader: 'eslint-loader',
+                        options: {
+                            fix: DevelopmendMode
+                        }
                     }
-                },
-                /** ES lint For webpack build */
-                {
-                    loader: 'eslint-loader',
-                    options: {
-                        fix: DevelopmendMode
-                    }
-                }
-            ]
-        }
+                ]
+            }
     ]},
 
     plugins: [

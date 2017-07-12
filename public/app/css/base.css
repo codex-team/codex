@@ -326,11 +326,15 @@ hr {
     animation-name: bounceIn; animation-duration: 600ms; animation-iteration-count: 1;
 }
 
-@media all and (max-width: 800px){
+@media (--mobile) {
     /**
     * Center side section margins
     */
-    .center_side{
+    .center_side {
         padding: 0 20px;
+    }
+
+    .mobile-hide {
+        display: none !important;
     }
 }

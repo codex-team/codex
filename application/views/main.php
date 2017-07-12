@@ -31,28 +31,7 @@
 </head>
 <body>
 
-    <header class="site-header">
-        <div class="center_side">
-            <? if ($user->id): ?>
-                <a class="site-header__profile" href="/user/<?= $user->id ?>">
-                    <img class="site-header__profile_photo" src="<?= $user->photo ?>" alt="<?= $user->name ?>" id="header-avatar-updatable" />Profile
-                </a>
-                <? if ($user->isAdmin): ?>
-                    <a class="site-header__button" href="/article/add"><i class="icon-pencil"></i>Write</a>
-                <? endif ?>
-            <? else: ?>
-                <a class="site-header__login" href="/auth/github">
-                    <i class="icon-github-circled"></i>login
-                </a>
-            <? endif ?>
-            <div class="site-header__menu">
-                <a href="/">CodeX</a>
-                <a href="/articles">Articles</a>
-                <a href="/contests">Contests</a>
-            </div>
-            <a class="site-header__social" href="//vk.com/codex_team" target="_blank"><i class="icon-vkontakte"></i></a>
-        </div>
-    </header>
+    <?= View::factory('templates/header')->render(); ?>
 
     <?= $content ?>
 

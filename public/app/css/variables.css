@@ -1,0 +1,28 @@
+:root {
+    /** Texts */
+    --text-gray: #555968;
+    --text-green: #00b693;
+
+    /** Links */
+    --color-link: #4e37b5;
+    --color-hover: #7026bd;
+
+    /** Backgrounds */
+    --bg-button: #c5dff5;
+    --bg-button-submut: #4592da;
+    --bg-light: #f3f3f3;
+
+    /** Borders */
+    --line-light: #e7e9f5;
+
+    /** Bounce timing function for transition */
+    --timing-bounce: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+
+/**
+* Custom media queries
+*/
+@custom-media --desktop all and (min-width: 1050px);
+@custom-media --tablet all and (max-width: 1050px);
+@custom-media --mobile all and (max-width: 980px);
+@custom-media --retina all and (-webkit-min-device-pixel-ratio: 1.5);

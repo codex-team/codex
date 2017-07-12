@@ -1,11 +1,20 @@
-@import url("icons.css");
+@import url('variables.css');
 @import url('normalize.css');
+@import url("icons.css");
 @import url('base.css');
 
-@import url('components/siteHeader.css');
+/**
+ * Layout
+ */
+@import url('components/header.css');
+@import url('components/footer.css');
+
+/**
+ * Components
+ */
 @import url('components/bestDevelopers.css');
 @import url('components/breadcrumbs.css');
-@import url('components/footer.css');
+
 @import url('components/article.css');
 @import url('components/feedDragNDrop.css');
 @import url('components/recommendedArticles.css');

@@ -903,7 +903,7 @@ var join = function () {
      * Adds wobble effect to blankAuthBlock if user starts typing into textarea unauthorized
      * @param {Event} event
      */
-    checkUserCanEdit = function checkUserCanEdit(event) {
+    var checkUserCanEdit = function checkUserCanEdit(event) {
 
         var textarea = event.target,
             blankAuthBlock = document.getElementById('blankAuthBlock'),
