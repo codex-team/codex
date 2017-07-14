@@ -1,0 +1,27 @@
+.page_menu {
+    margin: 30px;
+    padding: 0;
+    list-style: none;
+    text-align: center;
+    font-size: 0;
+    letter-spacing: 0;
+}
+
+.page_menu li {
+    position: relative;
+    display: inline-block;
+    font-size: 15px;
+}
+
+.page_menu li::after {
+    content: '・';
+    display: inline-block;
+    padding: 0 2px;
+    vertical-align: middle;
+    color: #c1c8da;
+    font-size: 18px;
+}
+
+.page_menu li:last-child::after {
+    display: none;
+}

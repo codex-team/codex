@@ -2,46 +2,53 @@
 * Page header block
 * with description and follow-us block
 */
-.page-header{
+.page-header {
     padding: 60px 0;
 }
-.page-header__title{
+
+.page-header__title {
     font-size: 1.68em;
     line-height: 1.2em;
-    letter-spacing: .2px;
+    letter-spacing: 0.2px;
 }
-.page-header__description{
+
+.page-header__description {
     max-width: 500px;
 }
+
 /**
 * Follow-us block
 * uses on articles and contests lists
 */
-.follow-us{
+.follow-us {
     width: 33%;
     margin-top: 27px;
     margin-left: 50px;
     color: #7183a1;
 }
-    .follow-us a{
-        display: inline-block;
-        margin-top: 15px;
-        white-space: nowrap;
-    }
-        .follow-us a i{
-            vertical-align: middle;
-            margin-right: 14px;
-        }
-        .follow-us a span{
-            display: inline-block;
-            vertical-align: middle;
-            text-decoration: underline;
-        }
+
+.follow-us a {
+    display: inline-block;
+    margin-top: 15px;
+    white-space: nowrap;
+}
+
+.follow-us a i {
+    vertical-align: middle;
+    margin-right: 14px;
+}
+
+.follow-us a span {
+    display: inline-block;
+    vertical-align: middle;
+    text-decoration: underline;
+}
+
 /**
 * Telegram icon
 * uses in follow-us offer block
 */
-.icon_telegram{
+.icon_telegram {
     display: inline-block;
     width: 28px;
     height: 28px;
@@ -52,19 +59,19 @@
 * Mobile viewport styles
 * =================================
 */
-@media all and (max-width: 800px){
+@media all and (--mobile) {
     /**
     * Follow us mobile
     */
-    .follow-us{
+    .follow-us {
         width: auto;
         float: none;
-        margin: 0 0 50px 0;
+        margin: 0 0 50px;
     }
-    
 }
+
 @media print, (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 1.25dppx), (min-resolution: 120dpi) {
-    .icon_telegram{
+    .icon_telegram {
         background: url('/public/app/img/icon_telegram@2x.png') no-repeat;
         background-size: 28px 28px;
     }

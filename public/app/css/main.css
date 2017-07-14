@@ -12,23 +12,19 @@
 /**
  * Components
  */
+@import url('components/read-also.css');
 @import url('components/event-alert.css');
-@import url('components/bestDevelopers.css');
+@import url('components/page-menu.css');
+@import url('components/feed-drag-n-drop.css');
+@import url('components/page-header.css');
+@import url('components/best-developers.css');
 @import url('components/breadcrumbs.css');
-@import url('components/article.css');
-@import url('components/feedDragNDrop.css');
-@import url('components/recommendedArticles.css');
-@import url('components/articlesFeed.css');
-@import url('components/pageHeader.css');
 @import url('components/news.css');
-@import url('components/scrollUp.css');
+@import url('components/scroll-up.css');
 @import url('components/sharing.css');
-@import url('components/userProfile.css');
-@import url('components/contests.css');
-@import url('components/admin.css');
 @import url('components/editor-form.css');
 @import url('components/quiz.css');
-@import url('components/quizForm.css');
+@import url('components/quiz-form.css');
 
 /**
  * Pages
@@ -36,3 +32,8 @@
 @import url('pages/index.css');
 @import url('pages/join.css');
 @import url('pages/task.css');
+@import url('pages/articles.css');
+@import url('pages/article.css');
+@import url('pages/profile.css');
+@import url('pages/contests.css');
+@import url('pages/admin.css');

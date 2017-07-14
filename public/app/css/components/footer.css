@@ -51,7 +51,7 @@
 * Mobile viewport styles
 * =================================
 */
-@media all and (max-width: 800px) {
+@media all and (--mobile) {
     /**
     * Site footer mobile
     */

@@ -1,7 +1,7 @@
 /**
 * Blogs feed
 */
-.feed{
+.feed {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
@@ -9,7 +9,8 @@
     letter-spacing: 0;
     text-align: center;
 }
-.feed-item{
+
+.feed-item {
     width: 50%;
     box-sizing: border-box;
     padding: 80px;
@@ -18,87 +19,101 @@
     text-align: center;
     font-size: 15px;
 }
-.feed-item__time{
-    font-size: .8em;
+
+.feed-item__time {
+    font-size: 0.8em;
     color: #7f94ac;
 }
-.feed-item__title{
+
+.feed-item__title {
     display: block;
     margin: 20px 0 30px;
     font-size: 1.82em;
-    letter-spacing: .2px;
+    letter-spacing: 0.2px;
     line-height: 1.3em;
     word-wrap: break-word;
     text-decoration: none;
     font-weight: bold;
     color: inherit;
 }
-    .feed-item__title:hover{
-        text-decoration: underline;
-    }
-.feed-item__author{
+
+.feed-item__title:hover {
+    text-decoration: underline;
+}
+
+.feed-item__author {
     text-decoration: none;
     color: #6e7992;
     font-weight: bold;
 }
-    .feed-item__author:hover .feed-item__author_name{
-        text-decoration: underline;
-    }
-.feed-item__author_photo{
+
+.feed-item__author:hover .feed-item__author_name {
+    text-decoration: underline;
+}
+
+.feed-item__author_photo {
     width: 28px;
     height: 28px;
     border-radius: 50%;
 }
-.feed-item__author_name{
+
+.feed-item__author_name {
     display: block;
     max-width: 80px;
     margin: 10px auto 0;
     word-wrap: break-word;
     font-size: 0.78em;
-    line-height: 1.17em
+    line-height: 1.17em;
 }
-.feed-item_big{
+
+.feed-item_big {
     width: 100%;
     padding: 130px 130px 100px;
     min-height: auto;
 }
-    .feed-item_big .feed-item__title{
-        font-size: 3.5em;
-        margin-bottom: 50px;
-    }
-    .feed-item_big .feed-item__author_photo{
-        width: 46px;
-        height: 46px;
-    }
-    .feed-item_big .feed-item__author_name{
-        margin-top: 13px;
-        line-height: 1.2em;
-    }
+
+.feed-item_big .feed-item__title {
+    font-size: 3.5em;
+    margin-bottom: 50px;
+}
+
+.feed-item_big .feed-item__author_photo {
+    width: 46px;
+    height: 46px;
+}
+
+.feed-item_big .feed-item__author_name {
+    margin-top: 13px;
+    line-height: 1.2em;
+}
+
 /**
 * Mobile viewport styles
 * =================================
 */
-@media all and (max-width: 800px){
+@media all and (--mobile) {
     /**
     * Blogs feed mobile
     */
-    .feed-item{
+    .feed-item {
         width: 100%;
         border: 0 0 1px 0;
         padding: 25px 0;
     }
-    .feed-item__title{
+
+    .feed-item__title {
         margin: 15px 20px 20px;
         font-size: 1.2em;
     }
-    .feed-item_big .feed-item__title{
+
+    .feed-item_big .feed-item__title {
         font-size: 2em;
     }
+
     /**
     * Contest promo link on index page
     */
-    .contest_alert a{
+    .contest_alert a {
         margin: 20px 0;
     }
-
 }

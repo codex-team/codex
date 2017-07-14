@@ -18,28 +18,28 @@
     transition: opacity 150ms ease-in;
 }
 
-    .scroll-up:hover {
-        background: rgba(93, 104, 156, 0.15);
-    }
+.scroll-up:hover {
+    background: rgba(93, 104, 156, 0.15);
+}
 
-    .scroll-up:before {
-        font-family: "codex_ic";
-        content: '\e80f';
-    }
+.scroll-up::before {
+    font-family: "codex_ic";
+    content: '\e80f';
+}
 
-    .scroll-up.show {
-        opacity: 1;
-    }
-    
+.scroll-up.show {
+    opacity: 1;
+}
+
 /**
 * Mobile viewport styles
 * =================================
 */
-@media all and (max-width: 800px){
+@media all and (--mobile) {
     /**
     * Mobile scroll up button
     */
-    .scroll-up{
+    .scroll-up {
         left: auto;
         bottom: 0;
         right: 0;

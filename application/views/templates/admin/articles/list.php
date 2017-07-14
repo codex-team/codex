@@ -41,11 +41,10 @@
             <? endforeach; ?>
         </table>
 
-        <div class="page_footer">
-            <a class="button" href="/admin/scripts/resetArticlesTimeline">
-                Collect articles in timeline
-            </a>
-        </div>
+        <a class="button" href="/admin/scripts/resetArticlesTimeline" style="margin-top: 50px;">
+            Collect articles in timeline
+        </a>
+
 
     <? endif; ?>
 </div>
