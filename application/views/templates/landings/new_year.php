@@ -93,7 +93,7 @@
                         <label for="wishes">Чем бы вы хотели заниматься в клубе</label>
                         <textarea name="wishes" id="wishes" rows="3"></textarea>
 
-                        <input class="submit" type="submit" value="Подать заявку" />
+                        <input class="button button--master" class="submit" type="submit" value="Подать заявку" />
                     </form>
 
                 <? endif; ?>

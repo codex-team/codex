@@ -48,7 +48,7 @@
         </section>
 
         <section class="editor-form__section">
-            <input type="submit" value="Сохранить" name="submit"/>
+            <input class="button button--master" type="submit" value="Сохранить" name="submit"/>
         </section>
     </form>
 

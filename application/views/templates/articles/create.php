@@ -1,9 +1,3 @@
-<style type="text/css">
-    body {
-        background: #f0f3f9;
-    }
-</style>
-
 <div class="center_side">
 
     <form class="editor-form" name="codex_article" method="POST" action="/<?= $article->id && $article->uri ? $article->uri . '/save' : 'article/add' ?>" enctype="multipart/form-data" id="edit_article_form" class="edit_article_form">
@@ -17,10 +11,7 @@
         <input type="hidden" name="csrf" value="<?= Security::token() ?>" />
         <input type="hidden" name="article_id" value="<?= $article->id ?: ''; ?>">
 
-        <section class="editor-form__section">
-            <label for="title">Заголовок</label>
-            <input type="text" name="title" required value="<?= $article->title ?: ''; ?>">
-        </section>
+        <input class="editor-form__title" type="text" name="title" required value="<?= $article->title ?: ''; ?>" placeholder="Story title">
 
         <textarea name="article_json" id="article_json" hidden rows="10" hidden><?= $article->json ?: ''; ?></textarea>
         <div id="codex-editor"></div>
@@ -96,7 +87,7 @@
         </section>
 
 
-        <span id="submitButton" class="button master" style="margin: 40px 139px 40px">Отправить</span>
+        <span id="submitButton" class="button button--master" style="margin: 40px 139px 40px">Отправить</span>
     </form>
 </div>
 

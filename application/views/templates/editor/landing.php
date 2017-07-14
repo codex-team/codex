@@ -14,7 +14,7 @@
 
         <div class="editor_output__buttons">
             <a href="#output" id="jsonPreviewerButton" class="button">View Output</a>
-            <span id="saveButton" class="button master">Save and Preview</span>
+            <span id="saveButton" class="button button--master">Save and Preview</span>
         </div>
 
     </form>

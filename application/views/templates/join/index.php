@@ -61,27 +61,31 @@
 
                 <? else: ?>
 
-                    <div class="join-form__auth" id="blankAuthBlock">
-                        <a class="button vk_button with_icon" href="/auth/vk"><i class="icon-vkontakte"></i>Авторизоваться</a>
+                    <div class="join-form__auth" id="js-join-auth">
+                        <a class="button vk_button" href="/auth/vk"><i class="icon-vkontakte"></i>Авторизоваться</a>
                         <span class="additional">или ввести <u class="pointer" id="blankShowAdditionalFieldsButton">почту</u></span>
                     </div>
 
                 <? endif ?>
 
                 <div class="additional_fields additional_fields--hide" id="blankAdditionalFields">
-                    <label for="blankNameInput">Имя и Фамилия</label>
-                    <input type="text" name="name" id="blankNameInput" value="<?= Arr::get($_POST, 'name') ?>">
-                    <label for="blankEmailInput">Email</label>
-                    <input type="email" name="email" id="blankEmailInput" autocomplete="off">
+                    <label for="name">
+                        Имя и Фамилия
+                    </label>
+                    <input class="input" type="text" name="name" id="name" value="<?= Arr::get($_POST, 'name') ?>">
+                    <label for="js-email">
+                        Email
+                    </label>
+                    <input class="input" type="email" name="email" id="js-email" autocomplete="off">
                 </div>
 
-                <label for="blankSkillsTextarea">Расскажите о своих навыках и опыте</label>
-                <textarea name="skills" id="blankSkillsTextarea" class="js-join-input" rows="5" required=""><?= Arr::get($_POST, 'skills') ?></textarea>
+                <label for="skills">Расскажите о своих навыках и опыте</label>
+                <textarea class="input" name="skills" id="skills" rows="5" required=""><?= Arr::get($_POST, 'skills') ?></textarea>
 
-                <label for="blankWishesTextarea">Чем бы вам хотелось заниматься в клубе?</label>
-                <textarea name="wishes" id="blankWishesTextarea" class="js-join-input" rows="5"><?= Arr::get($_POST, 'wishes') ?></textarea>
+                <label for="wishes">Чем бы вам хотелось заниматься в клубе?</label>
+                <textarea class="input" name="wishes" id="wishes" rows="5"><?= Arr::get($_POST, 'wishes') ?></textarea>
 
-                <input type="submit" class="master" id="blankSendButton" value="Отправить" />
+                <input class="button button--master" type="submit" id="blankSendButton" value="Отправить" />
 
             </form>
 

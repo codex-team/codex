@@ -1,9 +1,12 @@
 /**
- * Module used on join page
- * Adds wobbling effects to blankAuthBlock
+ * Module for /join page
+ * Blocks writing without authorization
+ *
  * Toggles into view blankAdditionalFields: Name and Surname, Email
  */
 var join = function () {
+
+    const animationClass = 'wobble';
 
     /**
     * Module initialization
@@ -39,29 +42,22 @@ var join = function () {
     };
 
     /**
-     * Adds wobble effect to blankAuthBlock if user starts typing into textarea unauthorized
+     * Adds wobble-effect to Auth block if user starts typing into textarea unauthorized
      * @param {Event} event
      */
     let checkUserCanEdit = function (event) {
 
         var textarea       = event.target,
-            blankAuthBlock = document.getElementById('blankAuthBlock'),
-            emailInput     = document.getElementById('blankEmailInput');
+            blankAuthBlock = document.getElementById('js-join-auth'),
+            emailInput     = document.getElementById('js-email');
 
         if (blankAuthBlock && !emailInput.value.length ) {
 
-            if (!blankAuthBlock.className.includes('wobble')) {
+            blankAuthBlock.classList.add(animationClass);
 
-                blankAuthBlock.className += ' wobble';
-                setTimeout(function () {
+            setTimeout(() => blankAuthBlock.classList.remove(animationClass), 450);
 
-                    blankAuthBlock.className = blankAuthBlock.className.replace('wobble', '');
-
-                }, 450);
-
-                textarea.value = '';
-
-            }
+            textarea.value = '';
 
         }
 

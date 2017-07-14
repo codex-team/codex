@@ -1,26 +1,24 @@
 /**
-* Styles for article and contest form
+* Styles for article writing
 */
-/*body{
-    background: #f0f3f9;
-}*/
-
-.editor-form{
+.editor-form {
     margin: 30px;
     padding: 120px 0;
     min-height: 600px;
-    border-radius: 3px;
-    background: #fff;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-    letter-spacing: .1px;
-    font-size: 15px;
-}
-.editor-form__section {
-    max-width: 600px;
-    margin: 0 auto 2em;
-}
+    letter-spacing: 0.1px;
 
-.editor-form label{
-    display: block;
-    margin-bottom: 1em;
+    &__title {
+        font-size: 26px;
+        background: transparent;
+    }
+
+    &__section {
+        max-width: 600px;
+        margin: 0 auto 2em;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 1em;
+    }
 }
