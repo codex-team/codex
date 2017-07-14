@@ -1,7 +1,4 @@
-<link rel="stylesheet" href="/public/build/bundle.css?v=<?= filemtime("public/build/bundle.css") ?>">
-
-
-<div class="center_side clear">
+<div class="task-page center_side">
     <article class="article">
         <h1 class="article__title" itemprop="headline">
             Поехали
@@ -13,23 +10,19 @@
             <p>
                 Мы сделали два разных задания для веб-разработчиков и дизайнеров. Однако, вы можете попробовать поработать над заданиями из обоих разделов — мы ценим специалистов широкого профиля.
             </p>
-            <div class="page_block clearfix">
-                <div class="left_col fl_l">
-                    <div class="block_link">
-                        <h3 class="first_header">Задание для веб-разработчиков</h3>
-                        <p>Общее задание для серверной и клиентской разработки, а также дополнительные задачки из разных областей.</p>
-                        <a href="/task/developers">Перейти к заданию</a>
-                    </div>
+            <div class="task-page__cols clearfix">
+                <div class="task-page__left">
+                    <h3>Задание для веб-разработчиков</h3>
+                    <p>Общее задание для серверной и клиентской разработки, а также дополнительные задачки из разных областей.</p>
+                    <a href="/task/developers">Перейти к заданию</a>
                 </div>
-                <div class="right_col">
-                    <div class="block_link">
-                        <h3 class="first_header">Задание для веб-дизайнеров</h3>
-                        <p>Включает в себя разработку макета, верстку, и размещение шаблона на сервере.</p>
-                        <a href="/task/designers">Перейти к заданию</a>
-                    </div>
+                <div class="task-page__right">
+                    <h3>Задание для веб-дизайнеров</h3>
+                    <p>Включает в себя разработку макета, верстку, и размещение шаблона на сервере.</p>
+                    <a href="/task/designers">Перейти к заданию</a>
                 </div>
             </div>
-            <div class="align_c" style="margin-top: 70px">
+            <div class="align_c">
                 <h3>Just do it!</h3>
                 <a href="http://www.youtube.com/watch?v=ZXsQAXx_ao0" target="_blank">
                     <img width="220" src="/public/app/img/shia.gif" alt="Just Do It!">

@@ -19,6 +19,10 @@ html {
 .center_side {
     max-width: 940px;
     margin: 0 auto;
+
+    @media (--mobile) {
+        padding: 0 20px;
+    }
 }
 
 /**
@@ -235,15 +239,34 @@ textarea {
     animation-iteration-count: 1;
 }
 
-@media (--mobile) {
-    /**
-    * Center side section margins
-    */
-    .center_side {
-        padding: 0 20px;
-    }
+.show-in-mobile {
+    display: none !important;
+}
 
+@media (--mobile) {
     .mobile-hide {
         display: none !important;
     }
+
+    .show-in-mobile {
+        display: block !important;
+    }
+}
+
+.codex-logo {
+    display: inline-block;
+    background: url('/public/app/img/codex-logo.svg') no-repeat;
+    width: 224px;
+    height: 224px;
+}
+
+.technic {
+    display: inline-block;
+    background: color(var(--text-pink) alpha(7%));
+    padding: 0 7px;
+    margin-right: 0.2em;
+    border-radius: 2px;
+    color: var(--text-pink);
+    text-decoration: none;
+    font-size: 0.9em;
 }

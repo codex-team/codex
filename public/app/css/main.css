@@ -12,6 +12,7 @@
 /**
  * Components
  */
+@import url('components/event-alert.css');
 @import url('components/bestDevelopers.css');
 @import url('components/breadcrumbs.css');
 @import url('components/article.css');
@@ -26,7 +27,6 @@
 @import url('components/contests.css');
 @import url('components/admin.css');
 @import url('components/editor-form.css');
-@import url('components/task.css');
 @import url('components/quiz.css');
 @import url('components/quizForm.css');
 
@@ -34,3 +34,5 @@
  * Pages
  */
 @import url('pages/index.css');
+@import url('pages/join.css');
+@import url('pages/task.css');

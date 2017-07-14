@@ -2,6 +2,7 @@
     /** Texts */
     --text-gray: #555968;
     --text-green: #00b693;
+    --text-pink: #bc1453;
 
     /** Links */
     --color-link: #4e37b5;
@@ -17,6 +18,9 @@
 
     /** Bounce timing function for transition */
     --timing-bounce: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+
+    /** Editor block inner width */
+    --article-max-width: 700px;
 }
 
 /**

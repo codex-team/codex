@@ -1,21 +1,7 @@
 /**
-* Article styles with editor plugins
-*/
-
-
-
-/**
 * Article page styles
 */
-
-.article-wrapper {
-  margin: 30px 0;
-}
-
 .article {
-  padding-bottom: 20px;
-  border: 1px solid #eceff6;
-  border-radius: 3px;
 }
 
 .article__title {

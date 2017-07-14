@@ -8,6 +8,8 @@
     /** Borders */
 
     /** Bounce timing function for transition */
+
+    /** Editor block inner width */
 }
 
 /**
@@ -630,6 +632,13 @@ html {
     margin: 0 auto;
 }
 
+@media all and (max-width: 980px) {
+
+    .center_side {
+        padding: 0 20px;
+    }
+}
+
 /**
 *
 * Some base rules
@@ -902,17 +911,36 @@ textarea {
             animation-iteration-count: 1;
 }
 
-@media all and (max-width: 980px) {
-    /**
-    * Center side section margins
-    */
-    .center_side {
-        padding: 0 20px;
-    }
+.show-in-mobile {
+    display: none !important;
+}
 
+@media all and (max-width: 980px) {
     .mobile-hide {
         display: none !important;
     }
+
+    .show-in-mobile {
+        display: block !important;
+    }
+}
+
+.codex-logo {
+    display: inline-block;
+    background: url('/public/app/img/codex-logo.svg') no-repeat;
+    width: 224px;
+    height: 224px;
+}
+
+.technic {
+    display: inline-block;
+    background: rgba(188, 20, 83, 0.07);
+    padding: 0 7px;
+    margin-right: 0.2em;
+    border-radius: 2px;
+    color: #bc1453;
+    text-decoration: none;
+    font-size: 0.9em;
 }
 
 /**
@@ -1071,6 +1099,108 @@ textarea {
  */
 
 /**
+* Event promo block
+*/
+
+.event_alert {
+    padding: 80px 0px;
+    max-width: 700px;
+    margin: 0 auto;
+    border-bottom: 1px solid #ebe8e8;
+    text-align: center;
+    font-size: 1.8em;
+}
+
+@media all and (max-width: 980px) {
+
+    .event_alert {
+        font-size: 1.5em;
+    }
+}
+
+.event_alert__day {
+        min-width: 70px;
+        line-height: 1.3em;
+        letter-spacing: 1.2px;
+        font-size: 2.3em;
+}
+
+.event_alert__month {
+        letter-spacing: 2px;
+}
+
+.event_alert__title {
+        margin-top: 1.4em;
+        font-size: 0.62em;
+        color: #ea6e6e;
+}
+
+.event_alert__description {
+        margin-top: 1em;
+        font-size: 0.64em;
+}
+
+@media all and (max-width: 980px) {
+
+    .event_alert__description {
+        font-size: 1.5em;
+    }
+
+    .event_alert__description::before,
+            .event_alert__description::after {
+        display: none;
+    }
+}
+
+.event_alert__link {
+        display: inline-block;
+        text-decoration: none;
+        color: inherit;
+}
+
+.event_alert__link:hover {
+        text-decoration: none;
+}
+
+.event_alert__icon_delimiter {
+        font-size: 0.7em;
+}
+
+/**
+* Contest invitations
+*/
+
+.contest_alert a {
+        display: block;
+        margin: -20px 40px 40px;
+        text-align: center;
+        text-decoration: none;
+        -webkit-font-feature-settings: "c2sc";
+                font-feature-settings: "c2sc";
+        font-variant: small-caps;
+        letter-spacing: 1.4px;
+        color: #988e8e;
+    }
+
+.contest_alert .line {
+        position: relative;
+        margin: 0 70px 70px;
+        height: 1px;
+        background: #ebe8e8
+    }
+
+.contest_alert .line:before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -19px;
+    width: 40px;
+    height: 40px;
+    margin-left: -20px;
+    background: #fff url(public/app/img/contest_icon_goblet.png) no-repeat 50% 50%;
+}
+
+/**
 * Best developers block
 */
 
@@ -1166,21 +1296,10 @@ textarea {
 }
 
 /**
-* Article styles with editor plugins
-*/
-
-/**
 * Article page styles
 */
 
-.article-wrapper {
-  margin: 30px 0;
-}
-
 .article {
-  padding-bottom: 20px;
-  border: 1px solid #eceff6;
-  border-radius: 3px;
 }
 
 .article__title {
@@ -2977,243 +3096,6 @@ textarea {
     }
 
 /**
-* Joining and task pages styles
-*/
-
-.technic{
-    display: inline-block;
-    padding: 0 4px;
-    background-color: #F4F7FB;
-    font-family: 'monaco', 'consolas', 'courier';
-    font-size: 13px;
-    color: #456994;
-}
-
-.left_col{
-    width: 47%;
-    margin-right: 70px;
-}
-
-.left_col article{
-        padding: 35px 0;
-    }
-
-.right_col{
-    padding-left: 58%;
-}
-
-.first_header{
-    margin-top: 0 !important;
-}
-
-.left_col{
-    padding-left: 0;
-}
-
-/**
-* Split for 2 sections on /task page
-*/
-
-.page_block{
-    max-width: 700px;
-    margin: 5em auto;
-}
-
-.block_link{
-    display: block;
-    max-width: 350px;
-    color: inherit;
-    text-decoration: none;
-}
-
-.additional_tasks{
-    margin: 0;
-    padding: 0;
-}
-
-.additional_tasks li{
-        position: relative;
-        margin: 0 !important;
-        list-style-type: none;
-        padding: 20px 0 20px 30px;
-        border-bottom: 1px solid #e4eaf5;
-    }
-
-.additional_tasks li:before{
-            position: absolute;
-            left: 0;
-            top: 1.9em;
-            width: 10px;
-            height: 10px;
-            display: inline-block;
-            border-radius: 5px;
-            background: #DFE7F5;
-            margin-right: 15px;
-            content: '';
-        }
-
-.additional_tasks .back:before{background: #6699df}
-
-.additional_tasks .front:before{background: #e87474}
-
-.additional_tasks .ui:before{background: #9bf1b3}
-
-.additional_tasks.legend li{
-        display: inline-block;
-        border-bottom: 0;
-        margin-right: 50px !important;
-        font-size: 14px;
-        font-weight: bold;
-    }
-
-.additional_tasks.legend li:before{
-        top: 2em;
-    }
-
-/**
-* Joining page
-*/
-
-.join-page{
-    line-height: 1.64em;
-}
-
-.codex-logo--r-col{
-    display: block;
-    margin: 30px auto 50px;
-}
-
-.join-form label{
-    display: block;
-    margin-bottom: .7em;
-}
-
-.join-form textarea,
-.join-form input{
-    margin-bottom: 30px;
-}
-
-/**
-* Joining page auth form
-*/
-
-.join-form__auth{
-    margin-bottom: 30px;
-    color: #838ea1;
-}
-
-.join-form__auth .button{
-    vertical-align: middle;
-    margin-right: 20px;
-}
-
-/**
-* Authored user block on /join page
-*/
-
-.user-link{
-    font-size: 1.1em;
-    margin-bottom: 1.5em;
-}
-
-.user-link__photo{
-    width: 26px;
-    height: 26px;
-    border-radius: 13px;
-    margin-right: 10px;
-    vertical-align: middle;
-}
-
-.user-link__name{
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.error-message{
-    margin: 15px 0;
-    color: #e04545;
-}
-
-.success_alert{
-    background: #F2F5FB;
-    color: #6F809A;
-    line-height: 1.6em;
-    font-size: 16px;
-    padding: 100px 200px;
-    text-align: center;
-}
-
-.success_alert.compact{
-    margin-top: 2em;
-    padding: 30px;
-    font-size: 14px;
-}
-
-.codex-logo--mobile{
-    display: none;
-}
-
-.additional_fields--hide {
-    display: none !important;
-}
-
-/**
-* Small screens viewport
-*/
-
-@media all and (max-width: 1000px){
-
-    .left_col{margin-right: 0;}
-    .right_col{padding-left: 56%;}
-
-}
-
-/**
-* Mobile viewport
-*/
-
-@media all and (max-width: 800px){
-
-    .codex-logo--r-col{
-        display: none;
-    }
-
-    .codex-logo--mobile{
-        display: block;
-        width: 160px;
-        height: 160px;
-        margin: 30px auto;
-        background-size: auto 160px
-    }
-
-    .left_col{
-        float: none;
-        width: auto;;
-    }
-    .left_col article{
-        padding: 10px 0;
-    }
-    .right_col{
-        padding: 0;
-    }
-    .join-form__auth{
-        text-align: center;
-    }
-    .join-form .button{
-        margin: 0;
-    }
-    .join-form .additional{
-        display: block;
-        margin-top: 15px;
-    }
-
-    .block_link a{
-        margin: 0 20px;
-    }
-
-}
-
-/**
 * Quiz module styles
 */
 
@@ -3619,13 +3501,6 @@ textarea {
 * CodeX logo on index page
 */
 
-.codex-logo {
-    display: inline-block;
-    background: url('/public/app/img/codex-logo.svg') no-repeat;
-    width: 224px;
-    height: 224px;
-}
-
 .index-page {
     padding: 100px 0 70px;
     text-align: center;
@@ -3647,94 +3522,11 @@ textarea {
 }
 
 /**
-* Event promo block on the index page
-*/
-
-.event_alert {
-    padding: 80px 0px;
-    max-width: 700px;
-    margin: 0 auto;
-    border-bottom: 1px solid #ebe8e8;
-    text-align: center;
-    font-size: 1.8em;
-}
-
-.event_alert__day {
-    min-width: 70px;
-    line-height: 1.3em;
-    letter-spacing: 1.2px;
-    font-size: 2.3em;
-}
-
-.event_alert__month {
-    letter-spacing: 2px;
-}
-
-.event_alert__title {
-    margin-top: 1.4em;
-    font-size: 0.62em;
-    color: #ea6e6e;
-}
-
-.event_alert__description {
-    margin-top: 1em;
-    font-size: 0.64em;
-}
-
-.event_alert__link {
-    display: inline-block;
-    text-decoration: none;
-    color: inherit;
-}
-
-.event_alert__link:hover {
-    text-decoration: none;
-}
-
-.event_alert__icon_delimiter {
-    font-size: 0.7em;
-}
-
-/**
-* Some promo link on index page
-*/
-
-.contest_alert a {
-    display: block;
-    margin: -20px 40px 40px;
-    text-align: center;
-    text-decoration: none;
-    -webkit-font-feature-settings: "c2sc";
-            font-feature-settings: "c2sc";
-    font-variant: small-caps;
-    letter-spacing: 1.4px;
-    color: #988e8e;
-}
-
-.contest_alert .line {
-    position: relative;
-    margin: 0 70px 70px;
-    height: 1px;
-    background: #ebe8e8;
-}
-
-.contest_alert .line:before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: -19px;
-    width: 40px;
-    height: 40px;
-    margin-left: -20px;
-    background: #fff url(public/app/img/contest_icon_goblet.png) no-repeat 50% 50%;
-}
-
-/**
 * Mobile viewport styles
 * =================================
 */
 
-@media (max-width: 800px) {
+@media all and (max-width: 980px) {
     /**
     * Index page mobile
     */
@@ -3745,17 +3537,240 @@ textarea {
     .index-page p {
         padding: 0 10px;
     }
-    /**
-    * Event alert on index page
-    */
-    .event_alert {
-        font-size: 1.5em;
+}
+
+/**
+* Joining page
+*/
+
+.join-page {
+    padding: 30px 0;
+    line-height: 1.64em;
+}
+
+.join-page__content {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: stretch;
+            -ms-flex-align: stretch;
+                align-items: stretch;
+        -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+                justify-content: space-between;
     }
 
-    .event_alert__description:before,
-    .event_alert__description:after {
-        display: none;
+@media all and (max-width: 980px) {
+
+    .join-page__content {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
     }
+}
+
+.join-page__left {
+        margin-right: 120px;
+}
+
+@media all and (max-width: 980px) {
+
+    .join-page__left {
+        margin-right: 0;
+    }
+}
+
+.join-page__left .codex-logo {
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 30px;
+            background-size: auto 160px;
+}
+
+.join-page__right {
+        min-width: 380px;
+}
+
+.join-page__right .codex-logo {
+            display: block;
+            margin: 0 auto 50px;
+        }
+
+@media all and (max-width: 980px) {
+
+    .join-page__form {
+        margin-top: 10px;
+    }
+}
+
+.join-page__form label {
+            display: block;
+            margin-bottom: 0.7em;
+}
+
+.join-page__form .input {
+            margin-bottom: 30px;
+}
+
+/**
+    * Joining page auth form */
+
+.join-page__auth {
+        margin-bottom: 30px;
+        color: #838ea1;
+}
+
+.join-page__auth .button {
+            vertical-align: middle;
+            margin-right: 20px;
+        }
+
+/**
+    * Authored user block on /join page */
+
+.join-page__user {
+        font-size: 1.1em;
+        margin-bottom: 1.5em;
+}
+
+.join-page__user-photo {
+        width: 26px;
+        height: 26px;
+        border-radius: 13px;
+        margin-right: 10px;
+        vertical-align: middle;
+}
+
+.join-page__user-name {
+        display: inline-block;
+        vertical-align: middle;
+}
+
+.join-page__error {
+        margin: 15px 0;
+        color: #e04545;
+}
+
+.join-page__success {
+        padding: 100px 200px;
+        margin: -30px 0 30px;
+        background: #f2f5fb;
+        color: #6f809a;
+        line-height: 1.6em;
+        font-size: 16px;
+        text-align: center;
+}
+
+@media all and (max-width: 980px) {
+
+    .join-page__success {
+        padding: 15px;
+        font-size: 14px;
+    }
+}
+
+.join-page__success--compact {
+            margin-top: 2em;
+            padding: 30px;
+            font-size: 14px;
+}
+
+/**
+* /task pages styles
+*/
+
+.task-page {
+    padding-bottom: 50px;
+}
+
+.task-page__cols {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: stretch;
+            -ms-flex-align: stretch;
+                align-items: stretch;
+        -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+                justify-content: space-between;
+        max-width: 700px;
+        margin: 50px auto;
+    }
+
+@media all and (max-width: 980px) {
+
+    .task-page__cols {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+    }
+}
+
+.task-page__left {
+        padding-right: 50px;
+}
+
+@media all and (max-width: 980px) {
+
+    .task-page__left {
+        margin-bottom: 50px;
+    }
+}
+
+.task-page h3 {
+        margin-top: 0;
+}
+
+.additional_tasks {
+    margin: 0;
+    padding: 0;
+}
+
+.additional_tasks li {
+        position: relative;
+        margin: 0 !important;
+        list-style-type: none;
+        padding: 20px 0 20px 30px;
+        border-bottom: 1px solid #e4eaf5
+    }
+
+.additional_tasks li::before {
+    position: absolute;
+    left: 0;
+    top: 1.9em;
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    border-radius: 5px;
+    background: #dfe7f5;
+    margin-right: 15px;
+    content: '';
+}
+
+.additional_tasks .back::before {
+        background: #6699df;
+    }
+
+.additional_tasks .front::before {
+        background: #e87474;
+    }
+
+.additional_tasks .ui::before {
+        background: #9bf1b3;
+    }
+
+.additional_tasks--legend li {
+            display: inline-block;
+            border-bottom: 0;
+            margin-right: 50px !important;
+            font-size: 14px;
+            font-weight: bold
+        }
+
+.additional_tasks--legend li::before {
+    top: 2em;
 }
 
 /*# sourceMappingURL=bundle.css.map*/

@@ -932,13 +932,7 @@ var join = function () {
 
         var blankAdditionalFields = document.getElementById('blankAdditionalFields');
 
-        if (blankAdditionalFields.className.includes('additional_fields--hide')) {
-
-            blankAdditionalFields.className = blankAdditionalFields.className.replace('additional_fields--hide', '');
-        } else {
-
-            blankAdditionalFields.className += ' additional_fields--hide';
-        }
+        blankAdditionalFields.classList.toggle('hide');
     };
 
     return {

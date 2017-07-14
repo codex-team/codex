@@ -1,9 +1,9 @@
-<link rel="stylesheet" href="/public/build/bundle.css?v=<?= filemtime("public/build/bundle.css") ?>">
-
 <div class="center_side">
     <article class="article">
 
-        <h1 class="article__title">Задание для веб-разработчиков</h1>
+        <h1 class="article__title">
+            Задание для веб-разработчиков
+        </h1>
 
         <div class="article_content">
             <p>
@@ -51,7 +51,7 @@
                 Следующие «усложнения» позволят вам применить навыки в своих сильных сторонах. Каждое задание будет маркироваться специальным знаком, по которому можно будет определить, к какой области задание принадлежит и выбрать для себя что-нибудь подходящее. А лучше сразу несколько из разных областей!
             </p>
             <p>
-                <ul class="additional_tasks legend">
+                <ul class="additional_tasks additional_tasks--legend">
                     <li class="back">Backend</li>
                     <li class="front">Frontend</li>
                     <li class="ui">UI/UX</li>
