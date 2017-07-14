@@ -105,7 +105,7 @@ module.exports = (function () {
 
             answer.classList.add('quiz__question-answer_selected');
 
-            UI_.questionElems.options.map(function (current, i) {
+            UI_.questionElems.options.map(function (current) {
 
                 current.removeEventListener('click', gameProcessing_.getUserAnswer);
 
@@ -157,7 +157,7 @@ module.exports = (function () {
 
         showCorrectAnswers: function () {
 
-            UI_.questionElems.options.map(function (answer, i) {
+            UI_.questionElems.options.map(function (answer) {
 
                 if (answer.dataset.score > 0) {
 
@@ -238,7 +238,7 @@ module.exports = (function () {
                 }
             ];
 
-            networks.map(function (current, i) {
+            networks.map(function (current) {
 
                 var button = UI_.createElem('span', ['but', current.class]),
                     icon   = UI_.createElem('i', current.icon),
@@ -401,11 +401,11 @@ module.exports = (function () {
 
             maxScore = 0;
 
-            quizData.questions.map(function (current, i) {
+            quizData.questions.map(function (question) {
 
-                current.answers.map(function (current, i) {
+                question.answers.map(function (answer) {
 
-                    maxScore += parseFloat(current.score);
+                    maxScore += parseFloat(answer.score);
 
                 });
 

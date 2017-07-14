@@ -51,13 +51,13 @@ module.exports =  function () {
         }
 
         var XMLHTTP          = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP'),
-            success_function = function () {};
+            successFunction  = function () {};
 
         data.async           = true;
         data.type            = data.type || 'GET';
         data.data            = data.data || '';
         data['content-type'] = data['content-type'] || 'application/json; charset=utf-8';
-        success_function     = data.success || success_function ;
+        successFunction     = data.success || successFunction ;
 
         if (data.type == 'GET' && data.data) {
 
@@ -84,7 +84,7 @@ module.exports =  function () {
 
             if (XMLHTTP.readyState == 4 && XMLHTTP.status == 200) {
 
-                success_function(XMLHTTP.responseText);
+                successFunction(XMLHTTP.responseText);
 
             }
 

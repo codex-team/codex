@@ -28,18 +28,18 @@ module.exports = (function (transport) {
     /**
      * @param {Event} event
      */
-    transport.buttonCallback = function (event) {
+    transport.buttonCallback = function () {
 
-        var action        = this.dataset.action,
-            target_id     = this.dataset.id,
-            is_multiple   = !!this.dataset.multiple || false;
+        var action       = this.dataset.action,
+            targetId     = this.dataset.id,
+            isMultiple   = !!this.dataset.multiple || false;
 
         transport.fillForm({
             action : action,
-            id     : target_id
+            id     : targetId
         });
 
-        if ( is_multiple ) {
+        if ( isMultiple ) {
 
             transport.form.multiple = 'multiple';
 
@@ -199,9 +199,9 @@ module.exports = (function (transport) {
 
     };
 
-    transport.validateSize = function ( fileObj, max_size) {
+    transport.validateSize = function ( fileObj, maxSize ) {
 
-        return fileObj.size < max_size;
+        return fileObj.size < maxSize;
 
     };
 

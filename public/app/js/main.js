@@ -1,13 +1,13 @@
 require('../css/main.css');
 
-var codex = (function (codex) {
+var codex = (function (codex_) {
 
-    codex.settings = {};
+    codex_.settings = {};
 
     /**
     * Preparation method
     */
-    codex.init = function (settings) {
+    codex_.init = function (settings) {
 
         /** Save settings or use defaults */
         for (var set in settings ) {
@@ -20,10 +20,7 @@ var codex = (function (codex) {
 
     };
 
-
-
-    return codex;
-
+    return codex_;
 
 })({});
 
@@ -33,7 +30,7 @@ var codex = (function (codex) {
 */
 codex.docReady = function (f) {
 
-    return /in/.test(document.readyState) ? setTimeout(codex.docReady, 9, f) : f();
+    return /in/.test(document.readyState) ? window.setTimeout(codex.docReady, 9, f) : f();
 
 };
 

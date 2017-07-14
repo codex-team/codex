@@ -79,123 +79,127 @@ var codex =
  */
 module.exports = function (admin) {
 
-				/**
+    /**
      * Initializes dragndrop module
      * @uses  codex.dragndrop
      */
-				function initDragNDrop() {
+    function initDragNDrop() {
 
-								codex.dragndrop({
-												droppableClass: 'list-item',
+        codex.dragndrop({
+            droppableClass: 'list-item',
 
-												findDraggable: function findDraggable(e) {
+            findDraggable: function findDraggable(e) {
 
-																var target = e.target.closest('.draggable');
+                var target = e.target.closest('.draggable');
 
-																if (target) return target.closest('.list-item');
+                if (target) return target.closest('.list-item');
 
-																return null;
-												},
+                return null;
+            },
 
-												makeAvatar: function makeAvatar(elem) {
+            makeAvatar: function makeAvatar(elem) {
 
-																var avatar = {};
+                var avatar = {};
 
-																avatar.elem = elem.cloneNode(true);
-																avatar.elem.classList.add('dnd-avatar');
+                avatar.elem = elem.cloneNode(true);
+                avatar.elem.classList.add('dnd-avatar');
 
-																elem.parentNode.insertBefore(avatar.elem, elem.nextSibling);
-																elem.classList.add('no-display');
+                elem.parentNode.insertBefore(avatar.elem, elem.nextSibling);
+                elem.classList.add('no-display');
 
-																avatar.rollback = function () {
+                avatar.rollback = function () {
 
-																				avatar.elem.parentNode.removeChild(avatar.elem);
-																				elem.classList.remove('no-display');
-																};
+                    avatar.elem.parentNode.removeChild(avatar.elem);
+                    elem.classList.remove('no-display');
+                };
 
-																return avatar;
-												},
+                return avatar;
+            },
 
-												targetChanged: function targetChanged(target, newTarget, avatar) {
+            targetChanged: function targetChanged(target, newTarget, avatar) {
 
-																if (!newTarget) return;
+                if (!newTarget) return;
 
-																var targetPosition = newTarget.compareDocumentPosition(avatar.elem);
+                var targetPosition = newTarget.compareDocumentPosition(avatar.elem);
 
-																if (targetPosition & 4) {
+                if (targetPosition & 4) {
 
-																				newTarget.parentNode.insertBefore(avatar.elem, newTarget);
-																} else if (targetPosition & 2) {
+                    newTarget.parentNode.insertBefore(avatar.elem, newTarget);
+                } else if (targetPosition & 2) {
 
-																				newTarget.parentNode.insertBefore(avatar.elem, newTarget.nextSibling);
-																}
-												},
+                    newTarget.parentNode.insertBefore(avatar.elem, newTarget.nextSibling);
+                }
+            },
 
-												move: function move() {},
+            move: function move() {},
 
-												targetReached: function targetReached(target, avatar, elem) {
+            targetReached: function targetReached(target, avatar, elem) {
 
-																target.parentNode.insertBefore(elem, target.nextSibling);
+                target.parentNode.insertBefore(elem, target.nextSibling);
 
-																avatar.elem.parentNode.removeChild(avatar.elem);
-																elem.classList.remove('no-display');
+                avatar.elem.parentNode.removeChild(avatar.elem);
+                elem.classList.remove('no-display');
 
-																var item_id = elem.dataset.id,
-																    item_type = elem.dataset.type,
-																    item_below_value = null,
-																    nextSibling;
+                var itemId = elem.dataset.id,
+                    itemType = elem.dataset.type,
+                    itemBelowValue = null,
+                    nextSibling;
 
-																if (nextSibling = elem.nextElementSibling) item_below_value = nextSibling.dataset.type + ':' + nextSibling.dataset.id;
+                if (nextSibling == elem.nextElementSibling) {
 
-																var ajaxData = {
-																				success: function success() {
+                    itemBelowValue = nextSibling.dataset.type + ':' + nextSibling.dataset.id;
+                }
 
-																								document.getElementById('saved').classList.remove('top-menu__saved_hidden');
-																								setTimeout(function () {
+                var ajaxData = {
+                    success: function success() {
 
-																												document.getElementById('saved').classList.add('top-menu__saved_hidden');
-																								}, 1000);
-																				},
-																				type: 'POST',
-																				url: '/admin/feed',
-																				data: JSON.stringify({
-																								item_id: item_id,
-																								item_type: item_type,
-																								item_below_value: item_below_value
-																				})
-																};
+                        document.getElementById('saved').classList.remove('top-menu__saved_hidden');
 
-																codex.core.ajax(ajaxData);
-												}
-								});
-								// body...
-				}
+                        window.setTimeout(function () {
 
-				/**
+                            document.getElementById('saved').classList.add('top-menu__saved_hidden');
+                        }, 1000);
+                    },
+                    type: 'POST',
+                    url: '/admin/feed',
+                    data: JSON.stringify({
+                        'item_id': itemId,
+                        'item_type': itemType,
+                        'item_below_value': itemBelowValue
+                    })
+                };
+
+                codex.core.ajax(ajaxData);
+            }
+        });
+        // body...
+    }
+
+    /**
      * Module initialization
-     * @param  {Object} 	 params 			- init params
-     * @param  {String|null} params.listType 	- feed list type ("cards"|"list")
+     * @param  {Object}      params             - init params
+     * @param  {String|null} params.listType    - feed list type ("cards"|"list")
      */
-				admin.init = function (params) {
+    admin.init = function (params) {
 
-								codex.core.log('Initialized.', 'Module admin');
+        codex.core.log('Initialized.', 'Module admin');
 
-								if (params.listType == 'cards') {
+        if (params.listType == 'cards') {
 
-												var items = document.querySelectorAll('.feed-item');
+            var items = document.querySelectorAll('.feed-item');
 
-												for (var i = items.length - 1; i > -1; i--) {
+            for (var i = items.length - 1; i > -1; i--) {
 
-																items[i].classList.add('draggable');
-																items[i].classList.add('feed-item--dnd');
-																items[i].classList.add('list-item');
-												}
-								}
+                items[i].classList.add('draggable');
+                items[i].classList.add('feed-item--dnd');
+                items[i].classList.add('list-item');
+            }
+        }
 
-								initDragNDrop();
-				};
+        initDragNDrop();
+    };
 
-				return admin;
+    return admin;
 }({});
 
 /***/ }),
@@ -209,7 +213,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var ajax = function () {
 
-    var xhr = function xhr(_xhr) {
+    var xhr_ = function xhr_(xhr) {
 
         var objectToQueryString = function objectToQueryString(a) {
 
@@ -220,7 +224,14 @@ var ajax = function () {
             add = function add(key, value) {
 
                 // If value is a function, invoke it and return its value
-                value = typeof value == 'function' ? value() : value === null ? '' : value;
+                if (typeof value == 'function') {
+
+                    value = value();
+                } else {
+
+                    value = value === null ? '' : value;
+                }
+
                 s[s.length] = encodeURIComponent(key) + '=' + encodeURIComponent(value);
             };
             if (a instanceof Array) {
@@ -271,7 +282,7 @@ var ajax = function () {
             }
         };
 
-        _xhr.call = function (data) {
+        xhr.call = function (data) {
 
             if (!data || !data.url) {
 
@@ -315,7 +326,7 @@ var ajax = function () {
             XMLHTTP.send(data.formData || objectToQueryString(data.data));
         };
 
-        _xhr.parseHTML = function (markup) {
+        xhr.parseHTML = function (markup) {
 
             var doc = document.implementation.createHTMLDocument('');
 
@@ -342,7 +353,7 @@ var ajax = function () {
          *         the <button>'s (which are potential HTML4 successful controls) unlike jQuery
          * @license MIT/GPL
         */
-        _xhr.serialize = function (form) {
+        xhr.serialize = function (form) {
 
             'use strict';
 
@@ -437,7 +448,7 @@ var ajax = function () {
     };
 
     return {
-        xhr: xhr
+        xhr: xhr_
     };
 }({});
 
@@ -542,13 +553,13 @@ module.exports = function () {
         }
 
         var XMLHTTP = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP'),
-            success_function = function success_function() {};
+            successFunction = function successFunction() {};
 
         data.async = true;
         data.type = data.type || 'GET';
         data.data = data.data || '';
         data['content-type'] = data['content-type'] || 'application/json; charset=utf-8';
-        success_function = data.success || success_function;
+        successFunction = data.success || successFunction;
 
         if (data.type == 'GET' && data.data) {
 
@@ -572,7 +583,7 @@ module.exports = function () {
 
             if (XMLHTTP.readyState == 4 && XMLHTTP.status == 200) {
 
-                success_function(XMLHTTP.responseText);
+                successFunction(XMLHTTP.responseText);
             }
         };
 
@@ -758,8 +769,8 @@ module.exports = function (settings) {
         var rect = elem.getBoundingClientRect();
 
         return {
-            x: rect.left + pageXOffset,
-            y: rect.top + pageYOffset
+            x: rect.left + window.pageXOffset,
+            y: rect.top + window.pageYOffset
         };
     };
 
@@ -916,7 +927,7 @@ var join = function () {
 
             blankAuthBlock.classList.add(animationClass);
 
-            setTimeout(function () {
+            window.setTimeout(function () {
                 return blankAuthBlock.classList.remove(animationClass);
             }, 450);
 
@@ -928,7 +939,7 @@ var join = function () {
      * Toggles into view blankAdditionalFields: Name and Surname, Email
      * @param {Event} event
      */
-    var showAdditionalFields = function showAdditionalFields(event) {
+    var showAdditionalFields = function showAdditionalFields() {
 
         var blankAdditionalFields = document.getElementById('blankAdditionalFields');
 
@@ -1014,15 +1025,15 @@ module.exports = function () {
      */
     var uploadPhotoSuccess = function uploadPhotoSuccess(newPhotoURL) {
 
-        var settings_avatar = document.getElementById('profile-photo-updatable'),
-            header_avatar = document.getElementById('header-avatar-updatable');
+        var settingsPhoto = document.getElementById('profile-photo-updatable'),
+            headerPhoto = document.getElementById('header-avatar-updatable');
 
-        settings_avatar.src = newPhotoURL;
-        header_avatar.src = newPhotoURL;
+        settingsPhoto.src = newPhotoURL;
+        headerPhoto.src = newPhotoURL;
     };
 
     return {
-        'uploadPhotoSuccess': uploadPhotoSuccess
+        uploadPhotoSuccess: uploadPhotoSuccess
     };
 }();
 
@@ -1132,7 +1143,7 @@ module.exports = function () {
 
             answer.classList.add('quiz__question-answer_selected');
 
-            UI_.questionElems.options.map(function (current, i) {
+            UI_.questionElems.options.map(function (current) {
 
                 current.removeEventListener('click', gameProcessing_.getUserAnswer);
             });
@@ -1178,7 +1189,7 @@ module.exports = function () {
 
         showCorrectAnswers: function showCorrectAnswers() {
 
-            UI_.questionElems.options.map(function (answer, i) {
+            UI_.questionElems.options.map(function (answer) {
 
                 if (answer.dataset.score > 0) {
 
@@ -1249,7 +1260,7 @@ module.exports = function () {
                 icon: 'icon-paper-plane'
             }];
 
-            networks.map(function (current, i) {
+            networks.map(function (current) {
 
                 var button = UI_.createElem('span', ['but', current.class]),
                     icon = UI_.createElem('i', current.icon),
@@ -1392,11 +1403,11 @@ module.exports = function () {
 
             maxScore = 0;
 
-            quizData.questions.map(function (current, i) {
+            quizData.questions.map(function (question) {
 
-                current.answers.map(function (current, i) {
+                question.answers.map(function (answer) {
 
-                    maxScore += parseFloat(current.score);
+                    maxScore += parseFloat(answer.score);
                 });
             });
         },
@@ -1741,7 +1752,7 @@ module.exports = function (quiz) {
 
         if (questionData.answers) {
 
-            questionData.answers.map(function (current, i) {
+            questionData.answers.map(function (current) {
 
                 appendAnswerBlock_(objectIndex, current);
             });
@@ -2091,12 +2102,12 @@ module.exports = function (quiz) {
 
         setInitialFormParams_();
 
-        resultMessages.map(function (current, i) {
+        resultMessages.map(function (current) {
 
             appendResultMessageBlock_(current);
         });
 
-        questions.map(function (current, i) {
+        questions.map(function (current) {
 
             appendQuestionBlock_(current);
         });
@@ -2249,9 +2260,9 @@ module.exports = function (sharer) {
     };
     /**
      * @param  {String} url
-     * @param  {String} social_type
+     * @param  {String} socialType
      */
-    sharer.popup = function (url, social_type) {
+    sharer.popup = function (url, socialType) {
 
         window.open(url, '', 'toolbar=0,status=0,width=626,height=436');
 
@@ -2260,7 +2271,7 @@ module.exports = function (sharer) {
         */
         if (window.yaCounter32652805) {
 
-            window.yaCounter32652805.reachGoal('article-share', function () {}, this, { type: social_type, url: url });
+            window.yaCounter32652805.reachGoal('article-share', function () {}, this, { type: socialType, url: url });
         }
     };
 
@@ -2382,15 +2393,15 @@ module.exports = showMoreNews;
 * @author Savchenko Peter (vk.com/specc)
 * @param {Object} simpleCode
 */
-var simpleCode = function (simpleCode) {
+var simpleCode = function (simpleCode_) {
 
-    simpleCode.rules = {
+    simpleCode_.rules = {
 
         comments: function comments(str) {
 
             return str.replace(/(\/\*([^*]|[\r\n]|(\*+([^*\/]|[\r\n])))*\*\/)/g, '<span class=sc_comment>$1</span>');
         },
-        comments_inline: function comments_inline(str) {
+        commentsInline: function commentsInline(str) {
 
             return str.replace(/[^\w:](\/\/[^\n]+)/g, '<span class=sc_comment>$1</span>');
         },
@@ -2425,7 +2436,7 @@ var simpleCode = function (simpleCode) {
 
     };
 
-    simpleCode.process = function (el) {
+    simpleCode_.process = function (el) {
 
         var origin = el.innerHTML;
 
@@ -2437,7 +2448,7 @@ var simpleCode = function (simpleCode) {
         el.innerHTML = origin;
     };
 
-    simpleCode.addStyles = function () {
+    simpleCode_.addStyles = function () {
 
         var styleInstance = 'simpleCodeStylingCss',
             style = document.getElementById(styleInstance),
@@ -2457,19 +2468,19 @@ var simpleCode = function (simpleCode) {
      * @param {String} selector - CSS selector .article__code
      * @usage codex.simpleCode.init(".article__code");
      */
-    simpleCode.init = function (selector) {
+    simpleCode_.init = function (selector) {
 
         simpleCode.addStyles();
 
-        var code_elements = document.querySelectorAll(selector);
+        var elements = document.querySelectorAll(selector);
 
-        for (var i = code_elements.length - 1; i >= 0; i--) {
+        for (var i = elements.length - 1; i >= 0; i--) {
 
-            simpleCode.process(code_elements[i]);
+            simpleCode.process(elements[i]);
         }
     };
 
-    return simpleCode;
+    return simpleCode_;
 }({});
 
 module.exports = simpleCode;
@@ -2509,18 +2520,18 @@ module.exports = function (transport) {
     /**
      * @param {Event} event
      */
-    transport.buttonCallback = function (event) {
+    transport.buttonCallback = function () {
 
         var action = this.dataset.action,
-            target_id = this.dataset.id,
-            is_multiple = !!this.dataset.multiple || false;
+            targetId = this.dataset.id,
+            isMultiple = !!this.dataset.multiple || false;
 
         transport.fillForm({
             action: action,
-            id: target_id
+            id: targetId
         });
 
-        if (is_multiple) {
+        if (isMultiple) {
 
             transport.form.multiple = 'multiple';
         }
@@ -2658,9 +2669,9 @@ module.exports = function (transport) {
         return false;
     };
 
-    transport.validateSize = function (fileObj, max_size) {
+    transport.validateSize = function (fileObj, maxSize) {
 
-        return fileObj.size < max_size;
+        return fileObj.size < maxSize;
     };
 
     return transport;
@@ -2681,14 +2692,14 @@ module.exports = function (transport) {
 
 __webpack_require__(16);
 
-var codex = function (codex) {
+var codex = function (codex_) {
 
-    codex.settings = {};
+    codex_.settings = {};
 
     /**
     * Preparation method
     */
-    codex.init = function (settings) {
+    codex_.init = function (settings) {
 
         /** Save settings or use defaults */
         for (var set in settings) {
@@ -2699,7 +2710,7 @@ var codex = function (codex) {
         codex.scrollUp.init();
     };
 
-    return codex;
+    return codex_;
 }({});
 
 /**
@@ -2708,7 +2719,7 @@ var codex = function (codex) {
 */
 codex.docReady = function (f) {
 
-    return (/in/.test(document.readyState) ? setTimeout(codex.docReady, 9, f) : f()
+    return (/in/.test(document.readyState) ? window.setTimeout(codex.docReady, 9, f) : f()
     );
 };
 

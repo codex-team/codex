@@ -1,6 +1,6 @@
 var ajax = function () {
 
-    var xhr = function ( xhr ) {
+    var xhr_ = function ( xhr ) {
 
         var objectToQueryString = function (a) {
 
@@ -11,7 +11,16 @@ var ajax = function () {
             add = function (key, value) {
 
                 // If value is a function, invoke it and return its value
-                value = ( typeof value == 'function' ) ? value() : ( value === null ? '' : value );
+                if (typeof value == 'function') {
+
+                    value = value();
+
+                } else {
+
+                    value = value === null ? '' : value;
+
+                }
+
                 s[ s.length ] = encodeURIComponent(key) + '=' + encodeURIComponent(value);
 
             };
@@ -257,7 +266,7 @@ var ajax = function () {
     };
 
     return {
-    	xhr : xhr
+        xhr : xhr_
     };
 
 }({});

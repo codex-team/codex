@@ -10,16 +10,16 @@ module.exports = function () {
 	 */
     var uploadPhotoSuccess = function (newPhotoURL) {
 
-        var settings_avatar = document.getElementById('profile-photo-updatable'),
-            header_avatar   = document.getElementById('header-avatar-updatable');
+        var settingsPhoto = document.getElementById('profile-photo-updatable'),
+            headerPhoto   = document.getElementById('header-avatar-updatable');
 
-        settings_avatar.src = newPhotoURL;
-        header_avatar.src   = newPhotoURL;
+        settingsPhoto.src = newPhotoURL;
+        headerPhoto.src   = newPhotoURL;
 
     };
 
     return {
-    	'uploadPhotoSuccess': uploadPhotoSuccess,
+        uploadPhotoSuccess,
     };
 
 }();

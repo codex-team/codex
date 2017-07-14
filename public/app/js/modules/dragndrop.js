@@ -184,8 +184,8 @@ module.exports = function (settings) {
         var rect = elem.getBoundingClientRect();
 
         return {
-            x: rect.left + pageXOffset,
-            y: rect.top + pageYOffset
+            x: rect.left + window.pageXOffset,
+            y: rect.top + window.pageYOffset
         };
 
     };

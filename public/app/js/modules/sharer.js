@@ -56,9 +56,9 @@ module.exports = (function ( sharer ) {
     };
     /**
      * @param  {String} url
-     * @param  {String} social_type
+     * @param  {String} socialType
      */
-    sharer.popup = function ( url, social_type ) {
+    sharer.popup = function ( url, socialType ) {
 
         window.open( url, '', 'toolbar=0,status=0,width=626,height=436' );
 
@@ -67,7 +67,7 @@ module.exports = (function ( sharer ) {
         */
         if ( window.yaCounter32652805 ) {
 
-            window.yaCounter32652805.reachGoal('article-share', function () {}, this, {type: social_type, url: url});
+            window.yaCounter32652805.reachGoal('article-share', function () {}, this, {type: socialType, url: url});
 
         }
 

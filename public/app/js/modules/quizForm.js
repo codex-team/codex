@@ -290,7 +290,7 @@ module.exports = (function (quiz) {
 
         if (questionData.answers) {
 
-            questionData.answers.map(function (current, i) {
+            questionData.answers.map(function (current) {
 
                 appendAnswerBlock_(objectIndex, current);
 
@@ -694,13 +694,13 @@ module.exports = (function (quiz) {
 
         setInitialFormParams_();
 
-        resultMessages.map(function (current, i) {
+        resultMessages.map(function (current) {
 
             appendResultMessageBlock_(current);
 
         });
 
-        questions.map(function (current, i) {
+        questions.map(function (current) {
 
             appendQuestionBlock_(current);
 

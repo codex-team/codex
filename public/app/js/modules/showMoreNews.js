@@ -46,7 +46,7 @@ var showMoreNews = function () {
     };
 
     return {
-    	init : init
+        init : init
     };
 
 }({});

@@ -4,16 +4,16 @@
 * @author Savchenko Peter (vk.com/specc)
 * @param {Object} simpleCode
 */
-var simpleCode = (function (simpleCode) {
+var simpleCode = (function (simpleCode_) {
 
-    simpleCode.rules = {
+    simpleCode_.rules = {
 
         comments: function (str) {
 
             return str.replace(/(\/\*([^*]|[\r\n]|(\*+([^*\/]|[\r\n])))*\*\/)/g, '<span class=sc_comment>$1</span>');
 
         },
-        comments_inline: function (str) {
+        commentsInline: function (str) {
 
             return str.replace(/[^\w:](\/\/[^\n]+)/g, '<span class=sc_comment>$1</span>');
 
@@ -56,7 +56,7 @@ var simpleCode = (function (simpleCode) {
 
     };
 
-    simpleCode.process = function (el) {
+    simpleCode_.process = function (el) {
 
         var origin = el.innerHTML;
 
@@ -70,7 +70,7 @@ var simpleCode = (function (simpleCode) {
 
     };
 
-    simpleCode.addStyles = function () {
+    simpleCode_.addStyles = function () {
 
         var styleInstance = 'simpleCodeStylingCss',
             style         = document.getElementById(styleInstance),
@@ -98,21 +98,21 @@ var simpleCode = (function (simpleCode) {
      * @param {String} selector - CSS selector .article__code
      * @usage codex.simpleCode.init(".article__code");
      */
-    simpleCode.init = function (selector) {
+    simpleCode_.init = function (selector) {
 
         simpleCode.addStyles();
 
-        var code_elements = document.querySelectorAll(selector);
+        var elements = document.querySelectorAll(selector);
 
-        for (var i = code_elements.length - 1; i >= 0; i--) {
+        for (var i = elements.length - 1; i >= 0; i--) {
 
-            simpleCode.process(code_elements[i]);
+            simpleCode.process(elements[i]);
 
         }
 
     };
 
-    return simpleCode;
+    return simpleCode_;
 
 })({});
 

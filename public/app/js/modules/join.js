@@ -55,7 +55,7 @@ var join = function () {
 
             blankAuthBlock.classList.add(animationClass);
 
-            setTimeout(() => blankAuthBlock.classList.remove(animationClass), 450);
+            window.setTimeout(() => blankAuthBlock.classList.remove(animationClass), 450);
 
             textarea.value = '';
 
@@ -67,7 +67,7 @@ var join = function () {
      * Toggles into view blankAdditionalFields: Name and Surname, Email
      * @param {Event} event
      */
-    var showAdditionalFields = function (event) {
+    var showAdditionalFields = function () {
 
         var blankAdditionalFields = document.getElementById('blankAdditionalFields');
 

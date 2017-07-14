@@ -46,7 +46,7 @@ module.exports = {
                     {
                         loader: 'eslint-loader',
                         options: {
-                            fix: DevelopmendMode
+                            fix: true
                         }
                     }
                 ]
