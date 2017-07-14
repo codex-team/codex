@@ -20,7 +20,7 @@
     --timing-bounce: cubic-bezier(0.6, -0.28, 0.735, 0.045);
 
     /** Editor block inner width */
-    --article-max-width: 700px;
+    --article-max-width: 650px;
 }
 
 /**

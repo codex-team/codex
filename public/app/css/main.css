@@ -22,7 +22,6 @@
 @import url('components/news.css');
 @import url('components/scroll-up.css');
 @import url('components/sharing.css');
-@import url('components/editor-form.css');
 @import url('components/quiz.css');
 @import url('components/quiz-form.css');
 
@@ -37,3 +36,4 @@
 @import url('pages/profile.css');
 @import url('pages/contests.css');
 @import url('pages/admin.css');
+@import url('pages/writing.css');

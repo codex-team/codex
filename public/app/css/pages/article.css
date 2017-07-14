@@ -144,7 +144,7 @@
 .article__image,
 .article__image-caption,
 .article__code {
-    max-width: 700px;
+    max-width: var(--article-max-width);
 }
 
 .article_content h2 {
@@ -282,7 +282,7 @@
 
 /** Link tool */
 .ce-link {
-    max-width: 700px;
+    max-width: var(--article-max-width);
     margin: 20px auto;
     padding: 0 !important;
 }

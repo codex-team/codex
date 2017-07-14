@@ -3,7 +3,7 @@
     <form class="editor-form" name="codex_article" method="POST" action="/<?= $article->id && $article->uri ? $article->uri . '/save' : 'article/add' ?>" enctype="multipart/form-data" id="edit_article_form" class="edit_article_form">
 
         <? if (!empty($error)): ?>
-            <div class="error-message">
+            <div class="editor-form__error">
                 <?= $error ?: 'Ошибочка во время сохранения' ?>
             </div>
         <? endif ?>
@@ -14,19 +14,22 @@
         <input class="editor-form__title" type="text" name="title" required value="<?= $article->title ?: ''; ?>" placeholder="Story title">
 
         <textarea name="article_json" id="article_json" hidden rows="10" hidden><?= $article->json ?: ''; ?></textarea>
-        <div id="codex-editor"></div>
+
+        <div class="editor-form__editor">
+            <div id="codex-editor"></div>
+        </div>
 
         <section class="editor-form__section">
 
             <label for="uri">URI</label>
-            <input type="text" name="uri" value="<?= $article->uri ?: ''; ?>" autocomplete="off">
+            <input class="input" type="text" name="uri" value="<?= $article->uri ?: ''; ?>" autocomplete="off">
 
         </section>
 
         <section class="editor-form__section">
 
             <label for="description">Описание статьи (обязательно)</label>
-            <textarea name="description" required rows="5"><?= $article->description ?: ''; ?></textarea>
+            <textarea class="editor-form__important-filed input" name="description" required rows="5"><?= $article->description ?: ''; ?></textarea>
 
         </section>
 
