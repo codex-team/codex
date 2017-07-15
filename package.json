@@ -34,7 +34,6 @@
     "stylelint-webpack-plugin": "^0.7.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack"
   },
   "repository": {
