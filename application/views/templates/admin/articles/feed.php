@@ -10,24 +10,18 @@
 
 <? if ($mode == 'list'): ?>
 
-        <?= View::factory('templates/admin/articles/feed_list', array( 'feed' => $feed )); ?>
+    <?= View::factory('templates/admin/articles/feed_list', array( 'feed' => $feed )); ?>
 
 <? elseif($mode == 'cards'): ?>
 
     <div class="center_side feed clearfix">
         <?= View::factory('templates/articles/list', array( 'feed_items' => $feed)); ?>
     </div>
-
-    <script>
-        var items = document.querySelectorAll('.feed-item');
-
-        for (var i = items.length-1; i > -1; i--) {
-            items[i].classList.add('draggable');
-            items[i].classList.add('list-item');
-        }
-
-    </script>
-
+    
 <? endif; ?>
-<script src="/public/js/feedDragNDrop.js"></script>
-<link rel="stylesheet" href="/public/css/feedDragNDrop.css">
+
+<script>
+    codex.admin.init({
+        listType : "<?= $mode ?>"
+    });
+</script>

@@ -23,7 +23,7 @@
 <body>
     <div class="wrapper">
         <a href="/">
-            <? include(DOCROOT . "public/img/codex-logo.svg") ?>
+            <? include(DOCROOT . "public/app/img/codex-logo.svg") ?>
         </a>
         <h1>We've got the error</h1>
         <a href="#" onclick="history.back();">Back</a>

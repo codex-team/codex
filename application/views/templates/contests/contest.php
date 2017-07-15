@@ -1,6 +1,3 @@
-<link rel="stylesheet" href="/public/css/contests.css?v=<?= filemtime("public/css/contests.css") ?>">
-<link rel="stylesheet" href="/public/css/article.css?v=<?= filemtime("public/css/article.css") ?>">
-
 <article class="contest" itemscope itemtype="http://schema.org/CreativeWork ">
     <div class="center_side clear">
 

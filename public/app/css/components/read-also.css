@@ -1,0 +1,46 @@
+/**
+* Read-also recommendations block
+*/
+.random_articles {
+    padding: 35px 0;
+    margin: 0 120px;
+    max-width: 600px;
+}
+
+.random_articles a {
+    padding-bottom: 3px;
+    border-bottom: 1px solid #d8e5f1;
+    text-decoration: none;
+    letter-spacing: 0.2px;
+    font-size: 1.31em;
+}
+
+.random_articles h3 {
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+.random_articles li {
+    display: block;
+    list-style: none;
+    margin: 20px 0;
+}
+
+/**
+* Mobile viewport styles
+* =================================
+*/
+@media (--mobile) {
+    /**
+    * Recommendations block
+    */
+    .random_articles {
+        margin: 0;
+        padding-bottom: 0;
+    }
+
+    .random_articles a {
+        line-height: 1.7em;
+        font-size: 1.1em;
+    }
+}

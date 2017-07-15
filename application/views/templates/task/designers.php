@@ -1,11 +1,10 @@
-<link rel="stylesheet" href="/public/css/task.css?v=<?= filemtime("public/css/task.css") ?>">
-<link rel="stylesheet" href="/public/css/article.css?v=<?= filemtime("public/css/article.css") ?>">
-
 <div class="center_side clear">
-
     <article class="article">
 
-        <h1 class="article__title">Задание <br> для веб-дизайнеров</h1>
+        <h1 class="article__title">
+            Задание <br>
+            для веб-дизайнеров
+        </h1>
 
         <div class="article_content">
             <p>Наша команда будет учиться создавать профессиональные проекты на достойном уровне. Качественная реализация каждой детали — именно то, на что будет делаться упор в первую очередь. От дизайна наших проектов будет зависеть лицо всей команды. Вы получите возможность разрабатывать дизайн внешних и внутренних сервисов, работать над интересными задачами, изучать мировой опыт и учиться элегантно решать непростые задачи.</p>

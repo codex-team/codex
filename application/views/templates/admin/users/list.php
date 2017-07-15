@@ -58,7 +58,6 @@
         </table>
     <? endif; ?>
 </div>
-<script src="/public/js/addDeveloper.js?v=<?= filemtime('public/js/addDeveloper.js'); ?>"></script>
 <script>
-    developer.bind();
+    codex.developer.bind();
 </script>

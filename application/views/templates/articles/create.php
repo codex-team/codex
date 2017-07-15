@@ -1,11 +1,9 @@
-<link rel="stylesheet" href="/public/css/editor-form.css?v=<?= filemtime("public/css/editor-form.css") ?>">
-
 <div class="center_side">
 
     <form class="editor-form" name="codex_article" method="POST" action="/<?= $article->id && $article->uri ? $article->uri . '/save' : 'article/add' ?>" enctype="multipart/form-data" id="edit_article_form" class="edit_article_form">
 
         <? if (!empty($error)): ?>
-            <div class="error-message">
+            <div class="editor-form__error">
                 <?= $error ?: 'Ошибочка во время сохранения' ?>
             </div>
         <? endif ?>
@@ -13,25 +11,25 @@
         <input type="hidden" name="csrf" value="<?= Security::token() ?>" />
         <input type="hidden" name="article_id" value="<?= $article->id ?: ''; ?>">
 
-        <section class="editor-form__section">
-            <label for="title">Заголовок</label>
-            <input type="text" name="title" required value="<?= $article->title ?: ''; ?>">
-        </section>
+        <input class="editor-form__title" type="text" name="title" required value="<?= $article->title ?: ''; ?>" placeholder="Story title">
 
         <textarea name="article_json" id="article_json" hidden rows="10" hidden><?= $article->json ?: ''; ?></textarea>
-        <div id="codex-editor"></div>
+
+        <div class="editor-form__editor">
+            <div id="codex-editor"></div>
+        </div>
 
         <section class="editor-form__section">
 
             <label for="uri">URI</label>
-            <input type="text" name="uri" value="<?= $article->uri ?: ''; ?>" autocomplete="off">
+            <input class="input" type="text" name="uri" value="<?= $article->uri ?: ''; ?>" autocomplete="off">
 
         </section>
 
         <section class="editor-form__section">
 
             <label for="description">Описание статьи (обязательно)</label>
-            <textarea name="description" required rows="5"><?= $article->description ?: ''; ?></textarea>
+            <textarea class="editor-form__important-filed input" name="description" required rows="5"><?= $article->description ?: ''; ?></textarea>
 
         </section>
 
@@ -92,7 +90,7 @@
         </section>
 
 
-        <span id="submitButton" class="button master" style="margin: 40px 139px 40px">Отправить</span>
+        <span id="submitButton" class="button button--master" style="margin: 40px 139px 40px">Отправить</span>
     </form>
 </div>
 

@@ -1,0 +1,39 @@
+/**
+* CodeX logo on index page
+*/
+.index-page {
+    padding: 100px 0 70px;
+    text-align: center;
+
+    p {
+        max-width: 500px;
+        margin: 15px auto;
+    }
+
+    &__join-button {
+        margin-top: 1.5em;
+        padding: 16px 30px;
+        font-size: 1.2em;
+    }
+}
+
+.index-page .codex-logo {
+    margin-bottom: 50px;
+}
+
+/**
+* Mobile viewport styles
+* =================================
+*/
+@media (--mobile) {
+    /**
+    * Index page mobile
+    */
+    .index-page {
+        padding: 50px 0;
+    }
+
+    .index-page p {
+        padding: 0 10px;
+    }
+}

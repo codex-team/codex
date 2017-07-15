@@ -1,0 +1,117 @@
+
+/**
+* Joining page
+*/
+.join-page {
+    padding: 30px 0;
+    line-height: 1.64em;
+
+    &__content {
+        display: flex;
+        align-items: stretch;
+        justify-content: space-between;
+
+        @media (--mobile) {
+            flex-direction: column;
+        }
+    }
+
+    &__left {
+        margin-right: 120px;
+
+        @media (--mobile) {
+            margin-right: 0;
+        }
+
+        .codex-logo {
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 30px;
+            background-size: auto 160px;
+        }
+    }
+
+    &__right {
+        min-width: 380px;
+
+        .codex-logo {
+            display: block;
+            margin: 0 auto 50px;
+        }
+    }
+
+    &__form {
+        @media (--mobile) {
+            margin-top: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.7em;
+        }
+
+        .input {
+            margin-bottom: 30px;
+        }
+    }
+
+    /**
+    * Joining page auth form
+    */
+    &__auth {
+        margin-bottom: 30px;
+        color: #838ea1;
+
+        .button {
+            vertical-align: middle;
+            margin-right: 20px;
+        }
+    }
+
+    /**
+    * Authored user block on /join page
+    */
+    &__user {
+        font-size: 1.1em;
+        margin-bottom: 1.5em;
+    }
+
+    &__user-photo {
+        width: 26px;
+        height: 26px;
+        border-radius: 13px;
+        margin-right: 10px;
+        vertical-align: middle;
+    }
+
+    &__user-name {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    &__error {
+        margin: 15px 0;
+        color: #e04545;
+    }
+
+    &__success {
+        padding: 100px 200px;
+        margin: -30px 0 30px;
+        background: #f2f5fb;
+        color: #6f809a;
+        line-height: 1.6em;
+        font-size: 16px;
+        text-align: center;
+
+        @media (--mobile) {
+            padding: 15px;
+            font-size: 14px;
+        }
+
+        &--compact {
+            margin-top: 2em;
+            padding: 30px;
+            font-size: 14px;
+        }
+    }
+}

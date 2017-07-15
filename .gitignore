@@ -35,3 +35,5 @@ public/img/covers/*
 tools/.token
 Thumbs.db
 ehthumbs.db
+
+*.log

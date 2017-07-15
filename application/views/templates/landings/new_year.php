@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/public/css/landings/new-year.css?v=<?= filemtime("public/css/landings/new-year.css") ?>">
+<link rel="stylesheet" href="/public/app/landings/new-year/new-year.css?v=<?= filemtime("public/app/landings/new-year/new-year.css") ?>">
 <? if ( !empty($ny_user_requests) ): ?>
 
     <?
@@ -93,7 +93,7 @@
                         <label for="wishes">Чем бы вы хотели заниматься в клубе</label>
                         <textarea name="wishes" id="wishes" rows="3"></textarea>
 
-                        <input class="submit" type="submit" value="Подать заявку" />
+                        <input class="button button--master" class="submit" type="submit" value="Подать заявку" />
                     </form>
 
                 <? endif; ?>

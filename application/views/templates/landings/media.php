@@ -2,12 +2,15 @@
     body {
         background: #000;
     }
+    .site-footer, .site-header {
+        background: #000;
+    }
 </style>
-<link rel="stylesheet" href="/public/css/landings/media.css?v=<?= filemtime("public/css/landings/media.css") ?>">
+<link rel="stylesheet" href="/public/app/landings/media/media.css?v=<?= filemtime("public/app/landings/media/media.css") ?>">
 <div class="center_side">
     <div class="codex-media">
         <a class="codex-media__logo" href="//ifmo.su" title="CodeX Team">
-            <? include_once(DOCROOT . 'public/img/codex-logo.svg'); ?>
+            <? include_once(DOCROOT . 'public/app/img/codex-logo.svg'); ?>
         </a>
         <h1 class="codex-media__title">CodeX Media</h1>
         <div class="codex-media__caption">Platform for building UGC media</div>

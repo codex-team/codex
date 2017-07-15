@@ -66,17 +66,17 @@ class Controller_Base_Ajax extends Controller_Base_preDispatch {
 
             case self::TRANSPORT_ACTION_PROFILE_PHOTO :
 
-                $filename = $this->methods->saveImage('files', 'users/');
+                $filename = $this->methods->saveImage($files, 'upload/users/');
 
                 if ($filename) {
 
                     /** Update user */
-                    $this->user->photo = $filename;
+                    $this->user->photo = '/upload/users/b_' . $filename;
                     $this->user->update();
 
                     /** Return success information. @uses client-side callback.saveProfilePhoto handler */
                     $response['success']  = 1;
-                    $response['callback'] = 'callbacks.saveProfilePhoto.success("'.$filename.'")';
+                    $response['callback'] = 'codex.profile.uploadPhotoSuccess("/upload/users/b_'.$filename.'")';
 
                 } else {
                     $response['error_description'] = 'File wasn\'t saved';
@@ -92,7 +92,7 @@ class Controller_Base_Ajax extends Controller_Base_preDispatch {
         * Return script to transport-frame, where fires parent-window transport.callback
         * $response passed as first-parameter to client-side callback function
         */
-        $script = '<script>window.parent.transport && window.parent.transport.response(' . @json_encode($response) . ')</script>';
+        $script = '<script>window.parent.codex.transport && window.parent.codex.transport.response(' . @json_encode($response) . ')</script>';
 
         $this->response->body($script);
 
