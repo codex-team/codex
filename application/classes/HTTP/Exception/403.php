@@ -6,6 +6,8 @@ class HTTP_Exception_403 extends Kohana_HTTP_Exception_403 {
 
     public function get_response()
     {
+        require_once 'modules/hawk/hawk.php';
+        HawkErrorManager::sendCustomException("Error 403");
         if ( Kohana::$environment >= Kohana::DEVELOPMENT ){
 
             return parent::get_response();

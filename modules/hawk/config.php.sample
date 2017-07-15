@@ -1,0 +1,8 @@
+<?php
+
+# You have to define API URL and aceess token, which can be got from official website
+
+class HawkConfig {
+    static $API_URL = "";
+    static $ACCESS_TOKEN = "";
+}
