@@ -2,16 +2,13 @@
 /**
  *  Handle 403 error
  */
-class HTTP_Exception_403 extends Kohana_HTTP_Exception_403 {
-
+class HTTP_Exception_403 extends Kohana_HTTP_Exception_403
+{
     public function get_response()
     {
-        if ( Kohana::$environment >= Kohana::DEVELOPMENT ){
-
+        if (Kohana::$environment >= Kohana::DEVELOPMENT) {
             return parent::get_response();
-
         } else {
-
             $view = new View('templates/errors/403');
             $response = Response::factory()->status(403)->body($view->render());
 

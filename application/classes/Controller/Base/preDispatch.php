@@ -24,16 +24,14 @@ class Controller_Base_preDispatch extends Controller_Template
     public function before()
     {
         /** Disallow requests from other domains */
-        if ( Kohana::$environment === Kohana::PRODUCTION ) {
-
-            if ( (Arr::get($_SERVER, 'SERVER_NAME') != 'stage.ifmo.su') &&
-                (Arr::get($_SERVER, 'SERVER_NAME') != 'ifmo.su') ) {
+        if (Kohana::$environment === Kohana::PRODUCTION) {
+            if ((Arr::get($_SERVER, 'SERVER_NAME') != 'stage.ifmo.su') &&
+                (Arr::get($_SERVER, 'SERVER_NAME') != 'ifmo.su')) {
                 exit();
             }
 
             /** Mark requests as secure and working with HTTPS  */
             $this->request->secure(true);
-
         }
 
         parent::before();
@@ -65,11 +63,15 @@ class Controller_Base_preDispatch extends Controller_Template
      */
     public function after()
     {
-//        echo View::factory('profiler/stats');
+        //        echo View::factory('profiler/stats');
 
         if ($this->auto_render) {
-            if ( $this->title ) $this->template->title = $this->title;
-            if ( $this->description ) $this->template->description = $this->description;
+            if ($this->title) {
+                $this->template->title = $this->title;
+            }
+            if ($this->description) {
+                $this->template->description = $this->description;
+            }
         }
 
         parent::after();
@@ -92,11 +94,10 @@ class Controller_Base_preDispatch extends Controller_Template
          */
         $exceptionsForCodexEditor = array('article_json');
 
-        foreach ($_POST as $key => $value){
-
+        foreach ($_POST as $key => $value) {
             if (is_array($value)) {
                 foreach ($value as $sub_key => $sub_value) {
-                    $sub_value = stripos( $sub_value, 'سمَـَّوُوُحخ ̷̴̐خ ̷̴̐خ ̷̴̐خ امارتيخ ̷̴̐خ') !== false ? '' : $sub_value ;
+                    $sub_value = stripos($sub_value, 'سمَـَّوُوُحخ ̷̴̐خ ̷̴̐خ ̷̴̐خ امارتيخ ̷̴̐خ') !== false ? '' : $sub_value ;
                     $_POST[$key][$sub_key] = Security::xss_clean(HTML::chars($sub_value));
                 }
 
@@ -109,33 +110,29 @@ class Controller_Base_preDispatch extends Controller_Template
              * $exceptionsAllowingHTML — allow html tags (does not fire HTML Purifier)
              * $exceptionsForCodexEditor — do nothing
              */
-            if ( in_array($key, $exceptionsAllowingHTML) === false && in_array($key, $exceptionsForCodexEditor) === false){
-
+            if (in_array($key, $exceptionsAllowingHTML) === false && in_array($key, $exceptionsForCodexEditor) === false) {
                 $_POST[$key] = Security::xss_clean(HTML::chars($value));
-
             } elseif (in_array($key, $exceptionsForCodexEditor) === false) {
-
                 $_POST[$key] = strip_tags(trim($value), '<br><em><del><p><a><b><strong><i><strike><blockquote><ul><li><ol><img><tr><table><td><th><span><h1><h2><h3><iframe><div><code>');
-
             }
         }
 
         foreach ($_GET  as $key => $value) {
-            $value = stripos( $value, 'سمَـَّوُوُحخ ̷̴̐خ ̷̴̐خ ̷̴̐خ امارتيخ ̷̴̐خ') !== false ? '' : $value ;
+            $value = stripos($value, 'سمَـَّوُوُحخ ̷̴̐خ ̷̴̐خ ̷̴̐خ امارتيخ ̷̴̐خ') !== false ? '' : $value ;
             $_GET[$key] = Security::xss_clean(HTML::chars($value));
         }
     }
 
     public static function _redis()
     {
-        if ( !class_exists("Redis") ){
+        if (!class_exists("Redis")) {
             return null;
         }
 
         $redisConfig = Kohana::$config->load('redis.default');
 
         $redisHost = Arr::get($redisConfig, 'hostname', '127.0.0.1');
-        $redisPort = Arr::get($redisConfig, 'port',     '6379');
+        $redisPort = Arr::get($redisConfig, 'port', '6379');
         $redisPswd = Arr::get($redisConfig, 'password', '');
         $redisDB   = Arr::get($redisConfig, 'database', '0');
 
@@ -167,19 +164,14 @@ class Controller_Base_preDispatch extends Controller_Template
         $this->session = Session::instance();
 
         $auth = new Model_Sessions();
-        if ( $auth->is_authorized() ) {
-
+        if ($auth->is_authorized()) {
             $user_id = $auth->get_user_id();
             $this->user = Model_User::findByAttribute('id', $user_id);
-
         } else {
-
             $this->user = new Model_User();
-
         }
 
         View::set_global('user', $this->user);
         View::set_global('auth', $auth);
     }
-
 }

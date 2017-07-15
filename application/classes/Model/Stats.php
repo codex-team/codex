@@ -1,11 +1,11 @@
-<?php defined('SYSPATH') OR die('No Direct Script Access');
+<?php defined('SYSPATH') or die('No Direct Script Access');
 /**
  * Содержит функции для работы с redis и
  * статистикой просмотров.
  *
  * @author Ivan Zhuravlev
  */
-Class Model_Stats extends Model
+class Model_Stats extends Model
 {
     const ARTICLE = 1;
     private $redis;
@@ -17,7 +17,7 @@ Class Model_Stats extends Model
     }
 
     /*
-    * Если статистики с такими параметрами нет, то 
+    * Если статистики с такими параметрами нет, то
     * создает ее.
     * Если есть, то инкрементирует (увеличивает на 1).
     */

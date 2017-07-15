@@ -1,6 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Base_Ajax extends Controller_Base_preDispatch {
+class Controller_Base_Ajax extends Controller_Base_preDispatch
+{
 
 
     /**
@@ -15,12 +16,11 @@ class Controller_Base_Ajax extends Controller_Base_preDispatch {
     public $UPLOAD_MAX_SIZE = '30M';
 
 
-    public function before(){
-
+    public function before()
+    {
         $this->auto_render = false;
 
         parent::before();
-
     }
 
     /**
@@ -42,10 +42,10 @@ class Controller_Base_Ajax extends Controller_Base_preDispatch {
     public function action_file_uploader()
     {
         /** Reason we use ajax transport. Use constants in this controller  */
-        $action = Arr::get($_POST , 'action' , false);
+        $action = Arr::get($_POST, 'action', false);
 
         /** Target id */
-        $id = (int)Arr::get($_POST , 'id' , 0);
+        $id = (int)Arr::get($_POST, 'id', 0);
 
         /** Uploaded files */
         $files = Arr::get($_FILES, 'files');
@@ -58,33 +58,32 @@ class Controller_Base_Ajax extends Controller_Base_preDispatch {
         */
         $dataValidationError = $this->getTransportValidationError($action, $id, $files);
 
-        if ( $dataValidationError ) {
-
+        if ($dataValidationError) {
             $response['error_description'] = $dataValidationError;
+        } else {
+            switch ($action) {
 
-        } else switch ($action) {
+                case self::TRANSPORT_ACTION_PROFILE_PHOTO:
 
-            case self::TRANSPORT_ACTION_PROFILE_PHOTO :
+                    $filename = $this->methods->saveImage($files, 'upload/users/');
 
-                $filename = $this->methods->saveImage($files, 'upload/users/');
+                    if ($filename) {
 
-                if ($filename) {
+                        /** Update user */
+                        $this->user->photo = '/upload/users/b_' . $filename;
+                        $this->user->update();
 
-                    /** Update user */
-                    $this->user->photo = '/upload/users/b_' . $filename;
-                    $this->user->update();
+                        /** Return success information. @uses client-side callback.saveProfilePhoto handler */
+                        $response['success']  = 1;
+                        $response['callback'] = 'codex.profile.uploadPhotoSuccess("/upload/users/b_'.$filename.'")';
+                    } else {
+                        $response['error_description'] = 'File wasn\'t saved';
+                    }
 
-                    /** Return success information. @uses client-side callback.saveProfilePhoto handler */
-                    $response['success']  = 1;
-                    $response['callback'] = 'codex.profile.uploadPhotoSuccess("/upload/users/b_'.$filename.'")';
+                break;
 
-                } else {
-                    $response['error_description'] = 'File wasn\'t saved';
-                }
-
-            break;
-
-            default:  $response['error_description'] = 'Wrong action'; break;
+                default:  $response['error_description'] = 'Wrong action'; break;
+            }
         }
 
 
@@ -95,7 +94,6 @@ class Controller_Base_Ajax extends Controller_Base_preDispatch {
         $script = '<script>window.parent.codex.transport && window.parent.codex.transport.response(' . @json_encode($response) . ')</script>';
 
         $this->response->body($script);
-
     }
 
     /**
@@ -105,27 +103,25 @@ class Controller_Base_Ajax extends Controller_Base_preDispatch {
     private function getTransportValidationError($action, $id, $files)
     {
         /** Checking for authorized user */
-        if ( !$this->user->id ){
+        if (!$this->user->id) {
             return 'Access denied';
         }
 
         /** Checking for required fields */
-        if ( !$action ){
+        if (!$action) {
             return 'Action missed';
         }
 
         /** Checking for correct files */
-        if ( !$files || !Upload::not_empty($files) || !Upload::valid($files) ){
+        if (!$files || !Upload::not_empty($files) || !Upload::valid($files)) {
             return 'File is missing or damaged';
         }
 
         /** Checking for max size  */
-        if ( !Upload::size($files, $this->UPLOAD_MAX_SIZE ) ){
+        if (!Upload::size($files, $this->UPLOAD_MAX_SIZE)) {
             return 'File size exceeded limit';
         }
 
         return '';
     }
-
-
 }

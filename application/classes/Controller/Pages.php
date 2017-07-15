@@ -2,62 +2,52 @@
 
 class Controller_Pages extends Controller_Base_preDispatch
 {
-
-
     public function action_join()
     {
-
-        if (Security::check( Arr::get($_POST, 'csrf') )) {
-
+        if (Security::check(Arr::get($_POST, 'csrf'))) {
             $this->saveRequest();
 
             /** Refresh CSRF token */
             Security::token(true);
-
         }
 
         $this->view['request'] = $this->user->getUserRequests();
 
-    	$this->title = 'Набор в команду CodeX';
-    	$this->template->content = View::factory('templates/join/index', $this->view);
+        $this->title = 'Набор в команду CodeX';
+        $this->template->content = View::factory('templates/join/index', $this->view);
     }
 
 
     public function action_All()
     {
-
-     	$this->title = 'Задания для вступающих в команду';
-    	$this->template->content = View::factory('templates/task/index', $this->view);
-
+        $this->title = 'Задания для вступающих в команду';
+        $this->template->content = View::factory('templates/task/index', $this->view);
     }
 
     public function action_whoSet()
     {
-    	$who = $this->request->param('who');
+        $who = $this->request->param('who');
 
 
-    	if ( $who == "developers" ){
-
+        if ($who == "developers") {
             $this->title = 'Задание для веб-разрабочиков';
             $this->template->content = View::factory('templates/task/developers', $this->view);
-
-        } elseif ( $who == "designers" ){
-
+        } elseif ($who == "designers") {
             $this->title = 'Задание для веб-дизайнеров';
             $this->template->content = View::factory('templates/task/designers', $this->view);
         }
     }
 
-    private function saveRequest(){
-
+    private function saveRequest()
+    {
         $fields = array(
             'skills' => Arr::get($_POST, 'skills'),
             'wishes' => Arr::get($_POST, 'wishes'),
-            'email'  => Arr::get($_POST, 'email', NULL),
-            'name'   => Arr::get($_POST, 'name', NULL),
+            'email'  => Arr::get($_POST, 'email', null),
+            'name'   => Arr::get($_POST, 'name', null),
         );
 
-        if ( !$fields['email'] && !$this->user->id) {
+        if (!$fields['email'] && !$this->user->id) {
             $this->view['error'] = 'Авторизуйтесь или укажите почту, чтобы мы могли с вами связаться.';
             return;
         }
@@ -68,11 +58,8 @@ class Controller_Pages extends Controller_Base_preDispatch
 
         $this->view['success'] = $this->methods->saveJoinRequest($fields);
 
-        if ($this->view['success'])
-        {
+        if ($this->view['success']) {
             Model_Methods::sendBotNotification('Зарегистрирована новая заявка на вступление в клуб.');
         }
-
     }
-
 }

@@ -15,10 +15,11 @@ class Controller_Users_Index extends Controller_Base_preDispatch
         $user_id = $this->request->param('id') ?: $this->request->query('id');
         $isAlias = $this->request->query('id');
         
-        if ( !empty($user_id) ){
-            $viewUser = Model_User::get( $user_id );
-            if ($viewUser->uri && !$isAlias)
+        if (!empty($user_id)) {
+            $viewUser = Model_User::get($user_id);
+            if ($viewUser->uri && !$isAlias) {
                 $this->redirect($viewUser->uri);
+            }
         } else {
             $viewUser = $this->user;
         }
@@ -40,7 +41,6 @@ class Controller_Users_Index extends Controller_Base_preDispatch
         $this->view['isMyPage']  = $this->user->id == $viewUser->id;
 
         $this->template->content = View::factory('templates/users/user', $this->view);
-
     }
 
     /**
@@ -51,7 +51,7 @@ class Controller_Users_Index extends Controller_Base_preDispatch
     {
         $csrfToken = Arr::get($_POST, 'csrf');
 
-        if(!Security::check($csrfToken)){
+        if (!Security::check($csrfToken)) {
             $user = Model_User::get($this->user->id);
 
             $this->view['user'] = $user;
@@ -65,7 +65,7 @@ class Controller_Users_Index extends Controller_Base_preDispatch
             $instagram_uri = $this->methods->parseUri(Arr::get($_POST, 'instagram_uri'));
             $vk_uri        = $this->methods->parseUri(Arr::get($_POST, 'vk_uri'));
 
-            $alias = Model_Alias::updateAlias( $this->user->uri, $alias, Model_Uri::USER, $this->user->id );
+            $alias = Model_Alias::updateAlias($this->user->uri, $alias, Model_Uri::USER, $this->user->id);
 
             $fields = array(
                 'name'          => $name,

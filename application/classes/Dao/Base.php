@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Dao_Base {
-
+class Dao_Base
+{
     protected $table = 'null';
 
     const USER_INSERT  = 1;
@@ -58,7 +58,9 @@ class Dao_Base {
     public function cached($seconds, $key = null)
     {
         $this->cached = $seconds;
-        if ($key) $this->keycached = $this->getKeyCached($key);
+        if ($key) {
+            $this->keycached = $this->getKeyCached($key);
+        }
         return $this;
     }
 
@@ -85,24 +87,34 @@ class Dao_Base {
     private function insertExecute()
     {
         $insert = DB::insert($this->table, array_keys($this->fields))->values(array_values($this->fields))->execute();
-        if ($insert) return current($insert);
+        if ($insert) {
+            return current($insert);
+        }
         return false;
     }
 
     private function updateExecute()
     {
-        if (!$this->where) throw new Exception('Попытка обновить все записи в таблице!');
+        if (!$this->where) {
+            throw new Exception('Попытка обновить все записи в таблице!');
+        }
         $update = DB::update($this->table)->set($this->fields);
-        foreach($this->where as $key => $value) $update->where($key, '=', $value);
+        foreach ($this->where as $key => $value) {
+            $update->where($key, '=', $value);
+        }
         $update = $update->execute();
-        if ($update)  return $update;
+        if ($update) {
+            return $update;
+        }
         return false;
     }
 
     private function selectExecute()
     {
         $select = DB::select()->from($this->table);
-        foreach($this->where as $key => $value) $select->where($key, '=', $value);
+        foreach ($this->where as $key => $value) {
+            $select->where($key, '=', $value);
+        }
 
         if ($this->cached) {
             $keycache = $this->getKeyCached();
@@ -122,13 +134,17 @@ class Dao_Base {
             Kohana_Cache::instance('memcache')->set($keycache, $select, $this->cached);
         }
 
-        if ($select) return $select;
+        if ($select) {
+            return $select;
+        }
         return false;
     }
 
     private function getKeyCached($key = null)
     {
-        if ($this->keycached) return $this->keycached;
+        if ($this->keycached) {
+            return $this->keycached;
+        }
 
         $keyprefix = 'dbcache:' . $this->table . ':';
         if (!$key) {
@@ -140,5 +156,4 @@ class Dao_Base {
 
         return $this->keycached;
     }
-
-} 
+}

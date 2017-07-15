@@ -1,7 +1,7 @@
 <?php
 
-class Model_Feed_Articles extends Model_Feed_Abstract {
-
+class Model_Feed_Articles extends Model_Feed_Abstract
+{
     protected $timeline_key = 'feed';
 
     /**
@@ -12,7 +12,8 @@ class Model_Feed_Articles extends Model_Feed_Abstract {
      *
      * @return bool|int
      */
-    public function add($item_id, $item_dt_create) {
+    public function add($item_id, $item_dt_create)
+    {
         return parent::add($item_id, strtotime($item_dt_create));
     }
 
@@ -24,15 +25,14 @@ class Model_Feed_Articles extends Model_Feed_Abstract {
      * @return bool|array
      * @throws Exception
      */
-    public function get($numberOfItems = 0, $offset = 0) {
-
+    public function get($numberOfItems = 0, $offset = 0)
+    {
         $items = parent::get($numberOfItems, $offset);
 
         if (is_array($items)) {
             $models_list = array();
 
             foreach ($items as $item_identity) {
-
                 list($prefix, $id) = $this->decomposeValueIdentity($item_identity);
 
                 switch ($prefix) {
@@ -55,5 +55,4 @@ class Model_Feed_Articles extends Model_Feed_Abstract {
 
         return false;
     }
-
 }

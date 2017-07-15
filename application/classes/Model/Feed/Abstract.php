@@ -1,7 +1,7 @@
 <?php
 
-class Model_Feed_Abstract extends Model {
-
+class Model_Feed_Abstract extends Model
+{
     protected $redis;
     protected $prefix;
 
@@ -43,7 +43,8 @@ class Model_Feed_Abstract extends Model {
      *
      * @return array - массив из двух элементов (prefix, id)
      */
-    public function decomposeValueIdentity($identity) {
+    public function decomposeValueIdentity($identity)
+    {
         return explode(':', $identity);
     }
 
@@ -74,7 +75,7 @@ class Model_Feed_Abstract extends Model {
             $this->redis->zAdd($this->timeline_key, $first_item_score-1, $item_value);
         }
 
-        if($this->redis->zRank($this->timeline_key, $item_below_value) === false) {
+        if ($this->redis->zRank($this->timeline_key, $item_below_value) === false) {
             return false;
         }
 
@@ -130,8 +131,8 @@ class Model_Feed_Abstract extends Model {
      *
      * @return array - массив идентефикаторов элементов
      */
-    public function get($numberOfItems = 0, $offset = 0) {
-
+    public function get($numberOfItems = 0, $offset = 0)
+    {
         $end = $numberOfItems + $offset;
 
         $end = $this->redis->zCard($this->timeline_key) > $end ? $end : 0;
@@ -154,7 +155,8 @@ class Model_Feed_Abstract extends Model {
     /**
      * Метод для переиндексации списка (индексация с 0)
      */
-    public function reindexing() {
+    public function reindexing()
+    {
         $elements = $this->redis->zRange($this->timeline_key, 0, -1);
 
         foreach ($elements as $i => $element) {
@@ -165,7 +167,8 @@ class Model_Feed_Abstract extends Model {
     /**
      * Очистить фид
      */
-    public function clear() {
+    public function clear()
+    {
         $this->redis->del($this->timeline_key);
     }
 }

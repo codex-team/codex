@@ -8,8 +8,9 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
     public function before()
     {
         parent::before();
-        if (!$this->user->checkAccess(array(Model_User::ROLE_ADMIN)))
+        if (!$this->user->checkAccess(array(Model_User::ROLE_ADMIN))) {
             $this->redirect('/');
+        }
     }
 
     public function action_save()
@@ -21,7 +22,7 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
          * так как срабатывает обычный роут, то при отправке формы передается переменная course_id.
          * Форма отправляет POST запрос
          */
-        if ($this->request->post() ){
+        if ($this->request->post()) {
             $course_id = Arr::get($_POST, 'course_id');
             $course = Model_Courses::get($course_id, true);
         }
@@ -29,7 +30,7 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
          * Редактирование через Алиас
          * Здесь сперва запрос получает Controller_Uri, которая будет передавать id сущности через query('id')
          */
-        else if ($course_id = $this->request->param('id') ?: $this->request->query('id')) {
+        elseif ($course_id = $this->request->param('id') ?: $this->request->query('id')) {
             $course = Model_Courses::get($course_id);
         } else {
             $course = new Model_Courses();
@@ -59,7 +60,6 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
             $alias = Model_Alias::generateUri($uri);
 
             if ($course->title && $course->text && $course->description) {
-
                 if ($course_id) {
                     $course->dt_update = date('Y-m-d H:i:s');
                     $course->uri = Model_Alias::updateAlias($course->uri, $alias, Model_Uri::COURSE, $course_id);
@@ -84,8 +84,7 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
 
                 // Если поле uri пустое, то редиректить на обычный роут /course/id
                 $redirect = ($uri) ? $course->uri : '/course/' . $course->id;
-                $this->redirect( $redirect );
-
+                $this->redirect($redirect);
             } else {
                 $this->view['error'] = true;
             }
@@ -100,8 +99,7 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
         $user_id = $this->user->id;
         $course_id = $this->request->param('course_id') ?: $this->request->query('id');
 
-        if (!empty($course_id) && !empty($user_id))
-        {
+        if (!empty($course_id) && !empty($user_id)) {
             $course = Model_Courses::get($course_id);
             $course->remove();
 
@@ -111,5 +109,4 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
 
         $this->redirect('/admin/courses');
     }
-
 }

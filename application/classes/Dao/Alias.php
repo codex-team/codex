@@ -6,9 +6,8 @@
  * Time: 22:39
  */
 
-class Dao_Alias extends Dao_MySQL_Base {
-
+class Dao_Alias extends Dao_MySQL_Base
+{
     protected $cache_key    = 'Dao_Alias';
     protected $table        = 'Alias';
-
 }

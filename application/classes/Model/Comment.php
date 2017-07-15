@@ -1,6 +1,6 @@
 <?php
 
-Class Model_Comment extends Model
+class Model_Comment extends Model
 {
     public $id;
     public $user_id;
@@ -30,8 +30,7 @@ Class Model_Comment extends Model
                     ->values(array($this->article_id, $this->user_id, $this->text, $this->parent_id, $this->root_id))
                     ->execute();
 
-        if ($idAndRowAffected)
-        {
+        if ($idAndRowAffected) {
             $comment = DB::select()->from('Comments')->where('id', '=', $idAndRowAffected[0])->execute()->current();
 
             $this->fillByRow($comment);
@@ -50,8 +49,7 @@ Class Model_Comment extends Model
         $comment = DB::select('*')->from('Comments')->where('id', '=', $this->id)->execute();
         $article_id = $comment[0]['article_id'];
 
-        if ($this->user_id != $user->id)
-        {
+        if ($this->user_id != $user->id) {
             return $article_id;
         }
 
@@ -60,7 +58,7 @@ Class Model_Comment extends Model
         {
             $subcomments = DB::select('*')->from('Comments')->where('parent_id', '=', $parent_id)->execute();
 
-            foreach($subcomments as $comment):
+            foreach ($subcomments as $comment):
                 delete_subcomments($comment['id']);
             endforeach;
 
@@ -69,7 +67,6 @@ Class Model_Comment extends Model
         delete_subcomments($this->id);
 
         return $article_id;
-
     }
 
     /**
@@ -137,8 +134,7 @@ Class Model_Comment extends Model
 
     public static function countCommentsByArticle($article_id)
     {
-        if (!empty($article_id))
-        {
+        if (!empty($article_id)) {
             $commentsCount = DB::select(array(DB::expr('COUNT(id)') , 'counter'))
                             ->from('Comments')
                             ->where('article_id', '=', $article_id)

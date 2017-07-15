@@ -1,6 +1,6 @@
-<?php defined('SYSPATH') OR die('No Direct Script Access');
+<?php defined('SYSPATH') or die('No Direct Script Access');
 
-Class Model_User extends Model
+class Model_User extends Model
 {
     public $id;
     public $name        = '';
@@ -41,7 +41,6 @@ Class Model_User extends Model
     */
     public function getUsersByIds($ids)
     {
-
         if (empty($ids)) {
             return;
         }
@@ -51,8 +50,9 @@ Class Model_User extends Model
                     ->cached(Date::MINUTE * 10, 'users_by_ids:' . implode(',', $ids))
                     ->execute();
 
-        if (!$users)
+        if (!$users) {
             return array();
+        }
 
         $models = array();
 
@@ -149,7 +149,6 @@ Class Model_User extends Model
     public function remove()
     {
         if ($this->id != 0) {
-
             DB::update('Users')->where('id', '=', $this->id)
                 ->set(array('is_removed' => 1))
                 ->execute();
@@ -176,16 +175,13 @@ Class Model_User extends Model
     {
         $result = false;
 
-        if ($social == "vk")
-        {
+        if ($social == "vk") {
             $result = DB::insert('Users', array('name', 'vk_id',
                 'photo', 'photo_small', 'photo_big', 'role', 'is_removed'))->
             values(array($this->name, $this->vk_id,
                 $this->photo, $this->photo_small, $this->photo_big, $this->role, $this->is_removed))
                 ->execute();
-        }
-        else
-        {
+        } else {
             $result = DB::insert('Users', array('name', 'github_id', 'github_uri',
                 'photo', 'photo_small', 'photo_big', 'role', 'is_removed'))->
             values(array($this->name, $this->github_id, $this->github_uri,
@@ -193,10 +189,11 @@ Class Model_User extends Model
                 ->execute();
         }
 
-        if ($result)
+        if ($result) {
             return $result;
-        else
+        } else {
             return false;
+        }
     }
 
 
@@ -207,21 +204,21 @@ Class Model_User extends Model
     public function update()
     {
         $update = Dao_Users::update()
-            ->set('name',          $this->name)
-            ->set('uri',           $this->uri)
-            ->set('github_id',     $this->github_id)
-            ->set('github_uri',    $this->github_uri)
-            ->set('photo',         $this->photo)
-            ->set('dt_update',     $this->dt_update)
-            ->set('photo_small',   $this->photo_small)
-            ->set('photo_big',     $this->photo_big)
-            ->set('role',          $this->role)
-            ->set('is_removed',    $this->is_removed)
-            ->set('vk_id',         $this->vk_id)
-            ->set('vk_uri',        $this->vk_uri)
-            ->set('fb_uri',        $this->fb_uri)
+            ->set('name', $this->name)
+            ->set('uri', $this->uri)
+            ->set('github_id', $this->github_id)
+            ->set('github_uri', $this->github_uri)
+            ->set('photo', $this->photo)
+            ->set('dt_update', $this->dt_update)
+            ->set('photo_small', $this->photo_small)
+            ->set('photo_big', $this->photo_big)
+            ->set('role', $this->role)
+            ->set('is_removed', $this->is_removed)
+            ->set('vk_id', $this->vk_id)
+            ->set('vk_uri', $this->vk_uri)
+            ->set('fb_uri', $this->fb_uri)
             ->set('instagram_uri', $this->instagram_uri)
-            ->set('bio',           $this->bio)
+            ->set('bio', $this->bio)
             ->where('id', '=', $this->id)
             ->clearcache($this->id)
             ->execute();
@@ -232,10 +229,10 @@ Class Model_User extends Model
 
     public function checkAccess($roles)
     {
-        foreach ($roles as $role)
-        {
-            if ($role == Model_User::ROLE_ANY || $role == $this->role)
+        foreach ($roles as $role) {
+            if ($role == Model_User::ROLE_ANY || $role == $this->role) {
                 return true;
+            }
         }
         return false;
     }
@@ -264,13 +261,12 @@ Class Model_User extends Model
 
         // занесения данных в бд
         $this->update();
-
     }
 
     /**
     * Saves user join-request
     */
-    public function saveJoinRequest($skills, $wishes = NULL)
+    public function saveJoinRequest($skills, $wishes = null)
     {
         return Dao_Requests::insert()
                              ->set('uid', $this->id)
@@ -286,8 +282,10 @@ Class Model_User extends Model
     */
     public function getUserRequests()
     {
-        if (!$this->id) return array();
+        if (!$this->id) {
+            return array();
+        }
 
-        return Dao_Requests::select()->where('uid','=', $this->id)->cached(Date::MINUTE * 10, $this->id)->execute();
+        return Dao_Requests::select()->where('uid', '=', $this->id)->cached(Date::MINUTE * 10, $this->id)->execute();
     }
 }
