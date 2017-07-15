@@ -1,4 +1,4 @@
-<?php defined('SYSPATH') OR die('No Direct Script Access');
+<?php defined('SYSPATH') or die('No Direct Script Access');
 
 /**
  * Created by PhpStorm.
@@ -6,7 +6,7 @@
  * Date: 10.12.15
  * Time: 13:59
  */
-Class Model_Sessions extends Model
+class Model_Sessions extends Model
 {
     public $id;
     public $user_id;
@@ -40,8 +40,9 @@ Class Model_Sessions extends Model
      */
     public function get_user_id($token=null)
     {
-        if (!$token)
+        if (!$token) {
             $token = $this->auth_token;
+        }
 
         $current_session = Dao_Sessions::select('user_id')
             ->where('access_token', '=', $token)
@@ -49,12 +50,9 @@ Class Model_Sessions extends Model
             ->limit(1)
             ->execute();
 
-        if (isset($current_session['user_id']))
-        {
+        if (isset($current_session['user_id'])) {
             return $current_session['user_id'];
-        }
-        else
-        {
+        } else {
             Dao_Sessions::select()->clearcache('sessions/' . $token);
             return false;
         }

@@ -10,8 +10,9 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
     public function before()
     {
         parent::before();
-        if (!$this->user->checkAccess(array(Model_User::ROLE_ADMIN)))
+        if (!$this->user->checkAccess(array(Model_User::ROLE_ADMIN))) {
             throw new HTTP_Exception_403();
+        }
     }
 
     public function action_save()
@@ -49,13 +50,9 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         $pageContent = Arr::get($_POST, 'article_json', '');
 
         try {
-
             $editor = new CodexEditor($pageContent);
-
         } catch (Kohana_Exception $e) {
-
             throw new Kohana_Exception($e->getMessage());
-
         }
 
         $article->title        = Arr::get($_POST, 'title');
@@ -72,17 +69,17 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
          * */
         $item_below_key = Arr::get($_POST, 'item_below_key', 0);
 
-        if ( !$article->title ){
+        if (!$article->title) {
             $this->view['error'] = 'Не заполнен заголовок';
             goto theEnd;
         }
 
-        if ( !$article->json ){
+        if (!$article->json) {
             $this->view['error'] = 'А где само тело статьи?';
             goto theEnd;
         }
 
-        if ( !$article->description ){
+        if (!$article->description) {
             $this->view['error'] = 'Не заполнено описание. Это важное поле: опишите коротко, о чем пойдет речь в статье';
             goto theEnd;
         }
@@ -103,7 +100,6 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         }
 
         if (!$courses_ids) {
-
             Model_Courses::deleteArticles($article->id);
 
             if ($article->is_published && !$article->is_removed) {
@@ -116,13 +112,10 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             } else {
                 $feed->remove($article->id);
             }
-
         } else {
-
             $current_courses = Model_Courses::getCoursesByArticleId($article);
 
             if ($current_courses) {
-
                 $courses_to_delete = array_diff($current_courses, $courses_ids);
                 $courses_to_add = array_diff($courses_ids, $current_courses);
 
@@ -131,13 +124,10 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
                 foreach ($courses_to_add as $course_id) {
                     Model_Courses::addArticle($article->id, $course_id);
                 }
-
             } else {
-
                 foreach ($courses_ids as $course_id) {
                     Model_Courses::addArticle($article->id, $course_id);
                 }
-
             }
 
             $feed->remove($article->id);
@@ -174,5 +164,4 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
 
         $this->redirect('/admin/articles');
     }
-
 }

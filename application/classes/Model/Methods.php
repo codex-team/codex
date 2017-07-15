@@ -2,9 +2,9 @@
 
 class Model_Methods extends Model
 {
-	/**
-	*	Site Methods Model
-	*/
+    /**
+    *	Site Methods Model
+    */
 
     public $IMAGE_SIZES_CONFIG = array(
         // первый параметр - вырезать квадрат (true) или просто ресайзить с сохранением пропрорций (false)
@@ -23,10 +23,10 @@ class Model_Methods extends Model
     */
     public function num_decline($num, $nominative, $genitive_singular, $genitive_plural)
     {
-        if($num > 10 && ( floor(($num % 100) / 10) )  == 1){
-                return $genitive_plural;
+        if ($num > 10 && (floor(($num % 100) / 10))  == 1) {
+            return $genitive_plural;
         } else {
-            switch($num % 10){
+            switch ($num % 10) {
                 case 1: return $nominative;
                 case 2: case 3: case 4: return $genitive_singular;
                 case 5: case 6: case 7: case 8: case 9: case 0: return $genitive_plural;
@@ -43,51 +43,52 @@ class Model_Methods extends Model
 
         $uploaddir = 'upload/covers/';
 
-        if ($file = Upload::save($cover, NULL, $uploaddir)){
+        if ($file = Upload::save($cover, null, $uploaddir)) {
             Image::factory($file)->save($uploaddir . $cover['name']);
             unlink($file);
 
             return $cover['name'];
-        }
-        else {
+        } else {
             return false;
         }
     }
 
 
-    public function saveImage( $file , $path )
+    public function saveImage($file, $path)
     {
         /**
          *   Проверки на  Upload::valid($file) OR Upload::not_empty($file) OR Upload::size($file, '8M') делаются в контроллере.
          */
-        if (!Upload::type($file, array('jpg', 'jpeg', 'png', 'gif'))) return FALSE;
-        if (!is_dir($path)) mkdir($path);
+        if (!Upload::type($file, array('jpg', 'jpeg', 'png', 'gif'))) {
+            return false;
+        }
+        if (!is_dir($path)) {
+            mkdir($path);
+        }
 
         $copy_file = $file;
 
-        if ( $file = Upload::save($file, NULL, $path) ){
-
+        if ($file = Upload::save($file, null, $path)) {
             $filename = bin2hex(openssl_random_pseudo_bytes(16)) . '.jpg';
             $image = Image::factory($file);
 
             foreach ($this->IMAGE_SIZES_CONFIG as $prefix => $sizes) {
-
                 $isSquare = !!$sizes[0];
                 $width    = $sizes[1];
                 $height   = !$isSquare ? $sizes[2] : $width;
                 $image->background('#fff');
 
                 // Вырезание квадрата
-                if ( $isSquare ){
-                    if ( $image->width >= $image->height ) {
-                        $image->resize( NULL , $height, true );
+                if ($isSquare) {
+                    if ($image->width >= $image->height) {
+                        $image->resize(null, $height, true);
                     } else {
-                        $image->resize( $width , NULL, true );
+                        $image->resize($width, null, true);
                     }
-                    $image->crop( $width, $height );
+                    $image->crop($width, $height);
                 } else {
-                    if ( $image->width > $width || $image->height > $height  ) {
-                        $image->resize( $width , $height , true );
+                    if ($image->width > $width || $image->height > $height) {
+                        $image->resize($width, $height, true);
                     }
                 }
                 $image->save($path . $prefix . '_' . $filename);
@@ -95,14 +96,13 @@ class Model_Methods extends Model
             // Delete the temporary file
             unlink($file);
             return $filename;
-
         }
 
-        return FALSE;
+        return false;
     }
 
-    public function saveRedactorsImage($file) {
-
+    public function saveRedactorsImage($file)
+    {
         $filename = uniqid() . '.jpg';
         $image = Image::factory($file['tmp_name'])->save('upload/redactor_images/' . $filename);
 
@@ -113,14 +113,17 @@ class Model_Methods extends Model
      * @param array $sizes - array of keys in IMAGE_SIZES_CONFIG that need to be cropped
      * @param array $forcedSizes - new size config looks like IMAGE_SIZES_CONFIG
      */
-    public function saveImageByUrl( $url, $path, $sizes = null, $forcedSizes = null )
+    public function saveImageByUrl($url, $path, $sizes = null, $forcedSizes = null)
     {
         $file = $this->getFiles($url);
 
         if ($file) {
-
-            if (!Upload::type($file, array('jpg', 'jpeg', 'png', 'gif'))) return FALSE;
-            if (!is_dir($path)) mkdir($path);
+            if (!Upload::type($file, array('jpg', 'jpeg', 'png', 'gif'))) {
+                return false;
+            }
+            if (!is_dir($path)) {
+                mkdir($path);
+            }
             return $this->saveRedactorsImage($file);
         }
 
@@ -135,7 +138,9 @@ class Model_Methods extends Model
 
         $imgRawData = @file_get_contents($url);
 
-        if (!$imgRawData) return false;
+        if (!$imgRawData) {
+            return false;
+        }
         file_put_contents($tempName, $imgRawData);
         return array(
             'name' => $originalName,
@@ -148,9 +153,9 @@ class Model_Methods extends Model
 
 
     /** Saving uploaded file to database */
-    public function newFile( $fields )
+    public function newFile($fields)
     {
-        return current(DB::insert( 'files' , array_keys($fields) )->values(array_values($fields))->execute());
+        return current(DB::insert('files', array_keys($fields))->values(array_values($fields))->execute());
     }
 
     public static function getUriByTitle($string)
@@ -170,7 +175,8 @@ class Model_Methods extends Model
      * Транслитерация кириллицы
      * @param string $string - строка с киррилицей
      */
-    public static function rus2translit($string) {
+    public static function rus2translit($string)
+    {
         $converter = array(
             'а' => 'a',   'б' => 'b',   'в' => 'v',
             'г' => 'g',   'д' => 'd',   'е' => 'e',
@@ -227,17 +233,19 @@ class Model_Methods extends Model
      * @param string $path - строка с киррилицей
      * @param int $rights   - права на директории. По умолчанию 0777
      */
-    function CreateDirRec($path, $rights = 0777){
+    public function CreateDirRec($path, $rights = 0777)
+    {
         //        mkdir($parh, $rights, true); // do not work recursivle on win :(
 
         $arr = explode('/', $path);
         $dir = "";
 
-        foreach($arr as $key => $val){
+        foreach ($arr as $key => $val) {
             $dir .= $val . "/";
 
-            if (!file_exists($dir))
+            if (!file_exists($dir)) {
                 mkdir($dir, $rights);
+            }
         }
     }
 
@@ -249,24 +257,24 @@ class Model_Methods extends Model
         foreach ($comments as $comment):
             $comments_table_rebuild[] = $comment;
 
-            $var_k = $i;
-            for ($j = 0; $j < $i; $j++) {
-                if ($comment->parent_id == $comments_table_rebuild[$j]->id) {
-                    for ($k = $j + 1; $k < $i; $k++) {
-                        if ($comment->parent_id != $comments_table_rebuild[$k]->parent_id) {
-                            $var_k = $k;
-                            break;
-                        };
+        $var_k = $i;
+        for ($j = 0; $j < $i; $j++) {
+            if ($comment->parent_id == $comments_table_rebuild[$j]->id) {
+                for ($k = $j + 1; $k < $i; $k++) {
+                    if ($comment->parent_id != $comments_table_rebuild[$k]->parent_id) {
+                        $var_k = $k;
+                        break;
                     };
-                    break;
                 };
+                break;
             };
-            for ($j = $i; $j >= $var_k; $j--) {
-                $comments_table_rebuild[$j + 1] = $comments_table_rebuild[$j];
-            }
+        };
+        for ($j = $i; $j >= $var_k; $j--) {
+            $comments_table_rebuild[$j + 1] = $comments_table_rebuild[$j];
+        }
 
-            $comments_table_rebuild[$var_k] = $comment;
-            $i++;
+        $comments_table_rebuild[$var_k] = $comment;
+        $i++;
         endforeach;
         array_pop($comments_table_rebuild);
 
@@ -312,23 +320,23 @@ class Model_Methods extends Model
      */
      public function parseUri($url)
      {
-        $parsed_url = parse_url($url, PHP_URL_PATH);
+         $parsed_url = parse_url($url, PHP_URL_PATH);
 
         //проверки на валидность строки
-        if ($parsed_url == '/' || $parsed_url == null){
+        if ($parsed_url == '/' || $parsed_url == null) {
             return null;
-        } elseif (substr($parsed_url, 0, 1) == '/'){
+        } elseif (substr($parsed_url, 0, 1) == '/') {
             return substr($parsed_url, 1);
         } else {
             return $parsed_url;
         }
-    }
+     }
 
     /**
     * Saves user join-request
     * @param array $fields  skills, wishes, uid, email, name
     */
-    public function saveJoinRequest( $fields )
+    public function saveJoinRequest($fields)
     {
         $saving = Dao_Requests::insert();
 
@@ -341,6 +349,5 @@ class Model_Methods extends Model
         }
 
         return $saving->execute();
-
     }
 }

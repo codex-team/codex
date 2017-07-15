@@ -5,9 +5,8 @@
  * User: eliseev
  * Date: 17/11/15
  */
-class Dao_Articles extends Dao_MySQL_Base {
-
+class Dao_Articles extends Dao_MySQL_Base
+{
     protected $cache_key = 'Dao_Articles';
     protected $table     = 'Articles';
-
 }

@@ -4,7 +4,6 @@ use \CodexEditor\CodexEditor;
 
 class Controller_Articles_Index extends Controller_Base_preDispatch
 {
-
     public function action_showAll()
     {
         $feed = new Model_Feed_Articles();
@@ -23,7 +22,6 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
     public function action_show()
     {
-
         $articleId = $this->request->param('id') ?: $this->request->query('id');
         $isAlias = $this->request->query('id');
 
@@ -50,7 +48,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
             $this->getArticlesFromCourse($articleId, $courseId);
         }
 
-        if ($article->id == 0 || $article->is_removed){
+        if ($article->id == 0 || $article->is_removed) {
             throw new HTTP_Exception_404();
         }
 
@@ -87,18 +85,13 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
      * @param string $content - json encoded data
      * @return array
      */
-    private function drawArticleBlocks( $content ){
-
+    private function drawArticleBlocks($content)
+    {
         try {
-
             $editor = new CodexEditor($content);
             $blocks = $editor->getBlocks();
-
-
         } catch (Kohana_Exception $e) {
-
             throw new Kohana_Exception($e->getMessage());
-
         }
 
         $renderedBlocks = array();
@@ -106,15 +99,13 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         /**
          * Using PHP renderer for Articles
          */
-        for ( $i = 0; $i < count($blocks); $i++ ){
-
+        for ($i = 0; $i < count($blocks); $i++) {
             $renderedBlocks[] = View::factory('templates/editor/plugins/' . $blocks[$i]['type'], array(
                 'block' => (object) $blocks[$i]['data']
             ))->render();
         }
 
         return $renderedBlocks;
-
     }
 
     /**
@@ -140,7 +131,6 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
          */
         $counter = 0;
         foreach ($course_articles as $articles) {
-
             $articleList[] = Model_Article::get($articles['article_id']);
 
             if ($articles['article_id'] == $articleId) {
@@ -155,7 +145,6 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
          * If next or previous article exists, then we send it to view
          */
         if ($position + 1 < count($course_articles)) {
-
             $nextArticleId = $course_articles[$position + 1]['article_id'];
             $nextArticle = Model_Article::get($nextArticleId);
 
@@ -163,7 +152,6 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         }
 
         if ($position - 1 >= 0) {
-
             $previousArticleId = $course_articles[$position - 1]['article_id'];
             $previousArticle = Model_Article::get($previousArticleId);
 

@@ -1,4 +1,4 @@
-<?php defined('SYSPATH') OR die('No Direct Script Access');
+<?php defined('SYSPATH') or die('No Direct Script Access');
 
 /**
  * Модель контестов, имеет поля, соответствующие полям в базе данных и статические методы для получения
@@ -6,7 +6,7 @@
  *
  * @author     Alexander Menshikov
  */
-Class Model_Contests extends Model
+class Model_Contests extends Model
 {
     public $id = 0;
     public $uri;
@@ -38,14 +38,14 @@ Class Model_Contests extends Model
     public function insert()
     {
         $idAndRowAffected = Dao_Contests::insert()
-                                ->set('title',          $this->title)
-                                ->set('text',           $this->text)
-                                ->set('prize',          $this->prize)
-                                ->set('dt_close',       $this->dt_close)
-                                ->set('status',         $this->status)
-                                ->set('winner',         $this->winner)
-                                ->set('results',        $this->results)
-                                ->set('description',    $this->description)
+                                ->set('title', $this->title)
+                                ->set('text', $this->text)
+                                ->set('prize', $this->prize)
+                                ->set('dt_close', $this->dt_close)
+                                ->set('status', $this->status)
+                                ->set('winner', $this->winner)
+                                ->set('results', $this->results)
+                                ->set('description', $this->description)
                                 ->clearcache('contests_list')
                                 ->execute();
 
@@ -70,10 +70,14 @@ Class Model_Contests extends Model
      */
     private function fillByRow($contest_row)
     {
-        if (empty($contest_row['id'])) return $this;
+        if (empty($contest_row['id'])) {
+            return $this;
+        }
 
         foreach ($contest_row as $fieldname => $value) {
-            if (property_exists($this, $fieldname)) $this->$fieldname = $value;
+            if (property_exists($this, $fieldname)) {
+                $this->$fieldname = $value;
+            }
         }
 
         return $this;
@@ -88,7 +92,6 @@ Class Model_Contests extends Model
     public function remove()
     {
         if ($this->id != 0) {
-
             Dao_Contests::update()->where('id', '=', $this->id)
                 ->set('status', -1)
                 ->clearcache('contests_list')
@@ -106,17 +109,17 @@ Class Model_Contests extends Model
     public function update()
     {
         Dao_Contests::update()->where('id', '=', $this->id)
-            ->set('uri',            $this->uri)
-            ->set('title',          $this->title)
-            ->set('text',           $this->text)
-            ->set('results',        $this->results)
-            ->set('prize',          $this->prize)
-            ->set('dt_close',       $this->dt_close)
-            ->set('status',         $this->status)
-            ->set('winner',         $this->winner)
-            ->set('dt_update',      $this->dt_update)
-            ->set('results',        $this->results)
-            ->set('description',    $this->description)
+            ->set('uri', $this->uri)
+            ->set('title', $this->title)
+            ->set('text', $this->text)
+            ->set('results', $this->results)
+            ->set('prize', $this->prize)
+            ->set('dt_close', $this->dt_close)
+            ->set('status', $this->status)
+            ->set('winner', $this->winner)
+            ->set('dt_update', $this->dt_update)
+            ->set('results', $this->results)
+            ->set('description', $this->description)
             ->clearcache($this->id)
             ->execute();
     }
@@ -196,7 +199,6 @@ Class Model_Contests extends Model
 
         if (!empty($contest_rows)) {
             foreach ($contest_rows as $contest_row) {
-
                 $contest = new Model_Contests();
                 $contest->fillByRow($contest_row);
                 array_push($contests, $contest);

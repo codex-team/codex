@@ -28,5 +28,4 @@ class Controller_Landings extends Controller_Base_preDispatch
         $this->description = 'Platfrom for building UGC media';
         $this->template->content = View::factory('templates/landings/media', $this->view);
     }
-
 }

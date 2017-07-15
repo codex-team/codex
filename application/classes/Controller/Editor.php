@@ -27,19 +27,14 @@ class Controller_Editor extends Controller_Base_preDispatch
         $editor = new CodexEditor($json);
 
         try {
-
             $data = json_decode($editor->getData());
             // get only block
             $blocks = $data->data;
-
         } catch (Exception $e) {
-
             throw new Kohana_Exception($e->getMessage());
-
         }
 
-        for($i = 0; $i < count($blocks); $i++)
-        {
+        for ($i = 0; $i < count($blocks); $i++) {
             $render[] = View::factory('templates/editor/plugins/' . $blocks[$i]->type, array('block' => $blocks[$i]->data))
                         ->render();
         }
@@ -49,7 +44,6 @@ class Controller_Editor extends Controller_Base_preDispatch
                 'render'  => $render,
                 'article' => $article
             ));
-
     }
 
     /**
@@ -60,8 +54,7 @@ class Controller_Editor extends Controller_Base_preDispatch
         $url = $this->get_url();
         $url_params = parse_url($url);
 
-        if (!$url)
-        {
+        if (!$url) {
             exit(0);
         }
 
@@ -82,7 +75,6 @@ class Controller_Editor extends Controller_Base_preDispatch
         $this->auto_render = false;
         $this->response->headers('Content-Type', 'application/json; charset=utf-8');
         $this->response->body(@json_encode($result));
-
     }
 
     private function file_get_contents_curl($url)
@@ -95,7 +87,7 @@ class Controller_Editor extends Controller_Base_preDispatch
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 8);
         curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-        curl_setopt($ch, CURLOPT_USERAGENT,'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36');
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36');
 
         $data = curl_exec($ch);
         curl_close($ch);
@@ -105,14 +97,13 @@ class Controller_Editor extends Controller_Base_preDispatch
 
     private function get_url()
     {
-        if (!isset($_GET['url']))
-        {
+        if (!isset($_GET['url'])) {
             return false;
         }
 
         $url = Arr::get($_GET, 'url');
 
-        if (filter_var($url, FILTER_VALIDATE_URL) === FALSE) {
+        if (filter_var($url, FILTER_VALIDATE_URL) === false) {
             return false;
         }
 
@@ -132,14 +123,15 @@ class Controller_Editor extends Controller_Base_preDispatch
 
         $metas = $doc->getElementsByTagName('meta');
 
-        for ($i = 0; $i < $metas->length; $i++)
-        {
+        for ($i = 0; $i < $metas->length; $i++) {
             $meta = $metas->item($i);
-            if($meta->getAttribute('name') == 'description')
+            if ($meta->getAttribute('name') == 'description') {
                 $description = $meta->getAttribute('content');
-            if($meta->getAttribute('name') == 'keywords')
+            }
+            if ($meta->getAttribute('name') == 'keywords') {
                 $keywords = $meta->getAttribute('content');
-            if($meta->getAttribute('property')=='og:image'){
+            }
+            if ($meta->getAttribute('property')=='og:image') {
                 $image = $meta->getAttribute('content');
             }
         }

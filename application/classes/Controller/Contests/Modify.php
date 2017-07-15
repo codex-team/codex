@@ -8,8 +8,9 @@ class Controller_Contests_Modify extends Controller_Base_preDispatch
     public function before()
     {
         parent::before();
-        if (!$this->user->checkAccess(array(Model_User::ROLE_ADMIN)))
+        if (!$this->user->checkAccess(array(Model_User::ROLE_ADMIN))) {
             $this->redirect('/');
+        }
     }
 
     public function action_save()
@@ -21,7 +22,7 @@ class Controller_Contests_Modify extends Controller_Base_preDispatch
          * так как срабатывает обычный роут, то при отправке формы передается переменная contest_id.
          * Форма отправляет POST запрос
          */
-        if ($this->request->post() ){
+        if ($this->request->post()) {
             $contest_id = Arr::get($_POST, 'contest_id');
             $contest = Model_Contests::get($contest_id, true);
         }
@@ -29,7 +30,7 @@ class Controller_Contests_Modify extends Controller_Base_preDispatch
          * Редактирование через Алиас
          * Здесь сперва запрос получает Controller_Uri, которая будет передавать id сущности через query('id')
          */
-        else if ($contest_id = $this->request->param('id') ?: $this->request->query('id')) {
+        elseif ($contest_id = $this->request->param('id') ?: $this->request->query('id')) {
             $contest = Model_Contests::get($contest_id);
         } else {
             $contest = new Model_Contests();
@@ -48,7 +49,6 @@ class Controller_Contests_Modify extends Controller_Base_preDispatch
             $alias = Model_Alias::generateUri($uri);
 
             if ($contest->title && $contest->text && $contest->description && $contest->dt_close) {
-
                 if ($contest_id) {
                     $contest->dt_update = date('Y-m-d H:i:s');
                     $contest->uri = Model_Alias::updateAlias($contest->uri, $alias, Model_Uri::CONTEST, $contest_id);
@@ -60,8 +60,7 @@ class Controller_Contests_Modify extends Controller_Base_preDispatch
 
                 // Если поле uri пустое, то редиректить на обычный роут /contest/id
                 $redirect = ($uri) ? $contest->uri : '/contest/' . $contest->id;
-                $this->redirect( $redirect );
-
+                $this->redirect($redirect);
             } else {
                 $this->view['error'] = true;
             }
@@ -75,12 +74,10 @@ class Controller_Contests_Modify extends Controller_Base_preDispatch
         $user_id = $this->user->id;
         $contest_id = $this->request->param('contest_id') ?: $this->request->query('id');
 
-        if (!empty($contest_id) && !empty($user_id))
-        {
+        if (!empty($contest_id) && !empty($user_id)) {
             Model_Contests::get($contest_id)->remove();
         }
 
         $this->redirect('/admin/contests');
     }
-
 }
