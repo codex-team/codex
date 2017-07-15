@@ -16,7 +16,7 @@
 }
 .codex-bot__description {
     display: inline-block;
-    margin-left: 30px;
+    margin-left: 35px;
 }
 .codex-bot__logo {
     height: 115px;
@@ -26,12 +26,14 @@
 .codex-bot__info {
     color: #000;
     font-size: 18px;
+    line-height: 22px;
     font-weight: 400;
     margin: 0;
 }
 .codex-bot__name {
     color: #000;
     font-size: 51px;
+    line-height: 61px;
     font-weight: 700;
     line-height: initial;
 }
@@ -42,7 +44,7 @@
 }
 .codex-bot__links-item {
     font-size: 19px;
-    color: #0050BA;
+    line-height: 32px;
     text-decoration: none;
     margin-right: 15px;
 }
@@ -51,19 +53,20 @@
     padding: 12px 15px;
     width: 227px;
     background-color: #fff;
-    border-radius: 5px;
-    border: 1px solid #E7E7E7;
     color: #000;
     font-size: 20px;
+    line-height: 24px;
     text-decoration: none;
     display: inline-block;
     text-align: left;
     margin-bottom: 15px;
-    box-shadow: 0 2px 2px 0 #E7E7E7;
+    border: 1px solid #E7E7E7;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.04);
+    border-radius: 5px;
     float: right;
 }
 .codex-bot__button:hover {
-    background-color: #f7f4f4;
+    background-color: #FDFDFD;
     color: initial;
 }
 .codex-bot__button-img {
@@ -80,10 +83,11 @@
     align-items: baseline;
     padding: 40px 0;
     font-size: 19px;
+    line-height: 22px;
 }
 .codex-bot__integrations-link {
-    color: #0050BA;
     font-size: 15px;
+    line-height: 18px;
     margin-left: 20px;
 }
 .codex-bot__integrations-layout {
@@ -96,26 +100,29 @@
     border-radius: 2px;
 }
 .integrations__block-content {
-    display: inline-block;
+    width: 351px;
 }
 .integrations__block:first-of-type {
     margin-right: 20px;
 }
-.integrations__block-logo {
+.integrations__block-github {
     padding: 20px;
     border: 1px solid #F4F4F4;
     border-radius: 3px;
     margin-right: 30px;
+    height: 44px;
     align-self: flex-start;
 }
 .integrations__block-title {
     font-size: 22px;
+    line-height: 27px;
 }
 .integrations__block-yandex {
     width: 67px;
 }
 .integrations__block-desc {
     font-size: 15px;
+    line-height: 20px;
     color: #626262;
     padding: 15px 0;
 }
@@ -132,6 +139,7 @@
 }
 .integrations__block-link {
     font-size: 13px;
+    line-height: 19px;
     color: #626262;
     float: right;
 }
@@ -151,6 +159,10 @@
     .codex-bot__name {
         font-size: 30px;
     }
+    .codex-bot__description {
+        margin-left: 0;
+        margin-top: 20px;
+    }
     .codex-bot__button-layout {
         display: flex;
         flex-direction: column;
@@ -165,6 +177,8 @@
     }      
     .codex-bot__links-item {
         font-size: 14px;
+        line-height: 21px;
+        margin-right: 0;
         display: block;
     }
     .codex-bot__integrations-title  {
@@ -184,7 +198,7 @@
         margin-right: 0;
         margin-bottom: 15px;
     }
-    .integrations__block-logo {
+    .integrations__block-github {
         display: none;
     }
     .integrations__block-link {
