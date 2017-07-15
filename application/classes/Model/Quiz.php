@@ -1,7 +1,7 @@
-<?php defined('SYSPATH') OR die('No Direct Script Access');
+<?php defined('SYSPATH') or die('No Direct Script Access');
 
 
-Class Model_Quiz extends Model
+class Model_Quiz extends Model
 {
     public $id = 0;
     public $title;
@@ -22,9 +22,9 @@ Class Model_Quiz extends Model
     public function insert()
     {
         $idAndRowAffected = Dao_Quizzes::insert()
-            ->set('title',          $this->title)
-            ->set('quiz_data',      $this->quiz_data)
-            ->set('description',    $this->description)
+            ->set('title', $this->title)
+            ->set('quiz_data', $this->quiz_data)
+            ->set('description', $this->description)
             ->execute();
 
         if ($idAndRowAffected) {
@@ -37,10 +37,10 @@ Class Model_Quiz extends Model
     public function update()
     {
         Dao_Quizzes::update()->where('id', '=', $this->id)
-            ->set('title',       $this->title)
+            ->set('title', $this->title)
             ->set('description', $this->description)
-            ->set('quiz_data',   $this->quiz_data)
-            ->set('dt_update',   $this->dt_update)
+            ->set('quiz_data', $this->quiz_data)
+            ->set('dt_update', $this->dt_update)
             ->clearcache($this->id)
             ->execute();
     }
@@ -62,7 +62,6 @@ Class Model_Quiz extends Model
     private function fillByRow($quiz_row)
     {
         if (!empty($quiz_row['id'])) {
-
             $this->id           = $quiz_row['id'];
             $this->title        = $quiz_row['title'];
             $this->description  = $quiz_row['description'];
@@ -74,8 +73,8 @@ Class Model_Quiz extends Model
         return $this;
     }
 
-    public static function getTitles() {
-
+    public static function getTitles()
+    {
         $quizzes = Dao_Quizzes::select(array('id', 'title'))
             ->where('is_removed', '=', 0)
             ->execute();

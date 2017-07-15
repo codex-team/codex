@@ -2,12 +2,12 @@
 
 class Controller_Admin extends Controller_Base_preDispatch
 {
-
     public function before()
     {
         parent::before();
-        if (!$this->user->checkAccess(array(Model_User::ROLE_ADMIN)))
+        if (!$this->user->checkAccess(array(Model_User::ROLE_ADMIN))) {
             throw new HTTP_Exception_403();
+        }
     }
 
     public function action_index()
@@ -17,31 +17,30 @@ class Controller_Admin extends Controller_Base_preDispatch
 
         switch ($category) {
 
-            case 'feed' :
+            case 'feed':
                 $pageContent = self::feed();
                 break;
-            case 'articles' :
+            case 'articles':
                 $pageContent = self::articles();
                 break;
-            case 'users'    :
+            case 'users':
                 $pageContent = self::users();
                 break;
-            case 'contests' :
+            case 'contests':
                 $pageContent = self::contests();
                 break;
-            case 'courses' :
+            case 'courses':
                 $pageContent = self::courses();
                 break;
-            case 'requests'    :
+            case 'requests':
                 $pageContent = self::requests();
                 break;
-            default         :
+            default:
                 $pageContent = View::factory("templates/admin/dashboard");
                 break;
         }
 
         $this->template->content = View::factory("templates/admin/wrapper", array("content" => $pageContent));
-
     }
 
     public function action_edit()
@@ -61,7 +60,6 @@ class Controller_Admin extends Controller_Base_preDispatch
 
     public function articles()
     {
-
         $articles = Model_Article::getAllArticles();
 
         foreach ($articles as $article) {
@@ -71,19 +69,16 @@ class Controller_Admin extends Controller_Base_preDispatch
         $this->view["articles"] = $articles;
 
         return View::factory('templates/admin/articles/list', $this->view);
-
     }
 
     public function users()
     {
-
         $bestDevelopers = new Model_Feed_Developers();
 
         $this->view["users"]    = Model_User::getAll();
         $this->view["bestDevs"] = $bestDevelopers->get();
 
         return View::factory('templates/admin/users/list', $this->view);
-
     }
 
     public function feed()
@@ -107,51 +102,42 @@ class Controller_Admin extends Controller_Base_preDispatch
         $feed->putAbove($json_data->item_id, $json_data->item_below_value);
 
         $this->auto_render = false;
-
     }
 
     public function contests()
     {
-
         $contests = Model_Contests::getAllContests();
 
-        foreach ($contests as $contest)
-        {
+        foreach ($contests as $contest) {
             $contest->winner = Model_User::get($contest->winner);
         }
 
         $this->view["contests"] = $contests;
 
         return View::factory('templates/admin/contests/list', $this->view);
-
     }
 
     public function courses()
     {
-
         $courses = Model_Courses::getAllCourses();
 
         $this->view["courses"] = $courses;
 
         return View::factory('templates/admin/courses/list', $this->view);
-
     }
 
     public function requests()
     {
-
         $requests = Dao_Requests::select()->execute();
 
         $request_list = array();
 
-        foreach ($requests as $request)
-        {
-            if ($request['uid'])
-            {
-              $request['user'] = Model_User::get((int)$request['uid']);
+        foreach ($requests as $request) {
+            if ($request['uid']) {
+                $request['user'] = Model_User::get((int)$request['uid']);
             } else {
-              $request['user'] = new Model_User();
-              $request['user']->name = $request['name'];
+                $request['user'] = new Model_User();
+                $request['user']->name = $request['name'];
             }
 
             $request_list[] = $request;
@@ -160,7 +146,6 @@ class Controller_Admin extends Controller_Base_preDispatch
         $this->view["requests"] = $request_list;
 
         return View::factory('templates/admin/requests/list', $this->view);
-
     }
 
     public function action_developer()
@@ -225,5 +210,4 @@ class Controller_Admin extends Controller_Base_preDispatch
 
         return 'Articles timeline was successfully updated';
     }
-
 }

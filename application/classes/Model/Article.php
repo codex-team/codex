@@ -1,4 +1,4 @@
-<?php defined('SYSPATH') OR die('No Direct Script Access');
+<?php defined('SYSPATH') or die('No Direct Script Access');
 
 /**
  * Модель статьи, имеет поля, соответствующие полям в базе данных и статические методы для получения
@@ -6,7 +6,7 @@
  *
  * @author     Eliseev Alexandr
  */
-Class Model_Article extends Model
+class Model_Article extends Model
 {
     public $id = 0;
     public $uri;
@@ -50,15 +50,15 @@ Class Model_Article extends Model
     public function insert()
     {
         $idAndRowAffected = Dao_Articles::insert()
-                                ->set('title',          $this->title)
-                                ->set('text',           $this->text)
-                                ->set('json',           $this->json)
-                                ->set('description',    $this->description)
-                                ->set('quiz_id',        $this->quiz_id)
-                                ->set('cover',          $this->cover)
-                                ->set('user_id',        $this->user_id)
-                                ->set('marked',         $this->marked)
-                                ->set('is_published',   $this->is_published)
+                                ->set('title', $this->title)
+                                ->set('text', $this->text)
+                                ->set('json', $this->json)
+                                ->set('description', $this->description)
+                                ->set('quiz_id', $this->quiz_id)
+                                ->set('cover', $this->cover)
+                                ->set('user_id', $this->user_id)
+                                ->set('marked', $this->marked)
+                                ->set('is_published', $this->is_published)
                                 ->clearcache('articles_list')
                                 ->execute();
 
@@ -84,7 +84,6 @@ Class Model_Article extends Model
     private function fillByRow($article_row)
     {
         if (!empty($article_row['id'])) {
-
             $this->id           = Arr::get($article_row, 'id');
             $this->uri          = Arr::get($article_row, 'uri');
             $this->title        = Arr::get($article_row, 'title');
@@ -116,7 +115,6 @@ Class Model_Article extends Model
     public function remove($user_id)
     {
         if ($this->id != 0 && $user_id == $this->user_id) {
-
             Dao_Articles::update()->where('id', '=', $this->id)
                 ->set('is_removed', 1)
                 ->clearcache('articles_list')
@@ -134,17 +132,17 @@ Class Model_Article extends Model
     public function update()
     {
         Dao_Articles::update()->where('id', '=', $this->id)
-            ->set('title',          $this->title)
-            ->set('uri',            $this->uri)
-            ->set('text',           $this->text)
-            ->set('json',           $this->json)
-            ->set('description',    $this->description)
-            ->set('quiz_id',        $this->quiz_id)
-            ->set('cover',          $this->cover)
-            ->set('marked',         $this->marked)
-            ->set('user_id',        $this->user_id)
-            ->set('is_published',   $this->is_published)
-            ->set('dt_update',      $this->dt_update)      // TODO(#38) remove
+            ->set('title', $this->title)
+            ->set('uri', $this->uri)
+            ->set('text', $this->text)
+            ->set('json', $this->json)
+            ->set('description', $this->description)
+            ->set('quiz_id', $this->quiz_id)
+            ->set('cover', $this->cover)
+            ->set('marked', $this->marked)
+            ->set('user_id', $this->user_id)
+            ->set('is_published', $this->is_published)
+            ->set('dt_update', $this->dt_update)      // TODO(#38) remove
             ->clearcache($this->id)
             ->execute();
     }
@@ -287,8 +285,10 @@ Class Model_Article extends Model
         //получаем все статьи и кэшируем их на 5 минут
         $allArticles = self::getArticles(false, false, 5);
 
-        foreach ( $allArticles as $key => $article ){
-            if ( $article->id == $currentArticleId ) unset($allArticles[$key]);
+        foreach ($allArticles as $key => $article) {
+            if ($article->id == $currentArticleId) {
+                unset($allArticles[$key]);
+            }
         }
 
         //мешаем массив статей
@@ -311,17 +311,19 @@ Class Model_Article extends Model
         $memcache = Cache::instance('memcache');
         $allArticles = $memcache->get('pop_articles');
 
-        if (!$allArticles){
+        if (!$allArticles) {
             $allArticles = self::getArticles(false, false, 10);
             $stats = new Model_Stats();
 
-            foreach ( $allArticles as $key => $article ){
+            foreach ($allArticles as $key => $article) {
                 $article->views = $stats->get(Model_Stats::ARTICLE, $article->id);
-                if ( $article->id == $currentArticleId ) unset($allArticles[$key]);
+                if ($article->id == $currentArticleId) {
+                    unset($allArticles[$key]);
+                }
             }
 
             // сортируем массив статей в порядке убывания по просмотрам
-            usort($allArticles, function($a, $b){
+            usort($allArticles, function ($a, $b) {
                 return ($a->views < $b->views) ? 1 : -1;
             });
 

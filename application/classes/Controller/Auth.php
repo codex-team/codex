@@ -1,4 +1,4 @@
-<?php defined('SYSPATH') OR die('No direct access allowed.');
+<?php defined('SYSPATH') or die('No direct access allowed.');
 
 /**
  * Class Controller_Auth
@@ -14,18 +14,15 @@ class Controller_Auth extends Controller_Base_preDispatch
     public function action_vk()
     {
         $vk = Oauth::instance('vkontakte');
-        if ($vk->login())
-        {
+        if ($vk->login()) {
             $profile = $vk->get_user('photo_50,photo_200,photo_max,city');
 
-            if ($profile)
-            {
+            if ($profile) {
                 $token = Session::instance()->get('vk_token');
                 Cookie::set("auth_token", $token, $this->cookiesLifetime);
 
                 $user = Model_User::findByAttribute('vk_id', $profile->uid);
-                if ($user->is_empty())
-                {
+                if ($user->is_empty()) {
                     $user = new Model_User();
                     $user->vk_id = $profile->uid;
                     $user->photo_small = $profile->photo_50;
@@ -33,27 +30,22 @@ class Controller_Auth extends Controller_Base_preDispatch
                     $user->photo_big = $profile->photo_max;
                     $user->name = $this->get_vk_name($profile);
 
-                    if ($result = $user->save('vk'))
-                    {
+                    if ($result = $user->save('vk')) {
                         $inserted_id = $result[0];
                         $new_session = new Model_Sessions();
                         $new_session->save($inserted_id, $token);
                     }
-                }
-                else
-                {
+                } else {
                     $new_session = new Model_Sessions();
-                    if (!$new_session->get_user_id($token))
+                    if (!$new_session->get_user_id($token)) {
                         $new_session->save($user->id, $token);
+                    }
                 }
             }
-        }
-        else
-        {
+        } else {
             # Add auth error view
         }
         Controller::redirect($this->get_return_url());
-
     }
 
 
@@ -63,23 +55,19 @@ class Controller_Auth extends Controller_Base_preDispatch
      */
     public function action_facebook()
     {
-        if ( $error = $this->request->query('error_code') )
-        {
+        if ($error = $this->request->query('error_code')) {
             $this->generate_auth_error();
         }
 
         $fb = Oauth::instance('facebook');
-        if ($fb->login())
-        {
+        if ($fb->login()) {
             $profile = $fb->get_user();
 
-            if ($profile)
-            {
+            if ($profile) {
                 Session::instance()->set('profile', $profile);
 
                 $user = Model_User::findByAttribute('fb_id', $profile->id);
-                if ($user->is_empty())
-                {
+                if ($user->is_empty()) {
                     $user = new Model_User();
                     $user->name = $profile->name;
                     $user->fb_id = $profile->id;
@@ -89,10 +77,7 @@ class Controller_Auth extends Controller_Base_preDispatch
                     $user->save();
                 }
             }
-        }
-        else
-        {
-
+        } else {
         }
         Controller::redirect($this->get_return_url());
     }
@@ -104,52 +89,44 @@ class Controller_Auth extends Controller_Base_preDispatch
      */
     public function action_github()
     {
-        if ( $error = $this->request->query('error_code') )
-        {
+        if ($error = $this->request->query('error_code')) {
             $this->generate_auth_error();
         }
         $gh = Oauth::instance('github');
 
-        if ($gh->login())
-        {
+        if ($gh->login()) {
             $profile = $gh->get_user();
 
-            if ($profile)
-            {
+            if ($profile) {
                 $token = $gh->get_token();
                 Cookie::set("auth_token", $token, $this->cookiesLifetime);
 
                 $user = Model_User::findByAttribute('github_id', $profile->id);
-                if ($user->is_empty())
-                {
+                if ($user->is_empty()) {
                     $user = new Model_User();
-                    if ($profile->name)
+                    if ($profile->name) {
                         $user->name = $profile->name;
-                    else
+                    } else {
                         $user->name = $profile->login;
+                    }
 
                     $user->github_id = $profile->id;
                     $user->github_uri = $profile->login;
                     $user->photo = $profile->avatar_url;
 
-                    if ($result = $user->save())
-                    {
+                    if ($result = $user->save()) {
                         $inserted_id = $result[0];
                         $new_session = new Model_Sessions();
                         $new_session->save($inserted_id, $token);
                     }
-                }
-                else
-                {
+                } else {
                     $new_session = new Model_Sessions();
-                    if (!$new_session->get_user_id($token))
+                    if (!$new_session->get_user_id($token)) {
                         $new_session->save($user->id, $token);
+                    }
                 }
             }
-        }
-        else
-        {
-
+        } else {
         }
 
         Controller::redirect($this->get_return_url());
@@ -172,10 +149,11 @@ class Controller_Auth extends Controller_Base_preDispatch
     private function get_return_url()
     {
         $ref = Request::initial()->referrer();
-        if ($ref)
+        if ($ref) {
             return $ref;
-        else
+        } else {
             return "/";
+        }
     }
 
 

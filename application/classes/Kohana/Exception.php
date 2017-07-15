@@ -5,17 +5,14 @@
  *  @author Alexander Demyashev (develop@demyashev.com)
  *  @since  10.12.2015 17:49
  */
-class Kohana_Exception extends Kohana_Kohana_Exception {
-
+class Kohana_Exception extends Kohana_Kohana_Exception
+{
     public static function response(Exception $e)
     {
         // handle error
-        if (Kohana::$environment >= Kohana::DEVELOPMENT){
-
+        if (Kohana::$environment >= Kohana::DEVELOPMENT) {
             return parent::response($e);
-
         } else {
-
             $view = new View('templates/errors/default');
 
             /**
@@ -33,11 +30,10 @@ class Kohana_Exception extends Kohana_Kohana_Exception {
     * Compose error trace for Telegram
     * @param Exception $e - kohana exception object
     */
-    private static function formatErrorForTelegrams( $e )
+    private static function formatErrorForTelegrams($e)
     {
-
         $protocol = HTTP::$protocol == 'HTTP' ? 'http://' : 'https://';
-        if (!empty(Request::current())){
+        if (!empty(Request::current())) {
             $path = $protocol . Arr::get($_SERVER, 'SERVER_NAME') . Request::current()->url();
         } else {
             $path = '';
@@ -48,6 +44,5 @@ class Kohana_Exception extends Kohana_Kohana_Exception {
         $telegramMsg .= $path;
 
         Model_Methods::sendBotNotification($telegramMsg);
-
     }
 }

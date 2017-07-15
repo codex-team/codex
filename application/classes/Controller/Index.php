@@ -7,8 +7,7 @@ class Controller_Index extends Controller_Base_preDispatch
     public function action_index()
     {
         /** New year landing */
-        if (Security::check( Arr::get($_POST, 'csrf') )) {
-
+        if (Security::check(Arr::get($_POST, 'csrf'))) {
             $this->NewYearRequestSubmitted();
 
             /** Refresh CSRF token */
@@ -64,8 +63,5 @@ class Controller_Index extends Controller_Base_preDispatch
         }
 
         $this->view['savingResult'] = $this->user->saveJoinRequest($skills, $wishes);
-
     }
-
-
 }

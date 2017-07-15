@@ -2,7 +2,6 @@
 
 class Controller_Comments extends Controller_Base_preDispatch
 {
-
     public function action_add()
     {
         if (!($this->user->id)) {
@@ -16,15 +15,15 @@ class Controller_Comments extends Controller_Base_preDispatch
         $comment->parent_id     = Arr::get($_POST, 'parent_id', '0');
         $comment->user_id       = $this->user->id;
 
-        if (preg_match('(^[0-9]{1,})', $comment->article_id) != true){
+        if (preg_match('(^[0-9]{1,})', $comment->article_id) != true) {
             $this->redirect('/');
         }
 
-        if ($comment->text == ''){
+        if ($comment->text == '') {
             $this->redirect('/article/'.$comment->article_id);
         }
 
-        if ($comment->parent_id != 0){
+        if ($comment->parent_id != 0) {
             $parent_comment = Model_Comment::get($comment->parent_id);
             if ($parent_comment->parent_id != 0) {
                 $comment->root_id = $parent_comment->root_id;
@@ -54,5 +53,4 @@ class Controller_Comments extends Controller_Base_preDispatch
 
         $this->redirect('/article/' . $article_id);
     }
-
 }

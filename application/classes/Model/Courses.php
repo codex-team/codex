@@ -1,4 +1,4 @@
-<?php defined('SYSPATH') OR die('No Direct Script Access');
+<?php defined('SYSPATH') or die('No Direct Script Access');
 
 /**
  * Модель курсов, имеет поля, соответствующие полям в базе данных и статические методы для получения
@@ -6,7 +6,7 @@
  *
  * @author     Alexander Menshikov
  */
-Class Model_Courses extends Model
+class Model_Courses extends Model
 {
     public $id = 0;
     public $uri;
@@ -38,14 +38,14 @@ Class Model_Courses extends Model
     public function insert()
     {
         $idAndRowAffected = Dao_Courses::insert()
-            ->set('uri',            $this->uri)
-            ->set('title',          $this->title)
-            ->set('text',           $this->text)
-            ->set('description',    $this->description)
-            ->set('cover',          $this->cover)
-            ->set('is_removed',     $this->is_removed)
-            ->set('is_published',   $this->is_published)
-            ->set('marked',         $this->marked)
+            ->set('uri', $this->uri)
+            ->set('title', $this->title)
+            ->set('text', $this->text)
+            ->set('description', $this->description)
+            ->set('cover', $this->cover)
+            ->set('is_removed', $this->is_removed)
+            ->set('is_published', $this->is_published)
+            ->set('marked', $this->marked)
             ->clearcache('courses_list')
             ->execute();
 
@@ -70,10 +70,14 @@ Class Model_Courses extends Model
      */
     private function fillByRow($course_row)
     {
-        if (empty($course_row['id'])) return $this;
+        if (empty($course_row['id'])) {
+            return $this;
+        }
 
         foreach ($course_row as $fieldname => $value) {
-            if (property_exists($this, $fieldname)) $this->$fieldname = $value;
+            if (property_exists($this, $fieldname)) {
+                $this->$fieldname = $value;
+            }
         }
 
         return $this;
@@ -88,7 +92,6 @@ Class Model_Courses extends Model
     public function remove()
     {
         if ($this->id != 0) {
-
             Dao_Courses::update()->where('id', '=', $this->id)
                 ->set('is_removed', 1)
                 ->set('is_published', 0)
@@ -107,16 +110,16 @@ Class Model_Courses extends Model
     public function update()
     {
         Dao_Courses::update()->where('id', '=', $this->id)
-            ->set('uri',            $this->uri)
-            ->set('title',          $this->title)
-            ->set('text',           $this->text)
-            ->set('description',    $this->description)
-            ->set('cover',          $this->cover)
-            ->set('dt_update',      $this->dt_update)
-            ->set('is_removed',     $this->is_removed)
-            ->set('is_published',   $this->is_published)
-            ->set('marked',         $this->marked)
-            ->set('order',          $this->order)
+            ->set('uri', $this->uri)
+            ->set('title', $this->title)
+            ->set('text', $this->text)
+            ->set('description', $this->description)
+            ->set('cover', $this->cover)
+            ->set('dt_update', $this->dt_update)
+            ->set('is_removed', $this->is_removed)
+            ->set('is_published', $this->is_published)
+            ->set('marked', $this->marked)
+            ->set('order', $this->order)
             ->clearcache($this->id)
             ->execute();
     }
@@ -127,7 +130,8 @@ Class Model_Courses extends Model
      * @param $course_id
      * @return Dao_CoursesArticles::insert
      */
-    public static function addArticle($article_id, $course_id) {
+    public static function addArticle($article_id, $course_id)
+    {
         $article = Model_Article::get($article_id);
         if (!$article->id) {
             return false;
@@ -150,7 +154,8 @@ Class Model_Courses extends Model
      * @param $article
      * @return bool|array
      */
-    public static function getCoursesByArticleId($article) {
+    public static function getCoursesByArticleId($article)
+    {
         if (!$article) {
             return false;
         }
@@ -169,8 +174,8 @@ Class Model_Courses extends Model
      * @param {int|array} $courses_ids - если передан, то открепляет статью от указанных курсов, иначе ото всех
      * @return Dao_CoursesArticles:remove
      */
-    public static function deleteArticles($article_id, $courses_ids = 0) {
-
+    public static function deleteArticles($article_id, $courses_ids = 0)
+    {
         $deleteQuery = Dao_CoursesArticles::delete()->where('article_id', '=', $article_id);
 
         if (!$courses_ids) {
@@ -178,7 +183,6 @@ Class Model_Courses extends Model
         }
 
         return $deleteQuery->where_in('course_id', $courses_ids)->execute();
-
     }
 
     /**
@@ -266,7 +270,6 @@ Class Model_Courses extends Model
 
         if (!empty($course_rows)) {
             foreach ($course_rows as $course_row) {
-
                 $course = new Model_Courses();
                 $course->fillByRow($course_row);
                 array_push($courses, $course);
