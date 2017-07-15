@@ -3210,6 +3210,14 @@ textarea {
 .profile__name {
     margin: 1.5em 0 0.74em;
     font-size: 2.2em;
+    line-height: 1.3em;
+}
+
+@media all and (max-width: 980px) {
+
+    .profile__name {
+        font-size: 1.5em;
+    }
 }
 
 .profile__bio {
