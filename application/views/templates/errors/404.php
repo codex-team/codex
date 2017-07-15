@@ -24,7 +24,7 @@
 <body>
     <div class="wrapper">
         <a href="/">
-            <? include(DOCROOT . "public/img/codex-logo.svg") ?>
+            <? include(DOCROOT . "public/app/img/codex-logo.svg") ?>
         </a>
         <h1>404</h1>
     </div>
