@@ -1,0 +1,38 @@
+/**
+* Drag'n'drop defaul styles
+ */
+.dnd-default-avatar {
+    position: absolute;
+    pointer-events: none;
+    z-index: 100;
+}
+.dnd-default-target-highlight {
+    border: 1px #eee solid;
+}
+
+.dnd-avatar,
+.dnd-avatar td {
+    background: #fafafd !important;
+}
+
+.draggable {
+    cursor: move;
+}
+
+.feed {
+    background: #fff;
+}
+
+.feed--gray {
+    background: #e8ecf2;
+}
+
+.feed-item--dnd {
+    background: #fff;
+    border: 1px #e8ecf2 solid;
+}
+
+.no-display {
+    display: none;
+}
+

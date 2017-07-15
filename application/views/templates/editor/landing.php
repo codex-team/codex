@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/public/css/landings/editor.css?v=<?= filemtime("public/css/landings/editor.css") ?>">
+<link rel="stylesheet" href="/public/app/landings/editor/editor.css?v=<?= filemtime("public/app/landings/editor/editor.css") ?>">
 
 <article class="editor-landing">
 
@@ -14,7 +14,7 @@
 
         <div class="editor_output__buttons">
             <a href="#output" id="jsonPreviewerButton" class="button">View Output</a>
-            <span id="saveButton" class="button master">Save and Preview</span>
+            <span id="saveButton" class="button button--master">Save and Preview</span>
         </div>
 
     </form>

@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/public/css/landings/special.css?v=<?= filemtime("public/css/landings/special.css") ?>">
+<link rel="stylesheet" href="/public/app/landings/special/special.css?v=<?= filemtime("public/app/landings/special/special.css") ?>">
 <div class="center_side">
     <div class="landing">
         <h1 class="landing__header">CodeX Special</h1>

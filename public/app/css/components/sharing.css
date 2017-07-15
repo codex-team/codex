@@ -1,0 +1,76 @@
+/**
+* Social sharing block
+*/
+.sharing {
+    margin: 50px 70px 0;
+    padding: 30px 40px;
+    border-radius: 3px;
+    background: #f1f5f8;
+    color: #616c98;
+}
+
+.sharing .but {
+    margin-left: 13px;
+    cursor: pointer;
+    color: #a1acc1;
+    font-size: 20px;
+}
+
+.sharing .but:hover {
+    color: #5d75bd;
+}
+
+.sharing .tw:hover {
+    color: #6e98fd;
+}
+
+.sharing .tg:hover {
+    color: #41adff;
+}
+
+.sharing .tg {
+    font-size: 17px;
+}
+
+.sharing .main_but {
+    margin: -0.66em 12px 0 0;
+    padding: 10px 24px;
+    border-radius: 25px;
+    background: #607cb6;
+    color: #fff;
+}
+
+.sharing .main_but:hover {
+    background: #546fa9;
+}
+
+.sharing .main_but i {
+    margin: 0 4px 0 -5px;
+}
+
+/**
+* Mobile viewport styles
+* =================================
+*/
+@media (--mobile) {
+    /**
+    * Sharing
+    */
+    .sharing {
+        margin: 30px 0 0;
+        padding: 30px;
+        text-align: center;
+    }
+
+    .sharing .main_but {
+        float: none;
+        display: block;
+        margin: 0 0 15px;
+    }
+
+    .sharing .but {
+        display: inline-block;
+        float: none;
+        margin: 0 7px 18px;
+    }
+}

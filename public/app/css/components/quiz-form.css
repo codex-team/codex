@@ -1,0 +1,180 @@
+/**
+* Quiz form stylesheets
+*/
+.quiz-form {
+    margin-top: 50px;
+}
+
+.quiz-form__page-title {
+    font-size: 30px;
+    line-height: 45px;
+}
+
+.quiz-form__label {
+    padding: 0;
+    font-size: 16px;
+    font-weight: normal;
+    text-align: left;
+}
+
+.quiz-form__quiz-title,
+.quiz-form__quiz-description {
+    margin: 5px 0 20px;
+}
+
+.quiz-form__question-holder {
+    margin: 20px 0;
+    padding: 25px;
+    border: 1px solid #e5e7e8;
+    border-radius: 3px;
+}
+
+.quiz-form__question-number {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.quiz-form__question-destroy-button {
+    float: right;
+}
+
+.quiz-form__question-title-label {
+    display: block;
+    margin-top: 20px;
+}
+
+.quiz-form__question-title {
+    margin: 5px 0 20px;
+}
+
+.quiz-form__question-answers-holder,
+.quiz-form__messages-holder {
+    border-collapse: collapse;
+}
+
+.quiz-form__question-answers-head,
+.quiz-form__messages-head {
+    border-bottom: 5px solid transparent;
+}
+
+.quiz-form__question-answers-label,
+.quiz-form__question-answer-text-column,
+.quiz-form__question-messages-label,
+.quiz-form__question-answer-message-column {
+    width: 44%;
+}
+
+.quiz-form__question-answer-text-column,
+.quiz-form__message-message-column {
+    padding-left: 0;
+}
+
+.quiz-form__question-answer-score,
+.quiz-form__message-score,
+.quiz-form__question-answer-destroy-button,
+.quiz-form__message-destroy-button {
+    height: 37px;
+    box-sizing: border-box;
+    padding: 10px;
+    outline: none;
+    border: none;
+    border-radius: 2px;
+}
+
+.quiz-form__question-answer-score,
+.quiz-form__message-score {
+    width: 100%;
+    background: #f4f5f8;
+}
+
+.quiz-form__question-answer-score:focus,
+.quiz-form__message-score:focus {
+    background: #eef5fd;
+}
+
+.quiz-form__question-answer-destroy-button-column {
+    width: 34px;
+    padding-right: 0;
+}
+
+.quiz-form__question-destroy-button,
+.quiz-form__question-answer-destroy-button,
+.quiz-form__message-destroy-button {
+    cursor: pointer;
+    opacity: 0.3;
+}
+
+.quiz-form__question-destroy-button:hover,
+.quiz-form__question-answer-destroy-button:hover,
+.quiz-form__message-destroy-button:hover {
+    opacity: 1;
+}
+
+.quiz-form__question-add-answer-button-column,
+.quiz-form__add-message-button-column {
+    padding: 10px 0;
+}
+
+.quiz-form__question-add-answer-button,
+.quiz-form__add-question-button,
+.quiz-form__add-message-button {
+    padding: 12px 0;
+    line-height: 16px;
+    cursor: pointer;
+    color: #454c5d;
+    background: none;
+}
+
+.quiz-form__question-add-answer-button:hover,
+.quiz-form__add-message-button:hover {
+    color: #1a2235;
+}
+
+.quiz-form__button-plus {
+    margin-right: 9px;
+    vertical-align: text-bottom;
+}
+
+.quiz-form__button-cross {
+    vertical-align: middle;
+}
+
+.quiz-form__messages {
+    width: 100%;
+    margin-top: 20px;
+    table-layout: fixed;
+}
+
+.quiz-form__message-message-label {
+    width: 38%;
+}
+
+.quiz-form__message-score-label {
+    width: 12%;
+}
+
+.quiz-form__share-message-label {
+    width: 50%;
+}
+
+.quiz-form__messages-holder-column {
+    padding: 0;
+}
+
+.quiz-form__messages-holder-column,
+.quiz-form__share-message-column {
+    width: 50%;
+    vertical-align: top;
+}
+
+.quiz-form__message-message-column {
+    width: 76.4%;
+}
+
+.quiz-form__message-destroy-button-column {
+    width: 34px;
+}
+
+.quiz-form__quiz-buttons-holder {
+    margin-top: 20px;
+}

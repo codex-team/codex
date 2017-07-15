@@ -35,7 +35,7 @@
         ?>
 
         <? /** Join button */ ?>
-           <br><a class="button button-green button-indexpage" href="/join">Вступить в клуб</a>
+           <br><a class="button button--green index-page__join-button" href="/join">Вступить в клуб</a>
         <? ?>
 
         <?

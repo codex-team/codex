@@ -16,46 +16,22 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="format-detection" content="telephone=no">
 
-
-    <link rel="stylesheet" href="/public/css/normalize.css">
-    <link rel="stylesheet" href="/public/css/codex.css?v=<?= filemtime('public/css/codex.css') ?>">
-
+    <link rel="stylesheet" href="/public/build/bundle.css?v=<?= filemtime('public/build/bundle.css') ?>">
     <link rel="icon" type="image/png" href="/public/img/fav_shield@3x.png?v=985" id="favicon" />
 
     <meta id="metaImage" name="image" property="og:image"  content="https://ifmo.su/public/img/meta_img.png" />
     <link id="linkImage" rel="image_src" href="https://ifmo.su/public/img/meta_img.png" />
 
+    <script src="/public/build/bundle.js?v=<?= filemtime('public/build/bundle.js') ?>"></script>
+
     <? if ($_SERVER['KOHANA_ENV'] === 'PRODUCTION' && !empty($_SERVER['HAWK_TOKEN'])): ?>
         <script src="https://cdn.rawgit.com/codex-team/hawk.client/master/hawk.js" onload="hawk.init('<?= $_SERVER['HAWK_TOKEN'] ?>')"></script>
     <? endif; ?>
 
-    <script src="/public/js/main.js?v=<?= filemtime('public/js/main.js') ?>"></script>
-
 </head>
 <body>
 
-    <header class="site-header">
-        <div class="center_side">
-            <? if ($user->id): ?>
-                <a class="site-header__profile" href="/user/<?= $user->id ?>">
-                    <img class="site-header__profile_photo" src="<?= $user->photo ?>" alt="<?= $user->name ?>" id="header-avatar-updatable" />Profile
-                </a>
-                <? if ($user->isAdmin): ?>
-                    <a class="site-header__button" href="/article/add"><i class="icon-pencil"></i>Write</a>
-                <? endif ?>
-            <? else: ?>
-                <a class="site-header__login" href="/auth/github">
-                    <i class="icon-github-circled"></i>login
-                </a>
-            <? endif ?>
-            <div class="site-header__menu">
-                <a href="/">CodeX</a>
-                <a href="/articles">Articles</a>
-                <a href="/contests">Contests</a>
-            </div>
-            <a class="site-header__social" href="//vk.com/codex_team" target="_blank"><i class="icon-vkontakte"></i></a>
-        </div>
-    </header>
+    <?= View::factory('templates/header')->render(); ?>
 
     <?= $content ?>
 
@@ -85,6 +61,13 @@
             </section>
         </div>
     </footer>
+
+    <script>
+        codex.docReady(function () {
+            codex.init();
+        });
+    </script>
+
 
     <? if ($user->id): ?>
         <div id="utils" class="hidden" style="display: none">

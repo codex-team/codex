@@ -11,7 +11,7 @@
                 <img src="<?= $user->photo ?>" alt="<?= $user->name ?>" id="profile-photo-updatable">
             </div>
             <br/>
-            <div class="button with_icon file-transport-button" data-action="<?= Controller_Base_Ajax::TRANSPORT_ACTION_PROFILE_PHOTO ?>">
+            <div class="button file-transport-button" data-action="<?= Controller_Base_Ajax::TRANSPORT_ACTION_PROFILE_PHOTO ?>">
                 <i class="icon-picture"></i>Change
             </div>
         </div>
@@ -23,23 +23,23 @@
                 <input type="hidden" name="csrf" value="<?= Security::token() ?>" />
 
                 <label for="name">Name</label>
-                <input type="text" id="name" name="name" value="<?= $user->name ?>" required/>
+                <input class="input" type="text" id="name" name="name" value="<?= $user->name ?>" required/>
 
                 <label for="bio">About</label>
-                <textarea rows="2" id="bio" name="bio"><?= $user->bio?></textarea>
+                <textarea class="input" rows="2" id="bio" name="bio"><?= $user->bio?></textarea>
 
                 <label for="alias">Alias</label>
-                <input type="text" id="alias" name="alias" value="<?= $user->uri ?>" required/>
+                <input class="input" type="text" id="alias" name="alias" value="<?= $user->uri ?>" required/>
 
                 <label for="vk_uri"><i class="icon-vkontakte"></i> vk.com</label>
-                <input type="text" id="vk_uri" name="vk_uri" value="<?= $user->vk_uri ?>"/>
+                <input class="input" type="text" id="vk_uri" name="vk_uri" value="<?= $user->vk_uri ?>"/>
 
                 <label for="instagram_uri"> <i class="icon-instagram"></i> Instagram</label>
-                <input type="text" id="instagram_uri" name="instagram_uri" value="<?=$user->instagram_uri ?>"/>
+                <input class="input" type="text" id="instagram_uri" name="instagram_uri" value="<?=$user->instagram_uri ?>"/>
 
                 <br>
 
-                <input type="submit" value="Сохранить" name="submit">
+                <input class="button button--master" type="submit" value="Сохранить">
 
             </form>
 
@@ -47,3 +47,16 @@
 
     </div>
 </div>
+
+<script>
+    codex.docReady(function () {
+
+        /** File transport button handlers */
+        var fileTransportButtons = document.getElementsByClassName("file-transport-button");
+
+        if (fileTransportButtons.length){
+            codex.transport.init(fileTransportButtons);
+        }
+
+    });
+</script>
