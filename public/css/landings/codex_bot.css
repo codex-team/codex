@@ -1,0 +1,213 @@
+.landing {
+    font-family: Lato;
+    padding-bottom: 200px;
+}
+    .landing__about {
+        padding: 40px 0;
+    }
+
+.about {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-bottom: 1px solid #F4F4F4;
+}
+    
+
+.description {
+    display: flex;
+    align-items: center;
+}
+.description-content {
+    display: flex;
+    flex-direction: column;
+}
+.description__img {
+    height: 115px;
+    padding: 30px;
+    border: 1px solid #F4F4F4;
+    margin-right: 30px;
+}
+.description__info {
+    color: #000;
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0;
+}
+.description__name {
+    color: #000;
+    font-size: 51px;
+    font-weight: 700;
+    line-height: initial;
+    padding-bottom: 40px;
+}
+
+.description__links {
+    display: flex;
+    justify-content: space-between;
+}
+    .description__links-item {
+        font-size: 19px;
+        color: #0050BA;
+        text-decoration: none;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .description__links-item--first {
+        padding-left: 0;
+    }
+
+.about__buttons {
+    display: flex;
+    flex-direction: column;
+}       
+.button {
+    padding: 10px 15px;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #E7E7E7;
+    color: #000;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 2px 0 #E7E7E7;
+}
+    .button__img {
+        margin-right: 15px;
+    }
+
+.integrations__title-wrapper {
+    display: flex;
+    align-items: baseline;
+    padding: 40px 0;
+}
+.integrations__title {
+    display: inline-block;
+    font-size: 19px;
+    color: #000;
+    font-weight: 400;
+    margin: 0;
+}
+.integrations__link {
+    color: #0050BA;
+    font-size: 15px;
+    margin-left: 20px;
+}
+
+.integrations__items-wrapper {
+    display: flex;
+}
+.integrations__item {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    padding: 30px;
+    border: 1px solid #F4F4F4;
+    border-radius: 2px;
+}
+.integrations__item--first {
+    margin-right: 20px;
+}
+    .integrations__item-logo {
+        padding: 20px;
+        border: 1px solid #F4F4F4;
+        border-radius: 3px;
+        margin-right: 30px;
+        align-self: flex-start;
+    }
+    .integrations__item-title {
+        font-size: 22px;
+    }
+    .integrations__item-yandex {
+        width: 67px;
+    }
+    .integrations__item-desc {
+        font-size: 15px;
+        color: #626262;
+        padding: 15px 0;
+    }
+    .integrations__item-footer {
+        display: flex;
+        justify-content: space-between;
+    }
+    .integrations__item-contributers {
+        display: flex;
+    }
+        .integrations__item-dev {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background-color: #E96565;
+            margin-right: 10px;
+        }
+    .integrations__item-link {
+        font-size: 13px;
+        color: #626262;
+    }
+
+@media all and (max-width: 800px) {
+    .landing {
+        padding-bottom: 40px;
+    }
+    .landing__about {
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+    }
+    .description {
+        flex-direction: column;
+    }
+    .description-content {
+        margin: 25px 0;
+    }
+    .description__img {
+        margin-right: 0;
+    }
+    .description__info {
+        font-size: 16px;
+    }
+    .description__name {
+        font-size: 30px;
+        padding-top: 10px;
+        padding-bottom: 15px;
+    }
+    .description__links {
+        flex-direction: column;
+    }      
+        .description__links-item {
+            font-size: 14px;
+            padding: 0;
+        }
+ 
+    .integrations__title-wrapper  {
+        flex-direction: column;
+        padding: 30px 0;
+        align-items: center;
+    }
+    .integrations__title {
+            font-size: 15px;
+    }
+    .integrations__link {
+        margin-left: 0;
+    }
+    .integrations__items-wrapper {
+        flex-direction: column;
+    }
+    .integrations__item {
+        justify-content: flex-start;
+    }
+    .integrations__item--first {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+        .integrations__item-logo {
+            display: none;
+        }
+        .integrations__item-footer {
+            flex-direction: column;
+        }
+            .integrations__item-link {
+                margin-top: 15px;
+            }
+}

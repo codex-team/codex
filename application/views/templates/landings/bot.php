@@ -2,7 +2,7 @@
 <div class="center_side">
     <div class="landing">
         <h1 class="landing__header">CodeX Bot</h1>
-        <p class="landing__description">Telegram bot-platform for developers and managers</p>
+        <p class="landing__description">Telegram bot-platform for developers and managers</p>
         <div class="landing__integration">
             Easy integration with <br/>
             <img class="landing__integration_github" src="/public/app/landings/bot/img/logo-github.svg">
