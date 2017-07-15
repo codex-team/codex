@@ -41,7 +41,7 @@
     }
 }
 
-@media all and (--mobile) {
+@media (--mobile) {
     .best-developers {
         position: static;
         width: auto;

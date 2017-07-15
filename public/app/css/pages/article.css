@@ -420,7 +420,7 @@
 /**
 * Mobile viewport
 */
-@media all and (--mobile) {
+@media (--mobile) {
     .article {
         margin: 0;
         border: 0;

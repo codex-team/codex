@@ -1071,7 +1071,7 @@ textarea {
 * =================================
 */
 
-@media all and all and (max-width: 980px) {
+@media all and (max-width: 980px) {
     /**
     * Site footer mobile
     */
@@ -1382,7 +1382,7 @@ textarea {
 * =================================
 */
 
-@media all and all and (max-width: 980px) {
+@media all and (max-width: 980px) {
     /**
     * Follow us mobile
     */
@@ -1444,7 +1444,7 @@ textarea {
         border-radius: 18px;
     }
 
-@media all and all and (max-width: 980px) {
+@media all and (max-width: 980px) {
     .best-developers {
         position: static;
         width: auto;
@@ -1558,7 +1558,7 @@ textarea {
 * =================================
 */
 
-@media all and all and (max-width: 980px) {
+@media all and (max-width: 980px) {
     .news {
         padding: 30px 0;
         margin: 30px 0;
@@ -1612,7 +1612,7 @@ textarea {
 * =================================
 */
 
-@media all and all and (max-width: 980px) {
+@media all and (max-width: 980px) {
     /**
     * Mobile scroll up button
     */
@@ -1681,7 +1681,7 @@ textarea {
 * =================================
 */
 
-@media all and all and (max-width: 980px) {
+@media all and (max-width: 980px) {
     /**
     * Sharing
     */
@@ -1899,7 +1899,7 @@ textarea {
     color: #41adff;
 }
 
-@media all and all and (max-width: 980px) {
+@media all and (max-width: 980px) {
     .quiz {
         padding: 20px;
     }
@@ -2487,7 +2487,7 @@ textarea {
 * =================================
 */
 
-@media all and all and (max-width: 980px) {
+@media all and (max-width: 980px) {
     /**
     * Blogs feed mobile
     */
@@ -2935,7 +2935,7 @@ textarea {
 * Mobile viewport
 */
 
-@media all and all and (max-width: 980px) {
+@media all and (max-width: 980px) {
     .article {
         margin: 0;
         border: 0;
@@ -3284,7 +3284,7 @@ textarea {
     font-style: italic;
 }
 
-@media all and all and (max-width: 980px) {
+@media all and (max-width: 980px) {
     /**
     * Users profiles
     */
@@ -3529,7 +3529,7 @@ textarea {
 * =================================
 */
 
-@media all and all and (max-width: 980px) {
+@media all and (max-width: 980px) {
 
     /**
     * Contests list

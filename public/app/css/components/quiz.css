@@ -185,7 +185,7 @@
     color: #41adff;
 }
 
-@media all and (--mobile) {
+@media (--mobile) {
     .quiz {
         padding: 20px;
     }

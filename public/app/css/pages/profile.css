@@ -131,7 +131,7 @@
     font-style: italic;
 }
 
-@media all and (--mobile) {
+@media (--mobile) {
     /**
     * Users profiles
     */

@@ -35,7 +35,7 @@
 * Mobile viewport styles
 * =================================
 */
-@media all and (--mobile) {
+@media (--mobile) {
     /**
     * Mobile scroll up button
     */

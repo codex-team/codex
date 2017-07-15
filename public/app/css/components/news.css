@@ -57,7 +57,7 @@
 * Mobile viewport styles
 * =================================
 */
-@media all and (--mobile) {
+@media (--mobile) {
     .news {
         padding: 30px 0;
         margin: 30px 0;
