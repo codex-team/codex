@@ -142,7 +142,7 @@
     /**
     * Profile settings
     */
-    .profile-settings .button {
+    .profile-settings .button:not(.button--master) {
         margin-top: -38px;
     }
 
