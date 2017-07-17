@@ -4,24 +4,13 @@
 
 .codex-bot {
     font-family: Lato;
-    padding-bottom: 200px;
+    padding-bottom: 10px;
 }
 .codex-bot__about {
-    width: 100%;
-    padding: 40px 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+    padding-top: 170px;
+    padding-bottom: 165px;
+    text-align: center;
     border-bottom: 1px solid #F4F4F4;
-}
-.codex-bot__description {
-    display: inline-block;
-    margin-left: 35px;
-}
-.codex-bot__logo {
-    height: 115px;
-    padding: 30px;
-    border: 1px solid #F4F4F4;
 }
 .codex-bot__info {
     color: #000;
@@ -37,16 +26,9 @@
     font-weight: 700;
     line-height: initial;
 }
-.codex-bot__links {
+.codex-bot__buttons-wrapper {
     display: inline-block;
-    white-space: nowrap;
-    padding-top: 40px;
-}
-.codex-bot__links-item {
-    font-size: 19px;
-    line-height: 32px;
-    text-decoration: none;
-    margin-right: 15px;
+    margin-top: 40px;
 }
 .codex-bot__button {
     box-sizing: border-box;
@@ -59,11 +41,12 @@
     text-decoration: none;
     display: inline-block;
     text-align: left;
-    margin-bottom: 15px;
     border: 1px solid #E7E7E7;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.04);
     border-radius: 5px;
-    float: right;
+}
+.codex-bot__button:first-of-type {
+    margin-right: 25px;
 }
 .codex-bot__button:hover {
     background-color: #FDFDFD;
@@ -92,33 +75,41 @@
 }
 .codex-bot__integrations-layout {
     display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 .integrations__block {
-    display: flex;
+    display: inline-block;
+    vertical-align: top;
     padding: 30px;
+    width: 450px;
+    max-height: 200px;
+    box-sizing: border-box;
     border: 1px solid #F4F4F4;
     border-radius: 2px;
+    margin: 10px;
 }
-.integrations__block-content {
-    width: 351px;
+.integrations__block-img {
+    float: right;
+    margin: 30px;
+    margin-top: 0;
+    margin-right: 0;
+    vertical-align: top;
 }
-.integrations__block:first-of-type {
-    margin-right: 20px;
+.integrations__block-yandex {
+    width: 63px;
 }
 .integrations__block-github {
-    padding: 20px;
-    border: 1px solid #F4F4F4;
-    border-radius: 3px;
-    margin-right: 30px;
-    height: 44px;
-    align-self: flex-start;
+    width: 44px;
 }
+.integrations__block-your-own,
+.integrations__block-webhooks {
+    width: 60px;
+}
+
 .integrations__block-title {
     font-size: 22px;
     line-height: 27px;
-}
-.integrations__block-yandex {
-    width: 67px;
 }
 .integrations__block-desc {
     font-size: 15px;
@@ -143,15 +134,52 @@
     color: #626262;
     float: right;
 }
-
+.integrations__read-guide {
+    font-size: 19px;
+    line-height: 20px;
+    color: #2657AA;
+    margin-top: 20px;
+}
+.codex-bot__text-block {
+    text-align: center;
+    max-width: 430px;
+    margin: 65px auto;
+    font-size: 17px;
+}
+.text-block__title {
+    font-size: 21px;
+    line-height: 25px;
+}
+.text-block__info {
+    line-height: 25px;
+    margin: 20px 0;
+}
+.text-block__link {
+    text-decoration: none;
+}
+.codex-bot__links {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.codex-bot__links-item {
+    font-size: 17px;
+    line-height: 20px;
+    text-decoration: none;
+}
+.codex-bot__links-delimeter {
+    color: #0050BA;
+    font-size: 17px;
+    line-height: 32px;
+    opacity: 0.5;
+}
 @media all and (max-width: 800px) {
     .codex-bot {
-        padding: 40px 0;
+        padding-top: 40px;
+        padding-bottom: 0;
     }
     .codex-bot__about {
-        flex-direction: column;
         padding: 0;
-        text-align: center;
     }
     .codex-bot__info {
         font-size: 16px;
@@ -160,26 +188,18 @@
         font-size: 30px;
     }
     .codex-bot__description {
-        margin-left: 0;
         margin-top: 20px;
     }
-    .codex-bot__button-layout {
-        display: flex;
-        flex-direction: column;
+    .codex-bot__buttons-wrapper {
+        margin-bottom: 30px;
     }
     .codex-bot__button {
         font-size: 15px;
         width: 195px;
     }
-    .codex-bot__links {
-        flex-direction: column;
-        padding: 15px 0;
-    }      
-    .codex-bot__links-item {
-        font-size: 14px;
-        line-height: 21px;
+    .codex-bot__button:first-of-type {
         margin-right: 0;
-        display: block;
+        margin-bottom: 15px;
     }
     .codex-bot__integrations-title  {
         flex-direction: column;
@@ -187,23 +207,41 @@
         align-items: center;
         font-size: 16px;
     }
-    .codex-bot__integrations-link {
-        margin-left: 0;
+    .integrations__read-guide {
+        font-size: 17px;
+    }
+    .codex-bot__links-item {
         font-size: 14px;
+        line-height: 21px;
+    }
+    .codex-bot__links-delimeter {
+        display: none;
     }
     .codex-bot__integrations-layout     {
         flex-direction: column;
     }
-    .integrations__block:first-of-type {
-        margin-right: 0;
-        margin-bottom: 15px;
-    }
-    .integrations__block-github {
-        display: none;
+    .integrations__block {
+        max-height: initial;
+        max-width: 100%;
+        margin: 10px auto;
     }
     .integrations__block-link {
         display: block;
         margin-top: 10px;
         float: none;
+    }
+    .codex-bot__text-block {
+        margin: 45px auto;
+        font-size: 16px;
+    }
+    .text-block__link {
+        font-size: 14px;
+        line-height: 21px;
+    }
+}
+
+@media all and (min-width: 426px) and (max-width: 800px) {
+    .codex-bot__button:first-of-type {
+        margin-right: 15px;
     }
 }
