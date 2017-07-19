@@ -1,247 +1,228 @@
 /**
  * CodeX Bot Landing
  */
-
 .codex-bot {
     font-family: Lato;
-    padding-bottom: 10px;
 }
-.codex-bot__about {
-    padding-top: 170px;
-    padding-bottom: 165px;
-    text-align: center;
-    border-bottom: 1px solid #F4F4F4;
-}
-.codex-bot__info {
-    color: #000;
+
+.codex-bot__heading {
     font-size: 18px;
+    line-height: 3em;
+    border-bottom: 1px solid #ecedf0;
+    margin-bottom: 30px;
+}
+
+.codex-bot__about {
+    padding: 25vh 0 23vh;
+    text-align: center;
+}
+
+.codex-bot__info {
+    font-size: 1.5em;
     line-height: 22px;
     font-weight: 400;
     margin: 0;
 }
+
 .codex-bot__name {
-    color: #000;
-    font-size: 51px;
-    line-height: 61px;
+    margin: 0.1em 0 0.9em;
+    font-size: 3.5em;
     font-weight: 700;
     line-height: initial;
 }
-.codex-bot__buttons-wrapper {
-    display: inline-block;
-    margin-top: 40px;
-}
+
 .codex-bot__button {
-    box-sizing: border-box;
-    padding: 12px 15px;
-    width: 227px;
-    background-color: #fff;
-    color: #000;
-    font-size: 20px;
-    line-height: 24px;
-    text-decoration: none;
     display: inline-block;
+    padding: 10px 26px 10px 18px;
+    background: #fff;
+    font-size: 18px;
+    line-height: 30px;
+    text-decoration: none;
     text-align: left;
-    border: 1px solid #E7E7E7;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.04);
-    border-radius: 5px;
+    border: 1px solid #e7e7e7;
+    box-shadow: 0 2px 3px 0 rgba(38, 45, 67, 0.02);
+    border-radius: 3px;
+    color: inherit;
 }
+
+.codex-bot__button svg {
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    vertical-align: middle;
+    margin-right: 0.5em;
+    margin-top: -0.3em;
+}
+
 .codex-bot__button:first-of-type {
-    margin-right: 25px;
+    margin-right: 20px;
 }
+
 .codex-bot__button:hover {
-    background-color: #FDFDFD;
+    background-color: #fdfdfd;
     color: initial;
+    text-decoration: none;
 }
-.codex-bot__button-img {
-    margin-right: 15px;
-    height: 28px;
-    vertical-align: middle;
-}
-.codex-bot__button-text {
-    line-height: 28px;
-    vertical-align: middle;
-}
-.codex-bot__integrations-title {
-    display: flex;
-    align-items: baseline;
-    padding: 40px 0;
-    font-size: 19px;
-    line-height: 22px;
-}
-.codex-bot__integrations-link {
-    font-size: 15px;
-    line-height: 18px;
-    margin-left: 20px;
-}
+
 .codex-bot__integrations-layout {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
 }
-.integrations__block {
+
+/**
+ * Application block
+ * ==================
+ */
+.bot-app {
+    position: relative;
     display: inline-block;
     vertical-align: top;
     padding: 30px;
-    width: 450px;
-    max-height: 200px;
+    padding-bottom: 80px;
+    width: 48.5%;
+    margin-bottom: 28px;
     box-sizing: border-box;
-    border: 1px solid #F4F4F4;
+    border: 1px solid #ecedf0;
     border-radius: 2px;
-    margin: 10px;
-}
-.integrations__block-img {
-    float: right;
-    margin: 30px;
-    margin-top: 0;
-    margin-right: 0;
-    vertical-align: top;
-}
-.integrations__block-yandex {
-    width: 63px;
-}
-.integrations__block-github {
-    width: 44px;
-}
-.integrations__block-your-own,
-.integrations__block-webhooks {
-    width: 60px;
 }
 
-.integrations__block-title {
-    font-size: 22px;
-    line-height: 27px;
+@media all and (max-width: 980px) {
+    .bot-app {
+        width: auto;
+    }
 }
-.integrations__block-desc {
+
+.bot-app__icon {
+    float: right;
+    width: 60px;
+    margin-left: 30px;
+    margin-bottom: 30px;
+}
+
+.bot-app__title {
+    font-size: 21px;
+    font-weight: bold;
+    color: inherit;
+    text-decoration: none;
+}
+
+.bot-app__desc {
     font-size: 15px;
-    line-height: 20px;
+    line-height: 1.5em;
     color: #626262;
     padding: 15px 0;
 }
-.integrations__block-contributers {
-    display: inline-block;
+
+.bot-app__contributors {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
 }
+
+.bot-app__contributor {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    margin-right: 5px;
+    border-radius: 50%;
+    overflow: hidden;
+    vertical-align: top;
+}
+
+.bot-app__contributor img {
+    width: 100%;
+    height: 100%;
+}
+
+.bot-app__link {
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+    line-height: 1em;
+    text-align: right;
+    text-decoration: none;
+    color: #626262;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .integrations__block-dev {
     width: 22px;
     height: 22px;
     border-radius: 50%;
     display: inline-block;
-    background-color: #E96565;
+    background-color: #e96565;
     margin-right: 10px;
 }
+
 .integrations__block-link {
     font-size: 13px;
     line-height: 19px;
     color: #626262;
     float: right;
 }
+
 .integrations__read-guide {
     font-size: 19px;
     line-height: 20px;
-    color: #2657AA;
+    color: #2657aa;
     margin-top: 20px;
 }
+
 .codex-bot__text-block {
     text-align: center;
     max-width: 430px;
     margin: 65px auto;
     font-size: 17px;
 }
+
 .text-block__title {
     font-size: 21px;
     line-height: 25px;
 }
+
 .text-block__info {
     line-height: 25px;
     margin: 20px 0;
 }
+
 .text-block__link {
     text-decoration: none;
 }
+
 .codex-bot__links {
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
+
 .codex-bot__links-item {
     font-size: 17px;
     line-height: 20px;
     text-decoration: none;
 }
+
 .codex-bot__links-delimeter {
-    color: #0050BA;
+    color: #0050ba;
     font-size: 17px;
     line-height: 32px;
     opacity: 0.5;
 }
-@media all and (max-width: 800px) {
-    .codex-bot {
-        padding-top: 40px;
-        padding-bottom: 0;
-    }
-    .codex-bot__about {
-        padding: 0;
-    }
-    .codex-bot__info {
-        font-size: 16px;
-    }
-    .codex-bot__name {
-        font-size: 30px;
-    }
-    .codex-bot__description {
-        margin-top: 20px;
-    }
-    .codex-bot__buttons-wrapper {
-        margin-bottom: 30px;
-    }
-    .codex-bot__button {
-        font-size: 15px;
-        width: 195px;
-    }
-    .codex-bot__button:first-of-type {
-        margin-right: 0;
-        margin-bottom: 15px;
-    }
-    .codex-bot__integrations-title  {
-        flex-direction: column;
-        padding: 30px 0;
-        align-items: center;
-        font-size: 16px;
-    }
-    .integrations__read-guide {
-        font-size: 17px;
-    }
-    .codex-bot__links-item {
-        font-size: 14px;
-        line-height: 21px;
-    }
-    .codex-bot__links-delimeter {
-        display: none;
-    }
-    .codex-bot__integrations-layout     {
-        flex-direction: column;
-    }
-    .integrations__block {
-        max-height: initial;
-        max-width: 100%;
-        margin: 10px auto;
-    }
-    .integrations__block-link {
-        display: block;
-        margin-top: 10px;
-        float: none;
-    }
-    .codex-bot__text-block {
-        margin: 45px auto;
-        font-size: 16px;
-    }
-    .text-block__link {
-        font-size: 14px;
-        line-height: 21px;
-    }
-}
 
-@media all and (min-width: 426px) and (max-width: 800px) {
-    .codex-bot__button:first-of-type {
-        margin-right: 15px;
-    }
-}
+
