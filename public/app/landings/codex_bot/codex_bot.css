@@ -1,0 +1,240 @@
+/**
+ * CodeX Bot Landing
+ */
+.codex-bot {
+    font-family: Lato;
+}
+
+.codex-bot__heading {
+    font-size: 18px;
+    line-height: 3em;
+    border-bottom: 1px solid #ecedf0;
+    margin-bottom: 30px;
+}
+
+.codex-bot__about {
+    padding: 25vh 0 23vh;
+    text-align: center;
+}
+
+.codex-bot__info {
+    font-size: 1.5em;
+    line-height: 22px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.codex-bot__name {
+    margin: 0.1em 0 0.9em;
+    font-size: 3.5em;
+    font-weight: 700;
+    line-height: initial;
+}
+
+.codex-bot__button {
+    display: inline-block;
+    padding: 10px 26px 10px 18px;
+    background: #fff;
+    font-size: 18px;
+    line-height: 30px;
+    text-decoration: none;
+    text-align: left;
+    border: 1px solid #e7e7e7;
+    box-shadow: 0 2px 3px 0 rgba(38, 45, 67, 0.02);
+    border-radius: 3px;
+    color: inherit;
+}
+
+@media all and (max-width: 980px) {
+    .codex-bot__info {
+        font-size: 1.2em;
+    }
+    .codex-bot__name {
+        font-size: 2.4em;
+    }
+    .codex-bot__button {
+        min-width: 153px;
+        margin: 0 0 15px !important;
+        padding: 7px 12px 7px 12px;
+        font-size: 15px;
+    }
+}
+
+.codex-bot__button svg {
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    vertical-align: middle;
+    margin-right: 0.5em;
+    margin-top: -0.3em;
+}
+
+.codex-bot__button:first-of-type {
+    margin-right: 20px;
+}
+
+.codex-bot__button:hover {
+    background-color: #fdfdfd;
+    color: initial;
+    text-decoration: none;
+}
+
+/**
+ * Section with heading, text and link
+ * ==================
+ */
+.codex-bot__section {
+    margin: 60px auto 90px;
+    max-width: 450px;
+    font-size: 17px;
+    line-height: 1.5em;
+    text-align: center;
+}
+
+.codex-bot__section-title {
+    font-size: 1.2em;
+    margin-bottom: 0.6em;
+    font-weight: normal;
+}
+
+.codex-bot__section-text {
+    margin-bottom: 1em;
+}
+
+.codex-bot__section-link {
+    display: inline-block;
+    text-decoration: none;
+}
+
+.codex-bot__section-link:not(:last-of-type)::after {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #98b1d2;
+    margin: 0 0.9em 0 1em;
+}
+
+
+.codex-bot__integrations-layout {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+/**
+ * Application block
+ * ==================
+ */
+.bot-app {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    padding: 30px;
+    padding-bottom: 80px;
+    width: 48.5%;
+    margin-bottom: 28px;
+    box-sizing: border-box;
+    border: 1px solid #ecedf0;
+    border-radius: 2px;
+}
+
+@media all and (max-width: 980px) {
+    .bot-app {
+        width: auto;
+    }
+}
+
+.bot-app__icon {
+    float: right;
+    width: 60px;
+    margin-left: 30px;
+    margin-bottom: 30px;
+}
+
+.bot-app__title {
+    font-size: 21px;
+    font-weight: bold;
+    color: inherit;
+    text-decoration: none;
+}
+
+.bot-app__desc {
+    font-size: 15px;
+    line-height: 1.5em;
+    color: #626262;
+    padding: 15px 0;
+}
+
+.bot-app__contributors {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+}
+
+.bot-app__contributor {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    margin-right: 5px;
+    border-radius: 50%;
+    overflow: hidden;
+    vertical-align: top;
+}
+
+.bot-app__contributor img {
+    width: 100%;
+    height: 100%;
+}
+
+.bot-app__link {
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+    line-height: 1em;
+    text-align: right;
+    text-decoration: none;
+    color: #626262;
+}
+
+.bot-app--inactive {
+    color: #5B6679;
+}
+
+.bot-app--inactive .bot-app__link {
+    font-size: 19px;
+    right: auto;
+    left: 30px;
+    color: #2657AA;
+}
+
+.bot-app--inactive .bot-app__desc {
+    color: #636f84;
+}
+
+@media all and (max-width: 980px) {
+    .bot-app {
+        width: 100%;
+        padding: 20px;
+        padding-bottom: 60px;
+    }
+
+    .bot-app__contributors {
+        bottom: 20px;
+        left: 20px;
+    }
+
+    .bot-app__link {
+        position: static;
+    }
+
+    .bot-app--inactive {
+        padding-bottom: 20px;
+    }
+
+    .bot-app--inactive .bot-app__link {
+        left: 20px;
+    }
+}
