@@ -210,16 +210,22 @@
     color: #2657AA;
 }
 
+.bot-app--inactive .bot-app__desc {
+    color: #636f84;
+}
+
 @media all and (max-width: 980px) {
     .bot-app {
         width: 100%;
         padding: 20px;
         padding-bottom: 60px;
     }
+
     .bot-app__contributors {
         bottom: 20px;
         left: 20px;
     }
+
     .bot-app__link {
         position: static;
     }

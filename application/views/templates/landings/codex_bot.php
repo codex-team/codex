@@ -112,7 +112,7 @@
         <div class="codex-bot__section-text">Read instructions about @codex_bot usage and building own applications with community.</div>
         <a class="codex-bot__section-link" href="">Getting Started </a>
         <a class="codex-bot__section-link" href="">Documentation</a>
-        <a class="codex-bot__section-link" href="">View code</a>
+        <a class="codex-bot__section-link" href="https://github.com/codex-team/codex.bot">View code</a>
     </section>
     <section class="codex-bot__section">
         <h4 class="codex-bot__section-title">Contributors community</h4>
