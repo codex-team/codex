@@ -90,7 +90,7 @@
 
         <? endforeach; ?>
 
-         <div class="bot-app">
+         <div class="bot-app bot-app--inactive">
             <span class="bot-app__icon">
                 <? include(DOCROOT . 'public/app/landings/codex_bot/img/your_own.svg'); ?>
             </span>
@@ -107,21 +107,16 @@
         </div>
 
     </div>
-    <div class="codex-bot__text-block">
-        <div class="text-block__title">User Guide</div>
-        <div class="text-block__info">Read instructions about @codex_bot usage and building own applications with community.</div>
-        <div class="codex-bot__links">
-            <a class="codex-bot__links-item" href="">Getting Started </a>
-            <span class="codex-bot__links-delimeter">•</span>
-            <a class="codex-bot__links-item" href="">Documentation</a>
-            <span class="codex-bot__links-delimeter">•</span>
-            <a class="codex-bot__links-item" href="">View code</a>
-        </div>
-    </div>
-    <div class="codex-bot__text-block">
-        <div class="text-block__title">Contributors community</div>
-        <div class="text-block__info">We really appreciate your help and participation with improving and building platform together. Please, leave a feedback, bug-reports and add your own stuff.</div>
-        <a class="text-block__link" href="github.com/codex_bot">github.com/codex_bot</a>
-    </div>
-
+    <section class="codex-bot__section">
+        <h4 class="codex-bot__section-title">User Guide</h4>
+        <div class="codex-bot__section-text">Read instructions about @codex_bot usage and building own applications with community.</div>
+        <a class="codex-bot__section-link" href="">Getting Started </a>
+        <a class="codex-bot__section-link" href="">Documentation</a>
+        <a class="codex-bot__section-link" href="">View code</a>
+    </section>
+    <section class="codex-bot__section">
+        <h4 class="codex-bot__section-title">Contributors community</h4>
+        <div class="codex-bot__section-text">We really appreciate your help and participation with improving and building platform together. Please, leave a feedback, bug-reports and add your own stuff.</div>
+        <a class="codex-bot__section-link" href="//github.com/codex_bot">github.com/codex_bot</a>
+    </section>
 </div>
