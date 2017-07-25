@@ -2688,7 +2688,6 @@ module.exports = function (transport) {
  * Module for VK community widget: https://vk.com/dev/Community
  * Adds vkWidget to page
  */
-
 var vkWidget = function () {
 
     var targetId,
@@ -2706,16 +2705,15 @@ var vkWidget = function () {
      * communityId - id of VK community
      *
      * @example
-        vkWidget.init({
-            id: 'vk_groups',
-            display: {
-                'mode': 3,
-                'width': 'auto'
-            },
-            communityId: 103229636
-        });
+     * vkWidget.init({
+     *   id: 'vk_groups',
+     *   display: {
+     *       'mode': 3,
+     *       'width': 'auto'
+     *   },
+     *   communityId: 103229636
+     * });
      */
-
     var init = function init(params) {
 
         targetId = params.id || null, targetView = params.display || { 'mode': 3, 'width': 'auto' }, communityId = params.communityId || 103229636;
@@ -2733,7 +2731,6 @@ var vkWidget = function () {
      * Loads VK Api script to initialize a widget
      * and appends it to page
      */
-
     var loadScript = function loadScript() {
 
         var vkApiScript = document.createElement('SCRIPT');
@@ -2748,9 +2745,8 @@ var vkWidget = function () {
     };
 
     /**
-     * Appends VK widget width selected appearance and community id to target div
+     * Runs widget initiating from vkApi
      */
-
     var showWidget = function showWidget() {
 
         window.VK.Widgets.Group(targetId, targetView, communityId);
