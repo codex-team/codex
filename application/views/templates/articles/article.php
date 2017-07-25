@@ -114,6 +114,18 @@
 
 <script>
     // codex.fixColumns.init(document.getElementsByName('js-course-navigation'));
-    codex.simpleCode.init(".article__code");
-    VK.Widgets.Group("vk_groups", {mode: 3, width: "auto"}, 103229636);
+    codex.docReady(function () {
+
+        codex.simpleCode.init(".article__code");
+
+        codex.vkWidget.init({
+            id: 'vk_groups',
+            display: {
+                'mode': 3,
+                'width': 'auto'
+            },
+            communityId: 103229636
+        });
+
+    });
 </script>

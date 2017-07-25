@@ -1104,7 +1104,7 @@ textarea {
 
 .random_articles {
     padding: 35px 0;
-    margin: 0 120px;
+    margin: 0 145px;
     max-width: 600px;
 }
 
@@ -1705,8 +1705,8 @@ textarea {
 }
 
 .vk_groups {
-    width: calc(100% - 140px);
-    margin: auto;
+    max-width: 650px;
+    margin: 0 auto;
     margin-top: 50px;
 }
 
@@ -1716,7 +1716,8 @@ textarea {
 */
 
 @media all and (max-width: 980px) {
-	.vk_groups {
+    .vk_groups {
+        max-width: none;
         width: 100%;
     }
 }
