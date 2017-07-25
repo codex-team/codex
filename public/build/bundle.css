@@ -1704,6 +1704,23 @@ textarea {
     }
 }
 
+.vk_groups {
+    width: calc(100% - 140px);
+    margin: auto;
+    margin-top: 50px;
+}
+
+/**
+* Mobile viewport styles
+* =================================
+*/
+
+@media all and (max-width: 980px) {
+	.vk_groups {
+        width: 100%;
+    }
+}
+
 /**
 * Quiz module styles
 */

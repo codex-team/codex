@@ -88,6 +88,7 @@
             'desc'  => html_entity_decode($article->description),
         ))); ?>
 
+        <div class="vk_groups" id="vk_groups"></div>
 
         <ul class="random_articles">
             <h3>Читайте далее</h3>
@@ -114,4 +115,5 @@
 <script>
     // codex.fixColumns.init(document.getElementsByName('js-course-navigation'));
     codex.simpleCode.init(".article__code");
+    VK.Widgets.Group("vk_groups", {mode: 3, width: "auto"}, 103229636);
 </script>

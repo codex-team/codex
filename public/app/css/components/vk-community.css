@@ -1,0 +1,14 @@
+.vk_groups {
+    width: calc(100% - 140px);
+    margin: auto;
+    margin-top: 50px;
+}
+/**
+* Mobile viewport styles
+* =================================
+*/
+@media (--mobile) {
+	.vk_groups {
+        width: 100%;
+    }
+}
