@@ -24,7 +24,7 @@ var codex = (function (codex_) {
                 'mode': 3,
                 'width': 'auto'
             },
-            communityId: 103229636
+            communityId: codex.vkWidget.CODEX_COMMUNITY_ID
         });
 
     };

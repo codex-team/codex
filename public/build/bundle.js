@@ -2700,10 +2700,10 @@ var vkWidget = function () {
      * Initialization of module
      *
      * @param  {[Object]} params
-     * params.id - element id, where widget is appended
-     * params.display.mode - widget appearance ("3" - show people in the community),
-     * params.display.width - set widget width to a fixed number (without 'px') or auto
-     * params.communityId - id of VK community
+     * @param {int} params.id - element id, where widget is appended
+     * @param {int} params.display.mode - widget appearance ("3" - show people in the community)
+     * @param {int|string} params.display.width - set widget width to a fixed number or auto
+     * @param {int} params.communityId - id of VK community
      *
      * @example
      * vkWidget.init({
@@ -2798,7 +2798,7 @@ var codex = function (codex_) {
                 'mode': 3,
                 'width': 'auto'
             },
-            communityId: 103229636
+            communityId: codex.vkWidget.CODEX_COMMUNITY_ID
         });
     };
 
