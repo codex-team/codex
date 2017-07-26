@@ -1,5 +1,7 @@
 require('../css/main.css');
 
+const VK_COMMUNITY_ID = 103229636;
+
 var codex = (function (codex_) {
 
     codex_.settings = {};
@@ -26,7 +28,7 @@ var codex = (function (codex_) {
                 'mode': 3,
                 'width': 'auto'
             },
-            communityId: codex.VK_COMMUNITY_ID
+            communityId: VK_COMMUNITY_ID
         });
 
 
@@ -46,8 +48,6 @@ codex.docReady = function (f) {
     return /in/.test(document.readyState) ? window.setTimeout(codex.docReady, 9, f) : f();
 
 };
-
-codex.VK_COMMUNITY_ID = 103229636;
 
 /**
 * Pages
