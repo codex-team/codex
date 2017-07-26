@@ -2693,8 +2693,7 @@ var vkWidget = function () {
     var targetId,
         targetView,
         communityId,
-        VK_API_URI = 'https://vk.com/js/api/openapi.js',
-        CODEX_COMMUNITY_ID = 103229636;
+        VK_API_URI = 'https://vk.com/js/api/openapi.js';
 
     /**
      * Initialization of module
@@ -2717,7 +2716,7 @@ var vkWidget = function () {
      */
     var init = function init(params) {
 
-        targetId = params.id || null, targetView = params.display || { 'mode': 3, 'width': 'auto' }, communityId = params.communityId || CODEX_COMMUNITY_ID;;
+        targetId = params.id || null, targetView = params.display || { 'mode': 3, 'width': 'auto' }, communityId = params.communityId || 0;
 
         if (document.getElementById(targetId) == undefined) {
 
@@ -2792,13 +2791,15 @@ var codex = function (codex_) {
 
         codex.scrollUp.init();
 
+        codex.simpleCode.init('.article__code');
+
         codex.vkWidget.init({
             id: 'vk_groups',
             display: {
                 'mode': 3,
                 'width': 'auto'
             },
-            communityId: codex.vkWidget.CODEX_COMMUNITY_ID
+            communityId: codex.VK_COMMUNITY_ID
         });
     };
 
@@ -2814,6 +2815,8 @@ codex.docReady = function (f) {
     return (/in/.test(document.readyState) ? window.setTimeout(codex.docReady, 9, f) : f()
     );
 };
+
+codex.VK_COMMUNITY_ID = 103229636;
 
 /**
 * Pages

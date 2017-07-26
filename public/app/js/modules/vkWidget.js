@@ -5,8 +5,7 @@
 var vkWidget = function () {
 
     var targetId, targetView, communityId,
-        VK_API_URI = 'https://vk.com/js/api/openapi.js',
-        CODEX_COMMUNITY_ID = 103229636;
+        VK_API_URI = 'https://vk.com/js/api/openapi.js';
 
     /**
      * Initialization of module
@@ -31,7 +30,7 @@ var vkWidget = function () {
 
         targetId = params.id || null,
         targetView = params.display || { 'mode': 3, 'width': 'auto' },
-        communityId = params.communityId || CODEX_COMMUNITY_ID;;
+        communityId = params.communityId || 0;
 
         if (document.getElementById(targetId) == undefined) {
 

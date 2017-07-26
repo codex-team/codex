@@ -18,14 +18,18 @@ var codex = (function (codex_) {
 
         codex.scrollUp.init();
 
+        codex.simpleCode.init('.article__code');
+
         codex.vkWidget.init({
             id: 'vk_groups',
             display: {
                 'mode': 3,
                 'width': 'auto'
             },
-            communityId: codex.vkWidget.CODEX_COMMUNITY_ID
+            communityId: codex.VK_COMMUNITY_ID
         });
+
+
 
     };
 
@@ -43,6 +47,7 @@ codex.docReady = function (f) {
 
 };
 
+codex.VK_COMMUNITY_ID = 103229636;
 
 /**
 * Pages
