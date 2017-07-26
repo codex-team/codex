@@ -5,16 +5,17 @@
 var vkWidget = function () {
 
     var targetId, targetView, communityId,
-        VKAPIURI = 'https://vk.com/js/api/openapi.js';
+        VK_API_URI = 'https://vk.com/js/api/openapi.js',
+        CODEX_COMMUNITY_ID = 103229636;
 
     /**
      * Initialization of module
      *
-     * @param  {[Object]} params: id, display: {mode, width}, communityId
-     * id - element id, where widget is appended
-     * mode - widget appearance ("3" - show people in the community),
-     * width - set widget width to a fixed number (without 'px') or auto
-     * communityId - id of VK community
+     * @param  {[Object]} params
+     * params.id - element id, where widget is appended
+     * params.display.mode - widget appearance ("3" - show people in the community),
+     * params.display.width - set widget width to a fixed number (without 'px') or auto
+     * params.communityId - id of VK community
      *
      * @example
      * vkWidget.init({
@@ -30,7 +31,7 @@ var vkWidget = function () {
 
         targetId = params.id || null,
         targetView = params.display || { 'mode': 3, 'width': 'auto' },
-        communityId = params.communityId || 103229636;
+        communityId = params.communityId || CODEX_COMMUNITY_ID;;
 
         if (document.getElementById(targetId) == undefined) {
 
@@ -51,9 +52,9 @@ var vkWidget = function () {
 
         var vkApiScript = document.createElement('SCRIPT');
 
-        vkApiScript.src = VKAPIURI;
+        vkApiScript.src = VK_API_URI;
 
-        vkApiScript.setAttribute('async', '');
+        vkApiScript.setAttribute('async', 'true');
 
         vkApiScript.onload = showWidget;
 

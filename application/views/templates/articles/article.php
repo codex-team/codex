@@ -118,14 +118,5 @@
 
         codex.simpleCode.init(".article__code");
 
-        codex.vkWidget.init({
-            id: 'vk_groups',
-            display: {
-                'mode': 3,
-                'width': 'auto'
-            },
-            communityId: 103229636
-        });
-
     });
 </script>

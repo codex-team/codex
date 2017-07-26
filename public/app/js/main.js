@@ -18,6 +18,15 @@ var codex = (function (codex_) {
 
         codex.scrollUp.init();
 
+        codex.vkWidget.init({
+            id: 'vk_groups',
+            display: {
+                'mode': 3,
+                'width': 'auto'
+            },
+            communityId: 103229636
+        });
+
     };
 
     return codex_;
