@@ -2774,6 +2774,10 @@ module.exports = vkWidget;
 
 __webpack_require__(17);
 
+/**
+ * CodeX community id at vk.com.
+ * used by vkWidget module
+ */
 var VK_COMMUNITY_ID = 103229636;
 
 var codex = function (codex_) {

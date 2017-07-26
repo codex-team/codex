@@ -1,5 +1,9 @@
 require('../css/main.css');
 
+/**
+ * CodeX community id at vk.com.
+ * used by vkWidget module
+ */
 const VK_COMMUNITY_ID = 103229636;
 
 var codex = (function (codex_) {
