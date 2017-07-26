@@ -1,5 +1,11 @@
 require('../css/main.css');
 
+/**
+ * CodeX community id at vk.com.
+ * used by vkWidget module
+ */
+const VK_COMMUNITY_ID = 103229636;
+
 var codex = (function (codex_) {
 
     codex_.settings = {};
@@ -18,6 +24,19 @@ var codex = (function (codex_) {
 
         codex.scrollUp.init();
 
+        codex.simpleCode.init('.article__code');
+
+        codex.vkWidget.init({
+            id: 'vk_groups',
+            display: {
+                'mode': 3,
+                'width': 'auto'
+            },
+            communityId: VK_COMMUNITY_ID
+        });
+
+
+
     };
 
     return codex_;
@@ -33,7 +52,6 @@ codex.docReady = function (f) {
     return /in/.test(document.readyState) ? window.setTimeout(codex.docReady, 9, f) : f();
 
 };
-
 
 /**
 * Pages
@@ -59,6 +77,7 @@ codex.helpers = require('./modules/helpers');
 codex.quiz = require('./modules/quiz');
 codex.quizForm = require('./modules/quizForm');
 codex.transport = require('./modules/transport');
+codex.vkWidget = require('./modules/vkWidget');
 
 module.exports = codex;
 

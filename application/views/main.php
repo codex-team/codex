@@ -68,7 +68,6 @@
         });
     </script>
 
-
     <? if ($user->id): ?>
         <div id="utils" class="hidden" style="display: none">
             <iframe name="transport"></iframe>
@@ -85,7 +84,6 @@
 
 
     <script src="/public/extensions/emoji-parser/specc-emoji.js?v=<?= filemtime('public/extensions/emoji-parser/specc-emoji.js') ?>"></script>
-
     <script>
 
         codex.docReady(function () {
