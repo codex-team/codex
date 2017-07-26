@@ -1,6 +1,10 @@
 <?
     $news = array(
         array(
+            'text' => 'Рассказали о том, <a href="/slack-apps-tutorial">как создать приложение для Slack</a>',
+            'date' => '24 jul'
+        ),
+        array(
             'text' => 'Написали статью о создании <a href="/python-sockets">сокет сервера</a> на Python',
             'date' => '4 may'
         ),

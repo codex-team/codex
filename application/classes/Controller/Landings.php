@@ -7,8 +7,8 @@ class Controller_Landings extends Controller_Base_preDispatch
     public function action_bot()
     {
         $this->title = 'CodeX Bot';
-        $this->description = 'Telegram bot-platform for developers and managers';
-        $this->template->content = View::factory('templates/landings/bot', $this->view);
+        $this->description = 'Working team assistant';
+        $this->template->content = View::factory('templates/landings/codex_bot', $this->view);
     }
 
     /** Codex Special Landing page in https://ifmo.su/special */
