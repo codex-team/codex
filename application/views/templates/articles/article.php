@@ -50,7 +50,7 @@
 
                 <time class="article-info__date"><?= Date::fuzzy_span(strtotime($article->dt_create)) ?></time>
                 <img class="article-info__photo" src="<?= $article->author->photo ?>" alt="/<?= $article->author->name ?>"  itemprop="image">
-                <a class="article-info__name" itemprop="name" href="/<?= $article->author->uri ? : 'user/' + $article->author->id ?>">
+                <a class="article-info__name" itemprop="name" href="/<?= $article->author->uri ? : 'user/' . $article->author->id ?>">
                   <?= $article->author->name ?>
                 </a>
 
