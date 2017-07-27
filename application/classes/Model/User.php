@@ -4,6 +4,7 @@ class Model_User extends Model
 {
     public $id;
     public $name        = '';
+    public $uri         = '';
     public $photo       = '';
     public $photo_big   = '';
     public $photo_small = '';
