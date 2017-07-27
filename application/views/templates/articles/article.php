@@ -46,7 +46,7 @@
         <div class="article-info">
             <div class="article-info__author" itemscope itemtype="http://schema.org/Person" itemprop="author">
 
-                <meta itemprop="url" href="https://ifmo.su/user/<?= $article->user_id ?>" />
+                <meta itemprop="url" href="https://ifmo.su/<?= $article->author->uri ? : 'user/' + $article->author->id ?>" />
 
                 <time class="article-info__date"><?= Date::fuzzy_span(strtotime($article->dt_create)) ?></time>
                 <img class="article-info__photo" src="<?= $article->author->photo ?>" alt="https://ifmo.su/<?= $article->author->name ?>"  itemprop="image">
@@ -111,4 +111,3 @@
         ?>
     <? endif; ?>
 </div>
-
