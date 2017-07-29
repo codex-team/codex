@@ -46,11 +46,13 @@
         <div class="article-info">
             <div class="article-info__author" itemscope itemtype="http://schema.org/Person" itemprop="author">
 
-                <meta itemprop="url" href="https://ifmo.su/user/<?= $article->user_id ?>" />
+                <meta itemprop="url" href="/<?= $article->author->uri ? : 'user/' . $article->author->id ?>" />
 
                 <time class="article-info__date"><?= Date::fuzzy_span(strtotime($article->dt_create)) ?></time>
-                <img class="article-info__photo" src="<?= $article->author->photo ?>" alt="https://ifmo.su/<?= $article->author->name ?>"  itemprop="image">
-                <a class="article-info__name" itemprop="name" href="https://ifmo.su/user/<?= $article->author->id ?>"><?= $article->author->name ?></a>
+                <img class="article-info__photo" src="<?= $article->author->photo ?>" alt="/<?= $article->author->name ?>"  itemprop="image">
+                <a class="article-info__name" itemprop="name" href="/<?= $article->author->uri ? : 'user/' . $article->author->id ?>">
+                  <?= $article->author->name ?>
+                </a>
 
             </div>
         </div>
@@ -111,4 +113,3 @@
         ?>
     <? endif; ?>
 </div>
-
