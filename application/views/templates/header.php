@@ -16,12 +16,12 @@
             <div class="site-header__right">
                 <? if ($user->isAdmin): ?>
                     <? if (isset($user->canEditArticle)): ?>
-                        <a class="site-header__action site-header__action--edit" href="<?= $user->canEditArticle ?>">
+                        <a class="site-header__action site-header__action--edit mobile-hide" href="<?= $user->canEditArticle ?>">
                             <i class="icon-pencil"></i>
                             Edit
                         </a>
                     <? else: ?>
-                        <a class="site-header__action site-header__action--write" href="/article/add">
+                        <a class="site-header__action site-header__action--write mobile-hide" href="/article/add">
                             <i class="icon-pencil"></i>
                             Write
                         </a>
