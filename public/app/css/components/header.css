@@ -54,8 +54,15 @@
         background-color: var(--bg-light);
     }
 
-    &__write {
+    &__action {
         margin-right: 30px;
-        color: var(--text-green);
+
+        &--write {
+            color: var(--text-green);
+        }
+
+        &--edit {
+            color: var(--text-pink);
+        }
     }
 }
