@@ -15,8 +15,8 @@
         <? if ($user->id): ?>
             <div class="site-header__right">
                 <? if ($user->isAdmin): ?>
-                    <? if (isset($user->canEditArticle)): ?>
-                        <a class="site-header__action site-header__action--edit mobile-hide" href="<?= $user->canEditArticle ?>">
+                    <? if (isset($user->articleEditLink)): ?>
+                        <a class="site-header__action site-header__action--edit mobile-hide" href="<?= $user->articleEditLink ?>">
                             <i class="icon-pencil"></i>
                             Edit
                         </a>

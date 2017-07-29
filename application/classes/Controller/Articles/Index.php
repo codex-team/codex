@@ -75,12 +75,12 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
         /**
          * Check if user can edit an article
-         * Pass article uri to canEditArticle variable
+         * Pass article uri to articleEditLink variable
          * used in header template for Edit link href
          */
         if ($this->user->isAdmin) {
             $articleUri = $article->uri ? : "article/" . $article->id;
-            $this->user->canEditArticle = "/" . $articleUri . "/save";
+            $this->user->articleEditLink = "/" . $articleUri . "/save";
         }
 
         $this->title = $article->title;
