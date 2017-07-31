@@ -1012,10 +1012,17 @@ textarea {
         background-color: #f3f3f3;
 }
 
-.site-header__write {
+.site-header__action {
         margin-right: 30px;
-        color: #00b693;
 }
+
+.site-header__action--write {
+            color: #00b693;
+        }
+
+.site-header__action--edit {
+            color: #bc1453;
+        }
 
 /**
 *

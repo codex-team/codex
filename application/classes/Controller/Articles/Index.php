@@ -73,6 +73,16 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $this->view["article"]         = $article;
         $this->view["popularArticles"] = Model_Article::getPopularArticles($articleId);
 
+        /**
+         * Check if user can edit an article
+         * Pass article uri to articleEditLink variable
+         * used in header template for Edit link href
+         */
+        if ($this->user->isAdmin) {
+            $articleUri = $article->uri ? : "article/" . $article->id;
+            $this->template->articleEditLink = "/" . $articleUri . "/save";
+        }
+
         $this->title = $article->title;
         $this->description = $article->description;
 

@@ -15,10 +15,17 @@
         <? if ($user->id): ?>
             <div class="site-header__right">
                 <? if ($user->isAdmin): ?>
-                    <a class="site-header__write mobile-hide" href="/article/add">
-                        <i class="icon-pencil"></i>
-                        Write
-                    </a>
+                    <? if (!empty($articleEditLink)): ?>
+                        <a class="site-header__action site-header__action--edit mobile-hide" href="<?= $articleEditLink ?>">
+                            <i class="icon-pencil"></i>
+                            Edit
+                        </a>
+                    <? else: ?>
+                        <a class="site-header__action site-header__action--write mobile-hide" href="/article/add">
+                            <i class="icon-pencil"></i>
+                            Write
+                        </a>
+                    <? endif ?>
                 <? endif ?>
                 <a href="/user/<?= $user->id ?>">
                     <img class="site-header__photo" src="<?= $user->photo ?>" alt="<?= $user->name ?>" id="header-avatar-updatable" />

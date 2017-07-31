@@ -30,8 +30,11 @@
 
 </head>
 <body>
-
-    <?= View::factory('templates/header')->render(); ?>
+    <?
+      $headerVars = array();
+      $headerVars['articleEditLink'] = isset($articleEditLink) ? $articleEditLink : '';
+    ?>
+    <?= View::factory('templates/header', $headerVars)->render(); ?>
 
     <?= $content ?>
 
