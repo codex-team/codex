@@ -283,7 +283,7 @@ _INPUT.items = [
             border : false,
             isStretch : true,
             file : {
-                url:  'https://ifmo.su/public/img/meta_img.png',
+                url:  'https://ifmo.su/public/app/img/meta_img.png',
                 bigUrl : null,
                 width : null,
                 height : null,
