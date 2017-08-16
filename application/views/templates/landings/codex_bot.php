@@ -58,7 +58,7 @@
             ),
             array(
                 'name' => 'RSS Parser',
-                'description' => 'Subscribe to feeds and get notifications with updates.',
+                'description' => 'Subscribe to your favorite feeds and get notifications with updates.',
                 'contributors' => array(
                     array( 'name' => 'talyguryn', 'photo' => 'https://avatars1.githubusercontent.com/u/15259299?v=4&s=60' ),
                 ),
