@@ -55,6 +55,24 @@
                 ),
                 'url' => 'github.com/codex-bot/notify',
                 'icon' => 'public/app/landings/codex_bot/img/webhooks.svg'
+            ),
+            array(
+                'name' => 'Rssparser',
+                'description' => 'Subscribe to feeds and get notifications with updates.',
+                'contributors' => array(
+                    array( 'name' => 'talyguryn', 'photo' => 'https://avatars1.githubusercontent.com/u/15259299?v=4&s=60' ),
+                ),
+                'url' => 'github.com/codex-bot/rssparser',
+                'icon' => ''
+            ),
+            array(
+                'name' => 'Weather',
+                'description' => 'Allow you to be informed about weather conditions in your region via Telegram chat.',
+                'contributors' => array(
+                    array( 'name' => 'n0str', 'photo' => 'https://avatars1.githubusercontent.com/u/988885?v=4&s=60' ),
+                ),
+                'url' => 'github.com/codex-bot/weather',
+                'icon' => ''
             )
 
         )
