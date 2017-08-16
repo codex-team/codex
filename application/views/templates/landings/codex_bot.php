@@ -63,7 +63,7 @@
                     array( 'name' => 'talyguryn', 'photo' => 'https://avatars1.githubusercontent.com/u/15259299?v=4&s=60' ),
                 ),
                 'url' => 'github.com/codex-bot/rssparser',
-                'icon' => ''
+                'icon' => 'public/app/landings/codex_bot/img/rss.svg'
             ),
             array(
                 'name' => 'Weather',
@@ -72,7 +72,7 @@
                     array( 'name' => 'n0str', 'photo' => 'https://avatars1.githubusercontent.com/u/988885?v=4&s=60' ),
                 ),
                 'url' => 'github.com/codex-bot/weather',
-                'icon' => ''
+                'icon' => 'public/app/landings/codex_bot/img/rss.svg'
             )
 
         )
