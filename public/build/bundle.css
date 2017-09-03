@@ -1487,7 +1487,7 @@ textarea {
     position: absolute;
     right: 30px;
     top: 90px;
-    width: 150px;
+    width: 170px;
     text-align: left;
     font-size: 13px;
 }
@@ -1498,18 +1498,26 @@ textarea {
         padding-bottom: 0.5em;
         font-weight: normal;
         line-height: 1.2em;
-        font-size: 1em;
-        color: #ac7c0d;
+        font-size: 15px;
+        color: #d95509;
+    }
+
+.best-developers__heading::before {
+        content: url(/public/app/img/podium.svg);
+        display: block;
+        text-align: center;
+        margin-bottom: 5px;
     }
 
 .best-developers__item {
         position: relative;
         display: block;
-        padding-left: 50px;
+        padding-left: 30px;
         margin-bottom: 10px;
-        color: inherit;
+        color: #595959;
         text-decoration: none;
         cursor: pointer;
+        font-size: 13.6px;
         line-height: 1.4em;
     }
 
@@ -1517,9 +1525,9 @@ textarea {
         position: absolute;
         left: 0;
         top: 50%;
-        margin-top: -17px;
-        width: 34px;
-        height: 34px;
+        margin-top: -12px;
+        width: 24px;
+        height: 24px;
         border-radius: 18px;
     }
 
@@ -1533,7 +1541,8 @@ textarea {
     }
 
         .best-developers__heading {
-            max-width: none;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .best-developers__item {
