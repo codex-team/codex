@@ -9,16 +9,33 @@
         max-width: 500px;
         margin: 15px auto;
     }
-
-    &__join-button {
-        margin-top: 1.5em;
-        padding: 16px 30px;
-        font-size: 1.2em;
-    }
 }
 
 .index-page .codex-logo {
     margin-bottom: 50px;
+}
+
+.index-page .section-title {
+    margin: 15px 0;
+    font-weight: 400;
+    font-size: 21px;
+}
+
+.index-page .section-title--news {
+    margin-top: 70px;
+}
+
+.index-page .section--articles {
+    margin: 40px auto;
+}
+
+.index-page .section--articles {
+    display: flex;
+    justify-content: space-between;
+}
+
+.index-page .article-preview:not(:last-of-type) {
+    margin-right: 30px;
 }
 
 /**
@@ -35,5 +52,14 @@
 
     .index-page p {
         padding: 0 10px;
+    }
+
+    .index-page .section--articles {
+        flex-direction: column;
+    }
+
+    .index-page .article-preview:not(:last-of-type) {
+        margin-right: 0;
+        margin-bottom: 20px;
     }
 }

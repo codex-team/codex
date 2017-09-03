@@ -121,19 +121,20 @@
 
     );
 ?>
+<h2 class="section-title section-title--news">Latest news</h2>
 <ul class="news js-emoji-included">
     <?
         $MAX_PORTION = 3;
         $i = 0;
     ?>
     <? foreach ( $news as $event ): ?>
-        <li class="news__list_item <?= $i >= $MAX_PORTION ? 'news__list_item--hidden' : ''?>" data-time="<?= $event['date'] ?>">
+        <li class="news__list_item <? if (!empty($event['release'])): ?> news__list_item--release <? endif ?> <?= $i >= $MAX_PORTION ? 'news__list_item--hidden' : ''?>" data-time="<?= $event['date'] ?>">
             <? if (!empty($event['release'])): ?>
-                <span class="news__bage">release</span>
+                <span class="news__bage">Release</span>
             <? endif ?>
             <?= $event['text'] ?>
         </li>
         <? $i++; ?>
     <? endforeach; ?>
-    <span class="news__showmore" onclick="codex.showMoreNews.init( this );">Показать больше новостей</span>
+    <span class="news__showmore" onclick="codex.showMoreNews.init( this );">Больше новостей</span>
 </ul>

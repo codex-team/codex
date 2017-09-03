@@ -26,18 +26,17 @@
 
 
         <div class="codex-logo"></div>
-        <p>CodeX is a new club based in ITMO University, joining students and graduates interested in web-development, design and studying new technologies on the practise.</p>
-        <p>Our goal — make team with young specialists with burning eyes and idealistic spirits.</p>
+        <p>CodeX — это новый клуб в НИУ ИТМО, объединяющий студентов, интересующихся веб-разработкой, дизайном и изучением новых технологий на практике.</p>
+        <p>Наша цель — собрать команду молодых специалистов с горящими глазами и идеалистическим настроем.</p>
 
         <?
             /** News list */
             include 'news.php';
         ?>
 
-        <?
-            /** News list */
-            include 'articles-preview.php';
-        ?>
+        <? /** Join button */ ?>
+           <br><a class="button button--green index-page__join-button" href="/join">Вступить в клуб</a>
+        <? ?>
 
         <?
             /** Best developers block */
