@@ -1105,6 +1105,78 @@ textarea {
  * Components
  */
 
+.article-preview {
+    border: 1px solid #dde0E7;
+    text-align: initial;
+    border-radius: 4px;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 1 33%;
+            flex: 0 1 33%;
+    position: relative;
+}
+
+.article-preview__top {
+        background: #dde0E7;
+        height: 100px;
+    }
+
+.article-preview__title {
+        font-size: 18px;
+        line-height: 24px;
+        color: #000;
+        cursor: pointer;
+    }
+
+.article-preview__bottom {
+        background: #fff;
+        padding: 20px 20px 75px;
+    }
+
+.article-preview__info {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+    }
+
+.article-preview__author-ava {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        margin-top: -17px;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+    }
+
+.article-preview__author-ava--red {
+            background: #df5151;
+        }
+
+.article-preview__author-ava--blue {
+            background: #7597e9;
+        }
+
+.article-preview__author-ava--green {
+            background: #03ec7b;
+        }
+
+.article-preview__author-name,
+    .article-preview__time-read {
+        position: relative;
+        left: 43px;
+    }
+
+.article-preview__time-read {
+        color: #6c7580;
+        font-size: 13px;
+    }
+
+.article-preview__show-more {
+        font-size: 16px;
+        cursor: pointer;
+    }
+
 /**
 * Read-also recommendations block
 */
@@ -1510,8 +1582,8 @@ textarea {
     display: inline-block;
     max-width: 500px;
     border-top: 1px solid #eceff6;
+    border-bottom: 1px solid #eceff6;
     padding: 50px 0;
-    margin: 50px 0 0;
     text-align: left;
 }
 
@@ -1535,17 +1607,6 @@ textarea {
     color: #8b8e99;
 }
 
-.news__bage {
-    display: inline-block;
-    margin-right: 0.8em;
-    color: #b33232;
-    letter-spacing: 2px;
-    font-size: 1.1em;
-    -webkit-font-feature-settings: "c2sc";
-            font-feature-settings: "c2sc";
-    font-variant: small-caps;
-}
-
 .news__showmore {
     display: inline-block;
     margin-top: 1.5em;
@@ -1558,6 +1619,23 @@ textarea {
 .news__showmore:hover {
     color: #d25555;
     border-color: #f5dfdf;
+}
+
+.news__list_item--release::before {
+    line-height: 36px;
+}
+
+.news__list_item--release {
+    padding: 0;
+}
+
+.news__bage {
+    display: inline-block;
+    margin-right: 0.4em;
+    color: #b33232;
+    font-size: 15px;
+    line-height: 36px;
+    background: url(/public/app/img/release-oreol.svg);
 }
 
 /**
@@ -2146,14 +2224,35 @@ textarea {
         margin: 15px auto;
     }
 
-.index-page__join-button {
-        margin-top: 1.5em;
-        padding: 16px 30px;
-        font-size: 1.2em;
-    }
-
 .index-page .codex-logo {
     margin-bottom: 50px;
+}
+
+.index-page .section-title {
+    margin: 15px 0;
+    font-weight: 400;
+    font-size: 21px;
+}
+
+.index-page .section-title--news {
+    margin-top: 70px;
+}
+
+.index-page .section--articles {
+    margin: 40px auto;
+}
+
+.index-page .section--articles {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+}
+
+.index-page .article-preview:not(:last-of-type) {
+    margin-right: 30px;
 }
 
 /**
@@ -2171,6 +2270,18 @@ textarea {
 
     .index-page p {
         padding: 0 10px;
+    }
+
+    .index-page .section--articles {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+    }
+
+    .index-page .article-preview:not(:last-of-type) {
+        margin-right: 0;
+        margin-bottom: 20px;
     }
 }
 
