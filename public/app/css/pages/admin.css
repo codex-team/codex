@@ -36,13 +36,21 @@
 .p_table {
     width: 100%;
     border-spacing: 0;
+    border-collapse: collapse;
 }
 
 .p_table td {
     padding: 15px;
-    border-bottom: 1px solid #eff1f5;
     word-wrap: break-word;
     max-width: 300px;
+}
+
+.p_table tr{
+  border-bottom: 1px solid #eff1f5;
+
+  &:last-child {
+      border-bottom: none;
+  }
 }
 
 .p_table .id {

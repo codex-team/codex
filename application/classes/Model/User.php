@@ -279,14 +279,32 @@ class Model_User extends Model
 
     /**
     * Get user join-requests
-    * @return array with requests
+    * @return array
     */
-    public function getUserRequests()
+    public function getUserRequest()
     {
         if (!$this->id) {
             return array();
         }
 
-        return Dao_Requests::select()->where('uid', '=', $this->id)->cached(Date::MINUTE * 10, $this->id)->execute();
+        return Dao_Requests::select()
+            ->where('uid', '=', $this->id)
+            ->cached(Date::MINUTE * 10, $this->id)
+            ->execute();
+    }
+
+    /**
+     * Return list with all requests
+     *
+     * @param bool      if true then DESC order by id
+     * @return array    requests list
+     */
+    public function getRequestsList($isReversed = false)
+    {
+        $requestsList = Dao_Requests::select();
+
+        if ($isReversed) $requestsList->order_by('id', 'DESC');
+
+        return $requestsList->execute();
     }
 }

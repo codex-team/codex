@@ -1,5 +1,5 @@
 var webpack           = require('webpack');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 require('dotenv').config();
 var DevelopmendMode = process.env.KOHANA_ENV === 'DEVELOPMENT';
@@ -17,7 +17,7 @@ module.exports = {
         rules: [
             {
                 test : /\.(png|jpg|svg)$/,
-                use : "file-loader?name=[path][name].[ext]"
+                use : 'file-loader?name=[path][name].[ext]'
             },
             {
                 test: /\.css$/,
@@ -39,7 +39,7 @@ module.exports = {
                     {
                         loader: 'babel-loader',
                         options: {
-                            presets: ['env']
+                            presets: [ 'env' ]
                         }
                     },
                     /** ES lint For webpack build */
@@ -51,18 +51,25 @@ module.exports = {
                     }
                 ]
             }
-    ]},
+        ]},
 
     plugins: [
-        new ExtractTextPlugin("public/build/bundle.css")
+        new ExtractTextPlugin('public/build/bundle.css'),
+
+        new webpack.optimize.UglifyJsPlugin({
+            /** Disable warning messages. Cant disable uglify for 3rd party libs such as html-janitor */
+            compress: {
+                warnings: false
+            }
+        })
     ],
 
-    devtool: "source-map",
+    devtool: 'source-map',
 
     watch: true,
 
     watchOptions: {
-      aggragateTimeout: 50
+        aggragateTimeout: 50
     }
 
 };

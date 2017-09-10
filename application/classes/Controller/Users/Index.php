@@ -34,7 +34,7 @@ class Controller_Users_Index extends Controller_Base_preDispatch
         $needClearCache = Arr::get($_GET, 'clear') == 1;
         $this->view["feed_items"]  = Model_Article::getArticlesByUserId($viewUser->id, $needClearCache);
 
-        $this->view['join_requests'] = $viewUser->getUserRequests();
+        $this->view['join_requests'] = $viewUser->getUserRequest();
 
         $this->title = $viewUser->name ?: 'Пользователь #' . $viewUser->id;
         $this->view['viewUser']  = $viewUser;

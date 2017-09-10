@@ -128,7 +128,7 @@ class Controller_Admin extends Controller_Base_preDispatch
 
     public function requests()
     {
-        $requests = Dao_Requests::select()->execute();
+        $requests = Model_User::getRequestsList(true);
 
         $request_list = array();
 
