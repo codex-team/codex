@@ -299,7 +299,7 @@ class Model_User extends Model
      * @param bool      if true then DESC order by id
      * @return array    requests list
      */
-    public function getRequestsList($isReversed = false)
+    public static function getRequestsList($isReversed = false)
     {
         $requestsList = Dao_Requests::select();
 
