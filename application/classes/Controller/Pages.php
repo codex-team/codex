@@ -11,7 +11,7 @@ class Controller_Pages extends Controller_Base_preDispatch
             Security::token(true);
         }
 
-        $this->view['request'] = $this->user->getUserRequests();
+        $this->view['request'] = $this->user->getUserRequest();
 
         $this->title = 'Набор в команду CodeX';
         $this->template->content = View::factory('templates/join/index', $this->view);
