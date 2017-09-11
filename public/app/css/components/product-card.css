@@ -1,0 +1,125 @@
+/**
+ * Product cards
+ */
+.product-card {
+    border-radius: 5px;
+    padding: 30px;
+    position: relative;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    @media (--desktop) {
+        min-height: 415px;
+        padding: 50px;
+    }
+
+    @supports (display: grid) {
+        display: grid;
+        grid-template-columns: auto 400px;
+        grid-template-rows: 70px auto 100px;
+        grid-template-areas:
+            "title-area right-area"
+            "content-area right-area"
+            "footer-area right-area";
+
+        @media (--mobile) {
+            grid-template-columns: auto;
+            grid-template-rows: auto auto auto auto;
+            grid-template-areas:
+                "title-area"
+                "content-area"
+                "right-area"
+                "footer-area";
+        }
+    }
+
+    &__title {
+        display: block;
+        margin-bottom: 20.3px;
+        font-size: 43px;
+        letter-spacing: -0.36px;
+        font-weight: bold;
+        line-height: 1em;
+    }
+
+    &__caption {
+        font-size: 20px;
+        color: #626262;
+        line-height: 1.4em;
+        margin-bottom: 30px;
+    }
+
+    &__screen {
+        display: block;
+        width: 360px;
+        height: 310px;
+        box-shadow: 0 22px 31px 0 rgba(0, 0, 0, 0.63);
+        border-radius: 5px;
+
+        @media (--mobile) {
+            max-width: 100%;
+            height: auto;
+        }
+    }
+
+    &__repo {
+        display: inline-block;
+        margin-top: 30px;
+        color: #626262;
+    }
+
+    /**
+     * Improvements for devices that supports grid layout
+     */
+    @supports (display: grid) {
+        &__screen {
+            grid-area: right-area;
+        }
+
+        &__repo {
+            grid-area: footer-area;
+            align-self: end;
+        }
+    }
+
+    /**
+     * Hawk.so
+     * ==================================
+     */
+    &--hawk {
+        background-image: linear-gradient(176deg, #2e2e3c 0%, #262633 99%, #252533 100%);
+
+        ^&__title {
+            color: #fff;
+
+            img {
+                width: 44px;
+                vertical-align: text-bottom;
+                margin-right: 13px;
+                margin-top: -1px;
+            }
+        }
+
+        ^&__caption,
+        ^&__screen {
+            color: #a4b1d0;
+        }
+
+        ^&__repo {
+            color: #878ca0;
+
+            &:hover {
+                color: #fff;
+            }
+        }
+
+        ^&__caption {
+            max-width: 450px;
+        }
+
+        ^&__screen {
+            background-color: #2a2835;
+        }
+    }
+}

@@ -6,9 +6,6 @@
         <a class="site-header__menu-item" href="/articles">
             Articles
         </a>
-        <a class="site-header__menu-item" href="/contests">
-            Contests
-        </a>
         <a class="site-header__social mobile-hide" href="//vk.com/codex_team" target="_blank">
             <i class="icon-vkontakte"></i>
         </a>

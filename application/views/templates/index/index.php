@@ -31,7 +31,7 @@
 
         <?
             /** News list */
-            include 'news.php';
+            // include 'news.php';
         ?>
 
         <? /** Join button */ ?>
@@ -41,6 +41,15 @@
         <?
             /** Best developers block */
             include 'developers.php';
+        ?>
+
+        <?
+            /** Articles section */
+            include 'articles.php';
+        ?>
+        <?
+            /** Projects section */
+            include 'products.php';
         ?>
 
     </div>

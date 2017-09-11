@@ -1,17 +1,17 @@
 :root {
     /** Texts */
-    --text-gray: #555968;
+    --text-gray: #6c7580;
     --text-green: #00b693;
     --text-pink: #bc1453;
 
     /** Links */
-    --color-link: #4e37b5;
-    --color-hover: #7026bd;
+    --color-link: #2969b9;
+    --color-hover: #2c7fe5;
 
     /** Backgrounds */
     --bg-button: #c5dff5;
     --bg-button-submut: #4592da;
-    --bg-light: #f3f3f3;
+    --bg-light: #f4f5f9;
 
     /** Borders */
     --line-light: #e7e9f5;

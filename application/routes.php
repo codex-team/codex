@@ -155,30 +155,6 @@ Route::set('USER_SETTINGS', 'user/settings')->defaults(array(
 	'action'     => 'settings'
 ));
 
-// Scripts for comments
-
-Route::set('ADD_COMMENT_SCRIPT', 'article/addcomment')->defaults(array(
-    'controller' => 'comments',
-    'action' => 'add'
-));
-
-Route::set('DEL_COMMENT_SCRIPT', 'article/delcomment/<comment_id>', array('comment_id' => $DIGIT))->defaults(array(
-    'controller' => 'comments',
-    'action' => 'delete'
-));
-
-Route::set('DESIGN_PREVIEW', 'design/<page>')->defaults(array(
-    'controller' => 'index',
-    'action' => 'designPreview'
-));
-
-
-// TAGS
-
-Route::set('TAGS', 'tag(/<query>)', array('query' => $QUERY))->defaults(array(
-    'controller' => 'articles_tags',
-    'action' => 'search',
-));
 
 //Script for admin panel---------
 

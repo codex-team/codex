@@ -14,7 +14,7 @@ class Controller_Index extends Controller_Base_preDispatch
             Security::token(true);
         }
 
-        $this->view['ny_user_requests'] = $this->user->getUserRequests();
+        // $this->view['ny_user_requests'] = $this->user->getUserRequests();
 
         /**
         * Select best developers
@@ -29,16 +29,7 @@ class Controller_Index extends Controller_Base_preDispatch
 
 
         $this->title = 'Команда CodeX';
-        $this->template->content = View::factory('templates/index', $this->view);
-    }
-
-    /** Action for html-page preview for designers */
-    public function action_designPreview()
-    {
-        $template = $this->request->param('page');
-
-        $this->auto_render = false;
-        $this->response->body(View::factory('templates/design/' . $template)->render());
+        $this->template->content = View::factory('templates/index/index', $this->view);
     }
 
     /**

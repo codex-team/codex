@@ -34,7 +34,7 @@
     "stylelint-webpack-plugin": "^0.7.0"
   },
   "scripts": {
-    "build": "webpack"
+    "build": "webpack --progress  --display-error-details --display-entrypoints --display-reasons"
   },
   "repository": {
     "type": "git",
