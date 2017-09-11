@@ -2227,9 +2227,11 @@ textarea {
 .product-card {
     border-radius: 5px;
     padding: 30px;
+    margin-bottom: 30px;
     position: relative;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
+    border: 1px solid #e7e9f5;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -2239,6 +2241,7 @@ textarea {
     .product-card {
         min-height: 415px;
         padding: 50px;
+        margin-bottom: 60px;
     }
 }
 
@@ -2246,8 +2249,8 @@ textarea {
 
     .product-card {
         display: grid;
-        grid-template-columns: auto 400px;
-        grid-template-rows: 70px auto 100px;
+        grid-template-columns: auto 360px;
+        grid-template-rows: 60px auto 100px;
         grid-template-areas:
             "title-area right-area"
             "content-area right-area"
@@ -2275,13 +2278,25 @@ textarea {
         letter-spacing: -0.36px;
         font-weight: bold;
         line-height: 1em;
+        color: inherit;
+}
+
+.product-card__title:hover {
+    color: inherit;
+}
+
+@media all and (max-width: 980px) {
+
+    .product-card__title {
+        font-size: 32px;
+    }
 }
 
 .product-card__caption {
+        margin-bottom: 30px;
         font-size: 20px;
         color: #626262;
         line-height: 1.4em;
-        margin-bottom: 30px;
 }
 
 .product-card__screen {
@@ -2301,20 +2316,98 @@ textarea {
     }
 }
 
-.product-card {
-    /**
-     * Improvements for devices that supports grid layout */
-}
-
 .product-card__repo {
         display: inline-block;
         margin-top: 30px;
         color: #626262;
 }
 
+.product-card__button {
+        display: inline-block;
+        padding: 10px 26px 10px 18px;
+        margin: 30px 30px 0 0;
+        background: #fff;
+        border: 1px solid #e7e9f5;
+        -webkit-box-shadow: 0 2px 3px 0 rgba(38, 45, 67, 0.02);
+                box-shadow: 0 2px 3px 0 rgba(38, 45, 67, 0.02);
+        border-radius: 3px;
+        color: inherit;
+        color: #000;
+        font-size: 17px;
+        letter-spacing: -0.3px;
+        text-decoration: none;
+}
+
+.product-card__button svg {
+            display: inline-block;
+            width: 26px;
+            height: 26px;
+            vertical-align: middle;
+            margin-right: 0.5em;
+            margin-top: -0.3em;
+        }
+
+.product-card__button:hover {
+    background-color: #fdfdfd;
+    color: initial;
+    text-decoration: none;
+}
+
+@media all and (max-width: 980px) {
+
+    .product-card__button {
+        padding: 6px 15px 6px 13px;
+        margin: 20px 20px 0 0;
+        font-size: 14px;
+    }
+
+    .product-card__button svg {
+                width: 20px;
+                height: 20px;
+    }
+}
+
+.product-card {
+    /**
+     * Improvements for devices that supports grid layout */
+}
+
+.product-card__right-heading {
+        margin: 0 0 20px;
+        font-size: 22px;
+        font-weight: normal;
+}
+
+.product-card__application {
+        display: inline-block;
+        margin-bottom: 15px;
+        width: 40px;
+        height: 40px;
+}
+
+.product-card__application svg {
+            width: 40px;
+            height: 40px;
+        }
+
+.product-card__application:not(:last-of-type) {
+    margin-right: 10px;
+}
+
+.product-card__right-link {
+        margin-top: 7px;
+        display: inline-block;
+        color: #8c8888;
+        line-height: 1.5em;
+}
+
 @supports (display: grid) {
 
-    .product-card__screen {
+    .product-card__caption {
+            grid-area: content-area;
+    }
+
+    .product-card__right {
             grid-area: right-area;
     }
 
@@ -2331,6 +2424,7 @@ textarea {
 
 .product-card--hawk {
         background-image: linear-gradient(176deg, #2e2e3c 0%, #262633 99%, #252533 100%);
+        border: 0;
 }
 
 .product-card--hawk .product-card__title {
@@ -2344,14 +2438,21 @@ textarea {
                 margin-top: -1px;
             }
 
+@media all and (max-width: 980px) {
+
+    .product-card--hawk .product-card__title img {
+        width: 34px;
+    }
+}
+
 .product-card--hawk .product-card__caption,
         .product-card--hawk .product-card__screen {
             color: #a4b1d0;
-        }
+}
 
 .product-card--hawk .product-card__repo {
-            color: #878ca0
-        }
+            color: #878ca0;
+}
 
 .product-card--hawk .product-card__repo:hover {
     color: #fff;
@@ -2359,11 +2460,12 @@ textarea {
 
 .product-card--hawk .product-card__caption {
             max-width: 450px;
-        }
+            padding-top: 10px;
+}
 
 .product-card--hawk .product-card__screen {
             background-color: #2a2835;
-        }
+}
 
 /**
  * Pages

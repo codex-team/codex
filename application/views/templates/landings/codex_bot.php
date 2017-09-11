@@ -53,7 +53,7 @@
                     array( 'name' => 'talyguryn', 'photo' => 'https://avatars1.githubusercontent.com/u/15259299?v=4&s=60' ),
                     array( 'name' => 'gohabereg', 'photo' => 'https://avatars3.githubusercontent.com/u/23050529?v=4&s=60' ),
                 ),
-                'url' => 'github.com/codex-bot/notify',
+                'url' => 'github.com/codex-bot/Webhooks',
                 'icon' => 'public/app/landings/codex_bot/img/webhooks.svg'
             ),
             array(
