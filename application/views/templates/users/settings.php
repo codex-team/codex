@@ -8,7 +8,7 @@
 
         <div class="fl_l align_c">
             <div class="profile-settings__ava">
-                <img src="<?= $user->photo ?>" alt="<?= $user->name ?>" id="profile-photo-updatable">
+                <img src="<?= htmlspecialchars($user->photo) ?>" alt="<?= htmlspecialchars($user->name) ?>" id="profile-photo-updatable">
             </div>
             <br/>
             <div class="button file-transport-button" data-action="<?= Controller_Base_Ajax::TRANSPORT_ACTION_PROFILE_PHOTO ?>">
@@ -23,19 +23,19 @@
                 <input type="hidden" name="csrf" value="<?= Security::token() ?>" />
 
                 <label for="name">Name</label>
-                <input class="input" type="text" id="name" name="name" value="<?= $user->name ?>" required/>
+                <input class="input" type="text" id="name" name="name" value="<?= htmlspecialchars($user->name) ?>" required/>
 
                 <label for="bio">About</label>
-                <textarea class="input" rows="2" id="bio" name="bio"><?= $user->bio?></textarea>
+                <textarea class="input" rows="2" id="bio" name="bio"><?= $user->bio ?></textarea>
 
                 <label for="alias">Alias</label>
-                <input class="input" type="text" id="alias" name="alias" value="<?= $user->uri ?>" required/>
+                <input class="input" type="text" id="alias" name="alias" value="<?= htmlspecialchars($user->uri) ?>" required/>
 
                 <label for="vk_uri"><i class="icon-vkontakte"></i> vk.com</label>
-                <input class="input" type="text" id="vk_uri" name="vk_uri" value="<?= $user->vk_uri ?>"/>
+                <input class="input" type="text" id="vk_uri" name="vk_uri" value="<?= htmlspecialchars($user->vk_uri) ?>"/>
 
                 <label for="instagram_uri"> <i class="icon-instagram"></i> Instagram</label>
-                <input class="input" type="text" id="instagram_uri" name="instagram_uri" value="<?=$user->instagram_uri ?>"/>
+                <input class="input" type="text" id="instagram_uri" name="instagram_uri" value="<?= htmlspecialchars($user->instagram_uri) ?>"/>
 
                 <br>
 
