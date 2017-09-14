@@ -4,10 +4,7 @@
 /**
  * Hawk PHP Errors Sender
  *
- * Firstly you need to set up config file.
- * Create config/hawk.php as a copy of sample file or fill it yourself.
- *
- * Config file should return an array with 'token' [and 'url'] field.
+ * Put project token to $_SERVER['HAWK_TOKEN'].
  *
  * Simple usage:
  * @example Model_Hawk::Log($exception);
@@ -17,40 +14,13 @@ class Model_Hawk extends Model
     const catcherUrl = 'https://hawk.so/catcher/php';
 
     /**
-     * Get Hawk config params
-     *
-     * @return $params['token']     Project token from settings
-     *         $params['url']       PHP Hawk catcher URL
-     *
-     * @return FALSE                If no config file was found
-     */
-    public static function returnConfig() {
-
-        $configFilename = 'hawk';
-        $config = Kohana::$config->load($configFilename);
-
-        if ( !(array)$config ) {
-
-            return false;
-
-        }
-
-        $params = array(
-            'token' => Arr::get($config, 'token', ''),
-            'url' => Arr::get($config, 'url', self::catcherUrl)
-        );
-
-        return $params;
-    }
-
-    /**
      * Public function for logging server error.
      *
      * @example Model_Hawk::Log($e);
      *
      * @param $exception      Error you want to save
      * @return                Hawk server response
-     *                        or FALSE if config file does not exist
+     *                        or FALSE if $_SERVER['HAWK_TOKEN'] does not exist
      */
     public static function Log($exception) {
 
