@@ -78,7 +78,7 @@ class Model_Hawk extends Model
             "POST" => $_POST
         );
 
-        return self::_send($data, $params);
+        return self::send($data, $params);
     }
 
     /**
@@ -88,7 +88,7 @@ class Model_Hawk extends Model
      * @param $data     Array with error info
      * @return          Hawk server response
      */
-    private static function _send($data, $params) {
+    private static function send($data, $params) {
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $params['url']);
