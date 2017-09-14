@@ -54,16 +54,13 @@ class Model_Hawk extends Model
      */
     public static function Log($exception) {
 
-        $params = self::returnConfig();
+        $token = Arr::get($_SERVER, 'HAWK_TOKEN', FALSE);
 
         /**
          * If no config file was found then ignore sending
          */
-        if ($params === FALSE) {
+        if ($token === FALSE) return FALSE;
 
-            return FALSE;
-
-        }
 
         $data = array(
             "error_type" => $exception->getCode() ? : E_ERROR,
@@ -73,12 +70,12 @@ class Model_Hawk extends Model
             "error_context" => array(),
             "debug_backtrace" => debug_backtrace(),
             'http_params' => $_SERVER,
-            "access_token" => $params['token'],
+            "access_token" => $token,
             "GET" => $_GET,
             "POST" => $_POST
         );
 
-        return self::send($data, $params);
+        return self::send($data);
     }
 
     /**
@@ -88,10 +85,10 @@ class Model_Hawk extends Model
      * @param $data     Array with error info
      * @return          Hawk server response
      */
-    private static function send($data, $params) {
+    private static function send($data) {
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $params['url']);
+        curl_setopt($ch, CURLOPT_URL, self::catcherUrl);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
