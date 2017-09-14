@@ -146,6 +146,8 @@ class Controller_Base_preDispatch extends Controller_Template
 
     private function setGlobals()
     {
+        $_SERVER['HAWK_TOKEN'] = Model_Hawk::returnConfig()['token'];
+
         // methods
         $this->methods = new Model_Methods();
         View::set_global('methods', $this->methods);

@@ -1,0 +1,18 @@
+<?php defined('SYSPATH') OR die('No direct access allowed.');
+
+return array(
+
+    /**
+     * Hawk.so token for your project.
+     *
+     * For more information read a platform documentation
+     * https://hawk.so/docs
+     */
+    'token' => '',
+
+    /**
+     * If you need to use custom Hawk server then uncomment and enter url.
+     */
+    // 'url' => 'https://hawk.so/catcher/php',
+
+);

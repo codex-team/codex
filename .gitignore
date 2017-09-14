@@ -29,6 +29,7 @@ application/config/database.php
 application/config/oauth.php
 application/config/redis.php
 application/config/telegram-notification.php
+application/config/hawk.php
 public/img/covers/*
 /nbproject/private/
 *~
