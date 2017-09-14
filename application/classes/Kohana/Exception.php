@@ -9,40 +9,20 @@ class Kohana_Exception extends Kohana_Kohana_Exception
 {
     public static function response(Exception $e)
     {
-        // handle error
-        if (Kohana::$environment >= Kohana::DEVELOPMENT) {
-            return parent::response($e);
-        } else {
-            $view = new View('templates/errors/default');
 
-            /**
-            * Send notification to the Telegram
-            */
-            self::formatErrorForTelegrams($e);
+        Model_Hawk::Log($e);
+        
+        if (Kohana::$environment == Kohana::DEVELOPMENT) {
+
+            return parent::response($e);
+
+        } else {
+
+            $view = new View('templates/errors/default');
 
             $response = Response::factory()->status(500)->body($view->render());
 
             return $response;
         }
-    }
-
-    /**
-    * Compose error trace for Telegram
-    * @param Exception $e - kohana exception object
-    */
-    private static function formatErrorForTelegrams($e)
-    {
-        $protocol = HTTP::$protocol == 'HTTP' ? 'http://' : 'https://';
-        if (!empty(Request::current())) {
-            $path = $protocol . Arr::get($_SERVER, 'SERVER_NAME') . Request::current()->url();
-        } else {
-            $path = '';
-        }
-
-        $telegramMsg = '⚠️ ' . $e->getMessage() . '';
-        $telegramMsg .= PHP_EOL .     $e->getFile() . ': ' . $e->getLine() .  PHP_EOL . PHP_EOL;
-        $telegramMsg .= $path;
-
-        Model_Methods::sendBotNotification($telegramMsg);
     }
 }

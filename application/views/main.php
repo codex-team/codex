@@ -24,7 +24,7 @@
 
     <script src="/public/build/bundle.js?v=<?= filemtime('public/build/bundle.js') ?>"></script>
 
-    <? if ($_SERVER['KOHANA_ENV'] === 'PRODUCTION' && !empty($_SERVER['HAWK_TOKEN'])): ?>
+    <? if (!empty($_SERVER['HAWK_TOKEN'])): ?>
         <script src="https://cdn.rawgit.com/codex-team/hawk.client/master/hawk.js" onload="hawk.init('<?= $_SERVER['HAWK_TOKEN'] ?>')"></script>
     <? endif; ?>
 
