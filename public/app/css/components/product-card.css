@@ -56,6 +56,7 @@
     }
 
     &__caption {
+        max-width: 450px;
         margin-bottom: 30px;
         font-size: 20px;
         color: #626262;
@@ -65,7 +66,6 @@
     &__screen {
         display: block;
         width: 360px;
-        height: 310px;
         box-shadow: 0 22px 31px 0 rgba(0, 0, 0, 0.63);
         border-radius: 5px;
 
@@ -151,6 +151,104 @@
         line-height: 1.5em;
     }
 
+    &__actions {
+        margin-top: 40px;
+    }
+
+    /**
+     * «Loved by» block
+     */
+    &__loved-by {
+        margin-top: 45px;
+
+        &-title {
+            font-size: 18px;
+            font-weight: normal;
+            margin-bottom: 10px;
+        }
+
+        &-item {
+            display: inline-block;
+            vertical-align: top;
+            padding: 10px 25px 10px 0;
+            height: 27px;
+
+            &:not(:last-of-type) {
+                border-right: 1px solid var(--line-light);
+            }
+
+            &:not(:first-of-type) {
+                padding-left: 23px;
+            }
+        }
+    }
+
+    /**
+     * Download button
+     */
+    &__download {
+        display: inline-block;
+        min-width: 150px;
+        padding: 10px 20px;
+        margin: 0 20px 20px 0;
+        border: 1px solid color(var(--line-light) blackness(+7%));
+        border-radius: 3px;
+        font-size: 13.1px;
+        line-height: 1.5em;
+        color: #25262e;
+
+        &:hover {
+            color: #25262e;
+        }
+
+        b {
+            display: block;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        svg {
+            float: left;
+            margin-top: 5px;
+            margin-right: 15px;
+        }
+
+        &--win svg {
+            margin-top: 7px;
+        }
+
+        &--linux svg {
+            margin-top: 8px;
+        }
+
+        &--appstore {
+            background-color: #0c0c0c;
+            border: 0;
+            color: #fff;
+
+            svg {
+                fill: #fff !important;
+            }
+
+            &:hover {
+                color: #fff;
+            }
+        }
+    }
+
+    &__advantages {
+        margin: 30px 0 0;
+        padding: 0;
+        list-style: none;
+        line-height: 1.8em;
+    }
+
+    &__disclaimer {
+        margin-top: 20px;
+        font-size: 15px;
+        line-height: 1.53em;
+    }
+
     /**
      * Improvements for devices that supports grid layout
      */
@@ -206,12 +304,138 @@
         }
 
         ^&__caption {
-            max-width: 450px;
             padding-top: 10px;
         }
 
         ^&__screen {
             background-color: #2a2835;
         }
+    }
+
+    /**
+     * CodeX Notes
+     * ==================================
+     */
+    &--notes{
+        background-image: linear-gradient(9deg, #f4f5fb 0%, #f9fafb 99%);
+        border: 0;
+
+        ^&__caption {
+            margin-bottom: 10px;
+        }
+    }
+
+    /**
+     * CodeX Media
+     * ==================================
+     */
+    &--media {
+        background-color: #0b0b0b;
+        border: 0;
+
+        @supports (display: grid) {
+            grid-template-rows: 130px auto 100px;
+
+            @media (--mobile) {
+                grid-template-rows: auto;
+            }
+        }
+
+        ^&__title {
+            font-size: 70px;
+            font-weight: 500;
+            max-width: 200px;
+            color: #fff;
+        }
+
+        ^&__caption {
+            margin: 30px 0;
+            color: #626262;
+            font-weight: 200;
+            font-size: 25px;
+        }
+
+        ^&__advantages {
+            color: #fff;
+            font-weight: normal;
+            font-size: 15px;
+        }
+
+        ^&__repo {
+            &:hover {
+                color: #fff;
+            }
+        }
+    }
+
+
+    /**
+     * CodeX Media
+     * ==================================
+     */
+    &--ar-tester {
+        background-image: url('/public/app/img/products/ar-tester-bg.jpg'), linear-gradient(69deg, #f575a0 8%, #187cb8 100%);
+        background-size: cover, auto;
+        border: 0;
+
+         @supports (display: grid) {
+            grid-template-columns: auto 300px;
+
+            @media (--mobile) {
+                grid-template-columns: auto;
+            }
+        }
+
+        ^&__title,
+        ^&__caption,
+        ^&__disclaimer,
+        ^&__repo {
+            color: #fff;
+        }
+
+        ^&__caption {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: 300;
+        }
+
+        ^&__disclaimer {
+            font-weight: normal;
+        }
+
+        ^&__title {
+            font-size: 53px;
+        }
+
+        ^&__screen {
+            box-shadow: none;
+            width: 256px;
+            margin-top: 20px;
+        }
+
+        ^&__download {
+            padding: 17px 30px 21px;
+            font-size: 14px;
+            border-radius: 8px;
+            min-width: 170px;
+
+            svg {
+                margin-right: 20px;
+            }
+
+            b {
+                font-size: 26px;
+                font-weight: normal;
+            }
+        }
+
+        ^&__repo {
+            opacity: 0.5;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+
     }
 }

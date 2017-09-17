@@ -2293,6 +2293,7 @@ textarea {
 }
 
 .product-card__caption {
+        max-width: 450px;
         margin-bottom: 30px;
         font-size: 20px;
         color: #626262;
@@ -2302,7 +2303,6 @@ textarea {
 .product-card__screen {
         display: block;
         width: 360px;
-        height: 310px;
         -webkit-box-shadow: 0 22px 31px 0 rgba(0, 0, 0, 0.63);
                 box-shadow: 0 22px 31px 0 rgba(0, 0, 0, 0.63);
         border-radius: 5px;
@@ -2401,6 +2401,104 @@ textarea {
         line-height: 1.5em;
 }
 
+.product-card__actions {
+        margin-top: 40px;
+}
+
+/**
+     * «Loved by» block */
+
+.product-card__loved-by {
+        margin-top: 45px;
+}
+
+.product-card__loved-by-title {
+            font-size: 18px;
+            font-weight: normal;
+            margin-bottom: 10px;
+        }
+
+.product-card__loved-by-item {
+            display: inline-block;
+            vertical-align: top;
+            padding: 10px 25px 10px 0;
+            height: 27px
+        }
+
+.product-card__loved-by-item:not(:last-of-type) {
+    border-right: 1px solid #e7e9f5;
+}
+
+.product-card__loved-by-item:not(:first-of-type) {
+    padding-left: 23px;
+}
+
+/**
+     * Download button */
+
+.product-card__download {
+        display: inline-block;
+        min-width: 150px;
+        padding: 10px 20px;
+        margin: 0 20px 20px 0;
+        border: 1px solid rgb(228, 228, 227);
+        border-radius: 3px;
+        font-size: 13.1px;
+        line-height: 1.5em;
+        color: #25262e;
+}
+
+.product-card__download:hover {
+    color: #25262e;
+}
+
+.product-card__download b {
+            display: block;
+            font-size: 16px;
+            font-weight: 500;
+}
+
+.product-card__download svg {
+            float: left;
+            margin-top: 5px;
+            margin-right: 15px;
+}
+
+.product-card__download--win svg {
+            margin-top: 7px;
+}
+
+.product-card__download--linux svg {
+            margin-top: 8px;
+}
+
+.product-card__download--appstore {
+            background-color: #0c0c0c;
+            border: 0;
+            color: #fff;
+}
+
+.product-card__download--appstore svg {
+                fill: #fff !important;
+            }
+
+.product-card__download--appstore:hover {
+    color: #fff;
+}
+
+.product-card__advantages {
+        margin: 30px 0 0;
+        padding: 0;
+        list-style: none;
+        line-height: 1.8em;
+}
+
+.product-card__disclaimer {
+        margin-top: 20px;
+        font-size: 15px;
+        line-height: 1.53em;
+}
+
 @supports (display: grid) {
 
     .product-card__caption {
@@ -2459,12 +2557,147 @@ textarea {
 }
 
 .product-card--hawk .product-card__caption {
-            max-width: 450px;
             padding-top: 10px;
 }
 
 .product-card--hawk .product-card__screen {
             background-color: #2a2835;
+}
+
+/**
+     * CodeX Notes
+     * ================================== */
+
+.product-card--notes {
+        background-image: linear-gradient(9deg, #f4f5fb 0%, #f9fafb 99%);
+        border: 0;
+}
+
+.product-card--notes .product-card__caption {
+            margin-bottom: 10px;
+        }
+
+/**
+     * CodeX Media
+     * ================================== */
+
+.product-card--media {
+        background-color: #0b0b0b;
+        border: 0;
+}
+
+@supports (display: grid) {
+
+    .product-card--media {
+        grid-template-rows: 130px auto 100px;
+    }
+
+    @media all and (max-width: 980px) {
+
+        .product-card--media {
+            grid-template-rows: auto;
+        }
+    }
+}
+
+.product-card--media .product-card__title {
+            font-size: 70px;
+            font-weight: 500;
+            max-width: 200px;
+            color: #fff;
+}
+
+.product-card--media .product-card__caption {
+            margin: 30px 0;
+            color: #626262;
+            font-weight: 200;
+            font-size: 25px;
+}
+
+.product-card--media .product-card__advantages {
+            color: #fff;
+            font-weight: normal;
+            font-size: 15px;
+}
+
+.product-card--media .product-card__repo:hover {
+    color: #fff;
+}
+
+/**
+     * CodeX Media
+     * ================================== */
+
+.product-card--ar-tester {
+        background-image: url('/public/app/img/products/ar-tester-bg.jpg'), linear-gradient(69deg, #f575a0 8%, #187cb8 100%);
+        background-size: cover, auto;
+        border: 0;
+}
+
+@supports (display: grid) {
+
+    .product-card--ar-tester {
+        grid-template-columns: auto 300px;
+    }
+
+    @media all and (max-width: 980px) {
+
+        .product-card--ar-tester {
+            grid-template-columns: auto;
+        }
+    }
+}
+
+.product-card--ar-tester .product-card__title,
+        .product-card--ar-tester .product-card__caption,
+        .product-card--ar-tester .product-card__disclaimer,
+        .product-card--ar-tester .product-card__repo {
+            color: #fff;
+}
+
+.product-card--ar-tester .product-card__caption {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: 300;
+}
+
+.product-card--ar-tester .product-card__disclaimer {
+            font-weight: normal;
+}
+
+.product-card--ar-tester .product-card__title {
+            font-size: 53px;
+}
+
+.product-card--ar-tester .product-card__screen {
+            -webkit-box-shadow: none;
+                    box-shadow: none;
+            width: 256px;
+            margin-top: 20px;
+}
+
+.product-card--ar-tester .product-card__download {
+            padding: 17px 30px 21px;
+            font-size: 14px;
+            border-radius: 8px;
+            min-width: 170px;
+}
+
+.product-card--ar-tester .product-card__download svg {
+                margin-right: 20px;
+            }
+
+.product-card--ar-tester .product-card__download b {
+                font-size: 26px;
+                font-weight: normal;
+            }
+
+.product-card--ar-tester .product-card__repo {
+            opacity: 0.5;
+}
+
+.product-card--ar-tester .product-card__repo:hover {
+    opacity: 1;
 }
 
 /**
