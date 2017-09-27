@@ -1,0 +1,20 @@
+<svg width="60px" height="60px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <path id="path-hawk" d="M5.58329658,5.56497116 C2.13365048,9.00329488 0,13.7532949 0,19 C0,29.4934102 8.53460191,38 19.0625669,38 C27.0647869,38 33.9153622,33.0854065 36.7418051,26.1192792 C31.1318929,24.0473471 26.7675187,19.4105917 25.0763901,13.6345768 C27.4054126,12.6239388 29.9763842,12.0634921 32.6786861,12.0634921 C34.1649887,12.0634921 35.6115618,12.2330355 37,12.5537773 C34.3514031,5.23325439 27.3201435,0 19.0625669,0 C13.7985844,0 9.03294268,2.12664744 5.58329658,5.56497116 Z"></path>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="logos/hawk">
+            <g id="Logo">
+                <rect id="Mask" fill="#5F627A" x="0" y="0" width="60" height="60" rx="3"></rect>
+                <g id="Hawk-Logo" transform="translate(11.000000, 11.000000)">
+                    <mask id="mask-hawk" fill="white">
+                        <use xlink:href="#path-hawk"></use>
+                    </mask>
+                    <use id="Combined-Shape" fill="#FAFBFF" xlink:href="#path-hawk"></use>
+                    <circle id="Path" fill="#0F111F" mask="url(#mask-hawk)" cx="32" cy="31" r="19"></circle>
+                    <circle id="Path" fill="#FFE600" mask="url(#mask-hawk)" cx="44" cy="8" r="19"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
