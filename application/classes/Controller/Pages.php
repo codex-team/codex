@@ -29,13 +29,9 @@ class Controller_Pages extends Controller_Base_preDispatch
         $who = $this->request->param('who');
 
         switch ($who) {
-            case 'developers':
-                $this->title = 'Задание для веб-разрабочиков';
-                $this->template->content = View::factory('templates/task/developers', $this->view);
-                break;
-            case 'designers':
+            case 'design':
                 $this->title = 'Задание для веб-дизайнеров';
-                $this->template->content = View::factory('templates/task/designers', $this->view);
+                $this->template->content = View::factory('templates/task/design', $this->view);
                 break;
             case 'frontend':
                 $this->title = 'Задание на frontend-разработку';
