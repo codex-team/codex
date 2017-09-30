@@ -10,10 +10,18 @@
         justify-content: space-between;
         max-width: var(--article-max-width);
         margin: 50px auto;
+        text-align: center;
 
         @media (--mobile) {
             flex-direction: column;
         }
+    }
+
+    &__col {
+        display: block;
+        width: 33.3%;
+        text-align: center;
+        font-size: 18px;
     }
 
     &__left {
@@ -26,6 +34,38 @@
 
     h3 {
         margin-top: 0;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    &__download {
+        display: block;
+        width: 200px;
+        text-align: center;
+        padding: 15px 10px;
+        border-radius: 50px;
+        background: #1f253c;
+        border: 0 !important;
+        color: #fff !important;
+        font-size: 16px;
+        margin: 50px auto 0;
+
+        svg {
+            width: 30px;
+            height: auto;
+            vertical-align: middle;
+            margin-right: 0.3em;
+        }
+    }
+
+    &__disclaimer {
+        color: var(--text-gray);
+        margin: 20px auto;
+        max-width: 400px;
+        text-align: center;
+        line-height: 1.5em;
     }
 }
 
