@@ -18,7 +18,7 @@
                     <a href="/task/backend">Backend</a>
                 </div>
                 <div class="task-page__col">
-                    <a href="/task/design">Design</a>
+                    <a href="/task/designers">Design</a>
                 </div>
             </div>
             <div class="align_c">
