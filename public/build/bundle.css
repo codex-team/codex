@@ -2331,6 +2331,7 @@ textarea {
                 justify-content: space-between;
         max-width: 650px;
         margin: 50px auto;
+        text-align: center;
     }
 
 @media all and (max-width: 980px) {
@@ -2340,6 +2341,22 @@ textarea {
         -webkit-box-direction: normal;
             -ms-flex-direction: column;
                 flex-direction: column;
+    }
+}
+
+.task-page__col {
+        display: block;
+        width: 33.3%;
+        text-align: center;
+        font-size: 18px;
+}
+
+@media all and (max-width: 980px) {
+
+    .task-page__col {
+        width: auto;
+        text-align: left;
+        padding: 5px 0;
     }
 }
 
@@ -2356,6 +2373,38 @@ textarea {
 
 .task-page h3 {
         margin-top: 0;
+}
+
+.task-page img {
+        max-width: 100%;
+}
+
+.task-page__download {
+        display: block;
+        width: 200px;
+        text-align: center;
+        padding: 15px 10px;
+        border-radius: 50px;
+        background: #1f253c;
+        border: 0 !important;
+        color: #fff !important;
+        font-size: 16px;
+        margin: 50px auto 0;
+}
+
+.task-page__download svg {
+            width: 30px;
+            height: auto;
+            vertical-align: middle;
+            margin-right: 0.3em;
+        }
+
+.task-page__disclaimer {
+        color: #555968;
+        margin: 20px auto;
+        max-width: 400px;
+        text-align: center;
+        line-height: 1.5em;
 }
 
 .additional_tasks {
