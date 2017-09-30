@@ -2351,6 +2351,15 @@ textarea {
         font-size: 18px;
 }
 
+@media all and (max-width: 980px) {
+
+    .task-page__col {
+        width: auto;
+        text-align: left;
+        padding: 5px 0;
+    }
+}
+
 .task-page__left {
         padding-right: 50px;
 }

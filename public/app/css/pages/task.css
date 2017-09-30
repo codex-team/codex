@@ -22,6 +22,12 @@
         width: 33.3%;
         text-align: center;
         font-size: 18px;
+
+        @media (--mobile) {
+            width: auto;
+            text-align: left;
+            padding: 5px 0;
+        }
     }
 
     &__left {
