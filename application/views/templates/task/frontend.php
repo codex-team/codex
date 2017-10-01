@@ -7,7 +7,7 @@
 
         <div class="article_content task-page">
             <p>
-                Необходимо реализовать простой редактор обложек для статей. Суть задания — на изображениях ниже.
+                Необходимо реализовать простой редактор обложек для статей. Суть задания — на изображениях ниже. Решение должно быть самостоятельном, не использующим фреймворки и сторонние библиотеки.
             </p>
             <img src="/public/app/img/task/cover-generator/default-states.png">
             <img src="/public/app/img/task/cover-generator/canvas-selected.png">
