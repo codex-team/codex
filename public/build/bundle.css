@@ -2367,11 +2367,6 @@ textarea {
     }
 }
 
-.product-card {
-    /**
-     * Improvements for devices that supports grid layout */
-}
-
 .product-card__right-heading {
         margin: 0 0 20px;
         font-size: 22px;
@@ -2431,6 +2426,22 @@ textarea {
 
 .product-card__loved-by-item:not(:first-of-type) {
     padding-left: 23px;
+}
+
+@media all and (max-width: 980px) {
+
+    .product-card__loved-by-item {
+        padding: 5px 10px 5px 0;
+    }
+
+    .product-card__loved-by-item:not(:first-of-type) {
+        padding-left: 10px;
+    }
+}
+
+.product-card {
+    /**
+     * Improvements for devices that supports grid layout */
 }
 
 /**
@@ -2809,24 +2820,31 @@ textarea {
         border-radius: 3px;
 }
 
+@media all and (max-width: 980px) {
+
+    .product-cell__tag {
+        margin-top: 5px;
+    }
+}
+
 .product-cell__tag svg {
             margin-right: 0.12em;
             vertical-align: text-bottom;
-        }
+}
 
 /** Available in PyPI */
 
 .product-cell__tag--pypi {
             border-color: #adcbe3;
             color: #3573a7;
-        }
+}
 
 /** Available in NPM */
 
 .product-cell__tag--npm {
             border-color: #f9b7b7;
             color: #b72b2a;
-        }
+}
 
 .product-cell__tag--npm svg {
                 vertical-align: middle;
@@ -2837,7 +2855,7 @@ textarea {
 .product-cell__tag--composer {
             border-color: #d0cdc8;
             color: #6d6d6d;
-        }
+}
 
 /**
  * Pages
@@ -2868,6 +2886,93 @@ textarea {
 .index-page .codex-logo {
     display: block;
     margin: 0 auto 50px;
+}
+
+/**
+ * Follow us block
+ * ================================
+ */
+
+.follow-block {
+    text-align: center;
+}
+
+.follow-block__photos {
+        margin: 25px 0;
+    }
+
+.follow-block__photos img {
+            width: 60px;
+            height: 60px;
+            opacity: 0.6;
+            margin: 0 10px;
+            vertical-align: bottom;
+        }
+
+@media all and (max-width: 980px) {
+
+    .follow-block__photos img {
+        width: 46px;
+        height: 46px;
+        margin: 0 3px;
+    }
+}
+
+.follow-block .button {
+        background: transparent;
+        margin: 0 7.5px;
+        border: 1px solid #c2c2c2;
+        color: #373737;
+        font-size: 15.7px;
+        border-radius: 5px;
+        padding: 7px 13px;
+        line-height: 22px;
+}
+
+.follow-block .button svg {
+            vertical-align: text-bottom;
+            margin-right: 0.2em;
+        }
+
+@media all and (max-width: 980px) {
+
+    .follow-block .button {
+        font-size: 14px;
+        padding: 3px 7px;
+        margin: 0 2px;
+    }
+
+    .follow-block .button svg {
+                height: auto;
+                width: 1.1em;
+                margin-right: 0.1em;
+    }
+}
+
+.follow-block .button--instagram {
+            border-color: #eec6dc;
+            color: #871f4d;
+}
+
+.follow-block .button--vk {
+            border-color: #bcc6df;
+            color: #2a5ba2;
+}
+
+.follow-block .button--vk svg {
+                vertical-align: middle;
+            }
+
+.follow-block .button--twitter {
+            border-color: #a3caf8;
+            color: #1e72c8;
+}
+
+@media all and (max-width: 980px) {
+
+    .follow-block .button--twitter {
+        margin-top: 10px;
+    }
 }
 
 /**
@@ -3045,6 +3150,7 @@ textarea {
                 justify-content: space-between;
         max-width: 650px;
         margin: 50px auto;
+        text-align: center;
     }
 
 @media all and (max-width: 980px) {
@@ -3054,6 +3160,22 @@ textarea {
         -webkit-box-direction: normal;
             -ms-flex-direction: column;
                 flex-direction: column;
+    }
+}
+
+.task-page__col {
+        display: block;
+        width: 33.3%;
+        text-align: center;
+        font-size: 18px;
+}
+
+@media all and (max-width: 980px) {
+
+    .task-page__col {
+        width: auto;
+        text-align: left;
+        padding: 5px 0;
     }
 }
 
@@ -3070,6 +3192,38 @@ textarea {
 
 .task-page h3 {
         margin-top: 0;
+}
+
+.task-page img {
+        max-width: 100%;
+}
+
+.task-page__download {
+        display: block;
+        width: 200px;
+        text-align: center;
+        padding: 15px 10px;
+        border-radius: 50px;
+        background: #1f253c;
+        border: 0 !important;
+        color: #fff !important;
+        font-size: 16px;
+        margin: 50px auto 0;
+}
+
+.task-page__download svg {
+            width: 30px;
+            height: auto;
+            vertical-align: middle;
+            margin-right: 0.3em;
+        }
+
+.task-page__disclaimer {
+        color: #6c7580;
+        margin: 20px auto;
+        max-width: 400px;
+        text-align: center;
+        line-height: 1.5em;
 }
 
 .additional_tasks {
@@ -4429,13 +4583,21 @@ textarea {
 .p_table {
     width: 100%;
     border-spacing: 0;
+    border-collapse: collapse;
 }
 
 .p_table td {
     padding: 15px;
-    border-bottom: 1px solid #eff1f5;
     word-wrap: break-word;
     max-width: 300px;
+}
+
+.p_table tr{
+  border-bottom: 1px solid #eff1f5
+}
+
+.p_table tr:last-child {
+    border-bottom: none;
 }
 
 .p_table .id {

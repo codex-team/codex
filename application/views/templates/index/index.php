@@ -52,5 +52,10 @@
             include 'products.php';
         ?>
 
+        <?
+            /** Projects section */
+            include 'follow.php';
+        ?>
+
     </div>
 </div>

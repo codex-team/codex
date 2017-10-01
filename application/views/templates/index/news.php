@@ -1,6 +1,26 @@
 <?
     $news = array(
         array(
+            'text' => 'Опубликованы <a href="/task">задания для вступающих в клуб</a>',
+            'date' => '1 oct'
+        ),
+        array(
+            'text' => 'Набросали гайд о том, <a href="/ssh-passwordless-login">как настроить беспарольный доступ по SSH</a>',
+            'date' => '20 sep'
+        ),
+        array(
+            'text' => 'Написали о том, что такое <a href="/jwt">JSON Web Token</a>',
+            'date' => '15 sep'
+        ),
+        array(
+            'text' => 'Рассказали об опыте <a href="https://vk.com/codex_team?w=wall-103229636_291">работы с дополненной реальностью на ARKit</a>',
+            'date' => '12 sep'
+        ),
+        array(
+            'text' => 'Обзор обновления <a href="/github-codeowners">GitHub Code Owners</a>',
+            'date' => '2 aug'
+        ),
+        array(
             'text' => 'Рассказали о том, <a href="/slack-apps-tutorial">как создать приложение для Slack</a>',
             'date' => '24 jul'
         ),

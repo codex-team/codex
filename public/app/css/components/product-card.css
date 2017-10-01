@@ -180,6 +180,14 @@
             &:not(:first-of-type) {
                 padding-left: 23px;
             }
+
+            @media (--mobile) {
+                padding: 5px 10px 5px 0;
+
+                &:not(:first-of-type) {
+                    padding-left: 10px;
+                }
+            }
         }
     }
 

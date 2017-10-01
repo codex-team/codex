@@ -11,7 +11,7 @@ class Controller_Pages extends Controller_Base_preDispatch
             Security::token(true);
         }
 
-        $this->view['request'] = $this->user->getUserRequests();
+        $this->view['request'] = $this->user->getUserRequest();
 
         $this->title = 'Набор в команду CodeX';
         $this->template->content = View::factory('templates/join/index', $this->view);
@@ -28,13 +28,22 @@ class Controller_Pages extends Controller_Base_preDispatch
     {
         $who = $this->request->param('who');
 
-
-        if ($who == "developers") {
-            $this->title = 'Задание для веб-разрабочиков';
-            $this->template->content = View::factory('templates/task/developers', $this->view);
-        } elseif ($who == "designers") {
-            $this->title = 'Задание для веб-дизайнеров';
-            $this->template->content = View::factory('templates/task/designers', $this->view);
+        switch ($who) {
+            case 'design':
+                $this->title = 'Задание для веб-дизайнеров';
+                $this->template->content = View::factory('templates/task/design', $this->view);
+                break;
+            case 'frontend':
+                $this->title = 'Задание на frontend-разработку';
+                $this->template->content = View::factory('templates/task/frontend', $this->view);
+                break;
+            case 'backend':
+                $this->title = 'Задание на backend-разработку';
+                $this->template->content = View::factory('templates/task/backend', $this->view);
+                break;
+            default:
+                throw new HTTP_Exception_404();
+                break;
         }
     }
 

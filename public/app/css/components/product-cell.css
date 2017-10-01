@@ -90,6 +90,10 @@
         color: #995175;
         border-radius: 3px;
 
+        @media (--mobile) {
+            margin-top: 5px;
+        }
+
         svg {
             margin-right: 0.12em;
             vertical-align: text-bottom;

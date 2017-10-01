@@ -14,7 +14,7 @@ class Controller_Index extends Controller_Base_preDispatch
             Security::token(true);
         }
 
-        // $this->view['ny_user_requests'] = $this->user->getUserRequests();
+        // $this->view['ny_user_requests'] = $this->user->getUserRequest();
 
         /**
         * Select best developers

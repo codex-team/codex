@@ -25,6 +25,85 @@
 }
 
 /**
+ * Follow us block
+ * ================================
+ */
+.follow-block {
+    text-align: center;
+
+    &__photos {
+        margin: 25px 0;
+
+        img {
+            width: 60px;
+            height: 60px;
+            opacity: 0.6;
+            margin: 0 10px;
+            vertical-align: bottom;
+
+            @media (--mobile) {
+                width: 46px;
+                height: 46px;
+                margin: 0 3px;
+            }
+        }
+    }
+
+    .button {
+        background: transparent;
+        margin: 0 7.5px;
+        border: 1px solid #c2c2c2;
+        color: #373737;
+        font-size: 15.7px;
+        border-radius: 5px;
+        padding: 7px 13px;
+        line-height: 22px;
+
+        svg {
+            vertical-align: text-bottom;
+            margin-right: 0.2em;
+        }
+
+        @media (--mobile) {
+            font-size: 14px;
+            padding: 3px 7px;
+            margin: 0 2px;
+
+            svg {
+                height: auto;
+                width: 1.1em;
+                margin-right: 0.1em;
+            }
+        }
+
+        &--instagram {
+            border-color: #eec6dc;
+            color: #871f4d;
+        }
+
+        &--vk {
+            border-color: #bcc6df;
+            color: #2a5ba2;
+
+            svg {
+                vertical-align: middle;
+            }
+        }
+
+        &--twitter {
+            border-color: #a3caf8;
+            color: #1e72c8;
+
+            @media (--mobile) {
+                margin-top: 10px;
+            }
+        }
+
+
+    }
+}
+
+/**
 * Mobile viewport styles
 * =================================
 */

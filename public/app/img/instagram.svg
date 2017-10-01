@@ -1,0 +1,27 @@
+<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <linearGradient x1="50%" y1="99.7089109%" x2="50%" y2="0.776721582%" id="insta-linearGradient-1">
+            <stop stop-color="#E09B3D" offset="0%"></stop>
+            <stop stop-color="#C74C4D" offset="30%"></stop>
+            <stop stop-color="#C21975" offset="60%"></stop>
+            <stop stop-color="#7024C4" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="146.098873%" x2="50%" y2="-45.1596833%" id="isnta-linearGradient-2">
+            <stop stop-color="#E09B3D" offset="0%"></stop>
+            <stop stop-color="#C74C4D" offset="30%"></stop>
+            <stop stop-color="#C21975" offset="60%"></stop>
+            <stop stop-color="#7024C4" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="658.140556%" x2="50%" y2="-140.029283%" id="insta-linearGradient-3">
+            <stop stop-color="#E09B3D" offset="0%"></stop>
+            <stop stop-color="#C74C4D" offset="30%"></stop>
+            <stop stop-color="#C21975" offset="60%"></stop>
+            <stop stop-color="#7024C4" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M12.6377029,0 L5.36229706,0 C2.405514,0 0,2.405514 0,5.36229706 L0,12.6377029 C0,15.594486 2.405514,18 5.36229706,18 L12.6377029,18 C15.594486,18 18,15.594486 18,12.6377029 L18,5.36229706 C17.9999673,2.405514 15.5944533,0 12.6377029,0 Z M16.1892007,12.6377029 C16.1892007,14.5991246 14.5991246,16.1892007 12.6377029,16.1892007 L5.36229706,16.1892007 C3.40087545,16.1892007 1.81079933,14.5991246 1.81079933,12.6377029 L1.81079933,5.36229706 C1.81079933,3.40084278 3.40087545,1.81079933 5.36229706,1.81079933 L12.6377029,1.81079933 C14.5991246,1.81079933 16.1892007,3.40084278 16.1892007,5.36229706 L16.1892007,12.6377029 L16.1892007,12.6377029 Z" id="Shape" fill="url(#insta-linearGradient-1)"></path>
+        <path d="M8.65384615,4.15384615 C6.17254217,4.15384615 4.15384615,6.17254925 4.15384615,8.65383037 C4.15384615,11.1351115 6.17254217,13.1538462 8.65384615,13.1538462 C11.1351501,13.1538462 13.1538462,11.1351431 13.1538462,8.65383037 C13.1538462,6.17251768 11.1351501,4.15384615 8.65384615,4.15384615 Z M8.65384615,11.403533 C7.13523785,11.403533 5.90418471,10.1724756 5.90418471,8.65386194 C5.90418471,7.13524831 7.13526942,5.90419085 8.65384615,5.90419085 C10.1724545,5.90419085 11.4035076,7.13524831 11.4035076,8.65386194 C11.4035076,10.172444 10.1724229,11.403533 8.65384615,11.403533 Z" id="Shape" fill="url(#isnta-linearGradient-2)"></path>
+        <circle id="Oval" fill="url(#insta-linearGradient-3)" cx="13.5" cy="4.5" r="1.03846154"></circle>
+    </g>
+</svg>
