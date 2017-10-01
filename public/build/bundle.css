@@ -2763,6 +2763,7 @@ textarea {
 }
 
 .product-cell__name {
+        display: block;
         font-size: 21px;
         font-weight: 500;
         margin: 0;

@@ -34,7 +34,7 @@
             'description' => 'Deploy your project automatically when git branch was updated.',
             'logo' => 'public/app/img/products/deploy-server.svg',
             'tags' => array('Python', 'Git'),
-            'repo' => 'github.com/codex-team/deploy-server',
+            'repo' => 'github.com/codex-team/deployserver',
             'pypi' => true
         ),
         array(
@@ -66,14 +66,14 @@
 <div class="products-grid">
     <? foreach ($products as $product): ?>
         <div class="products-grid__item product-cell">
-            <div class="product-cell__logo">
+            <a class="product-cell__logo" href="https://<?= $product['repo'] ?>" rel="nofollow">
                 <? include(DOCROOT . $product['logo']); ?>
-            </div>
-            <h4 class="product-cell__name">
+            </a>
+            <a class="product-cell__name" href="https://<?= $product['repo'] ?>">
                 <?= $product['name'] ?>
-            </h4>
+            </a>
             <div class="product-cell__desc">
-                <?= $product['description'] ?>
+                <?= HTML::chars($product['description']) ?>
             </div>
             <? if (!empty($product['tags'])): ?>
                 <div class="product-cell__tags">
@@ -102,7 +102,7 @@
                     <? endif ?>
                 </div>
             <? endif ?>
-            <a class="product-cell__repo" href="https://<?= $product['repo'] ?>">
+            <a class="product-cell__repo" href="https://<?= $product['repo'] ?>" rel="nofollow">
                 <?= $product['repo']?>
             </a>
         </div>
