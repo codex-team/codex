@@ -90,59 +90,64 @@
 <link rel="stylesheet" href="https://rawgit.com/codex-editor/code/master/lib/bundle.css">
 
 <!-- Editor scripts and styles -->
-<script src="https://cdn.ifmo.su/editor/v2.0/codex-editor.js"></script>
-<link rel="stylesheet" href="https://cdn.ifmo.su/editor/v2.0/codex-editor.css" />
+<!--<script src="https://cdn.ifmo.su/editor/v2.0/codex-editor.js"></script>-->
+<!--<link rel="stylesheet" href="https://cdn.ifmo.su/editor/v2.0/codex-editor.css" />-->
 
 <script>
 
     /** Document is ready */
     codex.docReady(function() {
-    var editor = new codex.editor({
-        holderId : "codex_editor",
-        initialBlockPlugin : 'paragraph',
-        // placeholder: 'Прошлой ночью мне приснилось...',
-        hideToolbar: false,
-        tools : {
-            paragraph: {
-                type: 'paragraph',
-                iconClassname: 'ce-icon-paragraph',
-                showInlineToolbar: true,
-                allowRenderOnPaste: true,
-                instance: paragraph
-            },
-            header: {
-                type: 'header',
-                iconClassname: 'ce-icon-header',
-                instance: header,
-                displayInToolbox: true
-            },
-            code: {
-                type: 'code',
-                iconClassname: 'ce-icon-code',
-                instance: code,
-                displayInToolbox: true,
-                enableLineBreaks: true
-            }
-        },
-        data : {
-            id: +new Date(),
-            items: [
+
+        codex.editor.start(
+            ['paragraph, header']
+        );
+
+//    var editor = new codex.editor({
+//        holderId : "codex_editor",
+//        initialBlockPlugin : 'paragraph',
+//        // placeholder: 'Прошлой ночью мне приснилось...',
+//        hideToolbar: false,
+//        tools : {
+//            paragraph: {
+//                type: 'paragraph',
+//                iconClassname: 'ce-icon-paragraph',
+//                showInlineToolbar: true,
+//                allowRenderOnPaste: true,
+//                instance: paragraph
+//            },
+//            header: {
+//                type: 'header',
+//                iconClassname: 'ce-icon-header',
+//                instance: header,
+//                displayInToolbox: true
+//            },
+//            code: {
+//                type: 'code',
+//                iconClassname: 'ce-icon-code',
+//                instance: code,
+//                displayInToolbox: true,
+//                enableLineBreaks: true
+//            }
+//        },
+//        data : {
+//            id: +new Date(),
+//            items: [
 //                {
 //                    type : 'header',
 //                    data : {
 //                        text : 'Привет от CodeX'
 //                    }
 //                },
-                {
-                    type : 'paragraph',
-                    data : {
-                        text : 'Пишите нам на team@ifmo.su'
-                    }
-                }
-            ],
-            count: 3
-        }
-    });
+//                {
+//                    type : 'paragraph',
+//                    data : {
+//                        text : 'Пишите нам на team@ifmo.su'
+//                    }
+//                }
+//            ],
+//            count: 3
+//        }
+//    });
         cPreview.show({
             data : INPUT,
             holder : 'output'
