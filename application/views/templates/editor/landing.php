@@ -9,9 +9,7 @@
 
     <form name="editor-demo" action="/editor/preview" method="POST" enctype="multipart/form-data">
 
-        <textarea hidden name="html" id="codex_editor" cols="30" rows="10" style="width: 100%;height: 300px;"></textarea>
-        <textarea hidden name="article_json" id="json_result" cols="30" rows="10" style="width: 100%;height: 300px;"></textarea>
-
+        <div name="html" id="codex_editor" cols="30" rows="10" style="width: 100%;height: 300px;"></div>
         <div class="editor_output__buttons">
             <a href="#output" id="jsonPreviewerButton" class="button">View Output</a>
             <span id="saveButton" class="button button--master">Save and Preview</span>
@@ -72,151 +70,79 @@
 </div>
 
 <!-- Developers plugin -->
-<? $plugins = ['paragraph', 'header', 'code', 'link', 'list', 'image', 'quote', 'twitter', 'instagram', 'embed']; ?>
+<?
+    $plugins = ['paragraph', 'header', 'code', 'link', 'list', 'image', 'quote', 'twitter', 'instagram', 'embed'];
 
-<? foreach ($plugins as $plugin) : ?>
-    <script src="https://cdn.ifmo.su/editor/v1.5/plugins/<?=$plugin . DIRECTORY_SEPARATOR . $plugin . '.js'; ?>"></script>
-    <link rel="stylesheet" href="https://cdn.ifmo.su/editor/v1.5/plugins/<?=$plugin . DIRECTORY_SEPARATOR . $plugin . '.css'; ?>">
-<? endforeach; ?>
+    //@todo привести в порядок
+    $editorPath = Kohana::$environment == 'DEVELOPMENT' ? 'https://rawgit.com/codex-editor' : '';
+?>
+
+<?// foreach ($plugins as $plugin) : ?>
+<!--    <script src="--><?//=$plugin . DIRECTORY_SEPARATOR . $plugin . '.js'; ?><!--"></script>-->
+<!--    <link rel="stylesheet" href="https://cdn.ifmo.su/editor/v2.0/plugins/--><?//=$plugin . DIRECTORY_SEPARATOR . $plugin . '.css'; ?><!--">-->
+<?// endforeach; ?>
+<script src="https://rawgit.com/codex-editor/paragraph/master/lib/bundle.js" type="text/javascript"></script>
+<script src="https://rawgit.com/codex-editor/header/master/lib/bundle.js" type="text/javascript"></script>
+<script src="https://rawgit.com/codex-editor/code/master/lib/bundle.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="https://rawgit.com/codex-editor/paragraph/master/lib/bundle.css">
+<link rel="stylesheet" href="https://rawgit.com/codex-editor/header/master/lib/bundle.css">
+<link rel="stylesheet" href="https://rawgit.com/codex-editor/code/master/lib/bundle.css">
 
 <!-- Editor scripts and styles -->
-<script src="https://cdn.ifmo.su/editor/v1.5/codex-editor.js"></script>
-<link rel="stylesheet" href="https://cdn.ifmo.su/editor/v1.5/codex-editor.css" />
+<script src="https://cdn.ifmo.su/editor/v2.0/codex-editor.js"></script>
+<link rel="stylesheet" href="https://cdn.ifmo.su/editor/v2.0/codex-editor.css" />
 
 <script>
 
     /** Document is ready */
     codex.docReady(function() {
-        codex.editor.start({
-            textareaId: 'codex_editor',
-            uploadImagesUrl : '/writing/uploadImage',
-            initialBlockPlugin : 'text',
-            tools: {
-                text : {
-                    type             : 'text',
-                    iconClassname    : 'ce-icon-paragraph',
-                    render           : paragraph.render,
-                    validate         : paragraph.validate,
-                    save             : paragraph.save,
-                    allowedToPaste   : true,
-                    showInlineToolbar: true,
-                    destroy: paragraph.destroy,
-                    allowRenderOnPaste: true,
-                    config           : {}
-                },
-                header : {
-                    type             : 'header',
-                    iconClassname    : 'ce-icon-header',
-                    appendCallback   : header.appendCallback,
-                    makeSettings     : header.makeSettings,
-                    validate         : header.validate,
-                    render           : header.render,
-                    save             : header.save,
-                    displayInToolbox : true,
-                    enableLineBreaks : false,
-                    destroy: header.destroy,
-                    config           : {}
-                },
-                link : {
-                    type             : 'link',
-                    iconClassname    : 'ce-icon-link',
-                    prepare          : link.prepare,
-                    appendCallback   : link.appendCallback,
-                    render           : link.render,
-                    save             : link.save,
-                    displayInToolbox : true,
-                    enableLineBreaks : true,
-                    destroy: link.destroy,
-                    config           : {
-                        fetchUrl : '/club/linkInfo'
-                    }
-                },
-                list: {
-                    type: 'list',
-                    iconClassname: 'ce-icon-list-bullet',
-                    make: list.make,
-                    appendCallback: null,
-                    makeSettings: list.makeSettings,
-                    render: list.render,
-                    validate: list.validate,
-                    save: list.save,
-                    destroy: list.destroy,
-                    displayInToolbox: true,
-                    showInlineToolbar: true,
-                    enableLineBreaks: true,
-                    allowedToPaste: true
-                },
-                quote : {
-                    type             : 'quote',
-                    iconClassname    : 'ce-icon-quote',
-                    makeSettings     : quote.makeSettings,
-                    render           : quote.render,
-                    prepare          : quote.prepare,
-                    validate         : quote.validate,
-                    save             : quote.save,
-                    displayInToolbox : true,
-                    enableLineBreaks : true,
-                    showInlineToolbar: true,
-                    allowedToPaste   : true,
-                    destroy: quote.destroy,
-                    config           : {
-                        defaultStyle : 'withPhoto'
-                    }
-                },
-                image : {
-                    type             : 'image',
-                    iconClassname    : 'ce-icon-picture',
-                    appendCallback   : image.appendCallback,
-                    makeSettings     : image.makeSettings,
-                    prepare          : image.prepare,
-                    render           : image.render,
-                    save             : image.save,
-                    isStretched      : true,
-                    displayInToolbox : true,
-                    showInlineToolbar: true,
-                    enableLineBreaks : true,
-                    destroy: image.destroy,
-                    renderOnPastePatterns: image.pastePatterns,
-                    config : {
-                        uploadUrl : '/club/fetchImage'
-                    }
-                },
-                instagram : {
-                    type             : 'instagram',
-                    iconClassname    : 'ce-icon-instagram',
-                    prepare          : instagram.prepare,
-                    make             : instagram.make,
-                    render           : instagram.render,
-                    save             : instagram.save,
-                    destroy: instagram.destroy,
-                    renderOnPastePatterns: instagram.pastePatterns
-                },
-                tweet : {
-                    type             : 'tweet',
-                    iconClassname    : 'ce-icon-twitter',
-                    prepare          : twitter.prepare,
-                    make             : twitter.make,
-                    render           : twitter.render,
-                    save             : twitter.save,
-                    showInlineToolbar: true,
-                    destroy: twitter.destroy,
-                    renderOnPastePatterns: twitter.pastePatterns,
-                    config           : {
-                        fetchUrl : '/writing/tweetInfo'
-                    }
-                },
-                embed : {
-                    type             : 'embed',
-                    render           : embed.render,
-                    save             : embed.save,
-                    validate         : embed.validate,
-                    destroy: embed.destroy,
-                    renderOnPastePatterns: embed.pastePatterns
-                }
+    var editor = new codex.editor({
+        holderId : "codex_editor",
+        initialBlockPlugin : 'paragraph',
+        // placeholder: 'Прошлой ночью мне приснилось...',
+        hideToolbar: false,
+        tools : {
+            paragraph: {
+                type: 'paragraph',
+                iconClassname: 'ce-icon-paragraph',
+                showInlineToolbar: true,
+                allowRenderOnPaste: true,
+                instance: paragraph
             },
-            data : INPUT
-        });
-
+            header: {
+                type: 'header',
+                iconClassname: 'ce-icon-header',
+                instance: header,
+                displayInToolbox: true
+            },
+            code: {
+                type: 'code',
+                iconClassname: 'ce-icon-code',
+                instance: code,
+                displayInToolbox: true,
+                enableLineBreaks: true
+            }
+        },
+        data : {
+            id: +new Date(),
+            items: [
+//                {
+//                    type : 'header',
+//                    data : {
+//                        text : 'Привет от CodeX'
+//                    }
+//                },
+                {
+                    type : 'paragraph',
+                    data : {
+                        text : 'Пишите нам на team@ifmo.su'
+                    }
+                }
+            ],
+            count: 3
+        }
+    });
         cPreview.show({
             data : INPUT,
             holder : 'output'
