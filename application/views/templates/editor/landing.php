@@ -98,56 +98,12 @@
     /** Document is ready */
     codex.docReady(function() {
 
-        codex.editor.start(
-            ['paragraph, header']
-        );
+        codex.writing.start({
+            holderId : 'codex_editor',
+            scriptPath : 'https://cdn.ifmo.su/editor/v2.0/',
+            plugins: ['paragraph', 'header']
+        });
 
-//    var editor = new codex.editor({
-//        holderId : "codex_editor",
-//        initialBlockPlugin : 'paragraph',
-//        // placeholder: 'Прошлой ночью мне приснилось...',
-//        hideToolbar: false,
-//        tools : {
-//            paragraph: {
-//                type: 'paragraph',
-//                iconClassname: 'ce-icon-paragraph',
-//                showInlineToolbar: true,
-//                allowRenderOnPaste: true,
-//                instance: paragraph
-//            },
-//            header: {
-//                type: 'header',
-//                iconClassname: 'ce-icon-header',
-//                instance: header,
-//                displayInToolbox: true
-//            },
-//            code: {
-//                type: 'code',
-//                iconClassname: 'ce-icon-code',
-//                instance: code,
-//                displayInToolbox: true,
-//                enableLineBreaks: true
-//            }
-//        },
-//        data : {
-//            id: +new Date(),
-//            items: [
-//                {
-//                    type : 'header',
-//                    data : {
-//                        text : 'Привет от CodeX'
-//                    }
-//                },
-//                {
-//                    type : 'paragraph',
-//                    data : {
-//                        text : 'Пишите нам на team@ifmo.su'
-//                    }
-//                }
-//            ],
-//            count: 3
-//        }
-//    });
         cPreview.show({
             data : INPUT,
             holder : 'output'

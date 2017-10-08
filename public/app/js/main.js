@@ -78,7 +78,7 @@ codex.quiz = require('./modules/quiz');
 codex.quizForm = require('./modules/quizForm');
 codex.transport = require('./modules/transport');
 codex.vkWidget = require('./modules/vkWidget');
-codex.editor = require('./modules/editor');
+codex.writing = require('./modules/writing');
 codex.loader = require('./modules/loader');
 
 module.exports = codex;

@@ -1,23 +1,22 @@
 /**
  */
-module.exports = {
+module.exports = function () {
 
-    prefixJS : 'cdx-script-',
+    let prefixJS  = 'cdx-script-';
+    let prefixCSS = 'cdx-style-';
 
-    prefixCSS : 'cdx-style-',
-
-    importScript : function (scriptPath, instanceName) {
+    function importScript(scriptPath, instanceName) {
 
         return new Promise(function (resolve, reject) {
 
-            var script;
+            let script;
 
             /** Script is already loaded */
             if ( !instanceName ) {
 
                 reject('Instance name is missed');
 
-            } else if ( document.getElementById(this.prefixJS + instanceName) ) {
+            } else if ( document.getElementById(prefixJS + instanceName) ) {
 
                 resolve(scriptPath);
 
@@ -26,7 +25,7 @@ module.exports = {
             script = document.createElement('SCRIPT');
             script.async = true;
             script.defer = true;
-            script.id    = codex.loader.prefixJS + instanceName;
+            script.id    = prefixJS + instanceName;
 
             script.onload = function () {
 
@@ -45,20 +44,20 @@ module.exports = {
 
         });
 
-    },
+    }
 
-    importStyle : function (stylePath, instanceName) {
+    function importStyle(stylePath, instanceName) {
 
         return new Promise(function (resolve, reject) {
 
-            var style;
+            let style;
 
             /** Style is already loaded */
             if ( !instanceName ) {
 
                 reject('Instance name is missed');
 
-            } else if ( document.getElementById(this.prefixCSS + instanceName) ) {
+            } else if ( document.getElementById(prefixCSS + instanceName) ) {
 
                 resolve(stylePath);
 
@@ -68,7 +67,7 @@ module.exports = {
             style.type = 'text/css';
             style.href = stylePath;
             style.rel  = 'stylesheet';
-            style.id   = codex.loader.prefixCSS + instanceName;
+            style.id   = prefixCSS + instanceName;
 
             style.onload = function () {
 
@@ -87,6 +86,11 @@ module.exports = {
 
         });
 
-    },
+    }
 
-};
+    return {
+        importScript,
+        importStyle
+    };
+
+}();
