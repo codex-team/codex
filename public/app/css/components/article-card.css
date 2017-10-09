@@ -24,16 +24,19 @@
 
     &__cover {
         display: block;
-        background: var(--bg-light);
+        background-color: var(--bg-light);
         height: 100px;
         margin: -21px -21px 20px;
         border-radius: 3px 3px 0 0;
+        background-position: 0 30%;
+        background-size: cover;
     }
 
     &__title {
         margin-bottom: 15px;
         font-size: 17.9px;
         font-weight: bold;
+        line-height: 1.2em;
     }
 
     &__photo {

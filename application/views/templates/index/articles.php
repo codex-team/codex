@@ -5,7 +5,7 @@
         $articles = array();
         $articles[] = array(
             'title' => 'How to get free SSL cert with Let’s Encrypt',
-            'cover' => null,
+            'cover' => '/public/app/img/articles/covers/lets-encrypt.png',
             'url' =>  '/aritlce/123',
             'author' => array(
                 'url'  => '',
@@ -17,7 +17,7 @@
 
         $articles[] = array(
             'title' => 'GitHub Code Owners: повышаем эффективность код‑ревью',
-            'cover' => null,
+            'cover' => '/public/app/img/articles/covers/github-codeowners.png',
             'url' =>  '/aritlce/123',
             'author' => array(
                 'url'  => '',
@@ -29,7 +29,7 @@
 
         $articles[] = array(
             'title' => 'Webpack: сборка JavaScript модулей',
-            'cover' => null,
+            'cover' => '/public/app/img/articles/covers/webpack.png',
             'url' =>  '/aritlce/123',
             'author' => array(
                 'url'  => '',
@@ -44,7 +44,7 @@
         <? foreach ($articles as $article): ?>
             <section class="articles-grid__item">
                 <div class="article-card">
-                    <a class="article-card__cover" href="<?= $article['url']?>">
+                    <a class="article-card__cover" href="<?= $article['url']?>" style="background-image: url(<?= $article['cover'] ?>)">
                     </a>
                     <a class="article-card__title" href="<?= $article['url']?>">
                         <?= $article['title'] ?>

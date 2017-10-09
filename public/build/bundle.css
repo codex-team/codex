@@ -2188,16 +2188,19 @@ textarea {
 
 .article-card__cover {
         display: block;
-        background: #f4f5f9;
+        background-color: #f4f5f9;
         height: 100px;
         margin: -21px -21px 20px;
         border-radius: 3px 3px 0 0;
+        background-position: 0 30%;
+        background-size: cover;
     }
 
 .article-card__title {
         margin-bottom: 15px;
         font-size: 17.9px;
         font-weight: bold;
+        line-height: 1.2em;
     }
 
 .article-card__photo {
