@@ -3,7 +3,7 @@
         @codex_bot
     </a>
     <div class="product-card__caption">
-        Platform for integration services into messangers.
+        Platform for integration services into messengers.
         <a class="product-card__button" href="https://t.me/codex_bot">
             <? include(DOCROOT . 'public/app/landings/codex_bot/img/telegram-logo.svg'); ?>
             Add to <b>Telegram</b>

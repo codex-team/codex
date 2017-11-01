@@ -13,7 +13,7 @@
 
     @media (--desktop) {
         min-height: 415px;
-        padding: 50px;
+        padding: 60px;
         margin-bottom: 60px;
     }
 
@@ -60,7 +60,7 @@
         margin-bottom: 30px;
         font-size: 20px;
         color: #626262;
-        line-height: 1.4em;
+        line-height: 1.5em;
     }
 
     &__screen {
@@ -83,17 +83,21 @@
 
     &__button {
         display: inline-block;
-        padding: 10px 26px 10px 18px;
-        margin: 30px 30px 0 0;
+        padding: 12px 26px 12px 18px;
+        margin-top: 30px;
         background: #fff;
         border: 1px solid var(--line-light);
         box-shadow: 0 2px 3px 0 rgba(38, 45, 67, 0.02);
         border-radius: 3px;
         color: inherit;
         color: #000;
-        font-size: 17px;
+        font-size: 18px;
         letter-spacing: -0.3px;
         text-decoration: none;
+
+        &:not(:last-of-type){
+            margin-right: 20px;
+        }
 
         svg {
             display: inline-block;
@@ -195,6 +199,7 @@
      * Download button
      */
     &__download {
+        position: relative;
         display: inline-block;
         min-width: 150px;
         padding: 10px 20px;
@@ -204,6 +209,32 @@
         font-size: 13.1px;
         line-height: 1.5em;
         color: #25262e;
+
+        &[href="#"] {
+            color: #9699a8;
+
+            &::after {
+                content: 'Soon';
+                background: #ff1769;
+                border-radius: 3px;
+                padding: 3px 6px;
+                line-height: 1em;
+                color: #fff;
+                font-weight: 500;
+                position: absolute;
+                right: 5px;
+                top: 5px;
+                letter-spacing: -0.5px;
+            }
+
+            svg {
+                opacity: 0.5;
+            }
+
+            &:hover {
+                color: #9699a8 !important;
+            }
+        }
 
         &:hover {
             color: #25262e;

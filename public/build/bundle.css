@@ -2243,7 +2243,7 @@ textarea {
 
     .product-card {
         min-height: 415px;
-        padding: 50px;
+        padding: 60px;
         margin-bottom: 60px;
     }
 }
@@ -2300,7 +2300,7 @@ textarea {
         margin-bottom: 30px;
         font-size: 20px;
         color: #626262;
-        line-height: 1.4em;
+        line-height: 1.5em;
 }
 
 .product-card__screen {
@@ -2327,8 +2327,8 @@ textarea {
 
 .product-card__button {
         display: inline-block;
-        padding: 10px 26px 10px 18px;
-        margin: 30px 30px 0 0;
+        padding: 12px 26px 12px 18px;
+        margin-top: 30px;
         background: #fff;
         border: 1px solid #e7e9f5;
         -webkit-box-shadow: 0 2px 3px 0 rgba(38, 45, 67, 0.02);
@@ -2336,9 +2336,13 @@ textarea {
         border-radius: 3px;
         color: inherit;
         color: #000;
-        font-size: 17px;
+        font-size: 18px;
         letter-spacing: -0.3px;
         text-decoration: none;
+}
+
+.product-card__button:not(:last-of-type) {
+    margin-right: 20px;
 }
 
 .product-card__button svg {
@@ -2348,7 +2352,7 @@ textarea {
             vertical-align: middle;
             margin-right: 0.5em;
             margin-top: -0.3em;
-        }
+}
 
 .product-card__button:hover {
     background-color: #fdfdfd;
@@ -2451,6 +2455,7 @@ textarea {
      * Download button */
 
 .product-card__download {
+        position: relative;
         display: inline-block;
         min-width: 150px;
         padding: 10px 20px;
@@ -2460,6 +2465,32 @@ textarea {
         font-size: 13.1px;
         line-height: 1.5em;
         color: #25262e;
+}
+
+.product-card__download[href="#"] {
+    color: #9699a8;
+}
+
+.product-card__download[href="#"]::after {
+    content: 'Soon';
+    background: #ff1769;
+    border-radius: 3px;
+    padding: 3px 6px;
+    line-height: 1em;
+    color: #fff;
+    font-weight: 500;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    letter-spacing: -0.5px;
+}
+
+.product-card__download[href="#"] svg {
+                opacity: 0.5;
+}
+
+.product-card__download[href="#"]:hover {
+    color: #9699a8 !important;
 }
 
 .product-card__download:hover {
