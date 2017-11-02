@@ -2,8 +2,6 @@
 
 class Model_Methods extends Model
 {
-    // Average reading time
-    const WORDS_PER_MINUTE = 150;
 
     /**
     *	Site Methods Model
@@ -361,9 +359,12 @@ class Model_Methods extends Model
     */
     public static function estimateReadingTime($text)
     {
+         // Average reading time
+        $WordsPerMinute = 150;
+
         $text = str_word_count(strip_tags($text));
-        $time = ceil($text / WORDS_PER_MINUTE);
-        $output = $time . 'min read';
+        $time = ceil($text / $WordsPerMinute);
+        $output = $time . ' min read';
         return $output;
     }
 }
