@@ -2,6 +2,7 @@
 
 class Model_Methods extends Model
 {
+
     /**
     *	Site Methods Model
     */
@@ -349,5 +350,20 @@ class Model_Methods extends Model
         }
 
         return $saving->execute();
+    }
+
+    /**
+    * Estimates reading time
+    * @param string $text
+    * @return float $time
+    */
+    public static function estimateReadingTime($text)
+    {
+         // Average reading time
+        $WordsPerMinute = 150;
+
+        $text = str_word_count(strip_tags($text));
+        $time = ceil($text / $WordsPerMinute);
+        return $time;
     }
 }
