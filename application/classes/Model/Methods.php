@@ -355,7 +355,7 @@ class Model_Methods extends Model
     /**
     * Estimates reading time
     * @param string $text
-    * @return string $output
+    * @return float $time
     */
     public static function estimateReadingTime($text)
     {
@@ -364,7 +364,6 @@ class Model_Methods extends Model
 
         $text = str_word_count(strip_tags($text));
         $time = ceil($text / $WordsPerMinute);
-        $output = $time . ' min read';
-        return $output;
+        return $time;
     }
 }
