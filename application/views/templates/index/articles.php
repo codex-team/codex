@@ -1,6 +1,9 @@
 <section class="site-section">
     <h2 class="site-section__title">Our articles</h2>
     <div class="site-section__desc">We are writing about our experience and researches.</div>
+
+    <? echo Debug::vars($recentArticles); ?>
+
     <?
         $articles = array();
         $articles[] = array(
@@ -58,7 +61,7 @@
                             <?= $article['author']['name'] ?>
                         </a>
                         <div class="article-card__read-time">
-                            <? $article['readTime'] ?> min read
+                            <?= $article['readTime'] ?> min read
                         </div>
                     </footer>
                 </div>

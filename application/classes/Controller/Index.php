@@ -20,12 +20,16 @@ class Controller_Index extends Controller_Base_preDispatch
         * Select best developers
         */
         $modelUser = new Model_User();
-
         $developersList = new Model_Feed_Developers();
-
         $bestDevelopersIds = $developersList->get();
-
         $this->view['bestDevelopers'] = $modelUser->getUsersByIds($bestDevelopersIds);
+
+        /**
+         * Get recent articles list
+         */
+        $recentArticlesFeed = new Model_Feed_RecentArticles();
+        $recentArticles = $recentArticlesFeed->get();
+        $this->view['recentArticles'] = Model_Article::getSome($recentArticles);
 
 
         $this->title = 'Команда CodeX';

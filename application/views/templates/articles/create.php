@@ -78,15 +78,15 @@
         </section>
 
         <section class="editor-form__section">
-
             <input type="checkbox" name="is_published" value="1" <?= $article->is_published ? 'checked' : ''; ?> > Опубликовать <br>
-
         </section>
 
         <section class="editor-form__section">
-
             <input type="checkbox" name="marked" value="1" <?= $article->marked ? 'checked' : ''; ?> > Отметить как важную <br/>
+        </section>
 
+        <section class="editor-form__section">
+            <input type="checkbox" name="is_recent" value="1" <?= $article->is_recent ? 'checked' : ''; ?> > Вывести на главной <br/>
         </section>
 
 

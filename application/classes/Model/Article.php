@@ -34,6 +34,18 @@ class Model_Article extends Model
     public $commentsCount;
 
     /**
+     * True if article showed on the index page
+     * @var boolean
+     */
+    public $is_recent = false;
+
+    /**
+     * Estimated time for reading
+     * @var boolean
+     */
+    public $read_time = null;
+
+    /**
      * Пустой конструктор для модели статьи, если нужно получить статью из хранилища, нужно пользоваться статическими
      * методами
      */
@@ -83,6 +95,8 @@ class Model_Article extends Model
      */
     private function fillByRow($article_row)
     {
+        $recentArticlesFeed = new Model_Feed_RecentArticles();
+
         if (!empty($article_row['id'])) {
             $this->id           = Arr::get($article_row, 'id');
             $this->uri          = Arr::get($article_row, 'uri');
@@ -98,6 +112,8 @@ class Model_Article extends Model
             $this->dt_update    = Arr::get($article_row, 'dt_update');
             $this->is_removed   = Arr::get($article_row, 'is_removed');
             $this->is_published = Arr::get($article_row, 'is_published');
+            $this->is_recent    = $recentArticlesFeed->isExist($this->id);
+            $this->read_time    = Model_Methods::estimateReadingTime(null, $this->json);
 
             $this->author           = Model_User::get($this->user_id);
             $this->commentsCount    = Model_Comment::countCommentsByArticle($this->id);
@@ -171,6 +187,40 @@ class Model_Article extends Model
         $model = new Model_Article();
 
         return $model->fillByRow($article);
+    }
+
+     /**
+     * Returns several articles by ids
+     *
+     * @param array $ids               - ids of articles to select
+     * @param boolean $needClearCache  - pass true to clear cache
+     * @return Model_Article[]
+     */
+    public static function getSome(array $ids, $needClearCache = false)
+    {
+        $articles = Dao_Articles::select()
+            ->where('id', 'IN', $ids);
+
+        $cacheKey = implode(',', $ids);
+
+        if ($needClearCache) {
+            $articles->clearcache($cacheKey);
+        } else {
+            $articles->cached(Date::MINUTE * 5, $cacheKey);
+        }
+
+        $articles = $articles->execute();
+        $articlesModels = array();
+
+        foreach ($articles as $article) {
+
+            $model = new Model_Article();
+            $articlesModels[] = $model->fillByRow($article);
+        }
+
+
+
+        return $articlesModels;
     }
 
     public static function getByUserId($user_id)
