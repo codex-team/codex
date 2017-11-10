@@ -5,8 +5,8 @@
     display: inline-block;
     max-width: 500px;
     border-top: 1px solid #eceff6;
+    border-bottom: 1px solid #eceff6;
     padding: 50px 0;
-    margin: 50px 0 0;
     text-align: left;
 }
 
@@ -29,16 +29,6 @@
     text-align: right;
     color: #8b8e99;
 }
-
-.news__bage {
-    display: inline-block;
-    margin-right: 0.8em;
-    color: #b33232;
-    letter-spacing: 2px;
-    font-size: 1.1em;
-    font-variant: small-caps;
-}
-
 .news__showmore {
     display: inline-block;
     margin-top: 1.5em;
@@ -51,6 +41,20 @@
 .news__showmore:hover {
     color: #d25555;
     border-color: #f5dfdf;
+}
+.news__list_item--release::before {
+    line-height: 36px;
+}
+.news__list_item--release {
+    padding: 0;
+}
+.news__bage {
+    display: inline-block;
+    margin-right: 0.4em;
+    color: #b33232;
+    font-size: 15px;
+    line-height: 36px;
+    background: url(/public/app/img/release-oreol.svg);
 }
 
 /**
