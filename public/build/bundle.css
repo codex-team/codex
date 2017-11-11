@@ -1003,13 +1003,18 @@ textarea {
 }
 
 .site-header__photo {
+        display: inline-block;
         border-radius: 50%;
         width: 22px;
         height: 22px;
         vertical-align: middle;
         margin-right: 5px;
-        line-height: 1em;
         background-color: #f4f5f9;
+        overflow: hidden;
+        font-size: 1.5em;
+        font-weight: bold;
+        line-height: 1em;
+        letter-spacing: 1.9em;
 }
 
 .site-header__action {
@@ -1507,12 +1512,13 @@ textarea {
 */
 
 .news {
-    display: inline-block;
+    display: block;
     max-width: 500px;
-    border-top: 1px solid #eceff6;
-    padding: 50px 0;
-    margin: 50px 0 0;
-    text-align: left;
+    border-top: 1px solid #e7e9f5;
+    border-bottom: 1px solid #e7e9f5;
+    padding: 40px 0;
+    margin: 40px auto 0;
+    font-size: 14px;
 }
 
 .news__list_item {
@@ -1532,7 +1538,8 @@ textarea {
     left: -70px;
     width: 50px;
     text-align: right;
-    color: #8b8e99;
+    color: #6c7580;
+    white-space: nowrap;
 }
 
 .news__bage {
@@ -1548,16 +1555,9 @@ textarea {
 
 .news__showmore {
     display: inline-block;
-    margin-top: 1.5em;
-    border-bottom: 1px solid #dae1ec;
-    padding-bottom: 1px;
+    margin-top: 0.5em;
     cursor: pointer;
-    color: #768293;
-}
-
-.news__showmore:hover {
-    color: #d25555;
-    border-color: #f5dfdf;
+    color: #6c7580;
 }
 
 /**
@@ -2162,6 +2162,8 @@ textarea {
 
 /**
  * Article card item
+ *      where:
+ *          on index page at recent articles
  */
 
 .article-card {
@@ -2209,9 +2211,16 @@ textarea {
     }
 
 .article-card__photo img {
+            display: block;
+            background-color: #f4f5f9;
             width: 34px;
             height: 34px;
             border-radius: 50%;
+
+            overflow: hidden;
+            font-size: 3em;
+            line-height: 1em;
+            letter-spacing: 1.9em;
         }
 
 .article-card__user-name {
@@ -2893,37 +2902,6 @@ textarea {
 }
 
 /**
- * Pages
- */
-
-/**
-* CodeX logo on index page
-*/
-
-.index-page {
-    padding: 100px 0 70px;
-}
-
-.index-page p {
-        max-width: 500px;
-        margin: 15px auto;
-    }
-
-.index-page__join-button {
-        margin: 1.5em auto 0;
-        padding: 16px 30px;
-        font-size: 1.2em;
-        display: block;
-        max-width: 140px;
-        text-align: center;
-    }
-
-.index-page .codex-logo {
-    display: block;
-    margin: 0 auto 50px;
-}
-
-/**
  * Follow us block
  * ================================
  */
@@ -2933,15 +2911,17 @@ textarea {
 }
 
 .follow-block__photos {
+        display: block;
         margin: 25px 0;
     }
 
 .follow-block__photos img {
             width: 60px;
             height: 60px;
-            opacity: 0.6;
+            opacity: 0.9;
             margin: 0 10px;
             vertical-align: bottom;
+            border-radius: 2px;
         }
 
 @media all and (max-width: 980px) {
@@ -2958,14 +2938,15 @@ textarea {
         margin: 0 7.5px;
         border: 1px solid #c2c2c2;
         color: #373737;
-        font-size: 15.7px;
-        border-radius: 5px;
-        padding: 7px 13px;
+        font-size: 14.5px;
+        border-radius: 3px;
+        padding: 4px 9px;
         line-height: 22px;
+        letter-spacing: 0.015em;
 }
 
 .follow-block .button svg {
-            vertical-align: text-bottom;
+            vertical-align: middle;
             margin-right: 0.2em;
         }
 
@@ -2989,6 +2970,14 @@ textarea {
             color: #871f4d;
 }
 
+.follow-block .button--instagram svg {
+                margin-top: -2px;
+            }
+
+.follow-block .button--github svg {
+                margin-top: -2px;
+            }
+
 .follow-block .button--vk {
             border-color: #bcc6df;
             color: #2a5ba2;
@@ -3008,6 +2997,45 @@ textarea {
     .follow-block .button--twitter {
         margin-top: 10px;
     }
+}
+
+.follow-block .button--twitter svg {
+                width: 17px;
+                height: auto;
+}
+
+/**
+ * Pages
+ */
+
+/**
+* CodeX logo on index page
+*/
+
+.index-page {
+    padding: 100px 0 70px;
+}
+
+.index-page p {
+        max-width: 500px;
+        margin: 15px auto;
+        font-size: 14.9px;
+        letter-spacing: 0.015em;
+        line-height: 1.65em;
+    }
+
+.index-page__join-button {
+        margin: 1.5em auto 0;
+        padding: 16px 30px;
+        font-size: 1.2em;
+        display: block;
+        max-width: 140px;
+        text-align: center;
+    }
+
+.index-page .codex-logo {
+    display: block;
+    margin: 0 auto 50px;
 }
 
 /**

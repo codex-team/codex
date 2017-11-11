@@ -1,6 +1,14 @@
 <?
     $news = array(
         array(
+            'text' => 'Вышла статья о том <a href="/viber-bot">как создать бота для Viber</a>',
+            'date' => '2 nov'
+        ),
+        array(
+            'text' => 'Провели мастер-класс по <a href="https://vk.com/wall-103229636_326">основам модульной Frontend-разработки</a>',
+            'date' => '25 oct'
+        ),
+        array(
             'text' => 'Опубликованы <a href="/task">задания для вступающих в клуб</a>',
             'date' => '1 oct'
         ),
@@ -133,27 +141,32 @@
             'text' => 'Новая статья: «<a href="/scala-tutorial">Разработка на Scala: первые шаги</a>»',
             'date' => '19 mar'
         ),
-        array(
-            'text' => 'Представляем <a href="/contests">раздел конкурсов</a>',
-            'date' => '4 mar',
-            'release' => true,
-        ),
+        // array(
+        //     'text' => 'Представляем <a href="/contests">раздел конкурсов</a>',
+        //     'date' => '4 mar',
+        //     'release' => true,
+        // ),
 
     );
 ?>
-<ul class="news js-emoji-included">
-    <?
-        $MAX_PORTION = 3;
-        $i = 0;
-    ?>
-    <? foreach ( $news as $event ): ?>
-        <li class="news__list_item <?= $i >= $MAX_PORTION ? 'news__list_item--hidden' : ''?>" data-time="<?= $event['date'] ?>">
-            <? if (!empty($event['release'])): ?>
-                <span class="news__bage">release</span>
-            <? endif ?>
-            <?= $event['text'] ?>
-        </li>
-        <? $i++; ?>
-    <? endforeach; ?>
-    <span class="news__showmore" onclick="codex.showMoreNews.init( this );">Показать больше новостей</span>
-</ul>
+<section class="site-section">
+    <h2 class="site-section__title">Latest news</h2>
+
+    <ul class="news js-emoji-included">
+        <?
+            $MAX_PORTION = 3;
+            $i = 0;
+        ?>
+        <? foreach ( $news as $event ): ?>
+            <li class="news__list_item <?= $i >= $MAX_PORTION ? 'news__list_item--hidden' : ''?>" data-time="<?= $event['date'] ?>">
+                <? if (!empty($event['release'])): ?>
+                    <span class="news__bage">release</span>
+                <? endif ?>
+                <?= $event['text'] ?>
+            </li>
+            <? $i++; ?>
+        <? endforeach; ?>
+        <span class="news__showmore" onclick="codex.showMoreNews.init( this );">Show more news</span>
+    </ul>
+
+</section>

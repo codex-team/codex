@@ -2,12 +2,13 @@
 * News block on index page
 */
 .news {
-    display: inline-block;
+    display: block;
     max-width: 500px;
-    border-top: 1px solid #eceff6;
-    padding: 50px 0;
-    margin: 50px 0 0;
-    text-align: left;
+    border-top: 1px solid var(--line-light);
+    border-bottom: 1px solid var(--line-light);
+    padding: 40px 0;
+    margin: 40px auto 0;
+    font-size: 14px;
 }
 
 .news__list_item {
@@ -27,7 +28,8 @@
     left: -70px;
     width: 50px;
     text-align: right;
-    color: #8b8e99;
+    color: var(--text-gray);
+    white-space: nowrap;
 }
 
 .news__bage {
@@ -41,16 +43,9 @@
 
 .news__showmore {
     display: inline-block;
-    margin-top: 1.5em;
-    border-bottom: 1px solid #dae1ec;
-    padding-bottom: 1px;
+    margin-top: 0.5em;
     cursor: pointer;
-    color: #768293;
-}
-
-.news__showmore:hover {
-    color: #d25555;
-    border-color: #f5dfdf;
+    color: var(--text-gray);
 }
 
 /**
