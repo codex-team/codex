@@ -26,8 +26,8 @@
 
 
         <div class="codex-logo"></div>
-        <p>CodeX is a new club based in ITMO University, unifying students and graduates interested in web-development, design and studying new technologies on the practise.</p>
-        <p>Our goal — make team with young specialists with burning eyes and idealistic spirits.</p>
+        <p>CodeX is a new team based in ITMO University, unifying students and graduates interested in web-development, design and studying new technologies in practise.</p>
+        <p>Our goal — make team with burning eyes and idealistic tempers.</p>
 
         <? /** Join button */ ?>
         <? /* <br><a class="button button--green index-page__join-button" href="/join">Вступить в клуб</a> */ ?>
