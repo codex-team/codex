@@ -2233,6 +2233,12 @@ textarea {
         line-height: 1.1em;
     }
 
+@media all and (min-width: 1050px) {
+    .articles-grid__item .article-card {
+        width: 100%;
+    }
+}
+
 /**
  * Product cards
  */

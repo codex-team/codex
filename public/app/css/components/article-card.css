@@ -68,3 +68,9 @@
         line-height: 1.1em;
     }
 }
+
+@media (--desktop) {
+    .articles-grid__item .article-card {
+        width: 100%;
+    }
+}
