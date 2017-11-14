@@ -11,6 +11,7 @@
         margin-bottom: 0.5em;
         font-weight: normal;
         text-align: center;
+        letter-spacing: 0.026em;
     }
 
     &__desc {

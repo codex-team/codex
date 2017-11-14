@@ -1,7 +1,7 @@
 <?
     $news = array(
         array(
-            'text' => 'Вышла статья о том <a href="/viber-bot">как создать бота для Viber</a>',
+            'text' => 'Вышла статья о том, <a href="/viber-bot">как создать бота для Viber</a>',
             'date' => '2 nov'
         ),
         array(
