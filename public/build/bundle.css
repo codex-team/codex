@@ -2926,6 +2926,10 @@ textarea {
             color: #3573a7;
 }
 
+.product-cell__tag--pypi:hover {
+    color: rgb(54, 87, 115);
+}
+
 /** Available in NPM */
 
 .product-cell__tag--npm {
@@ -2933,15 +2937,23 @@ textarea {
             color: #b72b2a;
 }
 
+.product-cell__tag--npm:hover {
+    color: rgb(133, 41, 41);
+}
+
 .product-cell__tag--npm svg {
                 vertical-align: middle;
-            }
+}
 
 /** Available in Composer */
 
 .product-cell__tag--composer {
             border-color: #d0cdc8;
             color: #6d6d6d;
+}
+
+.product-cell__tag--composer:hover {
+    color: rgb(91, 91, 91);
 }
 
 /**
@@ -3080,6 +3092,12 @@ textarea {
     display: block;
     margin: 0 auto 50px;
 }
+
+.thanks-block svg {
+        display: block;
+        max-width: 60px;
+        margin: 20px auto;
+    }
 
 /**
 * Mobile viewport styles

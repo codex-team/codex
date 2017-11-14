@@ -104,12 +104,20 @@
         &--pypi {
             border-color: #adcbe3;
             color: #3573a7;
+
+            &:hover {
+                color: color(#3573a7 blackness(+20%));
+            }
         }
 
         /** Available in NPM */
         &--npm {
             border-color: #f9b7b7;
             color: #b72b2a;
+
+            &:hover {
+                color: color(#b72b2a blackness(+20%));
+            }
 
             svg {
                 vertical-align: middle;
@@ -120,6 +128,11 @@
         &--composer {
             border-color: #d0cdc8;
             color: #6d6d6d;
+
+            &:hover {
+                color: color(#6d6d6d blackness(+20%));
+            }
+
         }
     }
 }

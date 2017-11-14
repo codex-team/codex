@@ -27,7 +27,7 @@
             'logo' => 'public/app/img/products/html-slacker.svg',
             'tags' => array('Python', 'Slack'),
             'repo' => 'github.com/codex-team/html-slacker',
-            'pypi' => true
+            'pypi' => 'https://pypi.python.org/pypi/html-slacker'
         ),
         array(
             'name' => 'Deploy Server',
@@ -35,7 +35,7 @@
             'logo' => 'public/app/img/products/deploy-server.svg',
             'tags' => array('Python', 'Git'),
             'repo' => 'github.com/codex-team/deployserver',
-            'pypi' => true
+            'pypi' => 'https://pypi.python.org/pypi/deployserver'
         ),
         array(
             'name' => 'JS Notifier',
@@ -43,7 +43,7 @@
             'logo' => 'public/app/img/products/js-notifier.svg',
             'tags' => array('JavaScript'),
             'repo' => 'github.com/codex-team/js-notifier',
-            'npm' => true
+            'npm' => 'https://www.npmjs.com/package/codex-notifier'
         ),
         array(
             'name' => 'Hawk PHP Catcher',
@@ -51,7 +51,7 @@
             'logo' => 'public/app/img/products/hawk.svg',
             'tags' => array('PHP'),
             'repo' => 'github.com/codex-team/hawk.php',
-            'composer' => true
+            'composer' => 'https://packagist.org/packages/codex-team/hawk.php'
         ),
         array(
             'name' => 'CodeX Special',
@@ -59,7 +59,23 @@
             'logo' => 'public/app/img/products/codex-special.svg',
             'tags' => array('JavaScript'),
             'repo' => 'github.com/codex-team/codex.special',
-            'npm' => true
+            'npm' => 'https://www.npmjs.com/package/codex.special'
+        ),
+        array(
+            'name' => 'AJAX Helper',
+            'description' => 'Library for working with async-aware requests.',
+            'logo' => 'public/app/img/products/ajax.svg',
+            'tags' => array('JavaScript'),
+            'repo' => 'github.com/codex-team/ajax',
+            'npm' => 'https://www.npmjs.com/package/codex.ajax'
+        ),
+        array(
+            'name' => 'JS File transport',
+            'description' => 'Mudule for file uploading with AJAX.',
+            'logo' => 'public/app/img/products/transport.svg',
+            'tags' => array('JavaScript'),
+            'repo' => 'github.com/codex-team/transport',
+            'npm' => 'https://www.npmjs.com/package/codex.transport'
         ),
     );
 ?>
@@ -83,22 +99,22 @@
                         </span>
                     <? endforeach ?>
                     <? if (!empty($product['pypi'])): ?>
-                        <span class="product-cell__tag product-cell__tag--pypi">
+                        <a class="product-cell__tag product-cell__tag--pypi" href="<?= $product['pypi'] ?>" target="_blank">
                             <? include(DOCROOT . 'public/app/img/products/python.svg'); ?>
                             Available in PyPI
-                        </span>
+                        </a>
                     <? endif ?>
                     <? if (!empty($product['npm'])): ?>
-                        <span class="product-cell__tag product-cell__tag--npm">
+                        <a class="product-cell__tag product-cell__tag--npm" href="<?= $product['npm'] ?>" target="_blank">
                             <? include(DOCROOT . 'public/app/img/products/npm.svg'); ?>
                             Available in NPM
-                        </span>
+                        </a>
                     <? endif ?>
                     <? if (!empty($product['composer'])): ?>
-                        <span class="product-cell__tag product-cell__tag--composer">
+                        <a class="product-cell__tag product-cell__tag--composer" href="<?= $product['composer'] ?>" target="_blank">
                             <? include(DOCROOT . 'public/app/img/products/composer.svg'); ?>
                             Available in Composer
-                        </span>
+                        </a>
                     <? endif ?>
                 </div>
             <? endif ?>

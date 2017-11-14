@@ -5,8 +5,8 @@
     <? include 'products/hawk.so.php' ?>
     <? include 'products/codex_bot.php' ?>
     <? include 'products/codex_editor.php' ?>
-    <? include 'products/capella.php' ?>
     <? include 'products/codex_notes.php' ?>
+    <? include 'products/capella.php' ?>
     <? include 'products/codex_media.php' ?>
     <? include 'products/ar_tester.php' ?>
 

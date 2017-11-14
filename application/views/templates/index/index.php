@@ -57,5 +57,10 @@
             include 'follow.php';
         ?>
 
+        <?
+            /** Thanks */
+            include 'thanks.php';
+        ?>
+
     </div>
 </div>

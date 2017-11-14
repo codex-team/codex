@@ -27,6 +27,14 @@
     margin: 0 auto 50px;
 }
 
+.thanks-block {
+    svg {
+        display: block;
+        max-width: 60px;
+        margin: 20px auto;
+    }
+}
+
 /**
 * Mobile viewport styles
 * =================================
