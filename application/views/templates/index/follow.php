@@ -1,6 +1,6 @@
 <section class="site-section follow-block">
     <h2 class="site-section__title">Follow us</h2>
-    <div class="site-section__desc">We are looking for new friends and <br>colleges in our way</div>
+    <div class="site-section__desc">We are looking for new friends and <br>collegues in our way</div>
 
     <a class="button button--instagram" href="http://instagram.com/codex_team/" rel="nofollow">
         <? include(DOCROOT . 'public/app/img/instagram.svg'); ?>

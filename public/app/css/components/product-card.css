@@ -288,6 +288,48 @@
         line-height: 1.53em;
     }
 
+    &__video {
+        max-width: 100%;
+        margin-left: -55px;
+    }
+
+    &__right-caption {
+        margin-top: 10px;
+
+        a {
+            color: var(--text-gray);
+
+            &:hover {
+                color: var(--color-hover);
+            }
+        }
+    }
+
+    /**
+     * Right column menu
+     * for example: codex editor plugins list
+     */
+    &__right-menu {
+        margin: 10px 0;
+
+        a {
+            color: var(--color-link);
+            font-size: 15px;
+
+            &:not(:last-of-type)::after {
+                content: '';
+                display: inline-block;
+                vertical-align: middle;
+                width: 4px;
+                height: 4px;
+                border-radius: 50%;
+                background: var(--text-gray);
+                margin: 0 0.25em 0 0.45em;
+                opacity: 0.8;
+            }
+        }
+    }
+
     /**
      * Improvements for devices that supports grid layout
      */

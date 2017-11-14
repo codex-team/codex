@@ -2554,6 +2554,48 @@ textarea {
         line-height: 1.53em;
 }
 
+.product-card__video {
+        max-width: 100%;
+        margin-left: -55px;
+}
+
+.product-card__right-caption {
+        margin-top: 10px;
+}
+
+.product-card__right-caption a {
+            color: #6c7580
+        }
+
+.product-card__right-caption a:hover {
+    color: #2c7fe5;
+}
+
+/**
+     * Right column menu
+     * for example: codex editor plugins list */
+
+.product-card__right-menu {
+        margin: 10px 0;
+}
+
+.product-card__right-menu a {
+            color: #2969b9;
+            font-size: 15px
+        }
+
+.product-card__right-menu a:not(:last-of-type)::after {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #6c7580;
+    margin: 0 0.25em 0 0.45em;
+    opacity: 0.8;
+}
+
 @supports (display: grid) {
 
     .product-card__caption {

@@ -3,7 +3,7 @@
         AR Tester
     </a>
     <div class="product-card__caption">
-        Test your site’s layout on the devices in Augmented Reallity
+        Test your site’s layout on the devices in Augmented Reality
         <div class="product-card__actions">
             <a class="product-card__download product-card__download--appstore" href="">
                 <? include(DOCROOT . 'public/app/img/products/appstore.svg'); ?>
