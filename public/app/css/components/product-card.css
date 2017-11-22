@@ -291,6 +291,10 @@
     &__video {
         max-width: 100%;
         margin-left: -55px;
+
+        @media (--mobile) {
+            margin-left: 0;
+        }
     }
 
     &__right-caption {

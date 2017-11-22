@@ -632,7 +632,7 @@ html {
     margin: 0 auto;
 }
 
-@media all and (max-width: 980px) {
+@media (max-width: 1140px) {
 
     .center_side {
         padding: 0 20px;
@@ -2477,11 +2477,6 @@ textarea {
     }
 }
 
-.product-card {
-    /**
-     * Improvements for devices that supports grid layout */
-}
-
 /**
      * Download button */
 
@@ -2578,6 +2573,18 @@ textarea {
 .product-card__video {
         max-width: 100%;
         margin-left: -55px;
+}
+
+@media all and (max-width: 980px) {
+
+    .product-card__video {
+        margin-left: 0;
+    }
+}
+
+.product-card {
+    /**
+     * Improvements for devices that supports grid layout */
 }
 
 .product-card__right-caption {

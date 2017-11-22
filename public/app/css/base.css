@@ -20,7 +20,7 @@ html {
     max-width: 1100px;
     margin: 0 auto;
 
-    @media (--mobile) {
+    @media (max-width: 1140px) {
         padding: 0 20px;
     }
 }
