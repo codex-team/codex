@@ -1042,68 +1042,83 @@ textarea {
     font-size: 13px;
 }
 
-.site-footer__section {
-    max-width: 400px;
-}
-
-.site-footer__section:not(:first-child) {
-    margin-left: 45px;
-}
-
-.site-footer__section ul {
-    list-style: none;
-    padding-left: 0;
-    line-height: 1.8em;
-}
-
-.site-footer section a {
-    text-decoration: none;
-}
-
-.site-footer h5 {
-    margin: 0 0 10px;
-    font-size: 1.02em;
-}
-
-.site-footer h5 a {
-    color: inherit;
-    text-decoration: none;
-}
-
-.site-footer p {
-    margin: 0;
-}
-
-.site-footer .desclimer {
-    opacity: 0.5;
-}
-
-/**
-* Mobile viewport styles
-* =================================
-*/
-
 @media all and (max-width: 980px) {
-    /**
-    * Site footer mobile
-    */
+
     .site-footer {
         padding: 25px 0;
     }
+}
+
+.site-footer .center_side {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+}
+
+@media all and (max-width: 980px) {
+
+    .site-footer .center_side {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+    }
+}
+
+.site-footer__section {
+        max-width: 420px;
+}
+
+@media all and (max-width: 980px) {
 
     .site-footer__section {
-        float: none;
         max-width: none;
-        margin: 0 0 20px;
     }
 
-    .site-footer__section:last-child {
-        margin-bottom: 0;
+    .site-footer__section:not(:last-of-type) {
+        margin-bottom: 25px;
     }
+}
 
-    .site-footer__section:not(:first-child) {
+.site-footer__section--contacts {
+            margin-left: auto;
+            margin-right: 45px;
+}
+
+@media all and (max-width: 980px) {
+
+    .site-footer__section--contacts {
         margin-left: 0;
+        margin-right: 0;
     }
+}
+
+.site-footer ul {
+        list-style: none;
+        padding-left: 0;
+        line-height: 1.8em;
+}
+
+.site-footer a {
+        text-decoration: none;
+}
+
+.site-footer h5 {
+        margin: 0 0 10px;
+        font-size: 1.02em;
+}
+
+.site-footer h5 a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+.site-footer p {
+        margin: 0;
+}
+
+.site-footer .desclimer {
+        opacity: 0.5;
 }
 
 /**

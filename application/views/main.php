@@ -40,18 +40,11 @@
 
     <footer class="site-footer">
         <div class="center_side clearfix">
-            <section class="site-footer__section fl_l">
+            <section class="site-footer__section">
                 <h5><a href="/">CodeX</a></h5>
                 Club of web-development, design and marketing. We build team learning how to create full-valued projects on the world market.
             </section>
-            <section class="site-footer__section fl_r">
-                <h5>Follow us</h5>
-                <ul>
-                    <li><a href="//vk.com/codex_team" target="_blank" rel="nofollow"><i class="icon-vkontakte"></i> <u>ВКонтакте</u></a></li>
-                    <li><a href="//instagram.com/codex_team/" target="_blank" rel="nofollow"><i class="icon-instagram"></i> <u>Instagram</u></a></li>
-                </ul>
-            </section>
-            <section class="site-footer__section fl_l">
+            <section class="site-footer__section site-footer__section--contacts">
                 <h5>Contact team</h5>
                 <ul>
                     <li><a href="mailto:team@ifmo.su?Subject=CodeX%20Team"><u>team@ifmo.su</u></a></li>
@@ -60,6 +53,13 @@
                         <li><a href="mailto:specc.dev@gmail.com?Subject=CodeX%20Team" rel="nofollow"><u>specc.dev@gmail.com</u></a> <span class="desclimer">— Савченко Петр</span></li>
                     <!--/noindex-->
                     <!--googleon: all-->
+                </ul>
+            </section>
+            <section class="site-footer__section">
+                <h5>Follow us</h5>
+                <ul>
+                    <li><a href="//vk.com/codex_team" target="_blank" rel="nofollow"><i class="icon-vkontakte"></i> <u>ВКонтакте</u></a></li>
+                    <li><a href="//instagram.com/codex_team/" target="_blank" rel="nofollow"><i class="icon-instagram"></i> <u>Instagram</u></a></li>
                 </ul>
             </section>
         </div>
