@@ -10,8 +10,6 @@
     <? include 'products/codex_media.php' ?>
     <? include 'products/ar_tester.php' ?>
 
-
-
     <?
         /**
          * Products grid

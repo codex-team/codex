@@ -71,7 +71,7 @@
         ),
         array(
             'name' => 'JS File transport',
-            'description' => 'Mudule for file uploading with AJAX.',
+            'description' => 'Module for file uploading via AJAX.',
             'logo' => 'public/app/img/products/transport.svg',
             'tags' => array('JavaScript'),
             'repo' => 'github.com/codex-team/transport',

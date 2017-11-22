@@ -1,4 +1,4 @@
-<?php
+<?php defined('SYSPATH') or die('No Direct Script Access');
 
 class Model_Feed_Abstract extends Model
 {

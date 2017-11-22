@@ -32,7 +32,7 @@ class Controller_Index extends Controller_Base_preDispatch
         $this->view['recentArticles'] = Model_Article::getSome($recentArticles);
 
 
-        $this->title = 'Команда CodeX';
+        $this->title = 'CodeX Team';
         $this->template->content = View::factory('templates/index/index', $this->view);
     }
 

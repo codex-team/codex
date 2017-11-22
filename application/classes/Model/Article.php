@@ -189,7 +189,7 @@ class Model_Article extends Model
         return $model->fillByRow($article);
     }
 
-     /**
+    /**
      * Returns several articles by ids
      *
      * @param array $ids               - ids of articles to select
@@ -213,12 +213,9 @@ class Model_Article extends Model
         $articlesModels = array();
 
         foreach ($articles as $article) {
-
             $model = new Model_Article();
             $articlesModels[] = $model->fillByRow($article);
         }
-
-
 
         return $articlesModels;
     }

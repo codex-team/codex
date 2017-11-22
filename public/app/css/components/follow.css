@@ -80,7 +80,7 @@
 
         &--twitter {
             border-color: #a3caf8;
-            color: #1e72c8;
+            color: #509dec;
 
             @media (--mobile) {
                 margin-top: 10px;
