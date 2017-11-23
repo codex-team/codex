@@ -1,3 +1,3 @@
-<div class="article__code-wrapper">
-    <code class="article__code"><?= $block->text; ?></code>
+<div class="article__code">
+    <code class="article__code-content"><?= trim($block->text); ?></code>
 </div>

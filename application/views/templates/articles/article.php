@@ -44,7 +44,9 @@
         <div class="article__author" itemscope itemtype="http://schema.org/Person" itemprop="author">
             <meta itemprop="url" href="<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $article->author->uri ? : 'user/' . $article->author->id ?>" />
 
-            <img class="article__author-photo" src="<?= $article->author->photo ?>" alt="/<?= $article->author->name ?>"  itemprop="image">
+            <a href="/<?= $article->author->uri ? : 'user/' . $article->author->id ?>">
+                <img class="article__author-photo" src="<?= $article->author->photo ?>" alt="/<?= $article->author->name ?>"  itemprop="image">
+            </a>
             <a class="article__author-name" itemprop="name" href="/<?= $article->author->uri ? : 'user/' . $article->author->id ?>">
                 <?= $article->author->name ?>
             </a>
@@ -52,11 +54,18 @@
                 <?= Date::fuzzy_span(strtotime($article->dt_create)) ?>
             </time>
         </div>
-        <div class="article__read-on">
-            Read on
-            <span class="article__read-on-item article__read-on-item--english">English</span>
-            <span class="article__read-on-item article__read-on-item--russian">Russian</span>
-        </div>
+
+        <? if (!empty($article->englishText)): ?>
+            <div class="article__read-on">
+                Read on
+                <span class="article__read-on-item article__read-on-item--english">English</span>
+                <span class="article__read-on-item article__read-on-item--russian">Russian</span>
+            </div>
+        <? else: ?>
+            <div class="article__read-time">
+                <?= $article->read_time ?> min read
+            </div>
+        <? endif; ?>
     </div>
 
     <div class="article_content js-emoji-included <?= !empty($article->text) ? 'article_content--old' : '' ?>" itemprop="articleBody">

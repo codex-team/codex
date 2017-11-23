@@ -10,6 +10,11 @@
     }
 
 ?>
-
-<img class="article__image <?= implode(' ', $classes); ?>" src="<?=$block->file['url'] ?: $block->url; ?>" alt="">
-<div class="article__image-caption"><?=$block->caption; ?></div>
+<figure class="article__image <?= implode(' ', $classes); ?>">
+    <img src="<?= $block->url; ?>" alt="<? !empty($block->caption) ? $block->caption : '' ?>">
+    <? if (!empty($block->caption)): ?>
+        <footer class="article__image-caption">
+            <?= $block->caption; ?>
+        </footer>
+    <? endif; ?>
+</figure>

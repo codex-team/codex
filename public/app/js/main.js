@@ -8,6 +8,8 @@ const VK_COMMUNITY_ID = 103229636;
 
 var codex = (function (codex_) {
 
+    'use strict';
+
     codex_.settings = {};
 
     /**
@@ -24,7 +26,7 @@ var codex = (function (codex_) {
 
         codex.scrollUp.init();
 
-        codex.simpleCode.init('.article__code');
+        codex.codeStyling.init('.article__code code');
 
         codex.vkWidget.init({
             id: 'vk_groups',
@@ -68,7 +70,7 @@ codex.dragndrop = require('./modules/dragndrop');
 codex.scrollUp = require('./modules/scrollUp');
 codex.sharer = require('./modules/sharer');
 codex.developer = require('./modules/bestDevelopers');
-codex.simpleCode = require('./modules/simpleCodeStyling');
+// codex.simpleCode = require('./modules/simpleCodeStyling');
 codex.showMoreNews = require('./modules/showMoreNews');
 codex.polyfills = require('./modules/polyfills');
 codex.ajax = require('./modules/ajax');
@@ -78,6 +80,7 @@ codex.quiz = require('./modules/quiz');
 codex.quizForm = require('./modules/quizForm');
 codex.transport = require('./modules/transport');
 codex.vkWidget = require('./modules/vkWidget');
+codex.codeStyling = require('./modules/codeStyling');
 
 module.exports = codex;
 
