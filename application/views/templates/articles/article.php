@@ -7,8 +7,6 @@
     <? endif; ?>
 </div>
 
-
-
 <? if (isset($previousArticle)): ?>
     <div class="course-navigation-wrapper course-navigation-wrapper--previous" name="js-course-navigation">
         <a class="course-navigation course-navigation--previous" href="<?=URL::site($previousArticle->uri ?: '/article/' . $previousArticle->id); ?>">
@@ -31,79 +29,83 @@
     </div>
 <? endif; ?>
 
-<div class="center_side">
-    <article class="article" itemscope itemtype="http://schema.org/Article">
+<article class="article" itemscope itemtype="http://schema.org/Article">
 
-        <? if (isset($article->dt_update)): ?>
-            <meta itemprop="dateModified" content="<?= date(DATE_ISO8601, strtotime($article->dt_update)) ?>" />
+    <? if (isset($article->dt_update)): ?>
+        <meta itemprop="dateModified" content="<?= date(DATE_ISO8601, strtotime($article->dt_update)) ?>" />
+    <? endif; ?>
+    <meta itemprop="datePublished" content="<?= date(DATE_ISO8601, strtotime($article->dt_create)) ?>" />
+
+    <h1 class="article__title js-emoji-included" itemprop="headline">
+        <?= $article->title ?>
+    </h1>
+
+    <div class="article__info">
+        <div class="article__author" itemscope itemtype="http://schema.org/Person" itemprop="author">
+            <meta itemprop="url" href="<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $article->author->uri ? : 'user/' . $article->author->id ?>" />
+
+            <img class="article__author-photo" src="<?= $article->author->photo ?>" alt="/<?= $article->author->name ?>"  itemprop="image">
+            <a class="article__author-name" itemprop="name" href="/<?= $article->author->uri ? : 'user/' . $article->author->id ?>">
+                <?= $article->author->name ?>
+            </a>
+            <time class="article__date">
+                <?= Date::fuzzy_span(strtotime($article->dt_create)) ?>
+            </time>
+        </div>
+        <div class="article__read-on">
+            Read on
+            <span class="article__read-on-item article__read-on-item--english">English</span>
+            <span class="article__read-on-item article__read-on-item--russian">Russian</span>
+        </div>
+    </div>
+
+    <div class="article_content js-emoji-included <?= !empty($article->text) ? 'article_content--old' : '' ?>" itemprop="articleBody">
+
+        <?
+        /**
+         * For articles craeted with Codex.Editor
+         */
+        ?>
+        <? foreach ($article->blocks as $block): ?>
+            <?= $block; ?>
+        <? endforeach; ?>
+
+        <?
+        /**
+         * For articles with HTML content (old editor mode)
+         */
+        ?>
+        <? if (!empty($article->text)) : ?>
+            <?=$article->text; ?>
         <? endif; ?>
-        <meta itemprop="datePublished" content="<?= date(DATE_ISO8601, strtotime($article->dt_create)) ?>" />
 
-        <h1 class="article__title js-emoji-included" itemprop="headline">
-            <?= $article->title ?>
-        </h1>
+    </div>
 
-        <div class="article-info">
-            <div class="article-info__author" itemscope itemtype="http://schema.org/Person" itemprop="author">
+    <? if(!empty($quiz)): ?>
+        <?= View::factory('templates/quizzes/quiz', array('quizData' => $quiz->quiz_data)); ?>
+    <? endif ?>
 
-                <meta itemprop="url" href="/<?= $article->author->uri ? : 'user/' . $article->author->id ?>" />
+    <?= View::factory('templates/blocks/share', array('share' => array(
+        'offer' => 'Если вам понравилась статья, поделитесь ссылкой на нее',
+        'url'   => 'https://' . Arr::get($_SERVER, 'HTTP_HOST', Arr::get($_SERVER, 'SERVER_NAME', 'ifmo.su')) . '/' . $article->uri ?: 'article/' . $article->id,
+        'title' => html_entity_decode($article->title),
+        'desc'  => html_entity_decode($article->description),
+    ))); ?>
 
-                <time class="article-info__date"><?= Date::fuzzy_span(strtotime($article->dt_create)) ?></time>
-                <img class="article-info__photo" src="<?= $article->author->photo ?>" alt="/<?= $article->author->name ?>"  itemprop="image">
-                <a class="article-info__name" itemprop="name" href="/<?= $article->author->uri ? : 'user/' . $article->author->id ?>">
-                  <?= $article->author->name ?>
-                </a>
+    <div class="vk_groups" id="vk_groups"></div>
 
-            </div>
-        </div>
+    <ul class="random_articles">
+        <h3>Читайте далее</h3>
+        <p>Мы расскажем вам о крутых и интересных технологиях и приведём примеры их использования в наших проектах.</p>
 
-        <div class="article_content js-emoji-included <?= !empty($article->text) ? 'article_content--old' : '' ?>" itemprop="articleBody">
+        <? foreach ($popularArticles as $popularArticle): ?>
+            <li><a href="/<?= $popularArticle->uri ?: ('article/' . $popularArticle->id) ; ?>" class="js-emoji-included"><?= $popularArticle->title; ?></a></li>
+        <? endforeach; ?>
 
-            <?
-            /**
-             * For articles craeted with Codex.Editor
-             */
-            ?>
-            <? foreach ($article->blocks as $block): ?>
-                <?= $block; ?>
-            <? endforeach; ?>
+    </ul>
 
-            <?
-            /**
-             * For articles with HTML content (old editor mode)
-             */
-            ?>
-            <? if (!empty($article->text)) : ?>
-                <?=$article->text; ?>
-            <? endif; ?>
+</article>
 
-        </div>
-
-        <? if(!empty($quiz)): ?>
-            <?= View::factory('templates/quizzes/quiz', array('quizData' => $quiz->quiz_data)); ?>
-        <? endif ?>
-
-        <?= View::factory('templates/blocks/share', array('share' => array(
-            'offer' => 'Если вам понравилась статья, поделитесь ссылкой на нее',
-            'url'   => 'https://' . Arr::get($_SERVER, 'HTTP_HOST', Arr::get($_SERVER, 'SERVER_NAME', 'ifmo.su')) . '/' . $article->uri ?: 'article/' . $article->id,
-            'title' => html_entity_decode($article->title),
-            'desc'  => html_entity_decode($article->description),
-        ))); ?>
-
-        <div class="vk_groups" id="vk_groups"></div>
-
-        <ul class="random_articles">
-            <h3>Читайте далее</h3>
-            <p>Мы расскажем вам о крутых и интересных технологиях и приведём примеры их использования в наших проектах.</p>
-
-            <? foreach ($popularArticles as $popularArticle): ?>
-                <li><a href="/<?= $popularArticle->uri ?: ('article/' . $popularArticle->id) ; ?>" class="js-emoji-included"><?= $popularArticle->title; ?></a></li>
-            <? endforeach; ?>
-
-        </ul>
-
-    </article>
-</div>
 
 <div class="center_side clear">
     <? if (isset($articlesFromCourse)) : ?>

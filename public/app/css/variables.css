@@ -21,6 +21,19 @@
 
     /** Editor block inner width */
     --article-max-width: 650px;
+
+    /**
+     * Clearfix
+     *
+     * usage: @apply --clearfix;
+     */
+    --clearfix: {
+        &::after {
+            content: " ";
+            display: table;
+            clear: both;
+        }
+    };
 }
 
 /**

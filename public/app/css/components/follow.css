@@ -35,6 +35,7 @@
         padding: 4px 9px;
         line-height: 22px;
         letter-spacing: 0.015em;
+        vertical-align: top;
 
         svg {
             vertical-align: middle;
@@ -44,7 +45,7 @@
         @media (--mobile) {
             font-size: 14px;
             padding: 3px 7px;
-            margin: 0 2px;
+            margin: 0 2px 10px;
 
             svg {
                 height: auto;
@@ -81,10 +82,6 @@
         &--twitter {
             border-color: #a3caf8;
             color: #509dec;
-
-            @media (--mobile) {
-                margin-top: 10px;
-            }
 
             svg {
                 width: 17px;

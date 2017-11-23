@@ -4,6 +4,23 @@ class Model_Methods extends Model
 {
 
     /**
+     * Get server domain name and protocol
+     *
+     * @return {string} $protocol.$domain
+     */
+    public static function getDomainAndProtocol()
+    {
+        if ( isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
+            isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
+            $protocol = 'https://';
+        } else {
+            $protocol = 'http://';
+        }
+        $host = $_SERVER['HTTP_HOST'];
+        return $protocol.$host;
+    }
+
+    /**
     *	Site Methods Model
     */
 
