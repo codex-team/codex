@@ -41,8 +41,6 @@ module.exports = function codeStyling() {
 
         let codeBlocks = document.querySelectorAll(codeBlocksSelector);
 
-        console.log('codeBlocks: %o', codeBlocks);
-
         if (codeBlocks) {
 
             prepare().then( () => {
@@ -54,11 +52,7 @@ module.exports = function codeStyling() {
 
                 }
 
-                console.log('window.hljs: %o', window.hljs);
-
                 for (var i = codeBlocks.length - 1; i >= 0; i--) {
-
-                    console.log('codeBlocks[i]: %o', codeBlocks[i]);
 
                     window.hljs.highlightBlock(codeBlocks[i]);
 

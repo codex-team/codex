@@ -51,12 +51,10 @@
         height: 22px;
         vertical-align: middle;
         margin-right: 5px;
-        background-color: var(--bg-light);
-        overflow: hidden;
+
+        @apply --image-placeholder;
         font-size: 1.5em;
         font-weight: bold;
-        line-height: 1em;
-        letter-spacing: 1.9em;
     }
 
     &__action {

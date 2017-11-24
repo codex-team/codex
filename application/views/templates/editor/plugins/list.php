@@ -7,7 +7,7 @@
     }
 
 ?>
-<<?=$tag; ?>>
+<<?=$tag; ?> class="article-list">
     <? for($i = 0; $i < count($block->items); $i++) : ?>
         <li><?=$block->items[$i]; ?></li>
     <? endfor; ?>

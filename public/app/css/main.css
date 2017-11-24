@@ -30,6 +30,7 @@
 @import url('components/product-card.css');
 @import url('components/product-cell.css');
 @import url('components/follow.css');
+@import url('components/course-navigation.css');
 
 /**
  * Pages
@@ -43,3 +44,4 @@
 @import url('pages/contests.css');
 @import url('pages/admin.css');
 @import url('pages/writing.css');
+@import url('pages/course.css');

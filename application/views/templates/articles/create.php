@@ -174,7 +174,7 @@
                     enableLineBreaks : true,
                     destroy: link.destroy,
                     config           : {
-                        fetchUrl : ''
+                        fetchUrl : '/editor/fetchUrl'
                     }
                 },
                 list: {
@@ -298,7 +298,7 @@
     $editorPath = 'https://cdn.ifmo.su/editor/v1.6';
 
     if ( Kohana::$environment === Kohana::DEVELOPMENT ){
-        $editorPath = '/public/extensions/codex.editor';
+        // $editorPath = '/public/extensions/codex.editor';
     }
 ?>
 

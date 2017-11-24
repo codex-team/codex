@@ -26,7 +26,7 @@ var codex = (function (codex_) {
 
         codex.scrollUp.init();
 
-        codex.codeStyling.init('.article__code code');
+        codex.codeStyling.init('.article-code__content');
 
         codex.vkWidget.init({
             id: 'vk_groups',

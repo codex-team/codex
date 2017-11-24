@@ -47,15 +47,11 @@
 
         img {
             display: block;
-            background-color: var(--bg-light);
             width: 34px;
             height: 34px;
             border-radius: 50%;
 
-            overflow: hidden;
-            font-size: 3em;
-            line-height: 1em;
-            letter-spacing: 1.9em;
+            @apply --image-placeholder;
         }
     }
 

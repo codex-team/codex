@@ -30,12 +30,12 @@
 * Mobile viewport styles
 * =================================
 */
-@media (--mobile) {
+@media (--mobile) and (max-width: 690px){
     /**
     * Recommendations block
     */
     .random_articles {
-        margin: 0;
+        margin: 0 20px;
         padding-bottom: 0;
     }
 

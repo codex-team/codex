@@ -47,99 +47,132 @@ class Controller_Editor extends Controller_Base_preDispatch
     }
 
     /**
-     * parses link by ajax request
+     * fetch Action
+     * @public
+     *
+     * Returns JSON response
      */
-    public function action_parseLink()
+    public function action_fetchURL()
     {
-        $url = $this->get_url();
-        $url_params = parse_url($url);
-
-        if (!$url) {
-            exit(0);
-        }
-
-        $html   = $this->file_get_contents_curl($url);
-        $result = $this->get_meta_from_html($html);
-
-        $result = array_merge(
-
-            $this->get_meta_from_html($html),
-
-            array(
-                'linkUrl'   => $url,
-                'linkText' => Arr::get($url_params, 'host') . Arr::get($url_params, 'path', ''),
-            )
-
-        );
+        $response = $this->parseLink();
 
         $this->auto_render = false;
         $this->response->headers('Content-Type', 'application/json; charset=utf-8');
-        $this->response->body(@json_encode($result));
+        $this->response->body(@json_encode($response));
     }
 
-    private function file_get_contents_curl($url)
+    /**
+     * @private
+     *
+     * Parses link by ajax request
+     */
+    private function parseLink()
     {
-        $ch = curl_init();
+        $URL = Arr::get($_GET, 'url');
 
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 8);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36');
+        $response = array();
+        $response['success'] = 0;
 
-        $data = curl_exec($ch);
-        curl_close($ch);
-
-        return $data;
-    }
-
-    private function get_url()
-    {
-        if (!isset($_GET['url'])) {
-            return false;
+        if (empty($URL) || !filter_var($URL, FILTER_VALIDATE_URL)) {
+            $response['message'] = 'Неправильный URL';
+            goto finish;
         }
 
-        $url = Arr::get($_GET, 'url');
+        /**
+         * Make external request
+         * Use Kohana Native Request Factory
+         */
+        $request = Request::factory($URL)
+            ->headers('Content-Type', 'utf8')
+            ->execute();
 
-        if (filter_var($url, FILTER_VALIDATE_URL) === false) {
-            return false;
+        if ($request->status() != '200') {
+            $response['message'] = 'Ошибка при обработке ссылки';
+            goto finish;
+        } else {
+            $htmlContent = $request->body();
+            $response = array_merge(
+                $this->getLinkInfo($URL),
+                $this->getMetaFromHTML($htmlContent)
+            );
+
+            if (!trim($response['title']) && !trim($response['description'])) {
+                $response['message'] = 'Данные не найдены';
+            } else {
+                $response['success'] = 1;
+            }
         }
 
-        return $url;
+        finish:
+        return $response;
     }
 
-    private function get_meta_from_html($html)
+    /**
+     * Gets information about link : params, path and so on
+     * @param $URL
+     * @return array
+     */
+    private function getLinkInfo($URL)
     {
-        $doc = new DOMDocument();
-        @$doc->loadHTML($html);
-        $nodes = $doc->getElementsByTagName('title');
+        $URLParams = parse_url($URL);
 
-        $title = $nodes->item(0)->nodeValue;
+        return array(
+            'linkUrl'   => $URL,
+            'linkText' => Arr::get($URLParams, 'host') . Arr::get($URLParams, 'path', ''),
+        );
+    }
+
+    /**
+     * Parses DOM Document
+     * @param $html
+     * @return array
+     */
+    private function getMetaFromHTML($html)
+    {
+        $DOMdocument = new DOMDocument();
+        @$DOMdocument->loadHTML($html);
+        $DOMdocument->preserveWhiteSpace = false;
+
+        $nodes = $DOMdocument->getElementsByTagName('title');
+
+        if ($nodes->length > 0) {
+            $title = $nodes->item(0)->nodeValue;
+        }
+
         $description = "";
-        $keywords = "";
-        $image = "";
+        $keywords    = "";
+        $image       = "";
 
-        $metas = $doc->getElementsByTagName('meta');
+        $metaData = $DOMdocument->getElementsByTagName('meta');
 
-        for ($i = 0; $i < $metas->length; $i++) {
-            $meta = $metas->item($i);
-            if ($meta->getAttribute('name') == 'description') {
-                $description = $meta->getAttribute('content');
+        for ($i = 0; $i < $metaData->length; $i++) {
+            $data = $metaData->item($i);
+
+            if ($data->getAttribute('name') == 'description') {
+                $description = $data->getAttribute('content');
             }
-            if ($meta->getAttribute('name') == 'keywords') {
-                $keywords = $meta->getAttribute('content');
+
+            if ($data->getAttribute('name') == 'keywords') {
+                $keywords = $data->getAttribute('content');
             }
-            if ($meta->getAttribute('property')=='og:image') {
-                $image = $meta->getAttribute('content');
+
+            if ($data->getAttribute('property')=='og:image') {
+                $image = $data->getAttribute('content');
+            }
+        }
+
+        if (empty($image)) {
+            $images = $DOMdocument->getElementsByTagName('img');
+
+            if ($images->length > 0) {
+                $image = $images->item(0)->getAttribute('src');
             }
         }
 
         return array(
-            'image'         => $image,
-            'title'         => $title,
-            'description'   => $description,
+            'image'         => isset($image) ? $image : '',
+            'title'         => isset($title) ? $title : '',
+            'description'   => isset($description) ? $description : '',
         );
     }
 }

@@ -199,6 +199,16 @@ Route::set('ARTICLE_EDITOR_SAVE_IMG', 'editorsaveimg', array())->defaults(array(
     'action' => 'saveEditorImg'
 ));
 
+/**
+ * Route for Link plugin, CodeX Editor
+ * Fetches page data by URL
+ */
+Route::set('FETCH_URL', 'editor/fetchURL')
+->defaults(array(
+    'controller' => 'Editor',
+    'action'    => 'fetchURL'
+));
+
 
 /**
 * Landing pages

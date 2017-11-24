@@ -45,7 +45,7 @@
             <meta itemprop="url" href="<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $article->author->uri ? : 'user/' . $article->author->id ?>" />
 
             <a href="/<?= $article->author->uri ? : 'user/' . $article->author->id ?>">
-                <img class="article__author-photo" src="<?= $article->author->photo ?>" alt="/<?= $article->author->name ?>"  itemprop="image">
+                <img class="article__author-photo" src="<?= $article->author->photo ?>" alt="<?= $article->author->name ?>"  itemprop="image">
             </a>
             <a class="article__author-name" itemprop="name" href="/<?= $article->author->uri ? : 'user/' . $article->author->id ?>">
                 <?= $article->author->name ?>
@@ -95,7 +95,7 @@
     <? endif ?>
 
     <?= View::factory('templates/blocks/share', array('share' => array(
-        'offer' => 'Если вам понравилась статья, поделитесь ссылкой на нее',
+        'offer' => 'Если вам понравилась статья, поделитесь ссылкой на нее',
         'url'   => 'https://' . Arr::get($_SERVER, 'HTTP_HOST', Arr::get($_SERVER, 'SERVER_NAME', 'ifmo.su')) . '/' . $article->uri ?: 'article/' . $article->id,
         'title' => html_entity_decode($article->title),
         'desc'  => html_entity_decode($article->description),

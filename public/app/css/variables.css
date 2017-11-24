@@ -34,6 +34,18 @@
             clear: both;
         }
     };
+
+    /**
+     * Image alt-placeholder
+     * Style 1st letter from alt="" attribute
+     */
+    --image-placeholder: {
+        background-color: var(--bg-light);
+        overflow: hidden;
+        font-size: 3em;
+        line-height: 1em;
+        letter-spacing: 1.9em;
+    }
 }
 
 /**
