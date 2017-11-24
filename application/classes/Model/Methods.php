@@ -473,7 +473,7 @@ class Model_Methods extends Model
 
         } catch (Exception $e) {
 
-            Model_Hawk::Log($e);
+            \Hawk\HawkCatcher::catchException($e);
             return 0;
         }
     }

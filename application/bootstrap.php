@@ -81,6 +81,16 @@ if (is_file(DOCROOT.'.env')) {
 }
 
 /**
+ * Hawk PHP Catcher
+ *
+ * @link https://hawk.so/docs
+ */
+if (isset($_SERVER['HAWK_TOKEN'])) {
+
+    \Hawk\HawkCatcher::instance($_SERVER['HAWK_TOKEN']);
+}
+
+/**
  * Set Kohana::$environment if a 'KOHANA_ENV' environment variable has been supplied.
  *
  * Note: If you supply an invalid environment name, a PHP warning will be thrown
