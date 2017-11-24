@@ -21,7 +21,7 @@
 
     </div>
     <div class="center_side">
-        <div class="article_content"  itemprop="courseBody">
+        <div class="article-content"  itemprop="courseBody">
             <?= nl2br($course->text) ?>
         </div>
     </div>

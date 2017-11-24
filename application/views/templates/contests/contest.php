@@ -45,7 +45,7 @@
         <? endif ?>
     </div>
     <div class="center_side">
-        <div class="article_content"  itemprop="contestBody">
+        <div class="article-content"  itemprop="contestBody">
             <?= nl2br($contest->text) ?>
         </div>
     </div>

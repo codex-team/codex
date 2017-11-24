@@ -19,19 +19,31 @@
 */
 .article {
     &__title {
-        @apply --entry-column-width;
+
+        /**
+         * We increase title-width from 650 to 700px to reduce line-breaking
+         * To align left side, use transform
+         */
+        max-width: 700px;
+        transform: translateX(25px);
 
         margin: 0 auto;
-        padding: 80px 20px 65px;
-        font-size: 48px;
+        padding: 80px 20px 40px;
         font-weight: 800;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        line-height: 1.3em;
+        line-height: 1.25em;
+        font-family: var(--serif-font);
+        font-size: 37px;
+        letter-spacing: -0.014em;
 
         @media (--mobile) {
             padding: 30px 20px;
-            font-size: 28px;
+            font-size: 26px;
+        }
+
+        @media (--mobile) and (--less-then-entry-column) {
+            transform: none;
         }
     }
 
@@ -41,7 +53,7 @@
     &__info {
         @apply --entry-column-width;
 
-        margin: 0 auto 70px;
+        margin: 0 auto 40px;
         display: flex;
 
         @media (--mobile) {
@@ -172,9 +184,9 @@
 }
 
 /**
- * Article body
+ * Article content body
  */
-.article_content {
+.article-content {
     font-size: 17.4px;
     line-height: 1.62em;
     word-wrap: break-word;
@@ -223,7 +235,7 @@
     h5,
     h6 {
         margin: 1.6em auto 0.5em;
-        font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans";
+        font-family: var(--serif-font);
         letter-spacing: -0.02em;
         line-height: 1.3em;
 
@@ -336,7 +348,7 @@
  */
 .article-quote {
     margin: 40px auto;
-    padding: 30px;
+    padding: 30px 0;
     border-top: 2px solid #e4e4e4;
     border-bottom: 2px solid #e4e4e4;
     font-family: Georgia;
@@ -345,8 +357,15 @@
     font-size: 20.4px;
     line-height: 1.6em;
 
+    @media (--mobile) {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
     @media (--mobile) and (--less-then-entry-column) {
         margin: 30px 20px;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
     }
 
     p {
@@ -401,7 +420,7 @@
     &__title {
         font-size: 16px;
         line-height: 1.45em;
-        font-weight: 700;
+        font-weight: 600;
 
         @media (--mobile) {
             font-size: 12.2px;

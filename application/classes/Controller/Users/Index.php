@@ -14,7 +14,7 @@ class Controller_Users_Index extends Controller_Base_preDispatch
     {
         $user_id = $this->request->param('id') ?: $this->request->query('id');
         $isAlias = $this->request->query('id');
-        
+
         if (!empty($user_id)) {
             $viewUser = Model_User::get($user_id);
             if ($viewUser->uri && !$isAlias) {

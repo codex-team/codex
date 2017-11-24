@@ -68,7 +68,7 @@
         <? endif; ?>
     </div>
 
-    <div class="article_content js-emoji-included <?= !empty($article->text) ? 'article_content--old' : '' ?>" itemprop="articleBody">
+    <div class="article-content js-emoji-included" itemprop="articleBody">
 
         <?
         /**
@@ -108,7 +108,8 @@
         <p>Мы расскажем вам о крутых и интересных технологиях и приведём примеры их использования в наших проектах.</p>
 
         <? foreach ($popularArticles as $popularArticle): ?>
-            <li><a href="/<?= $popularArticle->uri ?: ('article/' . $popularArticle->id) ; ?>" class="js-emoji-included"><?= $popularArticle->title; ?></a></li>
+            <?= View::factory('templates/articles/card', array('article'=> $popularArticle))->render(); ?>
+             <? /*<li><a href="/<?= $popularArticle->uri ?: ('article/' . $popularArticle->id) ; ?>" class="js-emoji-included"><?= $popularArticle->title; ?></a></li> */ ?>
         <? endforeach; ?>
 
     </ul>

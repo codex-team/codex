@@ -1,6 +1,6 @@
 <div class="center_side">
 
-    <form class="editor-form" name="codex_article" method="POST" action="/<?= $article->id && $article->uri ? $article->uri . '/save' : 'article/add' ?>" enctype="multipart/form-data" id="edit_article_form" class="edit_article_form">
+    <form class="editor-form article-content" name="codex_article" method="POST" action="/<?= $article->id && $article->uri ? $article->uri . '/save' : 'article/add' ?>" enctype="multipart/form-data" id="edit_article_form">
 
         <? if (!empty($error)): ?>
             <div class="editor-form__error">
@@ -53,6 +53,9 @@
 
             <label for="courses_id">Выберите курс, к которому относится статья</label>
             <select name="courses_ids[]" multiple>
+                <option value="0">
+                    Не выбран
+                </option>
                 <? foreach ($courses as $course): ?>
                     <? $is_selected = is_array($selected_courses)?in_array($course['id'], $selected_courses):false; ?>
                     <option value="<?= $course['id']; ?>" <?= $is_selected?'selected':''; ?>>
