@@ -1584,18 +1584,29 @@ textarea {
 * =================================
 */
 
-@media all and (max-width: 980px) {
+@media all and (max-width: 980px) and (max-width: 690px){
     .news {
-        padding: 30px 0;
+        padding: 20px 0;
         margin: 30px 0;
+        max-width: none;
     }
+
+        .news__list_item:not(:last-of-type) {
+            margin-bottom: 5px;
+        }
 
     .news__list_item::before {
         position: static;
         display: block;
         text-align: left;
-        margin: 1em 0 0.6em;
+        margin: 0 0 1px;
+        font-size: 0.89em;
     }
+
+    .news__showmore {
+        margin-top: 0;
+    }
+
 }
 
 /**

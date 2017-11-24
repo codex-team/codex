@@ -44,7 +44,7 @@
         <div class="center_side clearfix">
             <section class="site-footer__section">
                 <h5><a href="/">CodeX</a></h5>
-                Club of web-development, design and marketing. We build team learning how to create full-valued projects on the world market.
+                Club of web-development, design and marketing. We build team learning how to build full-valued projects on the world market.
             </section>
             <section class="site-footer__section site-footer__section--contacts">
                 <h5>Contact team</h5>
@@ -52,7 +52,7 @@
                     <li><a href="mailto:team@ifmo.su?Subject=CodeX%20Team"><u>team@ifmo.su</u></a></li>
                     <!--googleoff: all-->
                     <!--noindex-->
-                        <li><a href="mailto:specc.dev@gmail.com?Subject=CodeX%20Team" rel="nofollow"><u>specc.dev@gmail.com</u></a> <span class="desclimer">— Савченко Петр</span></li>
+                        <li><a href="mailto:specc.dev@gmail.com?Subject=CodeX%20Team" rel="nofollow"><u>specc.dev@gmail.com</u></a> <span class="desclimer">— Petr Savchenko</span></li>
                     <!--/noindex-->
                     <!--googleon: all-->
                 </ul>
