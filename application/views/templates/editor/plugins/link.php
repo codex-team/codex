@@ -3,10 +3,10 @@
     <div class="embed-link__title">
         <?= $block->title; ?>
     </div>
-    <span class="embed-link__domain">
-        <?= parse_url($block->url, PHP_URL_HOST); ?>
-    </span>
     <div class="embed-link__description">
         <?=$block->description; ?>
     </div>
+    <span class="embed-link__domain">
+        <?= parse_url($block->url, PHP_URL_HOST); ?>
+    </span>
 </a>

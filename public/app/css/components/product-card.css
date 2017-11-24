@@ -435,8 +435,8 @@
 
         ^&__caption {
             margin: 30px 0;
-            color: #626262;
-            font-weight: 200;
+            color: #757575;
+            font-weight: 300;
             font-size: 25px;
         }
 
@@ -482,6 +482,7 @@
             margin-top: 20px;
             font-size: 24px;
             font-weight: 300;
+            line-height: 1.36em;
         }
 
         ^&__disclaimer {

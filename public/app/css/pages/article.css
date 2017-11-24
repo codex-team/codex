@@ -430,18 +430,19 @@
     &__domain {
         display: inline-block;
         font-variant: small-caps;
-        margin-top: 0.5em;
+        margin-top: 20px;
         border: 0 !important;
         color: var(--text-gray);
         font-size: 0.85em;
 
         @media (--mobile) {
+            margin-top: 5px;
             font-size: 12px;
         }
     }
 
     &__description {
-        margin-top: 20px;
+        margin-top: 10px;
         font-size: 0.9em;
 
         @media (--mobile) {

@@ -2776,8 +2776,8 @@ textarea {
 
 .product-card--media .product-card__caption {
             margin: 30px 0;
-            color: #626262;
-            font-weight: 200;
+            color: #757575;
+            font-weight: 300;
             font-size: 25px;
 }
 
@@ -2826,6 +2826,7 @@ textarea {
             margin-top: 20px;
             font-size: 24px;
             font-weight: 300;
+            line-height: 1.36em;
 }
 
 .product-card--ar-tester .product-card__disclaimer {
@@ -2920,11 +2921,12 @@ textarea {
 
 .product-cell__name {
         display: block;
-        font-size: 21px;
+        font-size: 19px;
         font-weight: 500;
         margin: 0;
         color: #000;
         letter-spacing: -0.17px;
+        font-weight: 700;
 }
 
 .product-cell__logo {
@@ -2933,7 +2935,7 @@ textarea {
 }
 
 .product-cell__desc {
-        margin-top: 13px;
+        margin-top: 10px;
         line-height: 1.6em;
 }
 
@@ -4277,7 +4279,7 @@ textarea {
         -webkit-font-feature-settings: "c2sc";
                 font-feature-settings: "c2sc";
         font-variant: small-caps;
-        margin-top: 0.5em;
+        margin-top: 20px;
         border: 0 !important;
         color: #6c7580;
         font-size: 0.85em;
@@ -4286,12 +4288,13 @@ textarea {
 @media all and (max-width: 980px) {
 
     .embed-link__domain {
+        margin-top: 5px;
         font-size: 12px;
     }
 }
 
 .embed-link__description {
-        margin-top: 20px;
+        margin-top: 10px;
         font-size: 0.9em;
 }
 
