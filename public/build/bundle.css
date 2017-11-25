@@ -1563,7 +1563,7 @@ textarea {
 
 .news__bage {
     display: inline-block;
-    margin-right: 0.8em;
+    margin-right: 0.5em;
     color: #b33232;
     letter-spacing: 2px;
     font-size: 1.1em;
@@ -2711,7 +2711,8 @@ textarea {
                 width: 44px;
                 vertical-align: text-bottom;
                 margin-right: 13px;
-                margin-top: -1px;
+                -webkit-transform: translateY(-3px);
+                        transform: translateY(-3px);
             }
 
 @media all and (max-width: 980px) {

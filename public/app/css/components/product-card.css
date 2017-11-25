@@ -367,7 +367,7 @@
                 width: 44px;
                 vertical-align: text-bottom;
                 margin-right: 13px;
-                margin-top: -1px;
+                transform: translateY(-3px);
 
                 @media (--mobile) {
                     width: 34px;
