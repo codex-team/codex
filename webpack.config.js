@@ -34,12 +34,13 @@ module.exports = {
             },
             {
                 test: /\.js$/,
+                exclude: /(node_modules)/,
                 use: [
                     /** Babel loader */
                     {
                         loader: 'babel-loader',
                         options: {
-                            presets: [ 'env' ]
+                            presets: [ 'es2015' ]
                         }
                     },
                     /** ES lint For webpack build */

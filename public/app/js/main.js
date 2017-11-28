@@ -37,6 +37,26 @@ var codex = (function (codex_) {
             communityId: VK_COMMUNITY_ID
         });
 
+        /**
+         * Acitve play-video buttons
+         */
+        let playVideoButton = document.querySelector('[name="js-show-player"]');
+
+        if (playVideoButton) {
+
+            const Player = require('./modules/player').default;
+
+            new Player({
+                sourceURL: 'public/app/img/products/ar-tester.mp4',
+                toggler: playVideoButton,
+                wrapperSelector : '.product-card--ar-tester'
+            });
+
+        }
+
+
+
+
 
 
     };
