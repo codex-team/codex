@@ -187,7 +187,7 @@
 
     <ul class="news js-emoji-included">
         <?
-            $MAX_PORTION = 40;
+            $MAX_PORTION = 3;
             $i = 0;
         ?>
         <? foreach ( $news as $event ): ?>
