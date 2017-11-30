@@ -2275,10 +2275,18 @@ textarea {
         font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans";
     }
 
+@media all and (max-width: 980px) {
+
+    .article-card__title {
+        font-size: 15.9px;
+        letter-spacing: -0.013em;
+    }
+}
+
 .article-card__photo {
         float: left;
         margin-right: 10px;
-    }
+}
 
 .article-card__photo img {
             display: block;
@@ -2294,12 +2302,12 @@ textarea {
 
 .article-card__user-name {
 
-    }
+}
 
 .article-card__read-time {
         color: #6c7580;
         line-height: 1.1em;
-    }
+}
 
 @media all and (min-width: 1050px) {
     .articles-grid__item .article-card {

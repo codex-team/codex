@@ -17,7 +17,7 @@
         ),
         array(
             'text' => 'Набросали гайд о том, <a href="/ssh-passwordless-login">как настроить беспарольный доступ по SSH</a>',
-            'textEn' => 'Published a new guide about <a href="/ssh-passwordless-login">how to set up a passwrodless SSH access</a>',
+            'textEn' => 'Published a new guide about <a href="/ssh-passwordless-login">how to set up a passwordless SSH access</a>',
             'date' => '20 sep'
         ),
         array(
@@ -27,7 +27,7 @@
         ),
         array(
             'text' => 'Рассказали об опыте <a href="https://vk.com/codex_team?w=wall-103229636_291">работы с дополненной реальностью на ARKit</a>',
-            'textEn' => 'Tell about out experience <a href="https://vk.com/codex_team?w=wall-103229636_291">of working with Augmented Reality with Apple ARKit</a>',
+            'textEn' => 'Told about our experience of <a href="https://vk.com/codex_team?w=wall-103229636_291">working with Augmented Reality with Apple ARKit</a>',
             'date' => '12 sep'
         ),
         array(
@@ -37,12 +37,12 @@
         ),
         array(
             'text' => 'Рассказали о том, <a href="/slack-apps-tutorial">как создать приложение для Slack</a>',
-            'textEn' => 'New guide «<a href="/slack-apps-tutorial">How to create an applicaition for Slack</a>»',
+            'textEn' => 'New guide «<a href="/slack-apps-tutorial">How to create an application for Slack</a>»',
             'date' => '24 jul'
         ),
         array(
             'text' => 'Написали статью о создании <a href="/python-sockets">сокет сервера</a> на Python',
-            'textEn' => 'New article about development <a href="/python-sockets">Socket-server</a> with Python',
+            'textEn' => 'New article about development of <a href="/python-sockets">Socket-server</a> with Python',
             'date' => '4 may'
         ),
         array(
@@ -89,7 +89,7 @@
         ),
         array(
             'text' => 'Написали простую инструкцию о том, <a href="https://ifmo.su/ssl">как бесплатно и просто настроить HTTPS с помощью Let\'s Encrypt</a>',
-            'textEn' => 'Wrote a simple guide about <a href="https://ifmo.su/ssl">how to set up and HTTPS website version with Let\'s Encrypt</a>',
+            'textEn' => 'Wrote a simple guide about <a href="https://ifmo.su/ssl">how to set up a HTTPS connection to the website with Let\'s Encrypt</a>',
             'date' => '22 mar'
         ),
         array(
@@ -108,8 +108,8 @@
             'date' => '3 mar'
         ),
         array(
-            'text' => 'Прошел первый открытый мастер-класс <a href="https://vk.com/codex_team?w=wall-103229636_229">CodeX Meetup</a>, посвященный основам разработки real-time приложений на node.js и WebSockets',
-            'textEn' => 'The first open master class <a href="https://vk.com/codex_team?w=wall-103229636_229">CodeX Meetup</a>, about real-time application development with node.js and WebSockets',
+            'text' => 'Прошел первый открытый мастер-класс <a href="https://vk.com/codex_team?w=wall-103229636_229">CodeX Meetup</a>, посвященный основам разработки real-time приложений на Node.js и WebSockets',
+            'textEn' => 'The first open master class <a href="https://vk.com/codex_team?w=wall-103229636_229">CodeX Meetup</a>, about real-time application development with Node.js and WebSockets',
             'date' => '17 feb'
         ),
         array(
@@ -119,12 +119,12 @@
         ),
         array(
             'text' => 'Опубликовали статью о том, <a href="/docker-php">как использовать Docker-контейнер</a>',
-            'textEn' => 'Writo a guide about <a href="/docker-php">usage of Docker-containers</a>',
+            'textEn' => 'Wrote a guide about a <a href="/docker-php">usage of Docker-containers</a>',
             'date' => '1 dec'
         ),
         array(
             'text' => 'Вышла <a href="http://news.ifmo.ru/ru/science/it/news/6243/">статья о клубе</a> от редакции Университета ИТМО',
-            'textEn' => 'Published <a href="http://news.ifmo.ru/en/science/it/news/6243/">story about CodeX Team</a> from editoral office of IFMO University',
+            'textEn' => 'Published a <a href="http://news.ifmo.ru/en/science/it/news/6243/">story about CodeX Team</a> from editoral office of IFMO University',
             'date' => '30 nov'
         ),
         array(
@@ -134,7 +134,7 @@
         ),
         array(
             'text' => 'Модуль для создания контрастной версии сайта <a href="/special">CodeX Special</a>',
-            'textEn' => 'Module for cration high-contrast version of websites <a href="/special">CodeX Special</a>',
+            'textEn' => 'Module for making a high-contrast version of websites <a href="/special">CodeX Special</a>',
             'date' => '18 oct',
             'release' => true,
         ),
@@ -150,7 +150,7 @@
         // ),
         array(
             'text' => '<a href="/bot">@codex_bot</a> — Облачная платформа для интеграции сервисов в Telegram. Модули по работе с GitHub и Yandex.Metrika',
-            'textEn' => '<a href="/bot">@codex_bot</a> — Cloud platform for integration services into messangers. Apps for GitHub and Yandex.Metrika',
+            'textEn' => '<a href="/bot">@codex_bot</a> — cloud platform for integration services into messengers. Apps for GitHub and Yandex.Metrika are available',
             'date' => '22 sep',
             'release' => true,
         ),
@@ -161,7 +161,7 @@
         ),
         array(
             'text' => 'Написали о <a href="/metrika-telegram">публикации статистики из Яндекс.Метрики в Telegram</a>',
-            'textEn' => 'Write about <a href="/metrika-telegram">publication analytics data from the Yandex.Metrica to the Telegram messanger</a>',
+            'textEn' => 'Wrote about <a href="/metrika-telegram">publication analytics data from the Yandex.Metrica to the Telegram messanger</a>',
             'date' => '27 jul'
         ),
         array(
@@ -187,7 +187,7 @@
 
     <ul class="news js-emoji-included">
         <?
-            $MAX_PORTION = 3;
+            $MAX_PORTION = 40;
             $i = 0;
         ?>
         <? foreach ( $news as $event ): ?>

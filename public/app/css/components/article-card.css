@@ -40,6 +40,11 @@
         font-weight: bold;
         line-height: 1.2em;
         font-family: var(--serif-font);
+
+        @media (--mobile){
+            font-size: 15.9px;
+            letter-spacing: -0.013em;
+        }
     }
 
     &__photo {
