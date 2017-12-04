@@ -2,22 +2,22 @@
     $news = array(
         array(
             'text' => 'Вышла статья о том, <a href="/viber-bot">как создать бота для Viber</a>',
-            'textEn' => 'Published a new note «<a href="/viber-bot">How to create a bot for Viber</a>»',
+            'textEn' => 'We published a new note «<a href="/viber-bot">How to create a bot for Viber</a>»',
             'date' => '2 nov'
         ),
         array(
             'text' => 'Провели мастер-класс по <a href="https://vk.com/wall-103229636_326">основам модульной Frontend-разработки</a>',
-            'textEn' => 'CodeX Meetup: <a href="https://vk.com/wall-103229636_326">modular Frontend</a>',
+            'textEn' => 'CodeX Meetup: Getting Started with the <a href="https://vk.com/wall-103229636_326">Modular Frontend Development</a>',
             'date' => '25 oct'
         ),
         array(
             'text' => 'Опубликованы <a href="/task">задания для вступающих в клуб</a>',
-            'textEn' => '<a href="/task">Tasks for joining the Team</a> are published',
+            'textEn' => '<a href="/task">Tasks for joining the Team</a> were published',
             'date' => '1 oct'
         ),
         array(
             'text' => 'Набросали гайд о том, <a href="/ssh-passwordless-login">как настроить беспарольный доступ по SSH</a>',
-            'textEn' => 'Published a new guide about <a href="/ssh-passwordless-login">how to set up a passwordless SSH access</a>',
+            'textEn' => 'We published a new guide about <a href="/ssh-passwordless-login">setting up a passwordless SSH-access</a>',
             'date' => '20 sep'
         ),
         array(
@@ -89,12 +89,12 @@
         ),
         array(
             'text' => 'Написали простую инструкцию о том, <a href="https://ifmo.su/ssl">как бесплатно и просто настроить HTTPS с помощью Let\'s Encrypt</a>',
-            'textEn' => 'Wrote a simple guide about <a href="https://ifmo.su/ssl">how to set up a HTTPS connection to the website with Let\'s Encrypt</a>',
+            'textEn' => 'Wrote a simple guide about <a href="https://ifmo.su/ssl">setting up a HTTPS connection to the website with Let\'s Encrypt</a>',
             'date' => '22 mar'
         ),
         array(
             'text' => 'Прошел грандиозный <a href="https://github.com/codex-team/html-css-practice">CodeX Meetup: HTML+CSS practice</a>',
-            'textEn' => 'Left a grand <a href="https://github.com/codex-team/html-css-practice">CodeX Meetup: HTML+CSS practice</a>',
+            'textEn' => 'Held a grand <a href="https://github.com/codex-team/html-css-practice">CodeX Meetup: HTML+CSS practice</a>',
             'date' => '17 mar'
         ),
         array(
@@ -104,7 +104,7 @@
         ),
         array(
             'text' => 'Помучили GPU и CPU на <a href="https://vk.com/codex_team?w=wall-103229636_232">CodeX Meetup: Chrome DevTools</a>',
-            'textEn' => 'Racked GPU and CPU at the <a href="https://vk.com/codex_team?w=wall-103229636_232">CodeX Meetup: Chrome DevTools</a>',
+            'textEn' => 'Played with GPU and CPU at the <a href="https://vk.com/codex_team?w=wall-103229636_232">CodeX Meetup: Chrome DevTools</a>',
             'date' => '3 mar'
         ),
         array(
@@ -119,12 +119,12 @@
         ),
         array(
             'text' => 'Опубликовали статью о том, <a href="/docker-php">как использовать Docker-контейнер</a>',
-            'textEn' => 'Wrote a guide about a <a href="/docker-php">usage of Docker-containers</a>',
+            'textEn' => 'Wrote a guide about a <a href="/docker-php">Docker-containers usage</a>',
             'date' => '1 dec'
         ),
         array(
             'text' => 'Вышла <a href="http://news.ifmo.ru/ru/science/it/news/6243/">статья о клубе</a> от редакции Университета ИТМО',
-            'textEn' => 'Published a <a href="http://news.ifmo.ru/en/science/it/news/6243/">story about CodeX Team</a> from editoral office of IFMO University',
+            'textEn' => 'Published a <a href="http://news.ifmo.ru/en/science/it/news/6243/">story about CodeX Team</a> from IFMO University editoral office',
             'date' => '30 nov'
         ),
         array(
@@ -134,13 +134,13 @@
         ),
         array(
             'text' => 'Модуль для создания контрастной версии сайта <a href="/special">CodeX Special</a>',
-            'textEn' => 'Module for making a high-contrast version of websites <a href="/special">CodeX Special</a>',
+            'textEn' => '<a href="/special">CodeX Special</a>: module for making a high-contrast version of websites',
             'date' => '18 oct',
             'release' => true,
         ),
         array(
             'text' => 'Открыт <a href="/join">набор в клуб</a>',
-            'textEn' => 'Opened <a href="/join">invite to the Team</a>',
+            'textEn' => 'Published an <a href="/join">invitation to join the Team</a>',
             'date' => '4 oct'
         ),
         // array(
@@ -150,7 +150,7 @@
         // ),
         array(
             'text' => '<a href="/bot">@codex_bot</a> — Облачная платформа для интеграции сервисов в Telegram. Модули по работе с GitHub и Yandex.Metrika',
-            'textEn' => '<a href="/bot">@codex_bot</a> — cloud platform for integration services into messengers. Apps for GitHub and Yandex.Metrika are available',
+            'textEn' => '<a href="/bot">@codex_bot</a> — a cloud platform for integration of services into messengers. Apps for GitHub and Yandex.Metrika are available',
             'date' => '22 sep',
             'release' => true,
         ),
@@ -161,7 +161,7 @@
         ),
         array(
             'text' => 'Написали о <a href="/metrika-telegram">публикации статистики из Яндекс.Метрики в Telegram</a>',
-            'textEn' => 'Wrote about <a href="/metrika-telegram">publication analytics data from the Yandex.Metrica to the Telegram messanger</a>',
+            'textEn' => 'Wrote about <a href="/metrika-telegram">   analytics data publishing from Yandex.Metrica to Telegram messenger</a>',
             'date' => '27 jul'
         ),
         array(
@@ -171,7 +171,7 @@
         ),
         array(
             'text' => 'Новая статья: «<a href="/scala-tutorial">Разработка на Scala: первые шаги</a>»',
-            'textEn' => 'Meet a new «<a href="/scala-tutorial">beginners guide about first steps in Scala</a>»',
+            'textEn' => 'Meet a new «<a href="/scala-tutorial">beginner\'s guide about first steps in Scala</a>»',
             'date' => '19 mar'
         ),
         // array(

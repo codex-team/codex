@@ -2,14 +2,14 @@
     $products = array(
         array(
             'name' => 'Webpack Build Config',
-            'description' => 'Clever frontend build confing with syntax linters, code styling checker and other helpfuly stuff based on our experience.',
+            'description' => 'Smart frontend build config with syntax linters, code style checker and other helpful stuff based on our experience.',
             'logo' => 'public/app/img/products/webpack.svg',
             'tags' => array('JavaScript', 'Webpack', 'CSS'),
             'repo' => 'github.com/codex-team/webpack-build-config',
         ),
         array(
             'name' => 'SSL certs expire date checker',
-            'description' => 'Python script for checking domain certificate’s expire date. Sends notification to the Telegram or Slack when day X is coming.',
+            'description' => 'Python script for checking domain certificate’s expire date. Sends notifications to the Telegram or Slack when day X is coming.',
             'logo' => 'public/app/img/products/ssl-checker.svg',
             'tags' => array('Python', 'SSL'),
             'repo' => 'github.com/codex-team/check-ssl-cert-expire-date',
