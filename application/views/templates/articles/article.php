@@ -84,7 +84,7 @@
          * For articles with HTML content (old editor mode)
          */
         ?>
-        <? if (!empty($article->text)) : ?>
+        <? if (!empty($article->text) && empty($article->blocks)) : ?>
             <?=$article->text; ?>
         <? endif; ?>
 
