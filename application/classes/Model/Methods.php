@@ -461,7 +461,9 @@ class Model_Methods extends Model
                  * Iterate all fields with text and concatinate summary text
                  */
                 foreach ($fieldsWithText as $fieldname) {
-                    $entryText .= $block->data->$fieldname;
+                    if (!empty($block->data->$fieldname)) {
+                        $entryText .= $block->data->$fieldname;
+                    }
                 }
             }
 
