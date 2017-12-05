@@ -3,22 +3,36 @@
 */
 .index-page {
     padding: 100px 0 70px;
-    text-align: center;
 
     p {
         max-width: 500px;
         margin: 15px auto;
+        font-size: 14.9px;
+        letter-spacing: 0.015em;
+        line-height: 1.65em;
     }
 
     &__join-button {
-        margin-top: 1.5em;
+        margin: 1.5em auto 0;
         padding: 16px 30px;
         font-size: 1.2em;
+        display: block;
+        max-width: 140px;
+        text-align: center;
     }
 }
 
 .index-page .codex-logo {
-    margin-bottom: 50px;
+    display: block;
+    margin: 0 auto 50px;
+}
+
+.thanks-block {
+    svg {
+        display: block;
+        max-width: 60px;
+        margin: 20px auto;
+    }
 }
 
 /**

@@ -1,4 +1,4 @@
-<?php
+<?php defined('SYSPATH') or die('No Direct Script Access');
 
 class Model_Feed_Abstract extends Model
 {
@@ -162,6 +162,15 @@ class Model_Feed_Abstract extends Model
         foreach ($elements as $i => $element) {
             $this->redis->zAdd($this->timeline_key, $i, $element);
         }
+    }
+
+    /**
+     * Поиск значения в фидах
+     */
+    public function isExist($item_id)
+    {
+        $item_id = $this->composeValueIdentity($item_id);
+        return $this->redis->zRank($this->timeline_key, $item_id) !== false;
     }
 
     /**

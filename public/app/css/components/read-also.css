@@ -5,42 +5,32 @@
     padding: 35px 0;
     margin: 0 auto;
     max-width: var(--article-max-width);
-}
+    font-size: 16px;
+    line-height: 1.6em;
 
-.random_articles a {
-    padding-bottom: 3px;
-    border-bottom: 1px solid #d8e5f1;
-    text-decoration: none;
-    letter-spacing: 0.2px;
-    font-size: 1.31em;
-}
+    h3 {
+        margin-bottom: 10px;
+        font-size: 1.4em;
+        font-family: var(--serif-font);
+    }
 
-.random_articles h3 {
-    margin-bottom: 20px;
-    font-size: 1.5em;
-}
-
-.random_articles li {
-    display: block;
-    list-style: none;
-    margin: 20px 0;
+    .article-card:not(:last-of-type) {
+        margin-bottom: 20px;
+    }
 }
 
 /**
 * Mobile viewport styles
 * =================================
 */
-@media (--mobile) {
+@media (--mobile) and (max-width: 690px){
     /**
     * Recommendations block
     */
     .random_articles {
-        margin: 0;
+        margin: 0 20px;
         padding-bottom: 0;
+        font-size: 14px;
     }
 
-    .random_articles a {
-        line-height: 1.7em;
-        font-size: 1.1em;
-    }
 }

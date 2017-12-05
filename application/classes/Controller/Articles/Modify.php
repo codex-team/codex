@@ -133,6 +133,14 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             $feed->remove($article->id);
         }
 
+        $isRecent = Arr::get($_POST, 'is_recent') ? 1 : 0;
+        $recentArticlesFeed = new Model_Feed_RecentArticles();
+        if ($isRecent) {
+            $recentArticlesFeed->add($article->id, true);
+        } else {
+            $recentArticlesFeed->remove($article->id, true);
+        }
+
         // Если поле uri пустое, то редиректить на обычный роут /article/id
         $redirect = ($uri) ? $article->uri : '/article/' . $article->id;
         $this->redirect($redirect);

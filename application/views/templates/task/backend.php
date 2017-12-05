@@ -5,7 +5,7 @@
             Backend
         </h1>
 
-        <div class="article_content task-page">
+        <div class="article-content task-page">
             <p>
                 Делаем фотосервис для загрузки и отдачи изображений. Основные задачи:
             </p>

@@ -1,4 +1,29 @@
 /**
+ * Article cards grid
+ */
+.articles-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    margin: -10px;
+
+    @media (max-width: 850px) {
+        flex-direction: column;
+    }
+
+    &__item {
+        width: 33.33%;
+        padding: 10px;
+        display: flex;
+
+        @media (max-width: 850px) {
+            width: auto;
+            display: block;
+        }
+    }
+}
+
+/**
 * Blogs feed
 */
 .feed {
@@ -26,10 +51,11 @@
 }
 
 .feed-item__title {
+    font-family: var(--serif-font);
     display: block;
     margin: 20px 0 30px;
-    font-size: 1.82em;
-    letter-spacing: 0.2px;
+    font-size: 1.55em;
+    letter-spacing: 0.1px;
     line-height: 1.3em;
     word-wrap: break-word;
     text-decoration: none;
@@ -60,7 +86,7 @@
 .feed-item__author_name {
     display: block;
     max-width: 80px;
-    margin: 10px auto 0;
+    margin: 5px auto 0;
     word-wrap: break-word;
     font-size: 0.78em;
     line-height: 1.17em;

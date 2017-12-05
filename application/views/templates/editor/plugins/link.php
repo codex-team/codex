@@ -1,8 +1,12 @@
-<div class="ceditor-tool-link ce-link">
-    <div class="tool-link-panel clearfix">
-        <img class="tool-link-image" src="<?=$block->image; ?>">
-        <div class="tool-link-content tool-link-title"><?=$block->title; ?></div>
-        <a class="tool-link-link" href="<?=$block->fullLink; ?>" target="_blank"><?=$block->shortLink; ?></a>
-        <div class="tool-link-content tool-link-description"><?=$block->description; ?></div>
+<a class="embed-link" href="<?= $block->url; ?>" target="_blank" rel="nofollow">
+    <img class="embed-link__image" src="<?= $block->image; ?>">
+    <div class="embed-link__title">
+        <?= $block->title; ?>
     </div>
-</div>
+    <div class="embed-link__description">
+        <?=$block->description; ?>
+    </div>
+    <span class="embed-link__domain">
+        <?= parse_url($block->url, PHP_URL_HOST); ?>
+    </span>
+</a>

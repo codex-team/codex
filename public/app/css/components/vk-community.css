@@ -6,9 +6,11 @@
 * Mobile viewport styles
 * =================================
 */
-@media (--mobile) {
+@media (--mobile) and (max-width: 690px) {
     .vk_groups {
         max-width: none;
-        width: 100%;
+        width: calc(100% - 40px);
+        margin-left: 20px;
+        margin-right: 20px;
     }
 }

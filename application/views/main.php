@@ -19,11 +19,10 @@
     <link rel="stylesheet" href="/public/build/bundle.css?v=<?= filemtime('public/build/bundle.css') ?>">
     <link rel="icon" type="image/png" href="/public/app/img/fav_shield@3x.png?v=985" id="favicon" />
 
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/apple-touch-icon-180x180.png" />
-
     <meta id="metaImage" name="image" property="og:image"  content="https://ifmo.su/public/app/img/meta_img.png" />
     <link id="linkImage" rel="image_src" href="https://ifmo.su/public/app/img/meta_img.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/apple-touch-icon-180x180.png" />
 
     <script src="/public/build/bundle.js?v=<?= filemtime('public/build/bundle.js') ?>"></script>
 
@@ -43,26 +42,26 @@
 
     <footer class="site-footer">
         <div class="center_side clearfix">
-            <section class="site-footer__section fl_l">
+            <section class="site-footer__section">
                 <h5><a href="/">CodeX</a></h5>
-                Клуб веб-разработки, дизайна и маркетинга. Мы строим команду молодых специалистов, способную создавать полноценные проекты в интернете на мировом уровне.
+                Club of web-development, design and marketing. We build team learning how to build full-valued projects on the world market.
             </section>
-            <section class="site-footer__section fl_r">
-                <h5>Follow us</h5>
-                <ul>
-                    <li><a href="//vk.com/codex_team" target="_blank" rel="nofollow"><i class="icon-vkontakte"></i> <u>ВКонтакте</u></a></li>
-                    <li><a href="//instagram.com/codex_team/" target="_blank" rel="nofollow"><i class="icon-instagram"></i> <u>Instagram</u></a></li>
-                </ul>
-            </section>
-            <section class="site-footer__section fl_l">
+            <section class="site-footer__section site-footer__section--contacts">
                 <h5>Contact team</h5>
                 <ul>
                     <li><a href="mailto:team@ifmo.su?Subject=CodeX%20Team"><u>team@ifmo.su</u></a></li>
                     <!--googleoff: all-->
                     <!--noindex-->
-                        <li><a href="mailto:specc.dev@gmail.com?Subject=CodeX%20Team" rel="nofollow"><u>specc.dev@gmail.com</u></a> <span class="desclimer">— Савченко Петр</span></li>
+                        <li><a href="mailto:specc.dev@gmail.com?Subject=CodeX%20Team" rel="nofollow"><u>specc.dev@gmail.com</u></a> <span class="desclimer">— Petr Savchenko</span></li>
                     <!--/noindex-->
                     <!--googleon: all-->
+                </ul>
+            </section>
+            <section class="site-footer__section">
+                <h5>Follow us</h5>
+                <ul>
+                    <li><a href="//vk.com/codex_team" target="_blank" rel="nofollow"><i class="icon-vkontakte"></i> <u>ВКонтакте</u></a></li>
+                    <li><a href="//instagram.com/codex_team/" target="_blank" rel="nofollow"><i class="icon-instagram"></i> <u>Instagram</u></a></li>
                 </ul>
             </section>
         </div>

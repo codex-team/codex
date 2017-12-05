@@ -5,7 +5,7 @@
             Дизайн
         </h1>
 
-        <div class="article_content">
+        <div class="article-content">
             <p>
                 Есть три задания. Какие выбрать — решать вам.
             </p>

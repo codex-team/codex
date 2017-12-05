@@ -45,13 +45,16 @@
     }
 
     &__photo {
+        display: inline-block;
         border-radius: 50%;
         width: 22px;
         height: 22px;
         vertical-align: middle;
         margin-right: 5px;
-        line-height: 1em;
-        background-color: var(--bg-light);
+
+        @apply --image-placeholder;
+        font-size: 1.5em;
+        font-weight: bold;
     }
 
     &__action {

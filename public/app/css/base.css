@@ -17,10 +17,10 @@ html {
 }
 
 .center_side {
-    max-width: 940px;
+    max-width: 1100px;
     margin: 0 auto;
 
-    @media (--mobile) {
+    @media (max-width: 1140px) {
         padding: 0 20px;
     }
 }
@@ -49,12 +49,12 @@ html {
 }
 
 a {
-    color: #4e88d6;
+    color: var(--color-link);
+    text-decoration: none;
 }
 
 a:hover {
-    color: #d25555;
-    text-decoration: underline;
+    color: var(--color-hover);
 }
 
 .align_c {

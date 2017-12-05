@@ -2,12 +2,13 @@
 * News block on index page
 */
 .news {
-    display: inline-block;
+    display: block;
     max-width: 500px;
-    border-top: 1px solid #eceff6;
-    padding: 50px 0;
-    margin: 50px 0 0;
-    text-align: left;
+    border-top: 1px solid var(--line-light);
+    border-bottom: 1px solid var(--line-light);
+    padding: 40px 0;
+    margin: 40px auto 0;
+    font-size: 14px;
 }
 
 .news__list_item {
@@ -27,12 +28,13 @@
     left: -70px;
     width: 50px;
     text-align: right;
-    color: #8b8e99;
+    color: var(--text-gray);
+    white-space: nowrap;
 }
 
 .news__bage {
     display: inline-block;
-    margin-right: 0.8em;
+    margin-right: 0.5em;
     color: #b33232;
     letter-spacing: 2px;
     font-size: 1.1em;
@@ -41,32 +43,36 @@
 
 .news__showmore {
     display: inline-block;
-    margin-top: 1.5em;
-    border-bottom: 1px solid #dae1ec;
-    padding-bottom: 1px;
+    margin-top: 0.5em;
     cursor: pointer;
-    color: #768293;
-}
-
-.news__showmore:hover {
-    color: #d25555;
-    border-color: #f5dfdf;
+    color: var(--text-gray);
 }
 
 /**
 * Mobile viewport styles
 * =================================
 */
-@media (--mobile) {
+@media (--mobile) and (max-width: 690px){
     .news {
-        padding: 30px 0;
+        padding: 20px 0;
         margin: 30px 0;
+        max-width: none;
+
+        &__list_item:not(:last-of-type) {
+            margin-bottom: 5px;
+        }
     }
 
     .news__list_item::before {
         position: static;
         display: block;
         text-align: left;
-        margin: 1em 0 0.6em;
+        margin: 0 0 1px;
+        font-size: 0.89em;
     }
+
+    .news__showmore {
+        margin-top: 0;
+    }
+
 }
