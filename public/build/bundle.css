@@ -2766,6 +2766,10 @@ textarea {
             color: #a4b1d0;
 }
 
+.product-card--hawk .product-card__caption a, .product-card--hawk .product-card__screen a {
+                color: #59a3ff;
+            }
+
 .product-card--hawk .product-card__repo {
             color: #878ca0;
 }

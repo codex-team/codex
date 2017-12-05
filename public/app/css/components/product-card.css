@@ -409,6 +409,10 @@
         ^&__caption,
         ^&__screen {
             color: #a4b1d0;
+
+            a {
+                color: #59a3ff;
+            }
         }
 
         ^&__repo {
