@@ -23,5 +23,5 @@
     </span>
 </div>
 <script>
-    codex.sharer.init();
+    codex.sharer.init('.sharing__main-button, .sharing__button');
 </script>

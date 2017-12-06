@@ -34,7 +34,7 @@
         border-radius: 3px;
         padding: 4px 9px;
         line-height: 22px;
-        letter-spacing: 0.015em;
+        letter-spacing: 0.012em;
         vertical-align: top;
 
         svg {
@@ -66,6 +66,7 @@
         &--github {
             svg {
                 margin-top: -2px;
+                height: 18px;
             }
         }
 
@@ -76,6 +77,8 @@
 
             svg {
                 vertical-align: middle;
+                width: 17px;
+                height: auto;
             }
         }
 
@@ -86,6 +89,16 @@
             svg {
                 width: 17px;
                 height: auto;
+            }
+        }
+
+        &--telegram {
+            color: #0b98da;
+            border-color: #99CFED;
+
+            svg {
+                margin-top: -3px;
+                height: 14px;
             }
         }
     }

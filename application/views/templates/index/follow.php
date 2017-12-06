@@ -23,8 +23,13 @@
         <? include(DOCROOT . 'public/app/img/vk.svg'); ?>
         codex_team
     </a>
+    <? /*
     <a class="button button--twitter" href="https://twitter.com/codex_team" rel="nofollow">
         <? include(DOCROOT . 'public/app/img/twitter.svg'); ?>
+        codex_team
+    </a> */ ?>
+    <a class="button button--telegram" href="https://t.me/codex_team" rel="nofollow">
+        <? include(DOCROOT . 'public/app/img/telegram.svg'); ?>
         codex_team
     </a>
 
