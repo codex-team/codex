@@ -29,7 +29,7 @@
             <div class="product-card__right-menu">
                 <a target="_blank" href="https://github.com/codex-editor/paragraph">Paragraph</a>
                 <a target="_blank" href="https://github.com/codex-editor/header">Header</a>
-                <a target="_blank" href="https://github.com/codex-editor/image">Image</a>
+                <a target="_blank" href="https://github.com/codex-team/codex.editor/tree/master/plugins/image">Image</a>
                 <a target="_blank" href="https://github.com/codex-editor/link">Embeded Link</a>
                 <a target="_blank" href="https://github.com/codex-editor/personality">Personality</a>
             </div>

@@ -73,9 +73,15 @@ module.exports = (function ( sharer ) {
 
     };
 
-    sharer.init = function () {
+    /**
+     * Init sharer
+     * @param  {String} buttonsSelector  - on wich elements should bind sharing
+     */
+    sharer.init = function (buttonsSelector) {
 
-        var shareButtons = document.querySelectorAll('.sharing .but, .sharing .main_but, .quiz__sharing .but');
+        console.assert(buttonsSelector, 'Sharer: buttons selector is missed');
+
+        var shareButtons = document.querySelectorAll(buttonsSelector);
 
         for (var i = shareButtons.length - 1; i >= 0; i--) {
 
