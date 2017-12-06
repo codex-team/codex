@@ -33,7 +33,7 @@
             <? include(DOCROOT . 'public/app/landings/codex_bot/img/weather-logo.svg'); ?>
         </a>
         <br>
-        <a class="product-card__right-link" href="//github.com/bot">View full catalog</a>
+        <a class="product-card__right-link" href="/bot">View full catalog</a>
         <br>
         <a class="product-card__right-link" href="//github.com/codex-bot">Contribute own integration provided by Python SDK</a>
     </div>

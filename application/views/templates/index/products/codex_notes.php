@@ -1,5 +1,5 @@
 <div class="product-card product-card--notes">
-    <a class="product-card__title" href="/notes">
+    <a class="product-card__title" href="https://github.com/codex-team/codex.notes">
         CodeX Notes
     </a>
     <div class="product-card__caption">

@@ -1,5 +1,5 @@
 <div class="product-card product-card--ar-tester">
-    <a class="product-card__title" href="/artester">
+    <a class="product-card__title" href="https://github.com/codex-team/AR-tester">
         AR Tester
     </a>
     <div class="product-card__caption">
