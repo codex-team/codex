@@ -118,7 +118,7 @@
             <div class="bot-app__desc">
                 Learn how to create application with our SDK for Python.
             </div>
-            <a class="bot-app__link" href="//<?= $app['url'] ?>">
+            <a class="bot-app__link" href="https://ifmo.su/bot2-setup">
                 Read guide »
             </a>
         </div>
