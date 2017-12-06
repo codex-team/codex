@@ -64,6 +64,11 @@ ini_set('unserialize_callback_func', 'spl_autoload_call');
 I18n::lang('en-us');
 
 /**
+ * Gettext setup
+ */
+require APPPATH . 'i18n-setup.php';
+
+/**
 * Composer autoloader
 */
 require VENDORPATH . 'autoload.php';
