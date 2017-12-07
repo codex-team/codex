@@ -1,17 +1,17 @@
-<div class="center_side clear">
-    <article class="article" itemscope itemtype="http://schema.org/Article">
 
-        <h1 class="article__title" itemprop="headline">
-            <?= $article->title; ?>
-        </h1>
+<article class="article" itemscope itemtype="http://schema.org/Article">
 
-        <div class="article-content"  itemprop="articleBody">
+    <h1 class="article__title" itemprop="headline">
+        <?= $article->title; ?>
+    </h1>
 
-            <? for($i = 0; $i < count($render); $i++) : ?>
-                <?= $render[$i]; ?>
-            <? endfor; ?>
+    <div class="article-content"  itemprop="articleBody">
 
-        </div>
+        <? for($i = 0; $i < count($render); $i++) : ?>
+            <?= $render[$i]; ?>
+        <? endfor; ?>
 
-    </article>
-</div>
+    </div>
+
+</article>
+
