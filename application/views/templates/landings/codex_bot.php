@@ -118,7 +118,7 @@
             <div class="bot-app__desc">
                 Learn how to create application with our SDK for Python.
             </div>
-            <a class="bot-app__link" href="https://ifmo.su/bot2-setup">
+            <a class="bot-app__link" href="https://github.com/codex-team/codex.bot/wiki/Developer's-Guide">
                 Read guide »
             </a>
         </div>
@@ -127,8 +127,8 @@
     <section class="codex-bot__section">
         <h4 class="codex-bot__section-title">User Guide</h4>
         <div class="codex-bot__section-text">Read instructions about @codex_bot usage and building own applications with community.</div>
-        <a class="codex-bot__section-link" href="">Getting Started </a>
-        <a class="codex-bot__section-link" href="">Documentation</a>
+        <a class="codex-bot__section-link" href="https://github.com/codex-team/codex.bot">Getting Started </a>
+        <a class="codex-bot__section-link" href="https://github.com/codex-team/codex.bot/wiki/Developer's-Guide">Documentation</a>
         <a class="codex-bot__section-link" href="https://github.com/codex-team/codex.bot">View code</a>
     </section>
     <section class="codex-bot__section">
