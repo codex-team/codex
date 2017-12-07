@@ -28,8 +28,8 @@
         <div class="codex-logo"></div>
 
         <form method="GET">
-            <input type="submit" name="language" value="ru_RU">
-            <input type="submit" name="language" value="en_US">
+            <input type="submit" name="lang" value="ru">
+            <input type="submit" name="lang" value="en">
         </form> 
         
         <p>
