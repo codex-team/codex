@@ -1,11 +1,12 @@
 <link rel="stylesheet" href="/public/app/landings/editor/editor.css?v=<?= filemtime("public/app/landings/editor/editor.css") ?>">
 
-<article class="editor-landing">
+<article class="editor-landing editor-form article-content">
 
     <h1 class="editor-landing__title" itemprop="headline">CodeX Editor</h1>
     <div class="editor-landing__disclaimer">under development</div>
 
-    <div contenteditable id="js-editor-title" class="editor-landing__input-title" type="text" data-placeholder="Title"></div>
+    <input class="editor-form__title" id="js-editor-title" type="text" name="title" required placeholder="Story title">
+
 
     <form name="editor-demo" action="/editor/preview" method="POST" enctype="multipart/form-data">
 
@@ -14,7 +15,7 @@
         <textarea hidden name="article_json" id="json_result" cols="30" rows="10" style="width: 100%;height: 300px;"></textarea>
 
         <div class="editor_output__buttons">
-            <a href="#output" id="jsonPreviewerButton" class="button button--master">View Output</a>
+            <a href="#output" id="jsonPreviewerButton" class="button">View Output</a>
             <span id="saveButton" class="button button--master">Save and Preview</span>
         </div>
 

@@ -15,10 +15,20 @@
         outline: none;
         background: transparent;
         border: 0;
-        font-size: 42px;
         font-weight: 800;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        line-height: 1.25em;
+        font-family: var(--serif-font);
+        font-size: 37px;
         margin-bottom: 5px;
-        font-family: inherit;
+        letter-spacing: -0.014em;
+
+        @media (--mobile) {
+            padding: 30px 20px;
+            font-size: 26px;
+        }
+
     }
 
     &__section {
@@ -48,6 +58,14 @@
     &__important-filed {
         border: 3px solid #75acff;
         background-color: #fff;
+    }
+
+    .ce-block__content a {
+        color: inherit;
+    }
+
+    .ce-block--stretched {
+        max-width: none !important;
     }
 }
 

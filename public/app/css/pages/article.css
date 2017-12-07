@@ -238,6 +238,7 @@
         font-family: var(--serif-font);
         letter-spacing: -0.02em;
         line-height: 1.3em;
+        padding: 0;
 
         & + p {
             margin-top: 0;

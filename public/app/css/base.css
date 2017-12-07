@@ -123,7 +123,7 @@ textarea {
 .button {
     user-select: none;
     border-radius: 30px;
-    border: 0;
+    border: 0 !important;
     display: inline-block;
     padding: 12px 24px;
     color: #3f4b63;
@@ -133,6 +133,7 @@ textarea {
     font-family: inherit;
     background: #ecf3f9;
     line-height: 1em;
+
 
     &:hover {
         background: #4592da;
