@@ -39,7 +39,7 @@
                 'description' => 'Yandex.Metrika assistant. Regular and requested reports.',
                 'contributors' => array(
                     array( 'name' => 'n0str', 'photo' => 'https://avatars1.githubusercontent.com/u/988885?v=4&s=60' ),
-		    array( 'name' => 'neSpecc', 'photo' => 'https://avatars0.githubusercontent.com/u/3684889?v=4&s=60' ),
+                    array( 'name' => 'neSpecc', 'photo' => 'https://avatars0.githubusercontent.com/u/3684889?v=4&s=60' ),
                     array( 'name' => 'talyguryn', 'photo' => 'https://avatars1.githubusercontent.com/u/15259299?v=4&s=60' ),
                     array( 'name' => 'gohabereg', 'photo' => 'https://avatars3.githubusercontent.com/u/23050529?v=4&s=60' ),
                 ),
