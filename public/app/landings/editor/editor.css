@@ -22,6 +22,10 @@ body {
     background: #fff;
 }
 
+.editor-landing .button {
+    border: 0 !important;
+}
+
 .editor-landing__title {
     margin-bottom: 0;
     padding: 30px 140px 8px;
