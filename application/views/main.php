@@ -20,6 +20,7 @@
     <link rel="icon" type="image/png" href="/public/app/img/fav_shield@3x.png?v=985" id="favicon" />
 
     <meta id="metaImage" name="image" property="og:image"  content="<?= Model_Methods::getDomainAndProtocol() ?>/public/img/tmp_meta.png" />
+    <meta property="vk:image" content="<?= Model_Methods::getDomainAndProtocol() ?>/public/img/tmp_meta.png" />
     <? /* <meta id="metaImage" name="image" property="og:image"  content="https://ifmo.su/public/app/img/meta_img.png" /> */ ?>
     <link id="linkImage" rel="image_src" href="https://ifmo.su/public/app/img/meta_img.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
