@@ -29,25 +29,55 @@
     </div>
 <? endif; ?>
 
-<article class="article" itemscope itemtype="http://schema.org/Article">
+<article class="article">
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type": "Article",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $article->uri ?>"
+            },
+            "headline": "<?= $article->title; ?>",
+            "datePublished": "<?= date(DATE_ISO8601, strtotime($article->dt_create)) ?>",
 
-    <? if (isset($article->dt_update)): ?>
-        <meta itemprop="dateModified" content="<?= date(DATE_ISO8601, strtotime($article->dt_update)) ?>" />
-    <? endif; ?>
-    <meta itemprop="datePublished" content="<?= date(DATE_ISO8601, strtotime($article->dt_create)) ?>" />
+            <? if (isset($article->cover)): ?>
+                "image": {
+                    "@type": "ImageObject",
+                    "url": "<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $article->cover ?>"
+                },
+            <? endif; ?>
+            
+            <? if (isset($article->dt_update)): ?>
+                "dateModified": "<?= date(DATE_ISO8601, strtotime($article->dt_update)) ?>",
+            <? endif; ?>
 
-    <h1 class="article__title js-emoji-included" itemprop="headline">
+            "author": {
+                "@type": "Person",
+                "name": "<?= $article->author->name ?>",
+                "image": "<?= $article->author->photo ?>"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "CodeX-team",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "<?= Model_Methods::getDomainAndProtocol(); ?>/public/app/img/meta_img.png"
+                }
+            }
+        }
+    </script>
+
+    <h1 class="article__title js-emoji-included">
         <?= $article->title ?>
     </h1>
 
     <div class="article__info">
-        <div class="article__author" itemscope itemtype="http://schema.org/Person" itemprop="author">
-            <meta itemprop="url" href="<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $article->author->uri ? : 'user/' . $article->author->id ?>" />
-
+        <div class="article__author">
             <a href="/<?= $article->author->uri ? : 'user/' . $article->author->id ?>">
-                <img class="article__author-photo" src="<?= $article->author->photo ?>" alt="<?= $article->author->name ?>"  itemprop="image">
+                <img class="article__author-photo" src="<?= $article->author->photo ?>" alt="<?= $article->author->name ?>">
             </a>
-            <a class="article__author-name" itemprop="name" href="/<?= $article->author->uri ? : 'user/' . $article->author->id ?>">
+            <a class="article__author-name" href="/<?= $article->author->uri ? : 'user/' . $article->author->id ?>">
                 <?= $article->author->name ?>
             </a>
             <time class="article__date">
