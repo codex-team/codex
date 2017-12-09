@@ -29,7 +29,8 @@
     </div>
 <? endif; ?>
 
-<article class="article">
+<article class="article" itemscope itemtype="http://schema.org/Article">
+
     <script type="application/ld+json">
         {
             "@context": "http://schema.org",
@@ -68,16 +69,23 @@
         }
     </script>
 
-    <h1 class="article__title js-emoji-included">
+    <? if (isset($article->dt_update)): ?>
+        <meta itemprop="dateModified" content="<?= date(DATE_ISO8601, strtotime($article->dt_update)) ?>" />
+    <? endif; ?>
+    <meta itemprop="datePublished" content="<?= date(DATE_ISO8601, strtotime($article->dt_create)) ?>" />
+
+    <h1 class="article__title js-emoji-included" itemprop="headline">
         <?= $article->title ?>
     </h1>
 
     <div class="article__info">
-        <div class="article__author">
+        <div class="article__author" itemscope itemtype="http://schema.org/Person" itemprop="author">
+            <meta itemprop="url" href="<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $article->author->uri ? : 'user/' . $article->author->id ?>" />
+
             <a href="/<?= $article->author->uri ? : 'user/' . $article->author->id ?>">
-                <img class="article__author-photo" src="<?= $article->author->photo ?>" alt="<?= $article->author->name ?>">
+                <img class="article__author-photo" src="<?= $article->author->photo ?>" alt="<?= $article->author->name ?>"  itemprop="image">
             </a>
-            <a class="article__author-name" href="/<?= $article->author->uri ? : 'user/' . $article->author->id ?>">
+            <a class="article__author-name" itemprop="name" href="/<?= $article->author->uri ? : 'user/' . $article->author->id ?>">
                 <?= $article->author->name ?>
             </a>
             <time class="article__date">
@@ -125,7 +133,7 @@
     <? endif ?>
 
     <?= View::factory('templates/blocks/share', array('share' => array(
-        'offer' => 'Если вам понравилась статья, поделитесь ссылкой на нее',
+        'offer' => 'Если вам понравилась статья, поделитесь ссылкой на нее',
         'url'   => 'https://' . Arr::get($_SERVER, 'HTTP_HOST', Arr::get($_SERVER, 'SERVER_NAME', 'ifmo.su')) . '/' . $article->uri ?: 'article/' . $article->id,
         'title' => html_entity_decode($article->title),
         'desc'  => html_entity_decode($article->description),

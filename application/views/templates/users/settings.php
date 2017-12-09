@@ -1,5 +1,6 @@
 <div class="center_side">
     <div class="profile-settings">
+        
         <script type="application/ld+json">
             {
                 "@context": "http://schema.org",
@@ -9,9 +10,9 @@
             }
         </script>
 
-        <div class="breadcrumb">
-            <a href="/user"><span>Profile</span></a> »
-            <h1 class="name">Settings</h1>
+        <div class="breadcrumb" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="/user" itemprop="url"><span itemprop="title">Profile</span></a> »
+            <h1 class="name" itemprop="title">Settings</h1>
         </div>
 
         <div class="fl_l align_c">
