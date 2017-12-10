@@ -60,7 +60,7 @@
             },
             "publisher": {
                 "@type": "Organization",
-                "name": "CodeX-team",
+                "name": "CodeX",
                 "logo": {
                     "@type": "ImageObject",
                     "url": "<?= Model_Methods::getDomainAndProtocol(); ?>/public/app/img/meta_img.png"
