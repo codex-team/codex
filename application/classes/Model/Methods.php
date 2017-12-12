@@ -10,7 +10,7 @@ class Model_Methods extends Model
      */
     public static function getDomainAndProtocol()
     {
-        return Model_Methods::getProtocol() . "://" . $_SERVER['HTTP_HOST'];
+        return self::getProtocol() . "://" . $_SERVER['HTTP_HOST'];
     }
 
     /**
@@ -386,7 +386,7 @@ class Model_Methods extends Model
     public static function makeUrlFull($url)
     {
         if (strncmp($url, 'http', 4)) {
-            $url = URL::site($url, Model_Methods::getProtocol());
+            $url = URL::site($url, self::getProtocol());
         }
 
         return $url;
