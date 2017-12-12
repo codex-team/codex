@@ -10,9 +10,7 @@ class Model_Methods extends Model
      */
     public static function getDomainAndProtocol()
     {
-        $protocol = Model_Methods::getProtocol() . "://";
-        $host = $_SERVER['HTTP_HOST'];
-        return $protocol . $host;
+        return Model_Methods::getProtocol() . "://" . $_SERVER['HTTP_HOST'];
     }
 
     /**
