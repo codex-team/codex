@@ -10,12 +10,7 @@ class Model_Methods extends Model
      */
     public static function getDomainAndProtocol()
     {
-        if ( isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
-            isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
-            $protocol = 'https://';
-        } else {
-            $protocol = 'http://';
-        }
+        $protocol = Model_Methods::getProtocol() . "://";
         $host = $_SERVER['HTTP_HOST'];
         return $protocol . $host;
     }
@@ -387,7 +382,8 @@ class Model_Methods extends Model
 
    /**
     * Fetches an absolute site URL based on a URI segment
-    * @param $url of an object
+    * @param string $url of an object, absolute or relative
+    * @return string $url, absolute
     */
     public static function makeUrlFull($url)
     {
