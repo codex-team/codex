@@ -6,6 +6,7 @@ class Model_User extends Model
     public $name        = '';
     public $uri         = '';
     public $photo       = '';
+    public $photo_full  = '';
     public $photo_big   = '';
     public $photo_small = '';
     public $dt_create;
@@ -125,6 +126,7 @@ class Model_User extends Model
             $model->uri           = $user['uri'];
             $model->name          = $user['name'];
             $model->photo         = $user['photo'];
+            $model->photo_full    = Model_Methods::makeUrlFull($user['photo']);
             $model->photo_small   = $user['photo_small'];
             $model->photo_big     = $user['photo_big'];
             $model->dt_create     = $user['dt_create'];

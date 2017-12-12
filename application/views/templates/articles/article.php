@@ -56,7 +56,7 @@
             "author": {
                 "@type": "Person",
                 "name": "<?= $article->author->name ?>",
-                "image": "<?= $article->author->photo ?>"
+                "image": "<?= $article->author->photo_full ?>"
             },
             "publisher": {
                 "@type": "Organization",
