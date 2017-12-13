@@ -32,15 +32,15 @@ class Internationalization {
 	private $lang;
 
 
-	function __construct() {
-
+	function __construct()
+	{
 		if (isset($_GET['lang'])) {
 			$this->getLang = $_GET['lang'];
 		}
 
 		if (isset($_COOKIE['lang'])) {
 				$this->cookieLang = $_COOKIE['lang'];
-			}
+		}
 
 		$this->langSetup();
 		$this->envSetup();
@@ -52,16 +52,16 @@ class Internationalization {
 	 * @param string $locale
 	 * @return bool
 	 */
-	private function valid($locale) {
-
+	private function valid($locale)
+	{
 		return array_key_exists($locale, $this->langsSupported);
 	}
 
 	/**
 	 * Chooses the prefurable language
 	 */
-	private function langSetup() {
-
+	private function langSetup()
+	{
 		if (isset($this->getLang) && $this->valid($this->getLang)) {
 
 	    	setcookie('lang', $this->getLang);
@@ -74,14 +74,14 @@ class Internationalization {
 		} else {
 
 		 	$this->lang = $this->langsSupported['en'];
-		 }
+		}
  	}
 
  	/**
 	 * Configures gettext
 	 */
-	private function envSetup() {
-
+	private function envSetup()
+	{
 		// Set $lang as value of the environment variable 'LANG'
 		putenv('LANG=' . $this->lang);
 		setlocale(LC_ALL, $this->lang);
