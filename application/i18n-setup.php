@@ -12,7 +12,7 @@ class Internationalization {
 	/**
 	 * Supported languages
 	 */
-	const SUP_LANG = array(
+	private $langsSupported = array(
 		'en' => 'en_US',
 		'ru' => 'ru_RU',
 	);
@@ -20,12 +20,31 @@ class Internationalization {
 	/**
 	 * Domain name
 	 */
-	const DOMAIN = 'ifmo';
+	private $domain = 'ifmo.su';
 
 	/**
 	 * Directory for gettext translations
 	 */
-	const LOCALE_DIR = DOCROOT . 'locale';
+	private $localedir = DOCROOT . 'locale';
+
+	private $getLang;
+	private $cookieLang;
+	private $lang;
+
+
+	function __construct() {
+
+		if (isset($_GET['lang'])) {
+			$this->getLang = $_GET['lang'];
+		}
+
+		if (isset($_COOKIE['lang'])) {
+				$this->cookieLang = $_COOKIE['lang'];
+			}
+
+		$this->langSetup();
+		$this->envSetup();
+	}
 
 
 	/**
@@ -33,46 +52,45 @@ class Internationalization {
 	 * @param string $locale
 	 * @return bool
 	 */
-	private static function valid($locale) {
-		return array_key_exists($locale, Internationalization::SUP_LANG);
-	}	
+	private function valid($locale) {
+
+		return array_key_exists($locale, $this->langsSupported);
+	}
 
 	/**
 	 * Chooses the prefurable language
-	 * @return string $lang
 	 */
-	public static function lang_setup() {
+	private function langSetup() {
 
-		if ( isset ( $_GET['lang'] ) && Internationalization::valid ( $_GET['lang'] ) ) {
+		if (isset($this->getLang) && $this->valid($this->getLang)) {
 
-	    	setcookie ( 'lang', $_GET['lang'] );
-	    	return Internationalization::SUP_LANG[$_GET['lang']];
+	    	setcookie('lang', $this->getLang);
+	    	$this->lang = $this->langsSupported[$this->getLang];
 
-		} elseif ( isset ( $_COOKIE['lang'] ) && Internationalization::valid ( $_COOKIE['lang'] ) ) {
+		} elseif (isset($this->cookieLang) && $this->valid($this->cookieLang)) {
 
-	    	return Internationalization::SUP_LANG[$_COOKIE['lang']];
+	    	$this->lang = $this->langsSupported[$this->cookieLang];
 
 		} else {
 
-		 	return Internationalization::SUP_LANG['en'];
-		 } 
+		 	$this->lang = $this->langsSupported['en'];
+		 }
  	}
- 
+
  	/**
 	 * Configures gettext
-	 * @param string $language
 	 */
-	public static function env_setup($lang) {	
+	private function envSetup() {
 
-		putenv('LANG=' . $lang);
-		setlocale(LC_ALL, $lang);
-
-		bindtextdomain ( Internationalization::DOMAIN, Internationalization::LOCALE_DIR );
-		bind_textdomain_codeset ( Internationalization::DOMAIN, 'UTF-8' );
-		textdomain ( Internationalization::DOMAIN);
+		// Set $lang as value of the environment variable 'LANG'
+		putenv('LANG=' . $this->lang);
+		setlocale(LC_ALL, $this->lang);
+		// Set path for a $domain
+		bindtextdomain ($this->domain, $this->localedir);
+		// Specify the character encoding in which the messages from the $domain message catalog will be returned
+		bind_textdomain_codeset ($this->domain, 'UTF-8' );
+		// Set the defualt domain where gettext() will search for the translations
+		textdomain ($this->domain);
 	}
 
 }
-
-$lang = Internationalization::lang_setup();
-Internationalization::env_setup($lang);
