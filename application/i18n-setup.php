@@ -39,7 +39,7 @@ class Internationalization {
 		}
 
 		if (isset($_COOKIE['lang'])) {
-				$this->cookieLang = $_COOKIE['lang'];
+			$this->cookieLang = $_COOKIE['lang'];
 		}
 
 		$this->langSetup();
@@ -54,7 +54,7 @@ class Internationalization {
 	 */
 	private function valid($locale)
 	{
-		return array_key_exists($locale, $this->langsSupported);
+	    return array_key_exists($locale, $this->langsSupported);
 	}
 
 	/**
@@ -64,7 +64,7 @@ class Internationalization {
 	{
 		if (isset($this->getLang) && $this->valid($this->getLang)) {
 
-	    	setcookie('lang', $this->getLang);
+	        setcookie('lang', $this->getLang);
 	    	$this->lang = $this->langsSupported[$this->getLang];
 
 		} elseif (isset($this->cookieLang) && $this->valid($this->cookieLang)) {
