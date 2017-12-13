@@ -54,7 +54,7 @@ class Internationalization {
 	 */
 	private function valid($locale)
 	{
-	    return array_key_exists($locale, $this->langsSupported);
+		return array_key_exists($locale, $this->langsSupported);
 	}
 
 	/**
@@ -64,7 +64,7 @@ class Internationalization {
 	{
 		if (isset($this->getLang) && $this->valid($this->getLang)) {
 
-	        setcookie('lang', $this->getLang);
+	    	setcookie('lang', $this->getLang);
 	    	$this->lang = $this->langsSupported[$this->getLang];
 
 		} elseif (isset($this->cookieLang) && $this->valid($this->cookieLang)) {
@@ -85,10 +85,13 @@ class Internationalization {
 		// Set $lang as value of the environment variable 'LANG'
 		putenv('LANG=' . $this->lang);
 		setlocale(LC_ALL, $this->lang);
+
 		// Set path for a $domain
 		bindtextdomain ($this->domain, $this->localedir);
+
 		// Specify the character encoding in which the messages from the $domain message catalog will be returned
 		bind_textdomain_codeset ($this->domain, 'UTF-8' );
+
 		// Set the defualt domain where gettext() will search for the translations
 		textdomain ($this->domain);
 	}
