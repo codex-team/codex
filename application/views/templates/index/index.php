@@ -26,12 +26,6 @@
 
 
         <div class="codex-logo"></div>
-
-        <form method="GET">
-            <input type="submit" name="lang" value="ru">
-            <input type="submit" name="lang" value="en">
-        </form> 
-        
         <p>
             <?=
                     _("CodeX is a new team based in ITMO University, unifying students and graduates interested in web-development, design and studying new technologies in practise.");
