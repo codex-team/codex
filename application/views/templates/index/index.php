@@ -28,10 +28,10 @@
         <div class="codex-logo"></div>
         <p>
             <?=
-                    _("CodeX is a new team based in ITMO University, unifying students and graduates interested in web-development, design and studying new technologies in practice.");
+                    _('CodeX is a new ITMO University based team, unifying students and graduates interested in web-development, design and cutting-edge technologies implementation.');
             ?>
         </p>
-        <p><?= _('Our goal — make team with fire in eyes and idealistic tempers.') ?></p>
+        <p><?= _('Our mission is to create a self-driven and highly-competent team.') ?></p>
 
         <? /** Join button */ ?>
         <? /* <br><a class="button button--green index-page__join-button" href="/join">Вступить в клуб</a> */ ?>
