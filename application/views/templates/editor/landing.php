@@ -1,15 +1,17 @@
 <link rel="stylesheet" href="/public/app/landings/editor/editor.css?v=<?= filemtime("public/app/landings/editor/editor.css") ?>">
 
-<article class="editor-landing">
+<article class="editor-landing editor-form article-content">
 
     <h1 class="editor-landing__title" itemprop="headline">CodeX Editor</h1>
     <div class="editor-landing__disclaimer">under development</div>
 
-    <div contenteditable id="js-editor-title" class="editor-landing__input-title" type="text" data-placeholder="Title"></div>
+    <input class="editor-form__title" id="js-editor-title" type="text" name="title" required placeholder="Story title">
+
 
     <form name="editor-demo" action="/editor/preview" method="POST" enctype="multipart/form-data">
 
-        <textarea hidden name="html" id="codex_editor" cols="30" rows="10" style="width: 100%;height: 300px;"></textarea>
+        <? //<textarea hidden name="html" id="codex_editor" cols="30" rows="10" style="width: 100%;height: 300px;"></textarea> ?>
+        <div id="codex-editor"></div>
         <textarea hidden name="article_json" id="json_result" cols="30" rows="10" style="width: 100%;height: 300px;"></textarea>
 
         <div class="editor_output__buttons">
@@ -71,38 +73,27 @@
     </div>
 </div>
 
-<!-- Developers plugin -->
-<? $plugins = ['paragraph', 'header', 'code', 'link', 'list', 'image', 'quote', 'twitter', 'instagram', 'embed']; ?>
-
-<? foreach ($plugins as $plugin) : ?>
-    <script src="https://cdn.ifmo.su/editor/v1.5/plugins/<?=$plugin . DIRECTORY_SEPARATOR . $plugin . '.js'; ?>"></script>
-    <link rel="stylesheet" href="https://cdn.ifmo.su/editor/v1.5/plugins/<?=$plugin . DIRECTORY_SEPARATOR . $plugin . '.css'; ?>">
-<? endforeach; ?>
-
-<!-- Editor scripts and styles -->
-<script src="https://cdn.ifmo.su/editor/v1.5/codex-editor.js"></script>
-<link rel="stylesheet" href="https://cdn.ifmo.su/editor/v1.5/codex-editor.css" />
 
 <script>
 
     /** Document is ready */
     codex.docReady(function() {
         codex.editor.start({
-            textareaId: 'codex_editor',
-            uploadImagesUrl : '/writing/uploadImage',
-            initialBlockPlugin : 'text',
+            holderId: 'codex-editor',
+            uploadImagesUrl : '/editor/transport/',
+            initialBlockPlugin : 'paragraph',
             tools: {
-                text : {
-                    type             : 'text',
+                paragraph : {
+                    type             : 'paragraph',
                     iconClassname    : 'ce-icon-paragraph',
                     render           : paragraph.render,
                     validate         : paragraph.validate,
                     save             : paragraph.save,
                     allowedToPaste   : true,
                     showInlineToolbar: true,
-                    destroy: paragraph.destroy,
-                    allowRenderOnPaste: true,
-                    config           : {}
+                    destroy             : paragraph.destroy,
+                    allowRenderOnPaste  : true,
+                    config              : {}
                 },
                 header : {
                     type             : 'header',
@@ -114,7 +105,20 @@
                     save             : header.save,
                     displayInToolbox : true,
                     enableLineBreaks : false,
-                    destroy: header.destroy,
+                    destroy          : header.destroy,
+                    config           : {}
+                },
+                code : {
+                    type             : 'code',
+                    iconClassname    : 'ce-icon-code',
+                    appendCallback   : null,
+                    makeSettings     : null,
+                    render           : code.render,
+                    validate         : code.validate,
+                    save             : code.save,
+                    destroy          : code.destroy,
+                    displayInToolbox : true,
+                    enableLineBreaks : true,
                     config           : {}
                 },
                 link : {
@@ -128,7 +132,7 @@
                     enableLineBreaks : true,
                     destroy: link.destroy,
                     config           : {
-                        fetchUrl : '/club/linkInfo'
+                        fetchUrl : '/editor/fetchUrl'
                     }
                 },
                 list: {
@@ -178,7 +182,7 @@
                     destroy: image.destroy,
                     renderOnPastePatterns: image.pastePatterns,
                     config : {
-                        uploadUrl : '/club/fetchImage'
+                        uploadImage : '/editor/transport'
                     }
                 },
                 instagram : {
@@ -202,7 +206,7 @@
                     destroy: twitter.destroy,
                     renderOnPastePatterns: twitter.pastePatterns,
                     config           : {
-                        fetchUrl : '/writing/tweetInfo'
+                        fetchUrl : ''
                     }
                 },
                 embed : {
@@ -210,8 +214,19 @@
                     render           : embed.render,
                     save             : embed.save,
                     validate         : embed.validate,
-                    destroy: embed.destroy,
+                    destroy          : embed.destroy,
                     renderOnPastePatterns: embed.pastePatterns
+                },
+                raw : {
+                    type: 'raw',
+                    displayInToolbox: true,
+                    iconClassname: 'raw-plugin-icon',
+                    render: rawPlugin.render,
+                    save: rawPlugin.save,
+                    validate: rawPlugin.validate,
+                    destroy: rawPlugin.destroy,
+                    enableLineBreaks: true,
+                    allowPasteHTML: true
                 }
             },
             data : INPUT
@@ -517,7 +532,7 @@ jsonPreviewerButton.addEventListener('click', function() {
  */
 var saveButton = document.getElementById('saveButton');
 
-saveButton.addEventListener('click', function() {
+saveButton && saveButton.addEventListener('click', function() {
 
     var form = document.forms['editor-demo'],
         JSONinput = document.getElementById('json_result');
@@ -627,3 +642,23 @@ INPUT.items = [];
     })({});
 
 </script>
+
+
+<?
+    $plugins    = array('paragraph', 'header', 'code', 'link', 'list', 'image', 'quote', 'twitter', 'instagram', 'embed', 'raw');
+    $editorPath = 'https://cdn.ifmo.su/editor/v1.6';
+
+    if ( Kohana::$environment === Kohana::DEVELOPMENT ){
+        // $editorPath = '/public/extensions/codex.editor';
+    }
+?>
+
+<? // Load CodeX Editor ?>
+<script src="<?= $editorPath ?>/codex-editor.js"></script>
+<link rel="stylesheet" href="<?= $editorPath ?>/codex-editor.css" />
+
+<? foreach ($plugins as $plugin) : ?>
+    <script src="<?= $editorPath ?>/plugins/<?= $plugin . DIRECTORY_SEPARATOR . $plugin . '.js'; ?>"></script>
+    <link rel="stylesheet" href="<?= $editorPath ?>/plugins/<?= $plugin . DIRECTORY_SEPARATOR . $plugin . '.css'; ?>">
+<? endforeach; ?>
+

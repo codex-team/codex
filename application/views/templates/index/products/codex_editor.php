@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="product-card__right">
-        <video class="product-card__video" width="482" autoplay loop>
+        <video class="product-card__video" width="482" autoplay loop muted playsinline>
             <source src="public/app/img/products/codex-editor-sample.mp4" type="video/mp4">
         </video>
         <div class="product-card__right-caption">
