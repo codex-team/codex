@@ -28,7 +28,7 @@
         <div class="codex-logo"></div>
         <p>
             <?=
-                    _('CodeX is a new ITMO University based team, unifying students and graduates interested in web-development, design and cutting-edge technologies implementation.');
+                    _('CodeX is a new and open-to-new-members team, unifying students and graduates interested in web-development, design and cutting-edge technologies implementation.');
             ?>
         </p>
         <p><?= _('Our mission is to create a self-driven and highly-competent team.') ?></p>
