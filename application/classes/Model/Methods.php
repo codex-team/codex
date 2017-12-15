@@ -10,14 +10,23 @@ class Model_Methods extends Model
      */
     public static function getDomainAndProtocol()
     {
+        return self::getProtocol() . "://" . $_SERVER['HTTP_HOST'];
+    }
+
+    /**
+     * Get protocol
+     *
+     * @return {string} $protocol
+     */
+    public static function getProtocol()
+    {
         if ( isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
             isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
-            $protocol = 'https://';
+            $protocol = 'https';
         } else {
-            $protocol = 'http://';
+            $protocol = 'http';
         }
-        $host = $_SERVER['HTTP_HOST'];
-        return $protocol.$host;
+        return $protocol;
     }
 
     /**
@@ -367,6 +376,20 @@ class Model_Methods extends Model
         }
 
         return $saving->execute();
+    }
+
+   /**
+    * Fetches an absolute site URL based on a URI segment
+    * @param string $url of an object, absolute or relative
+    * @return string $url, absolute
+    */
+    public static function makeUrlFull($url)
+    {
+        if (strncmp($url, 'http', 4)) {
+            $url = URL::site($url, self::getProtocol());
+        }
+
+        return $url;
     }
 
     /**

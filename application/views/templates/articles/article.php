@@ -31,6 +31,44 @@
 
 <article class="article" itemscope itemtype="http://schema.org/Article">
 
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type": "Article",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $article->uri ?>"
+            },
+            "headline": "<?= $article->title; ?>",
+            "datePublished": "<?= date(DATE_ISO8601, strtotime($article->dt_create)) ?>",
+
+            <? if (isset($article->cover)): ?>
+                "image": {
+                    "@type": "ImageObject",
+                    "url": "<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $article->cover ?>"
+                },
+            <? endif; ?>
+            
+            <? if (isset($article->dt_update)): ?>
+                "dateModified": "<?= date(DATE_ISO8601, strtotime($article->dt_update)) ?>",
+            <? endif; ?>
+
+            "author": {
+                "@type": "Person",
+                "name": "<?= $article->author->name ?>",
+                "image": "<?= $article->author->photo_full ?>"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "CodeX",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "<?= Model_Methods::getDomainAndProtocol(); ?>/public/app/img/meta_img.png"
+                }
+            }
+        }
+    </script>
+
     <? if (isset($article->dt_update)): ?>
         <meta itemprop="dateModified" content="<?= date(DATE_ISO8601, strtotime($article->dt_update)) ?>" />
     <? endif; ?>
@@ -95,7 +133,7 @@
     <? endif ?>
 
     <?= View::factory('templates/blocks/share', array('share' => array(
-        'offer' => 'Если вам понравилась статья, поделитесь ссылкой на нее',
+        'offer' => 'Если вам понравилась статья, поделитесь ссылкой на нее',
         'url'   => 'https://' . Arr::get($_SERVER, 'HTTP_HOST', Arr::get($_SERVER, 'SERVER_NAME', 'ifmo.su')) . '/' . $article->uri ?: 'article/' . $article->id,
         'title' => html_entity_decode($article->title),
         'desc'  => html_entity_decode($article->description),
