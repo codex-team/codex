@@ -4,7 +4,7 @@
 
     <a class="button button--instagram" href="http://instagram.com/codex_team/" rel="nofollow">
         <? include(DOCROOT . 'public/app/img/instagram.svg'); ?>
-        CodeX
+        codex_team
     </a>
 
     <a class="follow-block__photos" href="http://instagram.com/codex_team/" rel="nofollow">
@@ -17,7 +17,7 @@
 
     <a class="button button--github" href="https://github.com/codex-team" rel="nofollow">
         <? include(DOCROOT . 'public/app/img/github.svg'); ?>
-        codex-team
+        CodeX
     </a>
     <a class="button button--vk" href="https://vk.com/codex_team" rel="nofollow">
         <? include(DOCROOT . 'public/app/img/vk.svg'); ?>
