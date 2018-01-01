@@ -117,8 +117,8 @@ class Controller_Editor extends Controller_Base_preDispatch
         $URLParams = parse_url($URL);
 
         return array(
-            'linkUrl'   => $URL,
-            'linkText' => Arr::get($URLParams, 'host') . Arr::get($URLParams, 'path', ''),
+            'url'   => $URL,
+            'domain' => Arr::get($URLParams, 'host') . Arr::get($URLParams, 'path', ''),
         );
     }
 
