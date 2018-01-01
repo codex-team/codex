@@ -4,7 +4,7 @@
 
     <a class="button button--instagram" href="http://instagram.com/codex_team/" rel="nofollow">
         <? include(DOCROOT . 'public/app/img/instagram.svg'); ?>
-        codex_team
+        CodeX
     </a>
 
     <a class="follow-block__photos" href="http://instagram.com/codex_team/" rel="nofollow">
