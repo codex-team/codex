@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="/public/build/bundle.css?v=<?= filemtime('public/build/bundle.css') ?>">
     <link rel="icon" type="image/png" href="/public/app/img/fav_shield@3x.png?v=985" id="favicon" />
 
+    <meta name="telegram:channel" content="@codex_team">
     <meta id="metaImage" name="image" property="og:image"  content="<?= Model_Methods::getDomainAndProtocol() ?>/public/img/tmp_meta.jpg" />
     <meta property="vk:image" content="<?= Model_Methods::getDomainAndProtocol() ?>/public/img/tmp_meta.jpg" />
     <? /* <meta id="metaImage" name="image" property="og:image"  content="https://ifmo.su/public/app/img/meta_img.png" /> */ ?>
@@ -29,7 +30,7 @@
     <script src="/public/build/bundle.js?v=<?= filemtime('public/build/bundle.js') ?>"></script>
 
     <? if (!empty($_SERVER['HAWK_TOKEN'])): ?>
-        <script src="https://rawgit.com/codex-team/hawk.client/master/hawk.js" onload="hawk.init('<?= $_SERVER['HAWK_TOKEN'] ?>')"></script>
+        <script src="https://cdn.rawgit.com/codex-team/hawk.client/5f545116/hawk.js" onload="hawk.init('<?= $_SERVER['HAWK_TOKEN'] ?>')"></script>
     <? endif; ?>
 
 </head>
