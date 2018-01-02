@@ -1,6 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 use CodexEditor\CodexEditor;
+use Opengraph\Reader;
 
 class Controller_Editor extends Controller_Base_preDispatch
 {
@@ -123,56 +124,68 @@ class Controller_Editor extends Controller_Base_preDispatch
     }
 
     /**
-     * Parses DOM Document
-     * @param $html
+     * Extracts meta information from page HTML
+     * @param string $html
      * @return array
      */
     private function getMetaFromHTML($html)
     {
-        $DOMdocument = new DOMDocument();
-        @$DOMdocument->loadHTML($html);
-        $DOMdocument->preserveWhiteSpace = false;
 
-        $nodes = $DOMdocument->getElementsByTagName('title');
-
-        if ($nodes->length > 0) {
-            $title = $nodes->item(0)->nodeValue;
-        }
-
-        $description = "";
-        $keywords    = "";
-        $image       = "";
-
-        $metaData = $DOMdocument->getElementsByTagName('meta');
-
-        for ($i = 0; $i < $metaData->length; $i++) {
-            $data = $metaData->item($i);
-
-            if ($data->getAttribute('name') == 'description') {
-                $description = $data->getAttribute('content');
-            }
-
-            if ($data->getAttribute('name') == 'keywords') {
-                $keywords = $data->getAttribute('content');
-            }
-
-            if ($data->getAttribute('property')=='og:image') {
-                $image = $data->getAttribute('content');
-            }
-        }
-
-        if (empty($image)) {
-            $images = $DOMdocument->getElementsByTagName('img');
-
-            if ($images->length > 0) {
-                $image = $images->item(0)->getAttribute('src');
-            }
-        }
-
-        return array(
-            'image'         => isset($image) ? $image : '',
-            'title'         => isset($title) ? $title : '',
-            'description'   => isset($description) ? $description : '',
+        $meta = array(
+            'title' => '',
+            'description' => '',
+            'image' => ''
         );
+
+        /**
+         * Use OpenGraph reader
+         * @see {@link https://github.com/euskadi31/Opengraph}
+         * @var Reader
+         */
+        $reader = new Reader();
+
+        /**
+         * Convert page body to the UTF-8
+         */
+        $html = mb_convert_encoding((string) $html, 'UTF-8', 'auto');
+
+        /**
+         * Parse page body
+         */
+        $reader->parse('<meta http-equiv="Content-Type" content="text/html; charset=utf-8">' . $html, true);
+
+        /**
+         * Extract open-graph tags
+         */
+        $opengraph = $reader->getArrayCopy();
+
+        var_dump($opengraph);
+
+        /**
+         * Fill the Title
+         */
+        if (!empty($opengraph['og:title'])) {
+            $meta['title'] = $opengraph['og:title'];
+        } else if (!empty($opengraph['non-og-title'])) {
+            $meta['title'] = $opengraph['non-og-title'];
+        }
+
+         /**
+         * Fill the Description
+         */
+        if (!empty($opengraph['og:description'])) {
+            $meta['description'] = $opengraph['og:description'];
+        } else if (!empty($opengraph['non-og-description'])) {
+            $meta['description'] = $opengraph['non-og-description'];
+        }
+
+        /**
+         * Fill an Image
+         */
+        if (!empty($opengraph['og:image'][0]['og:image:url'])){
+            $meta['image'] = $opengraph['og:image'][0]['og:image:url'];
+        }
+
+        return $meta;
     }
 }
