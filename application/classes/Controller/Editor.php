@@ -166,6 +166,11 @@ class Controller_Editor extends Controller_Base_preDispatch
             $meta['title'] = $opengraph['og:title'];
         } else if (!empty($opengraph['non-og-title'])) {
             $meta['title'] = $opengraph['non-og-title'];
+        } else {
+            $dom = new \DOMDocument();
+            @$dom->loadHTML($html);
+            $titleNodes = $dom->getElementsByTagName('title');
+            $meta['title'] = $titleNodes->length > 0 ? $titleNodes->item(0)->nodeValue : '';
         }
 
          /**
