@@ -159,8 +159,6 @@ class Controller_Editor extends Controller_Base_preDispatch
          */
         $opengraph = $reader->getArrayCopy();
 
-        var_dump($opengraph);
-
         /**
          * Fill the Title
          */
