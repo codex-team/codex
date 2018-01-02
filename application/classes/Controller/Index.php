@@ -33,6 +33,7 @@ class Controller_Index extends Controller_Base_preDispatch
 
 
         $this->title = 'CodeX Team';
+        $this->description = 'Club of web-development, design and marketing. We build team learning how to build full-valued projects on the world market.';
         $this->template->content = View::factory('templates/index/index', $this->view);
     }
 
