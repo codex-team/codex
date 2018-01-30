@@ -47,7 +47,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             goto theEnd;
         }
 
-        $pageContent = Arr::get($_POST, 'article_json', '');
+        $pageContent = Arr::get($_POST, 'article_text', '');
 
         try {
             $editor = new CodexEditor($pageContent);
@@ -56,7 +56,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         }
 
         $article->title        = Arr::get($_POST, 'title');
-        $article->json         = $editor->getData();
+        $article->text         = $editor->getData();
         $article->is_published = Arr::get($_POST, 'is_published') ? 1 : 0;
         $article->marked       = Arr::get($_POST, 'marked') ? 1 : 0;
         $article->description  = Arr::get($_POST, 'description');
@@ -148,6 +148,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         theEnd:
 
         $this->view['article']          = $article;
+        $this->view['lang']             = $this->request->param('lang', 'ru');
         $this->view['courses']          = Model_Courses::getActiveCoursesNames();
         $this->view['selected_courses'] = Model_Courses::getCoursesByArticleId($article);
         $this->view['topFeed']          = $feed->get(5);

@@ -11,10 +11,12 @@ class Model_Article extends Model
     public $id = 0;
     public $uri;
     public $title;
+    public $title_en;
     public $text;
-    public $json;
+    public $text_en;
     public $blocks;
     public $description;
+    public $description_en;
     public $cover;
     public $user_id;
     public $dt_create;
@@ -22,6 +24,7 @@ class Model_Article extends Model
     public $is_removed;
     public $is_published;
     public $quiz_id;
+    public $lang;
 
     const FEED_PREFIX = 'article';
 
@@ -63,9 +66,11 @@ class Model_Article extends Model
     {
         $idAndRowAffected = Dao_Articles::insert()
                                 ->set('title', $this->title)
+                                ->set('title_en', $this->title_en)
                                 ->set('text', $this->text)
-                                ->set('json', $this->json)
+                                ->set('text_en', $this->text_en)
                                 ->set('description', $this->description)
+                                ->set('description_en', $this->description)
                                 ->set('quiz_id', $this->quiz_id)
                                 ->set('cover', $this->cover)
                                 ->set('user_id', $this->user_id)
@@ -101,9 +106,11 @@ class Model_Article extends Model
             $this->id           = Arr::get($article_row, 'id');
             $this->uri          = Arr::get($article_row, 'uri');
             $this->title        = Arr::get($article_row, 'title');
+            $this->title_en     = Arr::get($article_row, 'title_en');
             $this->text         = Arr::get($article_row, 'text');
-            $this->json         = Arr::get($article_row, 'json');
+            $this->text_en      = Arr::get($article_row, 'text_en');
             $this->description  = Arr::get($article_row, 'description');
+            $this->description_en  = Arr::get($article_row, 'description_en');
             $this->quiz_id      = Arr::get($article_row, 'quiz_id');
             $this->cover        = Arr::get($article_row, 'cover');
             $this->user_id      = Arr::get($article_row, 'user_id');
@@ -113,7 +120,7 @@ class Model_Article extends Model
             $this->is_removed   = Arr::get($article_row, 'is_removed');
             $this->is_published = Arr::get($article_row, 'is_published');
             $this->is_recent    = $recentArticlesFeed->isExist($this->id);
-            $this->read_time    = Model_Methods::estimateReadingTime(null, $this->json);
+            $this->read_time    = Model_Methods::estimateReadingTime(null, $this->text);
 
             $this->author           = Model_User::get($this->user_id);
             $this->commentsCount    = Model_Comment::countCommentsByArticle($this->id);
@@ -149,10 +156,12 @@ class Model_Article extends Model
     {
         Dao_Articles::update()->where('id', '=', $this->id)
             ->set('title', $this->title)
+            ->set('title_en', $this->title_en)
             ->set('uri', $this->uri)
             ->set('text', $this->text)
-            ->set('json', $this->json)
+            ->set('text_en', $this->text_en)
             ->set('description', $this->description)
+            ->set('description_en', $this->description_en)
             ->set('quiz_id', $this->quiz_id)
             ->set('cover', $this->cover)
             ->set('marked', $this->marked)

@@ -1,0 +1,3 @@
+ALTER TABLE `articles` ADD `text_en` LONGTEXT NULL DEFAULT NULL AFTER `text`;
+ALTER TABLE `articles` CHANGE `json` `text` LONGTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL;
+ALTER TABLE `articles` ADD `title_en` VARCHAR(128) NULL DEFAULT NULL AFTER `title`;

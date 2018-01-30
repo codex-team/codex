@@ -58,8 +58,8 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
          */
         $article->blocks = array();
 
-        if ($article->json) {
-            $article->blocks = $this->drawArticleBlocks($article->json);
+        if ($article->text || $article->text_en) {
+            $article->blocks = $this->drawArticleBlocks($article->text || $article->text_en);
         }
 
 

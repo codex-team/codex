@@ -1,6 +1,9 @@
 <div class="center_side">
-
-    <form class="editor-form article-content" name="codex_article" method="POST" action="/<?= $article->id && $article->uri ? $article->uri . '/save' : 'article/add' ?>" enctype="multipart/form-data" id="edit_article_form">
+    <div>
+        <a href="/article/add/ru">Ru</a>/
+        <a href="/article/add/en">En</a>
+    </div>
+    <form class="editor-form" name="codex_article" method="POST" action="/<?= $article->id && $article->uri ? $article->uri . '/save' : 'article/add' ?>" enctype="multipart/form-data" id="edit_article_form" class="edit_article_form">
 
         <? if (!empty($error)): ?>
             <div class="editor-form__error">
@@ -11,25 +14,44 @@
         <input type="hidden" name="csrf" value="<?= Security::token() ?>" />
         <input type="hidden" name="article_id" value="<?= $article->id ?: ''; ?>">
 
-        <input class="editor-form__title" type="text" name="title" required value="<?= $article->title ?: ''; ?>" placeholder="Story title">
+        <? if ($lang === 'en'): ?>
 
-        <textarea name="article_json" id="article_json" hidden rows="10" hidden><?= $article->json ?: ''; ?></textarea>
+            <input class="editor-form__title" type="text" name="title_en" required value="<?= $article->title ?: ''; ?>" placeholder="Story title">
+
+        <? elseif ($lang === 'ru'): ?>
+
+            <input class="editor-form__title" type="text" name="title" required value="<?= $article->title ?: ''; ?>" placeholder="Заголовок статьи">
+
+        <? endif ?>
 
         <div class="editor-form__editor">
             <div id="codex-editor"></div>
         </div>
 
+        <? if ($lang === 'en'): ?>
+
+            <textarea name="article_text_en" id="article_text_en" hidden rows="10" hidden><?= $article->text_en ?: ''; ?></textarea>
+
+            <section class="editor-form__section">
+                <label for="description_en">Article description (required)</label>
+                <textarea class="editor-form__important-filed input" name="description_en" required rows="5"><?= $article->description ?: ''; ?></textarea>
+            </section>
+
+        <? elseif ($lang === 'ru'): ?>
+
+            <textarea name="article_text" id="article_text" hidden rows="10" hidden><?= $article->text ?: ''; ?></textarea>
+
+            <section class="editor-form__section">
+                <label for="description">Описание статьи (обязательно)</label>
+                <textarea class="editor-form__important-filed input" name="description" required rows="5"><?= $article->description ?: ''; ?></textarea>
+            </section>
+
+        <? endif ?>
+
         <section class="editor-form__section">
 
             <label for="uri">URI</label>
             <input class="input" type="text" name="uri" value="<?= $article->uri ?: ''; ?>" autocomplete="off">
-
-        </section>
-
-        <section class="editor-form__section">
-
-            <label for="description">Описание статьи (обязательно)</label>
-            <textarea class="editor-form__important-filed input" name="description" required rows="5"><?= $article->description ?: ''; ?></textarea>
 
         </section>
 
@@ -53,9 +75,6 @@
 
             <label for="courses_id">Выберите курс, к которому относится статья</label>
             <select name="courses_ids[]" multiple>
-                <option value="0">
-                    Не выбран
-                </option>
                 <? foreach ($courses as $course): ?>
                     <? $is_selected = is_array($selected_courses)?in_array($course['id'], $selected_courses):false; ?>
                     <option value="<?= $course['id']; ?>" <?= $is_selected?'selected':''; ?>>
@@ -81,15 +100,15 @@
         </section>
 
         <section class="editor-form__section">
+
             <input type="checkbox" name="is_published" value="1" <?= $article->is_published ? 'checked' : ''; ?> > Опубликовать <br>
+
         </section>
 
         <section class="editor-form__section">
+
             <input type="checkbox" name="marked" value="1" <?= $article->marked ? 'checked' : ''; ?> > Отметить как важную <br/>
-        </section>
 
-        <section class="editor-form__section">
-            <input type="checkbox" name="is_recent" value="1" <?= $article->is_recent ? 'checked' : ''; ?> > Вывести на главной <br/>
         </section>
 
 
@@ -104,9 +123,15 @@
 
         var submit  = document.getElementById('submitButton'),
             form    = document.forms['codex_article'],
-            article = document.getElementById('article_json'),
+            article,
             pageContent,
             blocks;
+
+        if (<?= $lang === 'en' ?>) {
+            article = document.getElementById('article_text_en')
+        } else {
+            article = document.getElementById('article_text')
+        }
 
         /** If we want to edit article */
         if (article.textContent.length) {
@@ -177,7 +202,7 @@
                     enableLineBreaks : true,
                     destroy: link.destroy,
                     config           : {
-                        fetchUrl : '/editor/fetchUrl'
+                        fetchUrl : ''
                     }
                 },
                 list: {
@@ -301,7 +326,7 @@
     $editorPath = 'https://cdn.ifmo.su/editor/v1.6';
 
     if ( Kohana::$environment === Kohana::DEVELOPMENT ){
-        // $editorPath = '/public/extensions/codex.editor';
+        $editorPath = '/public/extensions/codex.editor';
     }
 ?>
 

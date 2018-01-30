@@ -29,7 +29,9 @@ Route::set('CONTESTS_LIST', 'contests')->defaults(array(
 
 // Add Substance
 
-Route::set('ADD_ARTICLE_SCRIPT', 'article/add')->defaults(array(
+Route::set('ADD_ARTICLE_SCRIPT', 'article/add(/<lang>)', array(
+   'lang' => 'ru|en'
+))->defaults(array(
 	'controller' => 'Articles_modify',
 	'action' => 'save'
 ));
@@ -155,6 +157,30 @@ Route::set('USER_SETTINGS', 'user/settings')->defaults(array(
 	'action'     => 'settings'
 ));
 
+// Scripts for comments
+
+Route::set('ADD_COMMENT_SCRIPT', 'article/addcomment')->defaults(array(
+    'controller' => 'comments',
+    'action' => 'add'
+));
+
+Route::set('DEL_COMMENT_SCRIPT', 'article/delcomment/<comment_id>', array('comment_id' => $DIGIT))->defaults(array(
+    'controller' => 'comments',
+    'action' => 'delete'
+));
+
+Route::set('DESIGN_PREVIEW', 'design/<page>')->defaults(array(
+    'controller' => 'index',
+    'action' => 'designPreview'
+));
+
+
+// TAGS
+
+Route::set('TAGS', 'tag(/<query>)', array('query' => $QUERY))->defaults(array(
+    'controller' => 'articles_tags',
+    'action' => 'search',
+));
 
 //Script for admin panel---------
 
@@ -197,16 +223,6 @@ Route::set('EDITOR_LANDING', 'editor(/<action>)', array())->defaults(array(
 Route::set('ARTICLE_EDITOR_SAVE_IMG', 'editorsaveimg', array())->defaults(array(
     'controller' => 'articles_edit',
     'action' => 'saveEditorImg'
-));
-
-/**
- * Route for Link plugin, CodeX Editor
- * Fetches page data by URL
- */
-Route::set('FETCH_URL', 'editor/fetchURL')
-->defaults(array(
-    'controller' => 'Editor',
-    'action'    => 'fetchURL'
 ));
 
 
