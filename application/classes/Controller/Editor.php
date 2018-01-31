@@ -23,8 +23,14 @@ class Controller_Editor extends Controller_Base_preDispatch
         $article->title = 'Codex Editor';
 
         $html = Arr::get($_POST, 'html');
-        $json = Arr::get($_POST, 'article_json');
+        $lang = Arr::get($_POST, 'lang');
 
+        if ($lang === 'en') {
+            $json = Arr::get($_POST, 'article_text_en');
+        } else {
+            $json = Arr::get($_POST, 'article_text');
+        }
+        
         $editor = new CodexEditor($json);
 
         try {

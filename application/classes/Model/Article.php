@@ -70,7 +70,7 @@ class Model_Article extends Model
                                 ->set('text', $this->text)
                                 ->set('text_en', $this->text_en)
                                 ->set('description', $this->description)
-                                ->set('description_en', $this->description)
+                                ->set('description_en', $this->description_en)
                                 ->set('quiz_id', $this->quiz_id)
                                 ->set('cover', $this->cover)
                                 ->set('user_id', $this->user_id)

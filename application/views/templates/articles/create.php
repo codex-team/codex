@@ -13,6 +13,7 @@
 
         <input type="hidden" name="csrf" value="<?= Security::token() ?>" />
         <input type="hidden" name="article_id" value="<?= $article->id ?: ''; ?>">
+        <input type="hidden" name="lang" value="<?= $lang ?>">
 
         <? if ($lang === 'en'): ?>
 

@@ -25,6 +25,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
          * Форма отправляет POST запрос
          */
         if ($this->request->post()) {
+            $lang = Arr::get($_POST, 'lang');
             $article_id = Arr::get($_POST, 'article_id');
             $article = Model_Article::get($article_id, true);
         }
@@ -47,19 +48,30 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             goto theEnd;
         }
 
-        $pageContent = Arr::get($_POST, 'article_text', '');
-
+        if ($lang === 'en') {
+            $pageContent = Arr::get($_POST, 'article_text_en', '');
+            $article->title_en = Arr::get($_POST, 'title_en');
+            $article->description_en = Arr::get($_POST, 'description_en');
+        } else {
+            $pageContent = Arr::get($_POST, 'article_text', '');
+            $article->title = Arr::get($_POST, 'title');
+            $article->description  = Arr::get($_POST, 'description');
+        }
+        
         try {
             $editor = new CodexEditor($pageContent);
         } catch (Kohana_Exception $e) {
             throw new Kohana_Exception($e->getMessage());
         }
 
-        $article->title        = Arr::get($_POST, 'title');
-        $article->text         = $editor->getData();
+        if ($lang === 'en') {
+            $article->text_en = $editor->getData();
+        } else {
+            $article->text = $editor->getData();
+        }
+
         $article->is_published = Arr::get($_POST, 'is_published') ? 1 : 0;
         $article->marked       = Arr::get($_POST, 'marked') ? 1 : 0;
-        $article->description  = Arr::get($_POST, 'description');
         $article->quiz_id      = Arr::get($_POST, 'quiz_id');
         $courses_ids           = Arr::get($_POST, 'courses_ids', 0);
 
@@ -74,7 +86,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             goto theEnd;
         }
 
-        if (!$article->json) {
+        if (!$article->text) {
             $this->view['error'] = 'А где само тело статьи?';
             goto theEnd;
         }
