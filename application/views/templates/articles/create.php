@@ -37,7 +37,7 @@
                 <textarea class="editor-form__important-filed input" name="description_en" required rows="5"><?= $article->description ?: ''; ?></textarea>
             </section>
 
-        <? elseif ($lang === 'ru'): ?>
+        <? else: ?>
 
             <textarea name="article_text" id="article_text" hidden rows="10" hidden><?= $article->text ?: ''; ?></textarea>
 
@@ -127,11 +127,11 @@
             pageContent,
             blocks;
 
-        if (<?= $lang === 'en' ?>) {
-            article = document.getElementById('article_text_en')
-        } else {
-            article = document.getElementById('article_text')
-        }
+            <? if ($lang === 'en'): ?>
+                article = document.getElementById('article_text_en');
+            <? else: ?>
+                article = document.getElementById('article_text');
+            <? endif ?>
 
         /** If we want to edit article */
         if (article.textContent.length) {
