@@ -81,21 +81,39 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
          * */
         $item_below_key = Arr::get($_POST, 'item_below_key', 0);
 
-        if (!$article->title) {
-            $this->view['error'] = 'Не заполнен заголовок';
-            goto theEnd;
-        }
+        if ($lang === 'en') {
 
-        if (!$article->text) {
-            $this->view['error'] = 'А где само тело статьи?';
-            goto theEnd;
-        }
+            if (!$article->text_en) {
+                $this->view['error'] = 'Where is article body?';
+                goto theEnd;
+            }
 
-        if (!$article->description) {
-            $this->view['error'] = 'Не заполнено описание. Это важное поле: опишите коротко, о чем пойдет речь в статье';
-            goto theEnd;
-        }
+            if (!$article->title_en) {
+                $this->view['error'] = 'Article title is missing!';
+                goto theEnd;
+            }
 
+            if (!$article->description_en) {
+                $this->view['error'] = 'Description is missing';
+                goto theEnd;
+            }
+            
+        } else {
+            if (!$article->text) {
+                $this->view['error'] = 'А где само тело статьи?';
+                goto theEnd;
+            }
+            if (!$article->title) {
+                $this->view['error'] = 'Не заполнен заголовок';
+                goto theEnd;
+            }
+
+            if (!$article->description) {
+                $this->view['error'] = 'Не заполнено описание. Это важное поле: опишите коротко, о чем пойдет речь в статье';
+                goto theEnd;
+            }
+
+        }
 
         $uri = Arr::get($_POST, 'uri');
         $alias = Model_Alias::generateUri($uri);
