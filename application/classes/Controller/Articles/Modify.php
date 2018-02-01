@@ -48,14 +48,15 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             goto theEnd;
         }
 
+        $pageContent = Arr::get($_POST, 'article_text', '');
+
         if ($lang === 'en') {
-            $pageContent = Arr::get($_POST, 'article_text_en', '');
-            $article->title_en = Arr::get($_POST, 'title_en');
-            $article->description_en = Arr::get($_POST, 'description_en');
+            
+            $article->title_en = Arr::get($_POST, 'title');
+            $article->description_en = Arr::get($_POST, 'description');
         } else {
-            $pageContent = Arr::get($_POST, 'article_text_ru', '');
-            $article->title_ru = Arr::get($_POST, 'title_ru');
-            $article->description_ru  = Arr::get($_POST, 'description_ru');
+            $article->title_ru = Arr::get($_POST, 'title');
+            $article->description_ru  = Arr::get($_POST, 'description');
         }
         
         try {

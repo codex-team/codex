@@ -15,39 +15,18 @@
         <input type="hidden" name="article_id" value="<?= $article->id ?: ''; ?>">
         <input type="hidden" name="lang" value="<?= $lang ?>">
 
-        <? if ($lang === 'en'): ?>
-
-            <input class="editor-form__title" type="text" name="title_en" required value="<?= $article->title ?: ''; ?>" placeholder="Story title">
-
-        <? elseif ($lang === 'ru'): ?>
-
-            <input class="editor-form__title" type="text" name="title_ru" required value="<?= $article->title ?: ''; ?>" placeholder="Заголовок статьи">
-
-        <? endif ?>
+        <input class="editor-form__title" type="text" name="title" required value="<?= $article->title ?: ''; ?>" placeholder="Story title">
 
         <div class="editor-form__editor">
             <div id="codex-editor"></div>
         </div>
 
-        <? if ($lang === 'en'): ?>
+        <textarea name="article_text" id="article_text" hidden rows="10" hidden><?= $article->text ?: ''; ?></textarea>
 
-            <textarea name="article_text_en" id="article_text_en" hidden rows="10" hidden><?= $article->text_en ?: ''; ?></textarea>
-
-            <section class="editor-form__section">
-                <label for="description_en">Article description (required)</label>
-                <textarea class="editor-form__important-filed input" name="description_en" required rows="5"><?= $article->description ?: ''; ?></textarea>
-            </section>
-
-        <? else: ?>
-
-            <textarea name="article_text_ru" id="article_text_ru" hidden rows="10" hidden><?= $article->text ?: ''; ?></textarea>
-
-            <section class="editor-form__section">
-                <label for="description_ru">Описание статьи (обязательно)</label>
-                <textarea class="editor-form__important-filed input" name="description_ru" required rows="5"><?= $article->description ?: ''; ?></textarea>
-            </section>
-
-        <? endif ?>
+        <section class="editor-form__section">
+            <label for="description">Article description (required)</label>
+            <textarea class="editor-form__important-filed input" name="description" required rows="5"><?= $article->description ?: ''; ?></textarea>
+        </section>
 
         <section class="editor-form__section">
 
@@ -126,13 +105,8 @@
             form    = document.forms['codex_article'],
             article,
             pageContent,
-            blocks;
-
-            <? if ($lang === 'en'): ?>
-                article = document.getElementById('article_text_en');
-            <? else: ?>
-                article = document.getElementById('article_text_ru');
-            <? endif ?>
+            blocks,
+            article = document.getElementById('article_text');
 
         /** If we want to edit article */
         if (article.textContent.length) {
