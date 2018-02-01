@@ -60,16 +60,10 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         if ($article->text_ru) {
 
             $article->blocks = $this->drawArticleBlocks($article->text_ru);
-            $article->title = $article->title_ru;
-            $article->description = $article->description_ru;
-            $article->read_time = $article->read_time_ru;
 
         } elseif ($article->text_en) {
 
             $article->blocks = $this->drawArticleBlocks($article->text_en);
-            $article->title = $article->title_en;
-            $article->description = $article->description_en;
-            $article->read_time = $article->read_time_en;
 
         }
 
