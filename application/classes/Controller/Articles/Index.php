@@ -52,18 +52,26 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
             throw new HTTP_Exception_404();
         }
 
-
         /**
          * Array with rendered blocks
          */
         $article->blocks = array();
 
-        if ($article->text) {
-            $article->blocks = $this->drawArticleBlocks($article->text);
-        } elseif ($article->text_en) {
-            $article->blocks = $this->drawArticleBlocks($article->text_en);
-        }
+        if ($article->text_ru) {
 
+            $article->blocks = $this->drawArticleBlocks($article->text_ru);
+            $article->title = $article->title_ru;
+            $article->description = $article->description_ru;
+            $article->read_time = $article->read_time_ru;
+
+        } elseif ($article->text_en) {
+
+            $article->blocks = $this->drawArticleBlocks($article->text_en);
+            $article->title = $article->title_en;
+            $article->description = $article->description_en;
+            $article->read_time = $article->read_time_en;
+
+        }
 
         if ($article->quiz_id) {
             $quiz = new Model_Quiz($article->quiz_id);
@@ -84,9 +92,6 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
             $articleUri = $article->uri ? : "article/" . $article->id;
             $this->template->articleEditLink = "/" . $articleUri . "/save";
         }
-
-        $this->title = $article->title;
-        $this->description = $article->description;
 
         $this->template->content = View::factory('templates/articles/article', $this->view);
     }

@@ -25,7 +25,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
          * Форма отправляет POST запрос
          */
         if ($this->request->post()) {
-            $lang = Arr::get($_POST, 'lang');
+            $lang = Arr::get($_POST, 'lang', 'ru');
             $article_id = Arr::get($_POST, 'article_id');
             $article = Model_Article::get($article_id, true);
         }
@@ -53,9 +53,9 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             $article->title_en = Arr::get($_POST, 'title_en');
             $article->description_en = Arr::get($_POST, 'description_en');
         } else {
-            $pageContent = Arr::get($_POST, 'article_text', '');
-            $article->title = Arr::get($_POST, 'title');
-            $article->description  = Arr::get($_POST, 'description');
+            $pageContent = Arr::get($_POST, 'article_text_ru', '');
+            $article->title_ru = Arr::get($_POST, 'title_ru');
+            $article->description_ru  = Arr::get($_POST, 'description_ru');
         }
         
         try {
@@ -67,7 +67,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         if ($lang === 'en') {
             $article->text_en = $editor->getData();
         } else {
-            $article->text = $editor->getData();
+            $article->text_ru = $editor->getData();
         }
 
         $article->is_published = Arr::get($_POST, 'is_published') ? 1 : 0;
@@ -99,16 +99,18 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             }
             
         } else {
-            if (!$article->text) {
+
+            if (!$article->text_ru) {
                 $this->view['error'] = 'А где само тело статьи?';
                 goto theEnd;
             }
-            if (!$article->title) {
+
+            if (!$article->title_ru) {
                 $this->view['error'] = 'Не заполнен заголовок';
                 goto theEnd;
             }
 
-            if (!$article->description) {
+            if (!$article->description_ru) {
                 $this->view['error'] = 'Не заполнено описание. Это важное поле: опишите коротко, о чем пойдет речь в статье';
                 goto theEnd;
             }

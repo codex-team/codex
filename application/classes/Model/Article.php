@@ -10,13 +10,16 @@ class Model_Article extends Model
 {
     public $id = 0;
     public $uri;
-    public $title;
+    public $title_ru;
     public $title_en;
-    public $text;
+    public $title;
+    public $text_ru;
     public $text_en;
+    public $text;
     public $blocks;
-    public $description;
+    public $description_ru;
     public $description_en;
+    public $description;
     public $cover;
     public $user_id;
     public $dt_create;
@@ -24,7 +27,6 @@ class Model_Article extends Model
     public $is_removed;
     public $is_published;
     public $quiz_id;
-    public $lang;
 
     const FEED_PREFIX = 'article';
 
@@ -47,6 +49,8 @@ class Model_Article extends Model
      * @var boolean
      */
     public $read_time = null;
+    public $read_time_ru = null;
+    public $read_time_en = null;
 
     /**
      * Пустой конструктор для модели статьи, если нужно получить статью из хранилища, нужно пользоваться статическими
@@ -65,11 +69,11 @@ class Model_Article extends Model
     public function insert()
     {
         $idAndRowAffected = Dao_Articles::insert()
-                                ->set('title', $this->title)
+                                ->set('title_ru', $this->title_ru)
                                 ->set('title_en', $this->title_en)
-                                ->set('text', $this->text)
+                                ->set('text_ru', $this->text_ru)
                                 ->set('text_en', $this->text_en)
-                                ->set('description', $this->description)
+                                ->set('description_ru', $this->description_ru)
                                 ->set('description_en', $this->description_en)
                                 ->set('quiz_id', $this->quiz_id)
                                 ->set('cover', $this->cover)
@@ -105,11 +109,11 @@ class Model_Article extends Model
         if (!empty($article_row['id'])) {
             $this->id           = Arr::get($article_row, 'id');
             $this->uri          = Arr::get($article_row, 'uri');
-            $this->title        = Arr::get($article_row, 'title');
+            $this->title_ru        = Arr::get($article_row, 'title_ru');
             $this->title_en     = Arr::get($article_row, 'title_en');
-            $this->text         = Arr::get($article_row, 'text');
+            $this->text_ru         = Arr::get($article_row, 'text_ru');
             $this->text_en      = Arr::get($article_row, 'text_en');
-            $this->description  = Arr::get($article_row, 'description');
+            $this->description_ru  = Arr::get($article_row, 'description_ru');
             $this->description_en  = Arr::get($article_row, 'description_en');
             $this->quiz_id      = Arr::get($article_row, 'quiz_id');
             $this->cover        = Arr::get($article_row, 'cover');
@@ -120,7 +124,8 @@ class Model_Article extends Model
             $this->is_removed   = Arr::get($article_row, 'is_removed');
             $this->is_published = Arr::get($article_row, 'is_published');
             $this->is_recent    = $recentArticlesFeed->isExist($this->id);
-            $this->read_time    = Model_Methods::estimateReadingTime(null, $this->text);
+            $this->read_time_ru    = Model_Methods::estimateReadingTime(null, $this->text_ru);
+            $this->read_time_en    = Model_Methods::estimateReadingTime(null, $this->text_en);
 
             $this->author           = Model_User::get($this->user_id);
             $this->commentsCount    = Model_Comment::countCommentsByArticle($this->id);
@@ -155,12 +160,12 @@ class Model_Article extends Model
     public function update()
     {
         Dao_Articles::update()->where('id', '=', $this->id)
-            ->set('title', $this->title)
+            ->set('title_ru', $this->title_ru)
             ->set('title_en', $this->title_en)
             ->set('uri', $this->uri)
-            ->set('text', $this->text)
+            ->set('text_ru', $this->text_ru)
             ->set('text_en', $this->text_en)
-            ->set('description', $this->description)
+            ->set('description_ru', $this->description_ru)
             ->set('description_en', $this->description_en)
             ->set('quiz_id', $this->quiz_id)
             ->set('cover', $this->cover)
