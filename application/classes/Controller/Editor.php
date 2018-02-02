@@ -25,13 +25,9 @@ class Controller_Editor extends Controller_Base_preDispatch
         $html = Arr::get($_POST, 'html');
         $lang = Arr::get($_POST, 'lang', 'ru');
 
-        if ($lang === 'en') {
-            $json = Arr::get($_POST, 'article_text_en');
-        } else {
-            $json = Arr::get($_POST, 'article_text_ru');
-        }
         
-        $editor = new CodexEditor($json);
+        $text = Arr::get($_POST, 'article_text');
+        $editor = new CodexEditor($text);
 
         try {
             $data = json_decode($editor->getData());

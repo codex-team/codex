@@ -83,6 +83,9 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
             $this->template->articleEditLink = "/" . $articleUri . "/save";
         }
 
+        $this->title = $article->title;
+        $this->description = $article->description;
+        
         $this->template->content = View::factory('templates/articles/article', $this->view);
     }
 

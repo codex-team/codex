@@ -51,7 +51,6 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         $pageContent = Arr::get($_POST, 'article_text', '');
 
         if ($lang === 'en') {
-            
             $article->title_en = Arr::get($_POST, 'title');
             $article->description_en = Arr::get($_POST, 'description');
         } else {
@@ -85,7 +84,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         if ($lang === 'en') {
 
             if (!$article->text_en) {
-                $this->view['error'] = 'Where is article body?';
+                $this->view['error'] = 'Where is the article body?';
                 goto theEnd;
             }
 
