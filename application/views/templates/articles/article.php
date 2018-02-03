@@ -93,11 +93,11 @@
             </time>
         </div>
 
-        <? if (!empty($article->englishText)): ?>
+        <? if (!empty($article->inBothLanguages)): ?>
             <div class="article__read-on">
                 Read on
-                <span class="article__read-on-item article__read-on-item--english">English</span>
-                <span class="article__read-on-item article__read-on-item--russian">Russian</span>
+                <a class="article__read-on-item article__read-on-item--english" href="<?= '/' . $article->uri . '?lang=en' ?>">English</a>
+                <a class="article__read-on-item article__read-on-item--russian" href="<?= '/' . $article->uri . '?lang=ru' ?>">Russian</a>
             </div>
         <? else: ?>
             <div class="article__read-time">

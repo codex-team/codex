@@ -27,7 +27,8 @@ class Model_Article extends Model
     public $is_removed;
     public $is_published;
     public $quiz_id;
-
+    public $lang;
+    public $inBothLanguages;
     const FEED_PREFIX = 'article';
 
     /**
@@ -111,13 +112,10 @@ class Model_Article extends Model
             $this->uri          = Arr::get($article_row, 'uri');
             $this->title_ru     = Arr::get($article_row, 'title_ru');
             $this->title_en     = Arr::get($article_row, 'title_en');
-            $this->title        = $this->title_en ?: $this->title_ru;
             $this->text_ru      = Arr::get($article_row, 'text_ru');
             $this->text_en      = Arr::get($article_row, 'text_en');
-            $this->text         = $this->text_en ?: $this->text_ru;
             $this->description_ru  = Arr::get($article_row, 'description_ru');
             $this->description_en  = Arr::get($article_row, 'description_en');
-            $this->description  = $this->description_en ?: $this->description_ru;
             $this->quiz_id      = Arr::get($article_row, 'quiz_id');
             $this->cover        = Arr::get($article_row, 'cover');
             $this->user_id      = Arr::get($article_row, 'user_id');
@@ -129,10 +127,28 @@ class Model_Article extends Model
             $this->is_recent    = $recentArticlesFeed->isExist($this->id);
             $this->read_time_ru = Model_Methods::estimateReadingTime(null, $this->text_ru);
             $this->read_time_en = Model_Methods::estimateReadingTime(null, $this->text_en);
-            $this->read_time    = $this->read_time_en ?: $this->read_time_ru;
+            $this->inBothLanguages = $this->text_en && $this->text_ru;
 
             $this->author           = Model_User::get($this->user_id);
             $this->commentsCount    = Model_Comment::countCommentsByArticle($this->id);
+
+            if (isset($_GET['lang'])) {
+                $this->lang = $_GET['lang'];
+            } else {
+                $this->lang = 'ru';
+            }
+
+            if ($this->lang === 'ru') {
+                $this->title  = $this->title_ru;
+                $this->description = $this->description_ru;
+                $this->text = $this->text_ru;
+                $this->read_time = $this->read_time_ru;
+            } else {
+                $this->title  = $this->title_en;
+                $this->description = $this->description_en;
+                $this->text = $this->text_en;
+                $this->read_time = $this->read_time_en;
+            }
         }
 
         return $this;
