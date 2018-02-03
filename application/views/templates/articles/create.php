@@ -10,13 +10,15 @@
 
         <input type="hidden" name="csrf" value="<?= Security::token() ?>" />
         <input type="hidden" name="article_id" value="<?= $article->id ?: ''; ?>">
-        <input type="hidden" name="lang" value="<?= isset($_GET['lang']) ? $_GET['lang'] : $lang ?>">
+        <input type="hidden" name="lang" value="<?= Arr::get($_GET, 'lang') ?: $lang ?>">
 
         <? if (!empty($article->dt_create)): ?>
             <div class="article__read-on">
-                <a class="article__read-on-item article__read-on-item--english" href="<?= '/' . $article->uri . '/save?lang=en' ?>">English
+                <a class="article__read-on-item article__read-on-item--english" href="<?= '/' . $article->uri . '/save?lang=en' ?>">
+                    English
                 </a>
-                <a class="article__read-on-item article__read-on-item--russian" href="<?= '/' . $article->uri . '/save?lang=ru' ?>">Russian
+                <a class="article__read-on-item article__read-on-item--russian" href="<?= '/' . $article->uri . '/save?lang=ru' ?>">
+                    Russian
                 </a>
             </div>
         <? endif ?>

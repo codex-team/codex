@@ -28,7 +28,6 @@ class Model_Article extends Model
     public $is_published;
     public $quiz_id;
     public $lang;
-    public $inBothLanguages;
     const FEED_PREFIX = 'article';
 
     /**
@@ -127,16 +126,11 @@ class Model_Article extends Model
             $this->is_recent    = $recentArticlesFeed->isExist($this->id);
             $this->read_time_ru = Model_Methods::estimateReadingTime(null, $this->text_ru);
             $this->read_time_en = Model_Methods::estimateReadingTime(null, $this->text_en);
-            $this->inBothLanguages = $this->text_en && $this->text_ru;
 
             $this->author           = Model_User::get($this->user_id);
             $this->commentsCount    = Model_Comment::countCommentsByArticle($this->id);
 
-            if (isset($_GET['lang'])) {
-                $this->lang = $_GET['lang'];
-            } else {
-                $this->lang = 'ru';
-            }
+            $this->lang =Arr::get($_GET, 'lang') ?: 'ru';
 
             if ($this->lang === 'ru') {
                 $this->title  = $this->title_ru;

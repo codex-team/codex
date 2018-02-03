@@ -93,7 +93,7 @@
             </time>
         </div>
 
-        <? if (!empty($article->inBothLanguages)): ?>
+        <? if (!empty($article->text_en) && !empty($article->text_ru)): ?>
             <div class="article__read-on">
                 Read on
                 <a class="article__read-on-item article__read-on-item--english" href="<?= '/' . $article->uri . '?lang=en' ?>">English</a>
