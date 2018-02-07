@@ -96,8 +96,8 @@
         <? if (!empty($article->text_en) && !empty($article->text_ru)): ?>
             <div class="article__read-on">
                 Read on
-                <a class="article__read-on-item article__read-on-item--english" href="<?= '/' . $article->uri . '?lang=en' ?>">English</a>
-                <a class="article__read-on-item article__read-on-item--russian" href="<?= '/' . $article->uri . '?lang=ru' ?>">Russian</a>
+                <a class="article__read-on-item article__read-on-item--english" href="<?= '/' . ($article->uri ?: 'article/' . $article->id) . '?lang=en' ?>">English</a>
+                <a class="article__read-on-item article__read-on-item--russian" href="<?= '/' . ($article->uri ?: 'article/' . $article->id) . '?lang=ru'?>">Russian</a>
             </div>
         <? else: ?>
             <div class="article__read-time">

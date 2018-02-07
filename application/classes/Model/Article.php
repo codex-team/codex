@@ -130,7 +130,7 @@ class Model_Article extends Model
             $this->author           = Model_User::get($this->user_id);
             $this->commentsCount    = Model_Comment::countCommentsByArticle($this->id);
 
-            $this->lang =Arr::get($_GET, 'lang') ?: 'ru';
+            $this->lang = Arr::get($_GET, 'lang') ?: 'ru';
 
             if ($this->lang === 'ru') {
                 $this->title  = $this->title_ru;
