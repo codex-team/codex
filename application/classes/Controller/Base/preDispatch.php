@@ -164,7 +164,6 @@ class Controller_Base_preDispatch extends Controller_Template
         $this->session = Session::instance();
 
         $auth = new Model_Sessions();
-
         if ($auth->is_authorized()) {
             $user_id = $auth->get_user_id();
             $this->user = Model_User::findByAttribute('id', $user_id);

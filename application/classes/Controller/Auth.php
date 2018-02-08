@@ -48,6 +48,10 @@ class Controller_Auth extends Controller_Base_preDispatch
         Controller::redirect($this->get_return_url());
     }
 
+    /**
+     * Осуществляет авторизацию в telegram. В случае, если пользователь авторизован в первый раз - добавляет новую запись
+     * в таблицу Users. Модель пользователя помещается в сессию "profile". Далее проиходит редирект на главную страницу /
+     */
     public function action_telegram()
     {
         $tg = Oauth::instance('telegram');
