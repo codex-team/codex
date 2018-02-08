@@ -48,6 +48,50 @@ class Controller_Auth extends Controller_Base_preDispatch
         Controller::redirect($this->get_return_url());
     }
 
+    public function action_telegram()
+    {
+        $tg = Oauth::instance('telegram');
+
+        if ($this->request->query('hash')) {
+
+            try {
+                $profile = $tg->checkTelegramAuthorization($_GET);
+                Cookie::set("auth_token", $profile['id'], $this->cookiesLifetime);
+                $token = $profile['id'];
+
+                $user = Model_User::findByAttribute('tg_id', $profile['id']);
+                if ($user->is_empty()) {
+                    $user = new Model_User();
+
+                    $user->tg_id = $profile['id'];
+                    $user->name = Oauth_Telegram::get_tg_name($profile);
+                    $user->photo = $profile['photo_url'];
+
+                    if ($result = $user->save('tg')) {
+                        $inserted_id = $result[0];
+                        $new_session = new Model_Sessions();
+                        $new_session->save($inserted_id, $token);
+                    }
+
+                } else {
+
+                    $new_session = new Model_Sessions();
+                    if (!$new_session->get_user_id($token)) {
+                        $new_session->save($user->id, $token);
+                    }
+                }
+
+            } catch (Exception $e) {
+                $this->generate_auth_error();
+            }
+
+            Controller::redirect($this->get_return_url());
+
+        } else {
+            $this->template->content = View::factory('templates/auth/telegram', $this->view);
+        }
+    }
+
 
     /**
      * Осуществляет авторизацию в facebook. В случае, если пользователь авторизован в первый раз - добавляет новую запись
