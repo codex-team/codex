@@ -11,6 +11,9 @@ return array(
         'GET_CODE_URI'  => 'https://oauth.vk.com/authorize/',
         'GET_TOKEN_URI' => 'https://oauth.vk.com/access_token'
     ),
+    'telegram' => array(
+        'BOT_TOKEN'     => ''
+    ),
     'odnoklassniki' => array(
         'APP_ID'        => NULL,
         'APP_SECRET'    => NULL,
