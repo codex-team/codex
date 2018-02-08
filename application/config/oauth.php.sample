@@ -12,6 +12,7 @@ return array(
         'GET_TOKEN_URI' => 'https://oauth.vk.com/access_token'
     ),
     'telegram' => array(
+        'BOT_USERNAME'  => '',
         'BOT_TOKEN'     => ''
     ),
     'odnoklassniki' => array(

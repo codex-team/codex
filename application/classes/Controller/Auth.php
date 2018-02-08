@@ -85,10 +85,12 @@ class Controller_Auth extends Controller_Base_preDispatch
                 $this->generate_auth_error();
             }
 
-            Controller::redirect($this->get_return_url());
+            Controller::redirect("/");
 
         } else {
-            $this->template->content = View::factory('templates/auth/telegram', $this->view);
+            $this->template->content = View::factory('templates/auth/telegram', [
+                'BOT_USERNAME' => $tg->get_bot_name()
+            ]);
         }
     }
 

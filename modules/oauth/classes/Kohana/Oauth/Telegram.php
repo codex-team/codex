@@ -46,7 +46,7 @@ class Kohana_Oauth_Telegram extends Oauth {
     }
 
     /**
-     * Генерирует имя для записи в БД из информации профиля Telegram
+     * Generate name from Telegram profile
      * @return string
      */
     public static function get_tg_name($profile)
@@ -61,5 +61,9 @@ class Kohana_Oauth_Telegram extends Oauth {
         return $profile['id'];
     }
 
+    public function get_bot_name()
+    {
+        return self::$config['BOT_USERNAME'];
+    }
 
 }
