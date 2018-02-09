@@ -13,7 +13,8 @@ return array(
     ),
     'telegram' => array(
         'BOT_USERNAME'  => '',
-        'BOT_TOKEN'     => ''
+        'BOT_TOKEN'     => '',
+        'REDIRECT_URI'  => ''
     ),
     'odnoklassniki' => array(
         'APP_ID'        => NULL,

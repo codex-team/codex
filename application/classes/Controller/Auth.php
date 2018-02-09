@@ -48,6 +48,16 @@ class Controller_Auth extends Controller_Base_preDispatch
         Controller::redirect($this->get_return_url());
     }
 
+    public function action_article()
+    {
+        $tg = Oauth::instance('telegram');
+
+        echo View::factory('templates/auth/article', [
+            'BOT_USERNAME' => $tg->get_bot_name()
+        ]);
+        exit;
+    }
+
     /**
      * Осуществляет авторизацию в telegram. В случае, если пользователь авторизован в первый раз - добавляет новую запись
      * в таблицу Users. Модель пользователя помещается в сессию "profile". Далее проиходит редирект на главную страницу /
@@ -57,9 +67,8 @@ class Controller_Auth extends Controller_Base_preDispatch
         $tg = Oauth::instance('telegram');
 
         if ($this->request->query('hash')) {
-
             try {
-                $profile = $tg->checkTelegramAuthorization($_GET);
+                $profile = $tg->getProfileData($_GET);
                 Cookie::set("auth_token", $profile['id'], $this->cookiesLifetime);
                 $token = $profile['id'];
 
@@ -76,24 +85,21 @@ class Controller_Auth extends Controller_Base_preDispatch
                         $new_session = new Model_Sessions();
                         $new_session->save($inserted_id, $token);
                     }
-
                 } else {
-
                     $new_session = new Model_Sessions();
                     if (!$new_session->get_user_id($token)) {
                         $new_session->save($user->id, $token);
                     }
                 }
-
             } catch (Exception $e) {
                 $this->generate_auth_error();
             }
 
-            Controller::redirect("/");
-
+            Controller::redirect('/');
         } else {
             $this->template->content = View::factory('templates/auth/telegram', [
-                'BOT_USERNAME' => $tg->get_bot_name()
+                'BOT_USERNAME' => $tg->get_bot_name(),
+                'REDIRECT_URI' => $tg->get_redirect_uri()
             ]);
         }
     }
@@ -202,7 +208,7 @@ class Controller_Auth extends Controller_Base_preDispatch
         if ($ref) {
             return $ref;
         } else {
-            return "/";
+            return '/';
         }
     }
 

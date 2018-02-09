@@ -4,8 +4,8 @@
 /**
  * Class Kohana_Oauth_Telegram
  */
-class Kohana_Oauth_Telegram extends Oauth {
-
+class Kohana_Oauth_Telegram extends Oauth
+{
     protected static $config;
 
 
@@ -21,27 +21,38 @@ class Kohana_Oauth_Telegram extends Oauth {
      * Official code for user's request checking after Telegram authorization.
      * Return user's ID, first name, last name, username photo URL and auth date.
      *
-     * @param $auth_data – array of GET params. Typically - $_GET
+     * @param [array] $auth_data – array of GET params. Typically - $_GET
      * @return – array with user's data
      * @throws Exception
      */
-    function checkTelegramAuthorization($auth_data) {
-        $check_hash = $auth_data['hash'];
+    public function getProfileData($auth_data)
+    {
+        $check_hash = Arr::get($auth_data, 'hash', '');
         unset($auth_data['hash']);
+
+        # Convert map to array of strings with key=value format
         $data_check_arr = [];
         foreach ($auth_data as $key => $value) {
             $data_check_arr[] = $key . '=' . $value;
         }
+
+        # Sort and merge array elements into one string
         sort($data_check_arr);
         $data_check_string = implode("\n", $data_check_arr);
+
         $secret_key = hash('sha256', self::$config['BOT_TOKEN'], true);
         $hash = hash_hmac('sha256', $data_check_string, $secret_key);
+
+        # Check HMAC
         if (strcmp($hash, $check_hash) !== 0) {
-            throw new Exception('Data is NOT from Telegram');
+            throw new Exception('HMAC verification failed');
         }
-        if ((time() - $auth_data['auth_date']) > 86400) {
-            throw new Exception('Data is outdated');
+
+        # Check if outdated
+        if ((time() - Arr::get($auth_data, 'auth_date', 0)) > 86400) {
+            throw new Exception('Authentication date is outdated');
         }
+
         return $auth_data;
     }
 
@@ -66,4 +77,8 @@ class Kohana_Oauth_Telegram extends Oauth {
         return self::$config['BOT_USERNAME'];
     }
 
+    public function get_redirect_uri()
+    {
+        return self::$config['REDIRECT_URI'];
+    }
 }
