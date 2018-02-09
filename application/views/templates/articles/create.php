@@ -10,18 +10,6 @@
 
         <input type="hidden" name="csrf" value="<?= Security::token() ?>" />
         <input type="hidden" name="article_id" value="<?= $article->id ?: ''; ?>">
-        <input type="hidden" name="lang" value="<?= Arr::get($_GET, 'lang') ?: $lang ?>">
-
-        <? if (!empty($article->dt_create)): ?>
-            <div class="article__read-on">
-                <a class="article__read-on-item article__read-on-item--english" href="<?= '/' . ($article->uri ?: 'article/' . $article->id) . '/save?lang=en' ?>">
-                    English
-                </a>
-                <a class="article__read-on-item article__read-on-item--russian" href="<?= '/' . ($article->uri ?: 'article/' . $article->id) . '/save?lang=ru' ?>">
-                    Russian
-                </a>
-            </div>
-        <? endif ?>
 
         <input class="editor-form__title" type="text" name="title" required value="<?= $article->title ?: ''; ?>" placeholder="Story title">
 
@@ -42,6 +30,39 @@
 
             <label for="description">Описание статьи (обязательно)</label>
             <textarea class="editor-form__important-filed input" name="description" required rows="5"><?= $article->description ?: ''; ?></textarea>
+
+        </section>
+
+        <? if (!empty($article->dt_create)): ?>
+        <section class="editor-form__section">
+
+            <label for="linked_article">Выберите статью, которую нужно прикрепить</label>
+            <select name="linked_article">
+                <option value="0">Статья не выбрана</option>
+                <? if ($linked_articles): ?>
+                    <? foreach ($linked_articles as $linked_article): ?>
+                        <? if (($linked_article->id !== $article->id) && ($linked_article->lang !== $article->lang)): ?>
+                            <option value="<?= $linked_article->id; ?>"<?= $article->linked_article == $linked_article->id?'selected':''; ?>>
+                                <?= $linked_article->title ?>
+                            </option>
+                        <? endif; ?>
+                    <? endforeach; ?>
+                <? endif; ?>
+            </select>
+
+        </section>
+        <? endif; ?>
+
+        <section class="editor-form__section">
+
+            <label for="lang">Выберите язык статьи</label>
+            <select name="lang">
+                <? foreach ($languages as $language): ?>
+                    <option value="<?= $language ?>" <?= $language == $article->lang?'selected':''; ?>>
+                        <?= $language ?>
+                    </option>
+                <? endforeach; ?>
+            </select>
 
         </section>
 

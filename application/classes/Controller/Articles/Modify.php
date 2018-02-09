@@ -25,10 +25,10 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
          * Форма отправляет POST запрос
          */
         if ($this->request->post()) {
-            $lang = Arr::get($_POST, 'lang', 'ru');
             $article_id = Arr::get($_POST, 'article_id');
             $article = Model_Article::get($article_id, true);
         }
+
         /*
         * Редактирование через Алиас
         * Здесь сперва запрос получает Controller_Uri, которая будет передавать id сущности через query('id')
@@ -49,14 +49,6 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         }
 
         $pageContent = Arr::get($_POST, 'article_text', '');
-
-        if ($lang === 'en') {
-            $article->title_en = Arr::get($_POST, 'title');
-            $article->description_en = Arr::get($_POST, 'description');
-        } else {
-            $article->title_ru = Arr::get($_POST, 'title');
-            $article->description_ru  = Arr::get($_POST, 'description');
-        }
         
         try {
             $editor = new CodexEditor($pageContent);
@@ -64,11 +56,11 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             throw new Kohana_Exception($e->getMessage());
         }
 
-        if ($lang === 'en') {
-            $article->text_en = $editor->getData();
-        } else {
-            $article->text_ru = $editor->getData();
-        }
+        $article->linked_article = Arr::get($_POST, 'linked_article');
+        $article->lang = Arr::get($_POST, 'lang');
+        $article->title = Arr::get($_POST, 'title');
+        $article->description = Arr::get($_POST, 'description');
+        $article->text = $editor->getData();
 
         $article->is_published = Arr::get($_POST, 'is_published') ? 1 : 0;
         $article->marked       = Arr::get($_POST, 'marked') ? 1 : 0;
@@ -81,40 +73,23 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
          * */
         $item_below_key = Arr::get($_POST, 'item_below_key', 0);
 
-        if ($lang === 'en') {
+        if ($article->linked_article) {
+            Model_Article::linkArticle($article->linked_article, $article->id);
+        }
 
-            if (!$article->text_en) {
-                $this->view['error'] = 'Where is the article body?';
-                goto theEnd;
-            }
+        if (!$article->text) {
+            $this->view['error'] = 'А где само тело статьи?';
+            goto theEnd;
+        }
 
-            if (!$article->title_en) {
-                $this->view['error'] = 'Article title is missing!';
-                goto theEnd;
-            }
+        if (!$article->title) {
+            $this->view['error'] = 'Не заполнен заголовок';
+            goto theEnd;
+        }
 
-            if (!$article->description_en) {
-                $this->view['error'] = 'Description is missing';
-                goto theEnd;
-            }
-            
-        } else {
-
-            if (!$article->text_ru) {
-                $this->view['error'] = 'А где само тело статьи?';
-                goto theEnd;
-            }
-
-            if (!$article->title_ru) {
-                $this->view['error'] = 'Не заполнен заголовок';
-                goto theEnd;
-            }
-
-            if (!$article->description_ru) {
-                $this->view['error'] = 'Не заполнено описание. Это важное поле: опишите коротко, о чем пойдет речь в статье';
-                goto theEnd;
-            }
-
+        if (!$article->description) {
+            $this->view['error'] = 'Не заполнено описание. Это важное поле: опишите коротко, о чем пойдет речь в статье';
+            goto theEnd;
         }
 
         $uri = Arr::get($_POST, 'uri');
@@ -180,7 +155,8 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         theEnd:
 
         $this->view['article']          = $article;
-        $this->view['lang']             = $this->request->param('lang', 'ru');
+        $this->view['linked_articles']  = Model_Article::getActiveArticles();
+        $this->view['languages']        = ['ru', 'en'];
         $this->view['courses']          = Model_Courses::getActiveCoursesNames();
         $this->view['selected_courses'] = Model_Courses::getCoursesByArticleId($article);
         $this->view['topFeed']          = $feed->get(5);

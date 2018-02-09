@@ -10,15 +10,10 @@ class Model_Article extends Model
 {
     public $id = 0;
     public $uri;
-    public $title_ru;
-    public $title_en;
+    public $linked_article = null;
     public $title;
-    public $text_ru;
-    public $text_en;
     public $text;
     public $blocks;
-    public $description_ru;
-    public $description_en;
     public $description;
     public $cover;
     public $user_id;
@@ -49,8 +44,6 @@ class Model_Article extends Model
      * @var boolean
      */
     public $read_time = null;
-    public $read_time_ru = null;
-    public $read_time_en = null;
 
     /**
      * Пустой конструктор для модели статьи, если нужно получить статью из хранилища, нужно пользоваться статическими
@@ -69,12 +62,11 @@ class Model_Article extends Model
     public function insert()
     {
         $idAndRowAffected = Dao_Articles::insert()
-                                ->set('title_ru', $this->title_ru)
-                                ->set('title_en', $this->title_en)
-                                ->set('text_ru', $this->text_ru)
-                                ->set('text_en', $this->text_en)
-                                ->set('description_ru', $this->description_ru)
-                                ->set('description_en', $this->description_en)
+                                ->set('title', $this->title)
+                                ->set('text', $this->text)
+                                ->set('description', $this->description)
+                                ->set('lang', $this->lang)
+                                ->set('linked_article', $this->linked_article)
                                 ->set('quiz_id', $this->quiz_id)
                                 ->set('cover', $this->cover)
                                 ->set('user_id', $this->user_id)
@@ -109,12 +101,11 @@ class Model_Article extends Model
         if (!empty($article_row['id'])) {
             $this->id           = Arr::get($article_row, 'id');
             $this->uri          = Arr::get($article_row, 'uri');
-            $this->title_ru     = Arr::get($article_row, 'title_ru');
-            $this->title_en     = Arr::get($article_row, 'title_en');
-            $this->text_ru      = Arr::get($article_row, 'text_ru');
-            $this->text_en      = Arr::get($article_row, 'text_en');
-            $this->description_ru  = Arr::get($article_row, 'description_ru');
-            $this->description_en  = Arr::get($article_row, 'description_en');
+            $this->linked_article = Arr::get($article_row, 'linked_article');
+            $this->title        = Arr::get($article_row, 'title');
+            $this->text         = Arr::get($article_row, 'text');
+            $this->description  = Arr::get($article_row, 'description');
+            $this->lang         = Arr::get($article_row, 'lang');
             $this->quiz_id      = Arr::get($article_row, 'quiz_id');
             $this->cover        = Arr::get($article_row, 'cover');
             $this->user_id      = Arr::get($article_row, 'user_id');
@@ -124,25 +115,11 @@ class Model_Article extends Model
             $this->is_removed   = Arr::get($article_row, 'is_removed');
             $this->is_published = Arr::get($article_row, 'is_published');
             $this->is_recent    = $recentArticlesFeed->isExist($this->id);
-            $this->read_time_ru = Model_Methods::estimateReadingTime(null, $this->text_ru);
-            $this->read_time_en = Model_Methods::estimateReadingTime(null, $this->text_en);
+            $this->read_time = Model_Methods::estimateReadingTime(null, $this->text);
 
             $this->author           = Model_User::get($this->user_id);
             $this->commentsCount    = Model_Comment::countCommentsByArticle($this->id);
 
-            $this->lang = Arr::get($_GET, 'lang') ?: 'ru';
-
-            if ($this->lang === 'ru') {
-                $this->title  = $this->title_ru;
-                $this->description = $this->description_ru;
-                $this->text = $this->text_ru;
-                $this->read_time = $this->read_time_ru;
-            } else {
-                $this->title  = $this->title_en;
-                $this->description = $this->description_en;
-                $this->text = $this->text_en;
-                $this->read_time = $this->read_time_en;
-            }
         }
 
         return $this;
@@ -174,13 +151,12 @@ class Model_Article extends Model
     public function update()
     {
         Dao_Articles::update()->where('id', '=', $this->id)
-            ->set('title_ru', $this->title_ru)
-            ->set('title_en', $this->title_en)
+            ->set('title', $this->title)
             ->set('uri', $this->uri)
-            ->set('text_ru', $this->text_ru)
-            ->set('text_en', $this->text_en)
-            ->set('description_ru', $this->description_ru)
-            ->set('description_en', $this->description_en)
+            ->set('linked_article', $this->linked_article)
+            ->set('text', $this->text)
+            ->set('description', $this->description)
+            ->set('lang', $this->lang)
             ->set('quiz_id', $this->quiz_id)
             ->set('cover', $this->cover)
             ->set('marked', $this->marked)
@@ -215,6 +191,15 @@ class Model_Article extends Model
         $model = new Model_Article();
 
         return $model->fillByRow($article);
+    }
+
+    public static function linkArticle($idArticleToLink, $idLinkingArticle)
+    {   
+        Dao_Articles::update()->where('id', '=', $idArticleToLink)
+                ->set('linked_article', $idLinkingArticle)
+                ->clearcache('articles_list')
+                ->execute();
+
     }
 
     /**

@@ -93,11 +93,11 @@
             </time>
         </div>
 
-        <? if (!empty($article->text_en) && !empty($article->text_ru)): ?>
+        <? if (!empty($article->linked_article)): ?>
             <div class="article__read-on">
                 Read on
-                <a class="article__read-on-item article__read-on-item--english" href="<?= '/' . ($article->uri ?: 'article/' . $article->id) . '?lang=en' ?>">English</a>
-                <a class="article__read-on-item article__read-on-item--russian" href="<?= '/' . ($article->uri ?: 'article/' . $article->id) . '?lang=ru'?>">Russian</a>
+                <a class="article__read-on-item article__read-on-item--english" href="<?= $article->lang == 'ru' ? 'article/' . $article->linked_article : '' ?>">English</a>
+                <a class="article__read-on-item article__read-on-item--russian" href="<?=  $article->lang == 'en' ? 'article/' . $article->linked_article : '' ?>">Russian</a>
             </div>
         <? else: ?>
             <div class="article__read-time">

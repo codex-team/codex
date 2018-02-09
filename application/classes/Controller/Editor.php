@@ -23,9 +23,7 @@ class Controller_Editor extends Controller_Base_preDispatch
         $article->title = 'Codex Editor';
 
         $html = Arr::get($_POST, 'html');
-        $lang = Arr::get($_POST, 'lang', 'ru');
-
-        
+       
         $text = Arr::get($_POST, 'article_text');
         $editor = new CodexEditor($text);
 

@@ -29,9 +29,7 @@ Route::set('CONTESTS_LIST', 'contests')->defaults(array(
 
 // Add Substance
 
-Route::set('ADD_ARTICLE_SCRIPT', 'article/add(/<lang>)', array(
-   'lang' => 'ru|en'
-))->defaults(array(
+Route::set('ADD_ARTICLE_SCRIPT', 'article/add')->defaults(array(
 	'controller' => 'Articles_modify',
 	'action' => 'save'
 ));
