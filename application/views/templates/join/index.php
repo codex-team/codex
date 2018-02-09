@@ -64,7 +64,7 @@
                     <? if ($user->id): ?>
 
                         <div class="join-page__user">
-                            <img class="join-page__user-photo" src="//ifmo.su/<?= $user->photo ?>" alt="<?= $user->name ?>"/>
+                            <img class="join-page__user-photo" src="<?= $user->photo ?>" alt="<?= $user->name ?>"/>
                             <span class="join-page__user-name"><?= $user->name ?></span>
                         </div>
 
