@@ -7,7 +7,8 @@
 class Kohana_Oauth_Telegram extends Oauth
 {
     protected static $config;
-
+    public static $botUsername;
+    public static $redirectUri;
 
     /**
      * @param string $config
@@ -15,6 +16,8 @@ class Kohana_Oauth_Telegram extends Oauth
     public function __construct($config)
     {
         self::$config = $config;
+        self::$botUsername = $config['BOT_USERNAME'];
+        self::$redirectUri = $config['REDIRECT_URI'];
     }
 
     /**
@@ -58,27 +61,36 @@ class Kohana_Oauth_Telegram extends Oauth
 
     /**
      * Generate name from Telegram profile
+     *
+     * if first name and last name are both presented – return them separated with a space.
+     * if first name or last name is presented – return it.
+     * otherwise if username is presented – return it.
+     * otherwise return user's ID.
+     *
      * @return string
      */
     public static function get_tg_name($profile)
     {
-        if (!empty($profile['first_name']) || !empty($profile['last_name'])) {
-            return join(' ', array($profile['first_name'], $profile['last_name']));
+        $firstName = Arr::get($profile, 'first_name', '');
+        $lastName = Arr::get($profile, 'last_name', '');
+        $username = Arr::get($profile, 'username', '');
+
+        if (!empty($firstName) && !empty($lastName)) {
+            return join(' ', [$firstName, $lastName]);
         }
-        if (!empty($profile['username'])) {
-            return $profile['username'];
+
+        if (!empty($firstName)) {
+            return $firstName;
         }
 
-        return $profile['id'];
-    }
+        if (!empty($lastName)) {
+            return $lastName;
+        }
 
-    public function get_bot_name()
-    {
-        return self::$config['BOT_USERNAME'];
-    }
+        if (!empty($username)) {
+            return $username;
+        }
 
-    public function get_redirect_uri()
-    {
-        return self::$config['REDIRECT_URI'];
+        return Arr::get($profile, 'id');
     }
 }
