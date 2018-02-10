@@ -195,8 +195,8 @@ class Model_Article extends Model
 
     public function linkWithArticle($idArticleToLink)
     {   
-        Dao_Articles::update()->where('id', '=', $this->id)
-                ->set('linked_article', $idArticleToLink)
+        Dao_Articles::update()->where('id', '=', $idArticleToLink)
+                ->set('linked_article', $this->id)
                 ->clearcache('articles_list')
                 ->execute();
 
