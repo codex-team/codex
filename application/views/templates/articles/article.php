@@ -94,10 +94,21 @@
         </div>
 
         <? if (!empty($article->linked_article)): ?>
+
+            <? 
+                if ($article->lang == 'ru') {
+                    $linkedArticle = 'article/' . $article->linked_article;
+                    $selfArticle = '';
+                } else {
+                    $linkedArticle = '';
+                    $selfArticle = 'article/' . $article->linked_article;
+                } 
+            ?>
+
             <div class="article__read-on">
                 Read on
-                <a class="article__read-on-item article__read-on-item--english" href="<?= $article->lang == 'ru' ? 'article/' . $article->linked_article : '' ?>">English</a>
-                <a class="article__read-on-item article__read-on-item--russian" href="<?=  $article->lang == 'en' ? 'article/' . $article->linked_article : '' ?>">Russian</a>
+                <a class="article__read-on-item article__read-on-item--english" href="<?= $linkedArticle ?>">English</a>
+                <a class="article__read-on-item article__read-on-item--russian" href="<?=  $selfArticle ?>">Russian</a>
             </div>
         <? else: ?>
             <div class="article__read-time">

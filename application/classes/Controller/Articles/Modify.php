@@ -48,8 +48,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             goto theEnd;
         }
 
-        $pageContent = Arr::get($_POST, 'article_text', '');
-        
+        $pageContent = Arr::get($_POST, 'article_text', '');       
         try {
             $editor = new CodexEditor($pageContent);
         } catch (Kohana_Exception $e) {
@@ -57,6 +56,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         }
 
         $article->linked_article = Arr::get($_POST, 'linked_article');
+        $article->linkWithArticle($article->linked_article);
         $article->lang = Arr::get($_POST, 'lang');
         $article->title = Arr::get($_POST, 'title');
         $article->description = Arr::get($_POST, 'description');
@@ -72,10 +72,6 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
          * Ключ элемента в фиде, над которым нужно поставить данную статью ('[article|course]:<id>')
          * */
         $item_below_key = Arr::get($_POST, 'item_below_key', 0);
-
-        if ($article->linked_article) {
-            Model_Article::linkArticle($article->linked_article, $article->id);
-        }
 
         if (!$article->text) {
             $this->view['error'] = 'А где само тело статьи?';

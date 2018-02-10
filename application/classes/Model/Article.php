@@ -193,10 +193,10 @@ class Model_Article extends Model
         return $model->fillByRow($article);
     }
 
-    public static function linkArticle($idArticleToLink, $idLinkingArticle)
+    public function linkWithArticle($idArticleToLink)
     {   
-        Dao_Articles::update()->where('id', '=', $idArticleToLink)
-                ->set('linked_article', $idLinkingArticle)
+        Dao_Articles::update()->where('id', '=', $this->id)
+                ->set('linked_article', $idArticleToLink)
                 ->clearcache('articles_list')
                 ->execute();
 
