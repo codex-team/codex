@@ -331,6 +331,7 @@
     &__content {
         display: block;
         white-space: pre;
+        word-wrap: normal;
         overflow-x: auto;
         font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
         line-height: 1.7em;
