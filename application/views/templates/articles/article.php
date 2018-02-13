@@ -96,19 +96,20 @@
         <? if (!empty($article->linked_article)): ?>
 
             <? 
-                if ($article->lang == 'ru') {
-                    $linkedArticle = 'article/' . $article->linked_article;
-                    $selfArticle = '';
+                if ($article->lang == 'en') {
+                    $labelClass = 'article__read-on-item--russian';
+                    $labelText = 'Russian';
                 } else {
-                    $linkedArticle = '';
-                    $selfArticle = 'article/' . $article->linked_article;
-                } 
+                    $labelClass = 'article__read-on-item--english';
+                    $labelText = 'English';
+                }
+
+                $linkedArticle = '/article/' . $article->linked_article;
             ?>
 
             <div class="article__read-on">
                 Read on
-                <a class="article__read-on-item article__read-on-item--english" href="<?= $linkedArticle ?>">English</a>
-                <a class="article__read-on-item article__read-on-item--russian" href="<?=  $selfArticle ?>">Russian</a>
+                <a class="article__read-on-item <?=$labelClass?>" href="<?= $linkedArticle ?>"><?= $labelText ?></a>
             </div>
         <? else: ?>
             <div class="article__read-time">

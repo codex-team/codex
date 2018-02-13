@@ -36,7 +36,7 @@
         <? if (!empty($article->dt_create)): ?>
         <section class="editor-form__section">
 
-            <label for="linked_article">Выберите статью, которую нужно прикрепить</label>
+            <label for="linked_article">Выберите копию статьи на другом языке</label>
             <select name="linked_article">
                 <option value="0">Статья не выбрана</option>
                 <? if ($linked_articles): ?>
