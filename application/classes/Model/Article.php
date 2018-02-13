@@ -192,8 +192,12 @@ class Model_Article extends Model
 
         return $model->fillByRow($article);
     }
-
-    public function linkWithArticle($idArticleToLink)
+    /**
+     * Links English and Russian articles versions
+     * @param integer $idArticleToLink - articles's ID to link
+     *                                   if empty, unlink article
+     */
+    public function linkWithArticle($idArticleToLink = 0)
     {   
         Dao_Articles::update()->where('id', '=', $this->id)
                 ->set('linked_article', $idArticleToLink)
