@@ -55,8 +55,9 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             throw new Kohana_Exception($e->getMessage());
         }
 
-        $article->linked_article = Arr::get($_POST, 'linked_article');
-        $article->linkWithArticle($article->linked_article);
+        $article->linkWithArticle(Arr::get($_POST, 'linked_article'));
+        $second_article = Model_Article::get($article->linked_article);
+        $second_article->linkWithArticle($article->id);
         $article->lang = Arr::get($_POST, 'lang');
         $article->title = Arr::get($_POST, 'title');
         $article->description = Arr::get($_POST, 'description');

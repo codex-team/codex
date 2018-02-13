@@ -200,6 +200,7 @@ class Model_Article extends Model
                 ->clearcache('articles_list')
                 ->execute();
 
+        $this->linked_article = $this->id;
     }
 
     /**
