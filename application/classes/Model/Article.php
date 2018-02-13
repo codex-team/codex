@@ -22,7 +22,7 @@ class Model_Article extends Model
     public $is_removed;
     public $is_published;
     public $quiz_id;
-    public $lang;
+    public $lang = 'ru';
     const FEED_PREFIX = 'article';
 
     /**

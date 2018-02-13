@@ -41,7 +41,8 @@
                 <option value="0">Статья не выбрана</option>
                 <? if ($linked_articles): ?>
                     <? foreach ($linked_articles as $linked_article): ?>
-                        <? $isSelected = $article->linked_article == $linked_article->id?'selected':'';
+                        <?
+                           $isSelected = $article->linked_article == $linked_article->id?'selected':'';
                            $notSelfArticle = $linked_article->id !== $article->id;
                            $differentLang = $linked_article->lang !== $article->lang;
                         ?>
@@ -58,7 +59,6 @@
         <? endif; ?>
 
         <section class="editor-form__section">
-
 
             <label for="lang">Выберите язык статьи</label>
             <select name="lang">
