@@ -196,7 +196,7 @@ class Model_Article extends Model
      * Links article to other one
      * @param integer $idArticleToLink - articles's ID to link if empty, unlink article
      */
-    public function linkArticleAndSave($idArticleToLink = 0)
+    public function linkArticleAndSave($idArticleToLink = null)
     {   
         Dao_Articles::update()->where('id', '=', $this->id)
                 ->set('linked_article', $idArticleToLink)
@@ -214,7 +214,7 @@ class Model_Article extends Model
     public function linkWithArticle($linked_article_id)
     {
         /** Create links */
-        if ($linked_article_id != 0) {
+        if ($linked_article_id != null) {
 
             $second_article = Model_Article::get($linked_article_id);
             /** Second article has no link */
@@ -254,7 +254,7 @@ class Model_Article extends Model
             $second_article->linkArticleAndSave();
         }
 
-        /** If linked_article_id == 0 and $this->linked_article == 0 then do nothing*/
+        /** If linked_article_id == null and $this->linked_article == null then do nothing*/
      
         return true;
     }
