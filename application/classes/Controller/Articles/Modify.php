@@ -84,7 +84,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
                     if ($article->linked_article) {
                         
                         /** Unlink the old one linked article */
-                        $oldLinkedArticle = Model_Article::get($linked_article_id);
+                        $oldLinkedArticle = Model_Article::get($article->linked_article);
                         $oldLinkedArticle->linkWithArticle();
                     }
 
