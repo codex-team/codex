@@ -36,7 +36,7 @@
         <? if (!empty($article->dt_create)): ?>
         <section class="editor-form__section">
 
-            <label for="linked_article">Выберите копию статьи на другом языке</label>
+            <label for="linked_article">Выберите версию статьи на другом языке</label>
             <select name="linked_article">
                 <option value="">Статья не выбрана</option>
                 <? if ($linked_articles): ?>
@@ -63,7 +63,7 @@
             <label for="lang">Выберите язык статьи</label>
 
             <? foreach ($languages as $language): ?>
-                <? $isChecked = $language == $article->lang?'checked':''; ?>
+                <? $isChecked = $language == $article->lang ? 'checked' : ''; ?>
                 <input type="radio" value="<?= $language ?>" name="lang" class="article-lang__radio" <?= $isChecked ?>> <?= $language ?>
             <? endforeach; ?>
 
