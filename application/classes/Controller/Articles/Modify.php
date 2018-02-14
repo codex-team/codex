@@ -55,17 +55,6 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             throw new Kohana_Exception($e->getMessage());
         }
 
-        $linked_article_id = Arr::get($_POST, 'linked_article');
-        $second_article = Model_Article::get($article->linked_article);
-
-        if ($linked_article_id != 0) {
-            $article->linkWithArticle($linked_article_id);
-            $second_article->linkWithArticle($article->id);
-        } else {
-            $second_article->linkWithArticle();
-            $article->linkWithArticle();
-        }
-
         $article->lang = Arr::get($_POST, 'lang');
         $article->title = Arr::get($_POST, 'title');
         $article->description = Arr::get($_POST, 'description');
@@ -75,6 +64,51 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         $article->marked       = Arr::get($_POST, 'marked') ? 1 : 0;
         $article->quiz_id      = Arr::get($_POST, 'quiz_id');
         $courses_ids           = Arr::get($_POST, 'courses_ids', 0);
+
+        /**
+         * Link only if this article exists
+         */
+        if ($article->id) {
+
+            $linked_article_id = Arr::get($_POST, 'linked_article');
+
+            /** Create links */
+            if ($linked_article_id != 0) {
+
+                $second_article = Model_Article::get($linked_article_id);
+
+                /** Second article has no link */
+                if (!$second_article->linked_article) {
+
+                    // link second article to first
+                    $article->linkWithArticle($linked_article_id);
+
+                    // link first article to second
+                    $second_article->linkWithArticle($article->id);
+
+                /** Second article was linked with other one */
+                } elseif ($second_article->linked_article != $article->id) {
+
+                    /** We can't link then show error */
+                    $this->view['error'] = 'You can\'t link already linked article';
+                    goto theEnd;
+                }
+
+                /** If second article was linked with this article then do nothing */
+
+            /** Remove both links */    
+            } elseif ($article->linked_article) {
+
+                // Remove "first <- second" link
+                $article->linkWithArticle();
+
+                // Remove "second <- first" link
+                $second_article = Model_Article::get($article->linked_article);
+                $second_article->linkWithArticle();
+            }
+
+            /** If linked_article_id == 0 and $article->linked_article == 0 then do nothing*/
+        }
 
         /**
          * @var string $item_below_key
