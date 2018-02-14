@@ -38,11 +38,11 @@
 
             <label for="linked_article">Выберите копию статьи на другом языке</label>
             <select name="linked_article">
-                <option value="0">Статья не выбрана</option>
+                <option value="">Статья не выбрана</option>
                 <? if ($linked_articles): ?>
                     <? foreach ($linked_articles as $linked_article): ?>
                         <?
-                           $isSelected = $article->linked_article == $linked_article->id?'selected':'';
+                           $isSelected = $article->linked_article == $linked_article->id ? 'selected' : '';
                            $notSelfArticle = $linked_article->id !== $article->id;
                            $differentLang = $linked_article->lang !== $article->lang;
                         ?>
