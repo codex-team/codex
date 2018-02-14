@@ -70,7 +70,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
          */
         if ($article->id) {
             /** Get value for 'linked_article' field */
-            $linked_article_id = Arr::get($_POST, 'linked_article');
+            $linked_article_id = Arr::get($_POST, 'linked_article', null);
             
             /** Check if we need to relink articles */
             if ($article->linked_article != $linked_article_id) {
