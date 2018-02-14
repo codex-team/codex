@@ -115,11 +115,10 @@ class Model_Article extends Model
             $this->is_removed   = Arr::get($article_row, 'is_removed');
             $this->is_published = Arr::get($article_row, 'is_published');
             $this->is_recent    = $recentArticlesFeed->isExist($this->id);
-            $this->read_time = Model_Methods::estimateReadingTime(null, $this->text);
+            $this->read_time    = Model_Methods::estimateReadingTime(null, $this->text);
 
             $this->author           = Model_User::get($this->user_id);
             $this->commentsCount    = Model_Comment::countCommentsByArticle($this->id);
-
         }
 
         return $this;
