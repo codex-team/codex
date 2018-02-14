@@ -38,7 +38,7 @@
 
             <label for="linked_article">Выберите версию статьи на другом языке</label>
             <select name="linked_article">
-                <option value="" <? !$article->linked_article ? 'selected' : '' ?>>Статья не выбрана</option>
+                <option value="" <?= !$article->linked_article ? 'selected' : '' ?>>Статья не выбрана</option>
                 <? foreach ($linked_articles as $linked_article): ?>
                     <?
                        $isSelected = $article->linked_article == $linked_article->id ? 'selected' : '';
