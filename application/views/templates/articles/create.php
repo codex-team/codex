@@ -38,21 +38,18 @@
 
             <label for="linked_article">Выберите версию статьи на другом языке</label>
             <select name="linked_article">
-                <option value="">Статья не выбрана</option>
-                <? if ($linked_articles): ?>
-                    <? foreach ($linked_articles as $linked_article): ?>
-                        <?
-                           $isSelected = $article->linked_article == $linked_article->id ? 'selected' : '';
-                           $notSelfArticle = $linked_article->id !== $article->id;
-                           $differentLang = $linked_article->lang !== $article->lang;
-                        ?>
-                        <? if ($notSelfArticle && $differentLang): ?>
-                            <option value="<?= $linked_article->id; ?>"<?= $isSelected ?>>
-                                <?= $linked_article->title ?>
-                            </option>
-                        <? endif; ?>
-                    <? endforeach; ?>
-                <? endif; ?>
+                <? foreach ($linked_articles as $linked_article): ?>
+                    <?
+                       $isSelected = $article->linked_article == $linked_article->id ? 'selected' : '';
+                       $notSelfArticle = $linked_article->id !== $article->id;
+                       $differentLang = $linked_article->lang !== $article->lang;
+                    ?>
+                    <? if ($differentLang): ?>
+                        <option value="<?= $linked_article->id; ?>"<?= $isSelected ?>>
+                            <?= $linked_article->title ?>
+                        </option>
+                    <? endif; ?>
+                <? endforeach; ?>
             </select>
 
         </section>
