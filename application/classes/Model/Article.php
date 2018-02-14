@@ -196,7 +196,7 @@ class Model_Article extends Model
      * Links article to other one
      * @param integer $idArticleToLink - articles's ID to link if empty, unlink article
      */
-    private function linkArticleAndSave($idArticleToLink = 0)
+    public function linkArticleAndSave($idArticleToLink = 0)
     {   
         Dao_Articles::update()->where('id', '=', $this->id)
                 ->set('linked_article', $idArticleToLink)
@@ -225,14 +225,14 @@ class Model_Article extends Model
 
                     /** Unlink the old one linked article */
                     $oldLinkedArticle = Model_Article::get($this->linked_article);
-                    $oldLinkedArticle->linkWithArticle();
+                    $oldLinkedArticle->linkArticleAndSave();
                 }
 
                 // link second article to first
-                $this->linkWithArticle($linked_article_id);
+                $this->linkArticleAndSave($linked_article_id);
 
                 // link first article to second
-                $second_article->linkWithArticle($this->id);
+                $second_article->linkArticleAndSave($this->id);
 
             /** Second article was linked with other one */
             } elseif ($second_article->linked_article != $this->id) {
@@ -247,11 +247,11 @@ class Model_Article extends Model
         } elseif ($this->linked_article) {
 
             // remove "first <- second" link
-            $this->linkWithArticle();
+            $this->linkArticleAndSave();
 
             // remove "second <- first" link
             $second_article = Model_Article::get($this->linked_article);
-            $second_article->linkWithArticle();
+            $second_article->linkArticleAndSave();
         }
 
         /** If linked_article_id == 0 and $this->linked_article == 0 then do nothing*/
