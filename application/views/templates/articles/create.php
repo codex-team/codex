@@ -58,17 +58,14 @@
         </section>
         <? endif; ?>
 
-        <section class="editor-form__section">
+        <section class="editor-form__section article-lang__section">
 
             <label for="lang">Выберите язык статьи</label>
-            <select name="lang">
-                <? foreach ($languages as $language): ?>
-                    <? $isSelected = $language == $article->lang?'selected':''; ?>
-                    <option value="<?= $language ?>" <?= $isSelected ?>>
-                        <?= $language ?>
-                    </option>
-                <? endforeach; ?>
-            </select>
+
+            <? foreach ($languages as $language): ?>
+                <? $isChecked = $language == $article->lang?'checked':''; ?>
+                <input type="radio" value="<?= $language ?>" name="lang" class="article-lang__radio" <?= $isChecked ?>> <?= $language ?>
+            <? endforeach; ?>
 
         </section>
 
