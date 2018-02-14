@@ -162,6 +162,7 @@
 
             &--russian::before {
                 background-image: url('/public/app/img/components/article/flag-russian.svg');
+                background-size: contain;
             }
 
             &:not(:last-of-type)::after {
