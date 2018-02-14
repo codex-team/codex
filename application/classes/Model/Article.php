@@ -246,12 +246,13 @@ class Model_Article extends Model
         /** Remove both links */    
         } elseif ($this->linked_article) {
 
-            // remove "first <- second" link
-            $this->linkArticleAndSave();
-
             // remove "second <- first" link
             $second_article = Model_Article::get($this->linked_article);
             $second_article->linkArticleAndSave();
+
+            // remove "first <- second" link
+            $this->linkArticleAndSave();
+
         }
 
         /** If linked_article_id == null and $this->linked_article == null then do nothing*/
