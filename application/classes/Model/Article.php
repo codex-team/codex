@@ -191,12 +191,12 @@ class Model_Article extends Model
 
         return $model->fillByRow($article);
     }
+    
     /**
-     * Links English and Russian articles versions
-     * @param integer $idArticleToLink - articles's ID to link
-     *                                   if empty, unlink article
+     * Links article to other one
+     * @param integer $idArticleToLink - articles's ID to link if empty, unlink article
      */
-    public function linkWithArticle($idArticleToLink = 0)
+    private function linkArticleAndSave($idArticleToLink = 0)
     {   
         Dao_Articles::update()->where('id', '=', $this->id)
                 ->set('linked_article', $idArticleToLink)
@@ -204,6 +204,59 @@ class Model_Article extends Model
                 ->execute();
 
         $this->linked_article = $idArticleToLink;
+    }
+    
+    /**
+     * Link articles with each other
+     * @param integer $linked_article_id
+     * @return bool - result for linking
+     */
+    public function linkWithArticle($linked_article_id)
+    {
+        /** Create links */
+        if ($linked_article_id != 0) {
+
+            $second_article = Model_Article::get($linked_article_id);
+            /** Second article has no link */
+            if (!$second_article->linked_article) {
+
+                /** If this article was linked */
+                if ($this->linked_article) {
+
+                    /** Unlink the old one linked article */
+                    $oldLinkedArticle = Model_Article::get($this->linked_article);
+                    $oldLinkedArticle->linkWithArticle();
+                }
+
+                // link second article to first
+                $this->linkWithArticle($linked_article_id);
+
+                // link first article to second
+                $second_article->linkWithArticle($this->id);
+
+            /** Second article was linked with other one */
+            } elseif ($second_article->linked_article != $this->id) {
+
+                /** We can't link already linked article then show error */
+                return false;
+            }
+
+            /** If second article was linked with this article then do nothing */
+
+        /** Remove both links */    
+        } elseif ($this->linked_article) {
+
+            // remove "first <- second" link
+            $this->linkWithArticle();
+
+            // remove "second <- first" link
+            $second_article = Model_Article::get($this->linked_article);
+            $second_article->linkWithArticle();
+        }
+
+        /** If linked_article_id == 0 and $this->linked_article == 0 then do nothing*/
+     
+        return true;
     }
 
     /**
