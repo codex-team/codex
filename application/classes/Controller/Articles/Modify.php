@@ -28,6 +28,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             $article_id = Arr::get($_POST, 'article_id');
             $article = Model_Article::get($article_id, true);
         }
+
         /*
         * Редактирование через Алиас
         * Здесь сперва запрос получает Controller_Uri, которая будет передавать id сущности через query('id')
@@ -47,21 +48,40 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             goto theEnd;
         }
 
-        $pageContent = Arr::get($_POST, 'article_json', '');
-
+        $pageContent = Arr::get($_POST, 'article_text', '');       
         try {
             $editor = new CodexEditor($pageContent);
         } catch (Kohana_Exception $e) {
             throw new Kohana_Exception($e->getMessage());
         }
 
-        $article->title        = Arr::get($_POST, 'title');
-        $article->json         = $editor->getData();
+        $article->lang = Arr::get($_POST, 'lang');
+        $article->title = Arr::get($_POST, 'title');
+        $article->description = Arr::get($_POST, 'description');
+        $article->text = $editor->getData();
+
         $article->is_published = Arr::get($_POST, 'is_published') ? 1 : 0;
         $article->marked       = Arr::get($_POST, 'marked') ? 1 : 0;
-        $article->description  = Arr::get($_POST, 'description');
         $article->quiz_id      = Arr::get($_POST, 'quiz_id');
         $courses_ids           = Arr::get($_POST, 'courses_ids', 0);
+
+        /**
+         * Link only if this article exists
+         */
+        if ($article->id) {
+            /** Get value for 'linked_article' field */
+            $linked_article_id = Arr::get($_POST, 'linked_article', null);
+            
+            /** Check if we need to relink articles */
+            if ($article->linked_article != $linked_article_id) {
+                $articleLinkingResult = $article->linkWithArticle($linked_article_id);
+                
+                if (!$articleLinkingResult) {
+                    $this->view['error'] = 'You can\'t link already linked article';
+                    goto theEnd;
+                }
+            }
+        }
 
         /**
          * @var string $item_below_key
@@ -69,13 +89,13 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
          * */
         $item_below_key = Arr::get($_POST, 'item_below_key', 0);
 
-        if (!$article->title) {
-            $this->view['error'] = 'Не заполнен заголовок';
+        if (!$article->text) {
+            $this->view['error'] = 'А где само тело статьи?';
             goto theEnd;
         }
 
-        if (!$article->json) {
-            $this->view['error'] = 'А где само тело статьи?';
+        if (!$article->title) {
+            $this->view['error'] = 'Не заполнен заголовок';
             goto theEnd;
         }
 
@@ -83,7 +103,6 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             $this->view['error'] = 'Не заполнено описание. Это важное поле: опишите коротко, о чем пойдет речь в статье';
             goto theEnd;
         }
-
 
         $uri = Arr::get($_POST, 'uri');
         $alias = Model_Alias::generateUri($uri);
@@ -148,6 +167,8 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         theEnd:
 
         $this->view['article']          = $article;
+        $this->view['linked_articles']  = Model_Article::getActiveArticles();
+        $this->view['languages']        = ['ru', 'en'];
         $this->view['courses']          = Model_Courses::getActiveCoursesNames();
         $this->view['selected_courses'] = Model_Courses::getCoursesByArticleId($article);
         $this->view['topFeed']          = $feed->get(5);

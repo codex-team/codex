@@ -162,6 +162,7 @@
 
             &--russian::before {
                 background-image: url('/public/app/img/components/article/flag-russian.svg');
+                background-size: contain;
             }
 
             &:not(:last-of-type)::after {
@@ -473,5 +474,29 @@
     li {
         margin: 0.5em 0;
         padding-left: 0.5em;
+    }
+}
+
+.article-lang {
+    &__section {
+        display: flex;
+        align-items: baseline;
+        flex-wrap: wrap;
+
+        label {
+            @media (--mobile) {
+                flex-basis: 100%;
+            }
+        }
+    }
+
+    &__radio {
+        margin: 0 5px 0 10px;
+
+        @media (--mobile) {
+            &:first-of-type {
+                margin-left: 0;
+            }
+        }
     }
 }

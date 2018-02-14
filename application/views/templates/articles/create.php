@@ -13,7 +13,7 @@
 
         <input class="editor-form__title" type="text" name="title" required value="<?= $article->title ?: ''; ?>" placeholder="Story title">
 
-        <textarea name="article_json" id="article_json" hidden rows="10" hidden><?= $article->json ?: ''; ?></textarea>
+        <textarea name="article_text" id="article_text" hidden rows="10" hidden><?= $article->text ?: ''; ?></textarea>
 
         <div class="editor-form__editor">
             <div id="codex-editor"></div>
@@ -30,6 +30,40 @@
 
             <label for="description">Описание статьи (обязательно)</label>
             <textarea class="editor-form__important-filed input" name="description" required rows="5"><?= $article->description ?: ''; ?></textarea>
+
+        </section>
+
+        <? if (!empty($article->dt_create)): ?>
+        <section class="editor-form__section">
+
+            <label for="linked_article">Выберите версию статьи на другом языке</label>
+            <select name="linked_article">
+                <option value="" <?= !$article->linked_article ? 'selected' : '' ?>>Статья не выбрана</option>
+                <? foreach ($linked_articles as $linked_article): ?>
+                    <?
+                       $isSelected = $article->linked_article == $linked_article->id ? 'selected' : '';
+                       $notSelfArticle = $linked_article->id !== $article->id;
+                       $differentLang = $linked_article->lang !== $article->lang;
+                    ?>
+                    <? if ($notSelfArticle && $differentLang): ?>
+                        <option value="<?= $linked_article->id; ?>"<?= $isSelected ?>>
+                            <?= $linked_article->title ?>
+                        </option>
+                    <? endif; ?>
+                <? endforeach; ?>
+            </select>
+
+        </section>
+        <? endif; ?>
+
+        <section class="editor-form__section article-lang__section">
+
+            <label for="lang">Выберите язык статьи</label>
+
+            <? foreach ($languages as $language): ?>
+                <? $isChecked = $language == $article->lang ? 'checked' : ''; ?>
+                <input type="radio" value="<?= $language ?>" name="lang" class="article-lang__radio" <?= $isChecked ?>> <?= $language ?>
+            <? endforeach; ?>
 
         </section>
 
@@ -104,7 +138,7 @@
 
         var submit  = document.getElementById('submitButton'),
             form    = document.forms['codex_article'],
-            article = document.getElementById('article_json'),
+            article = document.getElementById('article_text'),
             pageContent,
             blocks;
 
