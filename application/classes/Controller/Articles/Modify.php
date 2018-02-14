@@ -79,6 +79,14 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
 
                 /** Second article has no link */
                 if (!$second_article->linked_article) {
+                    
+                    /** If this article was linked */
+                    if ($article->linked_article) {
+                        
+                        /** Unlink the old one linked article */
+                        $oldLinkedArticle = Model_Article::get($linked_article_id);
+                        $oldLinkedArticle->linkWithArticle();
+                    }
 
                     // link second article to first
                     $article->linkWithArticle($linked_article_id);
@@ -99,10 +107,10 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             /** Remove both links */    
             } elseif ($article->linked_article) {
 
-                // Remove "first <- second" link
+                // remove "first <- second" link
                 $article->linkWithArticle();
 
-                // Remove "second <- first" link
+                // remove "second <- first" link
                 $second_article = Model_Article::get($article->linked_article);
                 $second_article->linkWithArticle();
             }
