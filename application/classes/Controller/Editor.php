@@ -23,9 +23,9 @@ class Controller_Editor extends Controller_Base_preDispatch
         $article->title = 'Codex Editor';
 
         $html = Arr::get($_POST, 'html');
-        $json = Arr::get($_POST, 'article_json');
-
-        $editor = new CodexEditor($json);
+       
+        $text = Arr::get($_POST, 'article_text');
+        $editor = new CodexEditor($text);
 
         try {
             $data = json_decode($editor->getData());

@@ -52,16 +52,16 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
             throw new HTTP_Exception_404();
         }
 
-
         /**
          * Array with rendered blocks
          */
         $article->blocks = array();
 
-        if ($article->json) {
-            $article->blocks = $this->drawArticleBlocks($article->json);
-        }
+        if ($article->text) {
 
+            $article->blocks = $this->drawArticleBlocks($article->text);
+
+        }
 
         if ($article->quiz_id) {
             $quiz = new Model_Quiz($article->quiz_id);
@@ -84,8 +84,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         }
 
         $this->title = $article->title;
-        $this->description = $article->description;
-
+        $this->description = $article->description;       
         $this->template->content = View::factory('templates/articles/article', $this->view);
     }
 

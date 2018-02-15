@@ -10,9 +10,9 @@ class Model_Article extends Model
 {
     public $id = 0;
     public $uri;
+    public $linked_article = null;
     public $title;
     public $text;
-    public $json;
     public $blocks;
     public $description;
     public $cover;
@@ -22,7 +22,7 @@ class Model_Article extends Model
     public $is_removed;
     public $is_published;
     public $quiz_id;
-
+    public $lang = 'ru';
     const FEED_PREFIX = 'article';
 
     /**
@@ -64,8 +64,9 @@ class Model_Article extends Model
         $idAndRowAffected = Dao_Articles::insert()
                                 ->set('title', $this->title)
                                 ->set('text', $this->text)
-                                ->set('json', $this->json)
                                 ->set('description', $this->description)
+                                ->set('lang', $this->lang)
+                                ->set('linked_article', $this->linked_article)
                                 ->set('quiz_id', $this->quiz_id)
                                 ->set('cover', $this->cover)
                                 ->set('user_id', $this->user_id)
@@ -100,10 +101,11 @@ class Model_Article extends Model
         if (!empty($article_row['id'])) {
             $this->id           = Arr::get($article_row, 'id');
             $this->uri          = Arr::get($article_row, 'uri');
+            $this->linked_article = Arr::get($article_row, 'linked_article');
             $this->title        = Arr::get($article_row, 'title');
             $this->text         = Arr::get($article_row, 'text');
-            $this->json         = Arr::get($article_row, 'json');
             $this->description  = Arr::get($article_row, 'description');
+            $this->lang         = Arr::get($article_row, 'lang');
             $this->quiz_id      = Arr::get($article_row, 'quiz_id');
             $this->cover        = Arr::get($article_row, 'cover');
             $this->user_id      = Arr::get($article_row, 'user_id');
@@ -113,7 +115,7 @@ class Model_Article extends Model
             $this->is_removed   = Arr::get($article_row, 'is_removed');
             $this->is_published = Arr::get($article_row, 'is_published');
             $this->is_recent    = $recentArticlesFeed->isExist($this->id);
-            $this->read_time    = Model_Methods::estimateReadingTime(null, $this->json);
+            $this->read_time    = Model_Methods::estimateReadingTime(null, $this->text);
 
             $this->author           = Model_User::get($this->user_id);
             $this->commentsCount    = Model_Comment::countCommentsByArticle($this->id);
@@ -150,9 +152,10 @@ class Model_Article extends Model
         Dao_Articles::update()->where('id', '=', $this->id)
             ->set('title', $this->title)
             ->set('uri', $this->uri)
+            ->set('linked_article', $this->linked_article)
             ->set('text', $this->text)
-            ->set('json', $this->json)
             ->set('description', $this->description)
+            ->set('lang', $this->lang)
             ->set('quiz_id', $this->quiz_id)
             ->set('cover', $this->cover)
             ->set('marked', $this->marked)
@@ -187,6 +190,74 @@ class Model_Article extends Model
         $model = new Model_Article();
 
         return $model->fillByRow($article);
+    }
+    
+    /**
+     * Links article to other one
+     * @param integer $idArticleToLink - articles's ID to link if empty, unlink article
+     */
+    public function linkArticleAndSave($idArticleToLink = null)
+    {   
+        Dao_Articles::update()->where('id', '=', $this->id)
+                ->set('linked_article', $idArticleToLink)
+                ->clearcache('articles_list')
+                ->execute();
+
+        $this->linked_article = $idArticleToLink;
+    }
+    
+    /**
+     * Link articles with each other
+     * @param integer $linked_article_id
+     * @return bool - result for linking
+     */
+    public function linkWithArticle($linked_article_id)
+    {
+        /** Create links */
+        if ($linked_article_id != null) {
+
+            $second_article = Model_Article::get($linked_article_id);
+            /** Second article has no link */
+            if (!$second_article->linked_article) {
+
+                /** If this article was linked */
+                if ($this->linked_article) {
+
+                    /** Unlink the old one linked article */
+                    $oldLinkedArticle = Model_Article::get($this->linked_article);
+                    $oldLinkedArticle->linkArticleAndSave();
+                }
+
+                // link second article to first
+                $this->linkArticleAndSave($linked_article_id);
+
+                // link first article to second
+                $second_article->linkArticleAndSave($this->id);
+
+            /** Second article was linked with other one */
+            } elseif ($second_article->linked_article != $this->id) {
+
+                /** We can't link already linked article then show error */
+                return false;
+            }
+
+            /** If second article was linked with this article then do nothing */
+
+        /** Remove both links */    
+        } elseif ($this->linked_article) {
+
+            // remove "second <- first" link
+            $second_article = Model_Article::get($this->linked_article);
+            $second_article->linkArticleAndSave();
+
+            // remove "first <- second" link
+            $this->linkArticleAndSave();
+
+        }
+
+        /** If linked_article_id == null and $this->linked_article == null then do nothing*/
+     
+        return true;
     }
 
     /**

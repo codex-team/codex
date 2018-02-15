@@ -93,11 +93,23 @@
             </time>
         </div>
 
-        <? if (!empty($article->englishText)): ?>
+        <? if (!empty($article->linked_article)): ?>
+
+            <? 
+                if ($article->lang == 'en') {
+                    $labelClass = 'article__read-on-item--russian';
+                    $labelText = 'Russian';
+                } else {
+                    $labelClass = 'article__read-on-item--english';
+                    $labelText = 'English';
+                }
+
+                $linkedArticle = '/article/' . $article->linked_article;
+            ?>
+
             <div class="article__read-on">
                 Read on
-                <span class="article__read-on-item article__read-on-item--english">English</span>
-                <span class="article__read-on-item article__read-on-item--russian">Russian</span>
+                <a class="article__read-on-item <?=$labelClass?>" href="<?= $linkedArticle ?>"><?= $labelText ?></a>
             </div>
         <? else: ?>
             <div class="article__read-time">

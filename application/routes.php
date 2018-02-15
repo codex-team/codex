@@ -155,7 +155,6 @@ Route::set('USER_SETTINGS', 'user/settings')->defaults(array(
 	'action'     => 'settings'
 ));
 
-
 //Script for admin panel---------
 
 Route::set('ADMIN_EDIT_ARTICLE', 'article/<article_id>/edit', array('article_id' => $DIGIT))->defaults(array(
@@ -208,7 +207,6 @@ Route::set('FETCH_URL', 'editor/fetchURL')
     'controller' => 'Editor',
     'action'    => 'fetchURL'
 ));
-
 
 /**
 * Landing pages
