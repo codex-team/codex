@@ -33,6 +33,31 @@
 
         </section>
 
+        <section class="editor-form__section">
+
+            <label for="coauthors">Выбрать соавтора</label>
+            <select name="coauthors[]" multiple>
+                <?
+                    $noCoauthors = $article->coauthors == null;
+                ?>
+                <option value="" <?= $noCoauthors?'selected':''; ?>>Вы единственный автор статьи</option>
+                <? if ($coauthors): ?>
+                    <? foreach ($coauthors as $coauthor): ?>
+                        <?
+                           $isSelected = is_array($selected_coauthors)?in_array($coauthor->id, $selected_coauthors):false;
+                           $notAuthor = $coauthor->id !== $article->user_id;
+                        ?>
+                        <? if ($notAuthor): ?>
+                        <option value="<?= $coauthor->id ?>"  <?= $isSelected?'selected':''; ?>>
+                            <?= $coauthor->name ?>
+                        </option>
+                        <? endif; ?>
+                    <? endforeach; ?>
+                <? endif; ?>
+            </select>
+
+        </section>
+
         <? if (!empty($article->dt_create)): ?>
         <section class="editor-form__section">
 

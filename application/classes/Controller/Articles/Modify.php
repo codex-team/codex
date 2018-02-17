@@ -60,6 +60,12 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         $article->description = Arr::get($_POST, 'description');
         $article->text = $editor->getData();
 
+        $article_coauthors = Arr::get($_POST, 'coauthors');
+
+        if (!empty($article_coauthors)) {
+            $article->setCoauthors($article_coauthors);
+        }
+
         $article->is_published = Arr::get($_POST, 'is_published') ? 1 : 0;
         $article->marked       = Arr::get($_POST, 'marked') ? 1 : 0;
         $article->quiz_id      = Arr::get($_POST, 'quiz_id');
@@ -170,6 +176,8 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         $this->view['linked_articles']  = Model_Article::getActiveArticles();
         $this->view['languages']        = ['ru', 'en'];
         $this->view['courses']          = Model_Courses::getActiveCoursesNames();
+        $this->view['coauthors']        = Model_User::getAll();
+        $this->view['selected_coauthors'] = $article->getCoauthors();
         $this->view['selected_courses'] = Model_Courses::getCoursesByArticleId($article);
         $this->view['topFeed']          = $feed->get(5);
         $this->view['quizzes']          = Model_Quiz::getTitles();

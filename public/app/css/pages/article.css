@@ -47,6 +47,10 @@
         }
     }
 
+    &__coauthors-info {
+        margin-left: 20px;
+    }
+
     /**
     * Article information: author, date
     */
@@ -81,6 +85,15 @@
                 width: 40px;
                 height: 40px;
                 margin-top: 0;
+            }
+
+            &--with-coauthor {
+                margin-right: 0px;
+            }
+
+            &--coauthor {
+                margin-right: 0px;
+                margin-left: -20px;
             }
         }
 

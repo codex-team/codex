@@ -1,0 +1,1 @@
+ALTER TABLE `articles` ADD `coauthors` VARCHAR(128) NULL DEFAULT NULL AFTER `user_id`;
