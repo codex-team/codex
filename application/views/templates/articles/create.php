@@ -33,10 +33,12 @@
 
         </section>
 
+        <? if (!empty($article->dt_create)): ?>
+            
         <section class="editor-form__section">
 
             <label for="coauthors">Выбрать соавтора</label>
-            <select name="coauthors[]" multiple>
+            <select name="coauthors">
                 <?
                     $noCoauthors = $article->coauthors == null;
                 ?>
@@ -44,13 +46,14 @@
                 <? if ($coauthors): ?>
                     <? foreach ($coauthors as $coauthor): ?>
                         <?
-                           $isSelected = is_array($selected_coauthors)?in_array($coauthor->id, $selected_coauthors):false;
                            $notAuthor = $coauthor->id !== $article->user_id;
+                           $isAdmin = $coauthor->isAdmin;
+                           $isSelected = $coauthor->id == $selected_coauthor->user_id ? 'selected' : '';
                         ?>
-                        <? if ($notAuthor): ?>
-                        <option value="<?= $coauthor->id ?>"  <?= $isSelected?'selected':''; ?>>
-                            <?= $coauthor->name ?>
-                        </option>
+                        <? if ($notAuthor && $isAdmin): ?>
+                            <option value="<?= $coauthor->id ?>" <?= $isSelected; ?>>
+                                <?= $coauthor->name ?>
+                            </option>
                         <? endif; ?>
                     <? endforeach; ?>
                 <? endif; ?>
@@ -58,7 +61,6 @@
 
         </section>
 
-        <? if (!empty($article->dt_create)): ?>
         <section class="editor-form__section">
 
             <label for="linked_article">Выберите версию статьи на другом языке</label>

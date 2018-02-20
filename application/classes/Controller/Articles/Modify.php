@@ -61,9 +61,20 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         $article->text = $editor->getData();
 
         $article_coauthors = Arr::get($_POST, 'coauthors');
+        $coauthorshipExists = $article->checkCoauthorship($article_coauthors);
+        $coauthors = Model_Coauthors::get($article->id, true);
 
         if (!empty($article_coauthors)) {
-            $article->setCoauthors($article_coauthors);
+
+            if (!$coauthorshipExists) {
+                $coauthors->insert($article->id, $article_coauthors);
+            } else {
+                $coauthors->update($article->id, $article_coauthors);
+            }
+            
+        /** Remove co-author */
+        } elseif (empty($article_coauthors) && $coauthorshipExists) {
+            $coauthors->update($article->id);
         }
 
         $article->is_published = Arr::get($_POST, 'is_published') ? 1 : 0;
@@ -172,15 +183,15 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
 
         theEnd:
 
-        $this->view['article']          = $article;
-        $this->view['linked_articles']  = Model_Article::getActiveArticles();
-        $this->view['languages']        = ['ru', 'en'];
-        $this->view['courses']          = Model_Courses::getActiveCoursesNames();
-        $this->view['coauthors']        = Model_User::getAll();
-        $this->view['selected_coauthors'] = $article->getCoauthors();
-        $this->view['selected_courses'] = Model_Courses::getCoursesByArticleId($article);
-        $this->view['topFeed']          = $feed->get(5);
-        $this->view['quizzes']          = Model_Quiz::getTitles();
+        $this->view['article']            = $article;
+        $this->view['linked_articles']    = Model_Article::getActiveArticles();
+        $this->view['languages']          = ['ru', 'en'];
+        $this->view['courses']            = Model_Courses::getActiveCoursesNames();
+        $this->view['coauthors']          = Model_User::getAll();
+        $this->view['selected_coauthor']  = Model_Coauthors::get($article->id);
+        $this->view['selected_courses']   = Model_Courses::getCoursesByArticleId($article);
+        $this->view['topFeed']            = $feed->get(5);
+        $this->view['quizzes']            = Model_Quiz::getTitles();
 
         $this->template->content = View::factory('templates/articles/create', $this->view);
     }

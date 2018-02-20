@@ -1,1 +1,2 @@
-ALTER TABLE `articles` ADD `coauthors` VARCHAR(128) NULL DEFAULT NULL AFTER `user_id`;
+CREATE TABLE `codexdb`.`coauthors` ( `article_id` INT(10) UNSIGNED NOT NULL , `user_id` INT(10) NULL DEFAULT NULL ) ENGINE = InnoDB;
+ALTER TABLE `coauthors` ADD PRIMARY KEY(`article_id`);

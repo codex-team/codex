@@ -71,7 +71,6 @@ class Model_Article extends Model
                                 ->set('quiz_id', $this->quiz_id)
                                 ->set('cover', $this->cover)
                                 ->set('user_id', $this->user_id)
-                                ->set('coauthors', $this->coauthors)
                                 ->set('marked', $this->marked)
                                 ->set('is_published', $this->is_published)
                                 ->clearcache('articles_list')
@@ -120,7 +119,7 @@ class Model_Article extends Model
             $this->read_time    = Model_Methods::estimateReadingTime(null, $this->text);
 
             $this->author           = Model_User::get($this->user_id);
-            $this->coauthors        = Arr::get($article_row, 'coauthors');
+            $this->coauthors        = Model_Coauthors::get($this->id);
             $this->commentsCount    = Model_Comment::countCommentsByArticle($this->id);
         }
 
@@ -163,7 +162,6 @@ class Model_Article extends Model
             ->set('cover', $this->cover)
             ->set('marked', $this->marked)
             ->set('user_id', $this->user_id)
-            ->set('coauthors', $this->coauthors)
             ->set('is_published', $this->is_published)
             ->set('dt_update', $this->dt_update)      // TODO(#38) remove
             ->clearcache($this->id)
@@ -197,25 +195,19 @@ class Model_Article extends Model
     }
 
     /**
-     * Adds co-authors to the Article
-     * @param [Array] $coauthors - co-authors' IDs
+     * Checks if Article has coathors relationship in the Coauthors table
+     * @param [Array] $coauthors - co-author's ID
      */
-    public function setCoauthors($coauthors)
+    public function checkCoauthorship($coauthors)
     {   
-        $singleAuthor = $coauthors == $this->user_id;
-        if (!$singleAuthor) {
-            $this->coauthors = implode(" ", $coauthors);
-        }
-    }
+        $this->coauthors = $coauthors;
 
-    /**
-     * Gets co-authors of the Article
-     * @return [Array] IDs of Article's co-authors
-     */
-    public function getCoauthors()
-    {   
-        return (explode(" ",$this->coauthors));
+        $coauthorshipExists = Dao_Coauthors::select('article_id')
+                                ->where('article_id', '=', $this->id)
+                                ->limit(1)
+                                ->execute();
 
+        return $coauthorshipExists;
     }
     
     /**

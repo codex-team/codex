@@ -73,6 +73,9 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $this->view["article"]         = $article;
         $this->view["popularArticles"] = Model_Article::getPopularArticles($articleId);
 
+        $selectedCoauthor = Model_Coauthors::get($article->id);
+        $this->view["coauthor"] = Model_User::get($selectedCoauthor->user_id);
+
         /**
          * Check if user can edit an article
          * Pass article uri to articleEditLink variable
