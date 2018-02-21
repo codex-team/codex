@@ -45,6 +45,11 @@
     font-size: 15px;
 }
 
+.feed-item__coauthors {
+    display: flex;
+    justify-content: center;
+}
+
 .feed-item__time {
     font-size: 0.8em;
     color: #7f94ac;

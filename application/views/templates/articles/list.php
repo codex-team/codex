@@ -1,4 +1,8 @@
-<? foreach ($feed_items as $i => $item): ?>
+<? 
+    $feedItems = array_merge($coauthor_feed_items, $feed_items);
+?>
+
+<? foreach ($feedItems as $i => $item): ?>
 
     <article class="feed-item <?= $item->marked ? 'feed-item_big' : ''?>" data-type="<?= $item::FEED_PREFIX; ?>" data-id="<?= $item->id; ?>">
 
@@ -7,10 +11,22 @@
         <? if ($item::FEED_PREFIX == 'article'): ?>
 
             <a class="feed-item__title js-emoji-included" href="/<?= $item->uri ?: 'article/' . $item->id;  ?>"><?= $item->title ?></a>
-            <a class="feed-item__author" href="/user/<?= $item->author->id ?>">
-                <img class="feed-item__author_photo" src="<?= $item->author->photo ?>" />
-                <span class="feed-item__author_name"><?= $item->author->name ?></span>
-            </a>
+            
+            <div class="feed-item__coauthors">
+                <a class="feed-item__author" href="/user/<?= $item->author->id ?>">
+                    <img class="feed-item__author_photo" src="<?= $item->author->photo ?>" />
+                    <span class="feed-item__author_name"><?= $item->author->name ?></span>
+                </a>
+                <? if (!empty($item->coauthors->user_id)): ?>
+                    <?
+                        $coauthor = Model_User::get($item->coauthors->user_id);
+                    ?>
+                    <a class="feed-item__author" href="/user/<?= $coauthor->id ?>">
+                        <img class="feed-item__author_photo" src="<?= $coauthor->photo ?>" />
+                        <span class="feed-item__author_name"><?= $coauthor->name ?></span>
+                    </a>  
+                <? endif; ?>
+            </div>
 
         <? else: ?>
 

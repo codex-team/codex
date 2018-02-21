@@ -62,4 +62,39 @@ class Model_Coauthors extends Model
 
         return $model->fillByRow($coauthors);
     }
+
+    public static function getbyUserId($uid = 0, $needClearCache = false)
+    {
+        $coauthors_rows = Dao_Coauthors::select()
+            ->where('user_id', '=', $uid)
+            ->limit(200)->execute();
+
+        $coauthors = self::rowsToModels($coauthors_rows);
+        $articles = array();
+
+        if (!empty($coauthors)) {
+            foreach ($coauthors as $coauthor) {
+                $article = $coauthor->article_id;
+                array_push($articles, $article);
+            }
+        }
+        return $articles;
+    }
+
+    private static function rowsToModels($coauthor_rows)
+    {
+        $coauthors = array();
+
+        if (!empty($coauthor_rows)) {
+            foreach ($coauthor_rows as $coauthor_row) {
+                $coauthor = new Model_Coauthors();
+
+                $coauthor->fillByRow($coauthor_row);
+
+                array_push($coauthors, $coauthor);
+            }
+        }
+
+        return $coauthors;
+    }
 }

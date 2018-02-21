@@ -21,6 +21,7 @@ class Model_User extends Model
     public $role        = 1;
     public $is_removed  = 0;
     public $isAdmin     = 0;
+    public $isCoauthor  = 0;
 
 
 
@@ -34,6 +35,10 @@ class Model_User extends Model
      */
     public function __construct()
     {
+    }
+
+    public function isCoauthor() {
+        return Model_Coauthors::getbyUserId($this->id);
     }
 
     /**

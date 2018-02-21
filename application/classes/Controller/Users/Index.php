@@ -31,8 +31,15 @@ class Controller_Users_Index extends Controller_Base_preDispatch
         /**
         * Clear cache hook
         */
-        $needClearCache = Arr::get($_GET, 'clear') == 1;
+        $needClearCache = Arr::get($_GET, 'clear') == 1;   
+         
         $this->view["feed_items"]  = Model_Article::getArticlesByUserId($viewUser->id, $needClearCache);
+
+        if ($viewUser->isCoauthor()) {
+            $this->view["coauthor_feed_items"] = Model_Article::getArticlesByCoauthorId($viewUser->id);
+        } else {
+            $this->view["coauthor_feed_items"] = [];
+        }
 
         $this->view['join_requests'] = $viewUser->getUserRequest();
 

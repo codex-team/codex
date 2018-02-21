@@ -19,6 +19,6 @@
 
 <div class="center_side feed clearfix">
 
-    <?= View::factory('templates/articles/list', array( 'feed_items' => $feed_items )); ?>
+    <?= View::factory('templates/articles/list', array( 'feed_items' => $feed_items, 'coauthor_feed_items' => $coauthor_feed_items )); ?>
 
 </div>

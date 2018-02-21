@@ -344,11 +344,15 @@ class Model_Article extends Model
      * @param bool $clearCache - позволяет очистить кэш списка
      */
     public static function getArticlesByUserId($uid, $clearCache = false)
-    {
+    { 
         return Model_Article::getArticles($uid, false, false, !$clearCache ? Date::MINUTE * 5 : null);
     }
 
-
+    public static function getArticlesByCoauthorId($coathorId, $clearCache = false)
+    {   
+        $articles = Model_Coauthors::getbyUserId($coathorId);
+        return Model_Article::getSome($articles);
+    }
 
     /**
      * Получить список статей с указанными условиями.
