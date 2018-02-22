@@ -38,10 +38,10 @@
     </div>
 </div>
 
-<? if ($feed_items): ?>
+<? if ($feedItems): ?>
     <div class="center_side">
         <div class="feed">
-            <?= View::factory('templates/articles/list', array( 'feed_items' => $feed_items, 'coauthor_feed_items' => $coauthor_feed_items)); ?>
+            <?= View::factory('templates/articles/list', array( 'feedItems' => $feedItems)); ?>
         </div>
     </div>
 <? endif ?>

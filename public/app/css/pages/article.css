@@ -49,10 +49,7 @@
 
     &__coauthors-info {
         margin-left: 20px;
-
-        span {
-            color: var(--text-gray);
-        }
+        color: var(--text-gray);
     }
 
     /**

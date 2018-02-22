@@ -196,11 +196,12 @@ class Model_Article extends Model
 
     /**
      * Checks if Article has coathors relationship in the Coauthors table
-     * @param [Array] $coauthors - co-author's ID
+     * @param integer $coauthorId - co-author's ID
+     * @return database Article ID if it already has coauthor relationship
      */
-    public function checkCoauthorship($coauthors)
-    {   
-        $this->coauthors = $coauthors;
+    public function checkCoauthorship($coauthorId)
+    {
+        $this->coauthors = $coauthorId;
 
         $coauthorshipExists = Dao_Coauthors::select('article_id')
                                 ->where('article_id', '=', $this->id)
@@ -209,13 +210,13 @@ class Model_Article extends Model
 
         return $coauthorshipExists;
     }
-    
+
     /**
      * Links article to other one
      * @param integer $idArticleToLink - articles's ID to link if empty, unlink article
      */
     public function linkArticleAndSave($idArticleToLink = null)
-    {   
+    {
         Dao_Articles::update()->where('id', '=', $this->id)
                 ->set('linked_article', $idArticleToLink)
                 ->clearcache('articles_list')
@@ -223,7 +224,7 @@ class Model_Article extends Model
 
         $this->linked_article = $idArticleToLink;
     }
-    
+
     /**
      * Link articles with each other
      * @param integer $linked_article_id
@@ -261,7 +262,7 @@ class Model_Article extends Model
 
             /** If second article was linked with this article then do nothing */
 
-        /** Remove both links */    
+        /** Remove both links */
         } elseif ($this->linked_article) {
 
             // remove "second <- first" link
@@ -274,7 +275,7 @@ class Model_Article extends Model
         }
 
         /** If linked_article_id == null and $this->linked_article == null then do nothing*/
-     
+
         return true;
     }
 
@@ -344,12 +345,17 @@ class Model_Article extends Model
      * @param bool $clearCache - позволяет очистить кэш списка
      */
     public static function getArticlesByUserId($uid, $clearCache = false)
-    { 
+    {
         return Model_Article::getArticles($uid, false, false, !$clearCache ? Date::MINUTE * 5 : null);
     }
-
+    /**
+     * Gets all articles where specific User is coauthor to show them in his profile
+     * @param  int  $coathorId     - ID of co-author User
+     * @param  boolean $clearCache - pass true to clear cache
+     * @return Model_Article[]     - Array of Articles
+     */
     public static function getArticlesByCoauthorId($coathorId, $clearCache = false)
-    {   
+    {
         $articles = Model_Coauthors::getbyUserId($coathorId);
         return Model_Article::getSome($articles);
     }

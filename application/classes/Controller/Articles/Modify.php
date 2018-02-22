@@ -48,7 +48,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             goto theEnd;
         }
 
-        $pageContent = Arr::get($_POST, 'article_text', '');       
+        $pageContent = Arr::get($_POST, 'article_text', '');
         try {
             $editor = new CodexEditor($pageContent);
         } catch (Kohana_Exception $e) {
@@ -71,7 +71,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             } else {
                 $coauthors->update($article->id, $article_coauthors);
             }
-            
+
         /** Remove co-author */
         } elseif (empty($article_coauthors) && $coauthorshipExists) {
             $coauthors->update($article->id);
@@ -88,11 +88,11 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         if ($article->id) {
             /** Get value for 'linked_article' field */
             $linked_article_id = Arr::get($_POST, 'linked_article', null);
-            
+
             /** Check if we need to relink articles */
             if ($article->linked_article != $linked_article_id) {
                 $articleLinkingResult = $article->linkWithArticle($linked_article_id);
-                
+
                 if (!$articleLinkingResult) {
                     $this->view['error'] = 'You can\'t link already linked article';
                     goto theEnd;

@@ -48,7 +48,7 @@
                     "url": "<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $article->cover ?>"
                 },
             <? endif; ?>
-            
+
             <? if (isset($article->dt_update)): ?>
                 "dateModified": "<?= date(DATE_ISO8601, strtotime($article->dt_update)) ?>",
             <? endif; ?>
@@ -81,7 +81,7 @@
     <div class="article__info">
 
         <? if (!is_null($article->coauthors->user_id)): ?>
-   
+
                 <!-- Start of author's photo -->
                 <div class="article__author" itemscope itemtype="http://schema.org/Person" itemprop="author" itemref="authorName">
                     <meta itemprop="url" href="<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $article->author->uri ? : 'user/' . $article->author->id ?>" />
@@ -104,7 +104,7 @@
                     <!-- Start of author's info -->
                     <a class="article__author-name" itemprop="name" id="coauthorName" href="/<?= $article->author->uri ? : 'user/' . $article->author->id ?>">
                         <?= $article->author->name ?>
-                    </a> 
+                    </a>
                     <!-- End of author's info -->
                     <span> and </span>
                     <!-- Start of coauthor's info -->
@@ -137,7 +137,7 @@
 
         <? if (!empty($article->linked_article)): ?>
 
-            <? 
+            <?
                 if ($article->lang == 'en') {
                     $labelClass = 'article__read-on-item--russian';
                     $labelText = 'Russian';

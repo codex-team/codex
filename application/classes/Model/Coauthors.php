@@ -1,16 +1,29 @@
 <?php defined('SYSPATH') or die('No Direct Script Access');
-
+/**
+ * Describes relationships between Articles and Users as coauthors:
+ * In Coauthors database table sets corresponding 'article_id' : 'user_id'
+ * Can add coauthors to articles, update, remove,
+ * get articles by coauthor id, get coauthor by article's id
+ *
+ * @author Polina Shneider
+ */
 class Model_Coauthors extends Model
 {
     public $user_id = null;
     public $article_id;
-
+    /**
+     * Adds new record to database
+     * @param  int $article_id - article's ID
+     * @param  int $user_id    - coauthor's ID
+     * @return int             - inserted ID
+     */
     public function insert($article_id, $user_id = null)
     {
+        $cachekey = 'user:' . $user_id;
         $idAndRowAffected = Dao_Coauthors::insert()
                                 ->set('user_id', $user_id)
                                 ->set('article_id', $article_id)
-                                ->clearcache('coauthors_list')
+                                ->clearcache($cachekey)
                                 ->execute();
 
         if ($idAndRowAffected) {
@@ -25,15 +38,24 @@ class Model_Coauthors extends Model
 
         return $idAndRowAffected;
     }
-
+    /**
+     * If record with Article ID already exists, update it
+     * @param  int $article_id - Article's ID
+     * @param  int $user_id    - ID of co-author User
+     */
     public function update($article_id, $user_id = null)
     {
+        $cachekey = 'user:' . $article_id;
         Dao_Coauthors::update()->where('article_id', '=', $article_id)
             ->set('user_id', $user_id)
-            ->clearcache($this->article_id)
+            ->clearcache($cachekey)
             ->execute();
     }
-
+    /**
+     * Fill by row Model_Coauthor
+     * @param  resource $coauthors_row - data from database
+     * @return  Model_Coauthor
+     */
     private function fillByRow($coauthors_row)
     {
         if (!empty($coauthors_row['article_id'])) {
@@ -43,17 +65,23 @@ class Model_Coauthors extends Model
 
         return $this;
     }
-
+    /**
+     * Get Article by its ID from Coauthors table
+     * @param  integer $id             - Article ID
+     * @param  boolean $needClearCache - pass true to clear cache
+     * @return Model_Coauthor          - Model of an Article
+     */
     public static function get($id = 0, $needClearCache = false)
     {
+        $cachekey = 'article:' . $id;
         $coauthors = Dao_Coauthors::select()
             ->where('article_id', '=', $id)
             ->limit(1);
 
         if ($needClearCache) {
-            $coauthors->clearcache($id);
+            $coauthors->clearcache($cachekey);
         } else {
-            $coauthors->cached(Date::MINUTE * 5, $id);
+            $coauthors->cached(Date::MINUTE * 5, $cachekey);
         }
 
         $coauthors = $coauthors->execute();
@@ -62,14 +90,21 @@ class Model_Coauthors extends Model
 
         return $model->fillByRow($coauthors);
     }
-
+    /**
+     * Select from database all records where User is a coauthor
+     * @param  integer $uid            - coauthor User ID
+     * @param  boolean $needClearCache - pass true to clear cache
+     * @return Array[]                 - articles in coautorship with User
+     */
     public static function getbyUserId($uid = 0, $needClearCache = false)
     {
+        $cachekey = 'user:' . $uid;
         $coauthors_rows = Dao_Coauthors::select()
             ->where('user_id', '=', $uid)
-            ->limit(200)->execute();
+            ->limit(200)->clearcache($cachekey)->execute();
 
         $coauthors = self::rowsToModels($coauthors_rows);
+
         $articles = array();
 
         if (!empty($coauthors)) {
@@ -80,7 +115,11 @@ class Model_Coauthors extends Model
         }
         return $articles;
     }
-
+    /**
+     * Converts database rows to Coauthor Models
+     * @param  resource $coauthor_rows - multiple from database
+     * @return Model_Coauthor[]        - multiple Coauthor Models
+     */
     private static function rowsToModels($coauthor_rows)
     {
         $coauthors = array();

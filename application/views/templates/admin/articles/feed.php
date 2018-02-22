@@ -15,9 +15,9 @@
 <? elseif($mode == 'cards'): ?>
 
     <div class="center_side feed clearfix">
-        <?= View::factory('templates/articles/list', array( 'feed_items' => $feed)); ?>
+        <?= View::factory('templates/articles/list', array( 'feedItems' => $feed)); ?>
     </div>
-    
+
 <? endif; ?>
 
 <script>

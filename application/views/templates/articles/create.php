@@ -34,7 +34,7 @@
         </section>
 
         <? if (!empty($article->dt_create)): ?>
-            
+
         <section class="editor-form__section">
 
             <label for="coauthors">Выбрать соавтора</label>
@@ -42,7 +42,7 @@
                 <?
                     $noCoauthors = $article->coauthors == null;
                 ?>
-                <option value="" <?= $noCoauthors?'selected':''; ?>>Вы единственный автор статьи</option>
+                <option value="" <?= $noCoauthors ? 'selected' : ''; ?>>Не выбрано</option>
                 <? if ($coauthors): ?>
                     <? foreach ($coauthors as $coauthor): ?>
                         <?

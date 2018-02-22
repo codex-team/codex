@@ -1,7 +1,3 @@
-<? 
-    $feedItems = array_merge($coauthor_feed_items, $feed_items);
-?>
-
 <? foreach ($feedItems as $i => $item): ?>
 
     <article class="feed-item <?= $item->marked ? 'feed-item_big' : ''?>" data-type="<?= $item::FEED_PREFIX; ?>" data-id="<?= $item->id; ?>">
@@ -11,7 +7,7 @@
         <? if ($item::FEED_PREFIX == 'article'): ?>
 
             <a class="feed-item__title js-emoji-included" href="/<?= $item->uri ?: 'article/' . $item->id;  ?>"><?= $item->title ?></a>
-            
+
             <div class="feed-item__coauthors">
                 <a class="feed-item__author" href="/user/<?= $item->author->id ?>">
                     <img class="feed-item__author_photo" src="<?= $item->author->photo ?>" />
@@ -24,7 +20,7 @@
                     <a class="feed-item__author" href="/user/<?= $coauthor->id ?>">
                         <img class="feed-item__author_photo" src="<?= $coauthor->photo ?>" />
                         <span class="feed-item__author_name"><?= $coauthor->name ?></span>
-                    </a>  
+                    </a>
                 <? endif; ?>
             </div>
 
