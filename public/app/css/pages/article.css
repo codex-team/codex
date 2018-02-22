@@ -48,7 +48,6 @@
     }
 
     &__coauthors-info {
-        margin-left: 20px;
         color: var(--text-gray);
     }
 
@@ -93,7 +92,6 @@
             }
 
             &--coauthor {
-                margin-right: 0px;
                 margin-left: -20px;
             }
         }

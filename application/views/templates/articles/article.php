@@ -77,63 +77,48 @@
     <h1 class="article__title js-emoji-included" itemprop="headline">
         <?= $article->title ?>
     </h1>
-
+    <?
+        $hasCoauthor = !is_null($article->coauthors->user_id);
+    ?>
     <div class="article__info">
+        <!-- Start of author's photo -->
+        <div class="article__author" itemscope itemtype="http://schema.org/Person" itemprop="author" itemref="authorName">
+            <meta itemprop="url" href="<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $article->author->uri ? : 'user/' . $article->author->id ?>" />
 
-        <? if (!is_null($article->coauthors->user_id)): ?>
+            <a href="/<?= $article->author->uri ? : 'user/' . $article->author->id ?>">
+                <img class="article__author-photo <?= $hasCoauthor ? 'article__author-photo--with-coauthor' : '';?>" src="<?= $article->author->photo ?>" alt="<?= $article->author->name ?>"  itemprop="image">
+            </a>
+        </div>
+        <!-- End of author's photo -->
+        <? if ($hasCoauthor): ?>
+            <!-- Start of coauthor's photo -->
+            <div class="article__author" itemscope itemtype="http://schema.org/Person" itemprop="author" itemref="coauthorName">
+                <meta itemprop="url" href="<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $coauthor->uri ? : 'user/' . $coauthor->id ?>" />
 
-                <!-- Start of author's photo -->
-                <div class="article__author" itemscope itemtype="http://schema.org/Person" itemprop="author" itemref="authorName">
-                    <meta itemprop="url" href="<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $article->author->uri ? : 'user/' . $article->author->id ?>" />
-
-                    <a href="/<?= $article->author->uri ? : 'user/' . $article->author->id ?>">
-                        <img class="article__author-photo article__author-photo--with-coauthor" src="<?= $article->author->photo ?>" alt="<?= $article->author->name ?>"  itemprop="image">
-                    </a>
-                </div>
-                <!-- End of author's photo -->
-                <!-- Start of coauthor's photo -->
-                <div class="article__author" itemscope itemtype="http://schema.org/Person" itemprop="author" itemref="coauthorName">
-                    <meta itemprop="url" href="<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $coauthor->uri ? : 'user/' . $coauthor->id ?>" />
-
-                    <a href="/<?= $coauthor->uri ? : 'user/' . $coauthor->id ?>">
-                        <img class="article__author-photo article__author-photo--coauthor" src="<?= $coauthor->photo ?>" alt="<?= $coauthor->name ?>"  itemprop="image">
-                    </a>
-                </div>
-                <!-- End of coauthor's photo -->
-                <div class="article__coauthors-info">
-                    <!-- Start of author's info -->
-                    <a class="article__author-name" itemprop="name" id="coauthorName" href="/<?= $article->author->uri ? : 'user/' . $article->author->id ?>">
-                        <?= $article->author->name ?>
-                    </a>
-                    <!-- End of author's info -->
-                    <span> and </span>
-                    <!-- Start of coauthor's info -->
-                    <a class="article__author-name" itemprop="name" id="authorName" href="/<?= $article->author->uri ? : 'user/' . $coauthor->id ?>">
-                        <?= $coauthor->name ?>
-                    </a>
-                    <!-- End of coauthor's info -->
-                    <time class="article__date">
-                        <?= Date::fuzzy_span(strtotime($article->dt_create)) ?>
-                    </time>
-                </div>
-
-        <? else: ?>
-
-            <div class="article__author" itemscope itemtype="http://schema.org/Person" itemprop="author">
-                <meta itemprop="url" href="<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $article->author->uri ? : 'user/' . $article->author->id ?>" />
-
-                <a href="/<?= $article->author->uri ? : 'user/' . $article->author->id ?>">
-                    <img class="article__author-photo" src="<?= $article->author->photo ?>" alt="<?= $article->author->name ?>"  itemprop="image">
+                <a href="/<?= $coauthor->uri ? : 'user/' . $coauthor->id ?>">
+                    <img class="article__author-photo article__author-photo--coauthor" src="<?= $coauthor->photo ?>" alt="<?= $coauthor->name ?>"  itemprop="image">
                 </a>
-                <a class="article__author-name" itemprop="name" href="/<?= $article->author->uri ? : 'user/' . $article->author->id ?>">
+            </div>
+            <!-- End of coauthor's photo -->
+        <? endif; ?>
+            <div class="article__coauthors-info">
+            <!-- Start of author's info -->
+                <a class="article__author-name" itemprop="name" id="coauthorName" href="/<?= $article->author->uri ? : 'user/' . $article->author->id ?>">
                     <?= $article->author->name ?>
                 </a>
-                <time class="article__date">
-                    <?= Date::fuzzy_span(strtotime($article->dt_create)) ?>
-                </time>
-            </div>
-
+            <!-- End of author's info -->
+        <? if ($hasCoauthor): ?>
+            <span> and </span>
+            <!-- Start of coauthor's info -->
+            <a class="article__author-name" itemprop="name" id="authorName" href="/<?= $article->author->uri ? : 'user/' . $coauthor->id ?>">
+                <?= $coauthor->name ?>
+            </a>
+            <!-- End of coauthor's info -->
         <? endif; ?>
+            <time class="article__date">
+                <?= Date::fuzzy_span(strtotime($article->dt_create)) ?>
+            </time>
+        </div>
 
         <? if (!empty($article->linked_article)): ?>
 
