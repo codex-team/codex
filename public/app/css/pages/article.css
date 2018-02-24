@@ -47,8 +47,12 @@
         }
     }
 
-    &__coauthors-info {
-        color: var(--text-gray);
+    &__coauthors {
+        display: flex;
+
+        &-info {
+            color: var(--text-gray);
+        }
     }
 
     /**
