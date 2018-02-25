@@ -79,7 +79,7 @@
 }
 
 .feed-item__author:not(:last-of-type) {
-    margin-right: 5px;
+    margin-right: 15px;
 }
 
 .feed-item__author:hover .feed-item__author_name {
