@@ -95,6 +95,7 @@
 
             &--with-coauthor {
                 margin-right: 0px;
+                border-left: 0;
             }
 
             &--coauthor {
@@ -140,7 +141,7 @@
         }
 
         @media (--mobile) {
-            margin: 25px 0 0 3px;
+            margin: 25px 0 0;
         }
     }
 
