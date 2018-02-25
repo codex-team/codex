@@ -356,8 +356,12 @@ class Model_Article extends Model
      */
     public static function getArticlesByCoauthorId($coathorId, $clearCache = false)
     {
+        $coauthor_articles = [];
         $articles = Model_Coauthors::getbyUserId($coathorId);
-        return Model_Article::getSome($articles);
+        if ($articles) {
+            $coauthor_articles = Model_Article::getSome($articles);
+        }
+        return $coauthor_articles;
     }
 
     /**

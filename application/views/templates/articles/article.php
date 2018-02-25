@@ -103,23 +103,23 @@
                 <!-- End of coauthor's photo -->
             <? endif; ?>
                 <div class="article__coauthors-info">
-                <!-- Start of author's info -->
+                    <!-- Start of author's info -->
                     <a class="article__author-name" itemprop="name" id="coauthorName" href="/<?= $article->author->uri ? : 'user/' . $article->author->id ?>">
                         <?= $article->author->name ?>
                     </a>
-                <!-- End of author's info -->
-            <? if ($hasCoauthor): ?>
-                <span> and </span>
-                <!-- Start of coauthor's info -->
-                <a class="article__author-name" itemprop="name" id="authorName" href="/<?= $coauthor->uri ? : 'user/' . $coauthor->id ?>">
-                    <?= $coauthor->name ?>
-                </a>
-                <!-- End of coauthor's info -->
-            <? endif; ?>
-                <time class="article__date">
-                    <?= Date::fuzzy_span(strtotime($article->dt_create)) ?>
-                </time>
-            </div>
+                    <!-- End of author's info -->
+                    <? if ($hasCoauthor): ?>
+                        and
+                        <!-- Start of coauthor's info -->
+                        <a class="article__author-name" itemprop="name" id="authorName" href="/<?= $coauthor->uri ? : 'user/' . $coauthor->id ?>">
+                            <?= $coauthor->name ?>
+                        </a>
+                        <!-- End of coauthor's info -->
+                    <? endif; ?>
+                    <time class="article__date">
+                        <?= Date::fuzzy_span(strtotime($article->dt_create)) ?>
+                    </time>
+                </div>
         </div>
 
         <? if (!empty($article->linked_article)): ?>

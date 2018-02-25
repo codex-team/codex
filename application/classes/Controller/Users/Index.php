@@ -35,12 +35,8 @@ class Controller_Users_Index extends Controller_Base_preDispatch
 
         $feed_items  = Model_Article::getArticlesByUserId($viewUser->id, $needClearCache);
 
-        if ($viewUser->isCoauthor()) {
-            $coauthor_feed_items = Model_Article::getArticlesByCoauthorId($viewUser->id);
-            $this->view["feedItems"] = array_merge($coauthor_feed_items, $feed_items);
-        } else {
-            $this->view["feedItems"] = $feed_items;
-        }
+        $coauthor_feed_items = Model_Article::getArticlesByCoauthorId($viewUser->id);
+        $this->view["feed_items"] = array_merge($coauthor_feed_items, $feed_items);
 
         $this->view['join_requests'] = $viewUser->getUserRequest();
 

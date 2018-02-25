@@ -1,4 +1,4 @@
-<? foreach ($feedItems as $i => $item): ?>
+<? foreach ($feed_items as $i => $item): ?>
 
     <article class="feed-item <?= $item->marked ? 'feed-item_big' : ''?>" data-type="<?= $item::FEED_PREFIX; ?>" data-id="<?= $item->id; ?>">
 

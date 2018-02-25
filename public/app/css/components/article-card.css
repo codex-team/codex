@@ -51,11 +51,22 @@
         float: left;
         margin-right: 10px;
 
+        &--with-coauthor {
+            margin-right: 0px;
+            border-left: 0;
+        }
+
+        &--coauthor {
+            margin-left: -20px;
+            margin-right: 0px;
+        }
+
         img {
             display: block;
             width: 34px;
             height: 34px;
             border-radius: 50%;
+            border: 2px solid #fff;
 
             @apply --image-placeholder;
         }
