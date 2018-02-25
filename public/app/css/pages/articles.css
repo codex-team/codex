@@ -78,6 +78,10 @@
     font-weight: bold;
 }
 
+.feed-item__author:not(:last-of-type) {
+    margin-right: 5px;
+}
+
 .feed-item__author:hover .feed-item__author_name {
     text-decoration: underline;
 }
