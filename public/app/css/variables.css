@@ -15,6 +15,7 @@
 
     /** Borders */
     --line-light: #e7e9f5;
+    --line-white: #fff;
 
     /** Bounce timing function for transition */
     --timing-bounce: cubic-bezier(0.6, -0.28, 0.735, 0.045);
