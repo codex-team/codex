@@ -9,7 +9,8 @@ module.exports = {
     entry: './public/app/js/main.js',
 
     output: {
-        filename: './public/build/bundle.js',
+        path: __dirname + '/public/build/',
+        filename: 'bundle.js',
         library: 'codex'
     },
 
@@ -17,7 +18,15 @@ module.exports = {
         rules: [
             {
                 test : /\.(png|jpg|svg)$/,
-                use : 'file-loader?name=[path][name].[ext]'
+                use: [
+                  {
+                    loader: 'file-loader',
+                    options: {
+                      name: '[name].[ext]',
+                      outputPath: 'assets/'
+                    },
+                  }
+                ]
             },
             {
                 test: /\.css$/,
@@ -55,22 +64,41 @@ module.exports = {
         ]},
 
     plugins: [
-        new ExtractTextPlugin('public/build/bundle.css'),
-
-        new webpack.optimize.UglifyJsPlugin({
-            /** Disable warning messages. Cant disable uglify for 3rd party libs such as html-janitor */
-            compress: {
-                warnings: false
-            }
-        })
+        new ExtractTextPlugin('bundle.css'),
+        new webpack.LoaderOptionsPlugin({ options: {} })
     ],
+
+    optimization: {
+    minimize: true,
+    runtimeChunk: true,
+    splitChunks: {
+            chunks: "async",
+            minSize: 1000,
+            minChunks: 2,
+            maxAsyncRequests: 5,
+            maxInitialRequests: 3,
+            name: true,
+            cacheGroups: {
+                default: {
+                    minChunks: 1,
+                    priority: -20,
+                    reuseExistingChunk: true,
+                },
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: -10
+                }
+            }
+        }
+    },
 
     devtool: 'source-map',
 
     watch: true,
 
     watchOptions: {
-        aggragateTimeout: 50
+        aggregateTimeout: 50
     }
 
 };
+
