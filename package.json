@@ -36,8 +36,8 @@
     "webpack-cli": "^2.0.9"
   },
   "scripts": {
-    "dev": "webpack --mode development",
-    "build": "webpack --progress  --display-error-details --display-entrypoints --display-reasons"
+    "prod": "webpack --mode production",
+    "dev": "webpack --mode development --progress  --display-error-details --display-entrypoints --display-reasons"
   },
   "repository": {
     "type": "git",
