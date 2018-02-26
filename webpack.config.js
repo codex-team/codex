@@ -6,11 +6,13 @@ var DevelopmendMode = process.env.KOHANA_ENV === 'DEVELOPMENT';
 
 module.exports = {
 
-    entry: './public/app/js/main.js',
+    entry: {
+        main: './public/app/js/main.js'
+    },
 
     output: {
         path: __dirname + '/public/build/',
-        filename: 'bundle.js',
+        chunkFilename: 'bundle.js',
         library: 'codex'
     },
 
@@ -22,8 +24,7 @@ module.exports = {
                   {
                     loader: 'file-loader',
                     options: {
-                      name: '[name].[ext]',
-                      outputPath: 'assets/'
+                      name: '[name].[ext]'
                     },
                   }
                 ]
@@ -91,8 +92,6 @@ module.exports = {
             }
         }
     },
-
-    devtool: 'source-map',
 
     watch: true,
 
