@@ -45,7 +45,7 @@ class Model_Coauthors extends Model
      */
     public function update($article_id, $user_id = null)
     {
-        $cachekey = 'user:' . $article_id;
+        $cachekey = 'user:' . $user_id;
         Dao_Coauthors::update()->where('article_id', '=', $article_id)
             ->set('user_id', $user_id)
             ->clearcache($cachekey)
