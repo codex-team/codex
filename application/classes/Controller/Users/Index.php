@@ -32,11 +32,21 @@ class Controller_Users_Index extends Controller_Base_preDispatch
         * Clear cache hook
         */
         $needClearCache = Arr::get($_GET, 'clear') == 1;
-        $this->view["feed_items"]  = Model_Article::getArticlesByUserId($viewUser->id, $needClearCache);
+        $feed_items = Model_Article::getArticlesByUserId($viewUser->id, $needClearCache);
+        $this->view["feed_items"]  = $feed_items;
 
         $this->view['join_requests'] = $viewUser->getUserRequest();
 
         $this->title = $viewUser->name ?: 'Пользователь #' . $viewUser->id;
+
+        $userArticlesCount = count($feed_items);
+        if ($userArticlesCount > 0){
+            $this->description = $viewUser->name . " has " . $userArticlesCount . Model_Methods::num_decline($userArticlesCount, ' article', ' article', ' articles') . " about web-development, check it out on the CodeX website";
+        } else {
+            $this->description = $viewUser->name . " on the CodeX website";
+            $this->nofollow = true;
+        }
+
         $this->view['viewUser']  = $viewUser;
         $this->view['isMyPage']  = $this->user->id == $viewUser->id;
 
