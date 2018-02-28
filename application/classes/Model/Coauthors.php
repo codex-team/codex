@@ -25,16 +25,6 @@ class Model_Coauthors extends Model
                                 ->clearcache('user:' . $user_id)
                                 ->execute();
 
-        if ($idAndRowAffected) {
-            $coauthors = Dao_Coauthors::select()
-                ->where('article_id', '=', $idAndRowAffected)
-                ->limit(1)
-                ->cached(10*Date::MINUTE, 'article:' . $article_id)
-                ->execute();
-
-            $this->fillByRow($coauthors);
-        }
-
         return $idAndRowAffected;
     }
     /**
