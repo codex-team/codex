@@ -85,22 +85,16 @@ class Model_Coauthors extends Model
      */
     public static function getbyUserId($uid = 0, $needClearCache = false)
     {
-        $coauthors_rows = Dao_Coauthors::select()
-            ->where('user_id', '=', $uid)
-            ->limit(200)
-            ->cached(Date::MINUTE * 5)
-            ->execute();
-
-        $coauthors = self::rowsToModels($coauthors_rows);
-
         $articles = array();
+        $coauthors_rows = Dao_Coauthors::select('article_id')
+             ->where('user_id', '=', $uid)
+             ->limit(200)
+             ->execute('article_id');
 
-        if (!empty($coauthors)) {
-            foreach ($coauthors as $coauthor) {
-                $article = $coauthor->article_id;
-                array_push($articles, $article);
-            }
+        if ($coauthors_rows) {
+            $articles = array_keys($coauthors_rows);
         }
+
         return $articles;
     }
     /**
