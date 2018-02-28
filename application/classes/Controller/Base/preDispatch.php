@@ -52,7 +52,7 @@ class Controller_Base_preDispatch extends Controller_Template
             $this->template->keywords    = '';
             $this->template->description = '';
             $this->template->content     = '';
-            $this->template->nofollow    = 'false';
+            $this->template->nofollow    = false;
         }
     }
 
