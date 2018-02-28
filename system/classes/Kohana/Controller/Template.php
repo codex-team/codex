@@ -23,7 +23,7 @@ abstract class Kohana_Controller_Template extends Controller {
 	public $url         = NULL;
     public $title       = '';
 	public $description = '';
-	public $nofollow    = '';
+	public $nofollow    = ''; // Add <meta> noindex, nofollow
 
 
 	/**
