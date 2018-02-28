@@ -41,7 +41,7 @@ class Controller_Users_Index extends Controller_Base_preDispatch
 
         $userArticlesCount = count($feed_items);
         if ($userArticlesCount > 0){
-            $this->description = $viewUser->name . " has " . $userArticlesCount . Model_Methods::num_decline($userArticlesCount, ' article', ' article', ' articles') . " about web-development, check it out on the CodeX website";
+            $this->description = $viewUser->name . " has " . $userArticlesCount . $this->methods->num_decline($userArticlesCount, ' article', ' article', ' articles') . " about web-development, check it out on the CodeX website";
         } else {
             $this->description = $viewUser->name . " on the CodeX website";
             $this->nofollow = true;
