@@ -17,12 +17,12 @@ class Model_Coauthors extends Model
      * @param  int $user_id    - coauthor's ID
      * @return int             - inserted ID
      */
-    public function insert($article_id, $user_id = null)
+    public function insert($article_id, $user_id)
     {
         $idAndRowAffected = Dao_Coauthors::insert()
                                 ->set('user_id', $user_id)
                                 ->set('article_id', $article_id)
-                                ->clearcache('user:' . $user_id)
+                                ->clearcache('article:' . $article_id)
                                 ->execute();
 
         return $idAndRowAffected;
@@ -74,14 +74,16 @@ class Model_Coauthors extends Model
         $coauthors = $coauthors->execute();
 
         $model = new Model_Coauthors();
+        $model->user_id = $coauthors['user_id'];
+        $model->article_id = $coauthors['article_id'];
 
-        return $model->fillByRow($coauthors);
+        return $model;
     }
     /**
      * Select from database all records where User is a coauthor
      * @param  integer $uid            - coauthor User ID
      * @param  boolean $needClearCache - pass true to clear cache
-     * @return Array[]                 - articles in coautorship with User
+     * @return articles ids            - of coautorship with User
      */
     public static function getbyUserId($uid = 0, $needClearCache = false)
     {
@@ -89,6 +91,7 @@ class Model_Coauthors extends Model
         $coauthors_rows = Dao_Coauthors::select('article_id')
              ->where('user_id', '=', $uid)
              ->limit(200)
+             ->cached(Date::MINUTE * 5, 'user:' . $uid)
              ->execute('article_id');
 
         if ($coauthors_rows) {
@@ -96,26 +99,5 @@ class Model_Coauthors extends Model
         }
 
         return $articles;
-    }
-    /**
-     * Converts database rows to Coauthor Models
-     * @param  resource $coauthor_rows - multiple from database
-     * @return Model_Coauthor[]        - multiple Coauthor Models
-     */
-    private static function rowsToModels($coauthor_rows)
-    {
-        $coauthors = array();
-
-        if (!empty($coauthor_rows)) {
-            foreach ($coauthor_rows as $coauthor_row) {
-                $coauthor = new Model_Coauthors();
-
-                $coauthor->fillByRow($coauthor_row);
-
-                array_push($coauthors, $coauthor);
-            }
-        }
-
-        return $coauthors;
     }
 }
