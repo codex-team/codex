@@ -52,6 +52,7 @@ class Controller_Base_preDispatch extends Controller_Template
             $this->template->keywords    = '';
             $this->template->description = '';
             $this->template->content     = '';
+            $this->template->nofollow    = '';
         }
     }
 
@@ -71,6 +72,9 @@ class Controller_Base_preDispatch extends Controller_Template
             }
             if ($this->description) {
                 $this->template->description = $this->description;
+            }
+            if ($this->nofollow) {
+                $this->template->nofollow = '<meta name="robots" content="noindex, nofollow" />';
             }
         }
 
