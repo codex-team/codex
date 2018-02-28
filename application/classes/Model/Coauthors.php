@@ -47,7 +47,6 @@ class Model_Coauthors extends Model
         Dao_Coauthors::update()->where('article_id', '=', $article_id)
             ->set('user_id', $user_id)
             ->clearcache('article:' . $article_id)
-            ->clearcache('user:' . $user_id)
             ->execute();
     }
     /**
@@ -98,7 +97,7 @@ class Model_Coauthors extends Model
     {
         $coauthors_rows = Dao_Coauthors::select()
             ->where('user_id', '=', $uid)
-            ->limit(200)->clearcache('user:' . $uid)->execute();
+            ->limit(200);
 
         $coauthors = self::rowsToModels($coauthors_rows);
 
@@ -107,6 +106,7 @@ class Model_Coauthors extends Model
         if (!empty($coauthors)) {
             foreach ($coauthors as $coauthor) {
                 $article = $coauthor->article_id;
+                $article->cached(Date::MINUTE * 5, 'article:' . $coauthor->article_id)->execute();
                 array_push($articles, $article);
             }
         }
