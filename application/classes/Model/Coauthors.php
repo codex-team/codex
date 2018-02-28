@@ -40,20 +40,6 @@ class Model_Coauthors extends Model
             ->execute();
     }
     /**
-     * Fill by row Model_Coauthor
-     * @param  resource $coauthors_row - data from database
-     * @return  Model_Coauthor
-     */
-    private function fillByRow($coauthors_row)
-    {
-        if (!empty($coauthors_row['article_id'])) {
-            $this->user_id = $coauthors_row['user_id'];
-            $this->article_id = $coauthors_row['article_id'];
-        }
-
-        return $this;
-    }
-    /**
      * Get Article by its ID from Coauthors table
      * @param  integer $id             - Article ID
      * @param  boolean $needClearCache - pass true to clear cache
