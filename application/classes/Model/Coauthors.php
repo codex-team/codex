@@ -19,11 +19,10 @@ class Model_Coauthors extends Model
      */
     public function insert($article_id, $user_id = null)
     {
-        $cachekey = 'user:' . $user_id;
         $idAndRowAffected = Dao_Coauthors::insert()
                                 ->set('user_id', $user_id)
                                 ->set('article_id', $article_id)
-                                ->clearcache($cachekey)
+                                ->clearcache('user:' . $user_id)
                                 ->execute();
 
         if ($idAndRowAffected) {
@@ -45,10 +44,10 @@ class Model_Coauthors extends Model
      */
     public function update($article_id, $user_id = null)
     {
-        $cachekey = 'user:' . $user_id;
         Dao_Coauthors::update()->where('article_id', '=', $article_id)
             ->set('user_id', $user_id)
-            ->clearcache($cachekey)
+            ->clearcache('article:' . $article_id)
+            ->clearcache('user:' . $user_id)
             ->execute();
     }
     /**
@@ -73,15 +72,14 @@ class Model_Coauthors extends Model
      */
     public static function get($id = 0, $needClearCache = false)
     {
-        $cachekey = 'article:' . $id;
         $coauthors = Dao_Coauthors::select()
             ->where('article_id', '=', $id)
             ->limit(1);
 
         if ($needClearCache) {
-            $coauthors->clearcache($cachekey);
+            $coauthors->clearcache('article:' . $id);
         } else {
-            $coauthors->cached(Date::MINUTE * 5, $cachekey);
+            $coauthors->cached(Date::MINUTE * 5, 'article:' . $id);
         }
 
         $coauthors = $coauthors->execute();
@@ -98,10 +96,9 @@ class Model_Coauthors extends Model
      */
     public static function getbyUserId($uid = 0, $needClearCache = false)
     {
-        $cachekey = 'user:' . $uid;
         $coauthors_rows = Dao_Coauthors::select()
             ->where('user_id', '=', $uid)
-            ->limit(200)->clearcache($cachekey)->execute();
+            ->limit(200)->clearcache('user:' . $uid)->execute();
 
         $coauthors = self::rowsToModels($coauthors_rows);
 
