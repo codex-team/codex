@@ -29,7 +29,7 @@ class Model_Coauthors extends Model
             $coauthors = Dao_Coauthors::select()
                 ->where('article_id', '=', $idAndRowAffected)
                 ->limit(1)
-                ->cached(10*Date::MINUTE)
+                ->cached(10*Date::MINUTE, 'article:' . $article_id)
                 ->execute();
 
             $this->fillByRow($coauthors);
@@ -97,7 +97,9 @@ class Model_Coauthors extends Model
     {
         $coauthors_rows = Dao_Coauthors::select()
             ->where('user_id', '=', $uid)
-            ->limit(200);
+            ->limit(200)
+            ->cached(Date::MINUTE * 5)
+            ->execute();
 
         $coauthors = self::rowsToModels($coauthors_rows);
 
@@ -106,7 +108,6 @@ class Model_Coauthors extends Model
         if (!empty($coauthors)) {
             foreach ($coauthors as $coauthor) {
                 $article = $coauthor->article_id;
-                $article->cached(Date::MINUTE * 5, 'article:' . $coauthor->article_id)->execute();
                 array_push($articles, $article);
             }
         }

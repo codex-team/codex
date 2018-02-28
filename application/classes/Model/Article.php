@@ -206,6 +206,7 @@ class Model_Article extends Model
         $coauthorshipExists = Dao_Coauthors::select('article_id')
                                 ->where('article_id', '=', $this->id)
                                 ->limit(1)
+                                ->cached(Date::MINUTE * 5, 'article:' . $this->id)
                                 ->execute();
 
         return $coauthorshipExists;
