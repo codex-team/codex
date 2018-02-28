@@ -39,8 +39,9 @@ class Controller_Users_Index extends Controller_Base_preDispatch
 
         $this->title = $viewUser->name ?: 'Пользователь #' . $viewUser->id;
 
-        if (count($feed_items) > 0){
-            $this->description = $viewUser->name . " has " . count($feed_items) . Model_Methods::num_decline(count($feed_items), ' article', ' article', ' articles') . " about web-development, check it out on the CodeX website";
+        $userArticles = count($feed_items);
+        if ($userArticles > 0){
+            $this->description = $viewUser->name . " has " . $userArticles . Model_Methods::num_decline($userArticles, ' article', ' article', ' articles') . " about web-development, check it out on the CodeX website";
         } else {
             $this->description = $viewUser->name . " on the CodeX website";
             $this->nofollow = true;
