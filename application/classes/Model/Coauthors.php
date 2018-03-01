@@ -1,4 +1,5 @@
 <?php defined('SYSPATH') or die('No Direct Script Access');
+
 /**
  * Describes relationships between Articles and Users as coauthors:
  * In Coauthors database table sets corresponding 'article_id' : 'user_id'
@@ -11,6 +12,7 @@ class Model_Coauthors extends Model
 {
     public $user_id = null;
     public $article_id;
+
     /**
      * Adds new record to database
      * @param  int $article_id - article's ID
@@ -27,6 +29,7 @@ class Model_Coauthors extends Model
 
         return $idAndRowAffected;
     }
+
     /**
      * If record with Article ID already exists, update it
      * @param  int $article_id - Article's ID
@@ -39,6 +42,7 @@ class Model_Coauthors extends Model
             ->clearcache('article:' . $article_id)
             ->execute();
     }
+
     /**
      * Get Article by its ID from Coauthors table
      * @param  integer $id             - Article ID
@@ -65,6 +69,7 @@ class Model_Coauthors extends Model
 
         return $model;
     }
+
     /**
      * Select from database all records where User is a coauthor
      * @param  integer $uid            - coauthor User ID
