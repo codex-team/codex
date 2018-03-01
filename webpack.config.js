@@ -9,7 +9,8 @@ module.exports = {
     entry: './public/app/js/main.js',
 
     output: {
-        filename: './public/build/bundle.js',
+        path: __dirname + '/public/build/',
+        filename: 'bundle.js',
         library: 'codex'
     },
 
@@ -17,7 +18,14 @@ module.exports = {
         rules: [
             {
                 test : /\.(png|jpg|svg)$/,
-                use : 'file-loader?name=[path][name].[ext]'
+                use: [
+                  {
+                    loader: 'file-loader',
+                    options: {
+                      name: '[name].[ext]'
+                    },
+                  }
+                ]
             },
             {
                 test: /\.css$/,
@@ -55,22 +63,20 @@ module.exports = {
         ]},
 
     plugins: [
-        new ExtractTextPlugin('public/build/bundle.css'),
-
-        new webpack.optimize.UglifyJsPlugin({
-            /** Disable warning messages. Cant disable uglify for 3rd party libs such as html-janitor */
-            compress: {
-                warnings: false
-            }
-        })
+        new ExtractTextPlugin('bundle.css'),
+        new webpack.LoaderOptionsPlugin({ options: {} })
     ],
 
-    devtool: 'source-map',
+    optimization: {
+        minimize: true,
+        splitChunks: false
+    },
 
     watch: true,
 
     watchOptions: {
-        aggragateTimeout: 50
+        aggregateTimeout: 50
     }
 
 };
+
