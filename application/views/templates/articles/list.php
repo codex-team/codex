@@ -8,7 +8,6 @@
 
             <a class="feed-item__title js-emoji-included" href="/<?= $item->uri ?: 'article/' . $item->id;  ?>"><?= $item->title ?></a>
 
-            <div class="feed-item__coauthors">
                 <a class="feed-item__author" href="/user/<?= $item->author->id ?>">
                     <img class="feed-item__author_photo" src="<?= $item->author->photo ?>" />
                     <span class="feed-item__author_name"><?= $item->author->name ?></span>
@@ -22,7 +21,6 @@
                         <span class="feed-item__author_name"><?= $coauthor->name ?></span>
                     </a>
                 <? endif; ?>
-            </div>
 
         <? else: ?>
 

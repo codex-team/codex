@@ -43,16 +43,15 @@
     vertical-align: top;
     text-align: center;
     font-size: 15px;
-}
-
-.feed-item__coauthors {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .feed-item__time {
     font-size: 0.8em;
     color: #7f94ac;
+    flex-basis: 100%;
 }
 
 .feed-item__title {
@@ -66,6 +65,7 @@
     text-decoration: none;
     font-weight: bold;
     color: inherit;
+    flex-basis: 100%;
 }
 
 .feed-item__title:hover {

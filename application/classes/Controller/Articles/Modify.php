@@ -60,23 +60,6 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         $article->description = Arr::get($_POST, 'description');
         $article->text = $editor->getData();
 
-        $article_coauthors = Arr::get($_POST, 'coauthors');
-        $coauthorshipExists = $article->checkCoauthorship($article_coauthors);
-        $coauthors = Model_Coauthors::get($article->id, true);
-
-        if (!empty($article_coauthors)) {
-
-            if (!$coauthorshipExists) {
-                $coauthors->insert($article->id, $article_coauthors);
-            } else {
-                $coauthors->update($article->id, $article_coauthors);
-            }
-
-        /** Remove co-author */
-        } elseif (empty($article_coauthors) && $coauthorshipExists) {
-            $coauthors->update($article->id);
-        }
-
         $article->is_published = Arr::get($_POST, 'is_published') ? 1 : 0;
         $article->marked       = Arr::get($_POST, 'marked') ? 1 : 0;
         $article->quiz_id      = Arr::get($_POST, 'quiz_id');
@@ -133,6 +116,23 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             $insertedId = $article->insert();
             $article->uri = Model_Alias::addAlias($alias, Model_Uri::ARTICLE, $insertedId);
             $article->update();
+        }
+
+        $article_coauthors = Arr::get($_POST, 'coauthors');
+        $coauthorshipExists = $article->checkCoauthorship($article_coauthors);
+        $coauthors = Model_Coauthors::get($article->id, true);
+
+        if (!empty($article_coauthors) && $article_coauthors != $article->user_id) {
+
+            if (!$coauthorshipExists) {
+                $coauthors->insert($article->id, $article_coauthors);
+            } else {
+                $coauthors->update($article->id, $article_coauthors);
+            }
+
+        /** Remove co-author */
+        } elseif (empty($article_coauthors) && $coauthorshipExists) {
+            $coauthors->update($article->id);
         }
 
         if (!$courses_ids) {

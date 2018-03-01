@@ -81,7 +81,6 @@
         $hasCoauthor = !is_null($article->coauthors->user_id);
     ?>
     <div class="article__info">
-        <div class="article__coauthors">
             <!-- Start of author's photo -->
             <div class="article__author" itemscope itemtype="http://schema.org/Person" itemprop="author" itemref="authorName">
                 <meta itemprop="url" href="<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $article->author->uri ? : 'user/' . $article->author->id ?>" />
@@ -120,7 +119,6 @@
                         <?= Date::fuzzy_span(strtotime($article->dt_create)) ?>
                     </time>
                 </div>
-        </div>
 
         <? if (!empty($article->linked_article)): ?>
 

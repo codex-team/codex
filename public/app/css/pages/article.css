@@ -47,12 +47,13 @@
         }
     }
 
-    &__coauthors {
-        display: flex;
-        align-items: center;
+    &__coauthors-info {
+        color: var(--text-gray);
+        align-self: center;
 
-        &-info {
-            color: var(--text-gray);
+        @media (--mobile) {
+            flex-basis: 70%;
+            flex-grow: 1;
         }
     }
 
@@ -66,7 +67,7 @@
         display: flex;
 
         @media (--mobile) {
-            flex-direction: column;
+            flex-wrap: wrap;
             margin-bottom: 30px;
         }
     }
@@ -142,6 +143,7 @@
 
         @media (--mobile) {
             margin: 25px 0 0;
+            flex-basis: 100%;
         }
     }
 
