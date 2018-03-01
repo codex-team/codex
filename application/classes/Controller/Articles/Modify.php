@@ -118,20 +118,20 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             $article->update();
         }
 
-        $article_coauthors = Arr::get($_POST, 'coauthors');
-        $coauthorshipExists = $article->checkCoauthorship($article_coauthors);
+        $articleCoauthor = Arr::get($_POST, 'coauthor');
+        $coauthorshipExists = $article->checkCoauthorship($articleCoauthor);
         $coauthors = Model_Coauthors::get($article->id, true);
 
-        if (!empty($article_coauthors) && $article_coauthors != $article->user_id) {
+        if (!empty($articleCoauthor) && $articleCoauthor != $article->user_id) {
 
             if (!$coauthorshipExists) {
-                $coauthors->insert($article->id, $article_coauthors);
+                $coauthors->insert($article->id, $articleCoauthor);
             } else {
-                $coauthors->update($article->id, $article_coauthors);
+                $coauthors->update($article->id, $articleCoauthor);
             }
 
         /** Remove co-author */
-        } elseif (empty($article_coauthors) && $coauthorshipExists) {
+        } elseif (empty($articleCoauthor) && $coauthorshipExists) {
             $coauthors->update($article->id);
         }
 

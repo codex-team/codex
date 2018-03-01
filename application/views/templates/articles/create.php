@@ -37,8 +37,8 @@
 
         <section class="editor-form__section">
 
-            <label for="coauthors">Выбрать соавтора</label>
-            <select name="coauthors">
+            <label for="coauthor">Выбрать соавтора</label>
+            <select name="coauthor">
                 <?
                     $noCoauthors = $article->coauthors == null;
                 ?>
