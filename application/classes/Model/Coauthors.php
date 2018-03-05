@@ -17,11 +17,11 @@ class Model_Coauthors extends Model
     {
         $this->article_id = $article_id;
 
+        $this->get();
+
         if ($user_id) {
             $this->user_id = $user_id;
         }
-
-        $this->get();
     }
 
     /**

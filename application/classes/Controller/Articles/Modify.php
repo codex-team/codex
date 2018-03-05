@@ -190,10 +190,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         $this->view['coauthors']          = Model_User::getAll();
 
         $coauthorship = new Model_Coauthors($article->id);
-
-        if (!empty($coauthorship)) {
-            $this->view["selected_coauthor"]  = $coauthorship->user_id;
-        }
+        $this->view["selected_coauthor"]  = $coauthorship->user_id;
 
         $this->view['selected_courses']   = Model_Courses::getCoursesByArticleId($article);
         $this->view['topFeed']            = $feed->get(5);
