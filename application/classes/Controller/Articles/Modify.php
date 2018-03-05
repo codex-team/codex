@@ -124,10 +124,10 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
 
         if (!empty($articleCoauthor) && $articleCoauthor != $article->user_id) {
 
-            if (!$coauthorship->user_id) {
-                $coauthorship->save();
-            } else {
+            if ($coauthorship->checkCoauthors()) {
                 $coauthorship->update();
+            } else {
+                $coauthorship->save();
             }
 
         /** Remove co-author */

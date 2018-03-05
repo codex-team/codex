@@ -88,6 +88,18 @@ class Model_Coauthors extends Model
     }
 
     /**
+     * Check if database record with Article ID exists
+     * @return [bool]
+     */
+    public function checkCoauthors()
+    {
+        $query = Dao_Coauthors::select()
+            ->where('article_id', '=', $this->article_id)
+            ->limit(1)->execute();
+        return (bool) $query;
+    }
+
+    /**
      * Select from database all records where User is a coauthor
      * @param  integer $uid            - coauthor User ID
      * @param  boolean $needClearCache - pass true to clear cache
