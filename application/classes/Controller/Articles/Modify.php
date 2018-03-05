@@ -119,20 +119,20 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         }
 
         $articleCoauthor = Arr::get($_POST, 'coauthor');
-        $coauthorshipExists = $article->checkCoauthorship($articleCoauthor);
-        $coauthors = Model_Coauthors::get($article->id, true);
+
+        $coauthorship = new Model_Coauthors($article_id, $articleCoauthor);
 
         if (!empty($articleCoauthor) && $articleCoauthor != $article->user_id) {
 
-            if (!$coauthorshipExists) {
-                $coauthors->insert($article->id, $articleCoauthor);
+            if (!$coauthorship->user_id) {
+                $coauthorship->save();
             } else {
-                $coauthors->update($article->id, $articleCoauthor);
+                $coauthorship->update();
             }
 
         /** Remove co-author */
-        } elseif (empty($articleCoauthor) && $coauthorshipExists) {
-            $coauthors->update($article->id);
+        } elseif (empty($articleCoauthor) && $coauthorship->user_id) {
+            $coauthorship->remove();
         }
 
         if (!$courses_ids) {
@@ -188,7 +188,13 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         $this->view['languages']          = ['ru', 'en'];
         $this->view['courses']            = Model_Courses::getActiveCoursesNames();
         $this->view['coauthors']          = Model_User::getAll();
-        $this->view['selected_coauthor']  = Model_Coauthors::get($article->id);
+
+        $coauthorship = new Model_Coauthors($article->id);
+
+        if (!empty($coauthorship)) {
+            $this->view["selected_coauthor"]  = $coauthorship->user_id;
+        }
+
         $this->view['selected_courses']   = Model_Courses::getCoursesByArticleId($article);
         $this->view['topFeed']            = $feed->get(5);
         $this->view['quizzes']            = Model_Quiz::getTitles();

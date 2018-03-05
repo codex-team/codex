@@ -31,7 +31,6 @@ class Model_Article extends Model
     public $marked = false;
 
     public $author;
-    public $coauthors = null;
     public $commentsCount;
 
     /**
@@ -119,7 +118,6 @@ class Model_Article extends Model
             $this->read_time    = Model_Methods::estimateReadingTime(null, $this->text);
 
             $this->author           = Model_User::get($this->user_id);
-            $this->coauthors        = Model_Coauthors::get($this->id);
             $this->commentsCount    = Model_Comment::countCommentsByArticle($this->id);
         }
 
@@ -192,24 +190,6 @@ class Model_Article extends Model
         $model = new Model_Article();
 
         return $model->fillByRow($article);
-    }
-
-    /**
-     * Checks if Article has coathors relationship in the Coauthors table
-     * @param integer $coauthorId - co-author's ID
-     * @return database Article ID if it already has coauthor relationship
-     */
-    public function checkCoauthorship($coauthorId)
-    {
-        $this->coauthors = $coauthorId;
-
-        $coauthorshipExists = Dao_Coauthors::select('article_id')
-                                ->where('article_id', '=', $this->id)
-                                ->limit(1)
-                                ->cached(Date::MINUTE * 5, 'article:' . $this->id)
-                                ->execute();
-
-        return $coauthorshipExists;
     }
 
     /**
@@ -348,21 +328,6 @@ class Model_Article extends Model
     public static function getArticlesByUserId($uid, $clearCache = false)
     {
         return Model_Article::getArticles($uid, false, false, !$clearCache ? Date::MINUTE * 5 : null);
-    }
-    /**
-     * Gets all articles where specific User is coauthor to show them in his profile
-     * @param  int  $coathorId     - ID of co-author User
-     * @param  boolean $clearCache - pass true to clear cache
-     * @return Model_Article[]     - Array of Articles
-     */
-    public static function getArticlesByCoauthorId($coathorId, $clearCache = false)
-    {
-        $coauthor_articles = [];
-        $articles = Model_Coauthors::getbyUserId($coathorId);
-        if ($articles) {
-            $coauthor_articles = Model_Article::getSome($articles);
-        }
-        return $coauthor_articles;
     }
 
     /**

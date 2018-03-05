@@ -78,7 +78,8 @@
         <?= $article->title ?>
     </h1>
     <?
-        $hasCoauthor = !is_null($article->coauthors->user_id);
+        $coauthorship = new Model_Coauthors($article->id);
+        $hasCoauthor = $coauthorship->user_id;
     ?>
     <div class="article__info">
             <!-- Start of author's photo -->

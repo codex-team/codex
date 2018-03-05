@@ -1,8 +1,14 @@
 <?
     $url = !empty($article->uri) ? '/' . $article->uri : '/article/' . $article->id;
-    $hasCoauthor = !is_null($article->coauthors->user_id);
-    $selectedCoauthor = Model_Coauthors::get($article->id);
-    $coauthor =  Model_User::get($selectedCoauthor->user_id);
+
+    $coauthorship = new Model_Coauthors($article->id);
+    $hasCoauthor = $coauthorship->user_id;
+
+    if ($hasCoauthor) {
+        $coauthor = Model_User::get($coauthorship->user_id);
+    } else {
+        $coauthor = null;
+    }
 ?>
 <div class="article-card">
     <? if (!empty($article->cover)):?>
@@ -23,14 +29,11 @@
                 <img class="article-card__photo--coauthor" src="<?= $coauthor->photo ?>" alt="<?= $coauthor->name ?>">
             </a>
         <? endif; ?>
-        <a class="article-card__user-name" href="/user/<?= $article->author->id ?>">
-            <?= $article->author->name ?>
-        </a>
+        <a class="article-card__user-name" href="/user/<?= $article->author->id ?>"><?= $article->author->name ?></a>
         <? if ($hasCoauthor): ?>
-            and
-        <a class="article-card__user-name" href="/user/<?= $coauthor->id ?>">
-            <?= $coauthor->name ?>
-        </a>
+            <a class="article-card__user-name" href="/user/<?= $coauthor->id ?>">
+                <?= $coauthor->name ?>
+            </a>
         <? endif; ?>
         <div class="article-card__read-time">
             <?= $article->read_time ?> min read

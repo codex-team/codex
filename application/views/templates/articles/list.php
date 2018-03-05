@@ -12,9 +12,12 @@
                     <img class="feed-item__author_photo" src="<?= $item->author->photo ?>" />
                     <span class="feed-item__author_name"><?= $item->author->name ?></span>
                 </a>
-                <? if (!empty($item->coauthors->user_id)): ?>
+                <?
+                    $coauthorship = new Model_Coauthors($item->id);
+                ?>
+                <? if (!empty($coauthorship)): ?>
                     <?
-                        $coauthor = Model_User::get($item->coauthors->user_id);
+                        $coauthor = Model_User::get($coauthorship->user_id);
                     ?>
                     <a class="feed-item__author" href="/user/<?= $coauthor->id ?>">
                         <img class="feed-item__author_photo" src="<?= $coauthor->photo ?>" />

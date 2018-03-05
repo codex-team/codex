@@ -35,7 +35,7 @@ class Controller_Users_Index extends Controller_Base_preDispatch
 
         $feed_items  = Model_Article::getArticlesByUserId($viewUser->id, $needClearCache);
 
-        $coauthor_feed_items = Model_Article::getArticlesByCoauthorId($viewUser->id);
+        $coauthor_feed_items = Model_Coauthors::getArticlesByCoauthorId($viewUser->id);
         $this->view["feed_items"] = array_merge($coauthor_feed_items, $feed_items);
 
         $this->view['join_requests'] = $viewUser->getUserRequest();

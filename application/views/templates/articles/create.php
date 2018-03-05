@@ -40,15 +40,16 @@
             <label for="coauthor">Выбрать соавтора</label>
             <select name="coauthor">
                 <?
-                    $noCoauthors = $article->coauthors == null;
+                    $coauthorship = new Model_Coauthors($article->id);
                 ?>
-                <option value="" <?= $noCoauthors ? 'selected' : ''; ?>>Не выбрано</option>
+                <option value="" <?= empty($coauthorship) ? 'selected' : ''; ?>>Не выбрано</option>
                 <? if ($coauthors): ?>
                     <? foreach ($coauthors as $coauthor): ?>
                         <?
                            $notAuthor = $coauthor->id !== $article->user_id;
                            $isAdmin = $coauthor->isAdmin;
-                           $isSelected = $coauthor->id == $selected_coauthor->user_id ? 'selected' : '';
+
+                           $isSelected = $coauthor->id == $selected_coauthor ? 'selected' : '';
                         ?>
                         <? if ($notAuthor && $isAdmin): ?>
                             <option value="<?= $coauthor->id ?>" <?= $isSelected; ?>>
