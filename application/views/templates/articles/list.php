@@ -15,7 +15,7 @@
                 <?
                     $coauthorship = new Model_Coauthors($item->id);
                 ?>
-                <? if (!empty($coauthorship)): ?>
+                <? if ($coauthorship->user_id): ?>
                     <?
                         $coauthor = Model_User::get($coauthorship->user_id);
                     ?>
