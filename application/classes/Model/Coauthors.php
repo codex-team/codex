@@ -26,29 +26,28 @@ class Model_Coauthors extends Model
 
     /**
      * Adds new record to database
-     * @param  int $article_id - article's ID
-     * @param  int $user_id    - coauthor's ID
-     * @return int             - inserted ID
+     * @param  int $article_id       - article's ID
+     * @param  int $user_id          - coauthor's ID
+     * @return Dao_Coauthors::insert
      */
-    public function save()
+    public function add()
     {
-        $coauthorship = Dao_Coauthors::insert()
-                                ->set('user_id', $this->user_id)
-                                ->set('article_id', $this->article_id)
-                                ->clearcache('article:' . $this->article_id)
-                                ->execute();
-
-        return $coauthorship;
+        return Dao_Coauthors::insert()
+            ->set('user_id', $this->user_id)
+            ->set('article_id', $this->article_id)
+            ->clearcache('article:' . $this->article_id)
+            ->execute();
     }
 
     /**
      * If record with Article ID already exists, update it
-     * @param  int $article_id - Article's ID
-     * @param  int $user_id    - ID of co-author User
+     * @param  int $article_id       - Article's ID
+     * @param  int $user_id          - ID of co-author User
+     * @return Dao_Coauthors::update
      */
     public function update()
     {
-        Dao_Coauthors::update()->where('article_id', '=', $this->article_id)
+        return Dao_Coauthors::update()->where('article_id', '=', $this->article_id)
             ->set('user_id', $this->user_id)
             ->clearcache('article:' . $this->article_id)
             ->execute();
@@ -56,10 +55,11 @@ class Model_Coauthors extends Model
 
     /**
      * Remove coauthorship record from Coauthors table
+     * @return Dao_Coauthors::delete
      */
     public function remove()
     {
-        Dao_Coauthors::delete()->where('article_id', '=', $this->article_id)
+        return Dao_Coauthors::delete()->where('article_id', '=', $this->article_id)
             ->clearcache('article:' . $this->article_id)
             ->execute();
     }
@@ -100,35 +100,13 @@ class Model_Coauthors extends Model
     }
 
     /**
-     * Select from database all records where User is a coauthor
-     * @param  integer $uid            - coauthor User ID
-     * @param  boolean $needClearCache - pass true to clear cache
-     * @return articles ids            - of coautorship with User
-     */
-    private static function getbyUserId($user_id, $needClearCache = false)
-    {
-        $articles = array();
-        $coauthors_rows = Dao_Coauthors::select('article_id')
-             ->where('user_id', '=', $user_id)
-             ->limit(200)
-             ->cached(Date::MINUTE * 5, 'user:' . $user_id)
-             ->execute('article_id');
-
-        if ($coauthors_rows) {
-            $articles = array_keys($coauthors_rows);
-        }
-
-        return $articles;
-    }
-
-    /**
      * Fill Coauthors Model with database values
-     * @param  resource $data   - data from the database
+     * @param resource $data   - data from the database
      * @return Model_Coauthors  - Coauthors Model obj
      */
     private function fillModel($data)
     {
-        if (!empty($data['article_id'])) {
+        if (!empty($data['user_id'])) {
             $this->article_id   = $data['article_id'];
             $this->user_id      = $data['user_id'];
         }
@@ -141,13 +119,19 @@ class Model_Coauthors extends Model
      * @param  boolean $clearCache - pass true to clear cache
      * @return Model_Article[]     - Array of Articles
      */
-    public static function getArticlesByCoauthorId($user_id, $clearCache = false)
+    public static function getArticlesByCoauthorId($user_id)
     {
-        $coauthor_articles = [];
-        $articles = self::getbyUserId($user_id);
-        if ($articles) {
-            $coauthor_articles = Model_Article::getSome($articles);
+        $coauthor_articles = array();
+        $coauthors_rows = Dao_Coauthors::select('article_id')
+             ->where('user_id', '=', $user_id)
+             ->limit(200)
+             ->cached(Date::MINUTE * 5, 'user:' . $user_id)
+             ->execute('article_id');
+
+        if ($coauthors_rows) {
+            $coauthor_articles = Model_Article::getSome(array_keys($coauthors_rows));
         }
+
         return $coauthor_articles;
     }
 }

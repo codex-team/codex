@@ -39,10 +39,7 @@
 
             <label for="coauthor">Выбрать соавтора</label>
             <select name="coauthor">
-                <?
-                    $coauthorship = new Model_Coauthors($article->id);
-                ?>
-                <option value="" <?= empty($coauthorship) ? 'selected' : ''; ?>>Не выбрано</option>
+                <option value="" <?= !$selected_coauthor ? 'selected' : ''; ?>>Не выбрано</option>
                 <? if ($coauthors): ?>
                     <? foreach ($coauthors as $coauthor): ?>
                         <?

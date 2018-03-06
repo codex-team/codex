@@ -77,10 +77,6 @@
     <h1 class="article__title js-emoji-included" itemprop="headline">
         <?= $article->title ?>
     </h1>
-    <?
-        $coauthorship = new Model_Coauthors($article->id);
-        $hasCoauthor = $coauthorship->user_id;
-    ?>
     <div class="article__info">
             <!-- Start of author's photo -->
             <div class="article__author" itemscope itemtype="http://schema.org/Person" itemprop="author" itemref="authorName">

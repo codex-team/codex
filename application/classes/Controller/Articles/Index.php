@@ -73,8 +73,9 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $this->view["article"]         = $article;
         $this->view["popularArticles"] = Model_Article::getPopularArticles($articleId);
 
-        $coauthorship = new Model_Coauthors($article->id);
-        $this->view["coauthor"]  = Model_User::get($coauthorship->user_id);
+        $coauthorship                  = new Model_Coauthors($article->id);
+        $this->view["coauthor"]        = Model_User::get($coauthorship->user_id);
+        $this->view["hasCoauthor"]     = $coauthorship->user_id;
 
         /**
          * Check if user can edit an article

@@ -127,7 +127,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             if ($coauthorship->checkCoauthors()) {
                 $coauthorship->update();
             } else {
-                $coauthorship->save();
+                $coauthorship->add();
             }
 
         /** Remove co-author */
