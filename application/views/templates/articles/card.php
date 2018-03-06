@@ -1,11 +1,10 @@
 <?
     $url = !empty($article->uri) ? '/' . $article->uri : '/article/' . $article->id;
 
-    $coauthorship = new Model_Coauthors($article->id);
-    $hasCoauthor = $coauthorship->user_id;
+    $hasCoauthor = $article->coauthorship->user_id;
 
     if ($hasCoauthor) {
-        $coauthor = Model_User::get($coauthorship->user_id);
+        $coauthor = $article->coauthor;
     } else {
         $coauthor = null;
     }

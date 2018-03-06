@@ -16,7 +16,15 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         */
         $needClearCache = Arr::get($_GET, 'clear') == 1;
 
-        $this->view["feed_items"] = $feed->get();
+        $feed_items  = $feed->get();
+
+        foreach ($feed_items as $i => $feed_item) {
+            $feed_item->coauthorship = new Model_Coauthors($feed_item->id);
+            $feed_item->coauthor = Model_User::get($feed_item->coauthorship->user_id);
+        }
+
+        $this->view["feed_items"] = $feed_items;
+
         $this->template->content = View::factory('templates/articles/list_wrapper', $this->view);
     }
 

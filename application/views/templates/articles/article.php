@@ -182,6 +182,10 @@
         <p>Мы рассказываем об интересных технологиях и делимся опытом их использования.</p>
 
         <? foreach ($popularArticles as $popularArticle): ?>
+            <?
+                $popularArticle->coauthorship = new Model_Coauthors($popularArticle->id);
+                $popularArticle->coauthor = Model_User::get($popularArticle->coauthorship->user_id);
+            ?>
             <?= View::factory('templates/articles/card', array('article'=> $popularArticle))->render(); ?>
              <? /*<li><a href="/<?= $popularArticle->uri ?: ('article/' . $popularArticle->id) ; ?>" class="js-emoji-included"><?= $popularArticle->title; ?></a></li> */ ?>
         <? endforeach; ?>
