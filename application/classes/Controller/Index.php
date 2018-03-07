@@ -42,16 +42,16 @@ class Controller_Index extends Controller_Base_preDispatch
     {
         $recentArticlesFeed = new Model_Feed_RecentArticles();
         $recentArticles = $recentArticlesFeed->get();
-        $recent_articles = array();
+        $articles = array();
 
         if (!empty($recentArticles)) {
-            $recent_articles = Model_Article::getSome($recentArticles);
-            foreach ($recent_articles as $recent_article) {
-                $recent_article->coauthorship = new Model_Coauthors($recent_article->id);
-                $recent_article->coauthor = Model_User::get($recent_article->coauthorship->user_id);
+            $articles = Model_Article::getSome($recentArticles);
+            foreach ($articles as $article) {
+                $article->coauthorship = new Model_Coauthors($article->id);
+                $article->coauthor = Model_User::get($article->coauthorship->user_id);
             }
         }
-        return $recent_articles;
+        return $articles;
     }
 
     /**
