@@ -52,8 +52,10 @@
         align-self: center;
 
         @media (--mobile) {
-            flex-basis: 70%;
+            flex-basis: 50%;
             flex-grow: 1;
+            text-overflow: ellipsis;
+            overflow-x: hidden;
         }
     }
 
@@ -110,6 +112,7 @@
 
             @media (--mobile) {
                 font-size: 13.3px;
+                white-space: nowrap;
             }
         }
     }

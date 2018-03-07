@@ -267,10 +267,14 @@ class Model_Article extends Model
      * @param boolean $needClearCache  - pass true to clear cache
      * @return Model_Article[]
      */
-    public static function getSome(array $ids, $needClearCache = false)
+    public static function getSome(array $ids, $needClearCache = false, $excludeUnpublised = true)
     {
         $articles = Dao_Articles::select()
             ->where('id', 'IN', $ids);
+
+        if ($excludeUnpublised) {
+           $articles->where('is_published', '=', true);
+        }
 
         $cacheKey = implode(',', $ids);
 
@@ -283,9 +287,11 @@ class Model_Article extends Model
         $articles = $articles->execute();
         $articlesModels = array();
 
-        foreach ($articles as $article) {
-            $model = new Model_Article();
-            $articlesModels[] = $model->fillByRow($article);
+        if ($articles) {
+            foreach ($articles as $article) {
+                $model = new Model_Article();
+                $articlesModels[] = $model->fillByRow($article);
+            }
         }
 
         return $articlesModels;
