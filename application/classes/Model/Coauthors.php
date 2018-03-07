@@ -33,11 +33,11 @@ class Model_Coauthors extends Model
      * Adds new record to database
      * @param  [int] $article_id       - article's ID
      * @param  [int] $user_id          - coauthor's ID
-     * @return Dao_Coauthors::insert
+     * @return [bool]                  - Status of adding a record
      */
     public function add()
     {
-        return Dao_Coauthors::insert()
+        return (bool) Dao_Coauthors::insert()
             ->set('user_id', $this->user_id)
             ->set('article_id', $this->article_id)
             ->clearcache('article:' . $this->article_id)
@@ -73,7 +73,6 @@ class Model_Coauthors extends Model
      * Get Article by its ID from Coauthors table
      * @param  integer $id             - Article ID
      * @param  boolean $needClearCache - pass true to clear cache
-     * @return Model_Coauthor          - Model of an Article
      */
     public function get($needClearCache = false)
     {
