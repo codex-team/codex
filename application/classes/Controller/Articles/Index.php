@@ -100,8 +100,8 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $feed = new Model_Feed_Articles();
         $feed_items  = $feed->get();
         foreach ($feed_items as $feed_item) {
-            $feed_item->coauthorship = new Model_Coauthors($feed_item->id);
-            $feed_item->coauthor = Model_User::get($feed_item->coauthorship->user_id);
+            $coauthorship        = new Model_Coauthors($feed_item->id);
+            $feed_item->coauthor = Model_User::get($coauthorship->user_id);
         }
         return $feed_items;
     }

@@ -97,8 +97,8 @@ class Controller_Users_Index extends Controller_Base_preDispatch
         $feed_items = array_merge($coauthor_feed_items, $user_feed_items);
 
         foreach ($feed_items as $feed_item) {
-            $feed_item->coauthorship = new Model_Coauthors($feed_item->id);
-            $feed_item->coauthor = Model_User::get($feed_item->coauthorship->user_id);
+            $coauthorship        = new Model_Coauthors($feed_item->id);
+            $feed_item->coauthor = Model_User::get($coauthorship->user_id);
         }
         return $feed_items;
     }

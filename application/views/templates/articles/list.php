@@ -12,7 +12,7 @@
                     <img class="feed-item__author_photo" src="<?= $item->author->photo ?>" />
                     <span class="feed-item__author_name"><?= $item->author->name ?></span>
                 </a>
-                <? if ($item->coauthorship->user_id): ?>
+                <? if ($item->coauthor->id): ?>
                     <a class="feed-item__author" href="/user/<?= $item->coauthor->id ?>">
                         <img class="feed-item__author_photo" src="<?= $item->coauthor->photo ?>" />
                         <span class="feed-item__author_name"><?= $item->coauthor->name ?></span>

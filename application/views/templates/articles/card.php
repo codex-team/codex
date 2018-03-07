@@ -1,13 +1,5 @@
 <?
     $url = !empty($article->uri) ? '/' . $article->uri : '/article/' . $article->id;
-
-    $hasCoauthor = $article->coauthorship->user_id;
-
-    if ($hasCoauthor) {
-        $coauthor = $article->coauthor;
-    } else {
-        $coauthor = null;
-    }
 ?>
 <div class="article-card">
     <? if (!empty($article->cover)):?>
@@ -21,17 +13,17 @@
 
     <footer class="article-card__footer">
         <a class="article-card__photo" href="/user/<?= $article->author->id ?>">
-            <img class="<?= $hasCoauthor ? 'article-card__photo--with-coauthor' : '';?>" src="<?= $article->author->photo ?>" alt="<?= $article->author->name ?>">
+            <img class="<?= $article->coauthor->id ? 'article-card__photo--with-coauthor' : '';?>" src="<?= $article->author->photo ?>" alt="<?= $article->author->name ?>">
         </a>
-        <? if ($hasCoauthor): ?>
-            <a class="article-card__photo" href="/user/<?= $coauthor->id ?>">
-                <img class="article-card__photo--coauthor" src="<?= $coauthor->photo ?>" alt="<?= $coauthor->name ?>">
+        <? if ($article->coauthor->id): ?>
+            <a class="article-card__photo" href="/user/<?= $article->coauthor->id ?>">
+                <img class="article-card__photo--coauthor" src="<?= $article->coauthor->photo ?>" alt="<?= $article->coauthor->name ?>">
             </a>
         <? endif; ?>
         <a class="article-card__user-name" href="/user/<?= $article->author->id ?>"><?= $article->author->name ?></a>
-        <? if ($hasCoauthor): ?>
-            <a class="article-card__user-name" href="/user/<?= $coauthor->id ?>">
-                <?= $coauthor->name ?>
+        <? if ($article->coauthor->id): ?>
+            <a class="article-card__user-name" href="/user/<?= $article->coauthor->id ?>">
+                <?= $article->coauthor->name ?>
             </a>
         <? endif; ?>
         <div class="article-card__read-time">
