@@ -66,24 +66,6 @@ class Model_User extends Model
     }
 
     /**
-     * Get feed items where User is author or coauthor
-     * @return Model_Article[]
-     */
-    public function getFeed()
-    {
-        $user_feed_items  = Model_Article::getArticlesByUserId($this->id);
-        $coauthor_feed_items = Model_Coauthors::getArticlesByCoauthorId($this->id);
-
-        $feed_items = array_merge($coauthor_feed_items, $user_feed_items);
-
-        foreach ($feed_items as $i => $feed_item) {
-            $feed_item->coauthorship = new Model_Coauthors($feed_item->id);
-            $feed_item->coauthor = Model_User::get($feed_item->coauthorship->user_id);
-        }
-        return $feed_items;
-    }
-
-    /**
      * Возвращает модель пользователя по его уникальному атрибуту
      * @param string $attr
      * @param int $value

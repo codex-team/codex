@@ -33,7 +33,7 @@ class Controller_Users_Index extends Controller_Base_preDispatch
         */
         $needClearCache = Arr::get($_GET, 'clear') == 1;
 
-        $this->view["feed_items"] = $viewUser->getFeed();
+        $this->view["feed_items"] = self::getFeed($viewUser->id);
 
         $this->view['join_requests'] = $viewUser->getUserRequest();
 
@@ -84,4 +84,23 @@ class Controller_Users_Index extends Controller_Base_preDispatch
             $this->redirect('user/');
         }
     }
+
+    /**
+     * Get feed items where User is author or coauthor
+     * @return Model_Article[]
+     */
+    public static function getFeed($user_id)
+    {
+        $user_feed_items  = Model_Article::getArticlesByUserId($user_id);
+        $coauthor_feed_items = Model_Coauthors::getArticlesByCoauthorId($user_id);
+
+        $feed_items = array_merge($coauthor_feed_items, $user_feed_items);
+
+        foreach ($feed_items as $feed_item) {
+            $feed_item->coauthorship = new Model_Coauthors($feed_item->id);
+            $feed_item->coauthor = Model_User::get($feed_item->coauthorship->user_id);
+        }
+        return $feed_items;
+    }
+
 }
