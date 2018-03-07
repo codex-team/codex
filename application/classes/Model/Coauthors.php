@@ -10,9 +10,14 @@
  */
 class Model_Coauthors extends Model
 {
-    public $user_id = null;
     public $article_id;
+    public $user_id = null;
 
+    /**
+     * Constructor
+     * @param [int] $article_id - Article ID
+     * @param [int] $user_id    - Coauthor User ID
+     */
     public function __construct($article_id, $user_id = null)
     {
         $this->article_id = $article_id;
@@ -26,8 +31,8 @@ class Model_Coauthors extends Model
 
     /**
      * Adds new record to database
-     * @param  int $article_id       - article's ID
-     * @param  int $user_id          - coauthor's ID
+     * @param  [int] $article_id       - article's ID
+     * @param  [int] $user_id          - coauthor's ID
      * @return Dao_Coauthors::insert
      */
     public function add()
@@ -43,11 +48,11 @@ class Model_Coauthors extends Model
      * If record with Article ID already exists, update it
      * @param  int $article_id       - Article's ID
      * @param  int $user_id          - ID of co-author User
-     * @return Dao_Coauthors::update
+     * @return [bool]                - Status of record update
      */
     public function update()
     {
-        return Dao_Coauthors::update()->where('article_id', '=', $this->article_id)
+        return (bool) Dao_Coauthors::update()->where('article_id', '=', $this->article_id)
             ->set('user_id', $this->user_id)
             ->clearcache('article:' . $this->article_id)
             ->execute();
@@ -55,11 +60,11 @@ class Model_Coauthors extends Model
 
     /**
      * Remove coauthorship record from Coauthors table
-     * @return Dao_Coauthors::delete
+     * @return [bool] - Status of record removal
      */
     public function remove()
     {
-        return Dao_Coauthors::delete()->where('article_id', '=', $this->article_id)
+        return (bool) Dao_Coauthors::delete()->where('article_id', '=', $this->article_id)
             ->clearcache('article:' . $this->article_id)
             ->execute();
     }
@@ -91,7 +96,7 @@ class Model_Coauthors extends Model
      * Check if database record with Article ID exists
      * @return [bool]
      */
-    public function checkCoauthors()
+    public function exists()
     {
         $query = Dao_Coauthors::select()
             ->where('article_id', '=', $this->article_id)
@@ -101,12 +106,14 @@ class Model_Coauthors extends Model
 
     /**
      * Fill Coauthors Model with database values
-     * @param resource $data   - data from the database
-     * @return Model_Coauthors  - Coauthors Model obj
+     * @param  resource $data               - data from the database
+     * @param  int      $data['article_id'] - article ID
+     * @param  int      $data['user']       - coauthor ID
+     * @return Model_Coauthors              - Coauthors Model obj
      */
     private function fillModel($data)
     {
-        if (!empty($data['user_id'])) {
+        if (!empty($data)) {
             $this->article_id   = $data['article_id'];
             $this->user_id      = $data['user_id'];
         }

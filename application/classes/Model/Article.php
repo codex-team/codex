@@ -436,6 +436,9 @@ class Model_Article extends Model
                 if ($article->id == $currentArticleId) {
                     unset($allArticles[$key]);
                 }
+
+                $article->coauthorship = new Model_Coauthors($article->id);
+                $article->coauthor = Model_User::get($article->coauthorship->user_id);
             }
 
             // сортируем массив статей в порядке убывания по просмотрам

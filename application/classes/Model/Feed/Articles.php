@@ -55,4 +55,18 @@ class Model_Feed_Articles extends Model_Feed_Abstract
 
         return false;
     }
+
+    /**
+     * Get feed items with coauthor value
+     * @return Model_Article[] || Model_Courses[]
+     */
+    public function getFeed()
+    {
+        $feed_items  = $this->get();
+        foreach ($feed_items as $i => $feed_item) {
+            $feed_item->coauthorship = new Model_Coauthors($feed_item->id);
+            $feed_item->coauthor = Model_User::get($feed_item->coauthorship->user_id);
+        }
+        return $feed_items;
+    }
 }

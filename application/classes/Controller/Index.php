@@ -29,7 +29,13 @@ class Controller_Index extends Controller_Base_preDispatch
          */
         $recentArticlesFeed = new Model_Feed_RecentArticles();
         $recentArticles = $recentArticlesFeed->get();
-        $this->view['recentArticles'] = !empty($recentArticles) ? Model_Article::getSome($recentArticles) : array();
+
+        if (!empty($recentArticles)) {
+            $recent_articles = Model_Article::getSome($recentArticles);
+            $recent_articles->getFeed();
+        }
+
+        $this->view['recentArticles'] = !empty($recentArticles) ? $recent_articles : array();
 
 
         $this->title = 'CodeX Team';

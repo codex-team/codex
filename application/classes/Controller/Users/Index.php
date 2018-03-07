@@ -33,18 +33,7 @@ class Controller_Users_Index extends Controller_Base_preDispatch
         */
         $needClearCache = Arr::get($_GET, 'clear') == 1;
 
-        $feed_items  = Model_Article::getArticlesByUserId($viewUser->id, $needClearCache);
-
-        $coauthor_feed_items = Model_Coauthors::getArticlesByCoauthorId($viewUser->id);
-
-        $combined_feed_items = array_merge($coauthor_feed_items, $feed_items);
-
-        foreach ($combined_feed_items as $i => $combined_feed_item) {
-            $combined_feed_item->coauthorship = new Model_Coauthors($combined_feed_item->id);
-            $combined_feed_item->coauthor = Model_User::get($combined_feed_item->coauthorship->user_id);
-        }
-
-        $this->view["feed_items"] = $combined_feed_items;
+        $this->view["feed_items"] = $viewUser->getFeed();
 
         $this->view['join_requests'] = $viewUser->getUserRequest();
 

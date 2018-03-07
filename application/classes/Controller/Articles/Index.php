@@ -16,14 +16,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         */
         $needClearCache = Arr::get($_GET, 'clear') == 1;
 
-        $feed_items  = $feed->get();
-
-        foreach ($feed_items as $i => $feed_item) {
-            $feed_item->coauthorship = new Model_Coauthors($feed_item->id);
-            $feed_item->coauthor = Model_User::get($feed_item->coauthorship->user_id);
-        }
-
-        $this->view["feed_items"] = $feed_items;
+        $this->view["feed_items"] = $feed->getFeed();
 
         $this->template->content = View::factory('templates/articles/list_wrapper', $this->view);
     }
@@ -79,11 +72,11 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $this->stats->hit(Model_Stats::ARTICLE, $articleId);
 
         $this->view["article"]         = $article;
+
         $this->view["popularArticles"] = Model_Article::getPopularArticles($articleId);
 
         $coauthorship                  = new Model_Coauthors($article->id);
         $this->view["coauthor"]        = Model_User::get($coauthorship->user_id);
-        $this->view["hasCoauthor"]     = $coauthorship->user_id;
 
         /**
          * Check if user can edit an article

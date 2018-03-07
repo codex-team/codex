@@ -120,11 +120,18 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
 
         $articleCoauthor = Arr::get($_POST, 'coauthor');
 
+        /**
+         * Create coauthorship relation article_id : user_id
+         */
         $coauthorship = new Model_Coauthors($article_id, $articleCoauthor);
 
+        /**
+         * If coauthorship relation doesn't exist in database - create it
+         * Otherwise, update it
+         */
         if (!empty($articleCoauthor) && $articleCoauthor != $article->user_id) {
 
-            if ($coauthorship->checkCoauthors()) {
+            if ($coauthorship->exists()) {
                 $coauthorship->update();
             } else {
                 $coauthorship->add();
