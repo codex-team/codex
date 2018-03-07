@@ -267,7 +267,7 @@ class Model_Article extends Model
      * @param boolean $needClearCache  - pass true to clear cache
      * @return Model_Article[]
      */
-    public static function getSome(array $ids, $needClearCache = false, $excludeUnpublised = true)
+    public static function getSome(array $ids, $needClearCache = false, $excludeUnpublised = false)
     {
         $articles = Dao_Articles::select()
             ->where('id', 'IN', $ids);

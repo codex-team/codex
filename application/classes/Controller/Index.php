@@ -45,7 +45,7 @@ class Controller_Index extends Controller_Base_preDispatch
         $articles = array();
 
         if (!empty($recentArticles)) {
-            $articles = Model_Article::getSome($recentArticles);
+            $articles = Model_Article::getSome($recentArticles, false, true);
             foreach ($articles as $article) {
                 $coauthorship      = new Model_Coauthors($article->id);
                 $article->coauthor = Model_User::get($coauthorship->user_id);

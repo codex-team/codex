@@ -135,7 +135,7 @@ class Model_Coauthors extends Model
              ->execute('article_id');
 
         if ($coauthors_rows) {
-            $coauthor_articles = Model_Article::getSome(array_keys($coauthors_rows));
+            $coauthor_articles = Model_Article::getSome(array_keys($coauthors_rows), false, true);
         }
 
         return $coauthor_articles;
