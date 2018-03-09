@@ -33,6 +33,30 @@
 
         </section>
 
+        <section class="editor-form__section">
+
+            <label for="coauthor">Выбрать соавтора</label>
+            <select name="coauthor">
+                <option value="" <?= !$selected_coauthor ? 'selected' : ''; ?>>Не выбрано</option>
+                <? if ($coauthors): ?>
+                    <? foreach ($coauthors as $coauthor): ?>
+                        <?
+                           $notAuthor = $coauthor->id !== $article->user_id;
+                           $isAdmin = $coauthor->isAdmin;
+
+                           $isSelected = $coauthor->id == $selected_coauthor ? 'selected' : '';
+                        ?>
+                        <? if ($notAuthor && $isAdmin): ?>
+                            <option value="<?= $coauthor->id ?>" <?= $isSelected; ?>>
+                                <?= $coauthor->name ?>
+                            </option>
+                        <? endif; ?>
+                    <? endforeach; ?>
+                <? endif; ?>
+            </select>
+
+        </section>
+
         <? if (!empty($article->dt_create)): ?>
         <section class="editor-form__section">
 

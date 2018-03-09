@@ -32,8 +32,10 @@ class Controller_Users_Index extends Controller_Base_preDispatch
         * Clear cache hook
         */
         $needClearCache = Arr::get($_GET, 'clear') == 1;
-        $feed_items = Model_Article::getArticlesByUserId($viewUser->id, $needClearCache);
-        $this->view["feed_items"]  = $feed_items;
+
+        $feed_items = $this->getFeed($user_id);
+
+        $this->view["feed_items"] = $feed_items;
 
         $this->view['join_requests'] = $viewUser->getUserRequest();
 
@@ -93,4 +95,23 @@ class Controller_Users_Index extends Controller_Base_preDispatch
             $this->redirect('user/');
         }
     }
+
+    /**
+     * Get feed items where User is author or coauthor
+     * @return Model_Article[]
+     */
+    public function getFeed($user_id)
+    {
+        $user_feed_items  = Model_Article::getArticlesByUserId($user_id);
+        $coauthor_feed_items = Model_Coauthors::getArticlesByCoauthorId($user_id);
+
+        $feed_items = array_merge($coauthor_feed_items, $user_feed_items);
+
+        foreach ($feed_items as $feed_item) {
+            $coauthorship        = new Model_Coauthors($feed_item->id);
+            $feed_item->coauthor = Model_User::get($coauthorship->user_id);
+        }
+        return $feed_items;
+    }
+
 }

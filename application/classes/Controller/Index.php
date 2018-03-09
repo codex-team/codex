@@ -27,14 +27,31 @@ class Controller_Index extends Controller_Base_preDispatch
         /**
          * Get recent articles list
          */
-        $recentArticlesFeed = new Model_Feed_RecentArticles();
-        $recentArticles = $recentArticlesFeed->get();
-        $this->view['recentArticles'] = !empty($recentArticles) ? Model_Article::getSome($recentArticles) : array();
-
+        $this->view['recentArticles'] = $this->getRecentArticles();
 
         $this->title = 'CodeX Team';
         $this->description = 'Club of web-development, design and marketing. We build team learning how to build full-valued projects on the world market.';
         $this->template->content = View::factory('templates/index/index', $this->view);
+    }
+
+    /**
+     * Prepare recent articles list, add coauthor if exists
+     * @return Model_Article[]
+     */
+    public function getRecentArticles()
+    {
+        $recentArticlesFeed = new Model_Feed_RecentArticles();
+        $recentArticles = $recentArticlesFeed->get();
+        $articles = array();
+
+        if (!empty($recentArticles)) {
+            $articles = Model_Article::getSome($recentArticles, false, true);
+            foreach ($articles as $article) {
+                $coauthorship      = new Model_Coauthors($article->id);
+                $article->coauthor = Model_User::get($coauthorship->user_id);
+            }
+        }
+        return $articles;
     }
 
     /**

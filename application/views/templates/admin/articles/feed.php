@@ -17,7 +17,7 @@
     <div class="center_side feed clearfix">
         <?= View::factory('templates/articles/list', array( 'feed_items' => $feed)); ?>
     </div>
-    
+
 <? endif; ?>
 
 <script>

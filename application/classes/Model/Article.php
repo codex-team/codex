@@ -270,10 +270,14 @@ class Model_Article extends Model
      * @param boolean $needClearCache  - pass true to clear cache
      * @return Model_Article[]
      */
-    public static function getSome(array $ids, $needClearCache = false)
+    public static function getSome(array $ids, $needClearCache = false, $excludeUnpublised = false)
     {
         $articles = Dao_Articles::select()
             ->where('id', 'IN', $ids);
+
+        if ($excludeUnpublised) {
+           $articles->where('is_published', '=', true);
+        }
 
         $cacheKey = implode(',', $ids);
 
@@ -286,9 +290,11 @@ class Model_Article extends Model
         $articles = $articles->execute();
         $articlesModels = array();
 
-        foreach ($articles as $article) {
-            $model = new Model_Article();
-            $articlesModels[] = $model->fillByRow($article);
+        if ($articles) {
+            foreach ($articles as $article) {
+                $model = new Model_Article();
+                $articlesModels[] = $model->fillByRow($article);
+            }
         }
 
         return $articlesModels;
@@ -332,8 +338,6 @@ class Model_Article extends Model
     {
         return Model_Article::getArticles($uid, false, false, !$clearCache ? Date::MINUTE * 5 : null);
     }
-
-
 
     /**
      * Получить список статей с указанными условиями.
@@ -441,6 +445,9 @@ class Model_Article extends Model
                 if ($article->id == $currentArticleId) {
                     unset($allArticles[$key]);
                 }
+
+                $coauthorship      = new Model_Coauthors($article->id);
+                $article->coauthor = Model_User::get($coauthorship->user_id);
             }
 
             // сортируем массив статей в порядке убывания по просмотрам
