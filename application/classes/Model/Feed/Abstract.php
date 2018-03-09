@@ -149,7 +149,6 @@ class Model_Feed_Abstract extends Model
     {
         foreach ($items as $item) {
             $this->add($item['id'], $item['dt_create']);
-            $this->add($item['id'], $item['dt_publish']);
         }
     }
 

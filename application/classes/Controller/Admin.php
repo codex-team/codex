@@ -206,6 +206,7 @@ class Controller_Admin extends Controller_Base_preDispatch
 
         // #TODO add to $feed array with courses later
         $feed = new Model_Feed_Articles('article');
+        $feed->clear();
         $feed->init($articles);
 
         return 'Articles timeline was successfully updated';
