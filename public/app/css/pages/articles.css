@@ -43,11 +43,15 @@
     vertical-align: top;
     text-align: center;
     font-size: 15px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .feed-item__time {
     font-size: 0.8em;
     color: #7f94ac;
+    flex-basis: 100%;
 }
 
 .feed-item__title {
@@ -61,6 +65,7 @@
     text-decoration: none;
     font-weight: bold;
     color: inherit;
+    flex-basis: 100%;
 }
 
 .feed-item__title:hover {
@@ -71,6 +76,10 @@
     text-decoration: none;
     color: #6e7992;
     font-weight: bold;
+}
+
+.feed-item__author:not(:last-of-type) {
+    margin-right: 15px;
 }
 
 .feed-item__author:hover .feed-item__author_name {

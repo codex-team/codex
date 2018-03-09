@@ -41,7 +41,7 @@
 <? if ($feed_items): ?>
     <div class="center_side">
         <div class="feed">
-            <?= View::factory('templates/articles/list', array( 'feed_items' => $feed_items )); ?>
+            <?= View::factory('templates/articles/list', array( 'feed_items' => $feed_items)); ?>
         </div>
     </div>
 <? endif ?>

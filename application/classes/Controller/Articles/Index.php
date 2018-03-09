@@ -6,8 +6,6 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 {
     public function action_showAll()
     {
-        $feed = new Model_Feed_Articles();
-
         $this->title = "Статьи команды CodeX";
         $this->description = "Здесь собраны заметки о нашем опыте и исследованиях в области веб-разработки, дизайна, маркетинга и организации рабочих процессов";
 
@@ -16,7 +14,8 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         */
         $needClearCache = Arr::get($_GET, 'clear') == 1;
 
-        $this->view["feed_items"] = $feed->get();
+        $this->view["feed_items"] = $this->getFeed();
+
         $this->template->content = View::factory('templates/articles/list_wrapper', $this->view);
     }
 
@@ -71,7 +70,11 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $this->stats->hit(Model_Stats::ARTICLE, $articleId);
 
         $this->view["article"]         = $article;
+
         $this->view["popularArticles"] = Model_Article::getPopularArticles($articleId);
+
+        $coauthorship                  = new Model_Coauthors($article->id);
+        $this->view["coauthor"]        = Model_User::get($coauthorship->user_id);
 
         /**
          * Check if user can edit an article
@@ -84,11 +87,24 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         }
 
         $this->title = $article->title;
-        $this->description = $article->description;       
+        $this->description = $article->description;
         $this->template->content = View::factory('templates/articles/article', $this->view);
     }
 
-
+    /**
+     * Get feed items with coauthor value
+     * @return Model_Article[] || Model_Courses[]
+     */
+    public function getFeed()
+    {
+        $feed = new Model_Feed_Articles();
+        $feed_items  = $feed->get();
+        foreach ($feed_items as $feed_item) {
+            $coauthorship        = new Model_Coauthors($feed_item->id);
+            $feed_item->coauthor = Model_User::get($coauthorship->user_id);
+        }
+        return $feed_items;
+    }
     /**
      * Renders template for each block
      * @param string $content - json encoded data

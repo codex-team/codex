@@ -22,6 +22,9 @@
         right: 20px;
         height: 34px;
         line-height: 1.54em;
+        white-space: nowrap;
+        overflow-x: hidden;
+        text-overflow: ellipsis;
     }
 
     &__cover {
@@ -51,18 +54,31 @@
         float: left;
         margin-right: 10px;
 
+        &--with-coauthor {
+            margin-right: 0px;
+            border-left: 0;
+        }
+
+        &--coauthor {
+            margin-left: -25px;
+            margin-right: 0px;
+        }
+
         img {
             display: block;
-            width: 34px;
-            height: 34px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
+            border: 2px solid #fff;
 
             @apply --image-placeholder;
         }
     }
 
-    &__user-name {
-
+    &__user-name{
+        &:not(:last-of-type)::after {
+            content: ',';
+        }
     }
 
     &__read-time {
