@@ -40,7 +40,12 @@
                 "@id": "<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $article->uri ?>"
             },
             "headline": "<?= $article->title; ?>",
-            "datePublished": "<?= date(DATE_ISO8601, strtotime($article->dt_create)) ?>",
+
+            <? if (isset($article->dt_publish)): ?>
+                "datePublished": "<?= date(DATE_ISO8601, strtotime($article->dt_publish)) ?>",
+            <? else: ?>
+                "datePublished": "<?= date(DATE_ISO8601, strtotime($article->dt_create)) ?>",
+            <? endif; ?>
 
             <? if (isset($article->cover)): ?>
                 "image": {
@@ -48,7 +53,7 @@
                     "url": "<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $article->cover ?>"
                 },
             <? endif; ?>
-            
+
             <? if (isset($article->dt_update)): ?>
                 "dateModified": "<?= date(DATE_ISO8601, strtotime($article->dt_update)) ?>",
             <? endif; ?>
@@ -72,7 +77,12 @@
     <? if (isset($article->dt_update)): ?>
         <meta itemprop="dateModified" content="<?= date(DATE_ISO8601, strtotime($article->dt_update)) ?>" />
     <? endif; ?>
-    <meta itemprop="datePublished" content="<?= date(DATE_ISO8601, strtotime($article->dt_create)) ?>" />
+
+    <? if (isset($article->dt_publish)): ?>
+        <meta itemprop="datePublished" content="<?= date(DATE_ISO8601, strtotime($article->dt_publish)) ?>" />
+    <? else: ?>
+        <meta itemprop="datePublished" content="<?= date(DATE_ISO8601, strtotime($article->dt_create)) ?>" />
+    <? endif; ?>
 
     <h1 class="article__title js-emoji-included" itemprop="headline">
         <?= $article->title ?>
@@ -89,13 +99,13 @@
                 <?= $article->author->name ?>
             </a>
             <time class="article__date">
-                <?= Date::fuzzy_span(strtotime($article->dt_create)) ?>
+                <?= !is_null($article->dt_publish) ? Date::fuzzy_span(strtotime($article->dt_publish)) : Date::fuzzy_span(strtotime($article->dt_create)) ?>
             </time>
         </div>
 
         <? if (!empty($article->linked_article)): ?>
 
-            <? 
+            <?
                 if ($article->lang == 'en') {
                     $labelClass = 'article__read-on-item--russian';
                     $labelText = 'Russian';

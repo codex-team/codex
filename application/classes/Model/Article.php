@@ -19,6 +19,7 @@ class Model_Article extends Model
     public $user_id;
     public $dt_create;
     public $dt_update;
+    public $dt_publish;
     public $is_removed;
     public $is_published;
     public $quiz_id;
@@ -110,6 +111,7 @@ class Model_Article extends Model
             $this->cover        = Arr::get($article_row, 'cover');
             $this->user_id      = Arr::get($article_row, 'user_id');
             $this->marked       = Arr::get($article_row, 'marked');
+            $this->dt_publish   = Arr::get($article_row, 'dt_publish');
             $this->dt_create    = Arr::get($article_row, 'dt_create');
             $this->dt_update    = Arr::get($article_row, 'dt_update');
             $this->is_removed   = Arr::get($article_row, 'is_removed');
@@ -161,6 +163,7 @@ class Model_Article extends Model
             ->set('marked', $this->marked)
             ->set('user_id', $this->user_id)
             ->set('is_published', $this->is_published)
+            ->set('dt_publish', $this->dt_publish)
             ->set('dt_update', $this->dt_update)      // TODO(#38) remove
             ->clearcache($this->id)
             ->execute();
@@ -191,13 +194,13 @@ class Model_Article extends Model
 
         return $model->fillByRow($article);
     }
-    
+
     /**
      * Links article to other one
      * @param integer $idArticleToLink - articles's ID to link if empty, unlink article
      */
     public function linkArticleAndSave($idArticleToLink = null)
-    {   
+    {
         Dao_Articles::update()->where('id', '=', $this->id)
                 ->set('linked_article', $idArticleToLink)
                 ->clearcache('articles_list')
@@ -205,7 +208,7 @@ class Model_Article extends Model
 
         $this->linked_article = $idArticleToLink;
     }
-    
+
     /**
      * Link articles with each other
      * @param integer $linked_article_id
@@ -243,7 +246,7 @@ class Model_Article extends Model
 
             /** If second article was linked with this article then do nothing */
 
-        /** Remove both links */    
+        /** Remove both links */
         } elseif ($this->linked_article) {
 
             // remove "second <- first" link
@@ -256,7 +259,7 @@ class Model_Article extends Model
         }
 
         /** If linked_article_id == null and $this->linked_article == null then do nothing*/
-     
+
         return true;
     }
 
