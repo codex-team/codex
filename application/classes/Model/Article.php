@@ -19,6 +19,7 @@ class Model_Article extends Model
     public $user_id;
     public $dt_create;
     public $dt_update;
+    public $dt_publish;
     public $is_removed;
     public $is_published;
     public $quiz_id;
@@ -110,6 +111,7 @@ class Model_Article extends Model
             $this->cover        = Arr::get($article_row, 'cover');
             $this->user_id      = Arr::get($article_row, 'user_id');
             $this->marked       = Arr::get($article_row, 'marked');
+            $this->dt_publish   = Arr::get($article_row, 'dt_publish');
             $this->dt_create    = Arr::get($article_row, 'dt_create');
             $this->dt_update    = Arr::get($article_row, 'dt_update');
             $this->is_removed   = Arr::get($article_row, 'is_removed');
@@ -161,6 +163,7 @@ class Model_Article extends Model
             ->set('marked', $this->marked)
             ->set('user_id', $this->user_id)
             ->set('is_published', $this->is_published)
+            ->set('dt_publish', $this->dt_publish)
             ->set('dt_update', $this->dt_update)      // TODO(#38) remove
             ->clearcache($this->id)
             ->execute();

@@ -199,13 +199,14 @@ class Controller_Admin extends Controller_Base_preDispatch
         foreach ($articles as $key => $value) {
             $article = array(
                 'id' => $articles[$key]->id,
-                'dt_create' => $articles[$key]->dt_create,
+                'dt_create' => $articles[$key]->dt_publish,
             );
             $articles[$key] = $article;
         }
 
         // #TODO add to $feed array with courses later
         $feed = new Model_Feed_Articles('article');
+        $feed->clear();
         $feed->init($articles);
 
         return 'Articles timeline was successfully updated';

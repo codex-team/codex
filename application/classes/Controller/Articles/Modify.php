@@ -66,6 +66,15 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         $courses_ids           = Arr::get($_POST, 'courses_ids', 0);
 
         /**
+         * If Article is published, add `dt_publish` value, otherwise default is null
+         */
+        if ($article->is_published && !$article->dt_publish) {
+            $article->dt_publish = date('Y-m-d H:i:s');
+        } elseif (!$article->is_published) {
+            $article->dt_publish = null;
+        }
+
+        /**
          * Link only if this article exists
          */
         if ($article->id) {
@@ -146,7 +155,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             Model_Courses::deleteArticles($article->id);
 
             if ($article->is_published && !$article->is_removed) {
-                $feed->add($article->id, $article->dt_create);
+                $feed->add($article->id, $article->dt_publish);
 
                 //Ставим статью в переданное место в фиде, если это было указано
                 if ($item_below_key) {
