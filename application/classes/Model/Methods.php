@@ -35,7 +35,7 @@ class Model_Methods extends Model
 
     public $IMAGE_SIZES_CONFIG = array(
         // первый параметр - вырезать квадрат (true) или просто ресайзить с сохранением пропрорций (false)
-        'o'  => array(false , 1500, 1500 ),
+        'o'  => array(false , 2500, 2500 ),
         'b'  => array(true , 200 ),
         'm'  => array(true , 100 ),
         's'  => array(true , 50  ),

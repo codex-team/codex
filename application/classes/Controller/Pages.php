@@ -14,6 +14,7 @@ class Controller_Pages extends Controller_Base_preDispatch
         $this->view['request'] = $this->user->getUserRequest();
 
         $this->title = 'Набор в команду CodeX';
+        $this->description = 'Как вступить в CodeX';
         $this->template->content = View::factory('templates/join/index', $this->view);
     }
 
@@ -31,14 +32,17 @@ class Controller_Pages extends Controller_Base_preDispatch
         switch ($who) {
             case 'design':
                 $this->title = 'Задание для веб-дизайнеров';
+                $this->description = 'Веб-дизайн: вступительные испытания';
                 $this->template->content = View::factory('templates/task/design', $this->view);
                 break;
             case 'frontend':
                 $this->title = 'Задание на frontend-разработку';
+                $this->description = 'Frontend: вступительные испытания';
                 $this->template->content = View::factory('templates/task/frontend', $this->view);
                 break;
             case 'backend':
                 $this->title = 'Задание на backend-разработку';
+                $this->description = 'Backend: вступительные испытания';
                 $this->template->content = View::factory('templates/task/backend', $this->view);
                 break;
             default:
