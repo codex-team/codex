@@ -33,8 +33,6 @@
 
         </section>
 
-        <? if (!empty($article->dt_create)): ?>
-
         <section class="editor-form__section">
 
             <label for="coauthor">Выбрать соавтора</label>
@@ -59,6 +57,7 @@
 
         </section>
 
+        <? if (!empty($article->dt_create)): ?>
         <section class="editor-form__section">
 
             <label for="linked_article">Выберите версию статьи на другом языке</label>

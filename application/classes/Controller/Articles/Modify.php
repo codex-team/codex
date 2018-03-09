@@ -123,7 +123,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         /**
          * Create coauthorship relation article_id : user_id
          */
-        $coauthorship = new Model_Coauthors($article_id, $articleCoauthor);
+        $coauthorship = new Model_Coauthors($article->id, $articleCoauthor);
 
         /**
          * If coauthorship relation doesn't exist in database - create it
