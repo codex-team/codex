@@ -200,6 +200,7 @@ class Controller_Admin extends Controller_Base_preDispatch
             $article = array(
                 'id' => $articles[$key]->id,
                 'dt_create' => $articles[$key]->dt_create,
+                'dt_publish' => $articles[$key]->dt_publish,
             );
             $articles[$key] = $article;
         }
