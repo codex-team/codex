@@ -1,8 +1,8 @@
 <?
     if (empty($share['url'])) return;
 
-    $share['title'] =  htmlspecialchars($share['title']);
-    $share['desc']  =  htmlspecialchars($share['desc']);
+    $share['title'] =  HTML::chars($share['title']);
+    $share['desc']  =  HTML::chars($share['desc']);
 ?>
 <div class="sharing">
     <div class="sharing__offer">

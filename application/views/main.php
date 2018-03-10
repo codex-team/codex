@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="language" content="<?= I18n::$lang ?>" />
-    <title><?= $title ?></title>
-    <meta property="og:title" content="<?= $title ?>" />
+    <title><?= HTML::chars($title) ?></title>
+    <meta property="og:title" content="<?= HTML::chars($title) ?>" />
     <meta property="og:site_name" content="<?= $GLOBALS['SITE_NAME'] ?>" />
 
-    <meta name="description" property="og:description" content="<?= $description ?>">
+    <meta name="description" property="og:description" content="<?= HTML::chars($description) ?>">
 
     <? if ($nofollow): ?>
         <meta name="robots" content="noindex, nofollow" />

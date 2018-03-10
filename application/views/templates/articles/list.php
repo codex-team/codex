@@ -10,19 +10,19 @@
 
                 <a class="feed-item__author" href="/user/<?= $item->author->id ?>">
                     <img class="feed-item__author_photo" src="<?= $item->author->photo ?>" />
-                    <span class="feed-item__author_name"><?= $item->author->name ?></span>
+                    <span class="feed-item__author_name"><?= HTML::chars($item->author->name) ?></span>
                 </a>
                 <? if ($item->coauthor->id): ?>
                     <a class="feed-item__author" href="/user/<?= $item->coauthor->id ?>">
                         <img class="feed-item__author_photo" src="<?= $item->coauthor->photo ?>" />
-                        <span class="feed-item__author_name"><?= $item->coauthor->name ?></span>
+                        <span class="feed-item__author_name"><?= HTML::chars($item->coauthor->name) ?></span>
                     </a>
                 <? endif; ?>
 
         <? else: ?>
 
             <!-- Вывод карточки курса -->
-            <a class="feed-item__title" href="/<?= $item->uri ?: 'course/' . $item->id;  ?>"><?= $item->title ?></a>
+            <a class="feed-item__title" href="/<?= $item->uri ?: 'course/' . $item->id;  ?>"><?= HTML::chars($item->title) ?></a>
 
         <? endif; ?>
 
