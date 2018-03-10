@@ -9,11 +9,11 @@
 
 <? if (isset($previousArticle)): ?>
     <div class="course-navigation-wrapper course-navigation-wrapper--previous" name="js-course-navigation">
-        <a class="course-navigation course-navigation--previous" href="<?=URL::site($previousArticle->uri ?: '/article/' . $previousArticle->id); ?>">
+        <a class="course-navigation course-navigation--previous" href="<?= URL::site($previousArticle->uri ?: '/article/' . $previousArticle->id) ?>">
             <div class="course-navigation__icon course-navigation__icon--previous"></div>
-            <div class="course-navigation__title"><?=$previousArticle->title; ?></div>
-            <img class="course-navigation__avatar" src="<?=$previousArticle->author->photo; ?>" itemprop="image">
-            <div class="course-navigation__author"><?=$previousArticle->author->name; ?></div>
+            <div class="course-navigation__title"><?= HTML::chars($previousArticle->title) ?></div>
+            <img class="course-navigation__avatar" src="<?= $previousArticle->author->photo ?>" itemprop="image">
+            <div class="course-navigation__author"><?= HTML::chars($previousArticle->author->name) ?></div>
         </a>
     </div>
 <? endif; ?>
@@ -22,9 +22,9 @@
     <div class="course-navigation-wrapper course-navigation-wrapper--next" name="js-course-navigation">
         <a class="course-navigation course-navigation--next" href="<?=URL::site($nextArticle->uri ?: '/article/' . $nextArticle->id); ?>">
             <div class="course-navigation__icon course-navigation__icon--next"></div>
-            <div class="course-navigation__title"><?=$nextArticle->title; ?></div>
-            <img class="course-navigation__avatar" src="<?=$nextArticle->author->photo; ?>" itemprop="image">
-            <div class="course-navigation__author"><?=$nextArticle->author->name; ?></div>
+            <div class="course-navigation__title"><?= HTML::chars($nextArticle->title) ?></div>
+            <img class="course-navigation__avatar" src="<?= $nextArticle->author->photo) ?>" itemprop="image">
+            <div class="course-navigation__author"><?= HTML::chars($nextArticle->author->name) ?></div>
         </a>
     </div>
 <? endif; ?>
@@ -39,7 +39,7 @@
                 "@type": "WebPage",
                 "@id": "<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $article->uri ?>"
             },
-            "headline": "<?= $article->title; ?>",
+            "headline": "<?= HTML::chars($article->title) ?>",
 
             <? if (isset($article->dt_publish)): ?>
                 "datePublished": "<?= date(DATE_ISO8601, strtotime($article->dt_publish)) ?>",
@@ -60,8 +60,8 @@
 
             "author": {
                 "@type": "Person",
-                "name": "<?= $article->author->name ?>",
-                "image": "<?= $article->author->photo_full ?>"
+                "name": "<?= HTML::chars($article->author->name) ?>",
+                "image": "<?= HTML::chars($article->author->photo_full) ?>"
             },
             "publisher": {
                 "@type": "Organization",
@@ -85,7 +85,7 @@
     <? endif; ?>
 
     <h1 class="article__title js-emoji-included" itemprop="headline">
-        <?= $article->title ?>
+        <?= HTML::chars($article->title) ?>
     </h1>
     <div class="article__info">
         <!-- Start of author's photo -->
@@ -93,7 +93,7 @@
             <meta itemprop="url" href="<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $article->author->uri ? : 'user/' . $article->author->id ?>" />
 
             <a href="/<?= $article->author->uri ? : 'user/' . $article->author->id ?>">
-                <img class="article__author-photo <?= $coauthor->id ? 'article__author-photo--with-coauthor' : '';?>" src="<?= $article->author->photo ?>" alt="<?= $article->author->name ?>"  itemprop="image">
+                <img class="article__author-photo <?= $coauthor->id ? 'article__author-photo--with-coauthor' : '';?>" src="<?= $article->author->photo ?>" alt="<?= HTML::chars($article->author->name) ?>"  itemprop="image">
             </a>
         </div>
         <!-- End of author's photo -->
@@ -111,14 +111,14 @@
         <div class="article__coauthors-info">
             <!-- Start of author's info -->
             <a class="article__author-name" itemprop="name" id="coauthorName" href="/<?= $article->author->uri ? : 'user/' . $article->author->id ?>">
-                <?= $article->author->name ?>
+                <?= HTML::chars($article->author->name) ?>
             </a>
             <!-- End of author's info -->
             <? if ($coauthor->id): ?>
                 and
                 <!-- Start of coauthor's info -->
                 <a class="article__author-name" itemprop="name" id="authorName" href="/<?= $coauthor->uri ? : 'user/' . $coauthor->id ?>">
-                    <?= $coauthor->name ?>
+                    <?= HTML::chars($coauthor->name) ?>
                 </a>
                 <!-- End of coauthor's info -->
             <? endif; ?>
@@ -169,7 +169,7 @@
          */
         ?>
         <? if (!empty($article->text) && empty($article->blocks)) : ?>
-            <?=$article->text; ?>
+            <?= $article->text; ?>
         <? endif; ?>
 
     </div>
