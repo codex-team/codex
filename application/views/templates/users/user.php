@@ -11,10 +11,10 @@
 
         </div>
 
-        <h1 class="profile__name"><?= $viewUser->name ?></h1>
+        <h1 class="profile__name"><?= htmlspecialchars($viewUser->name) ?></h1>
 
         <? if ($viewUser->bio): ?>
-            <div class="profile__bio"><?= $viewUser->bio ?></div>
+            <div class="profile__bio"><?= htmlspecialchars($viewUser->bio) ?></div>
         <? endif; ?>
 
         <? if ($viewUser->vk_uri || $viewUser->vk_id): ?>

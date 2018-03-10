@@ -26,7 +26,7 @@
                 <input class="input" type="text" id="name" name="name" value="<?= htmlspecialchars($user->name) ?>" required/>
 
                 <label for="bio">About</label>
-                <textarea class="input" rows="2" id="bio" name="bio"><?= $user->bio ?></textarea>
+                <textarea class="input" rows="2" id="bio" name="bio"><?= htmlspecialchars($user->bio) ?></textarea>
 
                 <label for="alias">Alias</label>
                 <input class="input" type="text" id="alias" name="alias" value="<?= htmlspecialchars($user->uri) ?>" required/>
