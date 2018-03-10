@@ -23,7 +23,7 @@
         <a class="course-navigation course-navigation--next" href="<?=URL::site($nextArticle->uri ?: '/article/' . $nextArticle->id); ?>">
             <div class="course-navigation__icon course-navigation__icon--next"></div>
             <div class="course-navigation__title"><?= HTML::chars($nextArticle->title) ?></div>
-            <img class="course-navigation__avatar" src="<?= $nextArticle->author->photo) ?>" itemprop="image">
+            <img class="course-navigation__avatar" src="<?= $nextArticle->author->photo ?>" itemprop="image">
             <div class="course-navigation__author"><?= HTML::chars($nextArticle->author->name) ?></div>
         </a>
     </div>
