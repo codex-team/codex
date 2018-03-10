@@ -25,7 +25,7 @@
                     <? endif ?>
                 <? endif ?>
                 <a href="/user/<?= $user->id ?>">
-                    <img class="site-header__photo" src="<?= htmlspecialchars($user->photo) ?>" alt="<?= htmlspecialchars($user->name) ?>" id="header-avatar-updatable" />
+                    <img class="site-header__photo" src="<?= HTML::chars($user->photo) ?>" alt="<?= HTML::chars($user->name) ?>" id="header-avatar-updatable" />
                     Profile
                 </a>
             </div>
