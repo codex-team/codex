@@ -2,15 +2,20 @@
 
     <div class="page-header clearfix">
 
-        <div class="follow-us fl_r">
-            Мы завели канал в Телеграме, где будем анонсировать новые статьи, конкурсы, наши новости и инсайды. Подписывайтесь!<br />
-            <a href="//telegram.me/codex_team" target="_blank"><i class="icon_telegram"></i><span>CodeX on Telegram</span></a>
+        <div class="site-section site-section--articles-list">
+            <h2 class="site-section__title">Our articles</h2>
+            <div class="site-section__desc">We are writing about our experience and researches.</div>
         </div>
 
-        <h1 class="page-header__title">Статьи команды CodeX</h1>
-
-        <div class="page-header__description">
-            Здесь собраны наши заметки о приобретенном опыте и результатах наших экспериментов. А еще так мы учимся писать интересные и грамотные тексты.
+        <div class="follow-us">
+            <div class="follow-us__contents">
+                <h4 class="follow-us__title">CodeX</h4>
+                <div class="follow-us__desc">Notes about web-dev and some interesting IT insights in the our lovely messenger</div>
+            </div>
+            <a class="follow-us__button" href="//telegram.me/codex_team" target="_blank">
+                <img src="/public/app/img/icon_telegram_white.svg">
+                Follow @codex_team
+            </a>
         </div>
 
     </div>
