@@ -141,7 +141,7 @@ class Dao_MySQL_Base
     {
         $this->lifetime = $seconds;
         if ($key) {
-            $this->keycached = URL::base() . ':' . $this->db_name . ':' . $this->cache_key . ':' . $key;
+            $this->keycached = URL::base('https', TRUE) . ':' . $this->db_name . ':' . $this->cache_key . ':' . $key;
         }
         if ($tags) {
             $this->tagcached = $tags;
@@ -155,7 +155,7 @@ class Dao_MySQL_Base
         $memcache = $this->getMemcacheInstance();
 
         if ($key) {
-            $full_key = URL::base() . ':' . $this->db_name . ':' . $this->cache_key . ':' . $key;
+            $full_key = URL::base('https', TRUE) . ':' . $this->db_name . ':' . $this->cache_key . ':' . $key;
             $memcache->delete(mb_strtolower($full_key));
         }
 
