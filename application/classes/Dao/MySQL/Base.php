@@ -15,6 +15,7 @@ class Dao_MySQL_Base
     const DELETE  = 4;
 
     protected $cache_key = 'Dao_MySQL_Base';
+    protected $db_name   = 'Database_Name';
 
     private $action;
 
