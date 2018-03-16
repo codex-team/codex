@@ -129,7 +129,7 @@ class Dao_MySQL_Base
     {
         $this->lifetime = $seconds;
         if ($key) {
-            $this->keycached = $this->cache_key .':'. $key;
+            $this->keycached = $_SERVER['HTTP_HOST'] . ':' . $this->db_name . ':' . $this->cache_key . ':' . $key;
         }
         if ($tags) {
             $this->tagcached = $tags;

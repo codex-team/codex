@@ -279,7 +279,7 @@ class Model_Article extends Model
            $articles->where('is_published', '=', true);
         }
 
-        $cacheKey = implode(',', $ids);
+        $cacheKey = 'getSome:' . implode(',', $ids);
 
         if ($needClearCache) {
             $articles->clearcache($cacheKey);
