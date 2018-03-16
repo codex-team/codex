@@ -34,6 +34,17 @@ class Dao_MySQL_Base
     protected $last_join = null;
     protected $select_fields = array();
 
+    /**
+     * Need to get database name before using
+     */
+    public function __construct()
+    {
+        $config = Kohana::$config->load('database')->default;
+        $connection = $config['connection'];
+
+        $this->db_name = Arr::get($connection, 'database', $this->db_name);
+    }
+
     public static function insert()
     {
         $self = new static();
@@ -144,7 +155,7 @@ class Dao_MySQL_Base
         $memcache = $this->getMemcacheInstance();
 
         if ($key) {
-            $full_key = $this->cache_key .':'. $key;
+            $full_key = $_SERVER['HTTP_HOST'] . ':' . $this->db_name . ':' . $this->cache_key . ':' . $key;
             $memcache->delete(mb_strtolower($full_key));
         }
 
