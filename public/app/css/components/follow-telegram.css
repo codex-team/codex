@@ -1,0 +1,118 @@
+/**
+ * Follow-us block
+ * uses on articles lists
+ */
+.follow-telegram {
+    max-width: 400px;
+    margin: 100px auto 0;
+
+    &::before {
+        display: block;
+        width: 26px;
+        height: 26px;
+        content: '';
+        background: url('/public/app/img/logo160.png');
+        background-size: cover;
+        border: 5px solid #eaf2f7;
+        background-color: #eaf2f7;
+        border-radius: 50%;
+        float: left;
+    }
+
+    &__contents {
+        position: relative;
+        max-width: 290px;
+        border-radius: 9.5px;
+        border-top-left-radius: 0;
+        border: 1px solid #d7e3ec;
+        padding: 13px 18px;
+        margin-left: 45px;
+
+        &:before, &:after {
+            position: absolute;
+            content: '';
+            height: 0;
+            width: 0;
+            right: 100%;
+            top: 7px;
+            border: solid transparent;
+            margin-top: -7px;
+        }
+
+        &:before {
+            border-width: 0 8px 8px 0;
+            border-right-color: #fff;
+            margin-top: -7px;
+        }
+
+        &:after {
+            z-index: -1;
+            border-right-color: #d7e3ec;
+            border-width: 0 10px 10px 0;
+            margin-top: -8px;
+        }
+    }
+
+    &__title {
+        font-size: 15px;
+        line-height: 20px;
+        font-weight: bold;
+        margin-bottom: 5px;
+        margin-top: 0;
+    }
+
+    &__desc {
+        line-height: 21px;
+        font-size: 14px;
+    }
+
+    &__button {
+        display: block;
+        max-width: 167px;
+        background: #5ca9e6;
+        border-radius: 20.5px;
+        font-size: 15px;
+        line-height: 18px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        color: #000;
+        margin-top: 11px;
+        margin-left: 45px;
+        padding: 8px 28px 8px 12px;
+
+        &:hover {
+            color: #fff;
+        }
+
+        svg {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 5px;
+            margin-top: -1px;
+        }
+    }
+}
+
+/**
+* Mobile viewport styles
+* =================================
+*/
+@media (--mobile) {
+   /**
+    * Follow mobile
+    */
+    .follow-telegram {
+        width: auto;
+        float: none;
+        margin: 0 auto;
+
+        &__title {
+            font-size: 14px;
+        }
+
+        &__desc {
+            font-size: 13px;
+        }
+    }
+}
