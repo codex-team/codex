@@ -13,7 +13,7 @@
         content: '';
         background: url('/public/app/img/logo160.png');
         background-size: cover;
-        border: 5px solid #eaf2f7;
+        border: 3px solid #eaf2f7;
         background-color: #eaf2f7;
         border-radius: 50%;
         float: left;
