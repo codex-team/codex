@@ -8,15 +8,16 @@
 
     &::before {
         display: block;
-        width: 26px;
-        height: 26px;
+        width: 30px;
+        height: 30px;
         content: '';
-        background: url('/public/app/img/logo160.png');
+        background: url('/public/app/img/codex-logo-gray.svg');
         background-size: cover;
         border: 3px solid #eaf2f7;
         background-color: #eaf2f7;
         border-radius: 50%;
         float: left;
+        margin-left: 3px;
     }
 
     &__contents {
@@ -54,7 +55,7 @@
     }
 
     &__title {
-        font-size: 15px;
+        font-size: 14.5px;
         line-height: 20px;
         color: #2c86cd;
         font-weight: normal;
@@ -64,7 +65,7 @@
 
     &__desc {
         line-height: 21px;
-        font-size: 14px;
+        font-size: 13.5px;
     }
 
     &__button {
@@ -115,6 +116,37 @@
 
         &__desc {
             font-size: 13px;
+        }
+    }
+}
+@media (--desktop) {
+    .follow-telegram {
+       &__contents {
+            max-width: 363px;
+            height: 94px;
+            background: url('/public/app/img/bubble.svg');
+            background-repeat: no-repeat;
+            background-size: 363px 94px;
+            box-sizing: border-box;
+            padding: 14px 18.5px 12px 26.5px;
+            margin-left: 26px;
+            border-radius: 0;
+            border: 0;
+
+            &:before, &:after {
+                display: none;
+            }
+        }
+        &__title {
+            max-width: 290px;
+            margin: 0 auto 3px;
+        }
+        &__desc {
+            max-width: 290px;
+            margin: 0 auto;
+        }
+        &__button {
+            padding: 9px 20px 9px 18px;
         }
     }
 }
