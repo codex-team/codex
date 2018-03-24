@@ -29,28 +29,14 @@
         padding: 13px 18.5px;
         margin-left: 46.5px;
 
-        &:before, &:after {
-            position: absolute;
-            content: '';
-            height: 0;
-            width: 0;
-            right: 100%;
-            top: 7px;
-            border: solid transparent;
-            margin-top: -7px;
-        }
-
         &:before {
-            border-width: 0 8px 8px 0;
-            border-right-color: #fff;
-            margin-top: -7px;
-        }
-
-        &:after {
-            z-index: -1;
-            border-right-color: #d7e3ec;
-            border-width: 0 10px 10px 0;
-            margin-top: -8px;
+            position: absolute;
+            left: -8px;
+            top: -1px;
+            width: 9px;
+            height: 20px;
+            content: '';
+            background: url('/public/app/img/bubble-corner.svg');
         }
     }
 
@@ -116,37 +102,6 @@
 
         &__desc {
             font-size: 13px;
-        }
-    }
-}
-@media (--desktop) {
-    .follow-telegram {
-       &__contents {
-            max-width: 363px;
-            height: 94px;
-            background: url('/public/app/img/bubble.svg');
-            background-repeat: no-repeat;
-            background-size: 363px 94px;
-            box-sizing: border-box;
-            padding: 14px 18.5px 12px 26.5px;
-            margin-left: 26px;
-            border-radius: 0;
-            border: 0;
-
-            &:before, &:after {
-                display: none;
-            }
-        }
-        &__title {
-            max-width: 290px;
-            margin: 0 auto 3px;
-        }
-        &__desc {
-            max-width: 290px;
-            margin: 0 auto;
-        }
-        &__button {
-            padding: 9px 20px 9px 18px;
         }
     }
 }
