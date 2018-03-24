@@ -103,5 +103,8 @@
         &__desc {
             font-size: 13px;
         }
+        &__button {
+            font-size: 14px;
+        }
     }
 }

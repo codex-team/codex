@@ -184,6 +184,7 @@
     .feed-item {
         width: 80%;
         flex-basis: 80%;
+        margin-left: 0;
     }
 
     .feed-item__info {
