@@ -56,7 +56,8 @@
     &__title {
         font-size: 15px;
         line-height: 20px;
-        font-weight: bold;
+        color: #2c86cd;
+        font-weight: normal;
         margin-bottom: 3px;
         margin-top: 0;
     }
@@ -76,12 +77,13 @@
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
-        color: #000;
+        color: #fff;
         margin-top: 9px;
         margin-left: 46.5px;
         padding: 9px 21px 9px 17px;
 
         &:hover {
+            background-color: #52a1e0;
             color: #fff;
         }
 

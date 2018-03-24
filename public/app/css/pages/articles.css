@@ -58,7 +58,7 @@
 .feed-item__time {
     flex-basis: auto;
     font-size: 0.8em;
-    color: #000;
+    color: #6e7990;
     margin-right: 10px;
     margin-left: 20px;
 }
@@ -83,7 +83,6 @@
 
 .feed-item__author {
     text-decoration: none;
-    color: #6e7992;
     font-weight: bold;
 }
 
@@ -122,8 +121,11 @@
     display: block;
     font-size: 13px;
     line-height: 1.17em;
-    color: #000;
+    color: #6e7990;
     white-space: nowrap;
+}
+.feed-item__author_name:hover {
+    color: #6e7990;
 }
 
 .feed-item__author_name:not(:last-of-type)::after {
