@@ -129,7 +129,7 @@
 }
 
 .feed-item__author_name:not(:last-of-type)::after {
-    content: 'and ';
+    content: ' and ';
     white-space: pre;
 }
 
