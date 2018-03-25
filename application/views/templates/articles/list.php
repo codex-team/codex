@@ -18,11 +18,11 @@
                         </a>
                     <? endif; ?>
                     <a class="feed-item__author-name" href="/user/<?= $item->author->id ?>">
-                        <?= $item->author->name ?>
+                        <?= HTML::chars($item->author->name) ?>
                     </a>
                     <? if ($item->coauthor->id): ?>
                         and <a class="feed-item__author-name" href="/user/<?= $item->coauthor->id ?>">
-                            <?= $item->coauthor->name ?>
+                            <?= HTML::chars($item->coauthor->name) ?>
                         </a>
                     <? endif; ?>
                 <? endif; ?>
@@ -42,7 +42,7 @@
             </a>
 
             <div class="feed-item__description">
-                <?= $item->description ?>
+                <?= HTML::chars($item->description) ?>
             </div>
 
         </article>
