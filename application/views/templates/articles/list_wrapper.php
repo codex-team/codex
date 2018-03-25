@@ -13,7 +13,7 @@
 
 </div>
 
-<div class="center_side feed clearfix">
+<div class="center_side clearfix">
 
     <?= View::factory('templates/articles/list', array( 'feed_items' => $feed_items)); ?>
 

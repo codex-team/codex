@@ -3,13 +3,13 @@
  * uses on articles lists
  */
 .follow-telegram {
-    max-width: 400px;
-    margin: 100px auto 0;
+    max-width: 380px;
+    margin: 70px auto 0;
 
     &::before {
         display: block;
-        width: 30px;
-        height: 30px;
+        width: 40px;
+        height: 40px;
         content: '';
         background: url('/public/app/img/codex-logo-gray.svg');
         background-size: cover;
@@ -17,17 +17,15 @@
         background-color: #eaf2f7;
         border-radius: 50%;
         float: left;
-        margin-left: 3px;
     }
 
     &__contents {
         position: relative;
-        max-width: 290px;
         border-radius: 9.5px;
         border-top-left-radius: 0;
         border: 1px solid #d7e3ec;
-        padding: 13px 18.5px;
-        margin-left: 46.5px;
+        padding: 15px 17px;
+        margin-left: 56.5px;
 
         &:before {
             position: absolute;
@@ -41,33 +39,30 @@
     }
 
     &__title {
-        font-size: 14.5px;
-        line-height: 20px;
+        display: inline-block;
+        font-size: 15px;
+        letter-spacing: -0.4px;
+        line-height: 1em;
         color: #2c86cd;
-        font-weight: normal;
-        margin-bottom: 3px;
-        margin-top: 0;
+        font-weight: 600;
+        margin-bottom: 6px;
     }
 
     &__desc {
-        line-height: 21px;
-        font-size: 13.5px;
+        line-height: 1.5em;
+        font-size: 13.6px;
     }
 
     &__button {
-        display: block;
-        max-width: 170px;
+        display: inline-block;
         background: #5ca9e6;
-        border-radius: 20.5px;
-        font-size: 15px;
-        line-height: 18px;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
+        border-radius: 25px;
+        font-size: 14.2px;
+        letter-spacing: 0.3px;
         color: #fff;
-        margin-top: 9px;
-        margin-left: 46.5px;
-        padding: 9px 21px 9px 17px;
+        margin-top: 10px;
+        margin-left: 56.5px;
+        padding: 8px 20px;
 
         &:hover {
             background-color: #52a1e0;
@@ -77,8 +72,7 @@
         svg {
             display: inline-block;
             vertical-align: middle;
-            margin-right: 5px;
-            margin-top: -1px;
+            margin: -2px 7px 0 -2px;
         }
     }
 }
@@ -93,8 +87,17 @@
      */
     .follow-telegram {
         width: auto;
-        float: none;
-        margin: 0 auto;
+        margin: 0;
+
+        &::before {
+            width: 30px;
+            height: 30px;
+        }
+
+        &__contents {
+            padding: 11px 15px;
+            margin-left: 46px;
+        }
 
         &__title {
             font-size: 14px;
@@ -103,8 +106,9 @@
         &__desc {
             font-size: 13px;
         }
+
         &__button {
-            font-size: 14px;
+            margin-left: 46px;
         }
     }
 }
