@@ -55,10 +55,12 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             throw new Kohana_Exception($e->getMessage());
         }
 
-        $article->lang = Arr::get($_POST, 'lang');
-        $article->title = Arr::get($_POST, 'title');
-        $article->description = Arr::get($_POST, 'description');
-        $article->text = $editor->getData();
+        $article->lang         = Arr::get($_POST, 'lang');
+        $article->cover        = Arr::get($_POST, 'cover');
+        $article->cover_big    = Arr::get($_POST, 'cover_big') ? 1 : 0;;
+        $article->title        = Arr::get($_POST, 'title');
+        $article->description  = Arr::get($_POST, 'description');
+        $article->text         = $editor->getData();
 
         $article->is_published = Arr::get($_POST, 'is_published') ? 1 : 0;
         $article->marked       = Arr::get($_POST, 'marked') ? 1 : 0;

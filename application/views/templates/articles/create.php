@@ -92,6 +92,15 @@
         </section>
 
         <section class="editor-form__section">
+            <label for="cover">URL обложки статьи</label>
+            <input class="input" type="text" name="cover" value="<?= $article->cover ?: ''; ?>" autocomplete="off">
+        </section>
+
+        <section class="editor-form__section">
+            <input type="checkbox" name="cover_big" value="1" <?= $article->cover_big ? 'checked' : ''; ?> > Большая обложка <br>
+        </section>
+
+        <section class="editor-form__section">
 
             <label for="quiz_id">Выберите тест, который относится к статье</label>
             <select name="quiz_id">
