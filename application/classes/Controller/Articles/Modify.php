@@ -57,7 +57,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
 
         $article->lang         = Arr::get($_POST, 'lang');
         $article->cover        = Arr::get($_POST, 'cover');
-        $article->cover_big    = Arr::get($_POST, 'cover_big') ? 1 : 0;;
+        $article->is_big_cover = Arr::get($_POST, 'is_big_cover') ? 1 : 0;;
         $article->title        = Arr::get($_POST, 'title');
         $article->description  = Arr::get($_POST, 'description');
         $article->text         = $editor->getData();

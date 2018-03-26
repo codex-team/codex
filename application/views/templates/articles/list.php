@@ -1,7 +1,7 @@
 <div class="feed">
     <? foreach ($feed_items as $i => $item): ?>
 
-        <article class="feed-item <?= $item->marked ? 'feed-item--big' : ''?> <?= $item->cover_big ? 'feed-item--with-big-cover' : '' ?>" data-type="<?= $item::FEED_PREFIX; ?>" data-id="<?= $item->id; ?>">
+        <article class="feed-item <?= $item->marked ? 'feed-item--big' : ''?> <?= $item->is_big_cover ? 'feed-item--with-big-cover' : '' ?>" data-type="<?= $item::FEED_PREFIX; ?>" data-id="<?= $item->id; ?>">
 
             <div class="feed-item__info">
                 <time class="feed-item__time">
@@ -38,7 +38,7 @@
             ?>
 
             <? if ($item->cover): ?>
-                <a class="feed-item__cover <?= $item->cover_big ? 'feed-item__cover--big' : '' ?>" href="<?= $url ?>" style="background-image: url(<?= $item->cover ?>)"></a>
+                <a class="feed-item__cover <?= $item->is_big_cover ? 'feed-item__cover--big' : '' ?>" href="<?= $url ?>" style="background-image: url(<?= $item->cover ?>)"></a>
             <? endif; ?>
 
             <a class="feed-item__title js-emoji-included" href="/<?= $url  ?>">

@@ -97,7 +97,7 @@
         </section>
 
         <section class="editor-form__section">
-            <input type="checkbox" name="cover_big" value="1" <?= $article->cover_big ? 'checked' : ''; ?> > Большая обложка <br>
+            <input type="checkbox" name="is_big_cover" value="1" <?= $article->is_big_cover ? 'checked' : ''; ?> > Большая обложка <br>
         </section>
 
         <section class="editor-form__section">
