@@ -2,7 +2,7 @@
 
     <article class="feed-item <?= $item->marked ? 'feed-item_big' : ''?>" data-type="<?= $item::FEED_PREFIX; ?>" data-id="<?= $item->id; ?>">
 
-        <time class="feed-item__time"><?= date_format(date_create($item->dt_create), 'd M'); ?></time>
+        <time class="feed-item__time"><?= date_format(date_create($item->dt_publish), 'd M'); ?></time>
 
         <? if ($item::FEED_PREFIX == 'article'): ?>
 
