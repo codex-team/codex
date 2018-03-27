@@ -111,7 +111,7 @@ class Model_Article extends Model
             $this->lang         = Arr::get($article_row, 'lang');
             $this->quiz_id      = Arr::get($article_row, 'quiz_id');
             $this->cover        = Arr::get($article_row, 'cover');
-            $this->is_big_cover    = Arr::get($article_row, 'is_big_cover');
+            $this->is_big_cover = Arr::get($article_row, 'is_big_cover');
             $this->user_id      = Arr::get($article_row, 'user_id');
             $this->marked       = Arr::get($article_row, 'marked');
             $this->dt_publish   = Arr::get($article_row, 'dt_publish');
