@@ -144,9 +144,6 @@
      * Big articles view
      */
     &--big {
-        display: inline-flex;
-        min-width: 100%;
-        height: auto;
         border: 1px solid var(--line-light);
         border-radius: 3px;
         padding: 26px 30px;
@@ -166,6 +163,10 @@
             font-size: 16.2px;
         }
     }
+}
+
+.feed-item--big.feed-item--with-cover {
+    min-height: 230px;
 }
 
 
