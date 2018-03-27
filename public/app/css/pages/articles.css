@@ -144,6 +144,7 @@
      * Big articles view
      */
     &--big {
+        display: inline-block;
         height: auto;
         border: 1px solid var(--line-light);
         border-radius: 3px;
