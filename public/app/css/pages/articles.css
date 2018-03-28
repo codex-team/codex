@@ -166,7 +166,8 @@
 }
 
 .feed-item--big.feed-item--with-cover {
-    min-height: 230px;
+    min-height: 200px;
+    box-sizing: content-box;
 }
 
 
