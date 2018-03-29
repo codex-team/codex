@@ -3,7 +3,7 @@
 ?>
 <div class="article-card">
     <? if (!empty($article->cover)):?>
-        <a class="article-card__cover" href="<?= $url ?>" style="background-image: url(<?= $article->cover ?>)">
+        <a class="article-card__cover" href="<?= $url ?>" <!-- style="background-image: url(<?= $article->cover ?>) -->">
         </a>
     <? endif; ?>
 
