@@ -70,6 +70,9 @@
     &__info {
         color: #6E7990;
         font-size: 13px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         margin-bottom: 7px;
     }
 
@@ -118,8 +121,8 @@
 
     &__cover {
         float: right;
-        margin-left: 20px;
-        margin-top: 20px;
+        margin-left: 70px;
+        margin-top: 5px;
         background-position: center;
         display: block;
         height: 140px;
