@@ -51,6 +51,15 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
             $course->uri            = Arr::get($_POST, 'uri');
 
             /**
+             * If Course is published, add `dt_publish` value, otherwise default is null
+             */
+            if ($course->is_published && !$course->dt_publish) {
+                $course->dt_publish = date('Y-m-d H:i:s');
+            } elseif (!$course->is_published) {
+                $course->dt_publish = null;
+            }
+
+            /**
              * @var string $item_below_key
              * Ключ элемента в фиде, над которым нужно поставить данную статью ('[article|course]:<id>')
              * */

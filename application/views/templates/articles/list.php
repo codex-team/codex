@@ -5,7 +5,7 @@
 
             <div class="feed-item__info">
                 <time class="feed-item__time">
-                    <?= date_format(date_create($item->dt_create), 'd M Y'); ?>
+                    <?= date_format(date_create($item->dt_publish), 'd M Y'); ?>
                 </time>
 
                 <? if ($item::FEED_PREFIX == 'article'): ?>
