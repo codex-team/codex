@@ -43,11 +43,6 @@
     }
 
     &--with-cover {
-        height: 180px;
-
-        @media (--mobile){
-            height: auto;
-        }
 
         .feed-item__description {
             overflow: hidden;
@@ -126,7 +121,6 @@
     &__cover {
         float: right;
         margin-left: 70px;
-        margin-top: 5px;
         background-position: center;
         display: block;
         height: 130px;
