@@ -49,6 +49,11 @@
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
+            margin-right: 150px;
+
+            @media (--mobile){
+                 margin-right: 0px;
+            }
 
             @media (--mobile){
                 -webkit-line-clamp: 7;
@@ -63,6 +68,7 @@
 
         .feed-item__description {
             -webkit-line-clamp: 5;
+            margin-right: 0;
         }
     }
 
