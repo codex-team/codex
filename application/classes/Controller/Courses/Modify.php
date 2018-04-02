@@ -42,7 +42,7 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
             $course->title          = Arr::get($_POST, 'title');
             $course->text           = Arr::get($_POST, 'course_text');
             $course->cover          = Arr::get($_POST, 'cover');
-            $course->is_big_cover     = Arr::get($_POST, 'is_big_cover') ? 1 : 0;
+            $course->is_big_cover   = (int) Arr::get($_POST, 'is_big_cover', 0);
             $course->description    = Arr::get($_POST, 'description');
             $course->marked         = Arr::get($_POST, 'marked', '0');
             $course->is_published   = Arr::get($_POST, 'is_published', '0');
