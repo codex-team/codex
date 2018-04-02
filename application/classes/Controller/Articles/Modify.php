@@ -55,13 +55,15 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             throw new Kohana_Exception($e->getMessage());
         }
 
-        $article->lang = Arr::get($_POST, 'lang');
-        $article->title = Arr::get($_POST, 'title');
-        $article->description = Arr::get($_POST, 'description');
-        $article->text = $editor->getData();
+        $article->lang         = Arr::get($_POST, 'lang');
+        $article->cover        = Arr::get($_POST, 'cover');
+        $article->is_big_cover = (int) Arr::get($_POST, 'is_big_cover', 0);
+        $article->title        = Arr::get($_POST, 'title');
+        $article->description  = Arr::get($_POST, 'description');
+        $article->text         = $editor->getData();
 
-        $article->is_published = Arr::get($_POST, 'is_published') ? 1 : 0;
-        $article->marked       = Arr::get($_POST, 'marked') ? 1 : 0;
+        $article->is_published = (int) Arr::get($_POST, 'is_published', 0);
+        $article->marked       = (int) Arr::get($_POST, 'marked', 0);
         $article->quiz_id      = Arr::get($_POST, 'quiz_id');
         $courses_ids           = Arr::get($_POST, 'courses_ids', 0);
 
@@ -185,7 +187,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             $feed->remove($article->id);
         }
 
-        $isRecent = Arr::get($_POST, 'is_recent') ? 1 : 0;
+        $isRecent = (int) Arr::get($_POST, 'is_recent', 0);
         $recentArticlesFeed = new Model_Feed_RecentArticles();
         if ($isRecent) {
             $recentArticlesFeed->add($article->id, true);

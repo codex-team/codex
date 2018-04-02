@@ -14,6 +14,7 @@ class Model_Courses extends Model
     public $text;
     public $description;
     public $cover;
+    public $is_big_cover;
     public $dt_publish;
     public $dt_create;
     public $dt_update;
@@ -44,6 +45,7 @@ class Model_Courses extends Model
             ->set('text', $this->text)
             ->set('description', $this->description)
             ->set('cover', $this->cover)
+            ->set('is_big_cover', $this->is_big_cover)
             ->set('is_removed', $this->is_removed)
             ->set('is_published', $this->is_published)
             ->set('marked', $this->marked)
@@ -116,6 +118,7 @@ class Model_Courses extends Model
             ->set('text', $this->text)
             ->set('description', $this->description)
             ->set('cover', $this->cover)
+            ->set('is_big_cover', $this->is_big_cover)
             ->set('dt_publish', $this->dt_publish)
             ->set('dt_update', $this->dt_update)
             ->set('is_removed', $this->is_removed)

@@ -1,7 +1,20 @@
 <div class="feed">
     <? foreach ($feed_items as $i => $item): ?>
 
-        <article class="feed-item <?= $item->marked ? 'feed-item--big' : ''?>" data-type="<?= $item::FEED_PREFIX; ?>" data-id="<?= $item->id; ?>">
+        <article class="feed-item clearfix <?= $item->marked ? 'feed-item--big' : ''?> <?= $item->cover ? 'feed-item--with-cover' : '' ?><?= $item->is_big_cover ? ' feed-item--with-big-cover' : ''?>" data-type="<?= $item::FEED_PREFIX; ?>" data-id="<?= $item->id; ?>">
+
+            <?
+                $url = '';
+                if ($item::FEED_PREFIX == 'article'){
+                    $url = $item->uri ?: 'article/' . $item->id;
+                } else {
+                    $url = $item->uri ?: 'course/' . $item->id;
+                }
+            ?>
+
+            <? if ($item->cover): ?>
+                <a class="feed-item__cover <?= $item->is_big_cover ? 'feed-item__cover--big' : '' ?>" href="<?= $url ?>" style="background-image: url(<?= $item->cover ?>)"></a>
+            <? endif; ?>
 
             <div class="feed-item__info">
                 <time class="feed-item__time">
@@ -27,15 +40,6 @@
                     <? endif; ?>
                 <? endif; ?>
             </div>
-
-            <?
-                $url = '';
-                if ($item::FEED_PREFIX == 'article'){
-                    $url = $item->uri ?: 'article/' . $item->id;
-                } else {
-                    $url = $item->uri ?: 'course/' . $item->id;
-                }
-            ?>
 
             <a class="feed-item__title js-emoji-included" href="/<?= $url  ?>">
                 <?= HTML::chars($item->title) ?>

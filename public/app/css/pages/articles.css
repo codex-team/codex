@@ -37,9 +37,47 @@
     word-wrap: break-word;
     margin-bottom: 50px;
 
+    @media (--mobile) {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &--with-cover {
+
+        .feed-item__description {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            margin-right: 150px;
+
+            @media (--mobile){
+                 margin-right: 0px;
+            }
+
+            @media (--mobile){
+                -webkit-line-clamp: 7;
+            }
+        }
+    }
+
+    &--with-big-cover {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+
+        .feed-item__description {
+            -webkit-line-clamp: 5;
+            margin-right: 0;
+        }
+    }
+
     &__info {
         color: #6E7990;
         font-size: 13px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         margin-bottom: 7px;
     }
 
@@ -86,6 +124,29 @@
         line-height: 1.55em;
     }
 
+    &__cover {
+        float: right;
+        margin-left: 70px;
+        background-position: center;
+        display: block;
+        height: 130px;
+        width: 130px;
+        border-radius: 3px;
+        background-size: cover;
+
+        @media (--mobile){
+            width: 100%;
+            margin: 20px 0 0 0;
+            order: 3;
+        }
+
+        &--big {
+            order: 3;
+            width: 100%;
+            height: 300px;
+            margin: 20px 0 0 0;
+        }
+    }
 
     /**
      * Big articles view
@@ -94,12 +155,14 @@
         border: 1px solid var(--line-light);
         border-radius: 3px;
         padding: 26px 30px;
-        margin-left: -30px;
-        margin-right: -30px;
+        margin-left: -31px;
+        margin-right: -31px;
 
         @media (--mobile){
             background: #fcfcfd;
             border: 0;
+            margin-left: -30px;
+            margin-right: -30px;
         }
 
         ^&__title {
@@ -110,6 +173,10 @@
             font-size: 16.2px;
         }
     }
+}
+
+.feed-item--big.feed-item--with-cover {
+    box-sizing: content-box;
 }
 
 
