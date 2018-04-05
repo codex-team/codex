@@ -525,8 +525,8 @@ jsonPreviewerButton.addEventListener('click', function() {
     }, 10);
 
 }, false);
-    
-    
+
+
 /**
  * Preview button handler
  */
