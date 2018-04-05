@@ -15,7 +15,7 @@
         <textarea hidden name="article_json" id="json_result" cols="30" rows="10" style="width: 100%;height: 300px;"></textarea>
 
         <div class="editor_output__buttons">
-            <a href="#output" id="jsonPreviewerButton" class="button button--master">View Output</a>
+            <span id="jsonPreviewerButton" class="button button--master">View Output</span>
             <? /* <span id="saveButton" class="button button--master">Save and Preview</span> */ ?>
         </div>
 
@@ -520,7 +520,8 @@ jsonPreviewerButton.addEventListener('click', function() {
             data : INPUT,
             holder : 'output'
         });
-
+        
+        document.getElementById('output').scrollIntoView();
 
     }, 10);
 
