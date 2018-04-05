@@ -15,8 +15,8 @@
         <textarea hidden name="article_json" id="json_result" cols="30" rows="10" style="width: 100%;height: 300px;"></textarea>
 
         <div class="editor_output__buttons">
-            <a href="#output" id="jsonPreviewerButton" class="button">View Output</a>
-            <span id="saveButton" class="button button--master">Save and Preview</span>
+            <a href="#output" id="jsonPreviewerButton" class="button button--master">View Output</a>
+            <? /* <span id="saveButton" class="button button--master">Save and Preview</span> */ ?>
         </div>
 
     </form>
@@ -525,8 +525,8 @@ jsonPreviewerButton.addEventListener('click', function() {
     }, 10);
 
 }, false);
-
-
+    
+    
 /**
  * Preview button handler
  */
@@ -555,7 +555,7 @@ saveButton && saveButton.addEventListener('click', function() {
         /**
          * Send form
          */
-         form.submit();
+        //form.submit();
 
 
     }, 100);
