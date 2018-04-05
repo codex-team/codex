@@ -1,42 +1,70 @@
 .course {
-    margin: 30px 0px;
+    margin: 30px 0 0;
+
+    &__title {
+        max-width: var(--article-max-width);
+        font-size: 18px;
+        color: #6c7580;
+        font-weight: 500;
+        margin: 0 auto 25px;
+    }
 }
 
-.course__title {
-    text-align: center;
-    position: relative;
-    margin-bottom: 25px;
+.courses {
+    &-list {
+        max-width: var(--article-max-width);
+        margin: 0 auto;
+        padding: 0;
+        list-style: none;
+
+        &__item:not(:last-of-type) {
+            margin-bottom: 10px;
+        }
+
+        &__link {
+            text-decoration: none;
+            color: var(--text-gray);
+            line-height: 1.5em;
+
+            &:hover {
+                text-decoration: none;
+                color: color(var(--text-gray) blackness(+50%));
+            }
+
+            &--current {
+                color: var(--color-link);
+
+                &:hover {
+                    color: var(--color-hover);
+                }
+            }
+        }
+    }
 }
 
-.course__title::before {
-    display: block;
-    content: 'курс';
-    font-size: 14px;
-    line-height: 1.5em;
-    font-weight: normal;
-    margin-bottom: 10px;
-}
+@media (--mobile) {
+    .js-course__title-toggle {
+        &::before {
+            content: '';
+            background: url('/public/app/img/hamburger.svg') no-repeat;
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            margin-right: 10px;
+            line-height: 21px;
+            vertical-align: middle;
+        }
 
-.courses-list {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 0;
-    list-style: none;
-}
+        + .courses-list {
+            transition: opacity 1s ease-out;
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+        }
 
-.courses-list__item {
-    margin-top: 15px;
-    text-align: center;
+        + .courses-list--show {
+            opacity: 1;
+            height: auto;
+        }
+    }
 }
-
-.courses-list__link {
-    text-decoration: none;
-    padding-bottom: 3px;
-    border-bottom: 1px solid #d6deec;
-    line-height: 1.5em;
-}
-
-.courses-list__link:hover {
-    text-decoration: none;
-}
-

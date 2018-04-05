@@ -1,12 +1,19 @@
 <section class="course">
 
-    <h2 class="course__title"><?=$course->title; ?></h2>
+    <h2 class="course__title <?= $mobileToggleClass ?>">
+        <?=$course->title; ?>
+    </h2>
 
     <? if (!empty($articles)) : ?>
-        <ul class="courses-list">
+        <ul class="courses-list js-courses-list">
             <? foreach ($articles as $article) : ?>
+                <?
+                    $isCurrent = $article->id == $currentArticle->id;
+                ?>
                 <li class="courses-list__item">
-                    <a href="<?=URL::site($article->uri ?: '/article/ ' . $article->id ); ?>" class="courses-list__link" href=""><?=$article->title; ?></a>
+                    <a href="<?=URL::site($article->uri ?: '/article/ ' . $article->id ); ?>" class="courses-list__link <?= $isCurrent ? 'courses-list__link--current' : '' ?>" href="">
+                        <?= $article->title; ?>
+                    </a>
                 </li>
             <? endforeach; ?>
         </ul>
