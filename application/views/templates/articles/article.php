@@ -183,13 +183,13 @@
     <div class="course-navigation-wrapper course-navigation-wrapper--previous" name="js-course-navigation">
         <? if (isset($previousArticle)): ?>
             <a class="course-navigation course-navigation--previous" href="<?= URL::site($previousArticle->uri ?: '/article/' . $previousArticle->id) ?>">
-                <div class="course-navigation__title course-navigation__icon--previous"><?= HTML::chars($previousArticle->title) ?></div>
+                <div class="course-navigation__title course-navigation__title--previous"><?= HTML::chars($previousArticle->title) ?></div>
             </a>
         <? endif; ?>
 
         <? if (isset($nextArticle)): ?>
             <a class="course-navigation course-navigation--next" href="<?=URL::site($nextArticle->uri ?: '/article/' . $nextArticle->id); ?>">
-                <div class="course-navigation__title course-navigation__icon--next"><?= HTML::chars($nextArticle->title) ?></div>
+                <div class="course-navigation__title course-navigation__title--next"><?= HTML::chars($nextArticle->title) ?></div>
             </a>
         <? endif; ?>
     </div>

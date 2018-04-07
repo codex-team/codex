@@ -2,8 +2,9 @@
     margin: 30px 0 0;
 
     &__title {
+        display: flex;
         max-width: var(--article-max-width);
-        font-size: 18px;
+        font-size: 14px;
         color: #6c7580;
         font-weight: 500;
         margin: 0 auto 25px;
@@ -47,12 +48,12 @@
         &::before {
             content: '';
             background: url('/public/app/img/hamburger.svg') no-repeat;
-            display: inline-block;
-            width: 16px;
+            display: block;
+            width: 1px;
             height: 16px;
             margin-right: 10px;
-            line-height: 21px;
-            vertical-align: middle;
+            padding-right: 15px;
+            margin-top: 5px;
         }
 
         + .courses-list {

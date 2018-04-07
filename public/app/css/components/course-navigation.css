@@ -4,17 +4,18 @@
 .course-navigation {
     display: flex;
     align-items: center;
-    max-width: 50%;
+    max-width: 48.5%;
     padding: 15px 0;
     text-decoration: none;
     color: var(--text-gray);
 
     &-wrapper {
         max-width: var(--article-max-width);
-        margin: 0 auto;
+        margin: 0 auto 60px;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        align-items: center;
     }
 
     &:hover {
@@ -25,34 +26,38 @@
 
     &--previous {
         margin-right: auto;
+        text-align: left;
     }
 
     &--next {
         margin-left: auto;
+        text-align: right;
     }
 
     &__title {
         display: flex;
         align-items: center;
         width: 100%;
-    }
 
-    &__icon--next::after {
-        content: '';
-        display: inline-block;
-        width: 16px;
-        height: 16px;
-        background: url('/public/app/img/arrow-forward.svg') no-repeat;
-        margin-left: 20px;
-    }
+        &--next::after {
+            content: '';
+            display: inline-block;
+            width: 1px;
+            height: 16px;
+            background: url('/public/app/img/arrow-forward.svg') no-repeat;
+            margin-left: 20px;
+            padding-left: 10px;
+        }
 
-    &--previous::before {
-        content: '';
-        display: inline-block;
-        width: 16px;
-        height: 16px;
-        background: url('/public/app/img/arrow-back.svg') no-repeat;
-        margin-right: 20px;
+        &--previous::before {
+            content: '';
+            display: inline-block;
+            width: 1px;
+            height: 16px;
+            background: url('/public/app/img/arrow-back.svg') no-repeat;
+            margin-right: 20px;
+            padding-left: 10px;
+        }
     }
 }
 
@@ -60,23 +65,27 @@
     .course-navigation {
         max-width: none;
         width: 100%;
-        padding: 50px 20px 20px;
+        padding: 50px 0 20px;
         border-bottom: 1px solid #e2e6ea;
 
-        &:first-of-type {
+        &-wrapper {
+            box-sizing: content-box;
+            padding-left: 20px;
+        }
+
+        &--previous {
             display: none;
         }
 
-        &:last-of-type {
-            display: flex;
+        &--next {
+            text-align: left;
         }
 
-        &__icon--previous::before {
-            margin-right: auto;
-        }
-
-        &__icon--next::after {
-            margin-left: auto;
+        &__title {
+            &--next::after {
+                margin-left: auto;
+                margin-right: 20px;
+            }
         }
     }
 }
