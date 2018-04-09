@@ -1,6 +1,6 @@
 FROM php:5.6-fpm
 
-MAINTAINER CodeX Team <github.com/codex-team>
+MAINTAINER CodeX <github.com/codex-team>
 
 RUN apt-get update
 RUN apt-get install -y \
