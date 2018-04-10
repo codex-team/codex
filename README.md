@@ -1,6 +1,6 @@
 # CodeX Team
 
-Club of web-development, design and marketing. We build team learning how to build full-valued projects on the world market.
+Club of web-development, design and marketing. We build team learning how to create full-valued products on the world market.
 
 [ifmo.su](https://ifmo.su)
 
