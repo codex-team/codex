@@ -1,30 +1,30 @@
 # Development Guide
 
-Here is a few steps to run your own local copy of CodeX's site.
+Here is a few steps to run your local copy of a CodeX's site.
 
 Make sure that you have installed [Docker](https://docs.docker.com/install/) and [docker-compose](https://docs.docker.com/compose/).
 
-# 1. Clone this repository.
+## 1. Clone this repository.
 
 ```shell
 git clone https://github.com/codex-team/codex
 cd codex
 ```
 
-2. In the repository's root build and run Docker containers.
+## 2. In the repository's root build and run Docker containers.
 
 ```shell
 docker-compose build
 docker-compose up
 ```
 
-3. Run composer in PHP container and install all dependencies.
+## 3. Run composer in PHP container and install all dependencies.
 
 ```shell
 docker exec -i codex_php_1 composer install
 ```
 
-4. Create `.env` config file in a subfolder `www` and fill up params.
+## 4. Create `.env` config file in a subfolder `www` and fill up params.
 
 You can copy env file skeleton from sample file `codex/www/.env.sample`.
 
@@ -35,7 +35,7 @@ cp .env.sample .env
 
 This site uses [Hawk](https://hawk.so) as error catching service. You can create an account and add a new project.
 
-5. Now you need to set up directories for uploaded files, cache and logs. They will be placed here:
+## 5. Now you need to set up directories for uploaded files, cache and logs. They will be placed here:
 
 ```
 codex (project's root directory)
@@ -67,7 +67,7 @@ mkdir cache logs
 chmod 777 cache logs
 ```
 
-6. Create a MySQL database.
+## 6. Create a MySQL database.
 
 Open phpMyAdmin in [localhost:8081](http://localhost:8081).
 
@@ -79,21 +79,19 @@ Use these credentials to sign in.
 
 Create a new database with the name, say, `codexdb` with `utf8_general_ci` collation.
 
-Open `SQL` tab. You'll see a text area for SQL-commands. Open `.sql` files from `migrations` folder and put their content in this text field. Follow the files order.
+Open `IMPORT` tab and choose `!_codexdb.sql` file to import. In this file SQL-requests to make a complete database skeleton.
 
 ```
 codex
   |- www
   |   |- migrations
-  |   |   |- 2017-11-15_codexdb.sql
-  |   |   |- 2018-01-30_add_article_text_en.sql
-  |   |   |- 2018-02-17_coauthors.sql
+  |   |   |- !_codexdb.sql
   |   |   ...
   |   ...
   ...
 ```
 
-7. The last step is setting up config files.
+## 7. The last step is setting up config files.
 
 Go to `codex/www/application/config` and duplicate sample files without `.sample` in their names.
 
@@ -121,6 +119,10 @@ Set `mysql` as a hostname of MySQL container. Type database name, username and p
 'password'   => 'root',
 ```
 
+### telegram-notification.php (optional feature)
+
+Somewhere in the project's code we use notifications from [@codex_bot](https://ifmo.su/bot). You can get a notifications link from it typing a command `/notify_start`.
+
 ### oauth.php
 
 To enable authorisation via GitHub on your local site you need to create a new GitHub OAuth app.
@@ -147,11 +149,11 @@ After registering an application you will be redirected to app's settings page. 
 ...    
 ```
 
-8. Open [http://localhost:8081](http://localhost:8080). You'll see a CodeX site's homepage. Try to auth.
+## 8. Open [http://localhost:8080](http://localhost:8080). You'll see a CodeX site's homepage. Try to auth.
 
 ![](assets/local-codex-site.png)
 
-9. If you want to write articles, you should give yourself an admin status.
+## 9. If you want to write articles, you should give yourself an admin status.
 
 In phpMyAdmin choose database for this site (codexdb) and open table `Users`. Find row with for your user and change `role` value from `1` to `3`.
 
