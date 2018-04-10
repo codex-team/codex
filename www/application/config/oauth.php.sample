@@ -7,7 +7,7 @@ return array(
         'APP_ID'        => '',
         'APP_SECRET'    => '',
         'SETTINGS'      => NULL,
-        'REDIRECT_URI'  => 'http://'.Arr::get($_SERVER, 'SERVER_NAME').'/auth/vk',
+        'REDIRECT_URI'  => 'http://'.Arr::get($_SERVER, 'HTTP_HOST').'/auth/vk',
         'GET_CODE_URI'  => 'https://oauth.vk.com/authorize/',
         'GET_TOKEN_URI' => 'https://oauth.vk.com/access_token'
     ),
@@ -24,7 +24,7 @@ return array(
         'APP_ID'        => '',
         'APP_SECRET'    => '',
         'SETTINGS'      => NULL,
-        'REDIRECT_URI'  => 'http://'.Arr::get($_SERVER, 'SERVER_NAME').'/auth/facebook',
+        'REDIRECT_URI'  => 'http://'.Arr::get($_SERVER, 'HTTP_HOST').'/auth/facebook',
         'GET_CODE_URI'  => 'https://www.facebook.com/dialog/oauth',
         'GET_TOKEN_URI' => 'https://graph.facebook.com/oauth/access_token'
     ),
@@ -32,7 +32,7 @@ return array(
         'APP_ID'        => '',
         'APP_SECRET'    => '',
         'SETTINGS'      => NULL,
-        'REDIRECT_URI'  => 'http://'.Arr::get($_SERVER, 'SERVER_NAME').'/auth/github',
+        'REDIRECT_URI'  => 'http://'.Arr::get($_SERVER, 'HTTP_HOST').'/auth/github',
         'GET_CODE_URI'  => 'https://github.com/login/oauth/authorize',
         'GET_TOKEN_URI' => 'https://github.com/login/oauth/access_token'
     ),
