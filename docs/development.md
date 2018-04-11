@@ -1,6 +1,6 @@
 # Development Guide
 
-Here is a few steps to run your local copy of a CodeX's site.
+Here are a few steps to run your local copy of CodeX site.
 
 Make sure that you have installed [Docker](https://docs.docker.com/install/) and [docker-compose](https://docs.docker.com/compose/).
 
@@ -52,14 +52,14 @@ codex (project's root directory)
   ...
 ```
 
-Create a directory for uploaded files e.g. editor's images and users profile pictures.
+Create a directory for uploaded files e.g. editor's images and users' profile pictures.
 
 ```shell
 mkdir upload
 chmod 777 upload
 ```
 
-Then you need to go to `application` directory. Create two these directories and set up full access permissions for every user.
+Then you need to go to the `application` directory. Create two these directories and set full access permissions for every user.
 
 ```shell
 cd application
@@ -79,7 +79,7 @@ Use these credentials to sign in.
 
 Create a new database with the name, say, `codexdb` with `utf8_general_ci` collation.
 
-Open `IMPORT` tab and choose `!_codexdb.sql` file to import. In this file SQL-requests to make a complete database skeleton.
+Open `IMPORT` tab and choose `!_codexdb.sql` file to import. In this file you can find SQL-requests to make a complete database skeleton.
 
 ```
 codex
@@ -97,12 +97,12 @@ Go to `codex/www/application/config` and duplicate sample files without `.sample
 
 ### redis.php
 
-Set `redis` as a hostname, because docker container with Redis has this hostname.
+Set `redis` as a hostname, to match the hostname of the docker container with Redis.
 Other fields you can left with default values.
 
 ### cache.php
 
-In 10th string in `host` param you should set Memcached container's hostname `memcached`.
+On 10th line in `host` param you should set Memcached container's hostname `memcached`.
 
 ```
 'host'             => 'memcached',  // Memcache Server
@@ -121,7 +121,7 @@ Set `mysql` as a hostname of MySQL container. Type database name, username and p
 
 ### telegram-notification.php (optional feature)
 
-Somewhere in the project's code we use notifications from [@codex_bot](https://ifmo.su/bot). You can get a notifications link from it typing a command `/notify_start`.
+Somewhere in the project we use notifications from [@codex_bot](https://ifmo.su/bot). You can get a notifications link from it typing a command `/notify_start`. You have to add [@codex_bot](https://t.me/codex_bot) in Telegram for that and start conversation.
 
 ### oauth.php
 
@@ -139,7 +139,7 @@ http://localhost:8080/auth/github
 
 ![](assets/create-a-new-github-app.png)
 
-After registering an application you will be redirected to app's settings page. Get there `Client ID` and `Client Secret` params and put then into the `APP_ID` and `APP_SECRET` fields in `oauth.php` on 30 and 31 lines.
+After registering an application you will be redirected to app's settings page. Get there `Client ID` and `Client Secret` params and put then into the `APP_ID` and `APP_SECRET` fields in `oauth.php` on lines 30 and 31.
 
 ```
 ...
@@ -157,7 +157,7 @@ After registering an application you will be redirected to app's settings page. 
 
 In phpMyAdmin choose database for this site (codexdb) and open table `Users`. Find row with for your user and change `role` value from `1` to `3`.
 
-Changes will be applied in a 5 minutes because we use caching to reduce the database load. You can also clear cache by yourself restarting Memcached container.
+Changes will be applied in 5 minutes because we use caching to reduce the database load. You can also clear cache yourself by restarting Memcached container.
 
 ```
 docker restart codex_memcached_1
