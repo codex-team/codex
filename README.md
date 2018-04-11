@@ -1,6 +1,6 @@
 # CodeX Team
 
-Club of web-development, design and marketing. We build team learning how to create full-valued products on the world market.
+Club of web-development, design and marketing. We build team learning how to create full-valued products on the global market.
 
 [ifmo.su](https://ifmo.su)
 
@@ -10,6 +10,6 @@ Club of web-development, design and marketing. We build team learning how to cre
 
 [instagram.com/codex_team](https://instagram.com/codex_team)
 
-Join our Telegram-channel and stay in touch! You'll be notified about new articles, contests, meet-ups and other events.
+Join our Telegram-channel and stay in touch! You'll be notified about new articles, meet-ups and other events.
 
 [t.me/codex_team](https://t.me/codex_team)

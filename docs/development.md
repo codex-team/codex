@@ -59,7 +59,7 @@ mkdir upload
 chmod 777 upload
 ```
 
-Then you need to go to the `application` directory. Create two these directories and set full access permissions for every user.
+Then you need to go to the `application` directory. Create these two directories and set full access permissions for every user.
 
 ```shell
 cd application
