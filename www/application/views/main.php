@@ -54,7 +54,7 @@
         <div class="center_side clearfix">
             <section class="site-footer__section">
                 <h5><a href="/">CodeX</a></h5>
-                Club of web-development, design and marketing. We build team learning how to create full-valued products on the world market.
+                Club of web-development, design and marketing. We build team learning how to create full-valued products on the global market.
             </section>
             <section class="site-footer__section site-footer__section--contacts">
                 <h5>Contact team</h5>
