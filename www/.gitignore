@@ -1,0 +1,11 @@
+application/cache/*
+application/logs/*
+upload/*
+vendor/*
+.env
+
+node_modules/
+
+public/extensions/codex.editor/
+
+.DS_Store
