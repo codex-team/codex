@@ -76,6 +76,10 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $coauthorship                  = new Model_Coauthors($article->id);
         $this->view["coauthor"]        = Model_User::get($coauthorship->user_id);
 
+        if (!$article->is_published) {
+          $this->nofollow = true;
+        }
+        $this->view["nofollow"] = $this->nofollow;
         /**
          * Check if user can edit an article
          * Pass article uri to articleEditLink variable
