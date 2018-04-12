@@ -9,9 +9,12 @@
         display: flex;
         max-width: var(--article-max-width);
         font-size: 16px;
-        color: #6c7580;
         font-weight: 500;
         margin: 0 auto 25px;
+
+        a {
+            color: #6c7580;
+        }
     }
 }
 
