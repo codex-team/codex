@@ -11,7 +11,7 @@
 
     &-wrapper {
         max-width: var(--article-max-width);
-        margin: 0 auto 60px;
+        margin: 60px auto;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -71,6 +71,7 @@
         &-wrapper {
             box-sizing: content-box;
             padding-left: 20px;
+            margin: 0 auto -10px;
         }
 
         &--previous {
@@ -79,9 +80,12 @@
 
         &--next {
             text-align: left;
+            padding: 35px 0 20px;
         }
 
         &__title {
+            font-size: 14px;
+
             &--next::after {
                 margin-left: auto;
                 margin-right: 20px;

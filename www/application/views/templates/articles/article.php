@@ -2,6 +2,7 @@
     <? if (isset($articlesFromCourse)): ?>
         <?= View::factory('templates/articles/course_list')
             ->set('articles', $articlesFromCourse)
+            ->set('onPagePositionClass', 'course--top')
             ->set('mobileToggleClass', 'js-course__title-toggle')
             ->set('currentArticle', $article)
             ->set('course', $course)
@@ -154,6 +155,33 @@
 
     </div>
 
+    <? if (isset($previousArticle) || isset($nextArticle)): ?>
+        <div class="course-navigation-wrapper course-navigation-wrapper--previous" name="js-course-navigation">
+            <? if (isset($previousArticle)): ?>
+                <a class="course-navigation course-navigation--previous" href="<?= URL::site($previousArticle->uri ?: '/article/' . $previousArticle->id) ?>">
+                    <div class="course-navigation__title course-navigation__title--previous"><?= HTML::chars($previousArticle->title) ?></div>
+                </a>
+            <? endif; ?>
+
+            <? if (isset($nextArticle)): ?>
+                <a class="course-navigation course-navigation--next" href="<?=URL::site($nextArticle->uri ?: '/article/' . $nextArticle->id); ?>">
+                    <div class="course-navigation__title course-navigation__title--next"><?= HTML::chars($nextArticle->title) ?></div>
+                </a>
+            <? endif; ?>
+        </div>
+    <? endif; ?>
+    <div class="center_side clear">
+        <? if (isset($articlesFromCourse)) : ?>
+            <?=View::factory('templates/articles/course_list')
+                ->set('articles', $articlesFromCourse)
+                ->set('onPagePositionClass', '')
+                ->set('mobileToggleClass', '')
+                ->set('currentArticle', $article)
+                ->set('course', $course)
+            ?>
+        <? endif; ?>
+    </div>
+
     <? if(!empty($quiz)): ?>
         <?= View::factory('templates/quizzes/quiz', array('quizData' => $quiz->quiz_data)); ?>
     <? endif ?>
@@ -179,31 +207,7 @@
     </ul>
 
 </article>
-<? if (isset($previousArticle) || isset($nextArticle)): ?>
-    <div class="course-navigation-wrapper course-navigation-wrapper--previous" name="js-course-navigation">
-        <? if (isset($previousArticle)): ?>
-            <a class="course-navigation course-navigation--previous" href="<?= URL::site($previousArticle->uri ?: '/article/' . $previousArticle->id) ?>">
-                <div class="course-navigation__title course-navigation__title--previous"><?= HTML::chars($previousArticle->title) ?></div>
-            </a>
-        <? endif; ?>
 
-        <? if (isset($nextArticle)): ?>
-            <a class="course-navigation course-navigation--next" href="<?=URL::site($nextArticle->uri ?: '/article/' . $nextArticle->id); ?>">
-                <div class="course-navigation__title course-navigation__title--next"><?= HTML::chars($nextArticle->title) ?></div>
-            </a>
-        <? endif; ?>
-    </div>
-<? endif; ?>
-<div class="center_side clear">
-    <? if (isset($articlesFromCourse)) : ?>
-        <?=View::factory('templates/articles/course_list')
-            ->set('articles', $articlesFromCourse)
-            ->set('mobileToggleClass', '')
-            ->set('currentArticle', $article)
-            ->set('course', $course)
-        ?>
-    <? endif; ?>
-</div>
 <script>
 
     codex.docReady(function () {

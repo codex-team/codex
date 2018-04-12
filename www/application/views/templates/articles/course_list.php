@@ -1,8 +1,10 @@
-<section class="course">
+<section class="course <?= $onPagePositionClass ?>">
 
-    <h2 class="course__title <?= $mobileToggleClass ?>">
-        <?=$course->title; ?>
-    </h2>
+    <a href="<?= "/course/" . $course->id ?>">
+        <h2 class="course__title <?= $mobileToggleClass ?>">
+            <?=$course->title; ?>
+        </h2>
+    </a>
 
     <? if (!empty($articles)) : ?>
         <ul class="courses-list js-courses-list">

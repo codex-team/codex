@@ -1,10 +1,14 @@
 .course {
     margin: 30px 0 0;
 
+    &--top {
+        margin: 70px 0 -10px;
+    }
+
     &__title {
         display: flex;
         max-width: var(--article-max-width);
-        font-size: 14px;
+        font-size: 16px;
         color: #6c7580;
         font-weight: 500;
         margin: 0 auto 25px;
@@ -19,7 +23,7 @@
         list-style: none;
 
         &__item:not(:last-of-type) {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         &__link {
@@ -44,14 +48,28 @@
 }
 
 @media (--mobile) {
+    .course {
+        margin: 35px 0;
+
+        &--top {
+            margin-bottom: 5px;
+        }
+
+        &__title {
+            font-size: 14px;
+        }
+    }
     .js-course__title-toggle {
+        align-items: center;
+        line-height: 19px;
+
         &::before {
             content: '';
             background: url('/public/app/img/hamburger.svg') no-repeat;
             display: block;
             width: 1px;
             height: 16px;
-            margin-right: 10px;
+            margin-right: 20px;
             padding-right: 15px;
             margin-top: 5px;
         }
