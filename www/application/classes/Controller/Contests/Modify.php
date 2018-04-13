@@ -38,6 +38,7 @@ class Controller_Contests_Modify extends Controller_Base_preDispatch
 
         if (Security::check($csrfToken)) {
             $contest->title        = Arr::get($_POST, 'title');
+            $contest->uri          = Arr::get($_POST, 'uri');
             $contest->text         = Arr::get($_POST, 'contest_text');
             $contest->status       = Arr::get($_POST, 'status') ? 1 : 0;
             $contest->description  = Arr::get($_POST, 'description');
@@ -46,16 +47,16 @@ class Controller_Contests_Modify extends Controller_Base_preDispatch
             $contest->dt_close     = Arr::get($_POST, 'duration');
 
             $uri = Arr::get($_POST, 'uri');
-            $alias = Model_Alias::generateUri($uri);
+            $alias = Model_Aliases::generateUri($uri);
 
             if ($contest->title && $contest->text && $contest->description && $contest->dt_close) {
                 if ($contest_id) {
                     $contest->dt_update = date('Y-m-d H:i:s');
-                    $contest->uri = Model_Alias::updateAlias($contest->uri, $alias, Model_Uri::CONTEST, $contest_id);
+                    $contest->uri = Model_Aliases::updateAlias($contest->uri, $alias, Aliases_Controller::CONTEST, $contest_id);
                     $contest->update();
                 } else {
                     $insertedId   = $contest->insert();
-                    $contest->uri = Model_Alias::addAlias($alias, Model_Uri::CONTEST, $insertedId);
+                    $contest->uri = Model_Aliases::addAlias($alias, Aliases_Controller::CONTEST, $insertedId);
                 }
 
                 // Если поле uri пустое, то редиректить на обычный роут /contest/id

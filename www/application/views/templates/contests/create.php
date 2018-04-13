@@ -1,4 +1,6 @@
-<link rel="stylesheet" href="/public/css/editor-form.css?v=<?= filemtime("public/css/editor-form.css") ?>">
+<? /*
+ <link rel="stylesheet" href="/public/css/editor-form.css?v=<?= filemtime("public/css/editor-form.css") ?>">
+ */ ?>
 
 <div class="center_side">
 

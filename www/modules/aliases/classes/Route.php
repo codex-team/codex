@@ -6,35 +6,32 @@
  * This is in response to Stack Overflow question:
  * http://stackoverflow.com/questions/11552737/kohana-module-route-precedence
  *
- * @author		Micheal Morgan <micheal@morgan.ly>
- * @copyright		(c) 2012 Micheal Morgan
- * @license		MIT
+ * @author        Micheal Morgan <micheal@morgan.ly>
+ * @copyright     (c) 2012 Micheal Morgan
+ * @license       MIT
  */
-
 class Route extends Kohana_Route
 {
     /**
      * Prepend Route to beginning of stack. If name already exists further in the stack, it is
      * removed.
      *
-     *	Route::prepend('default', '(<controller>(/<action>(/<id>)))')
-     *		->defaults(array(
-     *			'controller' => 'welcome'
-     *		));
+     *    Route::prepend('default', '(<controller>(/<action>(/<id>)))')
+     *        ->defaults(array(
+     *            'controller' => 'welcome'
+     *        ));
      *
      * @static
-     * @access	public
+     * @access  public
      * @param   string   route name
      * @param   string   URI pattern
      * @param   array    regex patterns for route keys
      * @return  Route
      */
-
     public static function prepend($name, $uri_callback = NULL, $regex = NULL)
     {
         // Ensure entry does not already exist so it can be added to the beginning of the stack
-        if (isset(Route::$_routes[$name]))
-        {
+        if (isset(Route::$_routes[$name])) {
             unset(Route::$_routes[$name]);
         }
 
