@@ -3,8 +3,8 @@ SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-DROP TABLE IF EXISTS `Alias`;
-CREATE TABLE `Alias` (
+DROP TABLE IF EXISTS `Aliases`;
+CREATE TABLE `Aliases` (
   `id_alias` int(18) NOT NULL,
   `uri` text NOT NULL,
   `hash` binary(16) NOT NULL,
@@ -97,32 +97,6 @@ CREATE TABLE `Courses_articles` (
   `article_index` int(11) NOT NULL COMMENT 'Порядковый номер статьи в курсе'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Таблица для связи статей с курсами';
 
-DROP TABLE IF EXISTS `ForbiddenAliases`;
-CREATE TABLE `ForbiddenAliases` (
-  `id` int(18) NOT NULL,
-  `uri` varchar(18) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-INSERT INTO `ForbiddenAliases` (`id`, `uri`) VALUES
-(1, 'articles'),
-(2, 'contests'),
-(3, 'contest'),
-(4, 'admin'),
-(5, 'users'),
-(6, 'user'),
-(7, 'editor'),
-(8, 'auth'),
-(9, 'article'),
-(10, 'bot'),
-(11, 'join'),
-(12, 'special'),
-(13, 'task'),
-(14, 'course'),
-(15, 'courses'),
-(16, ''),
-(17, 'test'),
-(18, 'quiz');
-
 DROP TABLE IF EXISTS `Quizzes`;
 CREATE TABLE `Quizzes` (
   `id` int(11) NOT NULL,
@@ -191,7 +165,7 @@ CREATE TABLE `Users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-ALTER TABLE `Alias`
+ALTER TABLE `Aliases`
   ADD PRIMARY KEY (`id_alias`),
   ADD UNIQUE KEY `hash` (`hash`),
   ADD KEY `id` (`id`),
@@ -219,8 +193,6 @@ ALTER TABLE `Courses`
 ALTER TABLE `Courses_articles`
   ADD PRIMARY KEY (`id`);
 
-ALTER TABLE `ForbiddenAliases`
-  ADD PRIMARY KEY (`id`);
 
 ALTER TABLE `Quizzes`
   ADD PRIMARY KEY (`id`);
@@ -246,7 +218,7 @@ ALTER TABLE `Users`
   ADD PRIMARY KEY (`id`);
 
 
-ALTER TABLE `Alias`
+ALTER TABLE `Aliases`
   MODIFY `id_alias` int(18) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `Articles`
@@ -263,9 +235,6 @@ ALTER TABLE `Courses`
 
 ALTER TABLE `Courses_articles`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
-ALTER TABLE `ForbiddenAliases`
-  MODIFY `id` int(18) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 ALTER TABLE `Quizzes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
