@@ -12,7 +12,7 @@ class Kohana_Aliases_Subcontroller
     const MODIFY = 2;
 
     /**
-     * Set up a map
+     * Set up a map of subcontrollers
      *
      * const MAP = array(
      *     Aliases_Subcontroller::INDEX => 'Index',

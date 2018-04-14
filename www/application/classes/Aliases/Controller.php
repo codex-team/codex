@@ -15,7 +15,7 @@ class Aliases_Controller
     const COURSE   = 4;
 
     /**
-     * Set up a map
+     * Set up a map of resource to controller
      *
      * const MAP = array(
      *     self::ARTICLE   => 'Articles',

@@ -11,7 +11,7 @@ class Kohana_Aliases_Controller
      */
 
     /**
-     * Set up a map
+     * Set up a map of resource to controller
      *
      * const MAP = array(
      *     self::ARTICLE   => 'Articles',

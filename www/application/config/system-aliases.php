@@ -31,5 +31,6 @@ return array(
          */
         'editor',
         'special',
+        'bot',
     )
 );
