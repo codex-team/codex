@@ -1,7 +1,0 @@
-{
-    "name": "codex-team/kohana-aliases",
-    "description": "This module allows you to make usefull and beautifull URLs for your service.",
-    "type": "library",
-    "license": "MIT",
-    "require": {}
-}
