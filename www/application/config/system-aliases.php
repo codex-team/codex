@@ -32,7 +32,6 @@ return array(
         'bot',
         'editor',
         'media',
-        'special',
-        
+        'special'
     )
 );
