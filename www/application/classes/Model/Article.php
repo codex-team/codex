@@ -57,8 +57,9 @@ class Model_Article extends Model
     /**
      * Добавляет текущий объект в базу данных и присваивает ему айдишник.
      *
-     * @throws Kohana_Exception
      * @return int inserted id
+     *
+     * @throws Kohana_Exception
      */
     public function insert()
     {

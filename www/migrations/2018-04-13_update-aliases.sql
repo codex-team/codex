@@ -1,3 +1,3 @@
-DROP TABLE IF EXISTS `ForbiddenAliaseses`;
+DROP TABLE IF EXISTS `ForbiddenAliases`;
 
 RENAME TABLE `Alias` TO `Aliases`;
