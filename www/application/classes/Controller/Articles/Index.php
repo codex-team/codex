@@ -10,8 +10,8 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $this->description = "Здесь собраны заметки о нашем опыте и исследованиях в области веб-разработки, дизайна, маркетинга и организации рабочих процессов";
 
         /**
-        * Clear cache hook
-        */
+         * Clear cache hook
+         */
         $needClearCache = Arr::get($_GET, 'clear') == 1;
 
         $this->view["feed_items"] = $this->getFeed();

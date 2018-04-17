@@ -114,16 +114,16 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         }
 
         $uri = Arr::get($_POST, 'uri');
-        $alias = Model_Alias::generateUri($uri);
+        $alias = Model_Aliases::generateUri($uri);
 
         if ($article_id) {
-            $article->uri = Model_Alias::updateAlias($article->uri, $alias, Model_Uri::ARTICLE, $article_id);
+            $article->uri = Model_Aliases::updateAlias($article->uri, $alias, Aliases_Controller::ARTICLE, $article_id);
             $article->dt_update = date('Y-m-d H:i:s');
             $article->update();
         } else {
             $article->user_id = $this->user->id;
             $insertedId = $article->insert();
-            $article->uri = Model_Alias::addAlias($alias, Model_Uri::ARTICLE, $insertedId);
+            $article->uri = Model_Aliases::addAlias($alias, Aliases_Controller::ARTICLE, $insertedId);
             $article->update();
         }
 
@@ -224,6 +224,14 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         if (!empty($article_id) && !empty($user_id)) {
             $article = Model_Article::get($article_id);
             $article->remove($user_id);
+
+            /**
+             * Delete alias
+             */
+            if ($article->uri) {
+                $alias = Model_Aliases::getAlias($article->uri);
+                Model_Aliases::deleteAlias($alias->hash);
+            }
 
             $feed = new Model_Feed_Articles($article::FEED_PREFIX);
             $feed->remove($article->id);

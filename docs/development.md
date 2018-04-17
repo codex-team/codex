@@ -4,10 +4,10 @@ Here are a few steps to run your local copy of CodeX site.
 
 Make sure that you have installed [Docker](https://docs.docker.com/install/) and [docker-compose](https://docs.docker.com/compose/).
 
-## 1. Clone this repository.
+## 1. Clone this repository with submodules
 
 ```shell
-git clone https://github.com/codex-team/codex
+git clone --recursive https://github.com/codex-team/codex
 cd codex
 ```
 

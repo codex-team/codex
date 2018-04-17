@@ -1,0 +1,3 @@
+[submodule "www/modules/aliases"]
+	path = www/modules/aliases
+	url = https://github.com/codex-team/kohana-aliases

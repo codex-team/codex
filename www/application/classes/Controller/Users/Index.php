@@ -77,7 +77,11 @@ class Controller_Users_Index extends Controller_Base_preDispatch
             $instagram_uri = $this->methods->parseUri(Arr::get($_POST, 'instagram_uri'));
             $vk_uri        = $this->methods->parseUri(Arr::get($_POST, 'vk_uri'));
 
-            $alias = Model_Alias::updateAlias($this->user->uri, $alias, Model_Uri::USER, $this->user->id);
+            if ($this->user->uri) {
+                $alias = Model_Aliases::updateAlias($this->user->uri, $alias, Aliases_Controller::USER, $this->user->id);
+            } else {
+                $alias = Model_Aliases::addAlias($alias, Aliases_Controller::USER, $this->user->id);
+            }
 
             $fields = array(
                 'name'          => $name,
