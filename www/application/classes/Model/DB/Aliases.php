@@ -16,13 +16,21 @@ class Model_DB_Aliases extends Kohana_Model_DB_Aliases
      */
     public static function insert($uri, $hash, $type, $id, $dt_create, $deprecated = 0)
     {
-        return Dao_Aliases::insert()
+        Dao_Aliases::insert()
                           ->set('uri', $uri)
                           ->set('hash', $hash)
                           ->set('type', $type)
                           ->set('id', $id)
                           ->set('dt_create', $dt_create)
                           ->set('deprecated', $deprecated)
+                          ->execute();
+
+        $hashBinToHex = bin2hex($hash);
+
+        return Dao_Aliases::select()
+                          ->where('hash', '=', $hash)
+                          ->limit(1)
+                          ->clearcache($hashBinToHex)
                           ->execute();
     }
 
