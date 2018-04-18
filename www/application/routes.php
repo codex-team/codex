@@ -212,8 +212,14 @@ Route::set('FETCH_URL', 'editor/fetchURL')
 * Landing pages
 */
 Route::set('LANDINGS', '<action>', array(
-   'actions' => 'bot|special|media'
-))->defaults(array(
+   'actions' => 'bot|special|media|beauty-toolbar'
+))
+->filter(function($route, $params, $request) {
+    // Replacing the hyphens for underscores.
+    $params['action'] = str_replace('-', '_', $params['action']);
+    return $params; // Returning an array will replace the parameters.
+})
+->defaults(array(
    'controller' => 'landings'
 ));
 

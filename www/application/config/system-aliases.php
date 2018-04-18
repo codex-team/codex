@@ -32,5 +32,6 @@ return array(
         'editor',
         'special',
         'bot',
+        'beauty-toolbar'
     )
 );

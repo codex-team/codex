@@ -28,4 +28,15 @@ class Controller_Landings extends Controller_Base_preDispatch
         $this->description = 'Platfrom for building UGC media';
         $this->template->content = View::factory('templates/landings/media', $this->view);
     }
+
+    /**
+     * Safari Beauty Toolbar
+     * https://ifmo.su/beauty-toolbar
+     */
+    public function action_beauty_toolbar()
+    {
+        $this->title = 'Safari Beauty Toolbar';
+        $this->description = 'Make the Safari Toolbar more consistent with your brand colors';
+        $this->template->content = View::factory('templates/landings/beauty_toolbar', $this->view);
+    }
 }
