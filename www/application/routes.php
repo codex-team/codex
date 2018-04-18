@@ -218,8 +218,8 @@ Route::set('LANDINGS', '<action>', array(
 ));
 
 /**
-* Core
-*/
+ * Core
+ */
 
 Route::set('AJAX_FILE_TRANSPORT', 'ajax/transport')->defaults(array(
     'controller'      => 'base_ajax',
@@ -228,8 +228,8 @@ Route::set('AJAX_FILE_TRANSPORT', 'ajax/transport')->defaults(array(
 
 
 // Defaults
- Route::set('ALIASES', '(<controller>(/<action>(/<id>)))')
-     ->defaults(array(
-         'controller' => 'index',
-         'action'     => 'index'
-	 ));
+Route::set('ALIASES', '(<controller>(/<action>(/<id>)))')
+    ->defaults(array(
+        'controller' => 'index',
+        'action'     => 'index'
+    ));

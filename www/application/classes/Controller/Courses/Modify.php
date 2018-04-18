@@ -67,16 +67,16 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
             $item_below_key         = Arr::get($_POST, 'item_below_key', 0);
 
             $uri = Arr::get($_POST, 'uri');
-            $alias = Model_Alias::generateUri($uri);
+            $alias = Model_Aliases::generateUri($uri);
 
             if ($course->title && $course->text && $course->description) {
                 if ($course_id) {
                     $course->dt_update = date('Y-m-d H:i:s');
-                    $course->uri = Model_Alias::updateAlias($course->uri, $alias, Model_Uri::COURSE, $course_id);
+                    $course->uri = Model_Aliases::updateAlias($course->uri, $alias, Aliases_Controller::COURSE, $course_id);
                     $course->update();
                 } else {
                     $insertedId   = $course->insert();
-                    $course->uri = Model_Alias::addAlias($alias, Model_Uri::COURSE, $insertedId);
+                    $course->uri = Model_Aliases::addAlias($alias, Aliases_Controller::COURSE, $insertedId);
                 }
 
                 if ($course->is_published && !$course->is_removed) {

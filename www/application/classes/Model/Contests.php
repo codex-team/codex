@@ -39,6 +39,7 @@ class Model_Contests extends Model
     {
         $idAndRowAffected = Dao_Contests::insert()
                                 ->set('title', $this->title)
+                                ->set('uri', $this->uri)
                                 ->set('text', $this->text)
                                 ->set('prize', $this->prize)
                                 ->set('dt_close', $this->dt_close)

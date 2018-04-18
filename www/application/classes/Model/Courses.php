@@ -124,7 +124,6 @@ class Model_Courses extends Model
             ->set('is_removed', $this->is_removed)
             ->set('is_published', $this->is_published)
             ->set('marked', $this->marked)
-            ->set('order', $this->order)
             ->clearcache($this->id)
             ->execute();
     }
