@@ -77,6 +77,13 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $this->view["coauthor"]        = Model_User::get($coauthorship->user_id);
 
         /**
+         * Do not index this article if it isn't published
+         */
+        if (!$article->is_published) {
+            $this->view["nofollow"] = true;
+        }
+
+        /**
          * Check if user can edit an article
          * Pass article uri to articleEditLink variable
          * used in header template for Edit link href
