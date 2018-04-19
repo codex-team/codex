@@ -1,17 +1,15 @@
-### CodeX Team
+# CodeX Team
 
-Клуб веб-разработки, дизайна и маркетинга в НИУ ИТМО. Мы строим команду молодых специалистов, способную создавать полноценные проекты в интернете на мировом уровне.
+Club of web-development, design and marketing. We build team learning how to create full-valued products on the global market.
 
-http://ifmo.su
+[ifmo.su](https://ifmo.su)
 
+## Follow us
 
+[vk.com/codex_team](https://vk.com/codex_team)
 
-##### Подписывайтесь на нас в соцсетях
+[instagram.com/codex_team](https://instagram.com/codex_team)
 
-http://vk.com/codex_team
+Join our Telegram-channel and stay in touch! You'll be notified about new articles, meet-ups and other events.
 
-https://instagram.com/codex_team
-
-А еще у нас есть канал в Телеграме, в котором мы анонсируем новые статьи, конкурсы и другие интересные события. Подписывайтесь!
-
-https://telegram.me/codex_team
+[t.me/codex_team](https://t.me/codex_team)
