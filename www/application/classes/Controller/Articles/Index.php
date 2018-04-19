@@ -80,7 +80,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
          * Do not index this article if it isn't published
          */
         if (!$article->is_published) {
-            $this->view["nofollow"] = true;
+            $this->nofollow = true;
         }
 
         /**
