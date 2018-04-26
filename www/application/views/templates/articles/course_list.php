@@ -12,8 +12,8 @@
                 <?
                     $isCurrent = $article->id == $currentArticle->id;
                 ?>
-                <li class="courses-list__item">
-                    <a href="<?=URL::site($article->uri ?: '/article/ ' . $article->id ); ?>" class="courses-list__link <?= $isCurrent ? 'courses-list__link--current' : '' ?>" href="">
+                <li class="courses-list__item <?= $isCurrent ? 'courses-list__item--current' : '' ?>">
+                    <a href="<?=URL::site($article->uri ?: '/article/ ' . $article->id ); ?>" class="courses-list__link" href="">
                         <?= $article->title; ?>
                     </a>
                 </li>

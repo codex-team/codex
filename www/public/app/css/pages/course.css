@@ -24,10 +24,61 @@
         margin: 0 auto;
         padding: 0;
         list-style: none;
+        position: relative;
 
-        &__item:not(:last-of-type) {
-            margin-bottom: 12px;
+        &::after {
+            content: '';
+            display: inline-block;
+            position: absolute;
+            top: 7px;
+            bottom: 12px;
+            right: 3.5px;
+            z-index: -1;
+            width: 2px;
+            background: #e7e9f5;
+        };
+
+        &__item {
+            position: relative;
+
+            &::after {
+                content: '';
+                display: inline-block;
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                background: #fff;
+                border: 2px solid #e7e9f5;
+                cursor: pointer;
+            }
+
+            &:only-child::after {
+                display: none;
+            }
+
+            &--current {
+
+                &::after {
+                    border-color: #4a90e2;
+                }
+
+                a {
+                    color: var(--color-link);
+                    &:hover {
+                        color: var(--color-hover);
+                    }
+                }
+            }
+
+            &:not(:last-of-type) {
+                margin-bottom: 12px;
+            }
         }
+
 
         &__link {
             text-decoration: none;
@@ -37,14 +88,6 @@
             &:hover {
                 text-decoration: none;
                 color: color(var(--text-gray) blackness(+50%));
-            }
-
-            &--current {
-                color: var(--color-link);
-
-                &:hover {
-                    color: var(--color-hover);
-                }
             }
         }
     }
@@ -60,6 +103,14 @@
 
         &__title {
             font-size: 14px;
+        }
+    }
+    .courses-list {
+        &::after {
+            display: none;
+        }
+        &__item::after {
+            display: none;
         }
     }
     .js-course__title-toggle {
