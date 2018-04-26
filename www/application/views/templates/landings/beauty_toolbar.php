@@ -3,11 +3,11 @@
     <div class="sct__header">
         <div class="sct__center-side">
             <div class="sct__rotator">
-                <div class="sct__rotator-item sct__rotator-item--first" style="background-image: url('./assets/8.jpg') ">
+                <div class="sct__rotator-item sct__rotator-item--first" style="background-image: url('/public/app/landings/beauty_toolbar/8.jpg') ">
                 </div>
-                <div class="sct__rotator-item sct__rotator-item--main" style="background-image: url('./assets/2.jpg') ">
+                <div class="sct__rotator-item sct__rotator-item--main" style="background-image: url('/public/app/landings/beauty_toolbar/2.jpg') ">
                 </div>
-                <div class="sct__rotator-item sct__rotator-item--last" style="background-image: url('./assets/6.jpg') ">
+                <div class="sct__rotator-item sct__rotator-item--last" style="background-image: url('/public/app/landings/beauty_toolbar/6.jpg') ">
                 </div>
             </div>
             <h1>Safari Beauty Toolbar</h1>
@@ -19,10 +19,10 @@
                 View on the GitHub
             </a>
             <br />
-            <a class="sct__link sct__link--yarn" href="">
+            <a class="sct__link sct__link--yarn" href="https://yarnpkg.com/en/package/safari-beauty-toolbar">
                 Available via Yarn
             </a>
-            <a class="sct__link sct__link--npm" href="">
+            <a class="sct__link sct__link--npm" href="https://www.npmjs.com/package/safari-beauty-toolbar">
                 Available via NPM
             </a>
         </div>
@@ -110,6 +110,17 @@
                     </video>
                 </div>
             </div>
+        </div>
+        <div class="sct__greeting">
+            <? if ($isFromPH): ?>
+                <div class="sct__greeting-logo"></div>
+            <? endif; ?>
+            <p>
+                Hi there! We are small team of dev-enthusiasts, working on non-profit <a href="/" target="_blank" onclick="window.yaCounter32652805 && window.yaCounter32652805.reachGoal('sbt-products');">products</a>. <br/>
+                Just setting up our <a href="https://twitter.com/codex_team" target="_blank" onclick="window.yaCounter32652805 && window.yaCounter32652805.reachGoal('sbt-twitter');">twitter</a>.
+                Let’s be connected!
+            </p>
+            <a href="https://twitter.com/codex_team?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-size="large" data-dnt="true" data-show-count="false">Follow @codex_team</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
     </div>
 </div>

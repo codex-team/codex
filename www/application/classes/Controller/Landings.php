@@ -37,6 +37,17 @@ class Controller_Landings extends Controller_Base_preDispatch
     {
         $this->title = 'Safari Beauty Toolbar';
         $this->description = 'Make the Safari Toolbar more consistent with your brand colors';
+
+        /**
+         * Detect visits from Product Hunt
+         */
+        $isFromPH = $this->request->query('ref') == 'producthunt';
+
+        if ($isFromPH){
+            Cookie::set('from', 'product hunt', Date::YEAR * 3);
+        }
+
+        $this->view['isFromPH'] = $isFromPH;
         $this->template->content = View::factory('templates/landings/beauty_toolbar', $this->view);
     }
 }
