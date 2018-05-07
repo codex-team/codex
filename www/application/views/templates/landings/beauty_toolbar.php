@@ -101,12 +101,12 @@
             <div class="sct__gifs">
                 <div class="sct__gifs-item">
                     <video autoplay loop muted playsinline>
-                        <source src="https://leonardo.osnova.io/8e15790a-ed96-6013-dabf-6b71836f020e/-/format/mp4/" type="video/mp4">
+                        <source src="/public/app/landings/beauty_toolbar/desktop.mp4" type="video/mp4">
                     </video>
                 </div>
                 <div class="sct__gifs-item">
                     <video autoplay loop muted playsinline>
-                        <source src="https://leonardo.osnova.io/3b3dcdb1-be38-7ad4-672f-53a577637a3a/-/format/mp4/" type="video/mp4">
+                        <source src="/public/app/landings/beauty_toolbar/mobile.mp4" type="video/mp4">
                     </video>
                 </div>
             </div>
