@@ -626,6 +626,12 @@ body {
     text-align: center;
 }
 
+@media all and (max-width: 980px) {
+    .sct__greeting {
+        padding: 0;
+    }
+}
+
 .sct__greeting p {
     font-size: 15.2px;
     margin: 15px 0 25px;
