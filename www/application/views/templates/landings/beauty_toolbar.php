@@ -95,7 +95,7 @@
         <div class="sct__how">
             <h3>How it works</h3>
             <p>
-                Module works only on the Safari browser on MacOS and iOS because they have a little transparency on the Toolbar.
+                Module works only on Safari browser on macOS and iOS because they have a little transparency on the Toolbar.
                 So we can add the colorful layer and place it under the Toolbar. That's it. This tool just simplifies the trick.
             </p>
             <div class="sct__gifs">
