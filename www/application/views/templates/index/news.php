@@ -1,6 +1,68 @@
 <?
     $news = array(
         array(
+            'text' => 'Выпустили скрипт для <a href="/beauty-toolbar">брендирования тулбара в Safari</a>»',
+            'textEn' => '<a href="https://ifmo.su">Beauty Toolbar</a> - Make the Safari Toolbar more consistent with your brand colors',
+            'date' => '7 may',
+            'release' => true
+        ),
+        array(
+            'text' => 'Прошел мастер-класс <a href="https://vk.com/wall-103229636_391">CodeX Meetup: Vue.js</a>  😼',
+            'textEn' => '<a href="https://vk.com/wall-103229636_391">CodeX Meetup: Vue.js</a> 😼',
+            'date' => '24 apr',
+        ),
+        array(
+            'text' => 'Провели открытый мастер-класс <a href="https://vk.com/wall-103229636_374">CodeX Meetup: Orchestration</a> об оркестрации нескольких проектов на одном сервере.',
+            'textEn' => '<a href="https://vk.com/wall-103229636_374">CodeX Meetup: Orchestration</a>',
+            'date' => '22 mar',
+        ),
+        array(
+            'text' => 'Написали гайд по внедрению <a href="/ci">Continuous Integration</a>',
+            'textEn' => 'Beginners guide to the <a href="/ci">Continuous Integration</a>',
+            'date' => '5 mar',
+        ),
+        array(
+            'text' => 'Обновления системы сборки <a href="/webpack4">Webpack 4</a>',
+            'textEn' => 'Our new article about <a href="/webpack4">Webpack 4</a>',
+            'date' => '28 feb',
+        ),
+        array(
+            'text' => 'Обзор <a href="/betterads">Better Ads Standards</a> — допустимых форматов баннеров',
+            'textEn' => 'Overview of the «<a href="/betterads">Better Ads Standards</a>»',
+            'date' => '16 feb',
+        ),
+        array(
+            'text' => 'Написали статью об <a href="/telegram-auth">авторизации пользователей через Telegram</a>»',
+            'textEn' => 'The new guide «<a href="/telegram-auth">Authentication via Telegram</a>»',
+            'date' => '9 feb',
+        ),
+        array(
+            'text' => 'Набросали инструкцию по <a href="/npm">публикации пакета в NPM</a>»',
+            'textEn' => 'Instructions about <a href="/npm">how to publish an NPM package</a>',
+            'date' => '6 feb',
+        ),
+        array(
+            'text' => 'Представляем обновленный <a href="https://ifmo.su">сайт CodeX</a>»',
+            'textEn' => 'Meet the new <a href="https://ifmo.su">CodeX\'s website</a>',
+            'date' => '7 dec',
+            'release' => true
+        ),
+        array(
+            'text' => 'Рассказали о том <a href="/run-command-on-ssh-log-in">как настроить уведомления о заходах на сервер по SSH</a>»',
+            'textEn' => 'New guide «<a href="/run-command-on-ssh-log-in">How to set up the notifications about ssh logins</a>»',
+            'date' => '6 dec'
+        ),
+        array(
+            'text' => 'Новая статья «<a href="/htaccess">Базовые знания о файле .htaccess</a>»',
+            'textEn' => 'Base knowledges about <a href="/htaccess">.htaccess</a> file',
+            'date' => '20 nov'
+        ),
+        array(
+            'text' => 'Составили инструкцию о том, <a href="/telegram-covers">как создавать обложки в Telegram-каналах</a>',
+            'textEn' => 'Wrote the small guide about <a href="/telegram-covers">how to attach covers to the Telegram channel messages</a>',
+            'date' => '18 nov'
+        ),
+        array(
             'text' => 'Вышла статья о том, <a href="/viber-bot">как создать бота для Viber</a>',
             'textEn' => 'We published a new note «<a href="/viber-bot">How to create a bot for Viber</a>»',
             'date' => '2 nov'
