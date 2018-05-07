@@ -2,7 +2,7 @@
     $news = array(
         array(
             'text' => 'Выпустили скрипт для <a href="/beauty-toolbar">брендирования тулбара в Safari</a>»',
-            'textEn' => '<a href="https://ifmo.su">Beauty Toolbar</a> - Make the Safari Toolbar more consistent with your brand colors',
+            'textEn' => '<a href="/beauty-toolbar">Beauty Toolbar</a> - Make the Safari Toolbar more consistent with your brand colors',
             'date' => '7 may',
             'release' => true
         ),
