@@ -29,9 +29,10 @@ return array(
         /**
          * Landing pages
          */
-        'editor',
-        'special',
         'bot',
-        'beauty-toolbar'
+        'editor',
+        'media',
+        'special',
+        'beauty-toolbar',
     )
 );
