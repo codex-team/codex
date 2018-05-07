@@ -1,6 +1,12 @@
 <?
     $news = array(
         array(
+            'text' => 'Выпустили скрипт для <a href="/beauty-toolbar">брендирования тулбара в Safari</a>»',
+            'textEn' => '<a href="https://ifmo.su">Beauty Toolbar</a> - Make the Safari Toolbar more consistent with your brand colors',
+            'date' => '7 may',
+            'release' => true
+        ),
+        array(
             'text' => 'Прошел мастер-класс <a href="https://vk.com/wall-103229636_391">CodeX Meetup: Vue.js</a>  😼',
             'textEn' => '<a href="https://vk.com/wall-103229636_391">CodeX Meetup: Vue.js</a> 😼',
             'date' => '24 apr',
