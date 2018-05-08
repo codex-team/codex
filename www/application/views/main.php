@@ -26,11 +26,22 @@
 
     <meta name="telegram:channel" content="@codex_team">
 
-    <meta property="vk:image" content="<?= Model_Methods::getDomainAndProtocol() ?>/public/app/img/meta_img_vk.png" />
-    <meta property="twitter:image"  content="<?= Model_Methods::getDomainAndProtocol() ?>/public/app/img/meta_img.png" />
-    <meta property="og:image" id="metaImage" name="image" content="<?= Model_Methods::getDomainAndProtocol() ?>/public/app/img/meta_img.png" />
+    <?
+        if (empty($metaImage)) {
+            $metaImage = Model_Methods::getDomainAndProtocol() . '/public/app/img/meta_img.png';
+        } else if (empty($metaImageVK)) {
+            $metaImageVK = $metaImage;
+        }
 
-    <link id="linkImage" rel="image_src" href="/public/app/img/meta_img.png" />
+        if (empty($metaImageVK)) {
+            $metaImageVK = Model_Methods::getDomainAndProtocol() . '/public/app/img/meta_img_vk.png';
+        }
+    ?>
+
+    <meta property="vk:image" content="<?= $metaImageVK ?>" />
+    <meta property="twitter:image"  content="<?= $metaImage ?>" />
+    <meta property="og:image" id="metaImage" name="image" content="<?= $metaImage ?>" />
+    <link id="linkImage" rel="image_src" href="<?= $metaImage ?>" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
     <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/apple-touch-icon-180x180.png" />
 
