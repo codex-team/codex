@@ -37,6 +37,7 @@ class Controller_Landings extends Controller_Base_preDispatch
     {
         $this->title = 'Safari Beauty Toolbar';
         $this->description = 'Make the Safari Toolbar more consistent with your brand colors';
+        $this->metaImage = 'https://ifmo.su/public/app/landings/beauty_toolbar/demo.gif';
 
         /**
          * Detect visits from Product Hunt

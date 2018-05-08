@@ -51,6 +51,8 @@ class Controller_Base_preDispatch extends Controller_Template
             $this->template->title = $this->title = $GLOBALS['SITE_NAME'];
             $this->template->keywords    = '';
             $this->template->description = '';
+            $this->template->metaImage   = null;
+            $this->template->metaImageVK = null;
             $this->template->content     = '';
             $this->template->nofollow    = false;
         }
@@ -75,6 +77,12 @@ class Controller_Base_preDispatch extends Controller_Template
             }
             if ($this->nofollow) {
                 $this->template->nofollow = $this->nofollow;
+            }
+            if ($this->metaImage) {
+                $this->template->metaImage = $this->metaImage;
+            }
+            if ($this->metaImageVK) {
+                $this->template->metaImageVK = $this->metaImageVK;
             }
         }
 
