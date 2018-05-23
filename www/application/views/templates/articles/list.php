@@ -16,6 +16,14 @@
                 <a class="feed-item__cover <?= $item->is_big_cover ? 'feed-item__cover--big' : '' ?>" href="<?= $url ?>" style="background-image: url(<?= $item->cover ?>)"></a>
             <? endif; ?>
 
+            <a class="feed-item__title js-emoji-included" href="/<?= $url  ?>">
+                <?= HTML::chars($item->title) ?>
+            </a>
+
+            <div class="feed-item__description">
+                <?= HTML::chars($item->description) ?>
+            </div>
+
             <div class="feed-item__info">
                 <time class="feed-item__time">
                     <?= date_format(date_create($item->dt_publish), 'd M Y'); ?>
@@ -39,14 +47,6 @@
                         </a>
                     <? endif; ?>
                 <? endif; ?>
-            </div>
-
-            <a class="feed-item__title js-emoji-included" href="/<?= $url  ?>">
-                <?= HTML::chars($item->title) ?>
-            </a>
-
-            <div class="feed-item__description">
-                <?= HTML::chars($item->description) ?>
             </div>
 
         </article>
