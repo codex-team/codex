@@ -4,12 +4,12 @@
  */
 .follow-telegram {
     max-width: 380px;
-    margin: 70px auto 0;
+    margin: 120px auto 0;
 
     &::before {
         display: block;
-        width: 40px;
-        height: 40px;
+        width: 30px;
+        height: 30px;
         content: '';
         background: url('/public/app/img/codex-logo-gray.svg');
         background-size: cover;
@@ -25,7 +25,7 @@
         border-top-left-radius: 0;
         border: 1px solid #d7e3ec;
         padding: 15px 17px;
-        margin-left: 56.5px;
+        margin-left: 46.5px;
 
         &:before {
             position: absolute;
@@ -61,7 +61,7 @@
         letter-spacing: 0.3px;
         color: #fff;
         margin-top: 10px;
-        margin-left: 56.5px;
+        margin-left: 46.5px;
         padding: 8px 20px;
 
         &:hover {
@@ -89,14 +89,8 @@
         width: auto;
         margin: 0;
 
-        &::before {
-            width: 30px;
-            height: 30px;
-        }
-
         &__contents {
             padding: 11px 15px;
-            margin-left: 46px;
         }
 
         &__title {
@@ -105,10 +99,6 @@
 
         &__desc {
             font-size: 13px;
-        }
-
-        &__button {
-            margin-left: 46px;
         }
     }
 }
