@@ -6,8 +6,10 @@
  * Uses cookies to remember user's chice and
  * Translates pages using php Gettext library
  */
-class Internationalization {
-
+class Internationalization
+{
+    const GET_PARAM_NAME = 'lang';
+    const COOKIE_NAME = 'lang';
 
     /**
      * Supported languages
@@ -29,44 +31,33 @@ class Internationalization {
     private $localedir = DOCROOT . 'locale';
 
     /**
-     * Chosen language from the GET form
-     */
-    private $getLang;
-
-    /**
-     * Preferable language that is stored in COOKIES
-     */
-    private $cookieLang;
-
-    /**
      * Language used to configure Gettext
+     * @var string
      */
     private $lang;
 
-
     /**
      * Calls other functions to setup Gettext
-     * @param string $defaultLang
      */
-    function __construct($defaultLang = 'en')
+    function __construct()
     {
-        if (isset($_GET['lang'])) {
-            $this->getLang = $_GET['lang'];
-        }
-
-        if (isset($_COOKIE['lang'])) {
-            $this->cookieLang = $_COOKIE['lang'];
-        }
-
-        $this->lang = $this->langsSupported[$defaultLang];
         $this->langSetup();
         $this->envSetup();
     }
 
+    /**
+     * @return string
+     */
+    public function getLang()
+    {
+        return $this->lang;
+    }
 
     /**
      * Verifies if the given language is supported in the project
+     *
      * @param string $locale
+     *
      * @return bool
      */
     private function valid($locale)
@@ -75,32 +66,43 @@ class Internationalization {
     }
 
     /**
-     * Chooses the prefurable language
+     * Chooses the preferable language
      */
     private function langSetup()
     {
-        // Check whether the user used the GET form
-        if (isset($this->getLang) && $this->valid($this->getLang)) {
+        /**
+         * Set default language
+         */
+        $this->lang = 'en';
 
-            // Store user's choice
-            setcookie('lang', $this->getLang);
-            $this->lang = $this->langsSupported[$this->getLang];
+        $langFromGetParam = Arr::get($_GET, self::GET_PARAM_NAME);
+        $langFromCookies = Arr::get($_COOKIE, self::COOKIE_NAME);
 
-        } elseif (isset($this->cookieLang) && $this->valid($this->cookieLang)) {
+        if ($langFromGetParam && $this->valid($langFromGetParam)) {
+            /**
+             * If lang in GET params then save this value to cookies
+             */
+            setcookie(self::COOKIE_NAME, $langFromGetParam);
+            $this->lang = $langFromGetParam;
 
-            // Choose language based on user's previous choice
-            $this->lang = $this->langsSupported[$this->cookieLang];
+        } elseif ($langFromCookies && $this->valid($langFromCookies)) {
+            /**
+             * Choose language based on user's previous choice
+             */
+            $this->lang = $langFromCookies;
         }
     }
 
-     /**
-     * Configures gettext
+    /**
+     * Configure gettext
      */
     private function envSetup()
     {
+        $locale = $this->langsSupported[$this->lang];
+
         // Set $lang as value of the environment variable 'LANG'
-        putenv('LANG=' . $this->lang);
-        setlocale(LC_ALL, $this->lang);
+        putenv('LANG=' . $locale);
+        setlocale(LC_ALL, $locale);
 
         // Set path to the $domain.po and $domain.mo files
         bindtextdomain($this->domain, $this->localedir);

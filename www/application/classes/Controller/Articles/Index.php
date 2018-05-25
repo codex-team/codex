@@ -104,14 +104,32 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
      */
     public function getFeed()
     {
+        /**
+         * Prepare Feed model
+         */
         $feed = new Model_Feed_Articles();
+
+        /**
+         * Get all published articles
+         */
         $feed_items  = $feed->get();
-        foreach ($feed_items as $feed_item) {
+
+        foreach ($feed_items as $index => $feed_item) {
             $coauthorship        = new Model_Coauthors($feed_item->id);
             $feed_item->coauthor = Model_User::get($coauthorship->user_id);
+
+            /**
+             * If article was linked to another one and it's lang is not equal
+             * client's lang then remove this article from feed array
+             */
+            if ($feed_item->linked_article && $feed_item->lang != LANG) {
+                unset($feed_items[$index]);
+            }
         }
+
         return $feed_items;
     }
+
     /**
      * Renders template for each block
      * @param string $content - json encoded data
