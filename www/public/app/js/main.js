@@ -54,11 +54,6 @@ var codex = (function (codex_) {
 
         }
 
-
-
-
-
-
     };
 
     return codex_;
@@ -101,6 +96,7 @@ codex.quizForm = require('./modules/quizForm');
 codex.transport = require('./modules/transport');
 codex.vkWidget = require('./modules/vkWidget');
 codex.codeStyling = require('./modules/codeStyling');
+codex.deeplinker = require('@codexteam/deeplinker');
 
 module.exports = codex;
 
