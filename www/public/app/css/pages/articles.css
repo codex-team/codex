@@ -92,7 +92,7 @@
         height: 17px;
         vertical-align: middle;
         border-radius: 50%;
-        margin-top: -2px;
+        margin: -2px -2px 0 0;
         border: 3px solid #fff;
         overflow: hidden;
 
@@ -102,7 +102,7 @@
         }
 
         &:nth-of-type(2){
-            margin-left: -15px;
+            margin-left: -10px;
 
             img {
                 box-shadow: 0 0 0 3px #fff;
