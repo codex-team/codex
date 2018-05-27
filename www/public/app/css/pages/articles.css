@@ -185,6 +185,11 @@
         height: 100px;
         width: 100px;
 
+        &--big {
+            width: 100%;
+            height: 300px;
+        }
+
         @media (--mobile) {
             width: 100%;
             height: 300px;
