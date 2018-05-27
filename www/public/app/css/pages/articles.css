@@ -209,6 +209,12 @@
 
         &.feed-item--with-big-cover {
             display: flex;
+
+            ^^&__title {
+                @media (--mobile){
+                    font-size: 26px;
+                }
+            }
         }
     }
 }
