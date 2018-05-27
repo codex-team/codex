@@ -54,6 +54,41 @@ var codex = (function (codex_) {
 
         }
 
+        /**
+         * Add listeners for deeplinker elements
+         */
+        let links = document.querySelectorAll('.deeplinker');
+
+        links.forEach(link => {
+
+            let callback;
+
+            /**
+             * If tag name is A then add preventDefault action
+             */
+            if (link.tagName === 'A') {
+
+                callback = () => {
+
+                    event.preventDefault();
+                    codex.deeplinker.click(link);
+
+                };
+
+            } else {
+
+                callback = () => {
+
+                    codex.deeplinker.click(link);
+
+                };
+
+            }
+
+            link.addEventListener('click', callback);
+
+        });
+
     };
 
     return codex_;
