@@ -181,11 +181,17 @@
 
 .feed-item--big.feed-item--with-cover {
 
-    .feed-item__title {
-        font-size: 20px;
+    .feed-item__cover {
+        height: 100px;
+        width: 100px;
+
+        @media (--mobile) {
+            width: 100%;
+            height: 300px;
+        }
     }
     .feed-item__description {
-        font-size: 14.6px;
+        margin-right: 0;
     }
 }
 
