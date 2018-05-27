@@ -26,6 +26,13 @@ var codex = (function (codex_) {
 
         codex.scrollUp.init();
 
+        /**
+         * Find elements with "deeplinker" class and add click listener
+         *
+         * @param {string} selector
+         */
+        codex.deeplinker.init('.deeplinker');
+
         codex.codeStyling.init('.article-code__content');
 
         codex.vkWidget.init({
@@ -53,11 +60,6 @@ var codex = (function (codex_) {
             });
 
         }
-
-
-
-
-
 
     };
 
@@ -101,6 +103,7 @@ codex.quizForm = require('./modules/quizForm');
 codex.transport = require('./modules/transport');
 codex.vkWidget = require('./modules/vkWidget');
 codex.codeStyling = require('./modules/codeStyling');
+codex.deeplinker = require('./modules/deeplinker');
 
 module.exports = codex;
 
