@@ -13,7 +13,7 @@
             ?>
 
             <? if ($item->cover): ?>
-                <a class="feed-item__cover <?= $item->is_big_cover ? 'feed-item__cover--big' : '' ?>" href="<?= $url ?>">
+                <a class="feed-item__cover" href="<?= $url ?>">
                     <img src="<?= $item->cover ?>">
                 </a>
             <? endif; ?>
