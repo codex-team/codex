@@ -134,24 +134,31 @@
     &__cover {
         float: right;
         margin-left: 70px;
-        background-position: center;
-        display: block;
-        height: 130px;
-        width: 130px;
         border-radius: 3px;
-        background-size: cover;
 
         @media (--mobile){
-            width: 100%;
-            margin: 20px 0 0 0;
             order: 3;
+            margin: 20px 0 0 0;
+        }
+
+        img {
+            display: block;
+            height: 130px;
+            width: 130px;
+
+            @media (--mobile){
+                width: 100%;
+            }
         }
 
         &--big {
             order: 3;
-            width: 100%;
-            height: 300px;
             margin: 20px 0 0 0;
+
+            img {
+                width: 100%;
+                height: auto;
+            }
         }
     }
 
@@ -182,19 +189,25 @@
 .feed-item--big.feed-item--with-cover {
 
     .feed-item__cover {
-        height: 100px;
-        width: 100px;
+
+        img {
+            height: 100px;
+            width: 100px;
+
+            @media (--mobile) {
+                width: 100%;
+                height: auto;
+            }
+        }
 
         &--big {
-            width: 100%;
-            height: 300px;
-        }
-
-        @media (--mobile) {
-            width: 100%;
-            height: 300px;
+            img {
+                width: 100%;
+                height: auto;
+            }
         }
     }
+
     .feed-item__description {
         margin-right: 0;
     }

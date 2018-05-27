@@ -13,7 +13,9 @@
             ?>
 
             <? if ($item->cover): ?>
-                <a class="feed-item__cover <?= $item->is_big_cover ? 'feed-item__cover--big' : '' ?>" href="<?= $url ?>" style="background-image: url(<?= $item->cover ?>)"></a>
+                <a class="feed-item__cover <?= $item->is_big_cover ? 'feed-item__cover--big' : '' ?>" href="<?= $url ?>">
+                    <img src="<?= $item->cover ?>">
+                </a>
             <? endif; ?>
 
             <a class="feed-item__title js-emoji-included" href="/<?= $url  ?>">
