@@ -13,6 +13,8 @@ class Internationalization
 
     /**
      * Supported languages
+     *
+     * First item uses as a default value
      */
     private $langsSupported = array(
         'en' => 'en_US',
@@ -36,21 +38,48 @@ class Internationalization
      */
     private $lang;
 
+    private static $_instance;
+
+    /**
+     * Main instance method
+     */
+    public static function instance()
+    {
+        if (!self::$_instance) {
+            self::$_instance = new self();
+            self::$_instance->langSetup();
+            self::$_instance->envSetup();
+        }
+
+        return self::$_instance;
+    }
+
+    /**
+     * Set private functions cause Singleton
+     */
+    private function __clone () {}
+    private function __sleep () {}
+    private function __wakeup () {}
+
     /**
      * Calls other functions to setup Gettext
      */
-    function __construct()
+    private function __construct()
     {
-        $this->langSetup();
-        $this->envSetup();
     }
 
     /**
      * @return string
      */
-    public function getLang()
+    public static function getLang()
     {
-        return $this->lang;
+        return self::instance()->lang;
+    }
+
+    public static function setLang($lang)
+    {
+        setcookie(self::COOKIE_NAME, $lang, 0, '/');
+        self::instance()->lang = $lang;
     }
 
     /**
@@ -73,23 +102,25 @@ class Internationalization
         /**
          * Set default language
          */
-        $this->lang = 'en';
+        $this->lang = array_keys($this->langsSupported)[0];
 
         $langFromGetParam = Arr::get($_GET, self::GET_PARAM_NAME);
         $langFromCookies = Arr::get($_COOKIE, self::COOKIE_NAME);
 
-        if ($langFromGetParam && $this->valid($langFromGetParam)) {
-            /**
-             * If lang in GET params then save this value to cookies
-             */
-            setcookie(self::COOKIE_NAME, $langFromGetParam);
-            $this->lang = $langFromGetParam;
-
-        } elseif ($langFromCookies && $this->valid($langFromCookies)) {
-            /**
-             * Choose language based on user's previous choice
-             */
+        /**
+         * Choose language based on user's previous choice
+         */
+        if ($langFromCookies && $this->valid($langFromCookies)) {
             $this->lang = $langFromCookies;
+        } else {
+            $this->setLang($this->lang);
+        }
+
+        /**
+         * If lang in GET params then save this value to cookies
+         */
+        if ($langFromGetParam && $this->valid($langFromGetParam)) {
+            $this->setLang($langFromGetParam);
         }
     }
 
@@ -100,17 +131,25 @@ class Internationalization
     {
         $locale = $this->langsSupported[$this->lang];
 
-        // Set $lang as value of the environment variable 'LANG'
+        /**
+         * Set $lang as value of the environment variable 'LANG'
+         */
         putenv('LANG=' . $locale);
         setlocale(LC_ALL, $locale);
 
-        // Set path to the $domain.po and $domain.mo files
+        /**
+         * Set path to the $domain.po and $domain.mo files
+         */
         bindtextdomain($this->domain, $this->localedir);
 
-        // Specify the character encoding in which the messages from the $domain message catalog will be returned
+        /**
+         * Specify the character encoding in which the messages from the $domain message catalog will be returned
+         */
         bind_textdomain_codeset($this->domain, 'UTF-8');
 
-        // Set the defualt domain where gettext() will search for the translations
+        /**
+         * Set the default domain where gettext() will search for the translations
+         */
         textdomain($this->domain);
     }
 }

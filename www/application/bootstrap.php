@@ -67,8 +67,7 @@ I18n::lang('en-us');
  * Gettext setup
  */
 require APPPATH . 'classes/i18n-setup.php';
-$i18n = new Internationalization();
-define('LANG', $i18n->getLang());
+define('LANG', Internationalization::instance()->getLang());
 
 /**
 * Composer autoloader
