@@ -13,8 +13,6 @@ module.exports = (() => {
 
         links.forEach(link => {
 
-            console.log(link);
-
             link.addEventListener('click', (event) => {
 
                 event.preventDefault();
