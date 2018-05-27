@@ -26,6 +26,11 @@ var codex = (function (codex_) {
 
         codex.scrollUp.init();
 
+        /**
+         * Find elements with "deeplinker" class and add click listener
+         */
+        codex.deeplinker.init('deeplinker');
+
         codex.codeStyling.init('.article-code__content');
 
         codex.vkWidget.init({
@@ -53,41 +58,6 @@ var codex = (function (codex_) {
             });
 
         }
-
-        /**
-         * Add listeners for deeplinker elements
-         */
-        let links = document.querySelectorAll('.deeplinker');
-
-        links.forEach(link => {
-
-            let callback;
-
-            /**
-             * If tag name is A then add preventDefault action
-             */
-            if (link.tagName === 'A') {
-
-                callback = () => {
-
-                    event.preventDefault();
-                    codex.deeplinker.click(link);
-
-                };
-
-            } else {
-
-                callback = () => {
-
-                    codex.deeplinker.click(link);
-
-                };
-
-            }
-
-            link.addEventListener('click', callback);
-
-        });
 
     };
 
@@ -131,7 +101,7 @@ codex.quizForm = require('./modules/quizForm');
 codex.transport = require('./modules/transport');
 codex.vkWidget = require('./modules/vkWidget');
 codex.codeStyling = require('./modules/codeStyling');
-codex.deeplinker = require('@codexteam/deeplinker');
+codex.deeplinker = require('./modules/deeplinker');
 
 module.exports = codex;
 
