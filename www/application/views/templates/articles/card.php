@@ -2,10 +2,10 @@
     $url = !empty($article->uri) ? '/' . $article->uri : '/article/' . $article->id;
 ?>
 <div class="article-card">
-    <? if (!empty($article->cover)):?>
+    <? /* if (!empty($article->cover)): */?>
         <a class="article-card__cover" href="<?= $url ?>"  <? /* style="background-image: url(<?= $article->cover ?>)*/ ?> >
         </a>
-    <? endif; ?>
+    <? /* endif; */?>
 
     <a class="article-card__title" href="<?= $url ?>">
         <?= $article->title ?>
