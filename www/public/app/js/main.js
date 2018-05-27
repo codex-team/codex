@@ -28,8 +28,10 @@ var codex = (function (codex_) {
 
         /**
          * Find elements with "deeplinker" class and add click listener
+         *
+         * @param {string} selector
          */
-        codex.deeplinker.init('deeplinker');
+        codex.deeplinker.init('.deeplinker');
 
         codex.codeStyling.init('.article-code__content');
 

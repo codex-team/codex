@@ -5,11 +5,11 @@ module.exports = (() => {
     /**
      * Add listeners for deeplinker elements
      *
-     * @param {string} className - find elements with target class
+     * @param {string} selector - find elements by target selector
      */
-    let init = (className = 'deeplinker') => {
+    let init = (selector = '.deeplinker') => {
 
-        let links = document.querySelectorAll('.' + className);
+        let links = document.querySelectorAll(selector);
 
         links.forEach(link => {
 
