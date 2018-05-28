@@ -11,6 +11,12 @@ module.exports = (() => {
 
         let links = document.querySelectorAll(selector);
 
+        if (!links) {
+
+            return;
+
+        }
+
         links.forEach(link => {
 
             link.addEventListener('click', (event) => {
