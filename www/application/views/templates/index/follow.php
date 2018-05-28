@@ -28,7 +28,8 @@
         <? include(DOCROOT . 'public/app/img/twitter.svg'); ?>
         codex_team
     </a> */ ?>
-    <a class="button button--telegram" href="https://t.me/codex_team" rel="nofollow">
+    <a class="button button--telegram deeplinker" href="https://t.me/codex_team" rel="nofollow"
+       data-app-link="tg://resolve?domain=codex_team">
         <? include(DOCROOT . 'public/app/img/telegram.svg'); ?>
         codex_team
     </a>
