@@ -20,7 +20,7 @@
 
         <table class="course_info">
             <tr>
-                <td>дата
+                <td>
                     <time>
                         <?= !is_null($course->dt_publish) ? Date::fuzzy_span(strtotime($course->dt_publish)) : Date::fuzzy_span(strtotime($course->dt_create)) ?>
                     </time>

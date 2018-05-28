@@ -5,14 +5,14 @@
 
             <?
                 $url = '';
-                if ($item::FEED_PREFIX == 'article'){
-                    $url = $item->uri ?: 'article/' . $item->id;
+                if (HTML::chars($item::FEED_PREFIX == 'article')){
+                    $url = HTML::chars($item->uri) ?: 'article/' . HTML::chars($item->id);
                 } else {
-                    $url = $item->uri ?: 'course/' . $item->id;
+                    $url = HTML::chars($item->uri) ?: 'course/' . HTML::chars($item->id);
                 }
             ?>
 
-            <? if ($item->cover): ?>
+            <? if (HTML::chars($item->cover)): ?>
                 <a class="feed-item__cover" href="<?= $url ?>">
                     <img src="<?= $item->cover ?>">
                 </a>
@@ -31,11 +31,11 @@
                     <?= date_format(date_create($item->dt_publish), 'd M Y'); ?>
                 </time>
 
-                <? if ($item::FEED_PREFIX == 'article'): ?>
+                <? if (HTML::chars($item::FEED_PREFIX == 'article')): ?>
                     <a class="feed-item__author-photo" href="/user/<?= $item->author->id ?>">
                         <img src="<?= $item->author->photo ?>" alt="<?= $item->author->name ?>">
                     </a>
-                    <? if ($item->coauthor->id): ?>
+                    <? if (HTML::chars($item->coauthor->id)): ?>
                         <a class="feed-item__author-photo" href="/user/<?= $item->coauthor->id ?>">
                             <img src="<?= $item->coauthor->photo ?>" alt="<?= $item->coauthor->name ?>">
                         </a>

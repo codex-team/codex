@@ -112,17 +112,15 @@
             display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
-            margin-right: 150px;
 
             @media (--mobile){
                 -webkit-line-clamp: 7;
-                 margin-right: 0px;
             }
         }
 
         ^&__cover {
             float: right;
-            margin-left: 70px;
+            margin-left: 45px;
 
             @media (--mobile){
                 margin-left: 20px;
@@ -154,7 +152,6 @@
 
         ^&__description {
             -webkit-line-clamp: 5;
-            margin-right: 0;
         }
 
         ^&__cover {
@@ -191,10 +188,6 @@
         }
 
         &.feed-item--with-cover {
-
-            ^^&__description {
-                margin-right: 0;
-            }
 
             ^^&__title {
                 @media (--mobile){
