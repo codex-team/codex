@@ -16,6 +16,7 @@ class Model_Article extends Model
     public $blocks;
     public $description;
     public $cover;
+    public $is_big_cover;
     public $user_id;
     public $dt_create;
     public $dt_update;
@@ -71,6 +72,7 @@ class Model_Article extends Model
                                 ->set('linked_article', $this->linked_article)
                                 ->set('quiz_id', $this->quiz_id)
                                 ->set('cover', $this->cover)
+                                ->set('is_big_cover', $this->is_big_cover)
                                 ->set('user_id', $this->user_id)
                                 ->set('marked', $this->marked)
                                 ->set('is_published', $this->is_published)
@@ -110,6 +112,7 @@ class Model_Article extends Model
             $this->lang         = Arr::get($article_row, 'lang');
             $this->quiz_id      = Arr::get($article_row, 'quiz_id');
             $this->cover        = Arr::get($article_row, 'cover');
+            $this->is_big_cover = Arr::get($article_row, 'is_big_cover');
             $this->user_id      = Arr::get($article_row, 'user_id');
             $this->marked       = Arr::get($article_row, 'marked');
             $this->dt_publish   = Arr::get($article_row, 'dt_publish');
@@ -161,6 +164,7 @@ class Model_Article extends Model
             ->set('lang', $this->lang)
             ->set('quiz_id', $this->quiz_id)
             ->set('cover', $this->cover)
+            ->set('is_big_cover', $this->is_big_cover)
             ->set('marked', $this->marked)
             ->set('user_id', $this->user_id)
             ->set('is_published', $this->is_published)

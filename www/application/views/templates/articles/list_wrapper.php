@@ -2,22 +2,18 @@
 
     <div class="page-header clearfix">
 
-        <div class="follow-us fl_r">
-            Мы завели канал в Телеграме, где будем анонсировать новые статьи, конкурсы, наши новости и инсайды. Подписывайтесь!<br />
-            <a class="deeplinker" href="//t.me/codex_team" data-app-link="tg://resolve?domain=codex_team"><i class="icon_telegram"></i><span>CodeX on Telegram</span></a>
+        <div class="site-section site-section--articles-list">
+            <h2 class="site-section__title">Our articles</h2>
+            <div class="site-section__desc">We write about our experience and researches.</div>
         </div>
 
-        <h1 class="page-header__title">Статьи команды CodeX</h1>
-
-        <div class="page-header__description">
-            Здесь собраны наши заметки о приобретенном опыте и результатах наших экспериментов. А еще так мы учимся писать интересные и грамотные тексты.
-        </div>
+        <?= View::factory('templates/blocks/follow_telegram'); ?>
 
     </div>
 
 </div>
 
-<div class="center_side feed clearfix">
+<div class="center_side clearfix">
 
     <?= View::factory('templates/articles/list', array( 'feed_items' => $feed_items)); ?>
 

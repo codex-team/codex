@@ -40,7 +40,7 @@ module.exports = {
                     {
                         loader: 'babel-loader',
                         options: {
-                            presets: [ 'es2015' ]
+                            presets: [ 'env' ]
                         }
                     },
                     /** ES lint For webpack build */
