@@ -25,7 +25,7 @@ return array
             'persistent' => FALSE,
         ),
         'table_prefix' => '',
-        'charset'      => 'utf8',
+        'charset'      => 'utf8mb4',
         'caching'      => FALSE,
     ),
     'alternate' => array(
