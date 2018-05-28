@@ -26,11 +26,22 @@
 
     <meta name="telegram:channel" content="@codex_team">
 
-    <meta property="vk:image" content="<?= Model_Methods::getDomainAndProtocol() ?>/public/app/img/meta_img_vk.png" />
-    <meta property="twitter:image"  content="<?= Model_Methods::getDomainAndProtocol() ?>/public/app/img/meta_img.png" />
-    <meta property="og:image" id="metaImage" name="image" content="<?= Model_Methods::getDomainAndProtocol() ?>/public/app/img/meta_img.png" />
+    <?
+        if (empty($metaImage)) {
+            $metaImage = Model_Methods::getDomainAndProtocol() . '/public/app/img/meta_img.png';
+        } else if (empty($metaImageVK)) {
+            $metaImageVK = $metaImage;
+        }
 
-    <link id="linkImage" rel="image_src" href="/public/app/img/meta_img.png" />
+        if (empty($metaImageVK)) {
+            $metaImageVK = Model_Methods::getDomainAndProtocol() . '/public/app/img/meta_img_vk.png';
+        }
+    ?>
+
+    <meta property="vk:image" content="<?= $metaImageVK ?>" />
+    <meta property="twitter:image"  content="<?= $metaImage ?>" />
+    <meta property="og:image" id="metaImage" name="image" content="<?= $metaImage ?>" />
+    <link id="linkImage" rel="image_src" href="<?= $metaImage ?>" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
     <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/apple-touch-icon-180x180.png" />
 
@@ -70,8 +81,8 @@
             <section class="site-footer__section">
                 <h5>Follow us</h5>
                 <ul>
-                    <li><a href="//vk.com/codex_team" target="_blank" rel="nofollow"><i class="icon-vkontakte"></i> <u>ВКонтакте</u></a></li>
-                    <li><a href="//instagram.com/codex_team/" target="_blank" rel="nofollow"><i class="icon-instagram"></i> <u>Instagram</u></a></li>
+                    <li><a class="deeplinker" href="//vk.com/codex_team"  rel="nofollow" data-app-link="vk://vk.com/codex_team"><i class="icon-vkontakte"></i> <u>ВКонтакте</u></a></li>
+                    <li><a class="deeplinker" href="//instagram.com/codex_team/" rel="nofollow" data-app-link="instagram://user?username=codex_team"><i class="icon-instagram"></i> <u>Instagram</u></a></li>
                 </ul>
             </section>
         </div>

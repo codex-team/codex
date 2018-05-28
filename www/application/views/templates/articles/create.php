@@ -96,9 +96,9 @@
             <input class="input" type="text" name="cover" value="<?= $article->cover ?: ''; ?>" autocomplete="off">
         </section>
 
-        <section class="editor-form__section article-cover-big__section">
-            <input type="checkbox" name="is_big_cover" value="1" <?= $article->is_big_cover ? 'checked' : ''; ?> >
-            <label for="is_big_cover">Большая обложка</label>
+        <section class="editor-form__section">
+            <input type="checkbox" id="is_big_cover" name="is_big_cover" value="1" <?= $article->is_big_cover ? 'checked' : ''; ?> >
+            <label class="label--on-same-line" for="is_big_cover">Большая обложка</label>
         </section>
 
         <section class="editor-form__section">
@@ -149,15 +149,18 @@
         </section>
 
         <section class="editor-form__section">
-            <input type="checkbox" name="is_published" value="1" <?= $article->is_published ? 'checked' : ''; ?> > Опубликовать <br>
+            <input type="checkbox" id="is_published" name="is_published" value="1" <?= $article->is_published ? 'checked' : ''; ?> >
+            <label for="is_published" class="label--on-same-line">Опубликовать</label>
         </section>
 
         <section class="editor-form__section">
-            <input type="checkbox" name="marked" value="1" <?= $article->marked ? 'checked' : ''; ?> > Отметить как важную <br/>
+            <input type="checkbox" id="marked" name="marked" value="1" <?= $article->marked ? 'checked' : ''; ?> >
+            <label for="marked" class="label--on-same-line">Отметить как важную</label>
         </section>
 
         <section class="editor-form__section">
-            <input type="checkbox" name="is_recent" value="1" <?= $article->is_recent ? 'checked' : ''; ?> > Вывести на главной <br/>
+            <input type="checkbox" id="is_recent" name="is_recent" value="1" <?= $article->is_recent ? 'checked' : ''; ?> >
+            <label for="is_recent" class="label--on-same-line">Вывести на главной</label>
         </section>
 
 

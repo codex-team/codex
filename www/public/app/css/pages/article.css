@@ -525,14 +525,3 @@
         }
     }
 }
-
-.article-cover-big {
-    &__section {
-        display: flex;
-        align-items: baseline;
-
-        input[type="checkbox"] {
-            margin: 0 5px 0 0;
-        }
-    }
-}

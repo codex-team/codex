@@ -39,6 +39,10 @@
     label {
         display: block;
         margin-bottom: 1em;
+
+        &.label--on-same-line {
+            display: inline-block;
+        }
     }
 
     &__editor {

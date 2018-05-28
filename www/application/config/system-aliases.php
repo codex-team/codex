@@ -33,6 +33,6 @@ return array(
         'editor',
         'media',
         'special',
-        
+        'beauty-toolbar',
     )
 );

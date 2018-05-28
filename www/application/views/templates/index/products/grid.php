@@ -1,6 +1,22 @@
 <?
     $products = array(
         array(
+            'name' => 'Codex Shortcuts',
+            'description' => 'Micro-library for dispatching keyboard shortcuts in Javascript.',
+            'logo' => 'public/app/img/products/shortcuts.svg',
+            'tags' => array('JavaScript'),
+            'npm' => 'https://www.npmjs.com/package/@codexteam/shortcuts',
+            'repo' => 'github.com/codex-team/codex.shortcuts',
+        ),
+        array(
+            'name' => 'Module Dispatcher',
+            'description' => 'Class for frontend Modules initialization from the DOM without inline scripts.',
+            'logo' => 'public/app/img/products/module-dispatcher.svg',
+            'tags' => array('JavaScript'),
+            'npm' => 'https://www.npmjs.com/package/module-dispatcher',
+            'repo' => 'github.com/codex-team/moduleDispatcher',
+        ),
+        array(
             'name' => 'Webpack Build Config',
             'description' => 'Smart frontend build config with syntax linters, code style checker and other helpful stuff based on our experience.',
             'logo' => 'public/app/img/products/webpack.svg',
