@@ -16,7 +16,7 @@
         <img src="/public/app/img/instagram/5.png">
     </a>
 
-    <a class="button button--github" href="https://github.com/codex-team" rel="nofollow">
+    <a class="button button--github" href="https://github.com/codex-team" target="_blank" rel="nofollow">
         <? include(DOCROOT . 'public/app/img/github.svg'); ?>
         CodeX
     </a>
