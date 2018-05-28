@@ -1,6 +1,6 @@
 <div class="follow-telegram">
     <div class="follow-telegram__contents">
-        <a class="follow-telegram__title" href="//telegram.me/codex_team" target="_blank">
+        <a class="follow-telegram__title deeplinker" href="//t.me/codex_team" data-app-link="tg://resolve?domain=codex_team">
             CodeX
         </a>
         <div class="follow-telegram__desc">
