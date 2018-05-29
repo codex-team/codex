@@ -3,7 +3,7 @@
         <?= View::factory('templates/articles/course_list')
             ->set('articles', $articlesFromCourse)
             ->set('onPagePositionClass', 'course--top')
-            ->set('mobileToggleClass', 'js-course__title-toggle')
+            ->set('mobileToggleClass', 'course__title--toggle js-course__title--toggle')
             ->set('currentArticle', $article)
             ->set('course', $course)
         ?>

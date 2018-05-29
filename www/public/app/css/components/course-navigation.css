@@ -1,37 +1,37 @@
 /**
-* Course navigation
-*/
+ * Course navigation
+ */
 .course-navigation {
     display: flex;
     align-items: center;
-    max-width: 48.5%;
-    padding: 15px 0;
     text-decoration: none;
     color: var(--text-gray);
+    max-width: 48.5%;
+    padding: 15px 0;
 
     &-wrapper {
-        max-width: var(--article-max-width);
-        margin: 60px auto;
         display: flex;
         align-items: center;
         justify-content: space-between;
         align-items: center;
+        max-width: var(--article-max-width);
+        margin: 60px auto;
     }
 
     &:hover {
         text-decoration: none;
-        cursor: pointer;
         color: color(var(--text-gray) blackness(+50%));
+        cursor: pointer;
     }
 
     &--previous {
-        margin-right: auto;
         text-align: left;
+        margin-right: auto;
     }
 
     &--next {
-        margin-left: auto;
         text-align: right;
+        margin-left: auto;
     }
 
     &__title {
@@ -40,8 +40,8 @@
         width: 100%;
 
         &--next::after {
-            content: '';
             display: inline-block;
+            content: '';
             width: 1px;
             height: 16px;
             background: url('/public/app/img/arrow-forward.svg') no-repeat;
@@ -50,8 +50,8 @@
         }
 
         &--previous::before {
-            content: '';
             display: inline-block;
+            content: '';
             width: 1px;
             height: 16px;
             background: url('/public/app/img/arrow-back.svg') no-repeat;
@@ -63,15 +63,15 @@
 
 @media (--mobile) {
     .course-navigation {
-        max-width: none;
         width: 100%;
-        padding: 50px 0 20px;
+        max-width: none;
         border-bottom: 1px solid #e2e6ea;
+        padding: 50px 0 20px;
 
         &-wrapper {
             box-sizing: content-box;
-            padding-left: 20px;
             margin: 0 auto -10px;
+            padding-left: 20px;
         }
 
         &--previous {

@@ -104,8 +104,14 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
      */
     public function getFeed()
     {
-        $feed = new Model_Feed_Articles();
-        $feed_items  = $feed->get();
+        $articles = new Model_Feed_Articles();
+        $article_items  = $articles->get();
+
+        $courses = new Model_Courses();
+        $course_items  = $courses->getActiveCourses();
+
+        $feed_items = array_merge($article_items, $course_items);
+
         foreach ($feed_items as $feed_item) {
             $coauthorship        = new Model_Coauthors($feed_item->id);
             $feed_item->coauthor = Model_User::get($coauthorship->user_id);

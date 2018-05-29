@@ -33,10 +33,28 @@
             top: 7px;
             bottom: 12px;
             right: 3.5px;
-            z-index: -1;
+            z-index: 1;
             width: 2px;
             background: #e7e9f5;
-        };
+        }
+
+        &--in-feed {
+            &::after {
+                left: 3.5px;
+            }
+            ^&__item {
+                &::after {
+                    left: 0;
+                }
+            }
+            ^&__link {
+                padding-left: 20px;
+
+                @media (--mobile) {
+                    padding-left: 0;
+                }
+            }
+        }
 
         &__item {
             position: relative;
@@ -45,6 +63,7 @@
                 content: '';
                 display: inline-block;
                 position: absolute;
+                z-index: 2;
                 right: 0;
                 top: 50%;
                 transform: translateY(-50%);
@@ -54,6 +73,16 @@
                 background: #fff;
                 border: 2px solid #e7e9f5;
                 cursor: pointer;
+            }
+
+            &:hover {
+                ^^&__link {
+                    color: #2969b9;
+                }
+
+                &::after {
+                    border-color: #2969b9;
+                }
             }
 
             &:only-child::after {
@@ -74,16 +103,27 @@
                 }
             }
 
+            &:first-of-type {
+                margin-top: 7px;
+            }
+
             &:not(:last-of-type) {
                 margin-bottom: 12px;
             }
         }
 
-
         &__link {
             text-decoration: none;
             color: var(--text-gray);
             line-height: 1.5em;
+
+            @media (--mobile) {
+                padding-left: 0;
+            }
+
+            &--black {
+                color: #000;
+            }
 
             &:hover {
                 text-decoration: none;
@@ -102,7 +142,7 @@
         }
 
         &__title {
-            font-size: 14px;
+            font-size: 16px;
         }
     }
     .courses-list {
@@ -113,9 +153,10 @@
             display: none;
         }
     }
-    .js-course__title-toggle {
+    .course__title--toggle {
         align-items: center;
         line-height: 19px;
+        font-size: 14px;
 
         &::before {
             content: '';

@@ -15,6 +15,7 @@ class Model_Courses extends Model
     public $description;
     public $cover;
     public $is_big_cover;
+    public $course_articles = [];
     public $dt_publish;
     public $dt_create;
     public $dt_update;
@@ -73,14 +74,21 @@ class Model_Courses extends Model
      */
     private function fillByRow($course_row)
     {
-        if (empty($course_row['id'])) {
-            return $this;
-        }
-
-        foreach ($course_row as $fieldname => $value) {
-            if (property_exists($this, $fieldname)) {
-                $this->$fieldname = $value;
-            }
+        if (!empty($course_row['id'])) {
+            $this->id              = Arr::get($course_row, 'id');
+            $this->uri             = Arr::get($course_row, 'uri');
+            $this->title           = Arr::get($course_row, 'title');
+            $this->text            = Arr::get($course_row, 'text');
+            $this->description     = Arr::get($course_row, 'description');
+            $this->cover           = Arr::get($course_row, 'cover');
+            $this->is_big_cover    = Arr::get($course_row, 'is_big_cover');
+            $this->marked          = Arr::get($course_row, 'marked');
+            $this->dt_publish      = Arr::get($course_row, 'dt_publish');
+            $this->dt_create       = Arr::get($course_row, 'dt_create');
+            $this->dt_update       = Arr::get($course_row, 'dt_update');
+            $this->is_removed      = Arr::get($course_row, 'is_removed');
+            $this->is_published    = Arr::get($course_row, 'is_published');
+            $this->course_articles = self::getArticlesFromCourse($this->id);
         }
 
         return $this;
@@ -296,5 +304,27 @@ class Model_Courses extends Model
         }
 
         return Dao_CoursesArticles::select('article_id')->where('course_id', '=', $course_id)->execute();
+    }
+
+    /**
+     * Get Articles from Course
+     * @param [int] $courseId  - ID of Course
+     * @return Model_Article[] - Array of Articles
+     */
+    public static function getArticlesFromCourse($courseId)
+    {
+        /** getting all articles from course */
+        $course_articles = self::getArticles($courseId);
+
+        /** $articleList - empty array. Needs to fill by article ids */
+        $articleList = array();
+
+        if ($course_articles) {
+            foreach ($course_articles as $articles) {
+                $articleList[] = Model_Article::get($articles['article_id']);
+            }
+        }
+
+        return $articleList;
     }
 }
