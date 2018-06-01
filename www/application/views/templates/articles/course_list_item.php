@@ -1,8 +1,17 @@
-<section class="course">
+<section class="feed-item course">
 
     <?
         $articlesFromCourse = $item->course_articles;
+        $courseAuthors = $item->course_authors;
         $url = $item->uri ?: 'course/' . $item->id;
+        // TODO: Remove hardcode, make possible to add > 2 authors
+        $multipleCourseAuthors = count($courseAuthors) > 1 ? true : false;
+        $firstAuthor = $courseAuthors[0];
+
+        if ($multipleCourseAuthors) {
+            $lastAuthor = $courseAuthors[count($courseAuthors) - 1];
+        }
+
     ?>
 
     <? if ($articlesFromCourse) : ?>
@@ -10,10 +19,10 @@
             <?=$item->title; ?>
         </a>
 
-        <ul class="courses-list courses-list--in-feed">
+        <ul class="course-list course-list--in-feed">
             <? foreach ($articlesFromCourse as $article) : ?>
-                <li class="courses-list__item">
-                    <a href="<?=URL::site( '/article/ ' . $article->id ); ?>" class="courses-list__link courses-list__link--black" href="">
+                <li class="course-list__item">
+                    <a href="<?=URL::site( '/article/ ' . $article->id ); ?>" class="course-list__link course-list__link--black">
                         <?= $article->title; ?>
                     </a>
                 </li>
@@ -25,13 +34,23 @@
                 <?= date_format(date_create($article->dt_publish), 'd M Y'); ?>
             </time>
 
-            <a class="feed-item__author-photo" href="/user/<?= HTML::chars($article->author->id) ?>">
-                <img src="<?= HTML::chars($article->author->photo) ?>" alt="<?= HTML::chars($article->author->name) ?>">
+           <a class="feed-item__author-photo" href="/user/<?= HTML::chars($firstAuthor->id) ?>">
+                <img src="<?= HTML::chars($firstAuthor->photo) ?>" alt="<?= HTML::chars($firstAuthor->name) ?>">
             </a>
+            <? if ($multipleCourseAuthors): ?>
+                <a class="feed-item__author-photo" href="/user/<?= HTML::chars($lastAuthor->id) ?>">
+                    <img src="<?= HTML::chars($lastAuthor->photo) ?>" alt="<?= HTML::chars($lastAuthor->name) ?>">
+                </a>
+            <? endif; ?>
+            <a class="feed-item__author-name" href="/user/<?= HTML::chars($firstAuthor->id) ?>">
+                <?= HTML::chars($firstAuthor->name) ?>
+            </a>
+            <? if ($multipleCourseAuthors): ?>
+                and <a class="feed-item__author-name" href="/user/<?= HTML::chars($lastAuthor->id) ?>">
+                    <?= HTML::chars($lastAuthor->name) ?>
+                </a>
+            <? endif; ?>
 
-            <a class="feed-item__author-name" href="/user/<?= HTML::chars($article->author->id) ?>">
-                <?= HTML::chars($article->author->name) ?>
-            </a>
         </div>
     <? endif; ?>
 

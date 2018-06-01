@@ -108,7 +108,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $article_items  = $articles->get();
 
         $courses = new Model_Courses();
-        $course_items  = $courses->getActiveCourses();
+        $course_items  = $courses->getActiveCoursesWithArticles();
 
         $feed_items = array_merge($article_items, $course_items);
 

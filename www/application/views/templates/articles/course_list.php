@@ -7,13 +7,13 @@
     </h2>
 
     <? if (!empty($articles)) : ?>
-        <ul class="courses-list js-courses-list">
+        <ul class="course-list js-course-list">
             <? foreach ($articles as $article) : ?>
                 <?
                     $isCurrent = $article->id == $currentArticle->id;
                 ?>
-                <li class="courses-list__item <?= $isCurrent ? 'courses-list__item--current' : '' ?>">
-                    <a href="<?=URL::site($article->uri ?: '/article/ ' . $article->id ); ?>" class="courses-list__link" href="">
+                <li class="course-list__item <?= $isCurrent ? 'course-list__item--current' : '' ?>">
+                    <a href="<?=URL::site($article->uri ?: '/article/ ' . $article->id ); ?>" class="course-list__link">
                         <?= $article->title; ?>
                     </a>
                 </li>

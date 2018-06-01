@@ -1,8 +1,19 @@
+/**
+ * Course Article Timeline
+ */
 .course {
     margin: 30px 0 0;
 
+    @media (--mobile) {
+        margin: 35px 0;
+    }
+
     &--top {
         margin: 70px 0 -10px;
+
+        @media (--mobile) {
+            margin: 35px 0 5px;
+        }
     }
 
     &__title {
@@ -10,49 +21,68 @@
         max-width: var(--article-max-width);
         font-size: 16px;
         font-weight: 500;
-        margin: 0 auto 25px;
+        margin: 0 auto 20px;
+
+        @media (--mobile) {
+            font-size: 16px;
+        }
+
+        &--toggle {
+            @media (--mobile) {
+                align-items: center;
+                line-height: 19px;
+                font-size: 14px;
+
+                &::before {
+                    content: '';
+                    background: url('/public/app/img/hamburger.svg') no-repeat;
+                    display: block;
+                    width: 1px;
+                    height: 16px;
+                    margin-right: 20px;
+                    padding-right: 15px;
+                    margin-top: 5px;
+                }
+
+                + .course-list {
+                    transition: opacity 1s ease-out;
+                    opacity: 0;
+                    height: 0;
+                    overflow: hidden;
+
+                    &--show {
+                        opacity: 1;
+                        height: auto;
+                    }
+                }
+            }
+        }
 
         a {
             color: #6c7580;
         }
     }
-}
 
-.courses {
     &-list {
+        list-style: none;
+        position: relative;
         max-width: var(--article-max-width);
         margin: 0 auto;
         padding: 0;
-        list-style: none;
-        position: relative;
 
         &::after {
             content: '';
             display: inline-block;
             position: absolute;
-            top: 7px;
-            bottom: 12px;
+            top: 12.5px;
+            bottom: 12.5px;
             right: 3.5px;
             z-index: 1;
             width: 2px;
             background: #e7e9f5;
-        }
 
-        &--in-feed {
-            &::after {
-                left: 3.5px;
-            }
-            ^&__item {
-                &::after {
-                    left: 0;
-                }
-            }
-            ^&__link {
-                padding-left: 20px;
-
-                @media (--mobile) {
-                    padding-left: 0;
-                }
+            @media (--mobile) {
+                display: none;
             }
         }
 
@@ -72,7 +102,10 @@
                 border-radius: 50%;
                 background: #fff;
                 border: 2px solid #e7e9f5;
-                cursor: pointer;
+
+                @media (--mobile) {
+                    display: none;
+                }
             }
 
             &:hover {
@@ -90,7 +123,6 @@
             }
 
             &--current {
-
                 &::after {
                     border-color: #4a90e2;
                 }
@@ -102,20 +134,14 @@
                     }
                 }
             }
-
-            &:first-of-type {
-                margin-top: 7px;
-            }
-
-            &:not(:last-of-type) {
-                margin-bottom: 12px;
-            }
         }
 
         &__link {
+            display: inline-block;
             text-decoration: none;
             color: var(--text-gray);
             line-height: 1.5em;
+            padding: 6px 0;
 
             @media (--mobile) {
                 padding-left: 0;
@@ -131,54 +157,32 @@
             }
         }
     }
-}
 
-@media (--mobile) {
-    .course {
-        margin: 35px 0;
+    &.feed-item {
+        margin-bottom: 50px;
 
-        &--top {
-            margin-bottom: 5px;
-        }
+        ^&-list {
+            margin-top: 12px;
 
-        &__title {
-            font-size: 16px;
-        }
-    }
-    .courses-list {
-        &::after {
-            display: none;
-        }
-        &__item::after {
-            display: none;
-        }
-    }
-    .course__title--toggle {
-        align-items: center;
-        line-height: 19px;
-        font-size: 14px;
+            &::after {
+                left: 4.5px;
+            }
 
-        &::before {
-            content: '';
-            background: url('/public/app/img/hamburger.svg') no-repeat;
-            display: block;
-            width: 1px;
-            height: 16px;
-            margin-right: 20px;
-            padding-right: 15px;
-            margin-top: 5px;
-        }
+            &__item {
+                &::after {
+                    width: 7px;
+                    height: 7px;
+                    left: 0;
+                }
+            }
+            &__link {
+                line-height: 1.3em;
+                padding-left: 25px;
 
-        + .courses-list {
-            transition: opacity 1s ease-out;
-            opacity: 0;
-            height: 0;
-            overflow: hidden;
-        }
-
-        + .courses-list--show {
-            opacity: 1;
-            height: auto;
+                @media (--mobile) {
+                    padding-left: 0;
+                }
+            }
         }
     }
 }

@@ -13,9 +13,9 @@ module.exports = function () {
 
     var toggle = function () {
 
-        var courses = document.querySelector('.js-courses-list');
+        var courses = document.querySelector('.js-course-list');
 
-        courses.classList.toggle('courses-list--show');
+        courses.classList.toggle('course-list--show');
 
     };
 

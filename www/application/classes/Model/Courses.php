@@ -16,6 +16,7 @@ class Model_Courses extends Model
     public $cover;
     public $is_big_cover;
     public $course_articles = [];
+    public $course_authors = [];
     public $dt_publish;
     public $dt_create;
     public $dt_update;
@@ -89,6 +90,7 @@ class Model_Courses extends Model
             $this->is_removed      = Arr::get($course_row, 'is_removed');
             $this->is_published    = Arr::get($course_row, 'is_published');
             $this->course_articles = self::getArticlesFromCourse($this->id);
+            $this->course_authors  = self::getUniqueCourseAuthors($this->course_articles);
         }
 
         return $this;
@@ -230,6 +232,24 @@ class Model_Courses extends Model
         return Model_Courses::getCourses(false, false, !$clearCache ? Date::MINUTE * 5 : null);
     }
 
+    /**
+     * Получить все опубликованные курсы, которые содержат хотя бы одну статью
+     *
+     * @return Model_Courses[] - экземпляр модели с указанным идентификатором и заполненными полями
+     */
+    public static function getActiveCoursesWithArticles($clearCache = false)
+    {
+        $courses = Model_Courses::getCourses(false, false, !$clearCache ? Date::MINUTE * 5 : null);
+        $courses_with_articles = array();
+
+        foreach ($courses as $course) {
+            if (self::getArticles($course->id)) {
+                $courses_with_articles[] = $course;
+            }
+        }
+
+        return $courses_with_articles;
+    }
 
     /**
      * Получить все неудалённые курсы в порядке убывания ID.
@@ -326,5 +346,27 @@ class Model_Courses extends Model
         }
 
         return $articleList;
+    }
+
+     /**
+     * Return unique article authors from the Course
+     * @param  Model_Article[] - Articles included in specific Course
+     * @return Model_User[]    - Array of unique Course authors
+     */
+    public static function getUniqueCourseAuthors($course_articles)
+    {
+        $course_authors_ids = array();
+        $course_authors     = array();
+
+        foreach ($course_articles as $article) {
+            $author_id = $article->author->id;
+
+            if (!in_array($author_id, $course_authors_ids))
+            {
+                $course_authors_ids[] = $author_id;
+                $course_authors[] = Model_User::get($author_id);
+            }
+        }
+        return $course_authors;
     }
 }

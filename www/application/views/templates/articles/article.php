@@ -156,20 +156,23 @@
     </div>
 
     <? if (isset($previousArticle) || isset($nextArticle)): ?>
-        <div class="course-navigation-wrapper course-navigation-wrapper--previous" name="js-course-navigation">
-            <? if (isset($previousArticle)): ?>
-                <a class="course-navigation course-navigation--previous" href="<?= URL::site($previousArticle->uri ?: '/article/' . $previousArticle->id) ?>">
-                    <div class="course-navigation__title course-navigation__title--previous"><?= HTML::chars($previousArticle->title) ?></div>
-                </a>
-            <? endif; ?>
+        <div class="center_side clear">
+            <div class="course-navigation-wrapper" name="js-course-navigation">
+                <? if (isset($previousArticle)): ?>
+                    <a class="course-navigation course-navigation--previous" href="<?= URL::site($previousArticle->uri ?: '/article/' . $previousArticle->id) ?>">
+                        <div class="course-navigation__title"><?= HTML::chars($previousArticle->title) ?></div>
+                    </a>
+                <? endif; ?>
 
-            <? if (isset($nextArticle)): ?>
-                <a class="course-navigation course-navigation--next" href="<?=URL::site($nextArticle->uri ?: '/article/' . $nextArticle->id); ?>">
-                    <div class="course-navigation__title course-navigation__title--next"><?= HTML::chars($nextArticle->title) ?></div>
-                </a>
-            <? endif; ?>
+                <? if (isset($nextArticle)): ?>
+                    <a class="course-navigation course-navigation--next" href="<?=URL::site($nextArticle->uri ?: '/article/' . $nextArticle->id); ?>">
+                        <div class="course-navigation__title"><?= HTML::chars($nextArticle->title) ?></div>
+                    </a>
+                <? endif; ?>
+            </div>
         </div>
     <? endif; ?>
+
     <div class="center_side clear">
         <? if (isset($articlesFromCourse)) : ?>
             <?=View::factory('templates/articles/course_list')

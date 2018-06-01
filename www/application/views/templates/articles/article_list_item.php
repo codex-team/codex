@@ -23,23 +23,21 @@
             <?= date_format(date_create($item->dt_publish), 'd M Y'); ?>
         </time>
 
-        <? if ($item::FEED_PREFIX == 'article'): ?>
-            <a class="feed-item__author-photo" href="/user/<?= HTML::chars($item->author->id) ?>">
-                <img src="<?= HTML::chars($item->author->photo) ?>" alt="<?= HTML::chars($item->author->name) ?>">
+        <a class="feed-item__author-photo" href="/user/<?= HTML::chars($item->author->id) ?>">
+            <img src="<?= HTML::chars($item->author->photo) ?>" alt="<?= HTML::chars($item->author->name) ?>">
+        </a>
+        <? if ($item->coauthor->id): ?>
+            <a class="feed-item__author-photo" href="/user/<?= HTML::chars($item->coauthor->id) ?>">
+                <img src="<?= HTML::chars($item->coauthor->photo) ?>" alt="<?= HTML::chars($item->coauthor->name) ?>">
             </a>
-            <? if ($item->coauthor->id): ?>
-                <a class="feed-item__author-photo" href="/user/<?= HTML::chars($item->coauthor->id) ?>">
-                    <img src="<?= HTML::chars($item->coauthor->photo) ?>" alt="<?= HTML::chars($item->coauthor->name) ?>">
-                </a>
-            <? endif; ?>
-            <a class="feed-item__author-name" href="/user/<?= HTML::chars($item->author->id) ?>">
-                <?= HTML::chars($item->author->name) ?>
+        <? endif; ?>
+        <a class="feed-item__author-name" href="/user/<?= HTML::chars($item->author->id) ?>">
+            <?= HTML::chars($item->author->name) ?>
+        </a>
+        <? if ($item->coauthor->id): ?>
+            and <a class="feed-item__author-name" href="/user/<?= HTML::chars($item->coauthor->id) ?>">
+                <?= HTML::chars($item->coauthor->name) ?>
             </a>
-            <? if ($item->coauthor->id): ?>
-                and <a class="feed-item__author-name" href="/user/<?= HTML::chars($item->coauthor->id) ?>">
-                    <?= HTML::chars($item->coauthor->name) ?>
-                </a>
-            <? endif; ?>
         <? endif; ?>
     </div>
 
