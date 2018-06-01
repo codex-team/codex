@@ -160,6 +160,13 @@
 
     &.feed-item {
         margin-bottom: 50px;
+    }
+
+    a {
+        border-bottom: 0;
+    }
+
+    &--progress-left {
 
         ^&-list {
             margin-top: 12px;

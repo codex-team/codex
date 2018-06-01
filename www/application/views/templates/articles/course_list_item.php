@@ -1,4 +1,4 @@
-<section class="feed-item course">
+<section class="feed-item course course--progress-left">
 
     <?
         $articlesFromCourse = $item->course_articles;
