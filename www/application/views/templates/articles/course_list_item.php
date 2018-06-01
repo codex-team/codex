@@ -19,7 +19,7 @@
             <?=$item->title; ?>
         </a>
 
-        <ul class="course-list course-list--in-feed">
+        <ul class="course-list">
             <? foreach ($articlesFromCourse as $article) : ?>
                 <li class="course-list__item">
                     <a href="<?=URL::site( '/article/ ' . $article->id ); ?>" class="course-list__link course-list__link--black">

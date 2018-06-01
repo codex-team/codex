@@ -164,6 +164,10 @@
         ^&-list {
             margin-top: 12px;
 
+            @media (--mobile) {
+                margin-left: 0;
+            }
+
             &::after {
                 left: 4.5px;
             }
