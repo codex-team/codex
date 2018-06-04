@@ -87,7 +87,7 @@
      */
     .follow-telegram {
         width: auto;
-        margin: 0;
+        margin: 0 auto;
 
         &__contents {
             padding: 11px 15px;
