@@ -204,11 +204,27 @@ class Controller_Admin extends Controller_Base_preDispatch
             $articles[$key] = $article;
         }
 
-        // #TODO add to $feed array with courses later
-        $feed = new Model_Feed_Articles('article');
-        $feed->clear();
-        $feed->init($articles);
+        $courses = Model_Courses::getActiveCoursesWithArticles();
 
-        return 'Articles timeline was successfully updated';
+        /** rebuld array*/
+        foreach ($courses as $key => $value) {
+            $course = array(
+                'id' => $courses[$key]->id,
+                'dt_create' => $courses[$key]->dt_publish,
+            );
+            $courses[$key] = $course;
+        }
+
+        // #TODO add to $feed array with courses later
+        $feed_articles = new Model_Feed_Articles('article');
+        $feed_courses = new Model_Feed_Articles('course');
+
+        $feed_articles->clear();
+        $feed_courses->clear();
+
+        $feed_articles->init($articles);
+        $feed_courses->init($courses);
+
+        return 'Articles and Courses timeline was successfully updated';
     }
 }
