@@ -108,11 +108,11 @@
 
             &:hover {
                 ^^&__link {
-                    color: #2969b9;
+                    color: #3987e1;
                 }
 
                 &::after {
-                    border-color: #2969b9;
+                    border-color: #2c7fe5;
                 }
             }
 
@@ -122,7 +122,7 @@
 
             &--current {
                 &::after {
-                    border-color: #4a90e2;
+                    border-color: #2c7fe5;
                 }
 
                 a {
