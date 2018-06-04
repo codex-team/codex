@@ -18,7 +18,10 @@
         $articlesFromCourse = $course->course_articles;
         $courseAuthors = $course->course_authors;
         $multipleCourseAuthors = count($courseAuthors) > 1 ? true : false;
-        $firstAuthor = $courseAuthors[0];
+
+        if ($courseAuthors) {
+            $firstAuthor = $courseAuthors[0];
+        }
 
         if ($multipleCourseAuthors) {
             $lastAuthor = $courseAuthors[count($courseAuthors) - 1];
