@@ -116,10 +116,6 @@
                 }
             }
 
-            &:only-child::after {
-                display: none;
-            }
-
             &--current {
                 &::after {
                     border-color: #2c7fe5;
