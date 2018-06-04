@@ -159,13 +159,13 @@
             <div class="course-navigation" name="js-course-navigation">
                 <? if (isset($previousArticle)): ?>
                     <a class="course-navigation__item course-navigation__item--previous" href="<?= URL::site($previousArticle->uri ?: '/article/' . $previousArticle->id) ?>">
-                        <div class="course-navigation__item-title"><?= HTML::chars($previousArticle->title) ?></div>
+                        <?= HTML::chars($previousArticle->title) ?>
                     </a>
                 <? endif; ?>
 
                 <? if (isset($nextArticle)): ?>
                     <a class="course-navigation__item course-navigation__item--next" href="<?=URL::site($nextArticle->uri ?: '/article/' . $nextArticle->id); ?>">
-                        <div class="course-navigation__item-title"><?= HTML::chars($nextArticle->title) ?></div>
+                        <?= HTML::chars($nextArticle->title) ?>
                     </a>
                 <? endif; ?>
             </div>

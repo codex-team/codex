@@ -17,14 +17,13 @@
     <?
         $articlesFromCourse = $course->course_articles;
         $courseAuthors = $course->course_authors;
-        $multipleCourseAuthors = count($courseAuthors) > 1 ? true : false;
 
         if ($articlesFromCourse) {
-            $firstAuthor = $courseAuthors[0];
+            $course->author = $courseAuthors[0];
         }
 
-        if ($multipleCourseAuthors) {
-            $lastAuthor = $courseAuthors[count($courseAuthors) - 1];
+        if (count($courseAuthors) > 1) {
+            $coauthor = $courseAuthors[count($courseAuthors) - 1];
         }
 
     ?>
@@ -33,35 +32,35 @@
         <? if ($articlesFromCourse): ?>
             <!-- Start of author's photo -->
             <div class="article__author" itemscope itemtype="http://schema.org/Person" itemprop="author" itemref="authorName">
-                <meta itemprop="url" href="<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $firstAuthor->uri ? : 'user/' . $firstAuthor->id ?>" />
+                <meta itemprop="url" href="<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $course->author->uri ? : 'user/' . $course->author->id ?>" />
 
-                <a href="/<?= $firstAuthor->uri ? : 'user/' . $firstAuthor->id ?>">
-                    <img class="article__author-photo <?= $multipleCourseAuthors ? 'article__author-photo--with-coauthor' : '';?>" src="<?= $firstAuthor->photo ?>" alt="<?= HTML::chars($firstAuthor->name) ?>"  itemprop="image">
+                <a href="/<?= $course->author->uri ? : 'user/' . $course->author->id ?>">
+                    <img class="article__author-photo <?= $coauthor->id ? 'article__author-photo--with-coauthor' : '';?>" src="<?= $course->author->photo ?>" alt="<?= HTML::chars($course->author->name) ?>"  itemprop="image">
                 </a>
             </div>
             <!-- End of author's photo -->
-            <? if ($multipleCourseAuthors): ?>
+            <? if ($coauthor->id): ?>
                 <!-- Start of coauthor's photo -->
                 <div class="article__author" itemscope itemtype="http://schema.org/Person" itemprop="author" itemref="coauthorName">
-                    <meta itemprop="url" href="<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $lastAuthor->uri ? : 'user/' . $lastAuthor->id ?>" />
+                    <meta itemprop="url" href="<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $coauthor->uri ? : 'user/' . $coauthor->id ?>" />
 
-                    <a href="/<?= $lastAuthor->uri ? : 'user/' . $lastAuthor->id ?>">
-                        <img class="article__author-photo article__author-photo--coauthor" src="<?= $lastAuthor->photo ?>" alt="<?= $lastAuthor->name ?>"  itemprop="image">
+                    <a href="/<?= $coauthor->uri ? : 'user/' . $coauthor->id ?>">
+                        <img class="article__author-photo article__author-photo--coauthor" src="<?= $coauthor->photo ?>" alt="<?= $coauthor->name ?>"  itemprop="image">
                     </a>
                 </div>
                 <!-- End of coauthor's photo -->
             <? endif; ?>
             <div class="article__coauthors-info">
                 <!-- Start of author's info -->
-                <a class="article__author-name" itemprop="name" id="authorName" href="/<?= $firstAuthor->uri ? : 'user/' . $firstAuthor->id ?>">
-                    <?= HTML::chars($firstAuthor->name) ?>
+                <a class="article__author-name" itemprop="name" id="coauthorName" href="/<?= $course->author->uri ? : 'user/' . $course->author->id ?>">
+                    <?= HTML::chars($course->author->name) ?>
                 </a>
                 <!-- End of author's info -->
-                <? if ($multipleCourseAuthors): ?>
+                <? if ($coauthor->id): ?>
                     and
                     <!-- Start of coauthor's info -->
-                    <a class="article__author-name" itemprop="name" id="coauthorName" href="/<?= $lastAuthor->uri ? : 'user/' . $lastAuthor->id ?>">
-                        <?= HTML::chars($lastAuthor->name) ?>
+                    <a class="article__author-name" itemprop="name" id="authorName" href="/<?= $coauthor->uri ? : 'user/' . $coauthor->id ?>">
+                        <?= HTML::chars($coauthor->name) ?>
                     </a>
                     <!-- End of coauthor's info -->
                 <? endif; ?>
@@ -76,20 +75,15 @@
         <p>
             <?= HTML::chars($course->text) ?>
         </p>
+    </div>
 
-        <div class="center_side">
-            <div class="course course--progress-left">
-                <ul class="course-list">
-                    <? foreach ($articlesFromCourse as $article) : ?>
-                        <li class="course-list__item">
-                            <a href="<?=URL::site( '/article/ ' . $article->id ); ?>" class="course-list__link course-list__link--black">
-                                <?= $article->title; ?>
-                                <div class="course-list__item-label"></div>
-                            </a>
-                        </li>
-                    <? endforeach; ?>
-                </ul>
-            </div>
+    <div class="course-page__feed-wrapper">
+        <div class="feed">
+            <? foreach ($articlesFromCourse as $i => $item): ?>
+
+                <?= View::factory('templates/articles/feed_list_item', array( 'item' => $item, 'coauthor' => $coauthor)); ?>
+
+            <? endforeach; ?>
         </div>
     </div>
 

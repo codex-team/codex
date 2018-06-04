@@ -19,7 +19,7 @@
     &__item {
         display: flex;
         align-items: center;
-        max-width: 48.5%;
+        max-width: 47.5%;
         text-decoration: none;
         color: var(--text-gray);
         padding: 15px 0;
@@ -29,24 +29,13 @@
             max-width: none;
             border-bottom: 1px solid #e2e6ea;
             padding: 50px 0 20px;
+            font-size: 14.6px;
         }
 
         &:hover {
             text-decoration: none;
             color: color(var(--text-gray) blackness(+50%));
             cursor: pointer;
-        }
-
-        &-title {
-            display: flex;
-            align-items: center;
-            max-width: 240px;
-
-            @media (--mobile) {
-                max-width: none;
-                width: 100%;
-                font-size: 14.6px;
-            }
         }
 
         &--previous {
@@ -56,17 +45,14 @@
             @media (--mobile) {
                 display: none;
             }
-
-            ^&-title {
-                &::before {
-                    display: inline-block;
-                    content: '';
-                    width: 1px;
-                    height: 16px;
-                    background: url('/public/app/img/arrow-back.svg') no-repeat;
-                    margin-right: 20px;
-                    padding-left: 10px;
-                }
+            &::before {
+                display: inline-block;
+                content: '';
+                width: 1px;
+                height: 16px;
+                background: url('/public/app/img/arrow-back.svg') no-repeat;
+                margin-right: 20px;
+                padding-left: 10px;
             }
         }
 
@@ -79,20 +65,18 @@
                 padding: 35px 0 20px;
             }
 
-            ^&-title {
-                &::after {
-                    display: inline-block;
-                    content: '';
-                    width: 1px;
-                    height: 16px;
-                    background: url('/public/app/img/arrow-forward.svg') no-repeat;
-                    margin-left: 20px;
-                    padding-left: 10px;
+            &::after {
+                display: inline-block;
+                content: '';
+                width: 1px;
+                height: 16px;
+                background: url('/public/app/img/arrow-forward.svg') no-repeat;
+                margin-left: 20px;
+                padding-left: 10px;
 
-                    @media (--mobile) {
-                        margin-left: auto;
-                        margin-right: 20px;
-                    }
+                @media (--mobile) {
+                    margin-left: auto;
+                    margin-right: 20px;
                 }
             }
         }

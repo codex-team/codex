@@ -89,7 +89,7 @@ class Model_Courses extends Model
             $this->dt_update       = Arr::get($course_row, 'dt_update');
             $this->is_removed      = Arr::get($course_row, 'is_removed');
             $this->is_published    = Arr::get($course_row, 'is_published');
-            $this->course_articles = self::getArticlesFromCourse($this->id);
+            $this->course_articles = self::getArticlesFromCourseWithCoauthors($this->id);
             $this->course_authors  = self::getUniqueCourseAuthors($this->course_articles);
         }
 
@@ -346,6 +346,21 @@ class Model_Courses extends Model
         }
 
         return $articleList;
+    }
+
+    /**
+     * Get articles from course with coauthors
+     * @return Model_Article[]
+     */
+    public function getArticlesFromCourseWithCoauthors($courseId)
+    {
+        $course_articles = self::getArticlesFromCourse($courseId);
+
+        foreach ($course_articles as $course_article) {
+            $coauthorship        = new Model_Coauthors($course_article->id);
+            $course_article->coauthor = Model_User::get($coauthorship->user_id);
+        }
+        return $course_articles;
     }
 
      /**

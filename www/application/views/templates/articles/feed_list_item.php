@@ -4,6 +4,21 @@
         $url = $item->uri ?: 'article/' . $item->id;
     ?>
 
+    <? if ($item::FEED_PREFIX == 'course'): ?>
+        <?
+            $articlesFromCourse = $item->course_articles;
+            $courseAuthors = $item->course_authors;
+
+            if ($articlesFromCourse) {
+                $item->author = $courseAuthors[0];
+            }
+
+            if (count($courseAuthors) > 1) {
+                $item->coauthor = $courseAuthors[count($courseAuthors) - 1];
+            }
+        ?>
+    <? endif; ?>
+
     <? if ($item->cover): ?>
         <a class="feed-item__cover" href="<?= HTML::chars($url) ?>">
             <img src="<?= HTML::chars($item->cover) ?>">
@@ -14,9 +29,17 @@
         <?= HTML::chars($item->title) ?>
     </a>
 
-    <div class="feed-item__description">
-        <?= HTML::chars($item->description) ?>
-    </div>
+    <? if ($item::FEED_PREFIX == 'article'): ?>
+
+        <div class="feed-item__description">
+            <?= HTML::chars($item->description) ?>
+        </div>
+
+    <? elseif ($item::FEED_PREFIX == 'course'): ?>
+
+        <?= View::factory('templates/articles/course_articles', array( 'articlesFromCourse' => $articlesFromCourse)); ?>
+
+    <? endif; ?>
 
     <div class="feed-item__info">
         <time class="feed-item__time">
@@ -31,6 +54,7 @@
                 <img src="<?= HTML::chars($item->coauthor->photo) ?>" alt="<?= HTML::chars($item->coauthor->name) ?>">
             </a>
         <? endif; ?>
+
         <a class="feed-item__author-name" href="/user/<?= HTML::chars($item->author->id) ?>">
             <?= HTML::chars($item->author->name) ?>
         </a>
@@ -39,6 +63,7 @@
                 <?= HTML::chars($item->coauthor->name) ?>
             </a>
         <? endif; ?>
+
     </div>
 
 </article>
