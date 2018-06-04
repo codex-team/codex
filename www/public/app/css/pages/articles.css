@@ -101,6 +101,11 @@
         line-height: 1.55em;
     }
 
+    > .course-menu-list {
+        margin-top: 7px;
+        margin-left: 0;
+    }
+
     &--with-cover {
 
         @media (--mobile){

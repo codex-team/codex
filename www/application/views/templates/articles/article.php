@@ -1,8 +1,8 @@
-<div class="center_side clear course-nav--top">
+<div class="center_side clear course-menu--top">
     <? if (isset($articlesFromCourse)): ?>
         <?= View::factory('templates/articles/course_list')
             ->set('articles', $articlesFromCourse)
-            ->set('mobileToggleClass', 'course__title--toggle js-course__title--toggle')
+            ->set('mobileToggleClass', 'course-menu__title--toggle js-course-menu__title--toggle')
             ->set('currentArticle', $article)
             ->set('course', $course)
         ?>

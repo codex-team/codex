@@ -5,7 +5,7 @@
 
     &__feed-wrapper {
         max-width: var(--article-max-width);
-        margin: 0 auto;
+        margin: 50px auto 0;
 
         @media (--mobile) {
             padding-left: 20px;
@@ -22,47 +22,5 @@
         @media (--mobile) {
             margin: 15px 0;
         }
-
-        /*&-list {
-
-            @media (--mobile) {
-                border-top: 1px solid #e7e8f6;
-                padding: 15px 0 0 0;
-                margin-left: auto;
-            }
-
-            &::after {
-                left: 6.5px;
-                top: 14.5px;
-                bottom: 14.5px;
-                width: 3px;
-            }
-
-            &__link {
-                font-size: 19.4px;
-                padding-left: 30px;
-
-                @media (--mobile) {
-                    font-size: 14.6px;
-                    padding-left: 0px;
-                }
-            }
-
-            &__item {
-                font-size: 19.4px;
-                line-height: 44.3px;
-
-                @media (--mobile) {
-                    font-size: 16px;
-                    line-height: 1.3em;
-                }
-
-                &-label {
-                    width: 10px;
-                    height: 10px;
-                    border-width: 3px;
-                }
-            }
-        }*/
     }
 }

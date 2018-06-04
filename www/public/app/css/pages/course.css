@@ -1,7 +1,7 @@
 /**
  * Course Article Timeline
  */
-.course {
+.course-menu {
     margin: 30px 0 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -10,22 +10,22 @@
         margin: 35px 0 30px;
     }
 
-    &-nav--top {
-    margin: 70px auto 0;
+    &--top {
+        margin: 70px auto 0;
 
-    @media (--mobile) {
-        margin: 35px auto 0;
-    }
-
-    + .article {
-
-        .article__title {
-            padding-top: 55px;
-
-            @media (--mobile) {
-                padding: 0 20px 30px;
-            }
+        @media (--mobile) {
+            margin: 35px auto 0;
         }
+
+        + .article {
+
+            .article__title {
+                padding-top: 55px;
+
+                @media (--mobile) {
+                    padding: 0 20px 30px;
+                }
+            }
         }
     }
 
@@ -62,7 +62,7 @@
                     pointer-events: none;
                 }
 
-                + .course-list {
+                + .course-menu-list {
                     display: none;
 
                     &--show {
@@ -133,7 +133,7 @@
             }
 
             &--current {
-                &::after {
+                ^&-label {
                     border-color: #2c7fe5;
                 }
 

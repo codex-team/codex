@@ -5,7 +5,7 @@ module.exports = function () {
 
     var toggleCourse = function () {
 
-        var courseTitle = document.querySelector('.js-course__title--toggle');
+        var courseTitle = document.querySelector('.js-course-menu__title--toggle');
 
         courseTitle.addEventListener('click', toggle);
 
@@ -13,9 +13,9 @@ module.exports = function () {
 
     var toggle = function () {
 
-        var courses = document.querySelector('.js-course-list');
+        var courses = document.querySelector('.js-course-menu-list');
 
-        courses.classList.toggle('course-list--show');
+        courses.classList.toggle('course-menu-list--show');
 
     };
 
