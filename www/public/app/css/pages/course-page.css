@@ -42,7 +42,7 @@
                     line-height: 1.3em;
                 }
 
-                &::after {
+                &-label {
                     width: 10px;
                     height: 10px;
                     border-width: 3px;

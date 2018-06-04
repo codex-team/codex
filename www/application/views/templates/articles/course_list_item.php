@@ -4,10 +4,9 @@
         $articlesFromCourse = $item->course_articles;
         $courseAuthors = $item->course_authors;
         $url = $item->uri ?: 'course/' . $item->id;
-        // TODO: Remove hardcode, make possible to add > 2 authors
         $multipleCourseAuthors = count($courseAuthors) > 1 ? true : false;
 
-        if ($courseAuthors) {
+        if ($articlesFromCourse) {
             $firstAuthor = $courseAuthors[0];
         }
 
@@ -27,6 +26,7 @@
                 <li class="course-list__item">
                     <a href="<?=URL::site( '/article/ ' . $article->id ); ?>" class="course-list__link course-list__link--black">
                         <?= $article->title; ?>
+                        <div class="course-list__item-label"></div>
                     </a>
                 </li>
             <? endforeach; ?>

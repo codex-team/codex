@@ -1,8 +1,7 @@
-<div class="center_side clear">
+<div class="center_side clear course-nav--top">
     <? if (isset($articlesFromCourse)): ?>
         <?= View::factory('templates/articles/course_list')
             ->set('articles', $articlesFromCourse)
-            ->set('onPagePositionClass', 'course--top')
             ->set('mobileToggleClass', 'course__title--toggle js-course__title--toggle')
             ->set('currentArticle', $article)
             ->set('course', $course)
@@ -177,7 +176,6 @@
         <? if (isset($articlesFromCourse)) : ?>
             <?=View::factory('templates/articles/course_list')
                 ->set('articles', $articlesFromCourse)
-                ->set('onPagePositionClass', '')
                 ->set('mobileToggleClass', '')
                 ->set('currentArticle', $article)
                 ->set('course', $course)

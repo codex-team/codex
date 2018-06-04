@@ -3,23 +3,36 @@
  */
 .course {
     margin: 30px 0 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 
     @media (--mobile) {
-        margin: 35px 0;
+        margin: 35px 0 30px;
     }
 
-    &--top {
-        margin: 70px 0 -10px;
+    &-nav--top {
+    margin: 70px auto 0;
 
-        @media (--mobile) {
-            margin: 35px 0 0 0;
+    @media (--mobile) {
+        margin: 35px auto 0;
+    }
+
+    + .article {
+
+        .article__title {
+            padding-top: 55px;
+
+            @media (--mobile) {
+                padding: 0 20px 30px;
+            }
+        }
         }
     }
 
     &__title {
         display: flex;
         max-width: var(--article-max-width);
-        font-size: 16px;
+        font-size: 17px;
         font-weight: 500;
         margin: 0 auto 20px;
 
@@ -43,6 +56,10 @@
                     margin-right: 20px;
                     padding-right: 15px;
                     margin-top: 5px;
+                }
+
+                a {
+                    pointer-events: none;
                 }
 
                 + .course-list {
@@ -87,9 +104,8 @@
         &__item {
             position: relative;
 
-            &::after {
-                content: '';
-                display: inline-block;
+            &-label {
+                display: block;
                 position: absolute;
                 z-index: 2;
                 right: 0;
@@ -111,7 +127,7 @@
                     color: #3987e1;
                 }
 
-                &::after {
+                ^&-label {
                     border-color: #2c7fe5;
                 }
             }
@@ -175,7 +191,7 @@
             }
 
             &__item {
-                &::after {
+                &-label {
                     width: 7px;
                     height: 7px;
                     left: 0;
