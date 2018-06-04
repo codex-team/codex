@@ -154,22 +154,12 @@
 
     </div>
 
-    <? if (isset($previousArticle) || isset($nextArticle)): ?>
-        <div class="center_side clear course-navigation-wrapper">
-            <div class="course-navigation" name="js-course-navigation">
-                <? if (isset($previousArticle)): ?>
-                    <a class="course-navigation__item course-navigation__item--previous" href="<?= URL::site($previousArticle->uri ?: '/article/' . $previousArticle->id) ?>">
-                        <?= HTML::chars($previousArticle->title) ?>
-                    </a>
-                <? endif; ?>
-
-                <? if (isset($nextArticle)): ?>
-                    <a class="course-navigation__item course-navigation__item--next" href="<?=URL::site($nextArticle->uri ?: '/article/' . $nextArticle->id); ?>">
-                        <?= HTML::chars($nextArticle->title) ?>
-                    </a>
-                <? endif; ?>
-            </div>
-        </div>
+    <? if (isset($previousArticle) && isset($nextArticle)): ?>
+        <?= View::factory('templates/articles/course-navigation', array('previousArticle' => $previousArticle, 'nextArticle' => $nextArticle)); ?>
+    <? elseif (isset($previousArticle)): ?>
+        <?= View::factory('templates/articles/course-navigation', array('previousArticle' => $previousArticle)); ?>
+    <? elseif (isset($nextArticle)): ?>
+        <?= View::factory('templates/articles/course-navigation', array('nextArticle' => $nextArticle)); ?>
     <? endif; ?>
 
     <div class="center_side clear">
@@ -208,13 +198,3 @@
     </ul>
 
 </article>
-
-<script>
-
-    codex.docReady(function () {
-
-        codex.courses.toggleCourse();
-
-    });
-
-</script>

@@ -3,19 +3,13 @@
  */
 module.exports = function () {
 
-    var toggleCourse = function () {
+    var toggleCourse = function (elem) {
 
-        var courseTitle = document.querySelector('.js-course-menu__title--toggle');
+        elem.addEventListener('click', function () {
 
-        courseTitle.addEventListener('click', toggle);
+            this.nextElementSibling.classList.toggle('course-menu-list--show');
 
-    };
-
-    var toggle = function () {
-
-        var courses = document.querySelector('.js-course-menu-list');
-
-        courses.classList.toggle('course-menu-list--show');
+        });
 
     };
 

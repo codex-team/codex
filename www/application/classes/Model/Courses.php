@@ -75,23 +75,18 @@ class Model_Courses extends Model
      */
     private function fillByRow($course_row)
     {
-        if (!empty($course_row['id'])) {
-            $this->id              = Arr::get($course_row, 'id');
-            $this->uri             = Arr::get($course_row, 'uri');
-            $this->title           = Arr::get($course_row, 'title');
-            $this->text            = Arr::get($course_row, 'text');
-            $this->description     = Arr::get($course_row, 'description');
-            $this->cover           = Arr::get($course_row, 'cover');
-            $this->is_big_cover    = Arr::get($course_row, 'is_big_cover');
-            $this->marked          = Arr::get($course_row, 'marked');
-            $this->dt_publish      = Arr::get($course_row, 'dt_publish');
-            $this->dt_create       = Arr::get($course_row, 'dt_create');
-            $this->dt_update       = Arr::get($course_row, 'dt_update');
-            $this->is_removed      = Arr::get($course_row, 'is_removed');
-            $this->is_published    = Arr::get($course_row, 'is_published');
-            $this->course_articles = self::getArticlesFromCourseWithCoauthors($this->id);
-            $this->course_authors  = self::getUniqueCourseAuthors($this->course_articles);
+        if (empty($course_row['id'])) {
+            return $this;
         }
+
+        foreach ($course_row as $fieldname => $value) {
+            if (property_exists($this, $fieldname)) {
+                $this->$fieldname = $value;
+            }
+        }
+
+        $this->course_articles = self::getArticlesFromCourse($this->id);
+        $this->course_authors  = self::getUniqueCourseAuthors($this->course_articles);
 
         return $this;
     }
@@ -225,19 +220,11 @@ class Model_Courses extends Model
     }
 
     /**
-     * Получить все активные (опубликованные и не удалённые курсы) в порядке убывания ID.
-     */
-    public static function getActiveCourses($clearCache = false)
-    {
-        return Model_Courses::getCourses(false, false, !$clearCache ? Date::MINUTE * 5 : null);
-    }
-
-    /**
      * Получить все опубликованные курсы, которые содержат хотя бы одну статью
      *
      * @return Model_Courses[] - экземпляр модели с указанным идентификатором и заполненными полями
      */
-    public static function getActiveCoursesWithArticles($clearCache = false)
+    public static function getActiveCourses($clearCache = false)
     {
         $courses = Model_Courses::getCourses(false, false, !$clearCache ? Date::MINUTE * 5 : null);
         $courses_with_articles = array();
@@ -346,21 +333,6 @@ class Model_Courses extends Model
         }
 
         return $articleList;
-    }
-
-    /**
-     * Get articles from course with coauthors
-     * @return Model_Article[]
-     */
-    public function getArticlesFromCourseWithCoauthors($courseId)
-    {
-        $course_articles = self::getArticlesFromCourse($courseId);
-
-        foreach ($course_articles as $course_article) {
-            $coauthorship        = new Model_Coauthors($course_article->id);
-            $course_article->coauthor = Model_User::get($coauthorship->user_id);
-        }
-        return $course_articles;
     }
 
      /**

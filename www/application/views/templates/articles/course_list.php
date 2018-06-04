@@ -1,13 +1,11 @@
 <section class="course-menu">
 
-    <h2 class="course-menu__title <?= $mobileToggleClass ?>">
-        <a href="<?= "/course/" . $course->id ?>">
-            <?=$course->title; ?>
-        </a>
-    </h2>
+    <a href="<?= "/course/" . $course->id ?>" class="course-menu__title <?= $mobileToggleClass ?>" onclick="codex.courses.toggleCourse(this);">
+        <?=$course->title; ?>
+    </a>
 
     <? if (!empty($articles)) : ?>
-        <ul class="course-menu-list js-course-menu-list">
+        <ul class="course-menu-list">
             <? foreach ($articles as $article) : ?>
                 <?
                     $isCurrent = $article->id == $currentArticle->id;

@@ -204,7 +204,7 @@ class Controller_Admin extends Controller_Base_preDispatch
             $articles[$key] = $article;
         }
 
-        $courses = Model_Courses::getActiveCoursesWithArticles();
+        $courses = Model_Courses::getActiveCourses();
 
         /** rebuld array*/
         foreach ($courses as $key => $value) {
