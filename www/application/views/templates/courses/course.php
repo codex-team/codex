@@ -30,7 +30,7 @@
     ?>
 
     <div class="article__info">
-        <? if ($courseAuthors): ?>
+        <? if ($articlesFromCourse): ?>
             <!-- Start of author's photo -->
             <div class="article__author" itemscope itemtype="http://schema.org/Person" itemprop="author" itemref="authorName">
                 <meta itemprop="url" href="<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $firstAuthor->uri ? : 'user/' . $firstAuthor->id ?>" />
