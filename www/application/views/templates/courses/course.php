@@ -30,44 +30,46 @@
     ?>
 
     <div class="article__info">
-        <!-- Start of author's photo -->
-        <div class="article__author" itemscope itemtype="http://schema.org/Person" itemprop="author" itemref="authorName">
-            <meta itemprop="url" href="<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $firstAuthor->uri ? : 'user/' . $firstAuthor->id ?>" />
+        <? if ($courseAuthors): ?>
+            <!-- Start of author's photo -->
+            <div class="article__author" itemscope itemtype="http://schema.org/Person" itemprop="author" itemref="authorName">
+                <meta itemprop="url" href="<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $firstAuthor->uri ? : 'user/' . $firstAuthor->id ?>" />
 
-            <a href="/<?= $firstAuthor->uri ? : 'user/' . $firstAuthor->id ?>">
-                <img class="article__author-photo <?= $multipleCourseAuthors ? 'article__author-photo--with-coauthor' : '';?>" src="<?= $firstAuthor->photo ?>" alt="<?= HTML::chars($firstAuthor->name) ?>"  itemprop="image">
-            </a>
-        </div>
-        <!-- End of author's photo -->
-        <? if ($multipleCourseAuthors): ?>
-            <!-- Start of coauthor's photo -->
-            <div class="article__author" itemscope itemtype="http://schema.org/Person" itemprop="author" itemref="coauthorName">
-                <meta itemprop="url" href="<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $lastAuthor->uri ? : 'user/' . $lastAuthor->id ?>" />
-
-                <a href="/<?= $lastAuthor->uri ? : 'user/' . $lastAuthor->id ?>">
-                    <img class="article__author-photo article__author-photo--coauthor" src="<?= $lastAuthor->photo ?>" alt="<?= $lastAuthor->name ?>"  itemprop="image">
+                <a href="/<?= $firstAuthor->uri ? : 'user/' . $firstAuthor->id ?>">
+                    <img class="article__author-photo <?= $multipleCourseAuthors ? 'article__author-photo--with-coauthor' : '';?>" src="<?= $firstAuthor->photo ?>" alt="<?= HTML::chars($firstAuthor->name) ?>"  itemprop="image">
                 </a>
             </div>
-            <!-- End of coauthor's photo -->
-        <? endif; ?>
-        <div class="article__coauthors-info">
-            <!-- Start of author's info -->
-            <a class="article__author-name" itemprop="name" id="authorName" href="/<?= $firstAuthor->uri ? : 'user/' . $firstAuthor->id ?>">
-                <?= HTML::chars($firstAuthor->name) ?>
-            </a>
-            <!-- End of author's info -->
+            <!-- End of author's photo -->
             <? if ($multipleCourseAuthors): ?>
-                and
-                <!-- Start of coauthor's info -->
-                <a class="article__author-name" itemprop="name" id="coauthorName" href="/<?= $lastAuthor->uri ? : 'user/' . $lastAuthor->id ?>">
-                    <?= HTML::chars($lastAuthor->name) ?>
-                </a>
-                <!-- End of coauthor's info -->
+                <!-- Start of coauthor's photo -->
+                <div class="article__author" itemscope itemtype="http://schema.org/Person" itemprop="author" itemref="coauthorName">
+                    <meta itemprop="url" href="<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $lastAuthor->uri ? : 'user/' . $lastAuthor->id ?>" />
+
+                    <a href="/<?= $lastAuthor->uri ? : 'user/' . $lastAuthor->id ?>">
+                        <img class="article__author-photo article__author-photo--coauthor" src="<?= $lastAuthor->photo ?>" alt="<?= $lastAuthor->name ?>"  itemprop="image">
+                    </a>
+                </div>
+                <!-- End of coauthor's photo -->
             <? endif; ?>
-            <time class="article__date">
-                <?= !is_null($course->dt_publish) ? Date::fuzzy_span(strtotime($course->dt_publish)) : Date::fuzzy_span(strtotime($course->dt_create)) ?>
-            </time>
-        </div>
+            <div class="article__coauthors-info">
+                <!-- Start of author's info -->
+                <a class="article__author-name" itemprop="name" id="authorName" href="/<?= $firstAuthor->uri ? : 'user/' . $firstAuthor->id ?>">
+                    <?= HTML::chars($firstAuthor->name) ?>
+                </a>
+                <!-- End of author's info -->
+                <? if ($multipleCourseAuthors): ?>
+                    and
+                    <!-- Start of coauthor's info -->
+                    <a class="article__author-name" itemprop="name" id="coauthorName" href="/<?= $lastAuthor->uri ? : 'user/' . $lastAuthor->id ?>">
+                        <?= HTML::chars($lastAuthor->name) ?>
+                    </a>
+                    <!-- End of coauthor's info -->
+                <? endif; ?>
+                <time class="article__date">
+                    <?= !is_null($course->dt_publish) ? Date::fuzzy_span(strtotime($course->dt_publish)) : Date::fuzzy_span(strtotime($course->dt_create)) ?>
+                </time>
+            </div>
+        <? endif; ?>
     </div>
 
     <div class="article-content js-emoji-included" itemprop="courseBody">
