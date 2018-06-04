@@ -4,92 +4,101 @@
 .course-navigation {
     display: flex;
     align-items: center;
-    max-width: 48.5%;
-    text-decoration: none;
-    color: var(--text-gray);
-    padding: 15px 0;
+    justify-content: space-between;
+    max-width: var(--article-max-width);
+    margin: 60px auto;
 
     @media (--mobile) {
-        width: 100%;
-        max-width: none;
-        border-bottom: 1px solid #e2e6ea;
-        padding: 50px 0 20px;
+        box-sizing: content-box;
+        max-width: calc(var(--article-max-width) + 20px);
+        margin: 0 auto -10px;
     }
 
-    &:hover {
+    &__item {
+        display: flex;
+        align-items: center;
+        max-width: 48.5%;
         text-decoration: none;
-        color: color(var(--text-gray) blackness(+50%));
-        cursor: pointer;
+        color: var(--text-gray);
+        padding: 15px 0;
+
+        @media (--mobile) {
+            width: 100%;
+            max-width: none;
+            border-bottom: 1px solid #e2e6ea;
+            padding: 50px 0 20px;
+        }
+
+        &:hover {
+            text-decoration: none;
+            color: color(var(--text-gray) blackness(+50%));
+            cursor: pointer;
+        }
+
+        &-title {
+            display: flex;
+            align-items: center;
+            max-width: 220px;
+
+            @media (--mobile) {
+                max-width: none;
+                width: 100%;
+                font-size: 14.6px;
+            }
+        }
+
+        &--previous {
+            text-align: left;
+            margin-right: auto;
+
+            @media (--mobile) {
+                display: none;
+            }
+
+            ^&-title {
+                &::before {
+                    display: inline-block;
+                    content: '';
+                    width: 1px;
+                    height: 16px;
+                    background: url('/public/app/img/arrow-back.svg') no-repeat;
+                    margin-right: 20px;
+                    padding-left: 10px;
+                }
+            }
+        }
+
+        &--next {
+            text-align: right;
+            margin-left: auto;
+
+            @media (--mobile) {
+                text-align: left;
+                padding: 35px 0 20px;
+            }
+
+            ^&-title {
+                &::after {
+                    display: inline-block;
+                    content: '';
+                    width: 1px;
+                    height: 16px;
+                    background: url('/public/app/img/arrow-forward.svg') no-repeat;
+                    margin-left: 20px;
+                    padding-left: 10px;
+
+                    @media (--mobile) {
+                        margin-left: auto;
+                        margin-right: 20px;
+                    }
+                }
+            }
+        }
     }
 
     &-wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        max-width: var(--article-max-width);
-        margin: 60px auto;
-
         @media (--mobile) {
-            box-sizing: content-box;
-            margin: 0 auto -10px;
-        }
-    }
-
-    &__title {
-        display: flex;
-        align-items: center;
-        width: 100%;
-
-        @media (--mobile) {
-            font-size: 14px;
-        }
-    }
-
-    &--previous {
-        text-align: left;
-        margin-right: auto;
-
-        @media (--mobile) {
-            display: none;
-        }
-
-        ^&__title {
-            &::before {
-                display: inline-block;
-                content: '';
-                width: 1px;
-                height: 16px;
-                background: url('/public/app/img/arrow-back.svg') no-repeat;
-                margin-right: 20px;
-                padding-left: 10px;
-            }
-        }
-    }
-
-    &--next {
-        text-align: right;
-        margin-left: auto;
-
-        @media (--mobile) {
-            text-align: left;
-            padding: 35px 0 20px;
-        }
-
-        ^&__title {
-            &::after {
-                display: inline-block;
-                content: '';
-                width: 1px;
-                height: 16px;
-                background: url('/public/app/img/arrow-forward.svg') no-repeat;
-                margin-left: 20px;
-                padding-left: 10px;
-
-                @media (--mobile) {
-                    margin-left: auto;
-                    margin-right: 20px;
-                }
-            }
+            padding-right: 0;
         }
     }
 }

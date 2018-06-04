@@ -12,7 +12,7 @@
         margin: 70px 0 -10px;
 
         @media (--mobile) {
-            margin: 35px 0 5px;
+            margin: 35px 0 0 0;
         }
     }
 
@@ -32,6 +32,7 @@
                 align-items: center;
                 line-height: 19px;
                 font-size: 14px;
+                margin-bottom: 0;
 
                 &::before {
                     content: '';
@@ -45,14 +46,11 @@
                 }
 
                 + .course-list {
-                    transition: opacity 1s ease-out;
-                    opacity: 0;
-                    height: 0;
-                    overflow: hidden;
+                    display: none;
 
                     &--show {
-                        opacity: 1;
-                        height: auto;
+                        display: block;
+                        margin-top: 20px;
                     }
                 }
             }
@@ -140,6 +138,7 @@
             display: inline-block;
             text-decoration: none;
             color: var(--text-gray);
+            font-size: 14.6px;
             line-height: 1.5em;
             padding: 6px 0;
 

@@ -2,48 +2,18 @@
  * Course Page
  */
 .course-page {
-    &__title {
-        font-size: 46px;
-        font-weight: 500;
-        margin-bottom: 30px;
+    .course {
 
         @media (--mobile) {
-            font-size: 30px;
-            margin-bottom: 0;
+            margin: 15px 0;
         }
-    }
-
-    &__text {
-        p {
-            font-size: 17px;
-            line-height: 28px;
-            letter-spacing: 0.13px;
-            margin-bottom: 0;
-        }
-    }
-
-    &__photo {
-        height: 42px;
-        width: 42px;
-    }
-
-    .sharing {
-        max-width: var(--article-max-width);
-        margin: 40px auto;
-    }
-
-    .course {
-        max-width: var(--article-max-width);
-        margin: 0 auto;
 
         &-list {
-            margin-top: 0;
-            padding: 0;
 
             @media (--mobile) {
                 border-top: 1px solid #e7e8f6;
-                padding-top: 15px;
-                margin-top: 22px;
+                padding: 15px 0 0 0;
+                margin-left: auto;
             }
 
             &::after {
@@ -78,5 +48,4 @@
             }
         }
     }
-
 }

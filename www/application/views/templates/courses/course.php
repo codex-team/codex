@@ -1,4 +1,4 @@
-<article class="course-page" itemscope itemtype="http://schema.org/CreativeWork ">
+<article class="article course-page" itemscope itemtype="http://schema.org/CreativeWork ">
 
     <? if (!empty($course->dt_update)): ?>
         <meta itemprop="dateModified" content="<?= date(DATE_ISO8601, strtotime($course->dt_update)) ?>" />
@@ -10,14 +10,13 @@
         <meta itemprop="datePublished" content="<?= date(DATE_ISO8601, strtotime($course->dt_create)) ?>" />
     <? endif; ?>
 
-    <h1 class="article__title course-page__title js-emoji-included" itemprop="headline">
+    <h1 class="article__title js-emoji-included" itemprop="headline">
         <?= HTML::chars($course->title) ?>
     </h1>
 
     <?
         $articlesFromCourse = $course->course_articles;
         $courseAuthors = $course->course_authors;
-        // TODO: Remove hardcode, make possible to add > 2 authors
         $multipleCourseAuthors = count($courseAuthors) > 1 ? true : false;
         $firstAuthor = $courseAuthors[0];
 
@@ -33,7 +32,7 @@
             <meta itemprop="url" href="<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $firstAuthor->uri ? : 'user/' . $firstAuthor->id ?>" />
 
             <a href="/<?= $firstAuthor->uri ? : 'user/' . $firstAuthor->id ?>">
-                <img class="article__author-photo course-page__photo <?= $multipleCourseAuthors ? 'article__author-photo--with-coauthor' : '';?>" src="<?= $firstAuthor->photo ?>" alt="<?= HTML::chars($firstAuthor->name) ?>"  itemprop="image">
+                <img class="article__author-photo <?= $multipleCourseAuthors ? 'article__author-photo--with-coauthor' : '';?>" src="<?= $firstAuthor->photo ?>" alt="<?= HTML::chars($firstAuthor->name) ?>"  itemprop="image">
             </a>
         </div>
         <!-- End of author's photo -->
@@ -43,7 +42,7 @@
                 <meta itemprop="url" href="<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $lastAuthor->uri ? : 'user/' . $lastAuthor->id ?>" />
 
                 <a href="/<?= $lastAuthor->uri ? : 'user/' . $lastAuthor->id ?>">
-                    <img class="article__author-photo course-page__photo article__author-photo--coauthor" src="<?= $lastAuthor->photo ?>" alt="<?= $lastAuthor->name ?>"  itemprop="image">
+                    <img class="article__author-photo article__author-photo--coauthor" src="<?= $lastAuthor->photo ?>" alt="<?= $lastAuthor->name ?>"  itemprop="image">
                 </a>
             </div>
             <!-- End of coauthor's photo -->
@@ -68,7 +67,7 @@
         </div>
     </div>
 
-    <div class="article-content course-page__text" itemprop="courseBody">
+    <div class="article-content js-emoji-included" itemprop="courseBody">
         <p>
             <?= HTML::chars($course->text) ?>
         </p>
@@ -88,15 +87,11 @@
         </div>
     </div>
 
-    <div class="center_side">
-        <?= View::factory('templates/blocks/share', array('share' => array(
-            'offer' => 'Расскажите об этом курсе своим подписчикам',
-            'url'   => 'https://' . Arr::get($_SERVER, 'HTTP_HOST', Arr::get($_SERVER, 'SERVER_NAME', 'ifmo.su')) . '/course/' . $course->id,
-            'title' => HTML::chars($course->title),
-            'desc'  => HTML::chars($course->description),
-        ))); ?>
-    </div>
-
-
+    <?= View::factory('templates/blocks/share', array('share' => array(
+        'offer' => 'Расскажите об этом курсе своим подписчикам',
+        'url'   => 'https://' . Arr::get($_SERVER, 'HTTP_HOST', Arr::get($_SERVER, 'SERVER_NAME', 'ifmo.su')) . '/course/' . $course->id,
+        'title' => HTML::chars($course->title),
+        'desc'  => HTML::chars($course->description),
+    ))); ?>
 
 </article>
