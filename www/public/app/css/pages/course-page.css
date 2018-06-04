@@ -24,9 +24,11 @@
             }
 
             &__link {
+                font-size: 19.4px;
                 padding-left: 30px;
 
                 @media (--mobile) {
+                    font-size: 14.6px;
                     padding-left: 0px;
                 }
             }
