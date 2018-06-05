@@ -85,8 +85,8 @@ class Model_Courses extends Model
             }
         }
 
-        $this->course_articles = self::getArticlesFromCourse($this->id);
-        $this->course_authors  = self::getUniqueCourseAuthors($this->course_articles);
+        $this->course_articles = self::getArticles($this->id);
+        $this->course_authors  = $this->getUniqueCourseAuthors();
 
         return $this;
     }
@@ -299,10 +299,9 @@ class Model_Courses extends Model
     }
 
     /**
-     * Получить id статей, входящих в курс
-     *
-     * @param $course_id
-     * @return bool|object
+     * Get Articles from Course
+     * @param [int] $courseId  - ID of Course
+     * @return Model_Article[] - Array of Articles
      */
     public static function getArticles($course_id)
     {
@@ -310,24 +309,13 @@ class Model_Courses extends Model
             return false;
         }
 
-        return Dao_CoursesArticles::select('article_id')->where('course_id', '=', $course_id)->execute();
-    }
-
-    /**
-     * Get Articles from Course
-     * @param [int] $courseId  - ID of Course
-     * @return Model_Article[] - Array of Articles
-     */
-    public static function getArticlesFromCourse($courseId)
-    {
-        /** getting all articles from course */
-        $course_articles = self::getArticles($courseId);
+        $articles_ids = Dao_CoursesArticles::select('article_id')->where('course_id', '=', $course_id)->execute();
 
         /** $articleList - empty array. Needs to fill by article ids */
         $articleList = array();
 
-        if ($course_articles) {
-            foreach ($course_articles as $articles) {
+        if ($articles_ids) {
+            foreach ($articles_ids as $articles) {
                 $articleList[] = Model_Article::get($articles['article_id']);
             }
             /** Get Articles with Coauthors to display on Course Page */
@@ -345,8 +333,9 @@ class Model_Courses extends Model
      * @param  Model_Article[] - Articles included in specific Course
      * @return Model_User[]    - Array of unique Course authors
      */
-    public static function getUniqueCourseAuthors($course_articles)
+    public function getUniqueCourseAuthors()
     {
+        $course_articles = self::getArticles($this->id);
         $course_authors_ids = array();
         $course_authors     = array();
 

@@ -169,9 +169,9 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
          */
         $counter = 0;
         foreach ($course_articles as $articles) {
-            $articleList[] = Model_Article::get($articles['article_id']);
+            $articleList[] = Model_Article::get($articles->id);
 
-            if ($articles['article_id'] == $articleId) {
+            if ($articles->id == $articleId) {
                 $position = $counter;
             }
 
@@ -183,14 +183,14 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
          * If next or previous article exists, then we send it to view
          */
         if ($position + 1 < count($course_articles)) {
-            $nextArticleId = $course_articles[$position + 1]['article_id'];
+            $nextArticleId = $course_articles[$position + 1]->id;
             $nextArticle = Model_Article::get($nextArticleId);
 
             $this->view["nextArticle"] = $nextArticle;
         }
 
         if ($position - 1 >= 0) {
-            $previousArticleId = $course_articles[$position - 1]['article_id'];
+            $previousArticleId = $course_articles[$position - 1]->id;
             $previousArticle = Model_Article::get($previousArticleId);
 
             $this->view["previousArticle"] = $previousArticle;

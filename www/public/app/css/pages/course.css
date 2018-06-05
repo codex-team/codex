@@ -1,7 +1,6 @@
 /**
- * Course Article Timeline
+ * Styles for Course Menu Mobile Toggler on top of Article
  */
-
 .course-toggler {
     margin: 70px auto 0;
 
@@ -9,39 +8,47 @@
         margin: 35px auto 0;
     }
 
-    .course-menu__title {
+    .course-menu {
+        margin-bottom: 0;
 
-      @media (--mobile) {
-            align-items: center;
-            line-height: 19px;
-            font-size: 14px;
-            margin-bottom: 0;
-
-            &::before {
-                content: '';
-                background: url('/public/app/img/hamburger.svg') no-repeat;
-                display: block;
-                width: 1px;
-                height: 16px;
-                margin-right: 20px;
-                padding-right: 15px;
-                margin-top: 5px;
-            }
-
-            a {
-                pointer-events: none;
-            }
-
-            + .course-menu-list {
-                display: none;
-
-                &--show {
-                    display: block;
-                    margin-top: 20px;
-                }
-            }
+        @media (--mobile) {
+            margin-bottom: 30px;
         }
 
+        &__title {
+
+            @media (--mobile) {
+                align-items: center;
+                line-height: 19px;
+                font-size: 14px;
+                margin-bottom: 0;
+
+                &::before {
+                    content: '';
+                    background: url('/public/app/img/hamburger.svg') no-repeat;
+                    display: block;
+                    width: 1px;
+                    height: 16px;
+                    margin-right: 20px;
+                    padding-right: 15px;
+                    margin-top: 5px;
+                }
+
+                a {
+                    pointer-events: none;
+                }
+
+                + .course-menu-list {
+                    display: none;
+
+                    &--show {
+                        display: block;
+                        margin-top: 20px;
+                    }
+                }
+            }
+
+        }
     }
 
     + .article {
@@ -55,8 +62,12 @@
         }
     }
 }
+
+/**
+ * General Styles for Course Menu Navigation
+ */
 .course-menu {
-    margin: 30px 0 0;
+    margin: 30px 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
@@ -95,7 +106,7 @@
             position: absolute;
             top: 12.5px;
             bottom: 12.5px;
-            right: 3.5px;
+            right: 3.0px;
             z-index: 1;
             width: 2px;
             background: #e7e9f5;
@@ -105,10 +116,76 @@
             }
         }
 
+        &--progress-left {
+            margin-top: 12px;
+
+            @media (--mobile) {
+                margin-left: 0;
+            }
+
+            &::after {
+                left: 4.5px;
+            }
+
+            ^&__link {
+                line-height: 1.3em;
+                padding-left: 25px;
+
+                &::before {
+                    width: 7px;
+                    height: 7px;
+                    left: 0;
+                }
+
+                @media (--mobile) {
+                    padding-left: 0;
+                }
+            }
+        }
+
         &__item {
             position: relative;
 
-            &-label {
+            &:hover {
+                ^^&__link {
+                    color: #3987e1;
+
+                    &::before {
+                        border-color: #2c7fe5;
+                    }
+                }
+            }
+
+            &--current {
+                a {
+                    color: var(--color-link);
+
+                    &:hover {
+                        color: var(--color-hover);
+                    }
+
+                    &::before {
+                        border-color: #2c7fe5;
+                    }
+                }
+            }
+        }
+
+        &__link {
+            display: block;
+            position: relative;
+            text-decoration: none;
+            color: var(--text-gray);
+            font-size: 14.6px;
+            line-height: 1.5em;
+            padding: 6px 0;
+
+            @media (--mobile) {
+                padding-left: 0;
+            }
+
+            &::before {
+                content: '';
                 display: block;
                 position: absolute;
                 z-index: 2;
@@ -126,41 +203,6 @@
                 }
             }
 
-            &:hover {
-                ^^&__link {
-                    color: #3987e1;
-                }
-
-                ^&-label {
-                    border-color: #2c7fe5;
-                }
-            }
-
-            &--current {
-                ^&-label {
-                    border-color: #2c7fe5;
-                }
-
-                a {
-                    color: var(--color-link);
-                    &:hover {
-                        color: var(--color-hover);
-                    }
-                }
-            }
-        }
-
-        &__link {
-            display: inline-block;
-            text-decoration: none;
-            color: var(--text-gray);
-            font-size: 14.6px;
-            line-height: 1.5em;
-            padding: 6px 0;
-
-            @media (--mobile) {
-                padding-left: 0;
-            }
 
             &--black {
                 color: #000;
@@ -179,36 +221,5 @@
 
     a {
         border-bottom: 0;
-    }
-
-    &--progress-left {
-
-        ^&-list {
-            margin-top: 12px;
-
-            @media (--mobile) {
-                margin-left: 0;
-            }
-
-            &::after {
-                left: 4.5px;
-            }
-
-            &__item {
-                &-label {
-                    width: 7px;
-                    height: 7px;
-                    left: 0;
-                }
-            }
-            &__link {
-                line-height: 1.3em;
-                padding-left: 25px;
-
-                @media (--mobile) {
-                    padding-left: 0;
-                }
-            }
-        }
     }
 }
