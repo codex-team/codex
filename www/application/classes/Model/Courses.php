@@ -330,6 +330,11 @@ class Model_Courses extends Model
             foreach ($course_articles as $articles) {
                 $articleList[] = Model_Article::get($articles['article_id']);
             }
+            /** Get Articles with Coauthors to display on Course Page */
+            foreach ($articleList as $article) {
+                $coauthorship      = new Model_Coauthors($article->id);
+                $article->coauthor = Model_User::get($coauthorship->user_id);
+            }
         }
 
         return $articleList;
