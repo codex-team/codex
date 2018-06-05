@@ -5,11 +5,7 @@ module.exports = function () {
 
     var toggleCourse = function (elem) {
 
-        elem.addEventListener('click', function () {
-
-            this.nextElementSibling.classList.toggle('course-menu-list--show');
-
-        });
+        elem.nextElementSibling.classList.toggle('course-menu-list--show');
 
     };
 
