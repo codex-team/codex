@@ -95,13 +95,14 @@
     }
 
     &__description {
-        margin-top: 7px;
+        margin-top: 9px;
         font-size: 14.4px;
         letter-spacing: 0.2px;
         line-height: 1.55em;
     }
 
     > .course-menu-list {
+        margin-top: 12px;
         margin-left: 0;
     }
 
