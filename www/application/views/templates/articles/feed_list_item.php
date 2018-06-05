@@ -1,11 +1,8 @@
 <article class="feed-item clearfix <?= $item->marked ? 'feed-item--big' : ''?> <?= $item->cover ? 'feed-item--with-cover' : '' ?><?= $item->is_big_cover ? ' feed-item--with-big-cover' : ''?>" data-type="<?= $item::FEED_PREFIX; ?>" data-id="<?= HTML::chars($item->id); ?>">
 
-    <?
-        $url = $item->uri ?: 'article/' . $item->id;
-    ?>
-
     <? if ($item::FEED_PREFIX == 'course'): ?>
         <?
+            $url = $item->uri ?: 'course/' . $item->id;
             $articlesFromCourse = $item->course_articles;
             $courseAuthors = $item->course_authors;
 
@@ -16,6 +13,10 @@
             if (count($courseAuthors) > 1) {
                 $item->coauthor = $courseAuthors[count($courseAuthors) - 1];
             }
+        ?>
+    <? elseif ($item::FEED_PREFIX == 'article'): ?>
+        <?
+            $url = $item->uri ?: 'article/' . $item->id;
         ?>
     <? endif; ?>
 
@@ -29,13 +30,11 @@
         <?= HTML::chars($item->title) ?>
     </a>
 
-    <? if ($item::FEED_PREFIX == 'article'): ?>
+    <div class="feed-item__description">
+        <?= HTML::chars($item->description) ?>
+    </div>
 
-        <div class="feed-item__description">
-            <?= HTML::chars($item->description) ?>
-        </div>
-
-    <? elseif ($item::FEED_PREFIX == 'course'): ?>
+    <? if ($item::FEED_PREFIX == 'course'): ?>
 
         <?= View::factory('templates/articles/course_articles', array( 'articlesFromCourse' => $articlesFromCourse)); ?>
 
@@ -63,7 +62,6 @@
                 <?= HTML::chars($item->coauthor->name) ?>
             </a>
         <? endif; ?>
-
     </div>
 
 </article>

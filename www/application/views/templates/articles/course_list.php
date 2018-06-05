@@ -1,8 +1,17 @@
+<?
+    if ($mobileToggleClass) {
+        $jsTogglerClass = 'js-course-menu__title--toggle';
+    } else {
+        $jsTogglerClass = '';
+    }
+?>
 <section class="course-menu">
 
-    <a href="<?= "/course/" . $course->id ?>" class="course-menu__title <?= $mobileToggleClass ?>" onclick="codex.courses.toggleCourse(this);">
-        <?=$course->title; ?>
-    </a>
+    <h2 class="course-menu__title <?= $jsTogglerClass ?>" onclick="codex.courses.toggleCourse(this);">
+        <a href="<?= "/course/" . $course->id ?>">
+            <?=$course->title; ?>
+        </a>
+    </h2>
 
     <? if (!empty($articles)) : ?>
         <ul class="course-menu-list">
@@ -13,7 +22,7 @@
                 <li class="course-menu-list__item <?= $isCurrent ? 'course-menu-list__item--current' : '' ?>">
                     <a href="<?=URL::site($article->uri ?: '/article/ ' . $article->id ); ?>" class="course-menu-list__link">
                         <?= $article->title; ?>
-                        <div class="course-menu-list__item-label"></div>
+                        <span class="course-menu-list__item-label"></span>
                     </a>
                 </li>
             <? endforeach; ?>

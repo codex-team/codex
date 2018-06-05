@@ -1,6 +1,60 @@
 /**
  * Course Article Timeline
  */
+
+.course-toggler {
+    margin: 70px auto 0;
+
+    @media (--mobile) {
+        margin: 35px auto 0;
+    }
+
+    .course-menu__title {
+
+      @media (--mobile) {
+            align-items: center;
+            line-height: 19px;
+            font-size: 14px;
+            margin-bottom: 0;
+
+            &::before {
+                content: '';
+                background: url('/public/app/img/hamburger.svg') no-repeat;
+                display: block;
+                width: 1px;
+                height: 16px;
+                margin-right: 20px;
+                padding-right: 15px;
+                margin-top: 5px;
+            }
+
+            a {
+                pointer-events: none;
+            }
+
+            + .course-menu-list {
+                display: none;
+
+                &--show {
+                    display: block;
+                    margin-top: 20px;
+                }
+            }
+        }
+
+    }
+
+    + .article {
+
+        .article__title {
+            padding-top: 55px;
+
+            @media (--mobile) {
+                padding: 0 20px 30px;
+            }
+        }
+    }
+}
 .course-menu {
     margin: 30px 0 0;
     -webkit-font-smoothing: antialiased;
@@ -10,24 +64,6 @@
         margin: 35px 0 30px;
     }
 
-    &--top {
-        margin: 70px auto 0;
-
-        @media (--mobile) {
-            margin: 35px auto 0;
-        }
-
-        + .article {
-
-            .article__title {
-                padding-top: 55px;
-
-                @media (--mobile) {
-                    padding: 0 20px 30px;
-                }
-            }
-        }
-    }
 
     &__title {
         display: flex;
@@ -39,39 +75,6 @@
 
         @media (--mobile) {
             font-size: 16px;
-        }
-
-        &--toggle {
-            @media (--mobile) {
-                align-items: center;
-                line-height: 19px;
-                font-size: 14px;
-                margin-bottom: 0;
-
-                &::before {
-                    content: '';
-                    background: url('/public/app/img/hamburger.svg') no-repeat;
-                    display: block;
-                    width: 1px;
-                    height: 16px;
-                    margin-right: 20px;
-                    padding-right: 15px;
-                    margin-top: 5px;
-                }
-
-                a {
-                    pointer-events: none;
-                }
-
-                + .course-menu-list {
-                    display: none;
-
-                    &--show {
-                        display: block;
-                        margin-top: 20px;
-                    }
-                }
-            }
         }
 
         a {

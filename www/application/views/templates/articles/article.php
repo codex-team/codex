@@ -1,8 +1,8 @@
-<div class="center_side clear course-menu--top">
+<div class="center_side clear course-toggler">
     <? if (isset($articlesFromCourse)): ?>
         <?= View::factory('templates/articles/course_list')
             ->set('articles', $articlesFromCourse)
-            ->set('mobileToggleClass', 'course-menu__title--toggle js-course-menu__title--toggle')
+            ->set('mobileToggleClass', true)
             ->set('currentArticle', $article)
             ->set('course', $course)
         ?>
@@ -166,7 +166,7 @@
         <? if (isset($articlesFromCourse)) : ?>
             <?=View::factory('templates/articles/course_list')
                 ->set('articles', $articlesFromCourse)
-                ->set('mobileToggleClass', '')
+                ->set('mobileToggleClass', false)
                 ->set('currentArticle', $article)
                 ->set('course', $course)
             ?>
