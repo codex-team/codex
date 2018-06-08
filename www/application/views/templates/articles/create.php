@@ -36,7 +36,7 @@
         <section class="editor-form__section">
 
             <label for="coauthor">Выбрать соавтора</label>
-            <select name="coauthor">
+            <select id="coauthor" name="coauthor">
                 <option value="" <?= !$selected_coauthor ? 'selected' : ''; ?>>Не выбрано</option>
                 <? if ($coauthors): ?>
                     <? foreach ($coauthors as $coauthor): ?>
@@ -120,13 +120,13 @@
         <section class="editor-form__section">
 
             <label for="courses_id">Выберите курс, к которому относится статья</label>
-            <select name="courses_ids[]" multiple>
+            <select name="courses_ids[]">
                 <option value="0">
                     Не выбран
                 </option>
                 <? foreach ($courses as $course): ?>
-                    <? $is_selected = is_array($selected_courses)?in_array($course['id'], $selected_courses):false; ?>
-                    <option value="<?= $course['id']; ?>" <?= $is_selected?'selected':''; ?>>
+                    <? $is_selected = is_array($selected_courses) && in_array($course['id'], $selected_courses) ? 'selected' : ''; ?>
+                    <option value="<?= $course['id']; ?>" <?= $is_selected ?>>
                         <?= $course['name']; ?>
                     </option>
                 <? endforeach; ?>

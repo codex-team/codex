@@ -187,7 +187,7 @@ class Model_Courses extends Model
     {
         $deleteQuery = Dao_CoursesArticles::delete()->where('article_id', '=', $article_id);
 
-        if (!$courses_ids) {
+        if ($courses_ids === 0) {
             return $deleteQuery->execute();
         }
 
@@ -322,8 +322,12 @@ class Model_Courses extends Model
         $articleList = array();
 
         if ($articles_ids) {
-            foreach ($articles_ids as $articles) {
-                $articleList[] = Model_Article::get($articles['article_id']);
+            foreach ($articles_ids as $article) {
+                $course_article = Model_Article::get($article['article_id']);
+
+                if ($course_article->is_published) {
+                    $articleList[] = $course_article;
+                }
             }
             /** Get Articles with Coauthors to display on Course Page */
             foreach ($articleList as $article) {

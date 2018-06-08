@@ -104,18 +104,47 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
      */
     public function getFeed()
     {
+        $cacheKey = 'beautiful-feed';
+        $cached = $this->memcache->get($cacheKey);
+
+        if ($cached) {
+            return $cached;
+        }
+
         $articles = new Model_Article();
         $article_items  = $articles->getActiveArticles();
 
         $courses = new Model_Courses();
         $course_items  = $courses->getActiveCourses(false, true);
 
-        $feed_items = array_merge($article_items, $course_items);
+        $feed_items = [];
+        $do_not_add_these_articles_to_feed = [];
 
-        foreach ($feed_items as $feed_item) {
-            $coauthorship        = new Model_Coauthors($feed_item->id);
-            $feed_item->coauthor = Model_User::get($coauthorship->user_id);
+        foreach ($course_items as $course) {
+            $feed_items[$course->dt_publish] = $course;
+            $coauthorship = new Model_Coauthors($course->id);
+            $course->coauthor = Model_User::get($coauthorship->user_id);
+
+            foreach ($course->course_articles as $article) {
+                $do_not_add_these_articles_to_feed[] = $article->id;
+            }
         }
+
+        foreach ($article_items as $article) {
+            if (in_array($article->id, $do_not_add_these_articles_to_feed)) {
+                continue;
+            }
+
+            $feed_items[$article->dt_publish] = $article;
+            $coauthorship = new Model_Coauthors($article->id);
+            $article->coauthor = Model_User::get($coauthorship->user_id);
+        }
+
+        ksort($feed_items);
+        $feed_items = array_reverse($feed_items);
+
+        $this->memcache->set($cacheKey, $feed_items);
+
         return $feed_items;
     }
     /**
@@ -168,6 +197,8 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
          * search in array of article ids the position of current article
          */
         $counter = 0;
+        $position = 0;
+
         foreach ($course_articles as $articles) {
             $articleList[] = Model_Article::get($articles->id);
 
