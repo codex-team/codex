@@ -104,11 +104,11 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
      */
     public function getFeed()
     {
-        $articles = new Model_Feed_Articles();
-        $article_items  = $articles->get();
+        $articles = new Model_Article();
+        $article_items  = $articles->getActiveArticles();
 
         $courses = new Model_Courses();
-        $course_items  = $courses->getActiveCourses();
+        $course_items  = $courses->getActiveCourses(false, true);
 
         $feed_items = array_merge($article_items, $course_items);
 

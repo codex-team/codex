@@ -16,30 +16,47 @@
 
     <?
         $articlesFromCourse = $course->course_articles;
-        $courseAuthors = $course->course_authors;
+        $courseAuthors      = $course->course_authors;
+
+        $singleAuthor       = count($courseAuthors) == 1;
+        $twoAuthors         = count($courseAuthors) == 2;
+        $multipleAuthors    = count($courseAuthors) > 2;
 
         if ($articlesFromCourse) {
             $course->author = $courseAuthors[0];
         }
 
-        if (count($courseAuthors) > 1) {
-            $coauthor = $courseAuthors[count($courseAuthors) - 1];
+        if ($twoAuthors) {
+            $coauthor = $courseAuthors[1];
         }
 
     ?>
 
     <div class="article__info">
         <? if ($articlesFromCourse): ?>
-            <!-- Start of author's photo -->
-            <div class="article__author" itemscope itemtype="http://schema.org/Person" itemprop="author" itemref="authorName">
-                <meta itemprop="url" href="<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $course->author->uri ? : 'user/' . $course->author->id ?>" />
 
-                <a href="/<?= $course->author->uri ? : 'user/' . $course->author->id ?>">
-                    <img class="article__author-photo <?= $coauthor->id ? 'article__author-photo--with-coauthor' : '';?>" src="<?= $course->author->photo ?>" alt="<?= HTML::chars($course->author->name) ?>"  itemprop="image">
-                </a>
-            </div>
-            <!-- End of author's photo -->
-            <? if ($coauthor->id): ?>
+            <? if ($singleAuthor): ?>
+                <!-- Start of author's photo -->
+                <div class="article__author" itemscope itemtype="http://schema.org/Person" itemprop="author" itemref="authorName">
+                    <meta itemprop="url" href="<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $course->author->uri ? : 'user/' . $course->author->id ?>" />
+
+                    <a href="/<?= $course->author->uri ? : 'user/' . $course->author->id ?>">
+                        <img class="article__author-photo <?= $twoAuthors ? 'article__author-photo--with-coauthor' : '';?>" src="<?= $course->author->photo ?>" alt="<?= HTML::chars($course->author->name) ?>"  itemprop="image">
+                    </a>
+                </div>
+                <!-- End of author's photo -->
+            <? endif; ?>
+
+            <? if ($twoAuthors): ?>
+                <!-- Start of author's photo -->
+                <div class="article__author" itemscope itemtype="http://schema.org/Person" itemprop="author" itemref="authorName">
+                    <meta itemprop="url" href="<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $course->author->uri ? : 'user/' . $course->author->id ?>" />
+
+                    <a href="/<?= $course->author->uri ? : 'user/' . $course->author->id ?>">
+                        <img class="article__author-photo <?= $twoAuthors ? 'article__author-photo--with-coauthor' : '';?>" src="<?= $course->author->photo ?>" alt="<?= HTML::chars($course->author->name) ?>"  itemprop="image">
+                    </a>
+                </div>
+                <!-- End of author's photo -->
                 <!-- Start of coauthor's photo -->
                 <div class="article__author" itemscope itemtype="http://schema.org/Person" itemprop="author" itemref="coauthorName">
                     <meta itemprop="url" href="<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $coauthor->uri ? : 'user/' . $coauthor->id ?>" />
@@ -50,13 +67,36 @@
                 </div>
                 <!-- End of coauthor's photo -->
             <? endif; ?>
+
+            <? if ($multipleAuthors): ?>
+                <? foreach ($courseAuthors as $item): ?>
+                    <!-- Start of coauthor's photo -->
+                    <div class="article__author article__author--multiple" itemscope itemtype="http://schema.org/Person" itemprop="author" itemref="coauthorName">
+                        <meta itemprop="url" href="<?= Model_Methods::getDomainAndProtocol(); ?>/<?= $item->uri ? : 'user/' . $item->id ?>" />
+
+                        <a href="/<?= $item->uri ? : 'user/' . $item->id ?>">
+                            <img class="article__author-photo article__author-photo--coauthor" src="<?= $item->photo ?>" alt="<?= $item->name ?>"  itemprop="image">
+                        </a>
+                    </div>
+                    <!-- End of coauthor's photo -->
+                <? endforeach; ?>
+            <? endif; ?>
+
             <div class="article__coauthors-info">
-                <!-- Start of author's info -->
-                <a class="article__author-name" itemprop="name" id="coauthorName" href="/<?= $course->author->uri ? : 'user/' . $course->author->id ?>">
-                    <?= HTML::chars($course->author->name) ?>
-                </a>
-                <!-- End of author's info -->
-                <? if ($coauthor->id): ?>
+                <? if ($singleAuthor): ?>
+                    <!-- Start of author's info -->
+                    <a class="article__author-name" itemprop="name" id="coauthorName" href="/<?= $course->author->uri ? : 'user/' . $course->author->id ?>">
+                        <?= HTML::chars($course->author->name) ?>
+                    </a>
+                    <!-- End of author's info -->
+                <? endif; ?>
+
+                <? if ($twoAuthors): ?>
+                    <!-- Start of author's info -->
+                    <a class="article__author-name" itemprop="name" id="coauthorName" href="/<?= $course->author->uri ? : 'user/' . $course->author->id ?>">
+                        <?= HTML::chars($course->author->name) ?>
+                    </a>
+                    <!-- End of author's info -->
                     and
                     <!-- Start of coauthor's info -->
                     <a class="article__author-name" itemprop="name" id="authorName" href="/<?= $coauthor->uri ? : 'user/' . $coauthor->id ?>">
@@ -64,6 +104,7 @@
                     </a>
                     <!-- End of coauthor's info -->
                 <? endif; ?>
+
                 <time class="article__date">
                     <?= !is_null($course->dt_publish) ? Date::fuzzy_span(strtotime($course->dt_publish)) : Date::fuzzy_span(strtotime($course->dt_create)) ?>
                 </time>
@@ -81,7 +122,7 @@
         <div class="feed">
             <? foreach ($articlesFromCourse as $i => $item): ?>
 
-                <?= View::factory('templates/articles/feed_list_item', array( 'item' => $item, 'coauthor' => $coauthor)); ?>
+                <?= View::factory('templates/articles/feed_list_item', array( 'item' => $item)); ?>
 
             <? endforeach; ?>
         </div>

@@ -224,18 +224,25 @@ class Model_Courses extends Model
      *
      * @return Model_Courses[] - экземпляр модели с указанным идентификатором и заполненными полями
      */
-    public static function getActiveCourses($clearCache = false)
+    public static function getActiveCourses($clearCache = false, $excludeCoursesWithoutArticles = false)
     {
-        $courses = Model_Courses::getCourses(false, false, !$clearCache ? Date::MINUTE * 5 : null);
+        $active_courses = Model_Courses::getCourses(false, false, !$clearCache ? Date::MINUTE * 5 : null);
         $courses_with_articles = array();
 
-        foreach ($courses as $course) {
-            if (self::getArticles($course->id)) {
-                $courses_with_articles[] = $course;
+        if ($excludeCoursesWithoutArticles) {
+
+            foreach ($active_courses as $course) {
+                if (self::getArticles($course->id)) {
+                    $courses_with_articles[] = $course;
+                }
             }
+
+            return $courses_with_articles;
+
+        } else {
+            return $active_courses;
         }
 
-        return $courses_with_articles;
     }
 
     /**

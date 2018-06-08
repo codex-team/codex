@@ -66,6 +66,10 @@
         border: 3px solid #fff;
         overflow: hidden;
 
+        &--multiple {
+            margin-left: -10px;
+        }
+
         img {
             width: inherit;
             height: auto;
