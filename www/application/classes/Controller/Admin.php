@@ -195,24 +195,27 @@ class Controller_Admin extends Controller_Base_preDispatch
     {
         $articles = Model_Article::getActiveArticles();
 
+        /** rebuld array*/
         foreach ($articles as $key => $value) {
             $article = array(
                 'id' => $articles[$key]->id,
-                'dt_publish' => $articles[$key]->dt_publish,
+                'dt_create' => $articles[$key]->dt_publish,
             );
             $articles[$key] = $article;
         }
 
         $courses = Model_Courses::getActiveCourses();
 
+        /** rebuld array*/
         foreach ($courses as $key => $value) {
             $course = array(
                 'id' => $courses[$key]->id,
-                'dt_publish' => $courses[$key]->dt_publish,
+                'dt_create' => $courses[$key]->dt_publish,
             );
             $courses[$key] = $course;
         }
 
+        // #TODO add to $feed array with courses later
         $feed_articles = new Model_Feed_Articles('article');
         $feed_courses = new Model_Feed_Articles('course');
 
