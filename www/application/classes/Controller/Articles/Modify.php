@@ -186,10 +186,6 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
                 }
             }
 
-            // $current_courses = Model_Courses::getCoursesByArticleId($article);
-            // var_dump($current_courses);
-            // die();
-
             $feed->remove($article->id);
         }
 

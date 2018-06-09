@@ -220,9 +220,11 @@ class Model_Courses extends Model
     }
 
     /**
-     * Получить все опубликованные курсы, которые содержат хотя бы одну статью
+     *  Return
+     *  a) All published courses to output them on Article editing page
+     *  b) All published courses, containing at least one Article to show in feed
      *
-     * @return Model_Courses[] - экземпляр модели с указанным идентификатором и заполненными полями
+     * @return Model_Courses[] - array of Model_Courses
      */
     public static function getActiveCourses($clearCache = false, $excludeCoursesWithoutArticles = false)
     {
@@ -321,10 +323,16 @@ class Model_Courses extends Model
         /** $articleList - empty array. Needs to fill by article ids */
         $articleList = array();
 
+        /**
+         * If Course has Articles
+         */
         if ($articles_ids) {
             foreach ($articles_ids as $article) {
                 $course_article = Model_Article::get($article['article_id']);
 
+                /**
+                 * Show only published Articles in Course
+                 */
                 if ($course_article->is_published) {
                     $articleList[] = $course_article;
                 }
