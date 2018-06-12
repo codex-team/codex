@@ -6,17 +6,19 @@ require('../css/main.css');
  */
 const VK_COMMUNITY_ID = 103229636;
 
-var codex = (function (codex_) {
+const codex = (function (codex_) {
+
 
     'use strict';
 
     codex_.settings = {};
 
     /**
-    * Preparation method
-    */
+     * Preparation method
+     */
     codex_.init = function (settings) {
 
+        //
         /** Save settings or use defaults */
         for (var set in settings ) {
 
@@ -61,6 +63,7 @@ var codex = (function (codex_) {
 
         }
 
+
     };
 
     return codex_;
@@ -78,11 +81,10 @@ codex.docReady = function (f) {
 };
 
 /**
-* Pages
-*/
+ * Pages
+ */
 codex.admin = require('./modules/admin');
 codex.join = require('./modules/join');
-
 
 /**
  * Modules
@@ -92,15 +94,15 @@ codex.dragndrop = require('./modules/dragndrop');
 codex.scrollUp = require('./modules/scrollUp');
 codex.sharer = require('./modules/sharer');
 codex.developer = require('./modules/bestDevelopers');
-// codex.simpleCode = require('./modules/simpleCodeStyling');
+codex.simpleCode = require('./modules/simpleCodeStyling');
 codex.showMoreNews = require('./modules/showMoreNews');
 codex.polyfills = require('./modules/polyfills');
-codex.ajax = require('./modules/ajax');
+codex.ajax = require('codex.ajax');
 codex.profile = require('./modules/profile');
 codex.helpers = require('./modules/helpers');
 codex.quiz = require('./modules/quiz');
 codex.quizForm = require('./modules/quizForm');
-codex.transport = require('./modules/transport');
+codex.transport = require('codex.transport');
 codex.vkWidget = require('./modules/vkWidget');
 codex.codeStyling = require('./modules/codeStyling');
 codex.courses = require('./modules/courses');
