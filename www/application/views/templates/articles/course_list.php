@@ -8,7 +8,7 @@
 <section class="course-menu">
 
     <h2 class="course-menu__title <?= $jsTogglerClass ?>" onclick="codex.courses.toggleCourse(this);">
-        <a href="<?= "/course/" . $course->id ?>">
+        <a href="/<?= $course->uri ?: 'course/' . $course->id ?>">
             <?=$course->title; ?>
         </a>
     </h2>
@@ -20,7 +20,7 @@
                     $isCurrent = $article->id == $currentArticle->id;
                 ?>
                 <li class="course-menu-list__item <?= $isCurrent ? 'course-menu-list__item--current' : '' ?>">
-                    <a href="<?=URL::site($article->uri ?: '/article/ ' . $article->id ); ?>" class="course-menu-list__link">
+                    <a href="/<?= $article->uri ?: 'article/' . $article->id ?>" class="course-menu-list__link">
                         <?= $article->title; ?>
                     </a>
                 </li>

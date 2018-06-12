@@ -283,6 +283,8 @@ abstract class Kohana_Cache {
 	abstract public function delete_all();
 
 	/**
+     * Add hostname to key
+     *
 	 * Replaces troublesome characters with underscores.
 	 *
 	 *     // Sanitize a cache id
@@ -293,6 +295,10 @@ abstract class Kohana_Cache {
 	 */
 	protected function _sanitize_id($id)
 	{
+	    // Add hostname to cached item identifier
+	    $host = Arr::get($_SERVER, 'HTTP_HOST', 'undefined_host');
+	    $id = $host . ':' . $id;
+
 		// Change slashes and spaces to underscores
 		return str_replace(array('/', '\\', ' '), '_', $id);
 	}

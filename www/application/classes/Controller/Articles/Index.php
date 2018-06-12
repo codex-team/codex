@@ -104,7 +104,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
      */
     public function getFeed()
     {
-        $cacheKey = 'beautiful-feed';
+        $cacheKey = 'articles-feed';
         $cached = $this->memcache->get($cacheKey);
 
         if ($cached) {

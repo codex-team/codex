@@ -225,6 +225,9 @@ class Controller_Admin extends Controller_Base_preDispatch
         $feed_articles->init($articles);
         $feed_courses->init($courses);
 
+        $cacheKey = 'articles-feed';
+        $this->memcache->delete($cacheKey);
+
         return 'Articles and Courses timeline was successfully updated';
     }
 }

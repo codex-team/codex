@@ -48,7 +48,7 @@
     <script src="/public/build/bundle.js?v=<?= filemtime('public/build/bundle.js') ?>"></script>
 
     <? if (!empty($_SERVER['HAWK_TOKEN'])): ?>
-        <script src="https://cdn.rawgit.com/codex-team/hawk.client/5f545116/hawk.js" onload="hawk.init('<?= $_SERVER['HAWK_TOKEN'] ?>')"></script>
+        <script src="https://cdn.rawgit.com/codex-team/hawk.javascript/master/hawk.js" onload="hawk.init({token: '<?= $_SERVER['HAWK_TOKEN'] ?>', revision: <?= filemtime('public/build/bundle.js') ?>})"></script>
     <? endif; ?>
 
 </head>
