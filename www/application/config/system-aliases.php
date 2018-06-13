@@ -8,6 +8,7 @@ return array(
     'system' => array(
         '',
         'admin',
+        'ajax',
         'article',
         'articles',
         'auth',
