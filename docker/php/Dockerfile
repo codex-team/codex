@@ -3,11 +3,12 @@ FROM php:7.1-fpm
 MAINTAINER CodeX <github.com/codex-team>
 
 RUN apt-get update
-RUN apt-get install -y \
+RUN apt-get install -y --no-install-recommends \
     git \
-    zip \
+    zip unzip \
     libz-dev \
-    libjpeg-dev libpng-dev libfreetype6-dev
+    libjpeg-dev libpng-dev libfreetype6-dev \
+    libssl-dev libpcre3 libpcre3-dev
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php
@@ -16,7 +17,6 @@ RUN mv composer.phar /usr/local/bin/composer
 
 # Install memcache extension
 RUN set -x \
-    && apt-get update && apt-get install -y --no-install-recommends unzip libssl-dev libpcre3 libpcre3-dev \
     && cd /tmp \
     && curl -sSL -o php7.zip https://github.com/websupport-sk/pecl-memcache/archive/php7.zip \
     && unzip php7 \
@@ -31,8 +31,7 @@ RUN set -x \
 # Install redis php-exts
 RUN pecl install redis
 RUN docker-php-ext-enable \
-    redis \
-    memcache
+    redis
 
 # Configure GD library
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
