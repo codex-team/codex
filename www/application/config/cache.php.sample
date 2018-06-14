@@ -1,17 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 return array
 (
-	'memcached' => array(
-		'driver'             => 'memcached',             // Use Zlib compression (can cause issues with integers)
-		'servers'            => array(
-			'local' => array(
-				'host'             => 'memcached',  // Memcache Server
-				'port'             => 11211,        // Memcache port number
-
-			),
-		),
-		'instant_death'      => TRUE,               // Take server offline immediately on first fail (no retry)
-	),
 	'memcache' => array(
 		'driver'             => 'memcache',
 		'default_expire'     => 3600,
