@@ -237,7 +237,7 @@ CREATE TABLE IF NOT EXISTS `Tags_articles` (
 DROP TABLE IF EXISTS `Users`;
 CREATE TABLE IF NOT EXISTS `Users` (
 `id` int(10) unsigned NOT NULL,
-  `uri` varchar(128) NOT NULL,
+  `uri` varchar(128) DEFAULT NULL,
   `name` varchar(128) NOT NULL,
   `vk_id` bigint(20) unsigned DEFAULT NULL,
   `vk_uri` varchar(128) DEFAULT NULL,
