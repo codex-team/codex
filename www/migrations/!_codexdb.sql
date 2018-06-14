@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `Aliases` (
 DROP TABLE IF EXISTS `Articles`;
 CREATE TABLE IF NOT EXISTS `Articles` (
 `id` int(10) unsigned NOT NULL,
-  `uri` varchar(128) NOT NULL,
+  `uri` varchar(128) NULL DEFAULT NULL,
   `linked_article` int(10) DEFAULT NULL,
   `title` varchar(128) CHARACTER SET utf8mb4 DEFAULT NULL,
   `text` longtext CHARACTER SET utf8mb4,
