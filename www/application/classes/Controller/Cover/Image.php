@@ -94,7 +94,9 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
                     break;
                 }
             }
-        } catch (Exception $ignored) { }
+        } catch (Exception $e) {
+            \Hawk\HawkCatcher::catchException($e);
+        }
 
         $cover = $this->background($image);
 
