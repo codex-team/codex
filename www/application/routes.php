@@ -27,6 +27,11 @@ Route::set('CONTESTS_LIST', 'contests')->defaults(array(
 	'action' => 'showAll',
 ));
 
+Route::set('COVER_IMAGE', 'cover/<social>/<type>/<target>/<version>/cover.jpg')->defaults(array(
+    'controller' => 'Cover_Image',
+    'action' => 'index'
+));
+
 // Add Substance
 
 Route::set('ADD_ARTICLE_SCRIPT', 'article/add')->defaults(array(

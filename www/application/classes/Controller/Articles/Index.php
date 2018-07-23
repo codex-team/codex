@@ -1,6 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 use \CodexEditor\CodexEditor;
+use Opengraph\Meta;
 
 class Controller_Articles_Index extends Controller_Base_preDispatch
 {
@@ -95,6 +96,14 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
         $this->title = $article->title;
         $this->description = $article->description;
+
+        $this->meta[] = new Meta('vk:image', sprintf('%s/cover/vk/article/%d/%d/cover.jpg', Model_Methods::getDomainAndProtocol(), $article->id, strtotime($article->dt_update)));
+        $this->meta[] = new Meta('twitter:image', sprintf('%s/cover/tw/article/%d/%d/cover.jpg', Model_Methods::getDomainAndProtocol(), $article->id, strtotime($article->dt_update)));
+
+        $this->meta[] = new Meta('og:image', sprintf('%s/cover/fb/article/%d/%d/cover.jpg', Model_Methods::getDomainAndProtocol(), $article->id, strtotime($article->dt_update)));
+        $this->meta[] = new Meta('og:image:width', 600);
+        $this->meta[] = new Meta('og:image:height', 315);
+
         $this->template->content = View::factory('templates/articles/article', $this->view);
     }
 

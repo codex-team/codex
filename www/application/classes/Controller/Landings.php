@@ -1,4 +1,6 @@
-<?php defined('SYSPATH') or die('No direct script access.');
+<?php use Opengraph\Meta;
+
+defined('SYSPATH') or die('No direct script access.');
 
 class Controller_Landings extends Controller_Base_preDispatch
 {
@@ -38,6 +40,10 @@ class Controller_Landings extends Controller_Base_preDispatch
         $this->title = 'Safari Beauty Toolbar';
         $this->description = 'Make the Safari Toolbar more consistent with your brand colors';
         $this->metaImage = 'https://ifmo.su/public/app/landings/beauty_toolbar/demo.gif';
+
+        $this->meta[] = new Meta('vk:image', 'https://ifmo.su/public/app/landings/beauty_toolbar/demo.gif');
+        $this->meta[] = new Meta('twitter:image', 'https://ifmo.su/public/app/landings/beauty_toolbar/demo.gif');
+        $this->meta[] = new Meta('og:image', 'https://ifmo.su/public/app/landings/beauty_toolbar/demo.gif');
 
         /**
          * Detect visits from Product Hunt
