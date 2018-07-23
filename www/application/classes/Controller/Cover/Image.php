@@ -49,7 +49,7 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
         );
     }
 
-    public function background($image = null)
+    private function background($image = null)
     {
         $cover = new \SocialCoversGenerator\Generator($this->width, $this->height, self::BACKGROUND_COLOR);
 
@@ -76,7 +76,7 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
         return $cover;
     }
 
-    public function article($articleId)
+    private function article($articleId)
     {
         $font_color = '#000000';
 
@@ -90,7 +90,7 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
             foreach ($blocks as $block) {
                 if ($block['type'] === 'image') {
                     $font_color = '#FFFFFF';
-                    $image = $block['data']['url'];
+                    $image = substr($block['data']['url'], 0, 4) !== 'http' ? sprintf('%s/%s', Model_Methods::getDomainAndProtocol(), $block['data']['url']) : $block['data']['url'];
                     break;
                 }
             }
@@ -132,8 +132,9 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
         /**
          * Author image
          */
+        $author_photo_url = substr($article->author->photo, 0, 4) !== 'http' ? sprintf('%s/%s', Model_Methods::getDomainAndProtocol(), $article->author->photo) : $article->author->photo;
         $author_image = new \SocialCoversGenerator\Types\Image();
-        $author_image->setPath($article->author->photo);
+        $author_image->setPath($author_photo_url);
         $author_image->setWidth(50);
         $author_image->setHeight(50);
         $author_image->setRoundCorners(25);
