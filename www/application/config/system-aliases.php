@@ -7,6 +7,7 @@ return array(
      */
     'system' => array(
         '',
+        'ajax',
         'admin',
         'article',
         'articles',
