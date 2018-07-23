@@ -4,6 +4,7 @@
 		"vlucas/phpdotenv": "^2.4",
 		"codex-team/codex.editor": "dev-master",
 		"euskadi31/Opengraph": "^1.0",
-		"codex-team/hawk.php": "^1.0"
+		"codex-team/hawk.php": "^1.0",
+		"pavelzotikov/social-covers-generator": "dev-first-version"
 	}
 }
