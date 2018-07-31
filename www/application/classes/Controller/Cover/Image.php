@@ -34,12 +34,17 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
                 break;
         }
 
-        switch ($type) {
-            case 'article':
-                $cover = $this->article($target);
-                break;
-            default:
-                $cover = $this->background();
+        try {
+            $cover = null;
+            switch ($type) {
+                case 'article':
+                    $cover = $this->article($target);
+                    break;
+            }
+        } catch (\Throwable $ignored) { }
+
+        if (!$cover) {
+            $cover = $this->background();
         }
 
         $this->auto_render = false;
