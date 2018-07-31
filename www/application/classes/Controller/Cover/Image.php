@@ -34,8 +34,9 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
                 break;
         }
 
+        $cover = null;
+        
         try {
-            $cover = null;
             switch ($type) {
                 case 'article':
                     $cover = $this->article($target);
