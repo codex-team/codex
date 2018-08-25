@@ -61,15 +61,7 @@ module.exports = {
     plugins: [
         new ExtractTextPlugin('bundle.css')
     ],
-
-    /**
-     * Rebuild bundles on files changes
-     * Param --watch is a key for the command in the package.json scripts
-     */
-    watchOptions: {
-        aggregateTimeout: 50,
-    },
-
+    
     /**
      * Optimization params
      */
