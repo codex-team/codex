@@ -4,12 +4,12 @@
 export default class DOM {
 
     /**
-    * Helper for making Elements with classname and attributes
-    * @param  {string} tagName           - new Element tag name
-    * @param  {array|string} classNames  - list or name of CSS classname(s)
-    * @param  {Object} attributes        - any attributes
-    * @return {Element}
-    */
+     * Helper for making Elements with classname and attributes
+     * @param  {string} tagName           - new Element tag name
+     * @param  {array|string} classNames  - list or name of CSS classname(s)
+     * @param  {Object} attributes        - any attributes
+     * @return {Element}
+     */
     static make(tagName, classNames, attributes) {
 
         var el = document.createElement(tagName);
@@ -35,10 +35,10 @@ export default class DOM {
     }
 
     /**
-    * Replaces node with
-    * @param {Element} nodeToReplace
-    * @param {Element} replaceWith
-    */
+     * Replaces node with
+     * @param {Element} nodeToReplace
+     * @param {Element} replaceWith
+     */
     static replace(nodeToReplace, replaceWith) {
 
         return nodeToReplace.parentNode.replaceChild(replaceWith, nodeToReplace);
@@ -46,9 +46,9 @@ export default class DOM {
     }
 
     /**
-    * getElementById alias
-    * @param {String} elementId
-    */
+     * getElementById alias
+     * @param {String} elementId
+     */
     static get(elementId) {
 
         return document.getElementById(elementId);
@@ -56,18 +56,18 @@ export default class DOM {
     }
 
     /**
-    * Loads static resourse: CSS or JS
-    * @param {string} type  - CSS|JS
-    * @param {string} path  - resource path
-    * @param {string} inctanceName - unique name of resource
-    * @return Promise
-    */
+     * Loads static resourse: CSS or JS
+     * @param {string} type  - CSS|JS
+     * @param {string} path  - resource path
+     * @param {string} inctanceName - unique name of resource
+     * @return Promise
+     */
     static loadResource(type, path, instanceName) {
 
         /**
-        * Imported resource ID prefix
-        * @type {String}
-        */
+         * Imported resource ID prefix
+         * @type {String}
+         */
         const resourcePrefix = 'cdx-resourse';
 
         return new Promise(function (resolve, reject) {

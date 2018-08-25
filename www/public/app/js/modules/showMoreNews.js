@@ -7,9 +7,9 @@
 var showMoreNews = function () {
 
     /**
-    * Helper for 'show more news' button
-    * @param {Element} button   - appender button
-    */
+     * Helper for 'show more news' button
+     * @param {Element} button   - appender button
+     */
     var init = function ( button ) {
 
         var PORTION = 5; // Amount of news shown each time appender button is fired
@@ -28,9 +28,9 @@ var showMoreNews = function () {
         }
 
         /**
-        * @param {Element} item
-        * Remove PORTION of first elements from array hided
-        */
+         * @param {Element} item
+         * Remove PORTION of first elements from array hided
+         */
         hided.splice(0, PORTION).map(function (item) {
 
             item.classList.remove('news__list_item--hidden');

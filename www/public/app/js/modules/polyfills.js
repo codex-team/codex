@@ -2,9 +2,9 @@
 var polyfills = function () {
 
     /**
-    * Polyfilling ECMAScript 6 method String.includes
-    * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes#Browser_compatibility
-    */
+     * Polyfilling ECMAScript 6 method String.includes
+     * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes#Browser_compatibility
+     */
     if ( !String.prototype.includes ) {
 
         String.prototype.includes = function () {
@@ -19,8 +19,8 @@ var polyfills = function () {
 
 
     /**
-    * Polyfill for Element.prototype.matches method
-    */
+     * Polyfill for Element.prototype.matches method
+     */
     if (!Element.prototype.matches) {
 
         Element.prototype.matches = Element.prototype.matchesSelector ||
@@ -31,8 +31,8 @@ var polyfills = function () {
     }
 
     /**
-    * Polyfill for Element.prototype.closest method
-    */
+     * Polyfill for Element.prototype.closest method
+     */
     if (!Element.prototype.closest) {
 
         Element.prototype.closest = function (selector) {
