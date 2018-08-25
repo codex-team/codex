@@ -28,9 +28,9 @@ var showMoreNews = function () {
         }
 
         /**
-         * @param {Element} item
-         * Remove PORTION of first elements from array hided
-         */
+        * @param {Element} item
+        * Remove PORTION of first elements from array hided
+        */
         hided.splice(0, PORTION).map(function (item) {
 
             item.classList.remove('news__list_item--hidden');
