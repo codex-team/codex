@@ -1,7 +1,7 @@
 
 var polyfills = function () {
 
-        /**
+    /**
         * Polyfilling ECMAScript 6 method String.includes
         * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes#Browser_compatibility
         */
@@ -18,7 +18,7 @@ var polyfills = function () {
     }
 
 
-        /**
+    /**
         * Polyfill for Element.prototype.matches method
         */
     if (!Element.prototype.matches) {
@@ -30,7 +30,7 @@ var polyfills = function () {
 
     }
 
-        /**
+    /**
         * Polyfill for Element.prototype.closest method
         */
     if (!Element.prototype.closest) {

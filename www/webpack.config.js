@@ -1,15 +1,14 @@
-var webpack           = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-
-require('dotenv').config();
-var DevelopmendMode = process.env.KOHANA_ENV === 'DEVELOPMENT';
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// const webpack = require('webpack');
+const path = require('path');
 
 module.exports = {
 
     entry: './public/app/js/main.js',
 
     output: {
-        filename: './public/build/bundle.js',
+        path: path.resolve(__dirname, 'public', 'build'),
+        filename: 'bundle.js',
         library: 'codex'
     },
 
@@ -17,7 +16,12 @@ module.exports = {
         rules: [
             {
                 test : /\.(png|jpg|svg)$/,
-                use : 'file-loader?name=[path][name].[ext]'
+                use : [{
+                    loader: 'file-loader?name=[path][name].[ext]',
+                    options: {
+                        emitFile: false
+                    }
+                }]
             },
             {
                 test: /\.css$/,
@@ -55,22 +59,25 @@ module.exports = {
         ]},
 
     plugins: [
-        new ExtractTextPlugin('public/build/bundle.css'),
-
-        new webpack.optimize.UglifyJsPlugin({
-            /** Disable warning messages. Cant disable uglify for 3rd party libs such as html-janitor */
-            compress: {
-                warnings: false
-            }
-        })
+        new ExtractTextPlugin('bundle.css')
     ],
 
-    devtool: 'source-map',
-
-    watch: true,
-
+    /**
+     * Rebuild bundles on files changes
+     * Param --watch is a key for the command in the package.json scripts
+     */
     watchOptions: {
-        aggragateTimeout: 50
-    }
+        aggregateTimeout: 50,
+    },
 
+    /**
+     * Optimization params
+     */
+    optimization: {
+        noEmitOnErrors: true,
+        splitChunks: false,
+        minimize: true
+    },
+
+    devtool: 'source-map'
 };

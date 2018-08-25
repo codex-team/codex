@@ -200,8 +200,10 @@ var ajax = function () {
 
                 }
                 switch (formElement.nodeName.toLowerCase()) {
+
                     case 'input':
                         switch (formElement.type) {
+
                             case 'text':
                             case 'email':
                             case 'hidden':
@@ -223,6 +225,7 @@ var ajax = function () {
                                 break;
                             case 'reset':
                                 break;
+
                         }
                         break;
                     case 'textarea':
@@ -230,6 +233,7 @@ var ajax = function () {
                         break;
                     case 'select':
                         switch (formElement.type) {
+
                             case 'select-one':
                                 addNameValue(formElement.name, formElement.value);
                                 break;
@@ -244,17 +248,21 @@ var ajax = function () {
 
                                 }
                                 break;
+
                         }
                         break;
                     case 'button': // jQuery does not submit these, though it is an HTML4 successful control
                         switch (formElement.type) {
+
                             case 'reset':
                             case 'submit':
                             case 'button':
                                 addNameValue(formElement.name, formElement.value);
                                 break;
+
                         }
                         break;
+
                 }
 
             }

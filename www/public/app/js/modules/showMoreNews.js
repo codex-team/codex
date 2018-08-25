@@ -6,7 +6,7 @@
  */
 var showMoreNews = function () {
 
-	/**
+    /**
     * Helper for 'show more news' button
     * @param {Element} button   - appender button
     */

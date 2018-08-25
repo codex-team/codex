@@ -2,7 +2,8 @@
  * DOM manipulations methods
  */
 export default class DOM {
-  /**
+
+    /**
    * Helper for making Elements with classname and attributes
    * @param  {string} tagName           - new Element tag name
    * @param  {array|string} classNames  - list or name of CSS classname(s)
@@ -33,7 +34,7 @@ export default class DOM {
 
     }
 
-  /**
+    /**
   * Replaces node with
   * @param {Element} nodeToReplace
   * @param {Element} replaceWith
@@ -44,7 +45,7 @@ export default class DOM {
 
     }
 
-  /**
+    /**
   * getElementById alias
   * @param {String} elementId
   */
@@ -54,7 +55,7 @@ export default class DOM {
 
     }
 
-  /**
+    /**
   * Loads static resourse: CSS or JS
   * @param {string} type  - CSS|JS
   * @param {string} path  - resource path
@@ -79,7 +80,7 @@ export default class DOM {
 
             let node;
 
-      /** Script is already loaded */
+            /** Script is already loaded */
             if ( !instanceName ) {
 
                 reject('Instance name is missed');
@@ -139,4 +140,5 @@ export default class DOM {
         });
 
     }
+
 }

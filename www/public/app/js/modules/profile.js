@@ -3,7 +3,7 @@
  */
 module.exports = function () {
 
-	/**
+    /**
 	 * Photo uploading success-callback
 	 * Fired by transport
 	 * @param  {string} newPhotoURL - uploaded file URL
