@@ -36,7 +36,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
     <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/apple-touch-icon-180x180.png" />
 
-    <script src="/public/build/bundle.js?v=<?= filemtime('public/build/bundle.js') ?>"></script>
+    <script src="/public/build/main.bundle.js?v=<?= filemtime('public/build/main.bundle.js') ?>"></script>
 
     <? if (!empty($_SERVER['HAWK_TOKEN'])): ?>
         <script src="https://cdn.rawgit.com/codex-team/hawk.client/5f545116/hawk.js" onload="hawk.init('<?= $_SERVER['HAWK_TOKEN'] ?>')"></script>
