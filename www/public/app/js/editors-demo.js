@@ -14,6 +14,12 @@ module.exports = (function () {
     let saveButton = document.getElementById('saveButton');
 
     /**
+     * Editor's preview data output
+     * @type {HTMLElement}
+     */
+    let editorOutput = document.getElementById('output');
+
+    /**
      * Load Tools for the Editor
      */
     const Header = require('codex.editor.header');
@@ -184,7 +190,11 @@ module.exports = (function () {
         },
         onReady: function () {
 
-            saveButton.click();
+            if (saveButton) {
+
+                saveButton.click();
+
+            }
 
         }
     });
@@ -192,15 +202,19 @@ module.exports = (function () {
     /**
      * Saving example
      */
+    if (saveButton && editorOutput) {
 
-    saveButton.addEventListener('click', function () {
+        saveButton.addEventListener('click', function () {
 
-        editor.saver.save().then((savedData) => {
+            editor.saver.save()
+                .then((savedData) => {
 
-            cPreview.show(savedData, document.getElementById('output'));
+                    cPreview.show(savedData, editorOutput);
+
+                });
 
         });
 
-    });
+    }
 
 }({}));
