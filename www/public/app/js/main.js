@@ -127,7 +127,6 @@ codex.transport = require('./modules/transport');
 codex.vkWidget = require('./modules/vkWidget');
 codex.codeStyling = require('./modules/codeStyling');
 codex.deeplinker = require('@codexteam/deeplinker');
-codex.jsonPreview = require('./modules/json-preview');
 codex.editor = require('./modules/editor');
 
 module.exports = codex;

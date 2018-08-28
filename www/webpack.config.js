@@ -2,16 +2,13 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 // const webpack = require('webpack');
 const path = require('path');
 
-/**
- * Main site config
- */
-const mainConfig = {
+module.exports = {
 
     entry: './public/app/js/main.js',
 
     output: {
         path: path.resolve(__dirname, 'public', 'build'),
-        filename: 'main.bundle.js',
+        filename: 'bundle.js',
         library: 'codex'
     },
 
@@ -76,42 +73,3 @@ const mainConfig = {
 
     devtool: 'source-map'
 };
-
-/**
- * Separate bundle for CodeX Editor with plugins
- */
-const editorConfig = {
-    entry: './public/app/js/modules/editor.js',
-
-    output: {
-        path: path.resolve(__dirname, 'public', 'build'),
-        filename: 'editor.bundle.js',
-        library: 'codex'
-    },
-
-    module: {
-        rules: [
-            {
-                test: /\.js$/,
-                exclude: /(node_modules)/,
-                use: [
-                    /** Babel loader */
-                    {
-                        loader: 'babel-loader',
-                        options: {
-                            presets: [ 'env' ]
-                        }
-                    },
-                    /** ES lint For webpack build */
-                    {
-                        loader: 'eslint-loader',
-                        options: {
-                            fix: true
-                        }
-                    }
-                ]
-            }
-        ]},
-};
-
-module.exports = [mainConfig, editorConfig];

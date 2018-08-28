@@ -1,6 +1,10 @@
 'use strict';
 
 const CodexEditor = require('codex.editor');
+/**
+ * Require module to compose output JSON preview
+ */
+const cPreview = require('./cPreview');
 
 /**
  * Load Tools for the Editor
@@ -14,14 +18,68 @@ const Delimiter = require('codex.editor.delimiter');
 const InlineCode = require('codex.editor.inline-code');
 const List = require('codex.editor.list');
 
+/**
+ * Editor instance
+ */
 let ceEditor;
 
-class Editor {
+/**
+ * Editor save button
+ */
+let saveButton;
 
-    init(settings) {
+/**
+ * Container to output saved Editor data
+ */
+let output;
 
-        const editorData = settings.blocks || this.defaultEditorData;
+module.exports = function () {
 
+    /**
+     * Initialize Editor with settings
+     * @param {Object} settings           - Editor's parameters
+     * @param {String} settings.button_id - ID of button which triggers Editor's save event
+     * @param {String} settings.output_id - ID of container where Editor's saved data will be shown
+     * @param {Object[]} settings.blocks  - Editor's blocks content
+     */
+    const init = function (settings) {
+
+        /**
+         * Define content of Editor's blocks
+         * @type {Object|{blocks}}
+         */
+        const editorData = settings.blocks || defaultEditorData();
+
+        /**
+         * Define button and output elements
+         * @type {HTMLElement}
+         */
+        saveButton = document.getElementById(settings.button_id);
+        output = document.getElementById(settings.output_id);
+
+        if (saveButton) {
+
+            console.log('Button with ID: «' + settings.button_id + '» was initialized successfully');
+
+        } else {
+
+            console.warn('Can\'t find button with ID: «' + settings.button_id + '»');
+
+        }
+
+        if (output) {
+
+            console.log('Output target with ID: «' + settings.output_id + '» was initialized successfully');
+
+        } else {
+
+            console.warn('Can\'t find output target with ID: «' + settings.output_id + '»');
+
+        }
+
+        /**
+         * Instantiate new Editor with set of Tools
+         */
         ceEditor = new CodexEditor({
             holderId: 'codex-editor',
             tools: {
@@ -43,8 +101,8 @@ class Editor {
                     class: Quote,
                     inlineToolbar: true,
                     config: {
-                        quotePlaceholder: 'Enter a quote',
-                        captionPlaceholder: 'Quote\'s author'
+                        quotePlaceholder: Quote.DEFAULT_QUOTE_PLACEHOLDER,
+                        captionPlaceholder: Quote.DEFAULT_CAPTION_PLACEHOLDER
                     }
                 },
 
@@ -67,12 +125,28 @@ class Editor {
             },
             data: {
                 blocks: editorData
+            },
+            onReady: function () {
+
+                if (saveButton && output) {
+
+                    prepareOutput();
+
+                    saveButton.click();
+
+                }
+
             }
+
         });
 
-    }
+    };
 
-    defaultEditorData() {
+    /**
+     * Define default Editor's data if none was passed
+     * @returns {Object[]} blocks
+     */
+    const defaultEditorData = function () {
 
         return {
             blocks: [
@@ -86,19 +160,24 @@ class Editor {
             ]
         };
 
-    }
+    };
 
-    saveData() {
+    const prepareOutput = function () {
 
-        ceEditor.saver.save()
-            .then((savedData) => {
+        saveButton.addEventListener('click', function () {
 
-                return savedData;
+            ceEditor.saver.save().then((savedData) => {
+
+                cPreview.show(savedData, output);
 
             });
 
-    }
+        });
 
-};
+    };
 
-module.exports = new Editor();
+    return {
+        init : init
+    };
+
+}({});

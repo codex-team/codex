@@ -48,12 +48,8 @@ const cPreview = (function () {
 
     }
 
-    function init() {
-
-    }
-
     return {
-        init : init
+        show : show
     };
 
 })({});
