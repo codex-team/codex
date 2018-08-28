@@ -14,13 +14,15 @@ const Delimiter = require('codex.editor.delimiter');
 const InlineCode = require('codex.editor.inline-code');
 const List = require('codex.editor.list');
 
+let ceEditor;
+
 class Editor {
 
     init(settings) {
 
         const editorData = settings.blocks || this.defaultEditorData;
 
-        this.ceEditor = new CodexEditor({
+        ceEditor = new CodexEditor({
             holderId: 'codex-editor',
             tools: {
                 image: SimpleImage,
@@ -83,6 +85,17 @@ class Editor {
                 }
             ]
         };
+
+    }
+
+    saveData() {
+
+        ceEditor.saver.save()
+            .then((savedData) => {
+
+                return savedData;
+
+            });
 
     }
 

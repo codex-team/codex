@@ -6,26 +6,30 @@
     <div class="editor-landing__disclaimer">under development</div>
 
     <input class="editor-form__title" id="js-editor-title" type="text" name="title" required placeholder="Story title">
-
-    <form data-module="editor" name="editor-demo" action="/editor/preview" method="POST" enctype="multipart/form-data">
+    <form data-module="editor jsonPreview" name="editor-demo" action="/editor/preview" method="POST" enctype="multipart/form-data">
         <module-settings hidden>
-            {
-                "blocks" : [
-                    {
-                        "type" : "header",
-                        "data" : {
-                            "text" : "CodeX Editor",
-                            "level" : 2
+            [
+                {
+                    "blocks" : [
+                        {
+                            "type" : "header",
+                            "data" : {
+                                "text" : "CodeX Editor",
+                                "level" : 2
+                            }
+                        },
+                        {
+                            "type" : "paragraph",
+                            "data" : {
+                                "text" : "Привет. Перед вами наш обновленный редактор. На этой странице вы можете проверить его в действии — попробуйте отредактировать или дополнить материал. Код страницы содержит пример подключения и простейшей настройки."
+                            }
                         }
-                    },
-                    {
-                        "type" : "paragraph",
-                        "data" : {
-                            "text" : "Привет. Перед вами наш обновленный редактор. На этой странице вы можете проверить его в действии — попробуйте отредактировать или дополнить материал. Код страницы содержит пример подключения и простейшей настройки."
-                        }
-                    }
-                ]
-            }
+                    ]
+                },
+                {
+
+                }
+            ]
         </module-settings>
 
         <? //<textarea hidden name="html" id="codex_editor" cols="30" rows="10" style="width: 100%;height: 300px;"></textarea> ?>
@@ -77,7 +81,6 @@
     <pre id="output"></pre>
 </div>
 
-
 <div class="advantages clearfix">
     <div class="center_side">
         <div class="advantages__item">
@@ -91,6 +94,3 @@
         </div>
     </div>
 </div>
-
-<? // Load CodeX Editor ?>
-<script src="/public/build/editor.bundle.js?v=<?= filemtime('public/build/editor.bundle.js') ?>"></script>

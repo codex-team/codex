@@ -1,14 +1,14 @@
 /**
  * Module to compose output JSON preview
  */
-const cPreview = (function (module) {
+const cPreview = (function () {
 
     /**
      * Shows JSON in pretty preview
      * @param {object} output - what to show
      * @param {Element} holder - where to show
      */
-    module.show = function (output, holder) {
+    function show(output, holder) {
 
         /** Make JSON pretty */
         output = JSON.stringify( output, null, 4 );
@@ -48,7 +48,13 @@ const cPreview = (function (module) {
 
     }
 
-    return module;
+    function init() {
+
+    }
+
+    return {
+        init : init
+    };
 
 })({});
 

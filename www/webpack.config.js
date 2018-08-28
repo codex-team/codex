@@ -86,7 +86,7 @@ const editorConfig = {
     output: {
         path: path.resolve(__dirname, 'public', 'build'),
         filename: 'editor.bundle.js',
-        library: 'editor'
+        library: 'codex'
     },
 
     module: {
