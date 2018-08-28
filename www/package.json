@@ -26,6 +26,7 @@
     "eslint-loader": "^2.0.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^1.1.11",
+    "module-dispatcher": "^1.0.2",
     "postcss-apply": "^0.10.0",
     "postcss-color-function": "^4.0.1",
     "postcss-color-hex-alpha": "^3.0.0",

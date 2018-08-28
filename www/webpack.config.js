@@ -81,12 +81,14 @@ const mainConfig = {
  * Separate bundle for CodeX Editor with plugins
  */
 const editorConfig = {
-    entry: './public/app/js/editors-demo.js',
+    entry: './public/app/js/modules/editor.js',
 
     output: {
         path: path.resolve(__dirname, 'public', 'build'),
-        filename: 'editor.bundle.js'
+        filename: 'editor.bundle.js',
+        library: 'editor'
     },
+
     module: {
         rules: [
             {

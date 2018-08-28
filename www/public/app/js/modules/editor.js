@@ -3,28 +3,6 @@
 const CodexEditor = require('codex.editor');
 
 /**
- * JSON preview for Editor's demo
- */
-const cPreview = require('./json-preview');
-
-/**
- * Editor's demo save button
- * @type {HTMLElement}
- */
-let saveButton = document.getElementById('saveButton');
-
-/**
- * Editor's preview data output
- * @type {HTMLElement}
- */
-let editorOutput = document.getElementById('output');
-
-/**
- * CodeX Editor instance
- */
-let editor;
-
-/**
  * Load Tools for the Editor
  */
 const Header = require('codex.editor.header');
@@ -36,46 +14,13 @@ const Delimiter = require('codex.editor.delimiter');
 const InlineCode = require('codex.editor.inline-code');
 const List = require('codex.editor.list');
 
-/**
- * Initialize CodeX Editor
- */
-class InitEditor {
+class Editor {
 
-    constructor() {
+    init(settings) {
 
-        editor = null;
+        const editorData = settings.blocks || this.defaultEditorData;
 
-        this.saveData();
-
-    }
-
-    saveData() {
-
-        /**
-         * Saving example
-         */
-        if (saveButton && editorOutput) {
-
-            saveButton.addEventListener('click', function () {
-
-                editor.saver.save()
-                    .then((savedData) => {
-
-                        cPreview.show(savedData, editorOutput);
-
-                    });
-
-            });
-
-        }
-
-    }
-
-    runEditor(data = {}) {
-
-        const editorData = data || this.defaultEditorData;
-
-        editor = new CodexEditor({
+        this.ceEditor = new CodexEditor({
             holderId: 'codex-editor',
             tools: {
                 image: SimpleImage,
@@ -102,7 +47,7 @@ class InitEditor {
                 },
 
                 code: {
-                    class:  CodeTool,
+                    class: CodeTool,
                     shortcut: 'CMD+SHIFT+D'
                 },
 
@@ -112,30 +57,20 @@ class InitEditor {
                 },
 
                 marker: {
-                    class:  Marker,
+                    class: Marker,
                     shortcut: 'CMD+SHIFT+M'
                 },
 
                 delimiter: Delimiter,
             },
-
-            data: editorData,
-
-            onReady: function () {
-
-                InitEditor.onReady;
-                if (saveButton) {
-
-                    saveButton.click();
-
-                }
-
+            data: {
+                blocks: editorData
             }
         });
 
     }
 
-    get defaultEditorData() {
+    defaultEditorData() {
 
         return {
             blocks: [
@@ -151,6 +86,6 @@ class InitEditor {
 
     }
 
-}
+};
 
-module.exports = new InitEditor();
+module.exports = new Editor();
