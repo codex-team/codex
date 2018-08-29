@@ -1,11 +1,15 @@
 <link rel="stylesheet" href="/public/app/landings/editor/editor.css?v=<?= filemtime("public/app/landings/editor/editor.css") ?>">
 
 <article class="editor-landing editor-form article-content">
+    <div class="editor-landing__info">
+        <h1 class="editor-landing__title js-emoji-included" itemprop="headline">CodeX Editor</h1>
+        <div class="editor-landing__description">Next generation block styled editor. Free. Use for pleasure.</div>
 
-    <h1 class="editor-landing__title" itemprop="headline">CodeX Editor</h1>
-    <div class="editor-landing__disclaimer">under development</div>
-
-    <input class="editor-form__title" id="js-editor-title" type="text" name="title" required placeholder="Story title">
+        <div class="editor-landing__links clearfix">
+            <a href="#" class="editor-landing__links-item">Documentation</a>
+            <a href="#" class="editor-landing__links-item">Plugins</a>
+        </div>
+    </div>
     <form data-module="editor" name="editor-demo" action="/editor/preview" method="POST" enctype="multipart/form-data">
         <module-settings hidden>
             {
@@ -13,14 +17,27 @@
                     {
                         "type" : "header",
                         "data" : {
-                            "text" : "CodeX Editor",
-                            "level" : 2
+                            "text" : "Outputs clear data at JSON",
+                            "level" : 3
                         }
                     },
                     {
                         "type" : "paragraph",
                         "data" : {
-                            "text" : "Привет. Перед вами наш обновленный редактор. На этой странице вы можете проверить его в действии — попробуйте отредактировать или дополнить материал. Код страницы содержит пример подключения и простейшей настройки."
+                            "text" : "Use it in Web, mobile, APM, Instant Articles, speech readers — everywhere."
+                        }
+                    },
+                    {
+                        "type" : "header",
+                        "data" : {
+                            "text" : "API is the feature",
+                            "level" : 3
+                        }
+                    },
+                    {
+                        "type" : "paragraph",
+                        "data" : {
+                            "text" : "Easy to build Plugins. Dozens of created."
                         }
                     }
                 ],
@@ -43,51 +60,6 @@
 
 </article>
 
-<script>
-
-    /**
-    * Hander for article title input
-    * Sets focus on ce-redator by ENTER key
-    */
-    var titleInput = document.getElementById('js-editor-title');
-
-    titleInput.addEventListener('keypress',function(event) {
-
-        var ENTER = 13,
-            redactor;
-
-        if (event.keyCode == ENTER){
-
-            event.preventDefault();
-            event.stopPropagation();
-            event.stopImmediatePropagation();
-
-            redactor = document.querySelector('.ce-redactor');
-            redactor.click();
-        }
-
-    });
-</script>
-
-
 <div class="editor-output-preview">
-
-    <div class="editor-output--header">Output</div>
-    <div class="editor-output--description">Yeah, it's blocks! Very useful for multiplatform coverage.</div>
-
     <pre id="output"></pre>
-</div>
-
-<div class="advantages clearfix">
-    <div class="center_side">
-        <div class="advantages__item">
-            API based
-        </div>
-        <div class="advantages__item">
-            Native JS
-        </div>
-        <div class="advantages__item">
-            Opened
-        </div>
-    </div>
 </div>

@@ -1,49 +1,78 @@
 /**
 * Editor landing page
 */
-body {
-    background: #f0f3f9;
-}
 
 .site-header,
 .site-footer {
-    background: #fff;
     border-color: #e7e9f5;
 }
 
 .editor-landing {
     background: #fff;
-    max-width: 940px;
     margin: 30px auto;
     padding-top: 60px;
     padding-bottom: 120px;
     min-height: 600px;
     border-radius: 3px;
-    background: #fff;
 }
 
 .editor-landing .button {
     border: 0 !important;
 }
 
+/**
+ * First landing screen
+ */
+.editor-landing__info {
+    margin: 130px 0 90px;
+    padding-bottom: 115px;
+    border-bottom: 1px solid rgba(151, 151, 151, 0.11);
+}
+
 .editor-landing__title {
-    margin-bottom: 0;
-    padding: 30px 140px 8px;
+    margin-bottom: 0 !important;
     text-align: center;
     line-height: 1.2em;
     letter-spacing: 0.2px;
-    font-size: 36px;
-    color: #d8dadd;
-    font-weight: 600;
+    font-size: 35px;
+    color: #000;
+    font-weight: 900;
 }
 
-.editor-landing__disclaimer {
-    margin-bottom: 40px;
-    letter-spacing: 3px;
-    font-variant: small-caps;
-    font-size: 0.9em;
+.editor-landing__title::before {
+    content: "🤩🧦🤨";
+    font-size: 36.8px;
+    letter-spacing: 5.2px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.editor-landing__description {
+    margin:  10px auto;
+    max-width: 250px;
+    font-size: 0.82em;
     text-align: center;
-    color: #c1c3c7;
+    line-height: 1.47;
+    letter-spacing: 0.1px;
+    color: #7b7e89;
+}
+
+/**
+ * Editor documentation and plugins links block
+ */
+.editor-landing__links {
+    max-width: 210px;
+    margin: 55px auto;
+}
+
+.editor-landing__links-item {
+    font-size: 16px;
+    font-weight: 500;
+    border-bottom: 0 !important;
+}
+
+.editor-landing__links-item:first-of-type {
+    margin-right: 26px;
 }
 
 .editor-landing__input-title {
@@ -74,7 +103,13 @@ body {
     opacity: 0.1;
 }
 
+/**
+ * Override default articles style
+ */
 
+.editor-landing .ce-header {
+    padding: 0;
+}
 
 /**
 .editor-landing h2,
@@ -131,20 +166,6 @@ body {
     font-size: 0.86em;
 }
 
-.editor-output--header {
-    margin: 40px 0 30px;
-    text-align: center;
-    font-size: 33px;
-    color: #fff;
-    letter-spacing: 0.4px;
-}
-
-.editor-output--description {
-    font-size: 18px;
-    text-align: center;
-    margin-bottom: 50px;
-}
-
 .editor_output__buttons {
     text-align: center;
 }
@@ -152,22 +173,6 @@ body {
 .editor_output__buttons .button {
     margin-right: 20px;
     font-size: 0.9em;
-}
-
-/**
-* Advantages block
-*/
-.advantages {
-    background: #13151f;
-    color: #fff;
-}
-
-.advantages__item {
-    float: left;
-    width: 33%;
-    padding: 50px 0;
-    text-align: center;
-    font-size: 24px;
 }
 
 .site-footer {
@@ -214,6 +219,15 @@ body {
 * =================================
 */
 @media all and (max-width: 800px) {
+    .editor-landing__info {
+        margin: 0;
+        padding-bottom: 85px;
+    }
+
+    .editor-landing__links {
+        margin: 40px auto;
+    }
+
     .editor-landing__title {
         padding: 10px 0 0;
         font-size: 28px;
@@ -223,11 +237,7 @@ body {
         margin: 0 20px;
     }
 
-    .editor-landing__disclaimer {
+    .editor-landing__description {
         font-size: 0.8em;
-    }
-
-    .advantages__item {
-        font-size: 16px;
     }
 }
