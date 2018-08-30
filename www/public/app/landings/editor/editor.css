@@ -1,6 +1,6 @@
 /**
-* Editor landing page
-*/
+ * Editor landing page
+ */
 
 .site-header,
 .site-footer {
@@ -8,52 +8,43 @@
 }
 
 .editor-landing {
-    background: #fff;
-    margin: 30px auto;
-    padding-top: 60px;
-    padding-bottom: 120px;
-    min-height: 600px;
-    border-radius: 3px;
-}
-
-.editor-landing .button {
-    border: 0 !important;
+    margin: 220px auto 0;
 }
 
 /**
  * First landing screen
  */
 .editor-landing__info {
-    margin: 130px 0 90px;
-    padding-bottom: 115px;
+    margin-bottom: 70px;
+    padding-bottom: 110px;
     border-bottom: 1px solid rgba(151, 151, 151, 0.11);
 }
 
 .editor-landing__title {
-    margin-bottom: 0 !important;
+    margin: 0 !important;
     text-align: center;
     line-height: 1.2em;
-    letter-spacing: 0.2px;
     font-size: 35px;
+    letter-spacing: 1px;
     color: #000;
     font-weight: 900;
 }
 
 .editor-landing__title::before {
     content: "🤩🧦🤨";
+    display: block;
     font-size: 36.8px;
     letter-spacing: 5.2px;
-    display: block;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .editor-landing__description {
-    margin:  10px auto;
     max-width: 250px;
-    font-size: 0.82em;
-    text-align: center;
+    margin:  10px auto;
+    font-size: 14.3px;
     line-height: 1.47;
     letter-spacing: 0.1px;
+    text-align: center;
     color: #7b7e89;
 }
 
@@ -62,119 +53,73 @@
  */
 .editor-landing__links {
     max-width: 210px;
-    margin: 55px auto;
+    margin: 60px auto;
 }
 
 .editor-landing__links-item {
     font-size: 16px;
     font-weight: 500;
-    border-bottom: 0 !important;
+    color: #000;
 }
 
 .editor-landing__links-item:first-of-type {
     margin-right: 26px;
 }
 
-.editor-landing__input-title {
-    display: block;
-    max-width: 650px;
-    margin: 0 auto;
-    background: none;
-    padding: 0;
-    font-size: 2.5em;
-    line-height: 1.2em;
-    letter-spacing: 0.2px;
-    font-weight: 700;
-    outline: none;
-}
-
-.editor-landing__input-title:focus {
-    background: none;
-}
-
-.editor-landing__input-title:empty::before {
-    content: attr(data-placeholder);
-    color: #5b5f66;
-    opacity: 1;
-    transition: opacity 200ms ease;
-}
-
-.editor-landing__input-title:focus::before {
-    opacity: 0.1;
-}
-
 /**
- * Override default articles style
+ * Editor output JSON preview styles
  */
-
-.editor-landing .ce-header {
-    padding: 0;
+.editor-landing__preview {
+    background: #171c28;
+    padding: 40px 0;
+    color: #9d99a3;
+    font-family: Menlo, Monaco, Consolas, Courier New, monospace;
 }
 
-/**
-.editor-landing h2,
-.editor-landing h3,
-.editor-landing h4{
-    line-height: 1.4em;
-}
-.editor-landing h3{
-    margin: 1.3em 0 .5em;
-    font-size: 1.3em;
-}
-.editor-landing h2{
-    margin: 1.7em 0 1.3em;
-    font-size: 1.7em;
-}
-.editor-landing h4{
-    margin: 1.7em 0 1.3em;
-    font-size: 1.1em;
-}
-.editor-landing ul,
-.editor-landing ol{
-    margin: 3em 0;
-}
-.editor-landing [data-type="link"]{
-    margin: 45px auto;
-}
-    .editor-landing li{
-        margin: 10px 0 !important;
-        list-style-position: outside;
-        line-height: 1.7em;
-    }
-.editor-landing code{
-    padding: 5px 10px;
-    font-size: .8em;
-}
-*/
-
-
-
-/**
-* Editor output JSON preview styles
-*/
-.editor-output-preview {
-    background: #242835;
-    padding: 50px 0;
-    color: #6c7d98;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-}
-
-.editor-output-preview pre {
+.editor-landing__preview pre {
     max-width: 700px;
     margin: 0 auto;
     overflow: auto;
     font-size: 0.86em;
 }
 
-.editor_output__buttons {
+/**
+ * JSON output code highlighting
+ */
+.sc_attr {
+    color: #cc5e8b;
+}
+
+.sc_toolname {
+    color: #9d99a3;
+}
+
+.sc_tag {
+    color: #a776ec;
+}
+
+.sc_key {
+    color: #ba6c4c;
+}
+
+/**
+ * Editor save button
+ */
+.editor-landing__button-wrapper {
     text-align: center;
 }
 
-.editor_output__buttons .button {
-    margin-right: 20px;
-    font-size: 0.9em;
+.editor-landing__button {
+    margin-bottom: 70px;
+    font-size: 15px;
+    font-weight: 300;
+    background: #5c95cf;
+    color: #fff;
 }
 
+/**
+ * Landing footer
+ */
 .site-footer {
     border-top: 0;
     margin-top: 0;
@@ -194,50 +139,37 @@
     color: #535f7b;
 }
 
-
 /**
-* Code highlighting
-*/
-.sc_attr {
-    color: #728cbd;
-}
-
-.sc_toolname {
-    color: #83decb;
-}
-
-.sc_tag {
-    color: #a9b6de;
-}
-
-.sc_key {
-    color: #42cca1;
-}
-
-/**
-* Mobile viewport styles
-* =================================
-*/
+ * Mobile viewport styles
+ * =================================
+ */
 @media all and (max-width: 800px) {
+    .editor-landing {
+        margin: 110px auto 0;
+    }
+
     .editor-landing__info {
-        margin: 0;
-        padding-bottom: 85px;
+        padding-bottom: 80px;
+        margin-bottom: 40px;
     }
 
     .editor-landing__links {
-        margin: 40px auto;
+        margin: 30px auto;
+    }
+
+    .editor-landing__links-item {
+        font-size: 14px;
     }
 
     .editor-landing__title {
-        padding: 10px 0 0;
         font-size: 28px;
     }
 
-    .editor-landing__input-title {
-        margin: 0 20px;
+    .editor-landing__description {
+        font-size: 13px;
     }
 
-    .editor-landing__description {
-        font-size: 0.8em;
+    .editor-landing__button {
+        font-size: 13px;
     }
 }
