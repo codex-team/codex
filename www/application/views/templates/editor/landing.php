@@ -2,7 +2,12 @@
 
 <div class="editor-landing">
     <div class="editor-landing__info">
-        <h1 class="editor-landing__title js-emoji-included">CodeX Editor</h1>
+        <div class="editor-landing__emoji">
+            <img class="editor-landing__emoji-item" src="/public/app/landings/editor/img/star-struck-emoji.png" alt="Star-struck emoji">
+            <img class="editor-landing__emoji-item" src="/public/app/landings/editor/img/socks-emoji.png" alt="Socks emoji">
+            <img class="editor-landing__emoji-item" src="/public/app/landings/editor/img/raised-eyebrow-emoji.png" alt="Raised eyebrow emoji">
+        </div>
+        <h1 class="editor-landing__title">CodeX Editor</h1>
         <div class="editor-landing__description">Next generation block styled editor. Free. Use for pleasure.</div>
 
         <div class="editor-landing__links clearfix">
