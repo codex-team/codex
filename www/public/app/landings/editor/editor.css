@@ -189,7 +189,7 @@
 }
 
 .editor-landing__plugins-filter {
-    margin: 25px 0;
+    margin: 25px 0 22px;
 }
 
 .editor-landing__plugins-filter-button {
@@ -210,6 +210,59 @@
 .editor-landing__plugins-filter-button svg {
     vertical-align: middle;
     margin: -3px 6px 0 3px;
+}
+
+/**
+ * Plugin items styles
+ */
+.editor-plugin {
+    padding: 15px 0 16px;
+    box-shadow: 0 1px 0 0 #e8e8eb;
+    margin-bottom: 3px;
+}
+
+.editor-plugin__title {
+    font-size: 18px;
+    float: left;
+    margin: 0 10px 0 0;
+}
+
+.editor-plugin__label {
+    font-size: 12.8px;
+    color: #97999f;
+    border-radius: 3px;
+    border: solid 1px #dde1e5;
+    padding: 2.1px 6px 1.9px;
+}
+
+.editor-plugin__description {
+    font-size: 14.3px;
+    color: #7b7e89;
+    padding: 2px 0 14px;
+}
+
+.editor-plugin__contributors {
+    display: flex;
+}
+
+.editor-plugin__contributors-item {
+    display: inline-block;
+    border-radius: 3px;
+    width: 18px;
+    height: 18px;
+    background: gray;
+}
+
+.editor-plugin__contributors-item:not(:last-of-type) {
+    margin-right: 6px;
+}
+
+.editor-plugin__gif {
+    width: 109px;
+    height: 80px;
+    background-color: #f5f5f5;
+    float: right;
+    margin-left: 45px;
 }
 
 /**

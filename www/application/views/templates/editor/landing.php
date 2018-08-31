@@ -92,5 +92,25 @@
                 Inline Tools
             </a>
         </div>
+        <div class="editor-plugin clearfix">
+            <h3 class="editor-plugin__title">Twitter</h3>
+            <span class="editor-plugin__label">Block</span>
+            <div class="editor-plugin__gif"></div>
+            <div class="editor-plugin__description">Include Tweets in your beautiful articles</div>
+            <div class="editor-plugin__contributors">
+                <a href="#" class="editor-plugin__contributors-item"></a>
+                <a href="#" class="editor-plugin__contributors-item"></a>
+            </div>
+        </div>
+        <div class="editor-plugin clearfix">
+            <h3 class="editor-plugin__title">Header</h3>
+            <span class="editor-plugin__label">Block</span>
+            <div class="editor-plugin__gif"></div>
+            <div class="editor-plugin__description">How will you live without headers?</div>
+            <div class="editor-plugin__contributors">
+                <a href="#" class="editor-plugin__contributors-item"></a>
+                <a href="#" class="editor-plugin__contributors-item"></a>
+            </div>
+        </div>
     </div>
 </div>
