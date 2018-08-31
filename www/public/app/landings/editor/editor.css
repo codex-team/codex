@@ -10,9 +10,8 @@
 .editor-landing {
     margin: 220px auto 0;
 }
-
 /**
- * First landing screen
+ * Editor title and description block
  */
 .editor-landing__info {
     margin-bottom: 70px;
@@ -129,6 +128,49 @@
 }
 
 /**
+ * Loved by section
+ */
+.editor-landing__loved-by {
+    position: relative;
+    height: 134px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.editor-landing__loved-by::before {
+    content: 'Loved by';
+    font-size: 148px;
+    line-height: 100%;
+    font-weight: 800;
+    letter-spacing: 4px;
+    color: rgba(0,0,0,.04);
+    margin-top: -34px;
+}
+
+.editor-landing__loved-by-companies {
+    position: absolute;
+    display: flex;
+    margin-left: -5px;
+}
+
+.editor-landing__loved-by-item {
+    display: flex;
+    align-items: center;
+    height: 30px;
+}
+
+.editor-landing__loved-by-item:not(:last-of-type)::after {
+    content: '';
+    width: 3px;
+    height: 100%;
+    margin-right: 27px;
+    margin-left: 29px;
+    background: #e0e0e0;
+}
+
+/**
  * Landing footer
  */
 .site-footer {
@@ -182,5 +224,19 @@
 
     .editor-landing__button {
         font-size: 13px;
+    }
+
+    .editor-landing__loved-by {
+        flex-direction: column;
+    }
+
+    .editor-landing__loved-by::before {
+        font-size: 40px;
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+
+    .editor-landing__loved-by-companies {
+        position: static;
     }
 }

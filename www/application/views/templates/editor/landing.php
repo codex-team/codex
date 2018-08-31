@@ -62,4 +62,17 @@
     <div class="editor-landing__preview">
         <pre id="output"></pre>
     </div>
+    <div class="editor-landing__loved-by">
+        <div class="editor-landing__loved-by-companies">
+            <a rel="nofollow" class="editor-landing__loved-by-item" target="_blank" href="//tjournal.ru">
+                <? include(DOCROOT . '/public/app/landings/editor/svg/tj.svg'); ?>
+            </a>
+            <a rel="nofollow" class="editor-landing__loved-by-item" target="_blank" href="//dtf.ru">
+                <? include(DOCROOT . '/public/app/landings/editor/svg/dtf.svg'); ?>
+            </a>
+            <a rel="nofollow" class="editor-landing__loved-by-item" target="_blank" href="//vc.ru">
+                <? include(DOCROOT . '/public/app/landings/editor/svg/vc-ru.svg'); ?>
+            </a>
+        </div>
+    </div>
 </div>
