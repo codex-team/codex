@@ -136,7 +136,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 10px;
+    margin-bottom: 110px;
 }
 
 .editor-landing__loved-by::before {
@@ -147,12 +147,12 @@
     letter-spacing: 4px;
     color: rgba(0,0,0,.04);
     margin-top: -34px;
+    margin-left: 10px;
 }
 
 .editor-landing__loved-by-companies {
     position: absolute;
     display: flex;
-    margin-left: -5px;
 }
 
 .editor-landing__loved-by-item {
@@ -168,6 +168,48 @@
     margin-right: 27px;
     margin-left: 29px;
     background: #e0e0e0;
+}
+
+/**
+ * Best plugins section
+ */
+.editor-landing__plugins {
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+.editor-landing__plugins-title {
+    font-size: 22px;
+}
+
+.editor-landing__plugins-description {
+    font-size: 14.3px;
+    line-height: 1.54;
+    color: #7b7e89;
+}
+
+.editor-landing__plugins-filter {
+    margin: 25px 0;
+}
+
+.editor-landing__plugins-filter-button {
+    font-size: 15px;
+    font-weight: 500;
+    color: #343434;
+    cursor: pointer;
+}
+
+.editor-landing__plugins-filter-button:hover {
+    color: #343434;
+}
+
+.editor-landing__plugins-filter-button:first-of-type {
+    margin-right: 17px;
+}
+
+.editor-landing__plugins-filter-button svg {
+    vertical-align: middle;
+    margin: -3px 6px 0 3px;
 }
 
 /**
@@ -238,5 +280,13 @@
 
     .editor-landing__loved-by-companies {
         position: static;
+    }
+
+    .editor-landing__loved-by {
+        margin-bottom: 40px;
+    }
+
+    .editor-landing__plugins {
+        padding: 0 20px;
     }
 }

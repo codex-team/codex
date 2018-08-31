@@ -75,4 +75,22 @@
             </a>
         </div>
     </div>
+    <div class="editor-landing__plugins">
+        <h2 class="editor-landing__plugins-title">
+            Best plugins
+        </h2>
+        <p class="editor-landing__plugins-description">
+            Plugins can represent any Blocks: Quotes, Galleries, Polls, Embeds, Tables — anything you need. Also they can implement Inline Tools such as Marker, Term, Comments etc.
+        </p>
+        <div class="editor-landing__plugins-filter">
+            <a class="editor-landing__plugins-filter-button" href="#">
+                <? include(DOCROOT . '/public/app/landings/editor/svg/blocks-icon.svg'); ?>
+                Blocks
+            </a>
+            <a class="editor-landing__plugins-filter-button" href="#">
+                <? include(DOCROOT . '/public/app/landings/editor/svg/inline-icon.svg'); ?>
+                Inline Tools
+            </a>
+        </div>
+    </div>
 </div>
