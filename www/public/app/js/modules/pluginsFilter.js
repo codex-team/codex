@@ -28,16 +28,16 @@ module.exports = (function () {
     /**
      * Button to show all types of plugins
      */
-    let allPluginsButton;
+    let allToolsFilterButton;
 
     /**
      * Initialize module
-     * @param {Object} settings                         - module's parameters passed from ModuleDispatcher
-     * @param {String} settings.blockToolsClass         - class of Editor Block Tools
-     * @param {String} settings.inlineToolsClass        - class of Editor Inline Tools
-     * @param {String} settings.blockFilterButtonClass  - class of button Block Tools filter
-     * @param {String} settings.inlineFilterButtonClass - class of button Inline Tools filter
-     * @param {String} settings.allPluginsButtonClass   - class of button showing all types of Tools
+     * @param {Object} settings                             - module's parameters passed from ModuleDispatcher
+     * @param {String} settings.blockToolsClass             - class of Editor Block Tools
+     * @param {String} settings.inlineToolsClass            - class of Editor Inline Tools
+     * @param {String} settings.blockFilterButtonClass      - class of button Block Tools filter
+     * @param {String} settings.inlineFilterButtonClass     - class of button Inline Tools filter
+     * @param {String} settings.allToolsFilterButtonClass   - class of button showing all types of Tools
      */
     const init = function (settings) {
 
@@ -45,7 +45,7 @@ module.exports = (function () {
         inlineTools = document.querySelectorAll(settings.inlineToolsClass);
         blockFilterButton = document.querySelector(settings.blockFilterButtonClass);
         inlineFilterButton = document.querySelector(settings.inlineFilterButtonClass);
-        allPluginsButton = document.querySelector(settings.allPluginsButtonClass);
+        allToolsFilterButton = document.querySelector(settings.allToolsFilterButtonClass);
 
         /**
          * Add event listeners if filter buttons exist, otherwise show console messages
@@ -78,9 +78,9 @@ module.exports = (function () {
 
         }
 
-        if (allPluginsButton) {
+        if (allToolsFilterButton) {
 
-            allPluginsButton.addEventListener('click', function () {
+            allToolsFilterButton.addEventListener('click', function () {
 
                 showAllPlugins();
 
@@ -88,7 +88,7 @@ module.exports = (function () {
 
         } else {
 
-            console.warn('Can\'t find output target with class: «' + settings.allPluginsButtonClass + '»');
+            console.warn('Can\'t find output target with class: «' + settings.allToolsFilterButtonClass + '»');
 
         }
 
