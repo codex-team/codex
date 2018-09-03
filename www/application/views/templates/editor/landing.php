@@ -169,11 +169,17 @@
         <? foreach ( $plugins as $plugin ): ?>
             <div class="editor-plugin clearfix <?= $plugin['type'] === 'Block' ? 'js-block-tool' : 'js-inline-tool' ?>">
                 <a href="//<?= $plugin['url'] ?>" target="_blank">
-                    <h3 class="editor-plugin__title"><?= $plugin['name'] ?></h3>
-                    <span class="editor-plugin__label"><?= $plugin['type'] ?></span>
+                    <h3 class="editor-plugin__title">
+                        <?= $plugin['name'] ?>
+                    </h3>
+                    <span class="editor-plugin__label">
+                        <?= $plugin['type'] ?>
+                    </span>
                 </a>
                 <div class="editor-plugin__gif"></div>
-                <div class="editor-plugin__description"><?= $plugin['description'] ?></div>
+                <div class="editor-plugin__description">
+                    <?= $plugin['description'] ?>
+                </div>
                 <div class="editor-plugin__contributors">
                     <? foreach ( $plugin['contributors'] as $contributor ): ?>
                         <a href="//github.com/<?= $contributor['name']; ?>" class="editor-plugin__contributors-item" title="<?= $contributor['name'] ?>" target="_blank">

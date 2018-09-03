@@ -16,21 +16,6 @@ module.exports = (function () {
     let inlineTools;
 
     /**
-     * Button to show only Block plugins
-     */
-    let blockFilterButton;
-
-    /**
-     * Button to show only Inline Tool plugins
-     */
-    let inlineFilterButton;
-
-    /**
-     * Button to show all types of plugins
-     */
-    let allToolsFilterButton;
-
-    /**
      * Initialize module
      * @param {Object} settings                             - module's parameters passed from ModuleDispatcher
      * @param {String} settings.blockToolsClass             - class of Editor Block Tools
@@ -43,71 +28,40 @@ module.exports = (function () {
 
         blockTools = document.querySelectorAll(settings.blockToolsClass);
         inlineTools = document.querySelectorAll(settings.inlineToolsClass);
-        blockFilterButton = document.querySelector(settings.blockFilterButtonClass);
-        inlineFilterButton = document.querySelector(settings.inlineFilterButtonClass);
-        allToolsFilterButton = document.querySelector(settings.allToolsFilterButtonClass);
+
+        const pluginFilters = [
+            {
+                'buttonClass': settings.blockFilterButtonClass,
+                'buttonAction': showBlockToolsOnly
+            },
+            {
+                'buttonClass': settings.inlineFilterButtonClass,
+                'buttonAction': showInlineToolsOnly
+            },
+            {
+                'buttonClass': settings.allToolsFilterButtonClass,
+                'buttonAction': showAllPlugins
+            }
+        ];
 
         /**
-         * Add event listeners if filter buttons exist, otherwise show console messages
+         * Add event listener if filter button exists, otherwise show console message
          */
-        if (blockFilterButton) {
+        for (let j = 0; j < pluginFilters.length; j++) {
 
-            blockFilterButton.addEventListener('click', function () {
+            let filterButton = document.querySelector(pluginFilters[j].buttonClass);
+            let buttonClass  = pluginFilters[j].buttonClass;
+            let filterAction = pluginFilters[j].buttonAction;
 
-                showBlockToolsOnly();
+            if (filterButton) {
 
-            });
+                filterButton.addEventListener('click', filterAction);
 
-        } else {
+            } else {
 
-            console.warn('Can\'t find button with class: «' + settings.blockFilterButtonClass + '»');
+                console.warn('Can\'t find button with class: «' + buttonClass + '»');
 
-        }
-
-        if (inlineFilterButton) {
-
-            inlineFilterButton.addEventListener('click', function () {
-
-                showInlineToolsOnly();
-
-            });
-
-        } else {
-
-            console.warn('Can\'t find output target with class: «' + settings.inlineFilterButtonClass + '»');
-
-        }
-
-        if (allToolsFilterButton) {
-
-            allToolsFilterButton.addEventListener('click', function () {
-
-                showAllPlugins();
-
-            });
-
-        } else {
-
-            console.warn('Can\'t find output target with class: «' + settings.allToolsFilterButtonClass + '»');
-
-        }
-
-    };
-
-    /**
-     * Show only Blocks, hide Inline Tools
-     */
-    const showBlockToolsOnly = function () {
-
-        for (let i = 0; i < inlineTools.length; i ++) {
-
-            inlineTools[i].classList.add('hide');
-
-        }
-
-        for (let i = 0; i < blockTools.length; i ++) {
-
-            blockTools[i].classList.remove('hide');
+            }
 
         }
 
@@ -118,17 +72,16 @@ module.exports = (function () {
      */
     const showInlineToolsOnly = function () {
 
-        for (let i = 0; i < blockTools.length; i ++) {
+        toggleTools(inlineTools, blockTools);
 
-            blockTools[i].classList.add('hide');
+    };
 
-        }
+    /**
+     * Show only Blocks, hide Inline Tools
+     */
+    const showBlockToolsOnly = function () {
 
-        for (let i = 0; i < inlineTools.length; i ++) {
-
-            inlineTools[i].classList.remove('hide');
-
-        }
+        toggleTools(blockTools, inlineTools);
 
     };
 
@@ -137,15 +90,27 @@ module.exports = (function () {
      */
     const showAllPlugins = function () {
 
-        for (let i = 0; i < blockTools.length; i ++) {
+        toggleTools(inlineTools, blockTools, false);
 
-            blockTools[i].classList.remove('hide');
+    };
+
+    /**
+     * Toggle Editor Block and Inline Tools into view
+     * @param {HTMLCollection} toolsToShow - Block or Inline Editor's Tools to show
+     * @param {HTMLCollection} toolsToHide - Block or Inline Editor's Tools to hide
+     * @param {Boolean} hideOneType        - pass false to show both Block and Inline Tools
+     */
+    const toggleTools = function (toolsToShow, toolsToHide, hideOneType = true) {
+
+        for (let i = 0; i < toolsToHide.length; i ++) {
+
+            toolsToHide[i].classList.toggle('hide', hideOneType);
 
         }
 
-        for (let i = 0; i < inlineTools.length; i ++) {
+        for (let i = 0; i < toolsToShow.length; i ++) {
 
-            inlineTools[i].classList.remove('hide');
+            toolsToShow[i].classList.toggle('hide', false);
 
         }
 
