@@ -127,7 +127,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: 106px;
+        margin-bottom: 107px;
 
         &::before {
             content: 'Loved by';
@@ -136,7 +136,7 @@
             font-weight: 800;
             letter-spacing: 4px;
             color: rgba(0,0,0,.04);
-            margin-top: -38px;
+            margin-top: -39px;
             margin-left: 10px;
         }
 
@@ -212,6 +212,10 @@
         color: #7b7e89;
         cursor: pointer;
 
+        &:hover {
+            color: #7b7e89;
+        }
+
         svg {
             width: 11px;
             height: 11px;
@@ -231,10 +235,6 @@
 
     &__contribute {
         float: right;
-
-        &:hover {
-            color: #7b7e89;
-        }
 
         svg {
             margin: -3px 3px 0 0;

@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="/public/app/landings/editor/editor.css?v=<?= filemtime("public/app/landings/editor/editor.css") ?>">
-
 <div class="editor-landing">
     <div class="editor-landing__info">
         <div class="editor-landing__emoji">
@@ -16,8 +14,12 @@
         </div>
 
         <div class="editor-landing__links clearfix">
-            <a href="#" class="editor-landing__links-item">Documentation</a>
-            <a href="#" class="editor-landing__links-item">Plugins</a>
+            <a href="//github.com/codex-team/codex.editor/blob/master/docs/usage.md" class="editor-landing__links-item" target="_blank">
+                Documentation
+            </a>
+            <a href="//github.com/codex-editor" class="editor-landing__links-item" target="_blank">
+                Plugins
+            </a>
         </div>
     </div>
     <div class="editor-landing__demo" data-module="editor">
@@ -190,10 +192,10 @@
             </div>
         <? endforeach; ?>
         <div class="editor-landing__actions clearfix">
-            <span class="editor-landing__more-plugins">
-                <? include(DOCROOT . '/public/app/landings/editor/svg/arrow-icon.svg'); ?>
+            <a class="editor-landing__more-plugins" href="//github.com/codex-editor">
+                <? /* include(DOCROOT . '/public/app/landings/editor/svg/arrow-icon.svg'); */ ?>
                 View all plugins
-            </span>
+            </a>
             <a class="editor-landing__contribute" href="#">
                 <? include(DOCROOT . '/public/app/landings/editor/svg/plus-icon.svg'); ?>
                 Contribute your plugin to this featured list
