@@ -2,7 +2,7 @@
  * Editor landing page
  */
 .editor-landing {
-    margin: 220px auto 0;
+    margin: 220px auto 300px;
 
    /**
     * Editor title and description block
@@ -54,10 +54,6 @@
             font-size: 16px;
             font-weight: 500;
             color: #000;
-            
-            &:hover {
-                color: #000;
-            }
 
             &:first-of-type {
                 margin-right: 26px;
@@ -240,6 +236,13 @@
             margin: -3px 3px 0 0;
         }
     }
+
+    /**
+     * Override default editor's padding-bottom
+     */
+    .codex-editor__redactor {
+        padding-bottom: 120px;
+    }
 }
 
 /**
@@ -308,7 +311,7 @@
  */
 @media (--mobile) {
     .editor-landing {
-        margin: 110px auto 0;
+        margin: 110px auto 100px;
 
         &__info {
             padding-bottom: 80px;
@@ -359,6 +362,13 @@
         &__contribute {
             float: none;
             display: block;
+        }
+
+        /**
+         * Override default editor's padding-bottom
+         */
+        .codex-editor__redactor {
+            padding-bottom: 50px;
         }
     }
 }

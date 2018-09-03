@@ -83,15 +83,29 @@
         </div>
     </div>
     <?
+       /**
+        * Array of plugins contributors
+        */
+        $contributors = array(
+            'polinaShneider' => array('name' => 'PolinaShneider', 'photo' => 'https://avatars3.githubusercontent.com/u/15448200?s=460&v=4'),
+            'neSpecc' => array('name' => 'neSpecc', 'photo' => 'https://avatars0.githubusercontent.com/u/3684889?v=4&s=60'),
+            'n0str' => array('name' => 'n0str', 'photo' => 'https://avatars1.githubusercontent.com/u/988885?v=4&s=60'),
+            'talyguryn' => array('name' => 'talyguryn', 'photo' => 'https://avatars1.githubusercontent.com/u/15259299?v=4&s=60'),
+            'khaydarov' => array('name' => 'khaydarov', 'photo' => 'https://avatars1.githubusercontent.com/u/6507765?s=400&v=4')
+        );
+
+       /**
+        * Array of plugins data
+        */
         $plugins = array(
             array(
                 'name' => 'Header',
                 'type' => 'Block',
                 'description' => 'How will you live without headers?',
                 'contributors' => array(
-                    array( 'name' => 'neSpecc', 'photo' => 'https://avatars0.githubusercontent.com/u/3684889?v=4&s=60' ),
-                    array( 'name' => 'talyguryn', 'photo' => 'https://avatars1.githubusercontent.com/u/15259299?v=4&s=60' ),
-                    array( 'name' => 'n0str', 'photo' => 'https://avatars1.githubusercontent.com/u/988885?v=4&s=60' )
+                    $contributors['neSpecc'],
+                    $contributors['talyguryn'],
+                    $contributors['n0str']
                 ),
                 'url' => 'github.com/codex-editor/header'
             ),
@@ -100,7 +114,7 @@
                 'type' => 'Inline Tool',
                 'description' => 'Highlight text fragments in your beautiful articles.',
                 'contributors' => array(
-                    array( 'name' => 'PolinaShneider', 'photo' => 'https://avatars3.githubusercontent.com/u/15448200?s=460&v=4' )
+                    $contributors['polinaShneider']
                 ),
                 'url' => 'github.com/codex-editor/marker'
             ),
@@ -109,8 +123,8 @@
                 'type' => 'Block',
                 'description' => 'Beautiful widgets for beautiful persons.',
                 'contributors' => array(
-                    array( 'name' => 'neSpecc', 'photo' => 'https://avatars0.githubusercontent.com/u/3684889?v=4&s=60' ),
-                    array( 'name' => 'talyguryn', 'photo' => 'https://avatars1.githubusercontent.com/u/15259299?v=4&s=60' )
+                    $contributors['neSpecc'],
+                    $contributors['talyguryn'],
                 ),
                 'url' => 'github.com/codex-editor/personality'
             ),
@@ -119,8 +133,8 @@
                 'type' => 'Block',
                 'description' => 'Include code examples in your writings.',
                 'contributors' => array(
-                    array( 'name' => 'talyguryn', 'photo' => 'https://avatars1.githubusercontent.com/u/15259299?v=4&s=60' ),
-                    array( 'name' => 'PolinaShneider', 'photo' => 'https://avatars3.githubusercontent.com/u/15448200?s=460&v=4' )
+                    $contributors['talyguryn'],
+                    $contributors['polinaShneider']
                 ),
                 'url' => 'github.com/codex-editor/code'
             ),
@@ -129,9 +143,9 @@
                 'type' => 'Inline Tool',
                 'description' => 'Embed links in your articles.',
                 'contributors' => array(
-                    array( 'name' => 'neSpecc', 'photo' => 'https://avatars0.githubusercontent.com/u/3684889?v=4&s=60' ),
-                    array( 'name' => 'talyguryn', 'photo' => 'https://avatars1.githubusercontent.com/u/15259299?v=4&s=60' ),
-                    array( 'name' => 'khaydarov', 'photo' => 'https://avatars1.githubusercontent.com/u/6507765?s=400&v=4' ),
+                    $contributors['neSpecc'],
+                    $contributors['talyguryn'],
+                    $contributors['khaydarov']
                 ),
                 'url' => 'github.com/codex-editor/link'
             )
@@ -192,7 +206,7 @@
             </div>
         <? endforeach; ?>
         <div class="editor-landing__actions clearfix">
-            <a class="editor-landing__more-plugins" href="//github.com/codex-editor">
+            <a class="editor-landing__more-plugins" href="//github.com/codex-editor" target="_blank">
                 <? /* include(DOCROOT . '/public/app/landings/editor/svg/arrow-icon.svg'); */ ?>
                 View all plugins
             </a>
