@@ -87,6 +87,7 @@ module.exports = function () {
 
                 header: {
                     class: Header,
+                    inlineToolbar: ['link', 'marker', 'bold'],
                     config: {
                         placeholder: 'Title'
                     }

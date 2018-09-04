@@ -73,6 +73,7 @@
         background: #1b202b;
         padding: 0 30px;
         overflow-x: auto;
+        min-height: 600px;
 
         pre {
             max-width: 650px;
