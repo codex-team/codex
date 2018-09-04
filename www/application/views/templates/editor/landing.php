@@ -102,6 +102,7 @@
                 'name' => 'Header',
                 'type' => 'Block',
                 'description' => 'How will you live without headers?',
+                'demo' => 'header.png',
                 'contributors' => array(
                     $contributors['neSpecc'],
                     $contributors['talyguryn'],
@@ -113,25 +114,17 @@
                 'name' => 'Marker',
                 'type' => 'Inline Tool',
                 'description' => 'Highlight text fragments in your beautiful articles.',
+                'demo' => 'marker.gif',
                 'contributors' => array(
                     $contributors['polinaShneider']
                 ),
                 'url' => 'github.com/codex-editor/marker'
             ),
             array(
-                'name' => 'Personality',
-                'type' => 'Block',
-                'description' => 'Beautiful widgets for beautiful persons.',
-                'contributors' => array(
-                    $contributors['neSpecc'],
-                    $contributors['talyguryn'],
-                ),
-                'url' => 'github.com/codex-editor/personality'
-            ),
-            array(
                 'name' => 'Code',
                 'type' => 'Block',
                 'description' => 'Include code examples in your writings.',
+                'demo' => 'code.png',
                 'contributors' => array(
                     $contributors['talyguryn'],
                     $contributors['polinaShneider']
@@ -142,6 +135,7 @@
                 'name' => 'Link',
                 'type' => 'Inline Tool',
                 'description' => 'Embed links in your articles.',
+                'demo' => 'link.gif',
                 'contributors' => array(
                     $contributors['neSpecc'],
                     $contributors['talyguryn'],
@@ -192,7 +186,9 @@
                         <?= $plugin['type'] ?>
                     </span>
                 </a>
-                <div class="editor-plugin__gif"></div>
+                <div class="editor-plugin__demo">
+                    <img src="/public/app/landings/editor/demo/<?= $plugin['demo'] ?>" alt="<?= $plugin['name'] ?>">
+                </div>
                 <div class="editor-plugin__description">
                     <?= $plugin['description'] ?>
                 </div>

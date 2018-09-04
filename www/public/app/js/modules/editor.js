@@ -136,6 +136,11 @@ module.exports = function () {
 
                 }
 
+                /**
+                 * Trigger click inside editor to show plus button
+                 */
+                document.querySelector('.codex-editor__redactor').click();
+
             }
 
         });
