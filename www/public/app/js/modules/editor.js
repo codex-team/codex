@@ -24,11 +24,6 @@ const List = require('codex.editor.list');
 let ceEditor;
 
 /**
- * Editor save button
- */
-let saveButton;
-
-/**
  * Container to output saved Editor data
  */
 let output;
@@ -38,7 +33,6 @@ module.exports = function () {
     /**
      * Initialize Editor with settings
      * @param {Object} settings           - Editor's parameters
-     * @param {String} settings.button_id - ID of button which triggers Editor's save event
      * @param {String} settings.output_id - ID of container where Editor's saved data will be shown
      * @param {Object[]} settings.blocks  - Editor's blocks content
      */
@@ -51,21 +45,10 @@ module.exports = function () {
         const editorData = settings.blocks || defaultEditorData();
 
         /**
-         * Define button and output elements
+         * Define сontainer to output Editor saved data
          * @type {HTMLElement}
          */
-        saveButton = document.getElementById(settings.button_id);
         output = document.getElementById(settings.output_id);
-
-        if (saveButton) {
-
-            console.log('Button with ID: «' + settings.button_id + '» was initialized successfully');
-
-        } else {
-
-            console.warn('Can\'t find button with ID: «' + settings.button_id + '»');
-
-        }
 
         if (output) {
 
@@ -129,21 +112,14 @@ module.exports = function () {
             },
             onReady: function () {
 
-                if (saveButton && output) {
+                prepareEditor();
 
-                    prepareOutput();
+            },
+            onChange: function () {
 
-                    saveButton.click();
-
-                }
-
-                /**
-                 * Trigger click inside editor to show plus button
-                 */
-                document.querySelector('.codex-editor__redactor').click();
+                previewData();
 
             }
-
         });
 
     };
@@ -168,17 +144,28 @@ module.exports = function () {
 
     };
 
-    const prepareOutput = function () {
+    /**
+     * Shows JSON output of editor saved data
+     */
+    const previewData = function () {
 
-        saveButton.addEventListener('click', function () {
+        ceEditor.saver.save().then((savedData) => {
 
-            ceEditor.saver.save().then((savedData) => {
-
-                cPreview.show(savedData, output);
-
-            });
+            cPreview.show(savedData, output);
 
         });
+
+    };
+
+    /**
+     * When editor is ready, trigger click inside editor to show toolbar
+     * Preview JSON output
+     */
+    const prepareEditor = function () {
+
+        document.querySelector('.codex-editor__redactor').click();
+
+        previewData();
 
     };
 

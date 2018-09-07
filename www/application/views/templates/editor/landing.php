@@ -53,18 +53,11 @@
                         }
                     }
                 ],
-                "button_id" : "saveButton",
                 "output_id" : "output"
             }
         </module-settings>
 
         <div id="codex-editor"></div>
-
-        <div class="editor-landing__button-wrapper">
-            <div class="button" id="saveButton">
-                View Output
-            </div>
-        </div>
     </div>
     <div class="editor-landing__preview">
         <pre id="output"></pre>

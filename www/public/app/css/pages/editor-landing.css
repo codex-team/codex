@@ -108,14 +108,6 @@
     }
 
    /**
-    * Temporary editor save button
-    */
-    &__button-wrapper {
-        text-align: center;
-        margin-bottom: 70px;
-    }
-
-   /**
     * Loved by section
     */
     &__loved-by {
