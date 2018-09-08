@@ -135,6 +135,69 @@
                     $contributors['khaydarov']
                 ),
                 'url' => 'github.com/codex-editor/link'
+            ),
+            array(
+                'name' => 'List',
+                'type' => 'Block',
+                'description' => 'Add ordered or bulleted lists to your article.',
+                'demo' => 'list.png',
+                'contributors' => array(
+                    $contributors['talyguryn']
+                ),
+                'url' => 'github.com/codex-editor/list'
+            ),
+            array(
+                'name' => 'Delimiter',
+                'type' => 'Block',
+                'description' => 'Separate blocks of text in your articles.',
+                'demo' => 'delimiter.png',
+                'contributors' => array(
+                    $contributors['n0str'],
+                    $contributors['talyguryn'],
+                    $contributors['neSpecc']
+                ),
+                'url' => 'github.com/codex-editor/delimiter'
+            ),
+            array(
+                'name' => 'Inline Code',
+                'type' => 'Inline Tool',
+                'description' => 'Inline Tool for marking code-fragments.',
+                'demo' => 'inline-code.gif',
+                'contributors' => array(
+                    $contributors['talyguryn']
+                ),
+                'url' => 'github.com/codex-editor/inline-code'
+            ),
+            array(
+                'name' => 'Simple Image',
+                'type' => 'Block',
+                'description' => 'Provides image blocks for your writings.',
+                'demo' => 'simple-image.png',
+                'contributors' => array(
+                    $contributors['talyguryn']
+                ),
+                'url' => 'github.com/codex-editor/inline-code'
+            ),
+            array(
+                'name' => 'Quote',
+                'type' => 'Block',
+                'description' => 'Include quotes in your articles.',
+                'demo' => 'quote.png',
+                'contributors' => array(
+                    $contributors['talyguryn']
+                ),
+                'url' => 'github.com/codex-editor/quote'
+            ),
+            array(
+                'name' => 'HTML',
+                'type' => 'Block',
+                'description' => 'Include raw HTML code in your articles.',
+                'demo' => 'html.png',
+                'contributors' => array(
+                    $contributors['talyguryn'],
+                    $contributors['polinaShneider']
+                ),
+                'url' => 'github.com/codex-editor/raw'
             )
 
         )
@@ -194,6 +257,32 @@
                 </div>
             </div>
         <? endforeach; ?>
+<?
+$your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color:#8c74b2'>MyTool</span> {
+  render() {
+    <span style='color:#b83370'>return</span> document.createElement(’textarea’);
+  }
+  save(textarea) {
+    <span style='color:#b83370;'>return</span> {
+      text: textarea.value
+    }
+  }
+}";
+?>
+        <div class="editor-plugin clearfix editor-plugin--your-own">
+            <h3 class="editor-plugin__title">
+                Your own plugin
+            </h3>
+            <div class="editor-plugin__demo">
+                <pre><?= $your_plugin_code ?></pre>
+            </div>
+            <div class="editor-plugin__description">
+                Just implement <i>render</i> and <i>save</i> methods.
+            </div>
+            <div class="editor-plugin__footer">
+                To make it cool, take a look at the <a href="//github.com/codex-team/codex.editor/blob/master/docs/api.md">API</a>.
+            </div>
+        </div>
         <div class="editor-landing__actions clearfix">
             <a class="editor-landing__more-plugins" href="//github.com/codex-editor" target="_blank">
                 <? /* include(DOCROOT . '/public/app/landings/editor/svg/arrow-icon.svg'); */ ?>
