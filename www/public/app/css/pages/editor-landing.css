@@ -81,6 +81,11 @@
             color: #abadc3;
             font-family: 'PT Mono', Menlo, Monaco, Consolas, Courier New, monospace;
             font-size: 13.3px;
+
+            @media (--mobile) {
+                font-size: 11.3px;
+                line-height: 1.5em;
+            }
         }
     }
 
@@ -283,6 +288,10 @@
         color: #000;
         float: left;
         margin: 0 10px 0 0;
+
+        @media (--mobile) {
+            float: none;
+        }
     }
 
     &__label {
@@ -291,6 +300,10 @@
         border-radius: 3px;
         border: solid 1px #dde1e5;
         padding: 2.1px 6px 1.9px;
+
+        @media (--mobile) {
+            display: none;
+        }
     }
 
     &__description {

@@ -14,10 +14,10 @@
         </div>
 
         <div class="editor-landing__links clearfix">
-            <a href="//github.com/codex-team/codex.editor/blob/master/docs/usage.md" class="editor-landing__links-item" target="_blank">
+            <a href="https://github.com/codex-team/codex.editor/blob/master/docs/usage.md" class="editor-landing__links-item" target="_blank">
                 Documentation
             </a>
-            <a href="//github.com/codex-editor" class="editor-landing__links-item" target="_blank">
+            <a href="https://github.com/codex-editor" class="editor-landing__links-item" target="_blank">
                 Plugins
             </a>
         </div>
@@ -101,7 +101,27 @@
                     $contributors['talyguryn'],
                     $contributors['n0str']
                 ),
-                'url' => 'github.com/codex-editor/header'
+                'url' => 'https://github.com/codex-editor/header'
+            ),
+            array(
+                'name' => 'Simple Image',
+                'type' => 'Block',
+                'description' => 'Provides image blocks for your writings.',
+                'demo' => 'simple-image.png',
+                'contributors' => array(
+                    $contributors['talyguryn']
+                ),
+                'url' => 'https://github.com/codex-editor/inline-code'
+            ),
+            array(
+                'name' => 'Quote',
+                'type' => 'Block',
+                'description' => 'Include quotes in your articles.',
+                'demo' => 'quote.png',
+                'contributors' => array(
+                    $contributors['talyguryn']
+                ),
+                'url' => 'https://github.com/codex-editor/quote'
             ),
             array(
                 'name' => 'Marker',
@@ -111,7 +131,7 @@
                 'contributors' => array(
                     $contributors['polinaShneider']
                 ),
-                'url' => 'github.com/codex-editor/marker'
+                'url' => 'https://github.com/codex-editor/marker'
             ),
             array(
                 'name' => 'Code',
@@ -122,7 +142,7 @@
                     $contributors['talyguryn'],
                     $contributors['polinaShneider']
                 ),
-                'url' => 'github.com/codex-editor/code'
+                'url' => 'https://github.com/codex-editor/code'
             ),
             array(
                 'name' => 'Link',
@@ -134,7 +154,7 @@
                     $contributors['talyguryn'],
                     $contributors['khaydarov']
                 ),
-                'url' => 'github.com/codex-editor/link'
+                'url' => 'https://github.com/codex-editor/link'
             ),
             array(
                 'name' => 'List',
@@ -144,7 +164,7 @@
                 'contributors' => array(
                     $contributors['talyguryn']
                 ),
-                'url' => 'github.com/codex-editor/list'
+                'url' => 'https://github.com/codex-editor/list'
             ),
             array(
                 'name' => 'Delimiter',
@@ -156,7 +176,7 @@
                     $contributors['talyguryn'],
                     $contributors['neSpecc']
                 ),
-                'url' => 'github.com/codex-editor/delimiter'
+                'url' => 'https://github.com/codex-editor/delimiter'
             ),
             array(
                 'name' => 'Inline Code',
@@ -166,27 +186,7 @@
                 'contributors' => array(
                     $contributors['talyguryn']
                 ),
-                'url' => 'github.com/codex-editor/inline-code'
-            ),
-            array(
-                'name' => 'Simple Image',
-                'type' => 'Block',
-                'description' => 'Provides image blocks for your writings.',
-                'demo' => 'simple-image.png',
-                'contributors' => array(
-                    $contributors['talyguryn']
-                ),
-                'url' => 'github.com/codex-editor/inline-code'
-            ),
-            array(
-                'name' => 'Quote',
-                'type' => 'Block',
-                'description' => 'Include quotes in your articles.',
-                'demo' => 'quote.png',
-                'contributors' => array(
-                    $contributors['talyguryn']
-                ),
-                'url' => 'github.com/codex-editor/quote'
+                'url' => 'https://github.com/codex-editor/inline-code'
             ),
             array(
                 'name' => 'HTML',
@@ -197,7 +197,7 @@
                     $contributors['talyguryn'],
                     $contributors['polinaShneider']
                 ),
-                'url' => 'github.com/codex-editor/raw'
+                'url' => 'https://github.com/codex-editor/raw'
             )
 
         )
@@ -234,7 +234,10 @@
         </div>
         <? foreach ( $plugins as $plugin ): ?>
             <div class="editor-plugin clearfix <?= $plugin['type'] === 'Block' ? 'js-block-tool' : 'js-inline-tool' ?>">
-                <a href="//<?= $plugin['url'] ?>" target="_blank">
+                <div class="editor-plugin__demo">
+                    <img src="/public/app/landings/editor/demo/<?= $plugin['demo'] ?>" alt="<?= $plugin['name'] ?>">
+                </div>
+                <a href="<?= $plugin['url'] ?>" target="_blank">
                     <h3 class="editor-plugin__title">
                         <?= $plugin['name'] ?>
                     </h3>
@@ -242,15 +245,12 @@
                         <?= $plugin['type'] ?>
                     </span>
                 </a>
-                <div class="editor-plugin__demo">
-                    <img src="/public/app/landings/editor/demo/<?= $plugin['demo'] ?>" alt="<?= $plugin['name'] ?>">
-                </div>
                 <div class="editor-plugin__description">
                     <?= $plugin['description'] ?>
                 </div>
                 <div class="editor-plugin__contributors">
                     <? foreach ( $plugin['contributors'] as $contributor ): ?>
-                        <a href="//github.com/<?= $contributor['name']; ?>" class="editor-plugin__contributors-item" title="<?= $contributor['name'] ?>" target="_blank">
+                        <a href="https://github.com/<?= $contributor['name']; ?>" class="editor-plugin__contributors-item" title="<?= $contributor['name'] ?>" target="_blank">
                             <img src="<?= $contributor['photo'] ?>" alt="<?= $contributor['name'] ?>">
                         </a>
                     <? endforeach; ?>
@@ -280,11 +280,11 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
                 Just implement <i>render</i> and <i>save</i> methods.
             </div>
             <div class="editor-plugin__footer">
-                To make it cool, take a look at the <a href="//github.com/codex-team/codex.editor/blob/master/docs/api.md">API</a>.
+                To make it cool, take a look at the <a href="https://github.com/codex-team/codex.editor/blob/master/docs/api.md">API</a>.
             </div>
         </div>
         <div class="editor-landing__actions clearfix">
-            <a class="editor-landing__more-plugins" href="//github.com/codex-editor" target="_blank">
+            <a class="editor-landing__more-plugins" href="https://github.com/codex-editor" target="_blank">
                 <? /* include(DOCROOT . '/public/app/landings/editor/svg/arrow-icon.svg'); */ ?>
                 View all plugins
             </a>
