@@ -6,11 +6,17 @@
     </div>
 
     <time class="join-component__time">
-        <span data-time="days" class="join-component__time-item">14</span>
+        <span data-time="days" class="join-component__time-item">
+            <?= $joinTimeLeft['days_left'] ?>
+        </span>
         <span class="join-component__time-delimiter">:</span>
-        <span data-time="hrs" class="join-component__time-item">20</span>
+        <span data-time="hrs" class="join-component__time-item">
+            <?= $joinTimeLeft['hours_left'] ?>
+        </span>
         <span class="join-component__time-delimiter">:</span>
-        <span data-time="mins" class="join-component__time-item">56</span>
+        <span data-time="mins" class="join-component__time-item">
+            <?= $joinTimeLeft['minutes_left'] ?>
+        </span>
     </time>
 
     <a href="/join" class="join-component__button buttons">Join</a>

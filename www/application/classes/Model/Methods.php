@@ -502,4 +502,29 @@ class Model_Methods extends Model
             return 0;
         }
     }
+
+    /**
+     * Calculate days, hours and minutes left when new members can join the club
+     * @param string $last_chance_to_join - string in Date format Y-m-d H:i
+     * @return array
+     *         string array['days_left'] - days left to join the club
+     *         string array['hours_left'] - hours left to join the club
+     *         string array['minutes_left'] - minutes left to join the club
+     */
+    public static function countDownJoinTime($last_chance_to_join){
+        $today = new DateTime(date("Y-m-d H:i"));
+
+        $join_end_date = new DateTime($last_chance_to_join);
+
+        /**
+         * Get difference between today's date and the end join date
+         */
+        $difference = $today->diff($join_end_date);
+
+        return array(
+            'days_left' => $difference->d,
+            'hours_left' => $difference->h,
+            'minutes_left' => $difference->i
+        );
+    }
 }

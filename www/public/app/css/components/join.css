@@ -33,6 +33,7 @@
 
         &-delimiter {
             padding: 0 8px;
+            margin-top: -3px;
         }
 
         &-item {
