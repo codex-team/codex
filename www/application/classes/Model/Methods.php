@@ -521,10 +521,13 @@ class Model_Methods extends Model
          */
         $difference = $today->diff($join_end_date);
 
+        /**
+         * Add zeros to the left if there is only one digit
+         */
         return array(
-            'days_left' => $difference->d,
-            'hours_left' => $difference->h,
-            'minutes_left' => $difference->i
+            'days_left' => str_pad($difference->d, 2, 0, STR_PAD_LEFT),
+            'hours_left' => str_pad($difference->h, 2, 0, STR_PAD_LEFT),
+            'minutes_left' => str_pad($difference->i, 2, 0, STR_PAD_LEFT),
         );
     }
 }
