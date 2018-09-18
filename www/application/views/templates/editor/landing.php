@@ -63,6 +63,7 @@
         <pre id="output"></pre>
     </div>
     <div class="editor-landing__loved-by">
+        <h2 class="editor-landing__loved-by-title">Loved by</h2>
         <div class="editor-landing__loved-by-companies">
             <a rel="nofollow" class="editor-landing__loved-by-item" target="_blank" href="//tjournal.ru">
                 <? include(DOCROOT . '/public/app/landings/editor/svg/tj.svg'); ?>
