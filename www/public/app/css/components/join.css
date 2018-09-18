@@ -1,0 +1,54 @@
+.join-component {
+    margin: 156px 0 152px;
+    text-align: center;
+
+    &__desc {
+        max-width: 322px;
+        margin-bottom: 32px;
+    }
+
+    &__button {
+        font-size: 16.9px;
+        font-weight: 500;
+        color: #fff;
+        border-radius: 3px;
+        background-color: #4a90e2;
+        padding: 10px 35.5px;
+        
+        &:hover {
+            color: #fff;
+            background: #3c7ab9;
+        }
+    }
+
+    &__time {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        font-weight: 500;
+        line-height: 1.08;
+        color: #6c7580;
+        margin-bottom: 60px;
+
+        &-delimiter {
+            padding: 0 8px;
+        }
+
+        &-item {
+            position: relative;
+
+            &::after {
+                display: block;
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                transform: translateX(-50%);
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 1.86;
+                content: attr(data-time);
+            }
+        }
+    }
+}
