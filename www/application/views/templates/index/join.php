@@ -9,17 +9,11 @@
         <span data-time="days" class="join-component__time-item">
             <?= $joinTimeLeft['days_left'] ?>
         </span>
-        <span class="join-component__time-delimiter">
-            <span></span>
-            <span></span>
-        </span>
+        <span class="join-component__time-delimiter"></span>
         <span data-time="hrs" class="join-component__time-item">
             <?= $joinTimeLeft['hours_left'] ?>
         </span>
-        <span class="join-component__time-delimiter join-component__time-delimiter--blinking">
-            <span></span>
-            <span></span>
-        </span>
+        <span class="join-component__time-delimiter join-component__time-delimiter--blinking"></span>
         <span data-time="mins" class="join-component__time-item">
             <?= $joinTimeLeft['minutes_left'] ?>
         </span>

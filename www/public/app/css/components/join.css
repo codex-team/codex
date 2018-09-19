@@ -14,6 +14,7 @@
         border-radius: 3px;
         background-color: #4a90e2;
         padding: 10px 35.5px;
+        box-shadow: 0 4px 5px 0 rgba(65,140,227,0.3);
         
         &:hover {
             color: #fff;
@@ -34,20 +35,21 @@
         &-delimiter {
             padding: 0 8px;
 
-            span {
+            &::before, &::after {
+                content: '';
                 display: block;
                 border-radius: 50%;
                 width: 4px;
                 height: 4px;
                 background-color: #6c7580;
+            }
 
-                &:first-of-type {
-                    margin-bottom: 3px;
-                }
+            &::before {
+                margin-bottom: 3px;
             }
 
             &--blinking {
-                span:last-of-type {
+                &::after {
                     animation: blinker 2s step-end infinite;
                     animation-delay: 1s;
                 }
