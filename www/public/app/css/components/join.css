@@ -14,11 +14,11 @@
         border-radius: 3px;
         background-color: #4a90e2;
         padding: 10px 35.5px;
-        box-shadow: 0 4px 5px 0 rgba(65,140,227,0.3);
+        box-shadow: 0 7px 12px -4px rgba(65,140,227,0.7);
         
         &:hover {
             color: #fff;
-            background: #3c7ab9;
+            background: #4484db;
         }
     }
 
