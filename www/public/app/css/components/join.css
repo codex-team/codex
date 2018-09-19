@@ -48,7 +48,10 @@
 
             &--blinking {
                 span:last-of-type {
-                    animation: blinker 2s linear infinite;
+                    opacity: 0;
+                    animation: blinker 1s steps(2, start) infinite;
+                    animation-fill-mode: both;
+                    animation-delay: 1s;
                 }
             }
         }
@@ -75,7 +78,7 @@
  * Blinking animation for last colon delimiter
  */
 @keyframes blinker {
-    50% {
-        opacity: 0;
+    to {
+        opacity: 1;
     }
 }
