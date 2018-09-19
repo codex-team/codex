@@ -33,7 +33,24 @@
 
         &-delimiter {
             padding: 0 8px;
-            margin-top: -3px;
+
+            span {
+                display: block;
+                border-radius: 50%;
+                width: 4px;
+                height: 4px;
+                background-color: #6c7580;
+
+                &:first-of-type {
+                    margin-bottom: 3px;
+                }
+            }
+
+            &--blinking {
+                span:last-of-type {
+                    animation: blinker 2s linear infinite;
+                }
+            }
         }
 
         &-item {
@@ -51,5 +68,14 @@
                 content: attr(data-time);
             }
         }
+    }
+}
+
+/**
+ * Blinking animation for last colon delimiter
+ */
+@keyframes blinker {
+    50% {
+        opacity: 0;
     }
 }
