@@ -128,6 +128,7 @@ codex.vkWidget = require('./modules/vkWidget');
 codex.codeStyling = require('./modules/codeStyling');
 codex.deeplinker = require('@codexteam/deeplinker');
 codex.editor = require('./modules/editor');
+codex.pluginsFilter = require('./modules/pluginsFilter');
 
 module.exports = codex;
 
