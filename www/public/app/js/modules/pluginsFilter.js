@@ -17,12 +17,12 @@ module.exports = (function () {
 
     /**
      * Initialize module
-     * @param {Object} settings                             - module's parameters passed from ModuleDispatcher
-     * @param {String} settings.blockToolsClass             - class of Editor Block Tools
-     * @param {String} settings.inlineToolsClass            - class of Editor Inline Tools
-     * @param {String} settings.blockFilterButtonClass      - class of button Block Tools filter
-     * @param {String} settings.inlineFilterButtonClass     - class of button Inline Tools filter
-     * @param {String} settings.allToolsFilterButtonClass   - class of button showing all types of Tools
+     * @typedef {Object} settings                             - module's parameters passed from ModuleDispatcher
+     * @param   {String} settings.blockToolsClass             - class of Editor Block Tools
+     * @param   {String} settings.inlineToolsClass            - class of Editor Inline Tools
+     * @param   {String} settings.blockFilterButtonClass      - class of button Block Tools filter
+     * @param   {String} settings.inlineFilterButtonClass     - class of button Inline Tools filter
+     * @param   {String} settings.allToolsFilterButtonClass   - class of button showing all types of Tools
      */
     const init = function (settings) {
 
