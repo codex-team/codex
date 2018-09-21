@@ -1,5 +1,5 @@
 <div class="join-page">
-    <? if (true || !empty($success)): ?>
+    <? if (!empty($success)): ?>
         <div class="join-page__success">
             <div class="join-page__success-inner">
                 <h2>Спасибо!</h2>
