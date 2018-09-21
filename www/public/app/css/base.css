@@ -169,19 +169,6 @@ textarea {
     }
 }
 
-/*
-* VK auth button
-*/
-.vk_button {
-    background: #6886ad;
-    color: #fff;
-}
-
-.vk_button:hover {
-    background: #496c98;
-    color: #fff;
-}
-
 /**
 * Loading button animation
 */
