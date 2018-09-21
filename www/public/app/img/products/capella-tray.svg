@@ -1,0 +1,12 @@
+<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <radialGradient cx="60.13%" cy="0%" fx="60.13%" fy="0%" r="100%" id="c-tr-grad">
+            <stop stop-color="#5A5C99" offset="0%"/>
+            <stop stop-color="#282C49" offset="100%"/>
+        </radialGradient>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <rect fill="url(#c-tr-grad)" width="60" height="60" rx="6"/>
+        <circle fill="#FFF" fill-rule="nonzero" cx="30" cy="30" r="13"/>
+    </g>
+</svg>
