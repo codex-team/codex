@@ -38,7 +38,6 @@
     border-spacing: 0;
     border-collapse: collapse;
 }
-
 .p_table td {
     padding: 15px;
     word-wrap: break-word;
@@ -52,6 +51,16 @@
       border-bottom: none;
   }
 }
+
+
+
+.p_table__section td {
+    font-size: 44px;
+    color: #e4e6eb;
+    padding: 40px 0;
+    font-weight: bold;
+}
+
 
 .p_table .id {
     width: 20px;
