@@ -1,7 +1,61 @@
 <?
     $news = array(
         array(
-            'text' => 'Выпустили скрипт для <a href="/beauty-toolbar">брендирования тулбара в Safari</a>»',
+            'text' => 'Открыт <a href="https://ifmo.su/join">набор в команду</a>',
+            'textEn' => 'Have introduced <a href="https://ifmo.su/join">Joining CodeX</a> 👋 — doors are open till 7th, October',
+            'date' => '21 sep',
+            'release' => false
+        ),
+        array(
+            'text' => 'Набросали <a href="https://ifmo.su/elastic-search">гайд по Elasticsearch</a> для начинающих',
+            'textEn' => 'Beginners guide about <a href="https://ifmo.su/elastic-search">first steps in Elasticsearch</a>',
+            'date' => '20 sep',
+            'release' => false
+        ),
+        array(
+            'text' => 'Написали <a href="https://github.com/codex-team/email-provider">библиотеку</a> для определения почтового сервиса по email-адресу',
+            'textEn' => 'Have built <a href="https://github.com/codex-team/email-provider">Email Provider</a> — library for detection email service name by email address',
+            'date' => '6 sep',
+            'release' => true
+        ),
+        array(
+            'text' => 'Подняли  <a href="http://vuejs.ifmo.su">форк vuejs.org</a> из-за блокировок Yota',
+            'textEn' => 'Launched <a href="http://vuejs.ifmo.su">Vue.js Documentation fork</a> due to original IP censorship by <nobr>💩Yota</nobr>  provider ',
+            'date' => '22 aug',
+            'release' => false
+        ),
+        array(
+            'text' => 'Разработали приложение-скриншоттер <a href="https://github.com/codex-team/capella-tray">Capella Tray</a> для macOS',
+            'textEn' => '<a href="https://github.com/codex-team/capella-tray">Capella Tray for macOS</a> — upload screenshots instantly to the cloud and get link to clipboard',
+            'date' => '11 aug',
+            'release' => true
+        ),
+        array(
+            'text' => 'Начинаем открытое бета-тестирование <a href="https://github.com/codex-team/codex.editor">CodeX Editor 2.0</a>',
+            'textEn' => '<a href="https://github.com/codex-team/codex.editor">CodeX Editor 2.0.beta</a> is pre released 🤩',
+            'date' => '5 aug',
+            'release' => true
+        ),
+        array(
+            'text' => 'Написали про <a href="https://ifmo.su/ts-classes">классы в TypeScript</a>',
+            'textEn' => '<a href="https://ifmo.su/ts-classes">TypeScript classes</a> — simply explained',
+            'date' => '31 may',
+            'release' => false
+        ),
+        array(
+            'text' => '<a href="https://github.com/codex-team/deeplinker">Deeplinker</a> — библиотека для создания ссылок, которые открывают нативные приложения по ссылке на сайте.',
+            'textEn' => 'Made <a href="https://github.com/codex-team/deeplinker">Deeplinker</a> — library for opening native applications directly from web links',
+            'date' => '28 may',
+            'release' => true
+        ),
+        array(
+            'text' => 'Опубликовали гайд по <a href="/gpg-verification">настройке GPG-верификации коммитов</a>',
+            'textEn' => 'New guide: <a href="/gpg-verification-github">GPG verification for git commits</a>',
+            'date' => '21 may',
+            'release' => false
+        ),
+        array(
+            'text' => 'Выпустили скрипт для <a href="/beauty-toolbar">брендирования тулбара в Safari</a>',
             'textEn' => '<a href="/beauty-toolbar">Beauty Toolbar</a> - Make the Safari Toolbar more consistent with your brand colors',
             'date' => '7 may',
             'release' => true
@@ -255,7 +309,7 @@
         <? foreach ( $news as $event ): ?>
             <li class="news__list_item <?= $i >= $MAX_PORTION ? 'news__list_item--hidden' : ''?>" data-time="<?= $event['date'] ?>">
                 <? if (!empty($event['release'])): ?>
-                    <span class="news__bage">release</span>
+                    <span class="news__bage">✨release</span>
                 <? endif ?>
                 <? if (!empty($event['textEn'])): ?>
                     <?= $event['textEn'] ?>
