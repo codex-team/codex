@@ -165,7 +165,6 @@
 
     &__success {
         padding: 100px 200px;
-        margin: -30px 0 30px;
         background: #f2f5fb;
         color: #6f809a;
         line-height: 1.6em;
@@ -181,6 +180,11 @@
             margin-top: 2em;
             padding: 30px;
             font-size: 14px;
+        }
+
+        &-inner {
+            max-width: 550px;
+            margin: 0 auto;
         }
     }
 }
