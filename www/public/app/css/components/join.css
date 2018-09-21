@@ -1,0 +1,88 @@
+.join-component {
+    margin: 156px 0 152px;
+    text-align: center;
+
+    &__desc {
+        max-width: 322px;
+        margin-bottom: 32px;
+    }
+
+    &__button {
+        font-size: 16.9px;
+        font-weight: 500;
+        color: #fff;
+        border-radius: 3px;
+        background-color: #4a90e2;
+        padding: 10px 35.5px;
+        box-shadow: 0 7px 12px -4px rgba(65,140,227,0.7);
+        
+        &:hover {
+            color: #fff;
+            background: #4484db;
+        }
+    }
+
+    &__time {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        font-weight: 500;
+        line-height: 1.08;
+        color: #6c7580;
+        margin-bottom: 60px;
+
+        &-delimiter {
+            padding: 0 8px;
+
+            &::before, &::after {
+                content: '';
+                display: block;
+                border-radius: 50%;
+                width: 4px;
+                height: 4px;
+                background-color: #6c7580;
+            }
+
+            &::before {
+                margin-bottom: 3px;
+            }
+
+            &--blinking {
+                &::after {
+                    animation: blinker 2s step-end infinite;
+                    animation-delay: 1s;
+                }
+            }
+        }
+
+        &-item {
+            position: relative;
+
+            &::after {
+                display: block;
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                transform: translateX(-50%);
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 1.86;
+                content: attr(data-time);
+            }
+        }
+    }
+}
+
+/**
+ * Blinking animation for last colon delimiter
+ */
+@keyframes blinker {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}

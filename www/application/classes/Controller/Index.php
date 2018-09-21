@@ -29,6 +29,12 @@ class Controller_Index extends Controller_Base_preDispatch
          */
         $this->view['recentArticles'] = $this->getRecentArticles();
 
+        /**
+         * Till what date and time people can join the club
+         * @param string $last_chance_to_join - string in Date format Y-m-d H:i
+         */
+        $this->view['joinTimeLeft'] = Model_Methods::countDownJoinTime("2018-10-7 23:59");
+
         $this->title = 'CodeX Team';
         $this->description = 'Club of web-development, design and marketing. We build team learning how to build full-valued projects on the world market.';
         $this->template->content = View::factory('templates/index/index', $this->view);
