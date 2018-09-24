@@ -2,9 +2,18 @@
     margin: 156px 0 152px;
     text-align: center;
 
+    &--compact {
+        margin: 50px 0 80px;
+    }
+
     &__desc {
         max-width: 322px;
         margin-bottom: 32px;
+    }
+
+    &__label {
+        color: var(--text-gray);
+        margin-bottom: 15px;
     }
 
     &__button {
