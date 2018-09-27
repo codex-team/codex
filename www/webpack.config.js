@@ -8,7 +8,9 @@ module.exports = {
 
     output: {
         path: path.resolve(__dirname, 'public', 'build'),
-        filename: 'bundle.js',
+        publicPath: "/public/build/",
+        filename: '[name].bundle.js',
+        chunkFilename: '[name].bundle.js',
         library: 'codex'
     },
 
@@ -44,7 +46,14 @@ module.exports = {
                     {
                         loader: 'babel-loader',
                         options: {
-                            presets: [ 'env' ]
+                            cacheDirectory: '.cache/babel-loader',
+                            presets: [
+                                '@babel/preset-env',
+                            ],
+                            plugins: [
+                                'babel-plugin-transform-es2015-modules-commonjs',
+                                '@babel/plugin-syntax-dynamic-import'
+                            ]
                         }
                     },
                     /** ES lint For webpack build */
@@ -59,7 +68,7 @@ module.exports = {
         ]},
 
     plugins: [
-        new ExtractTextPlugin('bundle.css')
+        new ExtractTextPlugin('bundle.css'),
     ],
     
     /**
@@ -67,8 +76,7 @@ module.exports = {
      */
     optimization: {
         noEmitOnErrors: true,
-        splitChunks: false,
-        minimize: true
+        minimize: false
     },
 
     devtool: 'source-map'

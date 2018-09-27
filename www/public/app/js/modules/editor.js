@@ -28,7 +28,7 @@ let ceEditor;
  */
 let output;
 
-module.exports = function () {
+export default class cdxEditor {
 
     /**
      * Initialize Editor with settings
@@ -36,13 +36,13 @@ module.exports = function () {
      * @param {String} settings.output_id - ID of container where Editor's saved data will be shown
      * @param {Object[]} settings.blocks  - Editor's blocks content
      */
-    const init = function (settings) {
+    init(settings) {
 
         /**
          * Define content of Editor's blocks
          * @type {Object|{blocks}}
          */
-        const editorData = settings.blocks || defaultEditorData();
+        const editorData = settings.blocks || this.defaultEditorData();
 
         /**
          * Define сontainer to output Editor saved data
@@ -63,8 +63,8 @@ module.exports = function () {
         /**
          * Instantiate new Editor with set of Tools
          */
+
         ceEditor = new CodexEditor({
-            holderId: 'codex-editor',
             tools: {
                 image: SimpleImage,
 
@@ -110,14 +110,16 @@ module.exports = function () {
             data: {
                 blocks: editorData
             },
-            onReady: function () {
 
-                prepareEditor();
+            onReady: () => {
+
+                this.prepareEditor();
 
             },
-            onChange: function () {
 
-                previewData();
+            onChange: () => {
+
+                this.previewData();
 
             }
         });
@@ -128,7 +130,7 @@ module.exports = function () {
      * Define default Editor's data if none was passed
      * @returns {Object[]} blocks
      */
-    const defaultEditorData = function () {
+    defaultEditorData() {
 
         return {
             blocks: [
@@ -147,7 +149,7 @@ module.exports = function () {
     /**
      * Shows JSON output of editor saved data
      */
-    const previewData = function () {
+    previewData() {
 
         ceEditor.saver.save().then((savedData) => {
 
@@ -161,16 +163,12 @@ module.exports = function () {
      * When editor is ready, trigger click inside editor to show toolbar
      * Preview JSON output
      */
-    const prepareEditor = function () {
+    prepareEditor() {
 
         document.querySelector('.codex-editor__redactor').click();
 
-        previewData();
+        this.previewData();
 
     };
 
-    return {
-        init : init
-    };
-
-}({});
+};

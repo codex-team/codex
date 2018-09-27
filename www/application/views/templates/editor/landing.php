@@ -22,7 +22,7 @@
             </a>
         </div>
     </div>
-    <div class="editor-landing__demo" data-module="editor">
+    <div class="editor-landing__demo" data-module="writing">
         <module-settings hidden>
             {
                 "blocks" : [
