@@ -28,7 +28,7 @@ let ceEditor;
  */
 let output;
 
-export default class cdxEditor {
+class cdxEditor {
 
     /**
      * Initialize Editor with settings
@@ -172,3 +172,5 @@ export default class cdxEditor {
     };
 
 };
+
+module.exports = new cdxEditor();

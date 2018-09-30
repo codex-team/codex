@@ -1,20 +1,19 @@
 'use strict';
 
-class Writing {
+import editor from './editor';
+
+export default class Writing {
 
     init(settings) {
 
-         import(/* webpackChunkName: "codex-editor" */ './editor')
-             .then(({default: cdxEditor}) => {
+        editor.init(settings);
 
-                 let Editor = new cdxEditor();
-
-                 Editor.init(settings);
-
-             });
-
+        // import(/* webpackChunkName: "codex-editor" */ './editor')
+        //     .then(({default: cdxEditor}) => {
+        //
+        //         cdxEditor.init(settings);
+        //
+        //     });
     };
 
 };
-
-module.exports = new Writing();

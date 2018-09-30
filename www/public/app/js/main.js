@@ -129,7 +129,8 @@ codex.codeStyling = require('./modules/codeStyling');
 codex.deeplinker = require('@codexteam/deeplinker');
 codex.pluginsFilter = require('./modules/pluginsFilter');
 
-// codex.writing = require('./modules/writing');
+import Writing from './modules/writing';
+codex.writing = new Writing();
 
 
 module.exports = codex;
