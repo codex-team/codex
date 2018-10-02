@@ -1,19 +1,25 @@
 'use strict';
 
-import editor from './editor';
-
+/**
+ * Module for pages using Editor
+ */
 export default class Writing {
 
+    /**
+     * Initialization. Called by Module Dispatcher
+     * @param settings
+     */
     init(settings) {
 
-        editor.init(settings);
+        import(/* webpackChunkName: "editor" */ 'classes/editor')
+            .then(({default: Editor}) => {
 
-        // import(/* webpackChunkName: "codex-editor" */ './editor')
-        //     .then(({default: cdxEditor}) => {
-        //
-        //         cdxEditor.init(settings);
-        //
-        //     });
+                let editor = new Editor();
+
+                editor.init(settings);
+
+            });
+
     };
 
 };

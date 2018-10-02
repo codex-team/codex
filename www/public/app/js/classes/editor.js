@@ -1,13 +1,17 @@
 'use strict';
 
-const CodexEditor = require('codex.editor');
 /**
- * Require module to compose output JSON preview
+ * CodeX Editor bundle
+ */
+const CodexEditor = require('codex.editor');
+
+/**
+ * Module to compose output JSON preview
  */
 const cPreview = require('./cPreview');
 
 /**
- * Load Tools for the Editor
+ * Tools for the Editor
  */
 const Header = require('codex.editor.header');
 const SimpleImage = require('codex.editor.simple-image');
@@ -19,16 +23,9 @@ const InlineCode = require('codex.editor.inline-code');
 const List = require('codex.editor.list');
 
 /**
- * Editor instance
+ * Class for working with CodeX Editor
  */
-let ceEditor;
-
-/**
- * Container to output saved Editor data
- */
-let output;
-
-class cdxEditor {
+export default class Editor {
 
     /**
      * Initialize Editor with settings
@@ -39,18 +36,34 @@ class cdxEditor {
     init(settings) {
 
         /**
+         * CodeX Editor instance
+         * @type {CodexEditor|null}
+         */
+        this.editor = null;
+
+        /**
+         * DOM elements
+         */
+        this.nodes = {
+            /**
+             * Container to output saved Editor data
+             */
+            outputWrapper: null
+        };
+
+        /**
          * Define content of Editor's blocks
          * @type {Object|{blocks}}
          */
         const editorData = settings.blocks || this.defaultEditorData();
 
         /**
-         * Define сontainer to output Editor saved data
+         * Define container to output Editor saved data
          * @type {HTMLElement}
          */
-        output = document.getElementById(settings.output_id);
+        this.nodes.outputWrapper = document.getElementById(settings.output_id);
 
-        if (output) {
+        if (this.nodes.outputWrapper) {
 
             console.log('Output target with ID: «' + settings.output_id + '» was initialized successfully');
 
@@ -61,62 +74,45 @@ class cdxEditor {
         }
 
         /**
-         * Instantiate new Editor with set of Tools
+         * Instantiate new CodeX Editor with set of Tools
          */
-
-        ceEditor = new CodexEditor({
+        this.editor = new CodexEditor({
             tools: {
                 image: SimpleImage,
-
                 header: {
                     class: Header,
-                    inlineToolbar: ['link', 'marker', 'bold'],
-                    config: {
-                        placeholder: 'Title'
-                    }
+                    inlineToolbar: ['link', 'marker'],
                 },
-
                 list: {
                     class: List,
                     inlineToolbar: true
                 },
-
                 quote: {
                     class: Quote,
                     inlineToolbar: true,
-                    config: {
-                        quotePlaceholder: Quote.DEFAULT_QUOTE_PLACEHOLDER,
-                        captionPlaceholder: Quote.DEFAULT_CAPTION_PLACEHOLDER
-                    }
                 },
-
                 code: {
                     class: CodeTool,
                     shortcut: 'CMD+SHIFT+D'
                 },
-
                 inlineCode: {
                     class: InlineCode,
                     shortcut: 'CMD+SHIFT+C'
                 },
-
                 marker: {
                     class: Marker,
                     shortcut: 'CMD+SHIFT+M'
                 },
-
                 delimiter: Delimiter,
             },
             data: {
                 blocks: editorData
             },
-
             onReady: () => {
 
                 this.prepareEditor();
 
             },
-
             onChange: () => {
 
                 this.previewData();
@@ -151,9 +147,9 @@ class cdxEditor {
      */
     previewData() {
 
-        ceEditor.saver.save().then((savedData) => {
+        this.editor.saver.save().then((savedData) => {
 
-            cPreview.show(savedData, output);
+            cPreview.show(savedData, this.nodes.outputWrapper);
 
         });
 
@@ -166,11 +162,8 @@ class cdxEditor {
     prepareEditor() {
 
         document.querySelector('.codex-editor__redactor').click();
-
         this.previewData();
 
     };
 
 };
-
-module.exports = new cdxEditor();
