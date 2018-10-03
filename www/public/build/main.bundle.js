@@ -3196,20 +3196,61 @@ var Writing =
 function () {
   function Writing() {
     _classCallCheck(this, Writing);
+
+    this.editor = null;
   }
+  /**
+   * @typedef {Object} settings - Editor initialization settings
+   * @param {String} settings.output_id - ID of container where Editor's saved data will be shown
+   * @param {Object[]} settings.blocks  - Editor's blocks content
+   */
+
+  /**
+   * Initialization. Called by Module Dispatcher
+   */
+
 
   _createClass(Writing, [{
     key: "init",
+    value: function init(settings) {
+      var _this = this;
+
+      this.loadEditor().then(function (editor) {
+        _this.editor = editor;
+
+        _this.editor.init(settings);
+
+        _this.prepareEditor();
+      });
+    }
+  }, {
+    key: "loadEditor",
 
     /**
-     * Initialization. Called by Module Dispatcher
-     * @param settings
+     * Load Editor from separate chunk
      */
-    value: function init(settings) {
-      __webpack_require__.e(/*! import() | editor */ "editor").then(__webpack_require__.t.bind(null, /*! classes/editor */ "./public/app/js/classes/editor.js", 7)).then(function (_ref) {
+    value: function loadEditor() {
+      return __webpack_require__.e(/*! import() | editor */ "editor").then(__webpack_require__.t.bind(null, /*! classes/editor */ "./public/app/js/classes/editor.js", 7)).then(function (_ref) {
         var Editor = _ref.default;
-        var editor = new Editor();
-        editor.init(settings);
+        return new Editor();
+      });
+    }
+    /**
+     * When Editor is ready, trigger click inside editor to show toolbar
+     * Preview JSON output
+     */
+
+  }, {
+    key: "prepareEditor",
+    value: function prepareEditor() {
+      var _this2 = this;
+
+      this.editor.editor.isReady.then(function () {
+        document.querySelector('.codex-editor__redactor').click();
+
+        _this2.editor.previewData();
+      }).catch(function (reason) {
+        console.log("CodeX Editor initialization failed because of ".concat(reason));
       });
     }
   }]);

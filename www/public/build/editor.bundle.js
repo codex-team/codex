@@ -2398,10 +2398,7 @@ function () {
     key: "init",
 
     /**
-     * Initialize Editor with settings
-     * @param {Object} settings           - Editor's parameters
-     * @param {String} settings.output_id - ID of container where Editor's saved data will be shown
-     * @param {Object[]} settings.blocks  - Editor's blocks content
+     * Initialize Editor
      */
     value: function init(settings) {
       var _this = this;
@@ -2476,9 +2473,6 @@ function () {
         data: {
           blocks: editorData
         },
-        onReady: function onReady() {
-          _this.prepareEditor();
-        },
         onChange: function onChange() {
           _this.previewData();
         }
@@ -2514,17 +2508,6 @@ function () {
       this.editor.saver.save().then(function (savedData) {
         cPreview.show(savedData, _this2.nodes.outputWrapper);
       });
-    }
-  }, {
-    key: "prepareEditor",
-
-    /**
-     * When editor is ready, trigger click inside editor to show toolbar
-     * Preview JSON output
-     */
-    value: function prepareEditor() {
-      document.querySelector('.codex-editor__redactor').click();
-      this.previewData();
     }
   }]);
 

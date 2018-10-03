@@ -28,10 +28,7 @@ const List = require('codex.editor.list');
 export default class Editor {
 
     /**
-     * Initialize Editor with settings
-     * @param {Object} settings           - Editor's parameters
-     * @param {String} settings.output_id - ID of container where Editor's saved data will be shown
-     * @param {Object[]} settings.blocks  - Editor's blocks content
+     * Initialize Editor
      */
     init(settings) {
 
@@ -108,11 +105,6 @@ export default class Editor {
             data: {
                 blocks: editorData
             },
-            onReady: () => {
-
-                this.prepareEditor();
-
-            },
             onChange: () => {
 
                 this.previewData();
@@ -152,17 +144,6 @@ export default class Editor {
             cPreview.show(savedData, this.nodes.outputWrapper);
 
         });
-
-    };
-
-    /**
-     * When editor is ready, trigger click inside editor to show toolbar
-     * Preview JSON output
-     */
-    prepareEditor() {
-
-        document.querySelector('.codex-editor__redactor').click();
-        this.previewData();
 
     };
 

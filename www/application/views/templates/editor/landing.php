@@ -36,7 +36,7 @@
                     {
                         "type" : "paragraph",
                         "data" : {
-                            "text" : "Use it in Web, mobile, APM, Instant Articles, speech readers — everywhere."
+                            "text" : "Use it in Web, mobile, accelerated mobile pages, Instant Articles, speech readers — everywhere."
                         }
                     },
                     {
