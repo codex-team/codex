@@ -1,6 +1,11 @@
 'use strict';
 
 /**
+ * Module to compose output JSON preview
+ */
+const cPreview = require('../classes/cPreview');
+
+/**
  * Module for pages using Editor
  */
 export default class Writing {
@@ -9,12 +14,21 @@ export default class Writing {
 
         this.editor = null;
 
+        /**
+         * DOM elements
+         */
+        this.nodes = {
+            /**
+             * Container to output saved Editor data
+             */
+            outputWrapper: null
+        };
+
     }
 
     /**
-     * @typedef {Object} settings - Editor initialization settings
+     * @typedef {Object} writingSettings - Writing settings for CodeX Editor
      * @param {String} settings.output_id - ID of container where Editor's saved data will be shown
-     * @param {Object[]} settings.blocks  - Editor's blocks content
      */
 
     /**
@@ -28,7 +42,9 @@ export default class Writing {
 
             this.editor.init(settings);
 
-            this.prepareEditor();
+            this.prepareEditor(settings);
+
+            this.preparePreview(settings);
 
         });
 
@@ -36,6 +52,7 @@ export default class Writing {
 
     /**
      * Load Editor from separate chunk
+     * @return {Promise<{default: *} | never>} - CodeX Editor instance
      */
     loadEditor() {
 
@@ -49,17 +66,14 @@ export default class Writing {
     }
 
     /**
-     * When Editor is ready, trigger click inside editor to show toolbar
-     * Preview JSON output
+     * When Editor is ready, preview JSON output with initial data
      */
     prepareEditor() {
 
         this.editor.editor.isReady
             .then(() => {
 
-                document.querySelector('.codex-editor__redactor').click();
-
-                this.editor.previewData();
+                this.previewData();
 
             })
             .catch((reason) => {
@@ -67,6 +81,39 @@ export default class Writing {
                 console.log(`CodeX Editor initialization failed because of ${reason}`);
 
             });
+
+    };
+
+    preparePreview(settings) {
+
+        /**
+         * Define container to output Editor saved data
+         * @type {HTMLElement}
+         */
+        this.nodes.outputWrapper = document.getElementById(settings.output_id);
+
+        if (this.nodes.outputWrapper) {
+
+            console.log('Output target with ID: «' + settings.output_id + '» was initialized successfully');
+
+        } else {
+
+            console.warn('Can\'t find output target with ID: «' + settings.output_id + '»');
+
+        }
+
+    }
+
+    /**
+     * Shows JSON output of editor saved data
+     */
+    previewData() {
+
+        this.editor.editor.saver.save().then((savedData) => {
+
+            cPreview.show(savedData, this.nodes.outputWrapper);
+
+        });
 
     };
 

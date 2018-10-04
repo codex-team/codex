@@ -6,11 +6,6 @@
 const CodexEditor = require('codex.editor');
 
 /**
- * Module to compose output JSON preview
- */
-const cPreview = require('./cPreview');
-
-/**
  * Tools for the Editor
  */
 const Header = require('codex.editor.header');
@@ -29,6 +24,9 @@ export default class Editor {
 
     /**
      * Initialize Editor
+     * @param settings - Editor data settings
+     * @param {Object[]} settings.blocks - Editor's blocks content
+     * @param {String} settings.target_click_node - Editor's node to focus on
      */
     init(settings) {
 
@@ -39,36 +37,10 @@ export default class Editor {
         this.editor = null;
 
         /**
-         * DOM elements
-         */
-        this.nodes = {
-            /**
-             * Container to output saved Editor data
-             */
-            outputWrapper: null
-        };
-
-        /**
          * Define content of Editor's blocks
          * @type {Object|{blocks}}
          */
         const editorData = settings.blocks || this.defaultEditorData();
-
-        /**
-         * Define container to output Editor saved data
-         * @type {HTMLElement}
-         */
-        this.nodes.outputWrapper = document.getElementById(settings.output_id);
-
-        if (this.nodes.outputWrapper) {
-
-            console.log('Output target with ID: «' + settings.output_id + '» was initialized successfully');
-
-        } else {
-
-            console.warn('Can\'t find output target with ID: «' + settings.output_id + '»');
-
-        }
 
         /**
          * Instantiate new CodeX Editor with set of Tools
@@ -105,14 +77,29 @@ export default class Editor {
             data: {
                 blocks: editorData
             },
+
             onChange: () => {
 
-                this.previewData();
+            },
+
+            onReady: () => {
+
+                this.focus(settings.target_click_node);
 
             }
         });
 
     };
+
+    /**
+     * Focus on Editor after it has loaded
+     * @param {String} editorNode - node of Editor to click on
+     */
+    focus(editorNode) {
+
+        document.querySelector(editorNode).click();
+
+    }
 
     /**
      * Define default Editor's data if none was passed
@@ -132,19 +119,6 @@ export default class Editor {
             ]
         };
 
-    };
-
-    /**
-     * Shows JSON output of editor saved data
-     */
-    previewData() {
-
-        this.editor.saver.save().then((savedData) => {
-
-            cPreview.show(savedData, this.nodes.outputWrapper);
-
-        });
-
-    };
+    }
 
 };

@@ -2261,77 +2261,6 @@ var n=function(){function e(o){var t=o.data,s=(o.config,o.api);!function(e,o){if
 
 /***/ }),
 
-/***/ "./public/app/js/classes/cPreview.js":
-/*!*******************************************!*\
-  !*** ./public/app/js/classes/cPreview.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * Module to compose output JSON preview
- */
-var cPreview = function () {
-  /**
-   * Shows JSON in pretty preview
-   * @param {object} output - what to show
-   * @param {Element} holder - where to show
-   */
-  function show(output, holder) {
-    /** Make JSON pretty */
-    output = JSON.stringify(output, null, 4);
-    /** Encode HTML entities */
-
-    output = encodeHTMLEntities(output);
-    /** Stylize! */
-
-    output = stylize(output);
-    holder.innerHTML = output;
-  }
-
-  ;
-  /**
-   * Converts '>', '<', '&' symbols to entities
-   */
-
-  function encodeHTMLEntities(string) {
-    return string.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  }
-  /**
-   * Some styling magic
-   */
-
-
-  function stylize(string) {
-    /** Stylize JSON keys */
-    string = string.replace(/"(\w+)"\s?:/g, '"<span class=sc_key>$1</span>" :');
-    /** Stylize tool names */
-
-    string = string.replace(/"(paragraph|quote|list|header|link|code|image|delimiter|raw)"/g, '"<span class=sc_toolname>$1</span>"');
-    /** Stylize HTML tags */
-
-    string = string.replace(/(&lt;[\/a-z]+(&gt;)?)/gi, '<span class=sc_tag>$1</span>');
-    /** Stylize strings */
-
-    string = string.replace(/"([^"]+)"/gi, '"<span class=sc_attr>$1</span>"');
-    /** Boolean/Null */
-
-    string = string.replace(/\b(true|false|null)\b/gi, '<span class=sc_bool>$1</span>');
-    return string;
-  }
-
-  return {
-    show: show
-  };
-}({});
-
-module.exports = cPreview;
-
-/***/ }),
-
 /***/ "./public/app/js/classes/editor.js":
 /*!*****************************************!*\
   !*** ./public/app/js/classes/editor.js ***!
@@ -2356,12 +2285,6 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 var CodexEditor = __webpack_require__(/*! codex.editor */ "./node_modules/codex.editor/build/codex-editor.js");
-/**
- * Module to compose output JSON preview
- */
-
-
-var cPreview = __webpack_require__(/*! ./cPreview */ "./public/app/js/classes/cPreview.js");
 /**
  * Tools for the Editor
  */
@@ -2399,6 +2322,9 @@ function () {
 
     /**
      * Initialize Editor
+     * @param settings - Editor data settings
+     * @param {Object[]} settings.blocks - Editor's blocks content
+     * @param {String} settings.target_click_node - Editor's node to focus on
      */
     value: function init(settings) {
       var _this = this;
@@ -2409,37 +2335,14 @@ function () {
        */
       this.editor = null;
       /**
-       * DOM elements
-       */
-
-      this.nodes = {
-        /**
-         * Container to output saved Editor data
-         */
-        outputWrapper: null
-      };
-      /**
        * Define content of Editor's blocks
        * @type {Object|{blocks}}
        */
 
       var editorData = settings.blocks || this.defaultEditorData();
       /**
-       * Define container to output Editor saved data
-       * @type {HTMLElement}
-       */
-
-      this.nodes.outputWrapper = document.getElementById(settings.output_id);
-
-      if (this.nodes.outputWrapper) {
-        console.log('Output target with ID: «' + settings.output_id + '» was initialized successfully');
-      } else {
-        console.warn('Can\'t find output target with ID: «' + settings.output_id + '»');
-      }
-      /**
        * Instantiate new CodeX Editor with set of Tools
        */
-
 
       this.editor = new CodexEditor({
         tools: {
@@ -2473,18 +2376,29 @@ function () {
         data: {
           blocks: editorData
         },
-        onChange: function onChange() {
-          _this.previewData();
+        onChange: function onChange() {},
+        onReady: function onReady() {
+          _this.focus(settings.target_click_node);
         }
       });
     }
   }, {
-    key: "defaultEditorData",
+    key: "focus",
 
+    /**
+     * Focus on Editor after it has loaded
+     * @param {String} editorNode - node of Editor to click on
+     */
+    value: function focus(editorNode) {
+      document.querySelector(editorNode).click();
+    }
     /**
      * Define default Editor's data if none was passed
      * @returns {Object[]} blocks
      */
+
+  }, {
+    key: "defaultEditorData",
     value: function defaultEditorData() {
       return {
         blocks: [{
@@ -2495,19 +2409,6 @@ function () {
           }
         }]
       };
-    }
-  }, {
-    key: "previewData",
-
-    /**
-     * Shows JSON output of editor saved data
-     */
-    value: function previewData() {
-      var _this2 = this;
-
-      this.editor.saver.save().then(function (savedData) {
-        cPreview.show(savedData, _this2.nodes.outputWrapper);
-      });
     }
   }]);
 

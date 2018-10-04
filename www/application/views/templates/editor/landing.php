@@ -36,7 +36,7 @@
                     {
                         "type" : "paragraph",
                         "data" : {
-                            "text" : "Use it in Web, mobile, accelerated mobile pages, Instant Articles, speech readers — everywhere."
+                            "text" : "Use it in Web, mobile, AMP, Instant Articles, speech readers — everywhere."
                         }
                     },
                     {
@@ -53,7 +53,8 @@
                         }
                     }
                 ],
-                "output_id" : "output"
+                "output_id" : "output",
+                "target_click_node" : ".codex-editor__redactor"
             }
         </module-settings>
 

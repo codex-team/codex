@@ -247,6 +247,77 @@ var codex =
 
 /***/ }),
 
+/***/ "./public/app/js/classes/cPreview.js":
+/*!*******************************************!*\
+  !*** ./public/app/js/classes/cPreview.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Module to compose output JSON preview
+ */
+var cPreview = function () {
+  /**
+   * Shows JSON in pretty preview
+   * @param {object} output - what to show
+   * @param {Element} holder - where to show
+   */
+  function show(output, holder) {
+    /** Make JSON pretty */
+    output = JSON.stringify(output, null, 4);
+    /** Encode HTML entities */
+
+    output = encodeHTMLEntities(output);
+    /** Stylize! */
+
+    output = stylize(output);
+    holder.innerHTML = output;
+  }
+
+  ;
+  /**
+   * Converts '>', '<', '&' symbols to entities
+   */
+
+  function encodeHTMLEntities(string) {
+    return string.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  /**
+   * Some styling magic
+   */
+
+
+  function stylize(string) {
+    /** Stylize JSON keys */
+    string = string.replace(/"(\w+)"\s?:/g, '"<span class=sc_key>$1</span>" :');
+    /** Stylize tool names */
+
+    string = string.replace(/"(paragraph|quote|list|header|link|code|image|delimiter|raw)"/g, '"<span class=sc_toolname>$1</span>"');
+    /** Stylize HTML tags */
+
+    string = string.replace(/(&lt;[\/a-z]+(&gt;)?)/gi, '<span class=sc_tag>$1</span>');
+    /** Stylize strings */
+
+    string = string.replace(/"([^"]+)"/gi, '"<span class=sc_attr>$1</span>"');
+    /** Boolean/Null */
+
+    string = string.replace(/\b(true|false|null)\b/gi, '<span class=sc_bool>$1</span>');
+    return string;
+  }
+
+  return {
+    show: show
+  };
+}({});
+
+module.exports = cPreview;
+
+/***/ }),
+
 /***/ "./public/app/js/main.js":
 /*!*******************************!*\
   !*** ./public/app/js/main.js ***!
@@ -3178,7 +3249,7 @@ module.exports = vkWidget;
 "use strict";
 
 /**
- * Module for pages using Editor
+ * Module to compose output JSON preview
  */
 
 Object.defineProperty(exports, "__esModule", {
@@ -3191,6 +3262,12 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+var cPreview = __webpack_require__(/*! ../classes/cPreview */ "./public/app/js/classes/cPreview.js");
+/**
+ * Module for pages using Editor
+ */
+
+
 var Writing =
 /*#__PURE__*/
 function () {
@@ -3198,11 +3275,20 @@ function () {
     _classCallCheck(this, Writing);
 
     this.editor = null;
+    /**
+     * DOM elements
+     */
+
+    this.nodes = {
+      /**
+       * Container to output saved Editor data
+       */
+      outputWrapper: null
+    };
   }
   /**
-   * @typedef {Object} settings - Editor initialization settings
+   * @typedef {Object} writingSettings - Writing settings for CodeX Editor
    * @param {String} settings.output_id - ID of container where Editor's saved data will be shown
-   * @param {Object[]} settings.blocks  - Editor's blocks content
    */
 
   /**
@@ -3220,7 +3306,9 @@ function () {
 
         _this.editor.init(settings);
 
-        _this.prepareEditor();
+        _this.prepareEditor(settings);
+
+        _this.preparePreview(settings);
       });
     }
   }, {
@@ -3228,6 +3316,7 @@ function () {
 
     /**
      * Load Editor from separate chunk
+     * @return {Promise<{default: *} | never>} - CodeX Editor instance
      */
     value: function loadEditor() {
       return __webpack_require__.e(/*! import() | editor */ "editor").then(__webpack_require__.t.bind(null, /*! classes/editor */ "./public/app/js/classes/editor.js", 7)).then(function (_ref) {
@@ -3236,8 +3325,7 @@ function () {
       });
     }
     /**
-     * When Editor is ready, trigger click inside editor to show toolbar
-     * Preview JSON output
+     * When Editor is ready, preview JSON output with initial data
      */
 
   }, {
@@ -3246,11 +3334,37 @@ function () {
       var _this2 = this;
 
       this.editor.editor.isReady.then(function () {
-        document.querySelector('.codex-editor__redactor').click();
-
-        _this2.editor.previewData();
+        _this2.previewData();
       }).catch(function (reason) {
         console.log("CodeX Editor initialization failed because of ".concat(reason));
+      });
+    }
+  }, {
+    key: "preparePreview",
+    value: function preparePreview(settings) {
+      /**
+       * Define container to output Editor saved data
+       * @type {HTMLElement}
+       */
+      this.nodes.outputWrapper = document.getElementById(settings.output_id);
+
+      if (this.nodes.outputWrapper) {
+        console.log('Output target with ID: «' + settings.output_id + '» was initialized successfully');
+      } else {
+        console.warn('Can\'t find output target with ID: «' + settings.output_id + '»');
+      }
+    }
+    /**
+     * Shows JSON output of editor saved data
+     */
+
+  }, {
+    key: "previewData",
+    value: function previewData() {
+      var _this3 = this;
+
+      this.editor.editor.saver.save().then(function (savedData) {
+        cPreview.show(savedData, _this3.nodes.outputWrapper);
       });
     }
   }]);
