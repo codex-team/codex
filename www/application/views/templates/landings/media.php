@@ -26,7 +26,7 @@
         <a class="codex-media__link" href="//github.com/codex-team/codex.media">github.com/codex-team/codex.media</a>
 
         <footer class="codex-media__footer clearfix">
-            <div class="codex-media__footer-caption">St. Petrsburg, Russia</div>
+            <div class="codex-media__footer-caption">St. Petersburg, Russia</div>
             <a href="mailto:team@ifmo.su">team@ifmo.su</a>
         </footer>
 
