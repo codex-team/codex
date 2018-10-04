@@ -3363,7 +3363,7 @@ function () {
     value: function previewData() {
       var _this3 = this;
 
-      this.editor.editor.saver.save().then(function (savedData) {
+      this.editor.save().then(function (savedData) {
         cPreview.show(savedData, _this3.nodes.outputWrapper);
       });
     }

@@ -109,7 +109,7 @@ export default class Writing {
      */
     previewData() {
 
-        this.editor.editor.saver.save().then((savedData) => {
+        this.editor.save().then((savedData) => {
 
             cPreview.show(savedData, this.nodes.outputWrapper);
 

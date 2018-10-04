@@ -92,6 +92,16 @@ export default class Editor {
     };
 
     /**
+     * Return Editor data
+     * @return {Promise.<{}>}
+     */
+    save() {
+
+        return this.editor.saver.save();
+
+    }
+
+    /**
      * Focus on Editor after it has loaded
      * @param {String} editorNode - node of Editor to click on
      */

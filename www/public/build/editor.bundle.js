@@ -2383,12 +2383,22 @@ function () {
       });
     }
   }, {
-    key: "focus",
+    key: "save",
 
+    /**
+     * Return Editor data
+     * @return {Promise.<{}>}
+     */
+    value: function save() {
+      return this.editor.saver.save();
+    }
     /**
      * Focus on Editor after it has loaded
      * @param {String} editorNode - node of Editor to click on
      */
+
+  }, {
+    key: "focus",
     value: function focus(editorNode) {
       document.querySelector(editorNode).click();
     }
