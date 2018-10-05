@@ -49,11 +49,23 @@ export default class Writing {
 
         };
 
+        /**
+         * Prepare node to output Editor data preview
+         * @type {HTMLElement} - JSON preview container
+         */
+        this.nodes.outputWrapper = document.getElementById(writingSettings.output_id);
+
+        if (!this.nodes.outputWrapper) {
+
+            console.warn('Can\'t find output target with ID: «' + writingSettings.output_id + '»');
+
+        }
+
         this.loadEditor(writingSettings).then((editor) => {
 
             this.editor = editor;
 
-            this.preparePreview(writingSettings.output_id);
+            this.prepareEditor(writingSettings);
 
         });
 
@@ -77,28 +89,13 @@ export default class Writing {
 
     /**
      * When Editor is ready, preview JSON output with initial data
-     * @param outputId - container for Editor data output
      */
-    preparePreview(outputId) {
+    prepareEditor() {
 
         this.editor.editor.isReady
             .then(() => {
 
-                /**
-                 * Define container to output Editor saved data
-                 * @type {HTMLElement}
-                 */
-                this.nodes.outputWrapper = document.getElementById(outputId);
-
-                if (!this.nodes.outputWrapper) {
-
-                    console.warn('Can\'t find output target with ID: «' + outputId + '»');
-
-                } else {
-
-                    this.previewData();
-
-                }
+                this.previewData();
 
             })
             .catch((reason) => {
@@ -107,7 +104,7 @@ export default class Writing {
 
             });
 
-    }
+    };
 
     /**
      * Shows JSON output of editor saved data

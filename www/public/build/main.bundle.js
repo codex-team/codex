@@ -3311,11 +3311,22 @@ function () {
       writingSettings.onChange = function () {
         _this.previewData();
       };
+      /**
+       * Prepare node to output Editor data preview
+       * @type {HTMLElement} - JSON preview container
+       */
+
+
+      this.nodes.outputWrapper = document.getElementById(writingSettings.output_id);
+
+      if (!this.nodes.outputWrapper) {
+        console.warn('Can\'t find output target with ID: «' + writingSettings.output_id + '»');
+      }
 
       this.loadEditor(writingSettings).then(function (editor) {
         _this.editor = editor;
 
-        _this.preparePreview(writingSettings.output_id);
+        _this.prepareEditor(writingSettings);
       });
     }
   }, {
@@ -3334,36 +3345,25 @@ function () {
     }
     /**
      * When Editor is ready, preview JSON output with initial data
-     * @param outputId - container for Editor data output
      */
 
   }, {
-    key: "preparePreview",
-    value: function preparePreview(outputId) {
+    key: "prepareEditor",
+    value: function prepareEditor() {
       var _this2 = this;
 
       this.editor.editor.isReady.then(function () {
-        /**
-         * Define container to output Editor saved data
-         * @type {HTMLElement}
-         */
-        _this2.nodes.outputWrapper = document.getElementById(outputId);
-
-        if (!_this2.nodes.outputWrapper) {
-          console.warn('Can\'t find output target with ID: «' + outputId + '»');
-        } else {
-          _this2.previewData();
-        }
+        _this2.previewData();
       }).catch(function (reason) {
         console.log("CodeX Editor initialization failed because of ".concat(reason));
       });
     }
+  }, {
+    key: "previewData",
+
     /**
      * Shows JSON output of editor saved data
      */
-
-  }, {
-    key: "previewData",
     value: function previewData() {
       var _this3 = this;
 
