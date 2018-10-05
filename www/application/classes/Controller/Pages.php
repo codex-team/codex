@@ -12,6 +12,12 @@ class Controller_Pages extends Controller_Base_preDispatch
         }
 
         $this->view['request'] = $this->user->getUserRequest();
+        /**
+         * Till what date and time people can join the club
+         * @param string $last_chance_to_join - string in Date format Y-m-d H:i
+         */
+        $this->view['joinTimeLeft'] = Model_Methods::countDownJoinTime("2018-10-7 23:59");
+
 
         $this->title = 'Набор в команду CodeX';
         $this->description = 'Как вступить в CodeX';

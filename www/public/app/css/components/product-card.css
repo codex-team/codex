@@ -205,7 +205,7 @@
         min-width: 150px;
         padding: 10px 20px;
         margin: 0 20px 20px 0;
-        border: 1px solid color(var(--line-light) blackness(+7%));
+        border: 1px solid #e0e1e6;
         border-radius: 3px;
         font-size: 13.1px;
         line-height: 1.5em;
