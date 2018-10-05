@@ -13,7 +13,7 @@ export default class Writing {
     constructor() {
 
         /**
-         * CodeX Editor Instance
+         * Editor class Instance
          */
         this.editor = null;
 
@@ -30,7 +30,7 @@ export default class Writing {
     }
 
     /**
-     * @typedef {Object} writingSettings - Settings for Editor on landing page
+     * @typedef {Object} writingSettings - Writing class settings for the Editor
      * @property {String} writingSettings.output_id - ID of container where Editor's saved data will be shown
      * @property {function} writingSettings.onChange - Modifications callback for the Editor
      */
@@ -53,9 +53,7 @@ export default class Writing {
 
             this.editor = editor;
 
-            this.prepareEditor(writingSettings);
-
-            this.preparePreview(writingSettings);
+            this.preparePreview(writingSettings.output_id);
 
         });
 
@@ -79,13 +77,28 @@ export default class Writing {
 
     /**
      * When Editor is ready, preview JSON output with initial data
+     * @param outputId - container for Editor data output
      */
-    prepareEditor() {
+    preparePreview(outputId) {
 
         this.editor.editor.isReady
             .then(() => {
 
-                this.previewData();
+                /**
+                 * Define container to output Editor saved data
+                 * @type {HTMLElement}
+                 */
+                this.nodes.outputWrapper = document.getElementById(outputId);
+
+                if (!this.nodes.outputWrapper) {
+
+                    console.warn('Can\'t find output target with ID: «' + outputId + '»');
+
+                } else {
+
+                    this.previewData();
+
+                }
 
             })
             .catch((reason) => {
@@ -93,30 +106,6 @@ export default class Writing {
                 console.log(`CodeX Editor initialization failed because of ${reason}`);
 
             });
-
-    };
-
-    /**
-     * Prepare node to output Editor data preview
-     * @param settings - settings for Editor data output
-     */
-    preparePreview(settings) {
-
-        /**
-         * Define container to output Editor saved data
-         * @type {HTMLElement}
-         */
-        this.nodes.outputWrapper = document.getElementById(settings.output_id);
-
-        if (this.nodes.outputWrapper) {
-
-            console.log('Output target with ID: «' + settings.output_id + '» was initialized successfully');
-
-        } else {
-
-            console.warn('Can\'t find output target with ID: «' + settings.output_id + '»');
-
-        }
 
     }
 

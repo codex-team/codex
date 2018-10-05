@@ -3275,7 +3275,7 @@ function () {
     _classCallCheck(this, Writing);
 
     /**
-     * CodeX Editor Instance
+     * Editor class Instance
      */
     this.editor = null;
     /**
@@ -3290,7 +3290,7 @@ function () {
     };
   }
   /**
-   * @typedef {Object} writingSettings - Settings for Editor on landing page
+   * @typedef {Object} writingSettings - Writing class settings for the Editor
    * @property {String} writingSettings.output_id - ID of container where Editor's saved data will be shown
    * @property {function} writingSettings.onChange - Modifications callback for the Editor
    */
@@ -3315,9 +3315,7 @@ function () {
       this.loadEditor(writingSettings).then(function (editor) {
         _this.editor = editor;
 
-        _this.prepareEditor(writingSettings);
-
-        _this.preparePreview(writingSettings);
+        _this.preparePreview(writingSettings.output_id);
       });
     }
   }, {
@@ -3336,38 +3334,29 @@ function () {
     }
     /**
      * When Editor is ready, preview JSON output with initial data
+     * @param outputId - container for Editor data output
      */
 
   }, {
-    key: "prepareEditor",
-    value: function prepareEditor() {
+    key: "preparePreview",
+    value: function preparePreview(outputId) {
       var _this2 = this;
 
       this.editor.editor.isReady.then(function () {
-        _this2.previewData();
+        /**
+         * Define container to output Editor saved data
+         * @type {HTMLElement}
+         */
+        _this2.nodes.outputWrapper = document.getElementById(outputId);
+
+        if (!_this2.nodes.outputWrapper) {
+          console.warn('Can\'t find output target with ID: «' + outputId + '»');
+        } else {
+          _this2.previewData();
+        }
       }).catch(function (reason) {
         console.log("CodeX Editor initialization failed because of ".concat(reason));
       });
-    }
-  }, {
-    key: "preparePreview",
-
-    /**
-     * Prepare node to output Editor data preview
-     * @param settings - settings for Editor data output
-     */
-    value: function preparePreview(settings) {
-      /**
-       * Define container to output Editor saved data
-       * @type {HTMLElement}
-       */
-      this.nodes.outputWrapper = document.getElementById(settings.output_id);
-
-      if (this.nodes.outputWrapper) {
-        console.log('Output target with ID: «' + settings.output_id + '» was initialized successfully');
-      } else {
-        console.warn('Can\'t find output target with ID: «' + settings.output_id + '»');
-      }
     }
     /**
      * Shows JSON output of editor saved data
