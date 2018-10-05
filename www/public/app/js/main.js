@@ -129,8 +129,8 @@ codex.codeStyling = require('./modules/codeStyling');
 codex.deeplinker = require('@codexteam/deeplinker');
 codex.pluginsFilter = require('./modules/pluginsFilter');
 
-import Writing from './modules/writing';
-codex.writing = new Writing();
+import EditorLanding from './modules/editorLanding';
+codex.editorLanding = new EditorLanding();
 
 
 module.exports = codex;

@@ -27,6 +27,7 @@ export default class Editor {
      * @param settings - Editor data settings
      * @param {Object[]} settings.blocks - Editor's blocks content
      * @param {function} settings.onChange - Modifications callback for the Editor
+     * @param {function} settings.onReady - Editor is ready callback
      */
     constructor(settings) {
 
@@ -89,6 +90,12 @@ export default class Editor {
             },
 
             onReady: () => {
+
+                if (settings.onReady instanceof Function) {
+
+                    settings.onReady();
+
+                }
 
                 this.focus();
 

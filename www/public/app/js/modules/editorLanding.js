@@ -8,7 +8,7 @@ const cPreview = require('../classes/cPreview');
 /**
  * Module for pages using Editor
  */
-export default class Writing {
+export default class EditorLanding {
 
     constructor() {
 
@@ -30,20 +30,29 @@ export default class Writing {
     }
 
     /**
-     * @typedef {Object} writingSettings - Writing class settings for the Editor
-     * @property {String} writingSettings.output_id - ID of container where Editor's saved data will be shown
-     * @property {function} writingSettings.onChange - Modifications callback for the Editor
+     * @typedef {Object} editorLandingSettings - Editor landing class settings
+     * @property {String} editorLandingSettings.output_id - ID of container where Editor's saved data will be shown
+     * @property {function} editorLandingSettings.onChange - Modifications callback for the Editor
      */
 
     /**
      * Initialization. Called by Module Dispatcher
      */
-    init(writingSettings) {
+    init(editorLandingSettings) {
 
         /**
          * Bind onchange callback to preview JSON data
          */
-        writingSettings.onChange = () => {
+        editorLandingSettings.onChange = () => {
+
+            this.previewData();
+
+        };
+
+        /**
+         * When Editor is ready, preview JSON output with initial data
+         */
+        editorLandingSettings.onReady = () => {
 
             this.previewData();
 
@@ -53,19 +62,27 @@ export default class Writing {
          * Prepare node to output Editor data preview
          * @type {HTMLElement} - JSON preview container
          */
-        this.nodes.outputWrapper = document.getElementById(writingSettings.output_id);
+        this.nodes.outputWrapper = document.getElementById(editorLandingSettings.output_id);
 
         if (!this.nodes.outputWrapper) {
 
-            console.warn('Can\'t find output target with ID: «' + writingSettings.output_id + '»');
+            console.warn('Can\'t find output target with ID: «' + editorLandingSettings.output_id + '»');
 
         }
 
-        this.loadEditor(writingSettings).then((editor) => {
+        /**
+         * Settings for Editor class
+         * @type {{blocks: Object[], onChange: {function}, onReady: {function}}}
+         */
+        let editorSettings = {
+            blocks: editorLandingSettings.blocks,
+            onChange: editorLandingSettings.onChange,
+            onReady: editorLandingSettings.onReady
+        };
+
+        this.loadEditor(editorSettings).then((editor) => {
 
             this.editor = editor;
-
-            this.prepareEditor(writingSettings);
 
         });
 
@@ -86,25 +103,6 @@ export default class Writing {
             });
 
     }
-
-    /**
-     * When Editor is ready, preview JSON output with initial data
-     */
-    prepareEditor() {
-
-        this.editor.editor.isReady
-            .then(() => {
-
-                this.previewData();
-
-            })
-            .catch((reason) => {
-
-                console.log(`CodeX Editor initialization failed because of ${reason}`);
-
-            });
-
-    };
 
     /**
      * Shows JSON output of editor saved data

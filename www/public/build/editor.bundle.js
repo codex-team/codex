@@ -2318,6 +2318,7 @@ function () {
    * @param settings - Editor data settings
    * @param {Object[]} settings.blocks - Editor's blocks content
    * @param {function} settings.onChange - Modifications callback for the Editor
+   * @param {function} settings.onReady - Editor is ready callback
    */
   function Editor(settings) {
     var _this = this;
@@ -2377,6 +2378,10 @@ function () {
         }
       },
       onReady: function onReady() {
+        if (settings.onReady instanceof Function) {
+          settings.onReady();
+        }
+
         _this.focus();
       }
     });

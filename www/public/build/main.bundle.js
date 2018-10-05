@@ -332,9 +332,9 @@ var _moduleDispatcher = __webpack_require__(/*! module-dispatcher */ "./node_mod
 
 var _moduleDispatcher2 = _interopRequireDefault(_moduleDispatcher);
 
-var _writing = __webpack_require__(/*! ./modules/writing */ "./public/app/js/modules/writing.js");
+var _editorLanding = __webpack_require__(/*! ./modules/editorLanding */ "./public/app/js/modules/editorLanding.js");
 
-var _writing2 = _interopRequireDefault(_writing);
+var _editorLanding2 = _interopRequireDefault(_editorLanding);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -452,7 +452,7 @@ codex.vkWidget = __webpack_require__(/*! ./modules/vkWidget */ "./public/app/js/
 codex.codeStyling = __webpack_require__(/*! ./modules/codeStyling */ "./public/app/js/modules/codeStyling.js");
 codex.deeplinker = __webpack_require__(/*! @codexteam/deeplinker */ "./node_modules/@codexteam/deeplinker/dist/deeplinker.js");
 codex.pluginsFilter = __webpack_require__(/*! ./modules/pluginsFilter */ "./public/app/js/modules/pluginsFilter.js");
-codex.writing = new _writing2.default();
+codex.editorLanding = new _editorLanding2.default();
 module.exports = codex;
 
 /***/ }),
@@ -1345,6 +1345,149 @@ module.exports = function (settings) {
     return false;
   };
 };
+
+/***/ }),
+
+/***/ "./public/app/js/modules/editorLanding.js":
+/*!************************************************!*\
+  !*** ./public/app/js/modules/editorLanding.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/**
+ * Module to compose output JSON preview
+ */
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var cPreview = __webpack_require__(/*! ../classes/cPreview */ "./public/app/js/classes/cPreview.js");
+/**
+ * Module for pages using Editor
+ */
+
+
+var EditorLanding =
+/*#__PURE__*/
+function () {
+  function EditorLanding() {
+    _classCallCheck(this, EditorLanding);
+
+    /**
+     * Editor class Instance
+     */
+    this.editor = null;
+    /**
+     * DOM elements
+     */
+
+    this.nodes = {
+      /**
+      * Container to output saved Editor data
+      */
+      outputWrapper: null
+    };
+  }
+  /**
+   * @typedef {Object} editorLandingSettings - Editor landing class settings
+   * @property {String} editorLandingSettings.output_id - ID of container where Editor's saved data will be shown
+   * @property {function} editorLandingSettings.onChange - Modifications callback for the Editor
+   */
+
+  /**
+   * Initialization. Called by Module Dispatcher
+   */
+
+
+  _createClass(EditorLanding, [{
+    key: "init",
+    value: function init(editorLandingSettings) {
+      var _this = this;
+
+      /**
+       * Bind onchange callback to preview JSON data
+       */
+      editorLandingSettings.onChange = function () {
+        _this.previewData();
+      };
+      /**
+       * When Editor is ready, preview JSON output with initial data
+       */
+
+
+      editorLandingSettings.onReady = function () {
+        _this.previewData();
+      };
+      /**
+       * Prepare node to output Editor data preview
+       * @type {HTMLElement} - JSON preview container
+       */
+
+
+      this.nodes.outputWrapper = document.getElementById(editorLandingSettings.output_id);
+
+      if (!this.nodes.outputWrapper) {
+        console.warn('Can\'t find output target with ID: «' + editorLandingSettings.output_id + '»');
+      }
+      /**
+       * Settings for Editor class
+       * @type {{blocks: Object[], onChange: {function}, onReady: {function}}}
+       */
+
+
+      var editorSettings = {
+        blocks: editorLandingSettings.blocks,
+        onChange: editorLandingSettings.onChange,
+        onReady: editorLandingSettings.onReady
+      };
+      this.loadEditor(editorSettings).then(function (editor) {
+        _this.editor = editor;
+      });
+    }
+  }, {
+    key: "loadEditor",
+
+    /**
+     * Load Editor from separate chunk
+     * @param settings - settings for Editor initialization
+     * @return {Promise<Editor>} - CodeX Editor promise
+     */
+    value: function loadEditor(settings) {
+      return __webpack_require__.e(/*! import() | editor */ "editor").then(__webpack_require__.t.bind(null, /*! classes/editor */ "./public/app/js/classes/editor.js", 7)).then(function (_ref) {
+        var Editor = _ref.default;
+        return new Editor(settings);
+      });
+    }
+    /**
+     * Shows JSON output of editor saved data
+     */
+
+  }, {
+    key: "previewData",
+    value: function previewData() {
+      var _this2 = this;
+
+      this.editor.save().then(function (savedData) {
+        cPreview.show(savedData, _this2.nodes.outputWrapper);
+      });
+    }
+  }]);
+
+  return EditorLanding;
+}();
+
+exports.default = EditorLanding;
+;
 
 /***/ }),
 
@@ -3236,148 +3379,6 @@ var vkWidget = function () {
 }({});
 
 module.exports = vkWidget;
-
-/***/ }),
-
-/***/ "./public/app/js/modules/writing.js":
-/*!******************************************!*\
-  !*** ./public/app/js/modules/writing.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-/**
- * Module to compose output JSON preview
- */
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var cPreview = __webpack_require__(/*! ../classes/cPreview */ "./public/app/js/classes/cPreview.js");
-/**
- * Module for pages using Editor
- */
-
-
-var Writing =
-/*#__PURE__*/
-function () {
-  function Writing() {
-    _classCallCheck(this, Writing);
-
-    /**
-     * Editor class Instance
-     */
-    this.editor = null;
-    /**
-     * DOM elements
-     */
-
-    this.nodes = {
-      /**
-      * Container to output saved Editor data
-      */
-      outputWrapper: null
-    };
-  }
-  /**
-   * @typedef {Object} writingSettings - Writing class settings for the Editor
-   * @property {String} writingSettings.output_id - ID of container where Editor's saved data will be shown
-   * @property {function} writingSettings.onChange - Modifications callback for the Editor
-   */
-
-  /**
-   * Initialization. Called by Module Dispatcher
-   */
-
-
-  _createClass(Writing, [{
-    key: "init",
-    value: function init(writingSettings) {
-      var _this = this;
-
-      /**
-       * Bind onchange callback to preview JSON data
-       */
-      writingSettings.onChange = function () {
-        _this.previewData();
-      };
-      /**
-       * Prepare node to output Editor data preview
-       * @type {HTMLElement} - JSON preview container
-       */
-
-
-      this.nodes.outputWrapper = document.getElementById(writingSettings.output_id);
-
-      if (!this.nodes.outputWrapper) {
-        console.warn('Can\'t find output target with ID: «' + writingSettings.output_id + '»');
-      }
-
-      this.loadEditor(writingSettings).then(function (editor) {
-        _this.editor = editor;
-
-        _this.prepareEditor(writingSettings);
-      });
-    }
-  }, {
-    key: "loadEditor",
-
-    /**
-     * Load Editor from separate chunk
-     * @param settings - settings for Editor initialization
-     * @return {Promise<Editor>} - CodeX Editor promise
-     */
-    value: function loadEditor(settings) {
-      return __webpack_require__.e(/*! import() | editor */ "editor").then(__webpack_require__.t.bind(null, /*! classes/editor */ "./public/app/js/classes/editor.js", 7)).then(function (_ref) {
-        var Editor = _ref.default;
-        return new Editor(settings);
-      });
-    }
-    /**
-     * When Editor is ready, preview JSON output with initial data
-     */
-
-  }, {
-    key: "prepareEditor",
-    value: function prepareEditor() {
-      var _this2 = this;
-
-      this.editor.editor.isReady.then(function () {
-        _this2.previewData();
-      }).catch(function (reason) {
-        console.log("CodeX Editor initialization failed because of ".concat(reason));
-      });
-    }
-  }, {
-    key: "previewData",
-
-    /**
-     * Shows JSON output of editor saved data
-     */
-    value: function previewData() {
-      var _this3 = this;
-
-      this.editor.save().then(function (savedData) {
-        cPreview.show(savedData, _this3.nodes.outputWrapper);
-      });
-    }
-  }]);
-
-  return Writing;
-}();
-
-exports.default = Writing;
-;
 
 /***/ })
 
