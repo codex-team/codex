@@ -1,6 +1,5 @@
 {
     /** Enable ES6 features */
-    "parser": "babel-eslint",
     "parserOptions": {
         "ecmaVersion": 6,
         "sourceType": "module"

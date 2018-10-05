@@ -12,11 +12,14 @@ export default class Writing {
 
     constructor() {
 
+        /**
+         * CodeX Editor Instance
+         */
         this.editor = null;
 
         /**
-        * DOM elements
-        */
+         * DOM elements
+         */
         this.nodes = {
             /**
             * Container to output saved Editor data
@@ -27,9 +30,9 @@ export default class Writing {
     }
 
     /**
-     * @typedef {Object} writingSettings - Writing settings for CodeX Editor
-     * @param {String} writingSettings.output_id - ID of container where Editor's saved data will be shown
-     * @param {function} writingSettings.onChange - Modifications callback for the Editor
+     * @typedef {Object} writingSettings - Settings for Editor on landing page
+     * @property {String} writingSettings.output_id - ID of container where Editor's saved data will be shown
+     * @property {function} writingSettings.onChange - Modifications callback for the Editor
      */
 
     /**
@@ -60,7 +63,8 @@ export default class Writing {
 
     /**
      * Load Editor from separate chunk
-     * @return {Promise<{default: *} | never>} - CodeX Editor instance
+     * @param settings - settings for Editor initialization
+     * @return {Promise<Editor>} - CodeX Editor promise
      */
     loadEditor(settings) {
 
@@ -92,6 +96,10 @@ export default class Writing {
 
     };
 
+    /**
+     * Prepare node to output Editor data preview
+     * @param settings - settings for Editor data output
+     */
     preparePreview(settings) {
 
         /**

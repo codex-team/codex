@@ -3274,10 +3274,13 @@ function () {
   function Writing() {
     _classCallCheck(this, Writing);
 
+    /**
+     * CodeX Editor Instance
+     */
     this.editor = null;
     /**
-    * DOM elements
-    */
+     * DOM elements
+     */
 
     this.nodes = {
       /**
@@ -3287,9 +3290,9 @@ function () {
     };
   }
   /**
-   * @typedef {Object} writingSettings - Writing settings for CodeX Editor
-   * @param {String} writingSettings.output_id - ID of container where Editor's saved data will be shown
-   * @param {function} writingSettings.onChange - Modifications callback for the Editor
+   * @typedef {Object} writingSettings - Settings for Editor on landing page
+   * @property {String} writingSettings.output_id - ID of container where Editor's saved data will be shown
+   * @property {function} writingSettings.onChange - Modifications callback for the Editor
    */
 
   /**
@@ -3322,7 +3325,8 @@ function () {
 
     /**
      * Load Editor from separate chunk
-     * @return {Promise<{default: *} | never>} - CodeX Editor instance
+     * @param settings - settings for Editor initialization
+     * @return {Promise<Editor>} - CodeX Editor promise
      */
     value: function loadEditor(settings) {
       return __webpack_require__.e(/*! import() | editor */ "editor").then(__webpack_require__.t.bind(null, /*! classes/editor */ "./public/app/js/classes/editor.js", 7)).then(function (_ref) {
@@ -3347,6 +3351,11 @@ function () {
     }
   }, {
     key: "preparePreview",
+
+    /**
+     * Prepare node to output Editor data preview
+     * @param settings - settings for Editor data output
+     */
     value: function preparePreview(settings) {
       /**
        * Define container to output Editor saved data
