@@ -41,24 +41,6 @@ export default class EditorLanding {
     init(editorLandingSettings) {
 
         /**
-         * Bind onchange callback to preview JSON data
-         */
-        editorLandingSettings.onChange = () => {
-
-            this.previewData();
-
-        };
-
-        /**
-         * When Editor is ready, preview JSON output with initial data
-         */
-        editorLandingSettings.onReady = () => {
-
-            this.previewData();
-
-        };
-
-        /**
          * Prepare node to output Editor data preview
          * @type {HTMLElement} - JSON preview container
          */
@@ -76,8 +58,22 @@ export default class EditorLanding {
          */
         let editorSettings = {
             blocks: editorLandingSettings.blocks,
-            onChange: editorLandingSettings.onChange,
-            onReady: editorLandingSettings.onReady
+            /**
+             * Bind onchange callback to preview JSON data
+             */
+            onChange: () => {
+
+                this.previewData();
+
+            },
+            /**
+             * When Editor is ready, preview JSON output with initial data
+             */
+            onReady: () => {
+
+                this.previewData();
+
+            }
         };
 
         this.loadEditor(editorSettings).then((editor) => {

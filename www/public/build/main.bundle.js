@@ -1415,25 +1415,9 @@ function () {
       var _this = this;
 
       /**
-       * Bind onchange callback to preview JSON data
-       */
-      editorLandingSettings.onChange = function () {
-        _this.previewData();
-      };
-      /**
-       * When Editor is ready, preview JSON output with initial data
-       */
-
-
-      editorLandingSettings.onReady = function () {
-        _this.previewData();
-      };
-      /**
        * Prepare node to output Editor data preview
        * @type {HTMLElement} - JSON preview container
        */
-
-
       this.nodes.outputWrapper = document.getElementById(editorLandingSettings.output_id);
 
       if (!this.nodes.outputWrapper) {
@@ -1447,8 +1431,20 @@ function () {
 
       var editorSettings = {
         blocks: editorLandingSettings.blocks,
-        onChange: editorLandingSettings.onChange,
-        onReady: editorLandingSettings.onReady
+
+        /**
+         * Bind onchange callback to preview JSON data
+         */
+        onChange: function onChange() {
+          _this.previewData();
+        },
+
+        /**
+         * When Editor is ready, preview JSON output with initial data
+         */
+        onReady: function onReady() {
+          _this.previewData();
+        }
       };
       this.loadEditor(editorSettings).then(function (editor) {
         _this.editor = editor;
