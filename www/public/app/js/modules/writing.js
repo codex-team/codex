@@ -15,12 +15,12 @@ export default class Writing {
         this.editor = null;
 
         /**
-         * DOM elements
-         */
+        * DOM elements
+        */
         this.nodes = {
             /**
-             * Container to output saved Editor data
-             */
+            * Container to output saved Editor data
+            */
             outputWrapper: null
         };
 
@@ -28,23 +28,31 @@ export default class Writing {
 
     /**
      * @typedef {Object} writingSettings - Writing settings for CodeX Editor
-     * @param {String} settings.output_id - ID of container where Editor's saved data will be shown
+     * @param {String} writingSettings.output_id - ID of container where Editor's saved data will be shown
+     * @param {function} writingSettings.onChange - Modifications callback for the Editor
      */
 
     /**
      * Initialization. Called by Module Dispatcher
      */
-    init(settings) {
+    init(writingSettings) {
 
-        this.loadEditor().then((editor) => {
+        /**
+         * Bind onchange callback to preview JSON data
+         */
+        writingSettings.onChange = () => {
+
+            this.previewData();
+
+        };
+
+        this.loadEditor(writingSettings).then((editor) => {
 
             this.editor = editor;
 
-            this.editor.init(settings);
+            this.prepareEditor(writingSettings);
 
-            this.prepareEditor(settings);
-
-            this.preparePreview(settings);
+            this.preparePreview(writingSettings);
 
         });
 
@@ -54,12 +62,12 @@ export default class Writing {
      * Load Editor from separate chunk
      * @return {Promise<{default: *} | never>} - CodeX Editor instance
      */
-    loadEditor() {
+    loadEditor(settings) {
 
         return import(/* webpackChunkName: "editor" */ 'classes/editor')
             .then(({default: Editor}) => {
 
-                return new Editor();
+                return new Editor(settings);
 
             });
 

@@ -2313,94 +2313,93 @@ var List = __webpack_require__(/*! codex.editor.list */ "./node_modules/codex.ed
 var Editor =
 /*#__PURE__*/
 function () {
-  function Editor() {
+  /**
+   * Initialize Editor
+   * @param settings - Editor data settings
+   * @param {Object[]} settings.blocks - Editor's blocks content
+   * @param {function} settings.onChange - Modifications callback for the Editor
+   */
+  function Editor(settings) {
+    var _this = this;
+
     _classCallCheck(this, Editor);
+
+    /**
+     * CodeX Editor instance
+     * @type {CodexEditor|null}
+     */
+    this.editor = null;
+    /**
+     * Define content of Editor's blocks
+     * @type {Object|{blocks}}
+     */
+
+    var editorData = settings.blocks || this.defaultEditorData();
+    /**
+     * Instantiate new CodeX Editor with set of Tools
+     */
+
+    this.editor = new CodexEditor({
+      tools: {
+        image: SimpleImage,
+        header: {
+          class: Header,
+          inlineToolbar: ['link', 'marker']
+        },
+        list: {
+          class: List,
+          inlineToolbar: true
+        },
+        quote: {
+          class: Quote,
+          inlineToolbar: true
+        },
+        code: {
+          class: CodeTool,
+          shortcut: 'CMD+SHIFT+D'
+        },
+        inlineCode: {
+          class: InlineCode,
+          shortcut: 'CMD+SHIFT+C'
+        },
+        marker: {
+          class: Marker,
+          shortcut: 'CMD+SHIFT+M'
+        },
+        delimiter: Delimiter
+      },
+      data: {
+        blocks: editorData
+      },
+      onChange: function onChange() {
+        if (settings.onChange instanceof Function) {
+          settings.onChange();
+        }
+      },
+      onReady: function onReady() {
+        _this.focus();
+      }
+    });
   }
+  /**
+   * Return Editor data
+   * @return {Promise.<{}>}
+   */
+
 
   _createClass(Editor, [{
-    key: "init",
-
-    /**
-     * Initialize Editor
-     * @param settings - Editor data settings
-     * @param {Object[]} settings.blocks - Editor's blocks content
-     * @param {String} settings.target_click_node - Editor's node to focus on
-     */
-    value: function init(settings) {
-      var _this = this;
-
-      /**
-       * CodeX Editor instance
-       * @type {CodexEditor|null}
-       */
-      this.editor = null;
-      /**
-       * Define content of Editor's blocks
-       * @type {Object|{blocks}}
-       */
-
-      var editorData = settings.blocks || this.defaultEditorData();
-      /**
-       * Instantiate new CodeX Editor with set of Tools
-       */
-
-      this.editor = new CodexEditor({
-        tools: {
-          image: SimpleImage,
-          header: {
-            class: Header,
-            inlineToolbar: ['link', 'marker']
-          },
-          list: {
-            class: List,
-            inlineToolbar: true
-          },
-          quote: {
-            class: Quote,
-            inlineToolbar: true
-          },
-          code: {
-            class: CodeTool,
-            shortcut: 'CMD+SHIFT+D'
-          },
-          inlineCode: {
-            class: InlineCode,
-            shortcut: 'CMD+SHIFT+C'
-          },
-          marker: {
-            class: Marker,
-            shortcut: 'CMD+SHIFT+M'
-          },
-          delimiter: Delimiter
-        },
-        data: {
-          blocks: editorData
-        },
-        onChange: function onChange() {},
-        onReady: function onReady() {
-          _this.focus(settings.target_click_node);
-        }
-      });
-    }
-  }, {
     key: "save",
-
-    /**
-     * Return Editor data
-     * @return {Promise.<{}>}
-     */
     value: function save() {
       return this.editor.saver.save();
     }
     /**
-     * Focus on Editor after it has loaded
-     * @param {String} editorNode - node of Editor to click on
+     * Click on Editor's node to focus after Editor has loaded
      */
 
   }, {
     key: "focus",
-    value: function focus(editorNode) {
-      document.querySelector(editorNode).click();
+    value: function focus() {
+      document.querySelector('.codex-editor__redactor').click();
     }
     /**
      * Define default Editor's data if none was passed

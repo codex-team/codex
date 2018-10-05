@@ -53,8 +53,7 @@
                         }
                     }
                 ],
-                "output_id" : "output",
-                "target_click_node" : ".codex-editor__redactor"
+                "output_id" : "output"
             }
         </module-settings>
 

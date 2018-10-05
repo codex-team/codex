@@ -3276,19 +3276,20 @@ function () {
 
     this.editor = null;
     /**
-     * DOM elements
-     */
+    * DOM elements
+    */
 
     this.nodes = {
       /**
-       * Container to output saved Editor data
-       */
+      * Container to output saved Editor data
+      */
       outputWrapper: null
     };
   }
   /**
    * @typedef {Object} writingSettings - Writing settings for CodeX Editor
-   * @param {String} settings.output_id - ID of container where Editor's saved data will be shown
+   * @param {String} writingSettings.output_id - ID of container where Editor's saved data will be shown
+   * @param {function} writingSettings.onChange - Modifications callback for the Editor
    */
 
   /**
@@ -3298,17 +3299,22 @@ function () {
 
   _createClass(Writing, [{
     key: "init",
-    value: function init(settings) {
+    value: function init(writingSettings) {
       var _this = this;
 
-      this.loadEditor().then(function (editor) {
+      /**
+       * Bind onchange callback to preview JSON data
+       */
+      writingSettings.onChange = function () {
+        _this.previewData();
+      };
+
+      this.loadEditor(writingSettings).then(function (editor) {
         _this.editor = editor;
 
-        _this.editor.init(settings);
+        _this.prepareEditor(writingSettings);
 
-        _this.prepareEditor(settings);
-
-        _this.preparePreview(settings);
+        _this.preparePreview(writingSettings);
       });
     }
   }, {
@@ -3318,10 +3324,10 @@ function () {
      * Load Editor from separate chunk
      * @return {Promise<{default: *} | never>} - CodeX Editor instance
      */
-    value: function loadEditor() {
+    value: function loadEditor(settings) {
       return __webpack_require__.e(/*! import() | editor */ "editor").then(__webpack_require__.t.bind(null, /*! classes/editor */ "./public/app/js/classes/editor.js", 7)).then(function (_ref) {
         var Editor = _ref.default;
-        return new Editor();
+        return new Editor(settings);
       });
     }
     /**

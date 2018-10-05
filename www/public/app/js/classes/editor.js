@@ -26,9 +26,9 @@ export default class Editor {
      * Initialize Editor
      * @param settings - Editor data settings
      * @param {Object[]} settings.blocks - Editor's blocks content
-     * @param {String} settings.target_click_node - Editor's node to focus on
+     * @param {function} settings.onChange - Modifications callback for the Editor
      */
-    init(settings) {
+    constructor(settings) {
 
         /**
          * CodeX Editor instance
@@ -80,16 +80,22 @@ export default class Editor {
 
             onChange: () => {
 
+                if (settings.onChange instanceof Function) {
+
+                    settings.onChange();
+
+                }
+
             },
 
             onReady: () => {
 
-                this.focus(settings.target_click_node);
+                this.focus();
 
             }
         });
 
-    };
+    }
 
     /**
      * Return Editor data
@@ -102,12 +108,11 @@ export default class Editor {
     }
 
     /**
-     * Focus on Editor after it has loaded
-     * @param {String} editorNode - node of Editor to click on
+     * Click on Editor's node to focus after Editor has loaded
      */
-    focus(editorNode) {
+    focus() {
 
-        document.querySelector(editorNode).click();
+        document.querySelector('.codex-editor__redactor').click();
 
     }
 
