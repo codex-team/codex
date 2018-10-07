@@ -1,3 +1,8 @@
+/**
+ * Import Dispatcher for Frontend Modules initialization
+ */
+import moduleDispatcher from 'module-dispatcher';
+
 require('../css/main.css');
 
 /**
@@ -24,48 +29,66 @@ var codex = (function (codex_) {
 
         }
 
-        codex.scrollUp.init();
+        codex.docReady(function () {
 
-        /**
-         * Find elements with "deeplinker" class and add click listener
-         *
-         * @param {string} selector
-         */
-        codex.deeplinker.init('.deeplinker');
+            initModules();
 
-        codex.codeStyling.init('.article-code__content');
-
-        codex.vkWidget.init({
-            id: 'vk_groups',
-            display: {
-                'mode': 3,
-                'width': 'auto'
-            },
-            communityId: VK_COMMUNITY_ID
         });
-
-        /**
-         * Acitve play-video buttons
-         */
-        let playVideoButton = document.querySelector('[name="js-show-player"]');
-
-        if (playVideoButton) {
-
-            const Player = require('./modules/player').default;
-
-            new Player({
-                sourceURL: 'public/app/img/products/ar-tester.mp4',
-                toggler: playVideoButton,
-                wrapperSelector : '.product-card--ar-tester'
-            });
-
-        }
 
     };
 
     return codex_;
 
 })({});
+
+/**
+ * Function responsible for modules initialization
+ * Called no earlier than document is ready
+ */
+function initModules() {
+
+    new moduleDispatcher({
+        Library : codex
+    });
+
+    codex.scrollUp.init();
+
+    /**
+     * Find elements with "deeplinker" class and add click listener
+     *
+     * @param {string} selector
+     */
+    codex.deeplinker.init('.deeplinker');
+
+    codex.codeStyling.init('.article-code__content');
+
+    codex.vkWidget.init({
+        id: 'vk_groups',
+        display: {
+            'mode': 3,
+            'width': 'auto'
+        },
+        communityId: VK_COMMUNITY_ID
+    });
+
+    /**
+     * Acitve play-video buttons
+     */
+    let playVideoButton = document.querySelector('[name="js-show-player"]');
+
+    if (playVideoButton) {
+
+        const Player = require('./modules/player').default;
+
+        new Player({
+            sourceURL: 'public/app/img/products/ar-tester.mp4',
+            toggler: playVideoButton,
+            wrapperSelector : '.product-card--ar-tester'
+        });
+
+    }
+
+}
 
 /**
 * Document ready event listener
@@ -104,6 +127,11 @@ codex.transport = require('./modules/transport');
 codex.vkWidget = require('./modules/vkWidget');
 codex.codeStyling = require('./modules/codeStyling');
 codex.deeplinker = require('@codexteam/deeplinker');
+codex.pluginsFilter = require('./modules/pluginsFilter');
+
+import EditorLanding from './modules/editorLanding';
+codex.editorLanding = new EditorLanding();
+
 
 module.exports = codex;
 

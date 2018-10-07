@@ -1,4 +1,4 @@
-<link type="text/css" href="/public/build/bundle.css?v=<?= filemtime("public/build/bundle.css") ?>" rel="stylesheet" />
+<link type="text/css" href="/public/build/main.css?v=<?= filemtime("public/build/main.css") ?>" rel="stylesheet" />
 
 <div class="center_side clear">
     <form class="quiz-form" name="quizForm" method="POST">

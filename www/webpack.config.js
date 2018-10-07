@@ -1,4 +1,4 @@
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // const webpack = require('webpack');
 const path = require('path');
 
@@ -8,7 +8,9 @@ module.exports = {
 
     output: {
         path: path.resolve(__dirname, 'public', 'build'),
-        filename: 'bundle.js',
+        publicPath: "/public/build/",
+        filename: '[name].bundle.js',
+        chunkFilename: '[name].bundle.js',
         library: 'codex'
     },
 
@@ -25,7 +27,15 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: ExtractTextPlugin.extract([
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            // you can specify a publicPath here
+                            // by default it use publicPath in webpackOptions.output
+                            publicPath: '../'
+                        }
+                    },
                     {
                         loader: 'css-loader',
                         options: {
@@ -34,7 +44,7 @@ module.exports = {
                         }
                     },
                     'postcss-loader'
-                ])
+                ]
             },
             {
                 test: /\.js$/,
@@ -44,7 +54,14 @@ module.exports = {
                     {
                         loader: 'babel-loader',
                         options: {
-                            presets: [ 'env' ]
+                            cacheDirectory: '.cache/babel-loader',
+                            presets: [
+                                '@babel/preset-env',
+                            ],
+                            plugins: [
+                                'babel-plugin-transform-es2015-modules-commonjs',
+                                '@babel/plugin-syntax-dynamic-import'
+                            ]
                         }
                     },
                     /** ES lint For webpack build */
@@ -59,17 +76,26 @@ module.exports = {
         ]},
 
     plugins: [
-        new ExtractTextPlugin('bundle.css')
+        new MiniCssExtractPlugin({
+            // Options similar to the same options in webpackOptions.output
+            filename: "[name].css",
+        })
     ],
+
+    resolve: {
+        alias: {
+            classes: path.resolve(__dirname, 'public/app/js/classes'),
+        },
+    },
     
     /**
      * Optimization params
      */
     optimization: {
         noEmitOnErrors: true,
-        splitChunks: false,
-        minimize: true
+        minimize: false,
+        splitChunks: false
     },
 
-    devtool: 'source-map'
+    devtool: 'none'
 };

@@ -21,7 +21,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="format-detection" content="telephone=no">
 
-    <link rel="stylesheet" href="/public/build/bundle.css?v=<?= filemtime('public/build/bundle.css') ?>">
+    <link rel="stylesheet" href="/public/build/main.css?v=<?= filemtime('public/build/main.css') ?>">
     <link rel="icon" type="image/png" href="/public/app/img/fav_shield@3x.png?v=985" id="favicon" />
 
     <meta name="telegram:channel" content="@codex_team">
@@ -36,7 +36,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
     <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/apple-touch-icon-180x180.png" />
 
-    <script src="/public/build/bundle.js?v=<?= filemtime('public/build/bundle.js') ?>"></script>
+    <script src="/public/build/main.bundle.js?v=<?= filemtime('public/build/main.bundle.js') ?>"></script>
 
     <? if (!empty($_SERVER['HAWK_TOKEN'])): ?>
         <script src="https://cdn.rawgit.com/codex-team/hawk.client/5f545116/hawk.js" onload="hawk.init('<?= $_SERVER['HAWK_TOKEN'] ?>')"></script>
