@@ -1,5 +1,5 @@
 <div class="product-card product-card--bot">
-    <a class="product-card__title" href="https://ifmo.su/editor">
+    <a class="product-card__title" href="/editor">
         CodeX Editor
     </a>
     <div class="product-card__caption">
