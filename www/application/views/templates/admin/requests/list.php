@@ -18,6 +18,9 @@
                     </tr>
                 <? endif;?>
                     <tr>
+                        <td style="color: #b2b3c0">
+                            <?= $request['id']; ?>
+                        </td>
                         <td width="40" >
                             <div class="p_rel">
                                 <div class="list_user_ava">
