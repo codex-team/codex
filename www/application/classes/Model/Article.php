@@ -469,4 +469,18 @@ class Model_Article extends Model
 
         return array_slice($mostPopularArticles, 0, $numberOfArticles);
     }
+
+    /**
+     *
+     *
+     * @return string
+     */
+    public static function getEditorConfig()
+    {
+        try {
+            return file_get_contents(APPPATH . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'editorjs-config.json');
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
 }

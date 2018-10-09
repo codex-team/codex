@@ -1,6 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-use \CodexEditor\CodexEditor;
+use \EditorJS\EditorJS;
+use \EditorJS\EditorJSException;
 
 class Controller_Articles_Modify extends Controller_Base_preDispatch
 {
@@ -50,8 +51,12 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
 
         $pageContent = Arr::get($_POST, 'article_text', '');
         try {
-            $editor = new CodexEditor($pageContent);
-        } catch (Kohana_Exception $e) {
+            $editor = new EditorJS($pageContent, Model_Article::getEditorConfig());
+        }
+        catch (EditorJSException $e) {
+            throw new EditorJSException($e->getMessage());
+        }
+        catch (Kohana_Exception $e) {
             throw new Kohana_Exception($e->getMessage());
         }
 
@@ -60,7 +65,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         $article->is_big_cover = (int) Arr::get($_POST, 'is_big_cover', 0);
         $article->title        = Arr::get($_POST, 'title');
         $article->description  = Arr::get($_POST, 'description');
-        $article->text         = $editor->getData();
+        $article->text         = $editor->getBlocks();
 
         $article->is_published = (int) Arr::get($_POST, 'is_published', 0);
         $article->marked       = (int) Arr::get($_POST, 'marked', 0);
