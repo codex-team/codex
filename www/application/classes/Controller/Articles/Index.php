@@ -1,6 +1,8 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 use \CodexEditor\CodexEditor;
+use EditorJS\EditorJS;
+use EditorJS\EditorJSException;
 use Opengraph\Meta;
 
 class Controller_Articles_Index extends Controller_Base_preDispatch
@@ -129,8 +131,10 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
     private function drawArticleBlocks($content)
     {
         try {
-            $editor = new CodexEditor($content);
+            $editor = new EditorJS($content, Model_Article::getEditorConfig());
             $blocks = $editor->getBlocks();
+        } catch (EditorJSException $e) {
+            throw new EditorJSException($e->getMessage());
         } catch (Kohana_Exception $e) {
             throw new Kohana_Exception($e->getMessage());
         }
