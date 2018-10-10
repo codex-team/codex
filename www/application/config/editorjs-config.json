@@ -38,9 +38,9 @@
       "caption": {
         "type": "string"
       },
-      "size": {
+      "alignment": {
         "type": "string",
-        "canBeOnly": ["left", "right"]
+        "canBeOnly": ["left", "center"]
       }
     }
   }

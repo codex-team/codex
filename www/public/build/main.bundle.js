@@ -336,6 +336,10 @@ var _editorLanding = __webpack_require__(/*! ./modules/editorLanding */ "./publi
 
 var _editorLanding2 = _interopRequireDefault(_editorLanding);
 
+var _editorWriting = __webpack_require__(/*! ./modules/editorWriting */ "./public/app/js/modules/editorWriting.js");
+
+var _editorWriting2 = _interopRequireDefault(_editorWriting);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -453,6 +457,7 @@ codex.codeStyling = __webpack_require__(/*! ./modules/codeStyling */ "./public/a
 codex.deeplinker = __webpack_require__(/*! @codexteam/deeplinker */ "./node_modules/@codexteam/deeplinker/dist/deeplinker.js");
 codex.pluginsFilter = __webpack_require__(/*! ./modules/pluginsFilter */ "./public/app/js/modules/pluginsFilter.js");
 codex.editorLanding = new _editorLanding2.default();
+codex.editorWriting = new _editorWriting2.default();
 module.exports = codex;
 
 /***/ }),
@@ -1483,6 +1488,85 @@ function () {
 }();
 
 exports.default = EditorLanding;
+;
+
+/***/ }),
+
+/***/ "./public/app/js/modules/editorWriting.js":
+/*!************************************************!*\
+  !*** ./public/app/js/modules/editorWriting.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/**
+ * Module for pages using Editor
+ */
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var EditorWriting =
+/*#__PURE__*/
+function () {
+  function EditorWriting() {
+    _classCallCheck(this, EditorWriting);
+
+    /**
+     * Editor class Instance
+     */
+    this.editor = null;
+  }
+  /**
+   * Initialization. Called by Module Dispatcher
+   */
+
+
+  _createClass(EditorWriting, [{
+    key: "init",
+    value: function init(editorWritingSettings) {
+      var _this = this;
+
+      /**
+       * Settings for Editor class
+       * @type {{blocks: Object[]}}
+       */
+      var editorSettings = {
+        blocks: editorWritingSettings.blocks
+      };
+      this.loadEditor(editorSettings).then(function (editor) {
+        _this.editor = editor;
+      });
+    }
+  }, {
+    key: "loadEditor",
+
+    /**
+     * Load Editor from separate chunk
+     * @param settings - settings for Editor initialization
+     * @return {Promise<Editor>} - CodeX Editor promise
+     */
+    value: function loadEditor(settings) {
+      return __webpack_require__.e(/*! import() | editor */ "editor").then(__webpack_require__.t.bind(null, /*! classes/editor */ "./public/app/js/classes/editor.js", 7)).then(function (_ref) {
+        var Editor = _ref.default;
+        return new Editor(settings);
+      });
+    }
+  }]);
+
+  return EditorWriting;
+}();
+
+exports.default = EditorWriting;
 ;
 
 /***/ }),
