@@ -50,6 +50,11 @@
       "code" : {
         "type" : "string"
       }
+    },
+    "rawTool" : {
+      "html" : {
+        "type" : "string"
+      }
     }
   }
 }
