@@ -42,6 +42,9 @@
         "type": "string",
         "canBeOnly": ["left", "center"]
       }
+    },
+    "delimiter" : {
+
     }
   }
 }
