@@ -120,7 +120,7 @@ module.exports = function (admin) {
 
         codex.core.log('Initialized.', 'Module admin');
 
-        if ( params.listType == 'cards' ) {
+        if ( params.listType === 'cards' ) {
 
             var items = document.querySelectorAll('.feed-item');
 
