@@ -1,7 +1,7 @@
 <div class="center_side">
 
     <? $link = ($mode == 'list')?'cards':'list' ?>
-    <div class="top-menu clearfix" data-module ="admin">
+    <div class="top-menu clearfix" data-module="admin">
         <module-settings hidden>
             {
                 "list" : "<?= $mode ?>"
