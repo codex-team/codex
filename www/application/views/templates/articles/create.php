@@ -193,6 +193,7 @@
             blocks : blocks
         };
 
+        /** Init editor with data */
         codex.editorWriting.init(articleSettings);
 
 
