@@ -718,11 +718,11 @@ module.exports = (function (quiz) {
      * Initialization function
      * Initializes quiz form: inserts initial DOM elements, sets initial event listeners, etc
      */
-    quiz.init = function (quizData) {
+    quiz.init = function (settings) {
 
-        if (quizData) {
+        if (settings.quizData) {
 
-            render(quizData);
+            render(settings.quizData);
             return;
 
         }

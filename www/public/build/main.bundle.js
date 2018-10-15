@@ -555,7 +555,7 @@ module.exports = function (admin) {
   admin.init = function (params) {
     codex.core.log('Initialized.', 'Module admin');
 
-    if (params.listType == 'cards') {
+    if (params.listType === 'cards') {
       var items = document.querySelectorAll('.feed-item');
 
       for (var i = items.length - 1; i > -1; i--) {
@@ -2085,17 +2085,18 @@ module.exports = function () {
   /**
    * Публичный метод init.
    *
-   * @param {object} quizDataInput  - объект с информацией о тесте
-   * @param {string} holder - id элемента, в который будет выводиться тест
+   * @param {Object} settings - настройки теста
+   * @param {Object} settings.quizDataInput - объект с информацией о тесте
+   * @param {string} settings.holder - id элемента, в который будет выводиться тест
    */
 
-  var init = function init(quizDataInput, holder) {
-    quizData = quizDataInput;
+  var init = function init(settings) {
+    quizData = settings.quizDataInput;
     numberOfQuestions = quizData.questions.length;
     currentQuestion = 0;
     score = 0;
     gameProcessing_.prepare();
-    UI_.prepare(holder);
+    UI_.prepare(settings.holder);
     UI_.setupQuestionInterface();
   };
 
@@ -2204,7 +2205,9 @@ module.exports = function () {
       retry.textContent = 'Пройти еще раз';
       retry.addEventListener('click', init.bind(null, quizData, UI_.holder.id));
       UI_.append([resultScore, resultMessage, social, retry]);
-      codex.sharer.init();
+      codex.sharer.init({
+        'buttonsSelector': '.but.vk, .but.fb, .but.tw, .but.tg'
+      });
     },
 
     /**
@@ -2947,9 +2950,9 @@ module.exports = function (quiz) {
    */
 
 
-  quiz.init = function (quizData) {
-    if (quizData) {
-      render(quizData);
+  quiz.init = function (settings) {
+    if (settings.quizData) {
+      render(settings.quizData);
       return;
     }
 
@@ -3093,13 +3096,14 @@ module.exports = function (sharer) {
   };
   /**
    * Init sharer
-   * @param  {String} buttonsSelector  - on wich elements should bind sharing
+   * @param {Object} settings
+   * @param {String} settings.buttonsSelector - button selector on which elements should bind sharing
    */
 
 
-  sharer.init = function (buttonsSelector) {
-    console.assert(buttonsSelector, 'Sharer: buttons selector is missed');
-    var shareButtons = document.querySelectorAll(buttonsSelector);
+  sharer.init = function (settings) {
+    console.assert(settings.buttonsSelector, 'Sharer: buttons selector is missed');
+    var shareButtons = document.querySelectorAll(settings.buttonsSelector);
 
     for (var i = shareButtons.length - 1; i >= 0; i--) {
       shareButtons[i].addEventListener('click', sharer.click, true);
