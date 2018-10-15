@@ -4,7 +4,12 @@
     $share['title'] =  HTML::chars($share['title']);
     $share['desc']  =  HTML::chars($share['desc']);
 ?>
-<div class="sharing">
+<div class="sharing" data-module="sharer">
+    <module-settings hidden>
+        {
+            "buttonsSelector" : ".sharing__main-button, .sharing__button"
+        }
+    </module-settings>
     <div class="sharing__offer">
         <?= $share['offer'] ?>
     </div>
@@ -22,6 +27,3 @@
         <i class="icon-paper-plane"></i>
     </span>
 </div>
-<script>
-    codex.sharer.init('.sharing__main-button, .sharing__button');
-</script>

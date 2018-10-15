@@ -1,5 +1,10 @@
 <div id="quiz"></div>
 
-<script>
-    codex.quiz.init( <?= $quizData; ?>, 'quiz');
-</script>
+<div data-module="quiz">
+    <module-settings hidden>
+        {
+            "quizDataInput" : <?= $quizData; ?>,
+            "holder" : "quiz"
+        }
+    </module-settings>
+</div>

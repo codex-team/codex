@@ -175,10 +175,10 @@
 
         <? endif ; ?>
 
-        <script type="text/javascript">
-            codex.docReady(function () {
-                codex.join.init();
-            });
-        </script>
+        <div data-module="join">
+            <module-settings hidden>
+                {}
+            </module-settings>
+        </div>
     </div>
 </div>
