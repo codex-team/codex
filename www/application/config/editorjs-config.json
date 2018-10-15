@@ -19,7 +19,7 @@
     "list": {
       "style": {
         "type": "string",
-        "canBeOnly": ["ordered", "numbered"]
+        "canBeOnly": ["ordered", "unordered"]
       },
       "items": {
         "type": "array",
