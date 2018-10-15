@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "22bdafd69f105b7c3de5f4847c40f8b2",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/codex-editor/editorjs-php.git",
-                "reference": "950d08fdaae8c16019c7bab755389bc844612826"
+                "reference": "08816813eeff7b17000b2eec15960d400a0aa9b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codex-editor/editorjs-php/zipball/950d08fdaae8c16019c7bab755389bc844612826",
-                "reference": "950d08fdaae8c16019c7bab755389bc844612826",
+                "url": "https://api.github.com/repos/codex-editor/editorjs-php/zipball/08816813eeff7b17000b2eec15960d400a0aa9b5",
+                "reference": "08816813eeff7b17000b2eec15960d400a0aa9b5",
                 "shasum": ""
             },
             "require": {
@@ -45,7 +45,7 @@
                 }
             ],
             "description": "PHP backend implementation for the Editor.js",
-            "time": "2018-10-15 16:35:01"
+            "time": "2018-10-15T20:49:03+00:00"
         },
         {
             "name": "codex-team/hawk.php",
@@ -212,7 +212,7 @@
             "keywords": [
                 "social-covers-generator"
             ],
-            "time": "2018-07-23 16:51:22"
+            "time": "2018-07-23T16:51:22+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",

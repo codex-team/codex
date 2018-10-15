@@ -55,7 +55,8 @@
     },
     "rawTool" : {
       "html" : {
-        "type" : "string"
+        "type" : "string",
+        "allowedTags": "*"
       }
     }
   }
