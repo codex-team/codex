@@ -336,6 +336,10 @@ var _editorLanding = __webpack_require__(/*! ./modules/editorLanding */ "./publi
 
 var _editorLanding2 = _interopRequireDefault(_editorLanding);
 
+var _editorWriting = __webpack_require__(/*! ./modules/editorWriting */ "./public/app/js/modules/editorWriting.js");
+
+var _editorWriting2 = _interopRequireDefault(_editorWriting);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -453,6 +457,7 @@ codex.codeStyling = __webpack_require__(/*! ./modules/codeStyling */ "./public/a
 codex.deeplinker = __webpack_require__(/*! @codexteam/deeplinker */ "./node_modules/@codexteam/deeplinker/dist/deeplinker.js");
 codex.pluginsFilter = __webpack_require__(/*! ./modules/pluginsFilter */ "./public/app/js/modules/pluginsFilter.js");
 codex.editorLanding = new _editorLanding2.default();
+codex.editorWriting = new _editorWriting2.default();
 module.exports = codex;
 
 /***/ }),
@@ -550,7 +555,7 @@ module.exports = function (admin) {
   admin.init = function (params) {
     codex.core.log('Initialized.', 'Module admin');
 
-    if (params.listType == 'cards') {
+    if (params.listType === 'cards') {
       var items = document.querySelectorAll('.feed-item');
 
       for (var i = items.length - 1; i > -1; i--) {
@@ -1487,6 +1492,85 @@ exports.default = EditorLanding;
 
 /***/ }),
 
+/***/ "./public/app/js/modules/editorWriting.js":
+/*!************************************************!*\
+  !*** ./public/app/js/modules/editorWriting.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/**
+ * Module for pages using Editor
+ */
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var EditorWriting =
+/*#__PURE__*/
+function () {
+  function EditorWriting() {
+    _classCallCheck(this, EditorWriting);
+
+    /**
+     * Editor class Instance
+     */
+    this.editor = null;
+  }
+  /**
+   * Initialization. Called by Module Dispatcher
+   */
+
+
+  _createClass(EditorWriting, [{
+    key: "init",
+    value: function init(editorWritingSettings) {
+      var _this = this;
+
+      /**
+       * Settings for Editor class
+       * @type {{blocks: Object[]}}
+       */
+      var editorSettings = {
+        blocks: editorWritingSettings.blocks
+      };
+      this.loadEditor(editorSettings).then(function (editor) {
+        _this.editor = editor;
+      });
+    }
+  }, {
+    key: "loadEditor",
+
+    /**
+     * Load Editor from separate chunk
+     * @param settings - settings for Editor initialization
+     * @return {Promise<Editor>} - CodeX Editor promise
+     */
+    value: function loadEditor(settings) {
+      return __webpack_require__.e(/*! import() | editor */ "editor").then(__webpack_require__.t.bind(null, /*! classes/editor */ "./public/app/js/classes/editor.js", 7)).then(function (_ref) {
+        var Editor = _ref.default;
+        return new Editor(settings);
+      });
+    }
+  }]);
+
+  return EditorWriting;
+}();
+
+exports.default = EditorWriting;
+;
+
+/***/ }),
+
 /***/ "./public/app/js/modules/helpers.js":
 /*!******************************************!*\
   !*** ./public/app/js/modules/helpers.js ***!
@@ -2001,17 +2085,18 @@ module.exports = function () {
   /**
    * Публичный метод init.
    *
-   * @param {object} quizDataInput  - объект с информацией о тесте
-   * @param {string} holder - id элемента, в который будет выводиться тест
+   * @param {Object} settings - настройки теста
+   * @param {Object} settings.quizDataInput - объект с информацией о тесте
+   * @param {string} settings.holder - id элемента, в который будет выводиться тест
    */
 
-  var init = function init(quizDataInput, holder) {
-    quizData = quizDataInput;
+  var init = function init(settings) {
+    quizData = settings.quizDataInput;
     numberOfQuestions = quizData.questions.length;
     currentQuestion = 0;
     score = 0;
     gameProcessing_.prepare();
-    UI_.prepare(holder);
+    UI_.prepare(settings.holder);
     UI_.setupQuestionInterface();
   };
 
@@ -2120,7 +2205,9 @@ module.exports = function () {
       retry.textContent = 'Пройти еще раз';
       retry.addEventListener('click', init.bind(null, quizData, UI_.holder.id));
       UI_.append([resultScore, resultMessage, social, retry]);
-      codex.sharer.init();
+      codex.sharer.init({
+        'buttonsSelector': '.but.vk, .but.fb, .but.tw, .but.tg'
+      });
     },
 
     /**
@@ -2863,9 +2950,9 @@ module.exports = function (quiz) {
    */
 
 
-  quiz.init = function (quizData) {
-    if (quizData) {
-      render(quizData);
+  quiz.init = function (settings) {
+    if (settings.quizData) {
+      render(settings.quizData);
       return;
     }
 
@@ -3009,13 +3096,14 @@ module.exports = function (sharer) {
   };
   /**
    * Init sharer
-   * @param  {String} buttonsSelector  - on wich elements should bind sharing
+   * @param {Object} settings
+   * @param {String} settings.buttonsSelector - button selector on which elements should bind sharing
    */
 
 
-  sharer.init = function (buttonsSelector) {
-    console.assert(buttonsSelector, 'Sharer: buttons selector is missed');
-    var shareButtons = document.querySelectorAll(buttonsSelector);
+  sharer.init = function (settings) {
+    console.assert(settings.buttonsSelector, 'Sharer: buttons selector is missed');
+    var shareButtons = document.querySelectorAll(settings.buttonsSelector);
 
     for (var i = shareButtons.length - 1; i >= 0; i--) {
       shareButtons[i].addEventListener('click', sharer.click, true);

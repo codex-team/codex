@@ -3,7 +3,7 @@
     "header": {
       "text": {
         "type": "string",
-        "allowedTags": ""
+        "allowedTags": "a[href],mark[class]"
       },
       "level": {
         "type": "int",
@@ -13,7 +13,7 @@
     "paragraph": {
       "text": {
         "type": "string",
-        "allowedTags": "i,b,u,a[href]"
+        "allowedTags": "i,b,a[href],span[class],mark[class]"
       }
     },
     "list": {
@@ -26,21 +26,36 @@
         "data": {
           "-": {
             "type": "string",
-            "allowedTags": "i,b,u"
+            "allowedTags": "i,b,a[href],span[class],mark[class]"
           }
         }
       }
     },
     "quote": {
       "text": {
-        "type": "string"
+        "type": "string",
+        "allowedTags": "i,b,a[href],span[class],mark[class]"
       },
       "caption": {
-        "type": "string"
-      },
-      "size": {
         "type": "string",
-        "canBeOnly": ["left", "right"]
+        "allowedTags": "i,b,a[href],span[class],mark[class]"
+      },
+      "alignment": {
+        "type": "string",
+        "canBeOnly": ["left", "center"]
+      }
+    },
+    "delimiter" : {
+
+    },
+    "code" : {
+      "code" : {
+        "type" : "string"
+      }
+    },
+    "rawTool" : {
+      "html" : {
+        "type" : "string"
       }
     }
   }

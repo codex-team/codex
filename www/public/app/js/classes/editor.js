@@ -16,6 +16,7 @@ const CodeTool = require('codex.editor.code');
 const Delimiter = require('codex.editor.delimiter');
 const InlineCode = require('codex.editor.inline-code');
 const List = require('codex.editor.list');
+const RawTool = require('codex.editor.raw');
 
 /**
  * Class for working with CodeX Editor
@@ -68,6 +69,10 @@ export default class Editor {
                 inlineCode: {
                     class: InlineCode,
                     shortcut: 'CMD+SHIFT+C'
+                },
+                rawTool: {
+                    class: RawTool,
+                    shortcut: 'CMD+SHIFT+R'
                 },
                 marker: {
                     class: Marker,

@@ -75,13 +75,15 @@ module.exports = (function ( sharer ) {
 
     /**
      * Init sharer
-     * @param  {String} buttonsSelector  - on wich elements should bind sharing
+     * @param {Object} settings
+     * @param {String} settings.buttonsSelector - button selector on which elements should bind sharing
      */
-    sharer.init = function (buttonsSelector) {
+    sharer.init = function (settings) {
 
-        console.assert(buttonsSelector, 'Sharer: buttons selector is missed');
+        console.assert(settings.buttonsSelector, 'Sharer: buttons selector is missed');
 
-        var shareButtons = document.querySelectorAll(buttonsSelector);
+        var shareButtons = document.querySelectorAll(settings.buttonsSelector);
+
 
         for (var i = shareButtons.length - 1; i >= 0; i--) {
 

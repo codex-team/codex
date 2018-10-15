@@ -13,18 +13,19 @@ module.exports = (function () {
     /**
      * Публичный метод init.
      *
-     * @param {object} quizDataInput  - объект с информацией о тесте
-     * @param {string} holder - id элемента, в который будет выводиться тест
+     * @param {Object} settings - настройки теста
+     * @param {Object} settings.quizDataInput - объект с информацией о тесте
+     * @param {string} settings.holder - id элемента, в который будет выводиться тест
      */
-    var init = function (quizDataInput, holder) {
+    var init = function (settings) {
 
-        quizData = quizDataInput;
+        quizData = settings.quizDataInput;
         numberOfQuestions = quizData.questions.length;
         currentQuestion = 0;
         score = 0;
 
         gameProcessing_.prepare();
-        UI_.prepare(holder);
+        UI_.prepare(settings.holder);
         UI_.setupQuestionInterface();
 
     };
@@ -200,7 +201,9 @@ module.exports = (function () {
 
             UI_.append([resultScore, resultMessage, social, retry]);
 
-            codex.sharer.init();
+            codex.sharer.init(
+                {'buttonsSelector' : '.but.vk, .but.fb, .but.tw, .but.tg'}
+            );
 
         },
 
