@@ -197,12 +197,39 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         } else {
             $recentArticlesFeed->remove($article->id, true);
         }
-
+        
         // Если поле uri пустое, то редиректить на обычный роут /article/id
         $redirect = ($uri) ? $article->uri : '/article/' . $article->id;
+
+        // Если пришел ajax-запрос, отправить в ответе адрес редиректа
+        if ($this->request->is_ajax()) {
+            $response = array(
+                'redirect' => $redirect,
+                'success' => 1
+            );
+
+            $this->auto_render = false;
+            $this->response->body(json_encode($response));
+
+            return;
+        }
+
         $this->redirect($redirect);
 
         theEnd:
+
+        // Если ajax-запрос, отправить в ответ текст сообщения об ошибке
+        if ($this->request->is_ajax()) {
+            $response = array(
+                'message' => $this->view['error'],
+                'success' => 0
+            );
+
+            $this->auto_render = false;
+            $this->response->body(json_encode($response));
+
+            return;
+        }
 
         $this->view['article']            = $article;
         $this->view['linked_articles']    = Model_Article::getActiveArticles();

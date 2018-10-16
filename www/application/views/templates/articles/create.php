@@ -167,48 +167,13 @@
         <span id="submitButton" class="button button--master" style="margin: 40px 139px 40px">Отправить</span>
     </form>
 </div>
-
-<script>
-
-    /** Document is ready */
-    codex.docReady(function() {
-
-        var submit  = document.getElementById('submitButton'),
-            form    = document.forms['codex_article'],
-            article = document.getElementById('article_text'),
-            pageContent,
-            blocks;
-
-        /** If we want to edit article */
-        if (article.textContent.length) {
-
-            /** get content that was written before and render with Codex.Editor */
-            pageContent = JSON.parse(article.textContent);
-
+<div data-module="editorWriting">
+    <module-settings hidden>
+        {
+            "article_holder" : "article_text",
+            "form_name" : "codex_article",
+            "submit_id" : "submitButton",
+            "form_url" : "/<?= $article->id && $article->uri ? $article->uri . '/save' : 'article/add' ?>"
         }
-
-        blocks = pageContent ? pageContent.blocks : [];
-
-        let articleSettings = {
-            blocks : blocks
-        };
-
-        /** Init editor with data */
-        codex.editorWriting.init(articleSettings);
-
-
-        /** Save redactors block and submit form */
-        submit.addEventListener('click', function() {
-
-            codex.editorWriting.editor.save().then((savedData) => {
-
-                article.value = JSON.stringify(savedData);
-
-                form.submit();
-
-            });
-
-        }, false);
-
-    })
-</script>
+    </module-settings>
+</div>
