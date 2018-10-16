@@ -34,7 +34,7 @@ var developer = function () {
     };
 
     return {
-        init: init
+        init
     };
 
 }();
