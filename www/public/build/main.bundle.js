@@ -826,7 +826,7 @@ module.exports = ajax;
  * Sets best developers values in admin/user for further output in templates/developers.php
  */
 var developer = function () {
-  var bind = function bind() {
+  var init = function init() {
     var chBoxes = document.querySelectorAll('.developer-checkbox');
 
     for (var i = chBoxes.length - 1; i > -1; i--) {
@@ -849,7 +849,7 @@ var developer = function () {
   };
 
   return {
-    bind: bind
+    init: init
   };
 }();
 
