@@ -201,15 +201,13 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         // Если поле uri пустое, то редиректить на обычный роут /article/id
         $redirect = ($uri) ? $article->uri : '/article/' . $article->id;
 
-        // Если пришел ajax-запрос, отправить в ответе адрес редиректа
+        // Если пришел ajax-запрос, в случае успеха отправить в ответе адрес редиректа
         if ($this->request->is_ajax()) {
-            $response = array(
+
+            $this->sendFormAjax(array(
                 'redirect' => $redirect,
                 'success' => 1
-            );
-
-            $this->auto_render = false;
-            $this->response->body(json_encode($response));
+            ));
 
             return;
         }
@@ -218,15 +216,13 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
 
         theEnd:
 
-        // Если ajax-запрос, отправить в ответ текст сообщения об ошибке
+        // Если пришел ajax-запрос, в случае неудачи отправить в ответ сообщение об ошибке
         if ($this->request->is_ajax()) {
-            $response = array(
+
+            $this->sendFormAjax(array(
                 'message' => $this->view['error'],
                 'success' => 0
-            );
-
-            $this->auto_render = false;
-            $this->response->body(json_encode($response));
+            ));
 
             return;
         }
@@ -270,5 +266,19 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         }
 
         $this->redirect('/admin/articles');
+    }
+
+    /**
+     * @param array $response - response which should be returned after attempt to send form
+     * $response = [
+     *  'redirect' => (string|null) uri of article's redirect only in case of successful save
+     *  'success'  => (int) success code, can be 0 or 1
+     *  'message'  => (string|null) error message only in case of failed save
+     * ]
+     */
+    private function sendFormAjax($response)
+    {
+        $this->auto_render = false;
+        $this->response->body(json_encode($response));
     }
 }

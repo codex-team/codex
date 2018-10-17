@@ -471,9 +471,9 @@ class Model_Article extends Model
     }
 
     /**
-     *
-     *
-     * @return string
+     * Gets config for CodeX Editor, containing rules for validation Editor Tools data
+     * @return string - Editor's config data
+     * @throws Exception - Failed to get config data
      */
     public static function getEditorConfig()
     {

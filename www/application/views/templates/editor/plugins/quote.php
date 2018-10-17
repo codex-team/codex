@@ -1,7 +1,7 @@
 <?
 
     if ( $block->alignment == 'center' ) {
-        $centerClass = 'align_c';
+        $centerClass = 'article-quote--center';
     } else {
         $centerClass = '';
     }

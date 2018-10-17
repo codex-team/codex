@@ -167,10 +167,10 @@
         <span id="submitButton" class="button button--master" style="margin: 40px 139px 40px">Отправить</span>
     </form>
 </div>
-<div data-module="editorWriting">
+<div data-module="articleCreate">
     <module-settings hidden>
         {
-            "article_holder" : "article_text",
+            "article_textarea" : "article_text",
             "form_name" : "codex_article",
             "submit_id" : "submitButton",
             "form_url" : "/<?= $article->id && $article->uri ? $article->uri . '/save' : 'article/add' ?>"

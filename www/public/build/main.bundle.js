@@ -347,9 +347,9 @@ var _editorLanding = __webpack_require__(/*! ./modules/editorLanding */ "./publi
 
 var _editorLanding2 = _interopRequireDefault(_editorLanding);
 
-var _editorWriting = __webpack_require__(/*! ./modules/editorWriting */ "./public/app/js/modules/editorWriting.js");
+var _articleCreate = __webpack_require__(/*! ./modules/articleCreate */ "./public/app/js/modules/articleCreate.js");
 
-var _editorWriting2 = _interopRequireDefault(_editorWriting);
+var _articleCreate2 = _interopRequireDefault(_articleCreate);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -468,7 +468,7 @@ codex.codeStyling = __webpack_require__(/*! ./modules/codeStyling */ "./public/a
 codex.deeplinker = __webpack_require__(/*! @codexteam/deeplinker */ "./node_modules/@codexteam/deeplinker/dist/deeplinker.js");
 codex.pluginsFilter = __webpack_require__(/*! ./modules/pluginsFilter */ "./public/app/js/modules/pluginsFilter.js");
 codex.editorLanding = new _editorLanding2.default();
-codex.editorWriting = new _editorWriting2.default();
+codex.articleCreate = new _articleCreate2.default();
 module.exports = codex;
 
 /***/ }),
@@ -824,6 +824,185 @@ var ajax = function () {
 }({});
 
 module.exports = ajax;
+
+/***/ }),
+
+/***/ "./public/app/js/modules/articleCreate.js":
+/*!************************************************!*\
+  !*** ./public/app/js/modules/articleCreate.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var ajax = __webpack_require__(/*! @codexteam/ajax */ "./node_modules/@codexteam/ajax/dist/main.js");
+/**
+ * Module for pages using Editor
+ */
+
+
+var EditorWriting =
+/*#__PURE__*/
+function () {
+  function EditorWriting() {
+    _classCallCheck(this, EditorWriting);
+  }
+
+  _createClass(EditorWriting, [{
+    key: "init",
+
+    /**
+     * Initialize editor on article writing page
+     * @param {Object} settings - article form's parameters
+     * @param {String} settings.article_textarea - textarea with article contents
+     * @param {String} settings.form_name - name of form with Editor's data to send
+     * @param {String} settings.form_url - url of form with Editor's data
+     * @param {String} settings.submit_id - id of submit button
+     */
+    value: function init(settings) {
+      var _this = this;
+
+      this.article = document.getElementById(settings.article_textarea);
+      this.formName = settings.form_name;
+      this.buttonId = settings.submit_id;
+      this.formURL = settings.form_url;
+      /**
+       * Settings for Editor class
+       * @type {{blocks: Object[]}}
+       */
+
+      var editorSettings = {
+        blocks: this.getArticleData()
+      };
+      this.loadEditor(editorSettings).then(function (editor) {
+        _this.editor = editor;
+      });
+      this.prepareSubmit();
+    }
+  }, {
+    key: "prepareSubmit",
+
+    /**
+     * Add eventListener to article submit button, submit data on click
+     */
+    value: function prepareSubmit() {
+      var _this2 = this;
+
+      document.getElementById(this.buttonId).addEventListener('click', function () {
+        _this2.saveArticle();
+      }, false);
+    }
+    /**
+     * Save article's data, in case of success redirect to its uri
+     */
+
+  }, {
+    key: "saveArticle",
+    value: function saveArticle() {
+      var _this3 = this;
+
+      /**
+       * Retrieve article's data from form
+       * @type {Element} this.formName - article's form name
+       */
+      var form = document.forms[this.formName];
+      var article = this.article;
+      /**
+       * Call Editor's save method
+       */
+
+      this.editor.save().then(function (savedData) {
+        article.value = JSON.stringify(savedData);
+        /**
+         * Send article data via ajax
+         */
+
+        ajax.post({
+          url: _this3.formURL,
+          data: form
+        })
+        /**
+         * @typedef {Object} response - response after attempt to send form via ajax
+         * @property {string} redirect - article's uri in case of success
+         * @property {string} message - article saving error in case of fail
+         * @property {number} success - article saving status, 1 - success, 0 - fail
+         */
+        .then(function (response) {
+          console.log('response', response);
+          /**
+           * If response succeeded get article's uri and redirect to it
+           */
+
+          if (response.success) {
+            window.location.href = response.redirect;
+          } else {
+            /**
+             * If response failed show message with error text
+             */
+            console.error(response.message);
+          }
+        }).catch(console.error);
+      });
+    }
+    /**
+     * Get article's blocks
+     */
+
+  }, {
+    key: "getArticleData",
+    value: function getArticleData() {
+      /** If article exists return its data */
+      if (this.article.textContent.length) {
+        /**
+         * Article's data
+         */
+        var pageContent;
+        /**
+         * Get content that was written before and render with Codex Editor
+         */
+
+        try {
+          pageContent = JSON.parse(this.article.textContent);
+        } catch (error) {
+          console.error('Errors occurred while parsing Editor data', error);
+        }
+
+        return pageContent ? pageContent.blocks : [];
+      }
+    }
+    /**
+     * Load Editor from separate chunk
+     * @param {Object} settings - settings for Editor initialization
+     * @return {Promise<Editor>} - CodeX Editor promise
+     */
+
+  }, {
+    key: "loadEditor",
+    value: function loadEditor(settings) {
+      return __webpack_require__.e(/*! import() | editor */ "editor").then(__webpack_require__.t.bind(null, /*! classes/editor */ "./public/app/js/classes/editor.js", 7)).then(function (_ref) {
+        var Editor = _ref.default;
+        return new Editor(settings);
+      });
+    }
+  }]);
+
+  return EditorWriting;
+}();
+
+exports.default = EditorWriting;
+;
 
 /***/ }),
 
@@ -1499,164 +1678,6 @@ function () {
 }();
 
 exports.default = EditorLanding;
-;
-
-/***/ }),
-
-/***/ "./public/app/js/modules/editorWriting.js":
-/*!************************************************!*\
-  !*** ./public/app/js/modules/editorWriting.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var ajax = __webpack_require__(/*! @codexteam/ajax */ "./node_modules/@codexteam/ajax/dist/main.js");
-/**
- * Module for pages using Editor
- */
-
-
-var EditorWriting =
-/*#__PURE__*/
-function () {
-  function EditorWriting() {
-    _classCallCheck(this, EditorWriting);
-  }
-
-  _createClass(EditorWriting, [{
-    key: "init",
-
-    /**
-     * Initialize editor on article writing page
-     * @param {Object} settings - article form's parameters
-     * @param {String} settings.article_holder - textarea with article contents
-     * @param {String} settings.form_name - name of form with Editor's data to send
-     * @param {String} settings.form_url - url of form with Editor's data
-     * @param {String} settings.submit_id - id of submit button
-     */
-    value: function init(settings) {
-      var _this = this;
-
-      this.article = document.getElementById(settings.article_holder);
-      this.formName = settings.form_name;
-      this.buttonId = settings.submit_id;
-      this.formURL = settings.form_url;
-      /**
-       * Settings for Editor class
-       * @type {{blocks: Object[]}}
-       */
-
-      var editorSettings = {
-        blocks: this.getArticleData()
-      };
-      this.loadEditor(editorSettings).then(function (editor) {
-        _this.editor = editor;
-      });
-      this.prepareSubmit();
-    }
-  }, {
-    key: "prepareSubmit",
-
-    /**
-     * Add eventListener to article submit button, submit data on click
-     */
-    value: function prepareSubmit() {
-      var _this2 = this;
-
-      document.getElementById(this.buttonId).addEventListener('click', function () {
-        _this2.saveArticle();
-      }, false);
-    }
-    /**
-     * Save article's data, in case of success redirect to its uri
-     */
-
-  }, {
-    key: "saveArticle",
-    value: function saveArticle() {
-      var _this3 = this;
-
-      /**
-       * Retrieve article's data from form
-       * @type {Element} this.formName - article's form name
-       */
-      var formData = document.forms[this.formName];
-      var article = this.article;
-      /**
-       * Call Editor's save method
-       */
-
-      codex.editorWriting.editor.save().then(function (savedData) {
-        article.value = JSON.stringify(savedData);
-        /**
-         * Send article data via ajax
-         */
-
-        ajax.post({
-          url: _this3.formURL,
-          data: formData
-        }).then(function (response) {
-          console.log('response', response);
-          /**
-           * If response success get article's uri and redirect to it
-           */
-
-          if (response.success) {
-            window.location.href = response.redirect;
-          } else {
-            console.error(response.message);
-          }
-        }).catch(console.error);
-      });
-    }
-    /**
-     * Get article's blocks
-     * @return {Array} pageContent.blocks - article's content
-     */
-
-  }, {
-    key: "getArticleData",
-    value: function getArticleData() {
-      /** If article exists and we edit it */
-      if (this.article.textContent.length) {
-        /** get content that was written before and render with Codex.Editor */
-        var pageContent = JSON.parse(this.article.textContent);
-        return pageContent ? pageContent.blocks : [];
-      }
-    }
-    /**
-     * Load Editor from separate chunk
-     * @param settings - settings for Editor initialization
-     * @return {Promise<Editor>} - CodeX Editor promise
-     */
-
-  }, {
-    key: "loadEditor",
-    value: function loadEditor(settings) {
-      return __webpack_require__.e(/*! import() | editor */ "editor").then(__webpack_require__.t.bind(null, /*! classes/editor */ "./public/app/js/classes/editor.js", 7)).then(function (_ref) {
-        var Editor = _ref.default;
-        return new Editor(settings);
-      });
-    }
-  }]);
-
-  return EditorWriting;
-}();
-
-exports.default = EditorWriting;
 ;
 
 /***/ }),
