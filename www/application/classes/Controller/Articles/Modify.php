@@ -81,7 +81,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
          * Articles Title.
          */
         if (!Security::check($csrfToken)) {
-            $this->sendAjaxResponse(array('message' => 'CSRF token invalid', 'success' => false));
+            $this->sendAjaxResponse(array('message' => 'CSRF token invalid. Please refresh the page.', 'success' => false));
             return;
         }
 
@@ -89,10 +89,12 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         try {
             $editor = new EditorJS($pageContent, Model_Article::getEditorConfig());
         } catch (EditorJSException $e) {
-            $this->sendAjaxResponse(array('message' => 'EditorJS Exception: ' . $e->getMessage(), 'success' => false));
+            \Hawk\HawkCatcher::catchException($e);
+            $this->sendAjaxResponse(array('message' => 'Fatal Error. Please refresh the page.', 'success' => false));
             return;
         } catch (Kohana_Exception $e) {
-            $this->sendAjaxResponse(array('message' => 'Kohana Exception: ' . $e->getMessage(), 'success' => false));
+            \Hawk\HawkCatcher::catchException($e);
+            $this->sendAjaxResponse(array('message' => 'Fatal Error. Please refresh the page.', 'success' => false));
             return;
         }
 
@@ -142,17 +144,17 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         $item_below_key = Arr::get($_POST, 'item_below_key', 0);
 
         if (!$article->text) {
-            $this->sendAjaxResponse(array('message' => 'Article body is empty', 'success' => false));
+            $this->sendAjaxResponse(array('message' => 'Article body is empty. Please fill the body.', 'success' => false));
             return;
         }
 
         if (!$article->title) {
-            $this->sendAjaxResponse(array('message' => 'Article title is empty', 'success' => false));
+            $this->sendAjaxResponse(array('message' => 'Article title is empty. Please fill the title.', 'success' => false));
             return;
         }
 
         if (!$article->description) {
-            $this->sendAjaxResponse(array('message' => 'Article description is empty', 'success' => false));
+            $this->sendAjaxResponse(array('message' => 'Article description is empty. Please fill the description.', 'success' => false));
             return;
         }
 
