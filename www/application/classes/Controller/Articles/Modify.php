@@ -17,7 +17,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
     }
 
     /**
-     * Show edit or create form
+     * Show article edit/create page
      */
     public function action_edit()
     {

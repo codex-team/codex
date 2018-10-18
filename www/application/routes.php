@@ -34,13 +34,13 @@ Route::set('COVER_IMAGE', 'cover/<social>/<type>/<target>/<version>/cover.jpg')-
 
 // Add Substance
 
-// Show new/modify article
-Route::set('ADD_ARTICLE_SCRIPT', 'article/add')->defaults(array(
+// Show article edit/create page
+Route::set('ADD_ARTICLE_SCRIPT', 'article/writing')->defaults(array(
 	'controller' => 'Articles_Modify',
 	'action' => 'edit'
 ));
 
-// Ajax create/modify article
+// Process article save action
 Route::set('SAVE_ARTICLE_SCRIPT', 'article/save')->defaults(array(
     'controller' => 'Articles_Modify',
     'action' => 'save'
