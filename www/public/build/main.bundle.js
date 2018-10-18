@@ -969,11 +969,9 @@ function () {
          * @property {number} success - article saving status, 1 - success, 0 - fail
          */
         .then(function (response) {
-          console.log('response', response);
           /**
            * If response succeeded get article's uri and redirect to it
            */
-
           if (response.success) {
             window.location.href = response.redirect;
           } else {
@@ -987,7 +985,14 @@ function () {
             });
             button.classList.remove('loading');
           }
-        }).catch(console.error);
+        }).catch(function (err) {
+          console.error(err);
+          notifier.show({
+            message: err,
+            style: 'error'
+          });
+          button.classList.remove('loading');
+        });
       });
     }
     /**

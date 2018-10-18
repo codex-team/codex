@@ -245,8 +245,6 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             'redirect' => $redirect,
             'success' => 1
         ));
-
-        return;
     }
 
     public function action_delete()
