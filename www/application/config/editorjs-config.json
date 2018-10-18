@@ -58,6 +58,26 @@
         "type" : "string",
         "allowedTags": "*"
       }
+    },
+    "image": {
+      "background": {
+        "type": "boolean"
+      },
+      "url": {
+        "type": "string"
+      },
+      "caption": {
+        "type": "string"
+      },
+      "withBorder": {
+        "type": "boolean"
+      },
+      "withBackground": {
+        "type": "boolean"
+      },
+      "stretched": {
+        "type": "boolean"
+      }
     }
   }
 }
