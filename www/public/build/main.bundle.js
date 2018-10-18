@@ -943,6 +943,7 @@ function () {
        */
       var form = document.forms[this.formName];
       var article = this.article;
+      var button = document.getElementById(this.buttonId);
       /**
        * Call Editor's save method
        */
@@ -953,9 +954,13 @@ function () {
          * Send article data via ajax
          */
 
-        ajax.post({
-          url: _this3.formURL,
-          data: form
+        Promise.resolve().then(function () {
+          button.classList.add('loading');
+        }).then(function () {
+          return ajax.post({
+            url: _this3.formURL,
+            data: form
+          });
         })
         /**
          * @typedef {Object} response - response after attempt to send form via ajax
@@ -980,6 +985,7 @@ function () {
               message: response.message,
               style: 'error'
             });
+            button.classList.remove('loading');
           }
         }).catch(console.error);
       });
