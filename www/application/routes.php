@@ -34,9 +34,16 @@ Route::set('COVER_IMAGE', 'cover/<social>/<type>/<target>/<version>/cover.jpg')-
 
 // Add Substance
 
+// Show new/modify article
 Route::set('ADD_ARTICLE_SCRIPT', 'article/add')->defaults(array(
-	'controller' => 'Articles_modify',
-	'action' => 'save'
+	'controller' => 'Articles_Modify',
+	'action' => 'edit'
+));
+
+// Ajax create/modify article
+Route::set('SAVE_ARTICLE_SCRIPT', 'article/save')->defaults(array(
+    'controller' => 'Articles_Modify',
+    'action' => 'save'
 ));
 
 Route::set('ADD_CONTEST_SCRIPT', 'contest/add')->defaults(array(

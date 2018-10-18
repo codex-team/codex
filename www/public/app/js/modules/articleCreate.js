@@ -1,6 +1,7 @@
 'use strict';
 
 const ajax = require('@codexteam/ajax');
+const notifier = require('exports-loader?notifier!codex-notifier');
 /**
  * Module for pages using Editor
  */
@@ -90,6 +91,10 @@ export default class EditorWriting {
                              * If response failed show message with error text
                              */
                             console.error(response.message);
+                            notifier.show({
+                                message: response.message,
+                                style: 'error'
+                            })
                         }
                     })
                     .catch(console.error);

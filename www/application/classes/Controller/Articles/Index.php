@@ -93,7 +93,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
          */
         if ($this->user->isAdmin) {
             $articleUri = $article->uri ? : "article/" . $article->id;
-            $this->template->articleEditLink = "/" . $articleUri . "/save";
+            $this->template->articleEditLink = "/" . $articleUri . "/edit";
         }
 
         $this->title = $article->title;
