@@ -449,7 +449,7 @@ class Model_Methods extends Model
             'header' => array('text'),
             'quote' => array('text', 'caption'),
             'image' => array('caption'),
-            'code' => array('text')
+            'code' => array('code')
         );
 
         try {
