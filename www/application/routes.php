@@ -85,7 +85,7 @@ Route::set('SHOWCOURSE', 'course(/<id>)')->defaults(array(
 
 Route::set('EDIT_ARTICLE_SCRIPT', 'article/<id>/<action>', array(
     'id' => $DIGIT,
-    'action' => 'save'
+    'action' => 'edit'
 ))->defaults(array(
     'controller' => 'Articles_Modify'
 ));
