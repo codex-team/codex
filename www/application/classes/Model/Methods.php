@@ -456,7 +456,7 @@ class Model_Methods extends Model
 
             $blocks = json_decode($blocksJSON);
 
-            if (!isset($blocks->data)) {
+            if (!isset($blocks->blocks)) {
                 return 0;
             }
 
@@ -469,7 +469,7 @@ class Model_Methods extends Model
             /**
              * Iterate each entry blocks
              */
-            foreach ($blocks->data as $block) {
+            foreach ($blocks->blocks as $block) {
 
                 /**
                  * Skip block without text
