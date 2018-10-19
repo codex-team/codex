@@ -449,7 +449,8 @@ class Model_Methods extends Model
             'header' => array('text'),
             'quote' => array('text', 'caption'),
             'image' => array('caption'),
-            'code' => array('code')
+            'code' => array('code'),
+            'list' => array('items')
         );
 
         try {
@@ -484,6 +485,18 @@ class Model_Methods extends Model
                  * Iterate all fields with text and concatinate summary text
                  */
                 foreach ($fieldsWithText as $fieldname) {
+
+                    /**
+                     * Because list plugin has nested structure, we concatenate its items' text to the summary text
+                     */
+                    if ($block->type == "list") {
+                        foreach ($block->data->$fieldname as $item) {
+                            $entryText .= $item;
+                        }
+
+                        continue;
+                    }
+
                     if (!empty($block->data->$fieldname)) {
                         $entryText .= $block->data->$fieldname;
                     }
