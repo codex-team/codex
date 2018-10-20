@@ -49,3 +49,8 @@
 @import url('pages/writing.css');
 @import url('pages/course.css');
 @import url('pages/editor-landing.css');
+
+/**
+ * Packages
+ */
+@import url('~codex-notifier/notifier.css');

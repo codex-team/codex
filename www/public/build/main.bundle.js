@@ -228,6 +228,28 @@ var codex =
 
 /***/ }),
 
+/***/ "./node_modules/exports-loader/index.js?notifier!./node_modules/codex-notifier/notifier.js":
+/*!****************************************************************************************!*\
+  !*** ./node_modules/exports-loader?notifier!./node_modules/codex-notifier/notifier.js ***!
+  \****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var notifier=function(e){function t(r){if(n[r])return n[r].exports;var c=n[r]={i:r,l:!1,exports:{}};return e[r].call(c.exports,c,c.exports,t),c.l=!0,c.exports}var n={};return t.m=e,t.c=n,t.i=function(e){return e},t.d=function(e,n,r){t.o(e,n)||Object.defineProperty(e,n,{configurable:!1,enumerable:!0,get:r})},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},t.p="",t(t.s=2)}([function(e,t,n){"use strict";e.exports=function(){var e={wrapper:"cdx-notifies",notification:"cdx-notify",crossBtn:"cdx-notify__cross",okBtn:"cdx-notify__button--confirm",cancelBtn:"cdx-notify__button--cancel",input:"cdx-notify__input",btn:"cdx-notify__button",btnsWrapper:"cdx-notify__btns-wrapper"},t=function(t){var n=document.createElement("DIV"),r=document.createElement("DIV"),c=t.message,i=t.style;return n.classList.add(e.notification),i&&n.classList.add(e.notification+"--"+i),n.innerHTML=c,r.classList.add(e.crossBtn),r.addEventListener("click",n.remove.bind(n)),n.appendChild(r),n};return{alert:t,confirm:function(n){var r=t(n),c=document.createElement("div"),i=document.createElement("button"),a=document.createElement("button"),o=r.querySelector(e.crossBtn),d=n.cancelHandler,s=n.okHandler;return c.classList.add(e.btnsWrapper),i.innerHTML=n.okText||"Confirm",a.innerHTML=n.cancelText||"Cancel",i.classList.add(e.btn),a.classList.add(e.btn),i.classList.add(e.okBtn),a.classList.add(e.cancelBtn),d&&"function"==typeof d&&(a.addEventListener("click",d),o.addEventListener("click",d)),s&&"function"==typeof s&&i.addEventListener("click",s),i.addEventListener("click",r.remove.bind(r)),a.addEventListener("click",r.remove.bind(r)),c.appendChild(i),c.appendChild(a),r.appendChild(c),r},prompt:function(n){var r=t(n),c=document.createElement("div"),i=document.createElement("button"),a=document.createElement("input"),o=r.querySelector(e.crossBtn),d=n.cancelHandler,s=n.okHandler;return c.classList.add(e.btnsWrapper),i.innerHTML=n.okText||"Ok",i.classList.add(e.btn),i.classList.add(e.okBtn),a.classList.add(e.input),n.placeholder&&a.setAttribute("placeholder",n.placeholder),n.default&&(a.value=n.default),n.inputType&&(a.type=n.inputType),d&&"function"==typeof d&&o.addEventListener("click",d),s&&"function"==typeof s&&i.addEventListener("click",function(){s(a.value)}),i.addEventListener("click",r.remove.bind(r)),c.appendChild(a),c.appendChild(i),r.appendChild(c),r},wrapper:function(){var t=document.createElement("DIV");return t.classList.add(e.wrapper),t}}}()},function(e,t){},function(e,t,n){"use strict";/*!
+ * Codex JavaScript Notification module
+ * https://github.com/codex-team/js-notifier
+ *
+ * Codex Team - https://ifmo.su
+ *
+ * MIT License | (c) Codex 2017
+ */
+e.exports=function(){function e(){if(i)return!0;i=r.wrapper(),document.body.appendChild(i)}function t(t){if(t.message){e();var n=null,a=t.time||8e3;switch(t.type){case"confirm":n=r.confirm(t);break;case"prompt":n=r.prompt(t);break;default:n=r.alert(t),window.setTimeout(function(){n.remove()},a)}i.appendChild(n),n.classList.add(c)}}n(1);var r=n(0),c="cdx-notify--bounce-in",i=null;return{show:t}}()}]);
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = notifier;
+
+/***/ }),
+
 /***/ "./node_modules/module-dispatcher/lib/moduleDispatcher.js":
 /*!****************************************************************!*\
   !*** ./node_modules/module-dispatcher/lib/moduleDispatcher.js ***!
@@ -848,6 +870,8 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 var ajax = __webpack_require__(/*! @codexteam/ajax */ "./node_modules/@codexteam/ajax/dist/main.js");
+
+var notifier = __webpack_require__(/*! exports-loader?notifier!codex-notifier */ "./node_modules/exports-loader/index.js?notifier!./node_modules/codex-notifier/notifier.js");
 /**
  * Module for pages using Editor
  */
@@ -919,6 +943,7 @@ function () {
        */
       var form = document.forms[this.formName];
       var article = this.article;
+      var button = document.getElementById(this.buttonId);
       /**
        * Call Editor's save method
        */
@@ -929,9 +954,13 @@ function () {
          * Send article data via ajax
          */
 
-        ajax.post({
-          url: _this3.formURL,
-          data: form
+        Promise.resolve().then(function () {
+          button.classList.add('loading');
+        }).then(function () {
+          return ajax.post({
+            url: _this3.formURL,
+            data: form
+          });
         })
         /**
          * @typedef {Object} response - response after attempt to send form via ajax
@@ -940,11 +969,9 @@ function () {
          * @property {number} success - article saving status, 1 - success, 0 - fail
          */
         .then(function (response) {
-          console.log('response', response);
           /**
            * If response succeeded get article's uri and redirect to it
            */
-
           if (response.success) {
             window.location.href = response.redirect;
           } else {
@@ -952,8 +979,20 @@ function () {
              * If response failed show message with error text
              */
             console.error(response.message);
+            notifier.show({
+              message: response.message,
+              style: 'error'
+            });
+            button.classList.remove('loading');
           }
-        }).catch(console.error);
+        }).catch(function (err) {
+          console.error(err);
+          notifier.show({
+            message: err,
+            style: 'error'
+          });
+          button.classList.remove('loading');
+        });
       });
     }
     /**

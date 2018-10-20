@@ -1,6 +1,7 @@
 'use strict';
 
 const ajax = require('@codexteam/ajax');
+const notifier = require('exports-loader?notifier!codex-notifier');
 /**
  * Module for pages using Editor
  */
@@ -58,6 +59,7 @@ export default class EditorWriting {
          */
         let form = document.forms[this.formName];
         let article = this.article;
+        let button = document.getElementById(this.buttonId);
 
         /**
          * Call Editor's save method
@@ -68,32 +70,49 @@ export default class EditorWriting {
                 /**
                  * Send article data via ajax
                  */
-                ajax.post({
-                        url: this.formURL,
-                        data: form
+                Promise.resolve()
+                    .then(() => {
+                        button.classList.add('loading');
                     })
-                    /**
-                     * @typedef {Object} response - response after attempt to send form via ajax
-                     * @property {string} redirect - article's uri in case of success
-                     * @property {string} message - article saving error in case of fail
-                     * @property {number} success - article saving status, 1 - success, 0 - fail
-                     */
-                    .then((response) => {
-                        console.log('response', response);
+                    .then(() => {
+                        return ajax.post({
+                            url: this.formURL,
+                            data: form
+                        })
+                    })
                         /**
-                         * If response succeeded get article's uri and redirect to it
+                         * @typedef {Object} response - response after attempt to send form via ajax
+                         * @property {string} redirect - article's uri in case of success
+                         * @property {string} message - article saving error in case of fail
+                         * @property {number} success - article saving status, 1 - success, 0 - fail
                          */
-                        if (response.success) {
-                            window.location.href = response.redirect;
-                        } else {
+                        .then((response) => {
                             /**
-                             * If response failed show message with error text
+                             * If response succeeded get article's uri and redirect to it
                              */
-                            console.error(response.message);
-                        }
-                    })
-                    .catch(console.error);
-            });
+                            if (response.success) {
+                                window.location.href = response.redirect;
+                            } else {
+                                /**
+                                 * If response failed show message with error text
+                                 */
+                                console.error(response.message);
+                                notifier.show({
+                                    message: response.message,
+                                    style: 'error'
+                                });
+                                button.classList.remove('loading');
+                            }
+                        })
+                        .catch((err) => {
+                            console.error(err);
+                            notifier.show({
+                                message: err,
+                                style: 'error'
+                            });
+                            button.classList.remove('loading');
+                        });
+        });
     }
 
     /**

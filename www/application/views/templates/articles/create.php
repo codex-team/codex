@@ -1,6 +1,6 @@
 <div class="center_side">
 
-    <form class="editor-form article-content" name="codex_article" method="POST" action="/<?= $article->id && $article->uri ? $article->uri . '/save' : 'article/add' ?>" enctype="multipart/form-data" id="edit_article_form">
+    <form class="editor-form article-content" name="codex_article" method="POST" action="/<?= $article->id && $article->uri ? $article->uri . '/writing' : 'article/writing' ?>" enctype="multipart/form-data" id="edit_article_form">
 
         <? if (!empty($error)): ?>
             <div class="editor-form__error">
@@ -173,7 +173,7 @@
             "article_textarea" : "article_text",
             "form_name" : "codex_article",
             "submit_id" : "submitButton",
-            "form_url" : "/<?= $article->id && $article->uri ? $article->uri . '/save' : 'article/add' ?>"
+            "form_url" : "/<?= $article->id && $article->uri ? $article->uri . '/save' : 'article/save' ?>"
         }
     </module-settings>
 </div>

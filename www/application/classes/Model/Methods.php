@@ -449,14 +449,15 @@ class Model_Methods extends Model
             'header' => array('text'),
             'quote' => array('text', 'caption'),
             'image' => array('caption'),
-            'code' => array('text')
+            'code' => array('code'),
+            'list' => array('items')
         );
 
         try {
 
             $blocks = json_decode($blocksJSON);
 
-            if (!isset($blocks->data)) {
+            if (!isset($blocks->blocks)) {
                 return 0;
             }
 
@@ -469,7 +470,7 @@ class Model_Methods extends Model
             /**
              * Iterate each entry blocks
              */
-            foreach ($blocks->data as $block) {
+            foreach ($blocks->blocks as $block) {
 
                 /**
                  * Skip block without text
@@ -484,6 +485,18 @@ class Model_Methods extends Model
                  * Iterate all fields with text and concatinate summary text
                  */
                 foreach ($fieldsWithText as $fieldname) {
+
+                    /**
+                     * Because list plugin has nested structure, we concatenate its items' text to the summary text
+                     */
+                    if ($block->type == "list") {
+                        foreach ($block->data->$fieldname as $item) {
+                            $entryText .= $item;
+                        }
+
+                        continue;
+                    }
+
                     if (!empty($block->data->$fieldname)) {
                         $entryText .= $block->data->$fieldname;
                     }
