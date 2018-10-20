@@ -1,34 +1,20 @@
 <?
-
     $tag = 'h2';
     $type = $tag;
 
-    if (property_exists($block, 'type')) {
-        $type = $block->type;
-    }
-
-    if (property_exists($block, 'heading-styles')) {
-        $type = $block->{'heading-styles'};
+    if (property_exists($block, 'level')) {
+        $type = $block->{'level'};
     }
 
     switch ($type) {
-        case 'h1':
-            $tag = 'h1';
-            break;
-        case 'h2':
+        case '2':
             $tag = 'h2';
             break;
-        case 'h3':
+        case '3':
             $tag = 'h3';
             break;
-        case 'h4':
+        case '4':
             $tag = 'h4';
-            break;
-        case 'h5':
-            $tag = 'h5';
-            break;
-        case 'h6':
-            $tag = 'h6';
             break;
     };
 ?>
