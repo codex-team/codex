@@ -1,12 +1,12 @@
 <?
     $tag = 'h2';
-    $type = $tag;
+    $level = $tag;
 
     if (property_exists($block, 'level')) {
-        $type = $block->{'level'};
+        $level = $block->{'level'};
     }
 
-    switch ($type) {
+    switch ($level) {
         case '2':
             $tag = 'h2';
             break;
