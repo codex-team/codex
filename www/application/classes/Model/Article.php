@@ -473,14 +473,14 @@ class Model_Article extends Model
     /**
      * Gets config for CodeX Editor, containing rules for validation Editor Tools data
      * @return string - Editor's config data
-     * @throws Exception - Failed to get config data
+     * @throws Exceptions_ConfigMissedException - Failed to get Editorjs config data
      */
     public static function getEditorConfig()
     {
         try {
             return file_get_contents(APPPATH . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'editorjs-config.json');
         } catch (Exception $e) {
-            throw new ConfigMissedException($e->getMessage());
+            throw new Exceptions_ConfigMissedException($e->getMessage());
         }
     }
 }

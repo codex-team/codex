@@ -2,6 +2,6 @@
 /**
  *  Exception is thrown when CodeX Editor config is missing
  */
-class ConfigMissedException extends \Exception
+class Exceptions_ConfigMissedException extends \Exception
 {
 }

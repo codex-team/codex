@@ -963,29 +963,26 @@ function () {
           });
         })
         /**
-         * @typedef {Object} response - response after attempt to send form via ajax
-         * @property {string} redirect - article's uri in case of success
-         * @property {string} message - article saving error in case of fail
-         * @property {number} success - article saving status, 1 - success, 0 - fail
+         * @typedef {Object} responseData - response after attempt to send form via ajax
+         * @property {string} redirect    - article's uri in case of success
+         * @property {string} message     - article saving error in case of fail
+         * @property {number} success     - article saving status, 1 - success, 0 - fail
+         */
+
+        /**
+         * @param {responseData} response - ajax-response after form is sent
          */
         .then(function (response) {
           /**
-           * If response succeeded get article's uri and redirect to it
+           * If data was sent successfully get article's uri and redirect to it
            */
           if (response.success) {
             window.location.href = response.redirect;
-          } else {
-            /**
-             * If response failed show message with error text
-             */
-            console.error(response.message);
-            notifier.show({
-              message: response.message,
-              style: 'error'
-            });
-            button.classList.remove('loading');
           }
         }).catch(function (err) {
+          /**
+           * If response failed show message with error text
+           */
           console.error(err);
           notifier.show({
             message: err,
@@ -996,7 +993,7 @@ function () {
       });
     }
     /**
-     * Get article's blocks
+     * If we want to edit existing article, get its data
      */
 
   }, {

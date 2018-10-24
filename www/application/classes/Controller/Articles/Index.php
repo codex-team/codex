@@ -59,8 +59,14 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $article->blocks = array();
 
         if ($article->text) {
-
-            $article->blocks = $this->drawArticleBlocks($article->text);
+            /**
+             * If blocks were rendered correctly, set article's blocks property
+             */
+            try {
+                $article->blocks = $this->drawArticleBlocks($article->text);
+            } catch (Exceptions_ConfigMissedException $e) {
+                $this->redirect('/articles');
+            }
 
         }
 
@@ -122,10 +128,14 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         }
         return $feed_items;
     }
+
     /**
      * Renders template for each block
      * @param string $content - json encoded data
-     * @return array
+     * @return array - rendered template blocks with Editor data
+     * @throws EditorJSException - EditorJS errors
+     * @throws Exceptions_ConfigMissedException - Failed to get EditorJS config data
+     * @throws Kohana_Exception
      */
     private function drawArticleBlocks($content)
     {
@@ -134,8 +144,6 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
             $blocks = $editor->getBlocks();
         } catch (EditorJSException $e) {
             throw new EditorJSException($e->getMessage());
-        } catch (ConfigMissedException $e) {
-            throw new ConfigMissedException($e->getMessage());
         } catch (Kohana_Exception $e) {
             throw new Kohana_Exception($e->getMessage());
         }

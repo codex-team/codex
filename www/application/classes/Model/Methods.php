@@ -489,7 +489,7 @@ class Model_Methods extends Model
                     /**
                      * Because list plugin has nested structure, we concatenate its items' text to the summary text
                      */
-                    if ($block->type == "list") {
+                    if (is_array($block->data->$fieldname)) {
                         foreach ($block->data->$fieldname as $item) {
                             $entryText .= $item;
                         }
