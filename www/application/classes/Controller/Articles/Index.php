@@ -64,8 +64,8 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
              */
             try {
                 $article->blocks = $this->drawArticleBlocks($article->text);
-            } catch (Exceptions_ConfigMissedException $e) {
-                $this->redirect('/articles');
+            } catch (Exception $e) {
+                \Hawk\HawkCatcher::catchException($e);
             }
 
         }
