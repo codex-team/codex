@@ -1,6 +1,6 @@
 <div class="center_side">
 
-    <form class="editor-form article-content" name="codex_article" method="POST" action="/<?= $article->id && $article->uri ? $article->uri . '/writing' : 'article/writing' ?>" enctype="multipart/form-data" id="edit_article_form">
+    <form class="editor-form article-content" name="codex_article">
 
         <? if (!empty($error)): ?>
             <div class="editor-form__error">

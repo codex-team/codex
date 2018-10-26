@@ -978,6 +978,11 @@ function () {
            */
           if (response.success) {
             window.location.href = response.redirect;
+          } else {
+            notifier.show({
+              message: response.message,
+              style: 'error'
+            });
           }
         }).catch(function (err) {
           /**
