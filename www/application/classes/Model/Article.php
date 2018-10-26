@@ -480,7 +480,7 @@ class Model_Article extends Model
         try {
             return file_get_contents(APPPATH . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'editorjs-config.json');
         } catch (Exception $e) {
-            throw new Exceptions_ConfigMissedException($e->getMessage());
+            throw new Exceptions_ConfigMissedException("EditorJS config not found");
         }
     }
 }

@@ -67,7 +67,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         if (!$this->request->is_ajax()) {
             $this->sendAjaxResponse(array(
                 'message' => 'Request is not ajax',
-                'success' => false
+                'success' => 0
             ));
             return;
         }
@@ -81,7 +81,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
          * Articles Title.
          */
         if (!Security::check($csrfToken)) {
-            $this->sendAjaxResponse(array('message' => 'CSRF token invalid. Please refresh the page.', 'success' => false));
+            $this->sendAjaxResponse(array('message' => 'CSRF token invalid. Please refresh the page.', 'success' => 0));
             return;
         }
 
@@ -90,7 +90,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             $editor = new EditorJS($pageContent, Model_Article::getEditorConfig());
         } catch (Exception $e) {
             \Hawk\HawkCatcher::catchException($e);
-            $this->sendAjaxResponse(array('message' => 'Fatal Error. Please refresh the page.', 'success' => false));
+            $this->sendAjaxResponse(array('message' => 'Fatal Error. Please refresh the page.', 'success' => 0));
             return;
         }
 
@@ -127,7 +127,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
                 $articleLinkingResult = $article->linkWithArticle($linked_article_id);
 
                 if (!$articleLinkingResult) {
-                    $this->sendAjaxResponse(array('message' => 'You can\'t link already linked article', 'success' => false));
+                    $this->sendAjaxResponse(array('message' => 'You can\'t link already linked article', 'success' => 0));
                     return;
                 }
             }
@@ -140,17 +140,17 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         $item_below_key = Arr::get($_POST, 'item_below_key', 0);
 
         if (!$article->text) {
-            $this->sendAjaxResponse(array('message' => 'Article body is empty. Please fill the body.', 'success' => false));
+            $this->sendAjaxResponse(array('message' => 'Article body is empty. Please fill the body.', 'success' => 0));
             return;
         }
 
         if (!$article->title) {
-            $this->sendAjaxResponse(array('message' => 'Article title is empty. Please fill the title.', 'success' => false));
+            $this->sendAjaxResponse(array('message' => 'Article title is empty. Please fill the title.', 'success' => 0));
             return;
         }
 
         if (!$article->description) {
-            $this->sendAjaxResponse(array('message' => 'Article description is empty. Please fill the description.', 'success' => false));
+            $this->sendAjaxResponse(array('message' => 'Article description is empty. Please fill the description.', 'success' => 0));
             return;
         }
 
