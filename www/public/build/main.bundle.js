@@ -987,6 +987,7 @@ function () {
     }
     /**
      * If article's form submission via ajax failed show message with error text
+     * @param {String} err - form submission error message
      */
 
   }, {
