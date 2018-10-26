@@ -19,7 +19,7 @@ export default class EditorWriting {
 
         this.article = document.getElementById(settings.article_textarea);
         this.formName = settings.form_name;
-        this.buttonId = settings.submit_id;
+        this.button = document.getElementById(settings.submit_id);
         this.formURL = settings.form_url;
 
         /**
@@ -44,7 +44,7 @@ export default class EditorWriting {
      * Add eventListener to article submit button, submit data on click
      */
     prepareSubmit() {
-        document.getElementById(this.buttonId).addEventListener('click', () => {
+        this.button.addEventListener('click', () => {
             this.saveArticle();
         }, false);
     }
@@ -59,7 +59,6 @@ export default class EditorWriting {
          */
         let form = document.forms[this.formName];
         let article = this.article;
-        let button = document.getElementById(this.buttonId);
 
         /**
          * Call Editor's save method
@@ -72,7 +71,7 @@ export default class EditorWriting {
                  */
                 Promise.resolve()
                     .then(() => {
-                        button.classList.add('loading');
+                        this.button.classList.add('loading');
                     })
                     .then(() => {
                         return ajax.post({
@@ -96,27 +95,34 @@ export default class EditorWriting {
                          * If data was sent successfully get article's uri and redirect to it
                          */
                         if (response.success) {
+
                             window.location.href = response.redirect;
+
                         } else {
-                            notifier.show({
-                                message: response.message,
-                                style: 'error'
-                            });
+
+                            this.showErrorMessage(response.message);
+
                         }
 
                     })
                     .catch((err) => {
-                        /**
-                         * If response failed show message with error text
-                         */
-                        console.error(err);
-                        notifier.show({
-                            message: err,
-                            style: 'error'
-                        });
-                        button.classList.remove('loading');
+
+                        this.showErrorMessage(err);
+
                     });
             });
+    }
+
+    /**
+     * If article's form submission via ajax failed show message with error text
+     */
+    showErrorMessage(err) {
+        console.error(err);
+        notifier.show({
+            message: err,
+            style: 'error'
+        });
+        this.button.classList.remove('loading');
     }
 
     /**

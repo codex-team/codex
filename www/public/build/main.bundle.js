@@ -900,7 +900,7 @@ function () {
 
       this.article = document.getElementById(settings.article_textarea);
       this.formName = settings.form_name;
-      this.buttonId = settings.submit_id;
+      this.button = document.getElementById(settings.submit_id);
       this.formURL = settings.form_url;
       /**
        * Settings for Editor class
@@ -924,7 +924,7 @@ function () {
     value: function prepareSubmit() {
       var _this2 = this;
 
-      document.getElementById(this.buttonId).addEventListener('click', function () {
+      this.button.addEventListener('click', function () {
         _this2.saveArticle();
       }, false);
     }
@@ -943,7 +943,6 @@ function () {
        */
       var form = document.forms[this.formName];
       var article = this.article;
-      var button = document.getElementById(this.buttonId);
       /**
        * Call Editor's save method
        */
@@ -955,7 +954,7 @@ function () {
          */
 
         Promise.resolve().then(function () {
-          button.classList.add('loading');
+          _this3.button.classList.add('loading');
         }).then(function () {
           return ajax.post({
             url: _this3.formURL,
@@ -979,23 +978,26 @@ function () {
           if (response.success) {
             window.location.href = response.redirect;
           } else {
-            notifier.show({
-              message: response.message,
-              style: 'error'
-            });
+            _this3.showErrorMessage(response.message);
           }
         }).catch(function (err) {
-          /**
-           * If response failed show message with error text
-           */
-          console.error(err);
-          notifier.show({
-            message: err,
-            style: 'error'
-          });
-          button.classList.remove('loading');
+          _this3.showErrorMessage(err);
         });
       });
+    }
+    /**
+     * If article's form submission via ajax failed show message with error text
+     */
+
+  }, {
+    key: "showErrorMessage",
+    value: function showErrorMessage(err) {
+      console.error(err);
+      notifier.show({
+        message: err,
+        style: 'error'
+      });
+      this.button.classList.remove('loading');
     }
     /**
      * If we want to edit existing article, get its data
