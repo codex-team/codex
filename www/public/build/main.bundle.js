@@ -891,15 +891,14 @@ function () {
      * Initialize editor on article writing page
      * @param {Object} settings - article form's parameters
      * @param {String} settings.article_textarea - textarea with article contents
-     * @param {String} settings.form_name - name of form with Editor's data to send
      * @param {String} settings.form_url - url of form with Editor's data
      * @param {String} settings.submit_id - id of submit button
      */
-    value: function init(settings) {
+    value: function init(settings, form) {
       var _this = this;
 
+      this.form = form;
       this.article = document.getElementById(settings.article_textarea);
-      this.formName = settings.form_name;
       this.button = document.getElementById(settings.submit_id);
       this.formURL = settings.form_url;
       /**
@@ -937,11 +936,6 @@ function () {
     value: function saveArticle() {
       var _this3 = this;
 
-      /**
-       * Retrieve article's data from form
-       * @type {Element} this.formName - article's form name
-       */
-      var form = document.forms[this.formName];
       var article = this.article;
       /**
        * Call Editor's save method
@@ -958,7 +952,7 @@ function () {
         }).then(function () {
           return ajax.post({
             url: _this3.formURL,
-            data: form
+            data: _this3.form
           });
         })
         /**

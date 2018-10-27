@@ -1,6 +1,14 @@
 <div class="center_side">
 
-    <form class="editor-form article-content" name="codex_article">
+    <form class="editor-form article-content" name="codex_article" data-module="articleCreate">
+
+        <module-settings hidden>
+            {
+                "article_textarea" : "article_text",
+                "submit_id" : "submitButton",
+                "form_url" : "/<?= $article->id && $article->uri ? $article->uri . '/save' : 'article/save' ?>"
+            }
+        </module-settings>
 
         <? if (!empty($error)): ?>
             <div class="editor-form__error">
@@ -166,14 +174,4 @@
 
         <span id="submitButton" class="button button--master" style="margin: 40px 139px 40px">Отправить</span>
     </form>
-</div>
-<div data-module="articleCreate">
-    <module-settings hidden>
-        {
-            "article_textarea" : "article_text",
-            "form_name" : "codex_article",
-            "submit_id" : "submitButton",
-            "form_url" : "/<?= $article->id && $article->uri ? $article->uri . '/save' : 'article/save' ?>"
-        }
-    </module-settings>
 </div>

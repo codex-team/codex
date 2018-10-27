@@ -140,17 +140,17 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         $item_below_key = Arr::get($_POST, 'item_below_key', 0);
 
         if (!$article->text) {
-            $this->sendAjaxResponse(array('message' => 'Article body is empty. Please fill the body.', 'success' => 0));
+            $this->sendAjaxResponse(array('message' => 'Please fill the body.', 'success' => 0));
             return;
         }
 
         if (!$article->title) {
-            $this->sendAjaxResponse(array('message' => 'Article title is empty. Please fill the title.', 'success' => 0));
+            $this->sendAjaxResponse(array('message' => 'Please fill the title.', 'success' => 0));
             return;
         }
 
         if (!$article->description) {
-            $this->sendAjaxResponse(array('message' => 'Article description is empty. Please fill the description.', 'success' => 0));
+            $this->sendAjaxResponse(array('message' => 'Please fill the description.', 'success' => 0));
             return;
         }
 
