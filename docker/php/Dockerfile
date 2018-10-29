@@ -28,6 +28,14 @@ RUN set -x \
     && echo "extension=memcache.so" > /usr/local/etc/php/conf.d/ext-memcache.ini \
     && rm -rf /tmp/pecl-memcache-php7 php7.zip
 
+# Install ImageMagick
+RUN apt-get install -y \
+    libmagickwand-dev imagemagick
+RUN pecl install imagick
+RUN docker-php-ext-enable \
+    imagick
+#RUN echo extension=imagick.so >> /usr/local/etc/php/conf.d/imagick.ini
+
 # Install redis php-exts
 RUN pecl install redis
 RUN docker-php-ext-enable \
