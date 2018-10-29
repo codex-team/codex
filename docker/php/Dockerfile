@@ -2,13 +2,13 @@ FROM php:7.1-fpm
 
 MAINTAINER CodeX <github.com/codex-team>
 
-RUN apt-get update
-RUN apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
-    zip unzip \
+    unzip \
     libz-dev \
     libjpeg-dev libpng-dev libfreetype6-dev \
-    libssl-dev libpcre3 libpcre3-dev
+    libssl-dev libpcre3 libpcre3-dev \
+    libmagickwand-dev imagemagick
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php
@@ -29,12 +29,10 @@ RUN set -x \
     && rm -rf /tmp/pecl-memcache-php7 php7.zip
 
 # Install ImageMagick
-RUN apt-get install -y \
-    libmagickwand-dev imagemagick
+#RUN apt-get install -y --no-install-recommends \
 RUN pecl install imagick
 RUN docker-php-ext-enable \
     imagick
-#RUN echo extension=imagick.so >> /usr/local/etc/php/conf.d/imagick.ini
 
 # Install redis php-exts
 RUN pecl install redis

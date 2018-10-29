@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "73e0cc27eaf7ca8e1493271921bd327b",
@@ -11,18 +11,22 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/codex-team/codex.editor.backend.git",
-                "reference": "5a525a94f8773eb9314ef50573a79f436e3f1d0a"
+                "url": "https://github.com/codex-editor/editorjs.php.git",
+                "reference": "6d93e15cbd2d30d662145a938a65a0ba880b52d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codex-team/codex.editor.backend/zipball/5a525a94f8773eb9314ef50573a79f436e3f1d0a",
-                "reference": "5a525a94f8773eb9314ef50573a79f436e3f1d0a",
+                "url": "https://api.github.com/repos/codex-editor/editorjs.php/zipball/6d93e15cbd2d30d662145a938a65a0ba880b52d0",
+                "reference": "6d93e15cbd2d30d662145a938a65a0ba880b52d0",
                 "shasum": ""
             },
             "require": {
                 "ezyang/htmlpurifier": "^4.8",
                 "php": ">=5.6"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.13",
+                "phpunit/phpunit": "5.4.*"
             },
             "type": "library",
             "autoload": {
@@ -36,12 +40,12 @@
             ],
             "authors": [
                 {
-                    "name": "khaydarov",
-                    "email": "murod.haydarov@inbox.ru"
+                    "name": "CodeX Team",
+                    "email": "team@ifmo.su"
                 }
             ],
             "description": "Codex Editor server side example",
-            "time": "2017-03-30 20:04:32"
+            "time": "2018-09-30T08:19:27+00:00"
         },
         {
             "name": "codex-team/hawk.php",
@@ -208,7 +212,7 @@
             "keywords": [
                 "social-covers-generator"
             ],
-            "time": "2018-07-23 16:51:22"
+            "time": "2018-07-23T16:51:22+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -582,25 +586,28 @@
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.8.0",
+            "version": "v1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
-                "reference": "7cc359f1b7b80fc25ed7796be7d96adc9b354bae"
+                "reference": "e3d826245268269cd66f8326bd8bc066687b4a19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/7cc359f1b7b80fc25ed7796be7d96adc9b354bae",
-                "reference": "7cc359f1b7b80fc25ed7796be7d96adc9b354bae",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/e3d826245268269cd66f8326bd8bc066687b4a19",
+                "reference": "e3d826245268269cd66f8326bd8bc066687b4a19",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
+            "suggest": {
+                "ext-ctype": "For best performance"
+            },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.8-dev"
+                    "dev-master": "1.9-dev"
                 }
             },
             "autoload": {
@@ -633,20 +640,20 @@
                 "polyfill",
                 "portable"
             ],
-            "time": "2018-04-30T19:57:29+00:00"
+            "time": "2018-08-06T14:22:27+00:00"
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.8.43",
+            "version": "v2.8.46",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "51356b7a2ff7c9fd06b2f1681cc463bb62b5c1ff"
+                "reference": "5baf0f821b14eee8ca415e6a0361a9fa140c002c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/51356b7a2ff7c9fd06b2f1681cc463bb62b5c1ff",
-                "reference": "51356b7a2ff7c9fd06b2f1681cc463bb62b5c1ff",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/5baf0f821b14eee8ca415e6a0361a9fa140c002c",
+                "reference": "5baf0f821b14eee8ca415e6a0361a9fa140c002c",
                 "shasum": ""
             },
             "require": {
@@ -683,20 +690,20 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2018-05-01T22:52:40+00:00"
+            "time": "2018-08-29T13:11:53+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
-            "version": "v2.5.0",
+            "version": "v2.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vlucas/phpdotenv.git",
-                "reference": "6ae3e2e6494bb5e58c2decadafc3de7f1453f70a"
+                "reference": "8abb4f9aa89ddea9d52112c65bbe8d0125e2fa8e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/6ae3e2e6494bb5e58c2decadafc3de7f1453f70a",
-                "reference": "6ae3e2e6494bb5e58c2decadafc3de7f1453f70a",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/8abb4f9aa89ddea9d52112c65bbe8d0125e2fa8e",
+                "reference": "8abb4f9aa89ddea9d52112c65bbe8d0125e2fa8e",
                 "shasum": ""
             },
             "require": {
@@ -733,7 +740,7 @@
                 "env",
                 "environment"
             ],
-            "time": "2018-07-01T10:25:50+00:00"
+            "time": "2018-07-29T20:33:41+00:00"
         }
     ],
     "packages-dev": [],
