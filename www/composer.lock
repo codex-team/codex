@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "73e0cc27eaf7ca8e1493271921bd327b",
+    "content-hash": "22bdafd69f105b7c3de5f4847c40f8b2",
     "packages": [
         {
-            "name": "codex-team/codex.editor",
+            "name": "codex-team/editor.js",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/codex-editor/editorjs.php.git",
-                "reference": "6d93e15cbd2d30d662145a938a65a0ba880b52d0"
+                "url": "https://github.com/codex-editor/editorjs-php.git",
+                "reference": "08816813eeff7b17000b2eec15960d400a0aa9b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codex-editor/editorjs.php/zipball/6d93e15cbd2d30d662145a938a65a0ba880b52d0",
-                "reference": "6d93e15cbd2d30d662145a938a65a0ba880b52d0",
+                "url": "https://api.github.com/repos/codex-editor/editorjs-php/zipball/08816813eeff7b17000b2eec15960d400a0aa9b5",
+                "reference": "08816813eeff7b17000b2eec15960d400a0aa9b5",
                 "shasum": ""
             },
             "require": {
@@ -31,7 +31,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "CodexEditor\\": "CodexEditor"
+                    "EditorJS\\": "EditorJS"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -44,8 +44,8 @@
                     "email": "team@ifmo.su"
                 }
             ],
-            "description": "Codex Editor server side example",
-            "time": "2018-09-30T08:19:27+00:00"
+            "description": "PHP backend implementation for the Editor.js",
+            "time": "2018-10-15T20:49:03+00:00"
         },
         {
             "name": "codex-team/hawk.php",
@@ -747,7 +747,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "codex-team/codex.editor": 20,
+        "codex-team/editor.js": 20,
         "pavelzotikov/social-covers-generator": 20
     },
     "prefer-stable": false,

@@ -1,0 +1,83 @@
+{
+  "tools": {
+    "header": {
+      "text": {
+        "type": "string",
+        "allowedTags": "a[href],mark[class]"
+      },
+      "level": {
+        "type": "int",
+        "canBeOnly": [2, 3, 4]
+      }
+    },
+    "paragraph": {
+      "text": {
+        "type": "string",
+        "allowedTags": "i,b,a[href],span[class],mark[class]"
+      }
+    },
+    "list": {
+      "style": {
+        "type": "string",
+        "canBeOnly": ["ordered", "unordered"]
+      },
+      "items": {
+        "type": "array",
+        "data": {
+          "-": {
+            "type": "string",
+            "allowedTags": "i,b,a[href],span[class],mark[class]"
+          }
+        }
+      }
+    },
+    "quote": {
+      "text": {
+        "type": "string",
+        "allowedTags": "i,b,a[href],span[class],mark[class]"
+      },
+      "caption": {
+        "type": "string",
+        "allowedTags": "i,b,a[href],span[class],mark[class]"
+      },
+      "alignment": {
+        "type": "string",
+        "canBeOnly": ["left", "center"]
+      }
+    },
+    "delimiter" : {
+
+    },
+    "code" : {
+      "code" : {
+        "type" : "string"
+      }
+    },
+    "rawTool" : {
+      "html" : {
+        "type" : "string",
+        "allowedTags": "*"
+      }
+    },
+    "image": {
+      "background": {
+        "type": "boolean"
+      },
+      "url": {
+        "type": "string"
+      },
+      "caption": {
+        "type": "string"
+      },
+      "withBorder": {
+        "type": "boolean"
+      },
+      "withBackground": {
+        "type": "boolean"
+      },
+      "stretched": {
+        "type": "boolean"
+      }
+    }
+  }
+}

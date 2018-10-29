@@ -1,6 +1,7 @@
-<?php use CodexEditor\CodexEditor;
+<?php defined('SYSPATH') or die('No direct script access.');
 
-defined('SYSPATH') or die('No direct script access.');
+use \EditorJS\EditorJS;
+use \EditorJS\EditorJSException;
 
 class Controller_Cover_Image extends Controller_Base_preDispatch
 {
@@ -35,7 +36,7 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
         }
 
         $cover = null;
-        
+
         try {
             switch ($type) {
                 case 'article':
@@ -90,7 +91,7 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
 
         $image = null;
         try {
-            $editor = new CodexEditor($article->text);
+            $editor = new EditorJS($article->text, Model_Article::getEditorConfig());
             $blocks = $editor->getBlocks();
 
             foreach ($blocks as $block) {

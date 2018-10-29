@@ -1,11 +1,11 @@
 <?
     $classes = array();
 
-    if ( !empty($block->isstretch) && $block->isstretch == 'true'){
+    if ( !empty($block->stretched) && $block->stretched == 'true'){
         $classes[] = 'article-image--stretched';
     }
 
-    if ( !empty($block->border) && $block->border == 'true'){
+    if ( !empty($block->withBorder) && $block->withBorder == 'true'){
         $classes[] = 'article-image--bordered';
     }
 

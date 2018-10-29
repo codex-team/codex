@@ -132,6 +132,8 @@ codex.pluginsFilter = require('./modules/pluginsFilter');
 import EditorLanding from './modules/editorLanding';
 codex.editorLanding = new EditorLanding();
 
+import ArticleCreate from './modules/articleCreate';
+codex.articleCreate = new ArticleCreate();
 
 module.exports = codex;
 
