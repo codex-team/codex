@@ -122,7 +122,7 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
         $font = new \SocialCoversGenerator\Properties\Font();
         $font->setColor($font_color);
         $font->setFile(sprintf('%s/public/fonts/Roboto/%s', DOCROOT, 'Roboto-Black.ttf'));
-        $font->setSize(55);
+        $font->setSize(48);
 
         $title->setFont($font);
 
@@ -167,7 +167,7 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
         $font = new \SocialCoversGenerator\Properties\Font();
         $font->setColor($font_color);
         $font->setFile(sprintf('%s/public/fonts/Roboto/%s', DOCROOT, 'Roboto-Bold.ttf'));
-        $font->setSize(32);
+        $font->setSize(28);
 
         $author_name->setFont($font);
 
