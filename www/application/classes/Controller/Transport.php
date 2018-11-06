@@ -19,7 +19,7 @@ class Controller_Transport extends Controller_Base_preDispatch
      */
     public function action_file_uploader()
     {
-        $this->files = Arr::get($_FILES, 'files');
+        $this->files = Arr::get($_FILES, 'image');
 
         if (isset($_POST['file'])) {
             $url = Arr::get($_POST, 'file');
@@ -52,12 +52,10 @@ class Controller_Transport extends Controller_Base_preDispatch
 
         if ($filename) {
             $this->transportResponse['success'] = 1;
-            $this->transportResponse['data'] = array(
-                // 'file' => array(
-                    'url' => '/upload/redactor_images/o_' . $filename,
-                    'width' => null,
-                    'height' => null
-                // )
+            $this->transportResponse['file'] = array(
+                'url' => '/upload/redactor_images/o_' . $filename,
+                'width' => null,
+                'height' => null
             );
         }
 
