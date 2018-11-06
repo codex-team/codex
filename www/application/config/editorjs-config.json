@@ -60,11 +60,13 @@
       }
     },
     "image": {
-      "background": {
-        "type": "boolean"
-      },
-      "url": {
-        "type": "string"
+      "file": {
+        "type": "array",
+        "data": {
+          "url": {
+            "type": "string"
+          }
+        }
       },
       "caption": {
         "type": "string"
