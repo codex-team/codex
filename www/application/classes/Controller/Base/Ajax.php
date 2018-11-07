@@ -65,7 +65,7 @@ class Controller_Base_Ajax extends Controller_Base_preDispatch
 
                 case self::TRANSPORT_ACTION_PROFILE_PHOTO:
 
-                    $filename = $this->methods->saveImage($files, 'upload/users/');
+                    $filename = $this->methods->saveImage($files, 'upload/users/')['filename'];
 
                     if ($filename) {
 

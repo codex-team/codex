@@ -23,15 +23,15 @@ class Controller_Transport extends Controller_Base_preDispatch
 
         if (isset($_POST['file'])) {
             $url = Arr::get($_POST, 'file');
-            $filename = $this->methods->saveImageByUrl($url, 'upload/redactor_images/');
+            $imageData = $this->methods->saveImageByUrl($url, 'upload/redactor_images/');
 
-            if ($filename) {
+            if ($imageData) {
                 $this->transportResponse['success'] = 1;
                 $this->transportResponse['data'] = array(
                     'file' => array(
-                        'url' => $filename,
-                        'width' => null,
-                        'height' => null
+                        'url' => $imageData['filename'],
+                        'width' => $imageData['width'],
+                        'height' => $imageData['height']
                     )
                 );
             }
@@ -48,14 +48,14 @@ class Controller_Transport extends Controller_Base_preDispatch
             goto finish;
         }
 
-        $filename = $this->saveEditorImage();
+        $imageData = $this->saveEditorImage();
 
-        if ($filename) {
+        if ($imageData) {
             $this->transportResponse['success'] = 1;
             $this->transportResponse['file'] = array(
-                'url' => '/upload/redactor_images/o_' . $filename,
-                'width' => 0,
-                'height' => 0
+                'url' => '/upload/redactor_images/o_' . $imageData['filename'],
+                'width' => $imageData['width'],
+                'height' => $imageData['height']
             );
         }
 
@@ -67,13 +67,13 @@ class Controller_Transport extends Controller_Base_preDispatch
     private function saveEditorImage()
     {
         if (Upload::type($this->files, array('jpg', 'jpeg', 'png', 'gif'))) {
-            $filename = $this->methods->saveImage($this->files, 'upload/redactor_images/');
+            $imageData = $this->methods->saveImage($this->files, 'upload/redactor_images/');
         }
-        if (!$filename) {
+        if (!$imageData) {
             $this->transportResponse['message'] = 'Error while saving';
             return false;
         }
 
-        return $filename;
+        return $imageData;
     }
 }
