@@ -63,6 +63,12 @@
       "file": {
         "type": "array",
         "data": {
+          "width" : {
+            "type": "int"
+          },
+          "height" : {
+            "type": "int"
+          },
           "url": {
             "type": "string"
           }
