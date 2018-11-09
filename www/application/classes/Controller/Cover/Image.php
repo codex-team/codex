@@ -1,7 +1,6 @@
-<?php defined('SYSPATH') or die('No direct script access.');
+<?php use CodexEditor\CodexEditor;
 
-use \EditorJS\EditorJS;
-use \EditorJS\EditorJSException;
+defined('SYSPATH') or die('No direct script access.');
 
 class Controller_Cover_Image extends Controller_Base_preDispatch
 {
@@ -28,7 +27,7 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
             case 'fb':
                 $this->width = 1200;
                 $this->height = 530;
-            break;
+                break;
             case 'vk':
                 // $this->width = 1074;
                 // $this->height = 480;
@@ -91,7 +90,7 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
 
         $image = null;
         try {
-            $editor = new EditorJS($article->text, Model_Article::getEditorConfig());
+            $editor = new CodexEditor($article->text);
             $blocks = $editor->getBlocks();
 
             foreach ($blocks as $block) {
@@ -123,7 +122,7 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
         $font = new \SocialCoversGenerator\Properties\Font();
         $font->setColor($font_color);
         $font->setFile(sprintf('%s/public/fonts/Roboto/%s', DOCROOT, 'Roboto-Black.ttf'));
-        $font->setSize(55);
+        $font->setSize(48);
 
         $title->setFont($font);
 
@@ -168,7 +167,7 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
         $font = new \SocialCoversGenerator\Properties\Font();
         $font->setColor($font_color);
         $font->setFile(sprintf('%s/public/fonts/Roboto/%s', DOCROOT, 'Roboto-Bold.ttf'));
-        $font->setSize(32);
+        $font->setSize(28);
 
         $author_name->setFont($font);
 
