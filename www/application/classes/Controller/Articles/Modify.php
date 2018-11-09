@@ -91,6 +91,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         } catch (Exception $e) {
             \Hawk\HawkCatcher::catchException($e);
             $this->sendAjaxResponse(array('message' => 'Fatal Error. Please refresh the page.', 'success' => 0));
+            throw new HTTP_Exception_500($e->getMessage());
             return;
         }
 
@@ -233,7 +234,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         } else {
             $recentArticlesFeed->remove($article->id);
         }
-        
+
         // Если поле uri пустое, то редиректить на обычный роут /article/id
         $redirect = ($uri) ? '/' . $article->uri : '/article/' . $article->id;
 
