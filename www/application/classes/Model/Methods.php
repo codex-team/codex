@@ -135,7 +135,7 @@ class Model_Methods extends Model
             return array(
                 'width' => $originalWidth,
                 'height' => $originalHeight,
-                'filename' => $filename
+                'name' => $filename
             );
         }
 
