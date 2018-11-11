@@ -14,10 +14,7 @@
       }
     },
     "list": {
-      "style": {
-        "type": "string",
-        "canBeOnly": ["ordered", "unordered"]
-      },
+      "style": ["ordered", "unordered"],
       "items": {
         "type": "array",
         "data": {
