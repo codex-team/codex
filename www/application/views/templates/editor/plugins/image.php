@@ -11,7 +11,7 @@
 
 ?>
 <figure class="article-image <?= implode(' ', $classes); ?>">
-    <img src="<?= $block->url; ?>" alt="<? !empty($block->caption) ? $block->caption : '' ?>">
+    <img src="<?= $block->file['url']; ?>" alt="<? !empty($block->caption) ? $block->caption : '' ?>">
     <? if (!empty($block->caption)): ?>
         <footer class="article-image-caption">
             <?= $block->caption; ?>

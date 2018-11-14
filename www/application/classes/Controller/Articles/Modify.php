@@ -86,6 +86,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         }
 
         $pageContent = Arr::get($_POST, 'article_text', '');
+
         try {
             $editor = new EditorJS($pageContent, Model_Article::getEditorConfig());
         } catch (Exception $e) {
@@ -233,7 +234,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         } else {
             $recentArticlesFeed->remove($article->id);
         }
-        
+
         // Если поле uri пустое, то редиректить на обычный роут /article/id
         $redirect = ($uri) ? '/' . $article->uri : '/article/' . $article->id;
 

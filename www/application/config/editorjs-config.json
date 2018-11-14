@@ -5,10 +5,7 @@
         "type": "string",
         "allowedTags": "a[href],mark[class]"
       },
-      "level": {
-        "type": "int",
-        "canBeOnly": [2, 3, 4]
-      }
+      "level": [2, 3, 4]
     },
     "paragraph": {
       "text": {
@@ -17,10 +14,7 @@
       }
     },
     "list": {
-      "style": {
-        "type": "string",
-        "canBeOnly": ["ordered", "unordered"]
-      },
+      "style": ["ordered", "unordered"],
       "items": {
         "type": "array",
         "data": {
@@ -40,18 +34,12 @@
         "type": "string",
         "allowedTags": "i,b,a[href],span[class],mark[class]"
       },
-      "alignment": {
-        "type": "string",
-        "canBeOnly": ["left", "center"]
-      }
+      "alignment": ["left", "center"]
     },
     "delimiter" : {
-
     },
     "code" : {
-      "code" : {
-        "type" : "string"
-      }
+      "code" : "string"
     },
     "rawTool" : {
       "html" : {
@@ -60,24 +48,18 @@
       }
     },
     "image": {
-      "background": {
-        "type": "boolean"
+      "file": {
+        "type": "array",
+        "data": {
+          "width" : "int",
+          "height" : "int",
+          "url": "string"
+        }
       },
-      "url": {
-        "type": "string"
-      },
-      "caption": {
-        "type": "string"
-      },
-      "withBorder": {
-        "type": "boolean"
-      },
-      "withBackground": {
-        "type": "boolean"
-      },
-      "stretched": {
-        "type": "boolean"
-      }
+      "caption": "string",
+      "withBorder": "boolean",
+      "withBackground": "boolean",
+      "stretched": "boolean"
     }
   }
 }

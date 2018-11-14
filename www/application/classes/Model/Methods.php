@@ -81,6 +81,13 @@ class Model_Methods extends Model
     }
 
 
+    /**
+     * Save uploaded image
+     * @param resource $file - uploaded file
+     * @param string $path - path where image will be saved
+     * @return array|bool - object with image data: filename, width and height
+     * @throws Kohana_Exception
+     */
     public function saveImage($file, $path)
     {
         /**
@@ -98,6 +105,9 @@ class Model_Methods extends Model
         if ($file = Upload::save($file, null, $path)) {
             $filename = bin2hex(openssl_random_pseudo_bytes(16)) . '.jpg';
             $image = Image::factory($file);
+
+            $originalWidth = $image->width;
+            $originalHeight = $image->height;
 
             foreach ($this->IMAGE_SIZES_CONFIG as $prefix => $sizes) {
                 $isSquare = !!$sizes[0];
@@ -122,7 +132,11 @@ class Model_Methods extends Model
             }
             // Delete the temporary file
             unlink($file);
-            return $filename;
+            return array(
+                'width' => $originalWidth,
+                'height' => $originalHeight,
+                'name' => $filename
+            );
         }
 
         return false;

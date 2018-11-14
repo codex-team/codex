@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/codex-editor/editorjs-php.git",
-                "reference": "08816813eeff7b17000b2eec15960d400a0aa9b5"
+                "reference": "5b59050b7f76e7f9e6b0c589bc4444a9644cbc3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codex-editor/editorjs-php/zipball/08816813eeff7b17000b2eec15960d400a0aa9b5",
-                "reference": "08816813eeff7b17000b2eec15960d400a0aa9b5",
+                "url": "https://api.github.com/repos/codex-editor/editorjs-php/zipball/5b59050b7f76e7f9e6b0c589bc4444a9644cbc3e",
+                "reference": "5b59050b7f76e7f9e6b0c589bc4444a9644cbc3e",
                 "shasum": ""
             },
             "require": {
@@ -45,7 +45,7 @@
                 }
             ],
             "description": "PHP backend implementation for the Editor.js",
-            "time": "2018-10-15T20:49:03+00:00"
+            "time": "2018-11-01T08:24:28+00:00"
         },
         {
             "name": "codex-team/hawk.php",
@@ -586,7 +586,7 @@
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.9.0",
+            "version": "v1.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
@@ -644,16 +644,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.8.46",
+            "version": "v2.8.47",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "5baf0f821b14eee8ca415e6a0361a9fa140c002c"
+                "reference": "0e16589861f192dbffb19b06683ce3ef58f7f99d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/5baf0f821b14eee8ca415e6a0361a9fa140c002c",
-                "reference": "5baf0f821b14eee8ca415e6a0361a9fa140c002c",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/0e16589861f192dbffb19b06683ce3ef58f7f99d",
+                "reference": "0e16589861f192dbffb19b06683ce3ef58f7f99d",
                 "shasum": ""
             },
             "require": {
@@ -690,7 +690,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2018-08-29T13:11:53+00:00"
+            "time": "2018-10-02T16:27:16+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
