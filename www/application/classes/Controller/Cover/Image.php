@@ -42,7 +42,12 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
                     $cover = $this->article($target);
                     break;
             }
-        } catch (\Throwable $ignored) { }
+        } catch (\Throwable $e) {
+            \Hawk\HawkCatcher::catchException($e);
+            die();
+
+            /** @todo throw 500 */
+        }
 
         if (!$cover) {
             $cover = $this->background();
@@ -96,7 +101,8 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
             foreach ($blocks as $block) {
                 if ($block['type'] === 'image') {
                     $font_color = '#FFFFFF';
-                    $image = substr($block['data']['file']['url'], 0, 4) !== 'http' ? sprintf('%s%s', Model_Methods::getDomainAndProtocol(), $block['data']['file']['url']) : $block['data']['file']['url'];
+                    $image_url = $block['data']['file']['url'];
+                    $image = substr($image_url, 0, 4) !== 'http' ? sprintf('%s%s', DOCROOT, $image_url) : $image_url;
                     break;
                 }
             }
@@ -121,7 +127,7 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
 
         $font = new \SocialCoversGenerator\Properties\Font();
         $font->setColor($font_color);
-        $font->setFile(sprintf('%s/public/fonts/Roboto/%s', DOCROOT, 'Roboto-Black.ttf'));
+        $font->setFile(sprintf('%spublic/fonts/Roboto/%s', DOCROOT, 'Roboto-Black.ttf'));
         $font->setSize(48);
 
         $title->setFont($font);
@@ -138,7 +144,8 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
         /**
          * Author image
          */
-        $author_photo_url = substr($article->author->photo, 0, 4) !== 'http' ? sprintf('%s/%s', Model_Methods::getDomainAndProtocol(), $article->author->photo) : $article->author->photo;
+        $author_photo_url = substr($article->author->photo, 0, 4) !== 'http' ? sprintf('%s%s', DOCROOT, $article->author->photo) : $article->author->photo;
+
         $author_image = new \SocialCoversGenerator\Types\Image();
         $author_image->setPath($author_photo_url);
         $author_image->setWidth(50);
@@ -166,7 +173,7 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
 
         $font = new \SocialCoversGenerator\Properties\Font();
         $font->setColor($font_color);
-        $font->setFile(sprintf('%s/public/fonts/Roboto/%s', DOCROOT, 'Roboto-Bold.ttf'));
+        $font->setFile(sprintf('%spublic/fonts/Roboto/%s', DOCROOT, 'Roboto-Bold.ttf'));
         $font->setSize(28);
 
         $author_name->setFont($font);
