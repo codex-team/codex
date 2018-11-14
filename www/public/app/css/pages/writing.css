@@ -70,6 +70,10 @@
 
     .ce-block--stretched {
         max-width: none !important;
+
+        .ce-block__content {
+            max-width: none !important;
+        }
     }
 }
 

@@ -56,7 +56,10 @@
           "url": "string"
         }
       },
-      "caption": "string",
+      "caption": {
+        "type": "string",
+        "allowedTags": "i,b,a[href],span[class],mark[class]"
+      },
       "withBorder": "boolean",
       "withBackground": "boolean",
       "stretched": "boolean"

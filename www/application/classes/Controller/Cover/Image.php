@@ -1,4 +1,4 @@
-<?php use CodexEditor\CodexEditor;
+<?php use EditorJS\EditorJS;
 
 defined('SYSPATH') or die('No direct script access.');
 
@@ -90,13 +90,13 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
 
         $image = null;
         try {
-            $editor = new CodexEditor($article->text);
+            $editor = new EditorJS($article->text, Model_Article::getEditorConfig());
             $blocks = $editor->getBlocks();
 
             foreach ($blocks as $block) {
                 if ($block['type'] === 'image') {
                     $font_color = '#FFFFFF';
-                    $image = substr($block['data']['url'], 0, 4) !== 'http' ? sprintf('%s/%s', Model_Methods::getDomainAndProtocol(), $block['data']['url']) : $block['data']['url'];
+                    $image = substr($block['data']['file']['url'], 0, 4) !== 'http' ? sprintf('%s%s', Model_Methods::getDomainAndProtocol(), $block['data']['file']['url']) : $block['data']['file']['url'];
                     break;
                 }
             }

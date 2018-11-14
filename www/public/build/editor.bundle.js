@@ -1652,16 +1652,16 @@ function () {
 
     this.editor = new CodexEditor({
       tools: {
-        image: {
-          class: ImageTool,
-          config: {
-            url: '/editor/transport' // Your backend uploader endpoint
-
-          }
-        },
         header: {
           class: Header,
           inlineToolbar: ['link', 'marker']
+        },
+        image: {
+          class: ImageTool,
+          inlineToolbar: true,
+          config: {
+            url: '/editor/transport'
+          }
         },
         list: {
           class: List,
