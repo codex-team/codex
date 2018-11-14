@@ -53,7 +53,7 @@ class Controller_Transport extends Controller_Base_preDispatch
         if ($imageData) {
             $this->transportResponse['success'] = 1;
             $this->transportResponse['file'] = array(
-                'url' => 'upload/redactor_images/o_' . Arr::get($imageData, 'name'),
+                'url' => '/upload/redactor_images/o_' . Arr::get($imageData, 'name'),
                 'width' => $imageData['width'],
                 'height' => $imageData['height']
             );
