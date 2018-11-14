@@ -29,7 +29,6 @@ RUN set -x \
     && rm -rf /tmp/pecl-memcache-php7 php7.zip
 
 # Install ImageMagick
-#RUN apt-get install -y --no-install-recommends \
 RUN pecl install imagick
 RUN docker-php-ext-enable \
     imagick
