@@ -28,8 +28,8 @@ class Controller_Transport extends Controller_Base_preDispatch
                 $this->transportResponse['data'] = array(
                     'file' => array(
                         'url' => Arr::get($imageData, 'name'),
-                        'width' => $imageData['width'],
-                        'height' => $imageData['height']
+                        'width' => Arr::get($imageData, 'width', 0),
+                        'height' => Arr::get($imageData, 'height', 0)
                     )
                 );
             }
@@ -54,8 +54,8 @@ class Controller_Transport extends Controller_Base_preDispatch
             $this->transportResponse['success'] = 1;
             $this->transportResponse['file'] = array(
                 'url' => '/upload/redactor_images/o_' . Arr::get($imageData, 'name'),
-                'width' => $imageData['width'],
-                'height' => $imageData['height']
+                'width' => Arr::get($imageData, 'width', 0),
+                'height' => Arr::get($imageData, 'height', 0)
             );
         }
 
@@ -65,15 +65,19 @@ class Controller_Transport extends Controller_Base_preDispatch
     }
 
     private function saveEditorImage()
-    {
+    {   
         if (Upload::type($this->files, array('jpg', 'jpeg', 'png', 'gif'))) {
             $imageData = $this->methods->saveImage($this->files, 'upload/redactor_images/');
-        }
-        if (!$imageData) {
+        
+            if ($imageData) {
+                return $imageData;
+            }
+            
             $this->transportResponse['message'] = 'Error while saving';
-            return false;
+        } else {
+            $this->transportResponse['message'] = 'Unsupported file type';
         }
-
-        return $imageData;
+        
+        return false;
     }
 }
