@@ -9,13 +9,14 @@ const CodexEditor = require('codex.editor');
  * Tools for the Editor
  */
 const Header = require('codex.editor.header');
-const SimpleImage = require('codex.editor.simple-image');
 const Quote = require('codex.editor.quote');
 const Marker = require('codex.editor.marker');
 const CodeTool = require('codex.editor.code');
 const Delimiter = require('codex.editor.delimiter');
 const InlineCode = require('codex.editor.inline-code');
 const List = require('codex.editor.list');
+const RawTool = require('codex.editor.raw');
+const ImageTool = require('codex.editor.image');
 
 /**
  * Class for working with CodeX Editor
@@ -48,10 +49,16 @@ export default class Editor {
          */
         this.editor = new CodexEditor({
             tools: {
-                image: SimpleImage,
                 header: {
                     class: Header,
                     inlineToolbar: ['link', 'marker'],
+                },
+                image: {
+                    class: ImageTool,
+                    inlineToolbar: true,
+                    config: {
+                        url: '/editor/transport',
+                    }
                 },
                 list: {
                     class: List,
@@ -68,6 +75,10 @@ export default class Editor {
                 inlineCode: {
                     class: InlineCode,
                     shortcut: 'CMD+SHIFT+C'
+                },
+                rawTool: {
+                    class: RawTool,
+                    shortcut: 'CMD+SHIFT+R'
                 },
                 marker: {
                     class: Marker,
