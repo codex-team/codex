@@ -19,24 +19,24 @@ class Controller_Transport extends Controller_Base_preDispatch
      */
     public function action_file_uploader()
     {
-        $this->files = Arr::get($_FILES, 'files');
-
         if (isset($_POST['file'])) {
             $url = Arr::get($_POST, 'file');
-            $filename = $this->methods->saveImageByUrl($url, 'upload/redactor_images/');
+            $imageData = $this->methods->saveImageByUrl($url, 'upload/redactor_images/');
 
-            if ($filename) {
+            if ($imageData) {
                 $this->transportResponse['success'] = 1;
                 $this->transportResponse['data'] = array(
                     'file' => array(
-                        'url' => $filename,
-                        'width' => null,
-                        'height' => null
+                        'url' => Arr::get($imageData, 'name'),
+                        'width' => Arr::get($imageData, 'width', 0),
+                        'height' => Arr::get($imageData, 'height', 0)
                     )
                 );
             }
             goto finish;
         }
+
+        $this->files = Arr::get($_FILES, 'image');
 
         if (!$this->files || !Upload::not_empty($this->files) || !Upload::valid($this->files)) {
             $this->transportResponse['message'] = 'File is missing or damaged';
@@ -48,16 +48,14 @@ class Controller_Transport extends Controller_Base_preDispatch
             goto finish;
         }
 
-        $filename = $this->saveEditorImage();
+        $imageData = $this->saveEditorImage();
 
-        if ($filename) {
+        if ($imageData) {
             $this->transportResponse['success'] = 1;
-            $this->transportResponse['data'] = array(
-                // 'file' => array(
-                    'url' => '/upload/redactor_images/o_' . $filename,
-                    'width' => null,
-                    'height' => null
-                // )
+            $this->transportResponse['file'] = array(
+                'url' => '/upload/redactor_images/o_' . Arr::get($imageData, 'name'),
+                'width' => Arr::get($imageData, 'width', 0),
+                'height' => Arr::get($imageData, 'height', 0)
             );
         }
 
@@ -67,15 +65,19 @@ class Controller_Transport extends Controller_Base_preDispatch
     }
 
     private function saveEditorImage()
-    {
+    {   
         if (Upload::type($this->files, array('jpg', 'jpeg', 'png', 'gif'))) {
-            $filename = $this->methods->saveImage($this->files, 'upload/redactor_images/');
-        }
-        if (!$filename) {
+            $imageData = $this->methods->saveImage($this->files, 'upload/redactor_images/');
+        
+            if ($imageData) {
+                return $imageData;
+            }
+            
             $this->transportResponse['message'] = 'Error while saving';
-            return false;
+        } else {
+            $this->transportResponse['message'] = 'Unsupported file type';
         }
-
-        return $filename;
+        
+        return false;
     }
 }

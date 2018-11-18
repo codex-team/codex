@@ -469,4 +469,18 @@ class Model_Article extends Model
 
         return array_slice($mostPopularArticles, 0, $numberOfArticles);
     }
+
+    /**
+     * Gets config for CodeX Editor, containing rules for validation Editor Tools data
+     * @return string - Editor's config data
+     * @throws Exceptions_ConfigMissedException - Failed to get Editorjs config data
+     */
+    public static function getEditorConfig()
+    {
+        try {
+            return file_get_contents(APPPATH . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'editorjs-config.json');
+        } catch (Exception $e) {
+            throw new Exceptions_ConfigMissedException("EditorJS config not found");
+        }
+    }
 }

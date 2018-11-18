@@ -1,4 +1,4 @@
-<?php use CodexEditor\CodexEditor;
+<?php use EditorJS\EditorJS;
 
 defined('SYSPATH') or die('No direct script access.');
 
@@ -27,7 +27,7 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
             case 'fb':
                 $this->width = 1200;
                 $this->height = 530;
-            break;
+                break;
             case 'vk':
                 // $this->width = 1074;
                 // $this->height = 480;
@@ -35,14 +35,19 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
         }
 
         $cover = null;
-        
+
         try {
             switch ($type) {
                 case 'article':
                     $cover = $this->article($target);
                     break;
             }
-        } catch (\Throwable $ignored) { }
+        } catch (\Throwable $e) {
+            \Hawk\HawkCatcher::catchException($e);
+            die();
+
+            /** @todo throw 500 */
+        }
 
         if (!$cover) {
             $cover = $this->background();
@@ -90,13 +95,14 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
 
         $image = null;
         try {
-            $editor = new CodexEditor($article->text);
+            $editor = new EditorJS($article->text, Model_Article::getEditorConfig());
             $blocks = $editor->getBlocks();
 
             foreach ($blocks as $block) {
                 if ($block['type'] === 'image') {
                     $font_color = '#FFFFFF';
-                    $image = substr($block['data']['url'], 0, 4) !== 'http' ? sprintf('%s/%s', Model_Methods::getDomainAndProtocol(), $block['data']['url']) : $block['data']['url'];
+                    $image_url = $block['data']['file']['url'];
+                    $image = substr($image_url, 0, 4) !== 'http' ? sprintf('%s%s', DOCROOT, $image_url) : $image_url;
                     break;
                 }
             }
@@ -121,8 +127,8 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
 
         $font = new \SocialCoversGenerator\Properties\Font();
         $font->setColor($font_color);
-        $font->setFile(sprintf('%s/public/fonts/Roboto/%s', DOCROOT, 'Roboto-Black.ttf'));
-        $font->setSize(55);
+        $font->setFile(sprintf('%spublic/fonts/Roboto/%s', DOCROOT, 'Roboto-Black.ttf'));
+        $font->setSize(48);
 
         $title->setFont($font);
 
@@ -138,7 +144,8 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
         /**
          * Author image
          */
-        $author_photo_url = substr($article->author->photo, 0, 4) !== 'http' ? sprintf('%s/%s', Model_Methods::getDomainAndProtocol(), $article->author->photo) : $article->author->photo;
+        $author_photo_url = substr($article->author->photo, 0, 4) !== 'http' ? sprintf('%s%s', DOCROOT, $article->author->photo) : $article->author->photo;
+
         $author_image = new \SocialCoversGenerator\Types\Image();
         $author_image->setPath($author_photo_url);
         $author_image->setWidth(50);
@@ -166,8 +173,8 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
 
         $font = new \SocialCoversGenerator\Properties\Font();
         $font->setColor($font_color);
-        $font->setFile(sprintf('%s/public/fonts/Roboto/%s', DOCROOT, 'Roboto-Bold.ttf'));
-        $font->setSize(32);
+        $font->setFile(sprintf('%spublic/fonts/Roboto/%s', DOCROOT, 'Roboto-Bold.ttf'));
+        $font->setSize(28);
 
         $author_name->setFont($font);
 
