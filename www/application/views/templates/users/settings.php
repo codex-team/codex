@@ -11,7 +11,12 @@
                 <img src="<?= HTML::chars($user->photo) ?>" alt="<?= HTML::chars($user->name) ?>" id="profile-photo-updatable">
             </div>
             <br/>
-            <div class="button file-transport-button" data-action="<?= Controller_Base_Ajax::TRANSPORT_ACTION_PROFILE_PHOTO ?>">
+            <div data-module="transport" class="button file-transport-button" data-action="<?= Controller_Base_Ajax::TRANSPORT_ACTION_PROFILE_PHOTO ?>">
+                <module-settings hidden>
+                    {
+                        "buttonsClass": ".file-transport-button"
+                    }
+                </module-settings>
                 <i class="icon-picture"></i>Change
             </div>
         </div>
@@ -47,16 +52,3 @@
 
     </div>
 </div>
-
-<script>
-    codex.docReady(function () {
-
-        /** File transport button handlers */
-        var fileTransportButtons = document.getElementsByClassName("file-transport-button");
-
-        if (fileTransportButtons.length){
-            codex.transport.init(fileTransportButtons);
-        }
-
-    });
-</script>
