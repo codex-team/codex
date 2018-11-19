@@ -2,21 +2,21 @@ version: '2'
 
 services:
   mysql:
-    image: mysql:latest
+    image: 'mysql:5.7'
     ports:
-      - 3306:3306
+      - '3306:3306'
     environment:
       MYSQL_ROOT_PASSWORD: root
 
   memcached:
-    image: memcached:alpine
+    image: 'memcached:alpine'
     ports:
-      - 11211:11211
+      - '11211:11211'
 
   redis:
-    image: redis:alpine
+    image: 'redis:alpine'
     ports:
-      - 6379:6379
+      - '6379:6379'
 
   php:
     build: docker/php
@@ -25,16 +25,16 @@ services:
       - memcached
       - redis
     volumes:
-      - ./www:/var/www/codex
+      - './www:/var/www/codex'
 
   nginx:
-    image: nginx:latest
+    image: 'nginx:latest'
     ports:
-      - 8080:8080
+      - '8080:8080'
     links:
       - php
     volumes:
-      - ./docker/nginx-codex.conf:/etc/nginx/conf.d/codex.conf
+      - './docker/nginx-codex.conf:/etc/nginx/conf.d/codex.conf'
     volumes_from:
       - php
 
@@ -43,7 +43,7 @@ services:
     links:
       - mysql
     ports:
-      - 8081:80
+      - '8081:80'
     environment:
       PMA_ARBITRARY: 1
       MYSQL_USER: root

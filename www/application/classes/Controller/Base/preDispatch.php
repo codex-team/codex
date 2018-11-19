@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Base_preDispatch extends Controller_Template
+class Controller_Base_preDispatch extends Template
 {
 
     /** Wrapper template name */
@@ -53,6 +53,11 @@ class Controller_Base_preDispatch extends Controller_Template
             $this->template->description = '';
             $this->template->metaImage   = null;
             $this->template->metaImageVK = null;
+            $this->template->meta        = array(
+                new \Opengraph\Meta('vk:image', Model_Methods::getDomainAndProtocol() . '/public/app/img/meta_img_vk.png'),
+                new \Opengraph\Meta('tw:image', Model_Methods::getDomainAndProtocol() . '/public/app/img/meta_img.png'),
+                new \Opengraph\Meta('og:image', Model_Methods::getDomainAndProtocol() . '/public/app/img/meta_img.png')
+            );
             $this->template->content     = '';
             $this->template->nofollow    = false;
         }
@@ -78,11 +83,8 @@ class Controller_Base_preDispatch extends Controller_Template
             if ($this->nofollow) {
                 $this->template->nofollow = $this->nofollow;
             }
-            if ($this->metaImage) {
-                $this->template->metaImage = $this->metaImage;
-            }
-            if ($this->metaImageVK) {
-                $this->template->metaImageVK = $this->metaImageVK;
+            if ($this->meta) {
+                $this->template->meta = $this->meta;
             }
         }
 

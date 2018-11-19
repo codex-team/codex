@@ -3,41 +3,65 @@
 * Joining page
 */
 .join-page {
-    padding: 30px 0;
-    line-height: 1.64em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    &__logo {
+        margin: 60px auto;
+        display: block;
+
+        svg {
+            display: block;
+            margin: 0 auto;
+
+            @media (--mobile) {
+                width: 150px;
+                height: auto;
+            }
+        }
+
+        @media (--mobile) {
+            margin: 50px auto 30px;
+        }
+    }
 
     &__content {
-        display: flex;
-        align-items: stretch;
-        justify-content: space-between;
+        padding: 85px 100px;
+        border: 1px solid var(--line-light);
+        border-radius: 20px;
+        max-width: 650px;
+        margin: 0 auto;
+        line-height: 1.64em;
+        font-size: 15.3px;
+        box-sizing: border-box;
 
         @media (--mobile) {
-            flex-direction: column;
+            padding: 20px;
+            border: 0;
         }
     }
 
-    &__left {
-        margin-right: 120px;
+    ul {
+        margin: 1.75em 0;
+    }
+
+    li {
+        margin: 0.8em 0;
+    }
+
+    h1 {
+        font-size: 26px;
+        margin-bottom: 1.35em;
 
         @media (--mobile) {
-            margin-right: 0;
-        }
-
-        .codex-logo {
-            width: 160px;
-            height: 160px;
-            margin: 0 auto 30px;
-            background-size: auto 160px;
+            margin-top: 0;
         }
     }
 
-    &__right {
-        min-width: 380px;
-
-        .codex-logo {
-            display: block;
-            margin: 0 auto 50px;
-        }
+    h2 {
+        margin: 2em 0 0.8em;
+        font-size: 21px;
+        font-weight: normal;
     }
 
     &__form {
@@ -59,13 +83,58 @@
     * Joining page auth form
     */
     &__auth {
-        margin-bottom: 30px;
+        margin: 50px 0;
         color: #838ea1;
 
-        .button {
-            vertical-align: middle;
-            margin-right: 20px;
+        @media (--mobile) {
+            font-size: 14px;
         }
+
+        &-vk-button {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 12px;
+            border: 1px solid #BED8F9;
+            border-radius: 6px;
+            padding: 7px 9px;
+
+            @media (--mobile) {
+                padding: 4px 7px;
+                margin-right: 7px;
+            }
+
+            svg {
+                vertical-align: middle;
+                margin-right: 0.3em;
+                margin-top: -1px;
+
+                @media (--mobile) {
+                    width: 16px;
+                    height: 16px;
+                    vertical-align: text-bottom;
+                }
+            }
+
+            &:hover {
+                border-color: #94BDF2;
+            }
+
+
+        }
+
+        &-show-email {
+            display: inline-block;
+            cursor: pointer;
+            border-bottom: 1px dotted #D0D4D8;
+            
+            &:hover {
+                color: #6C7580;
+            }
+        }
+    }
+
+    .button {
+        border-radius: 3px;
     }
 
     /**
@@ -73,7 +142,7 @@
     */
     &__user {
         font-size: 1.1em;
-        margin-bottom: 1.5em;
+        margin: 50px 0 30px;
     }
 
     &__user-photo {
@@ -96,7 +165,6 @@
 
     &__success {
         padding: 100px 200px;
-        margin: -30px 0 30px;
         background: #f2f5fb;
         color: #6f809a;
         line-height: 1.6em;
@@ -112,6 +180,11 @@
             margin-top: 2em;
             padding: 30px;
             font-size: 14px;
+        }
+
+        &-inner {
+            max-width: 550px;
+            margin: 0 auto;
         }
     }
 }

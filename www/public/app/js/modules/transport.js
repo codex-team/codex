@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Ajax file transport module
  * @author Savchenko Peter (vk.com/specc)
@@ -8,9 +10,19 @@ module.exports = (function (transport) {
     transport.currentButtonClicked = {};
 
     /**
-   * @param {Element} buttons
-   */
-    transport.init = function (buttons) {
+     * @param {String} settings.buttonsClass - class of transport button handler
+     */
+    transport.init = function (settings) {
+
+        let buttons = document.querySelectorAll(settings.buttonsClass);
+
+        if (!buttons.length) {
+
+            console.warn('Can\'t find element with class: «' + settings.buttonsClass + '»');
+
+            return;
+
+        }
 
         transport.form  = document.getElementById('transportForm');
         transport.input = document.getElementById('transportInput');

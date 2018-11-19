@@ -64,10 +64,10 @@ export default class DOM {
      */
     static loadResource(type, path, instanceName) {
 
-    /**
-     * Imported resource ID prefix
-     * @type {String}
-     */
+        /**
+         * Imported resource ID prefix
+         * @type {String}
+         */
         const resourcePrefix = 'cdx-resourse';
 
         return new Promise(function (resolve, reject) {

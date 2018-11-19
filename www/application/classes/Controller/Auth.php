@@ -21,10 +21,10 @@ class Controller_Auth extends Controller_Base_preDispatch
                 $token = Session::instance()->get('vk_token');
                 Cookie::set("auth_token", $token, $this->cookiesLifetime);
 
-                $user = Model_User::findByAttribute('vk_id', $profile->uid);
+                $user = Model_User::findByAttribute('vk_id', $profile->id);
                 if ($user->is_empty()) {
                     $user = new Model_User();
-                    $user->vk_id = $profile->uid;
+                    $user->vk_id = $profile->id;
                     $user->photo_small = $profile->photo_50;
                     $user->photo = $profile->photo_200;
                     $user->photo_big = $profile->photo_max;

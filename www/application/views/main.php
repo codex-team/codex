@@ -21,31 +21,20 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="format-detection" content="telephone=no">
 
-    <link rel="stylesheet" href="/public/build/bundle.css?v=<?= filemtime('public/build/bundle.css') ?>">
+    <link rel="stylesheet" href="/public/build/main.css?v=<?= filemtime('public/build/main.css') ?>">
     <link rel="icon" type="image/png" href="/public/app/img/fav_shield@3x.png?v=985" id="favicon" />
 
     <meta name="telegram:channel" content="@codex_team">
 
-    <?
-        if (empty($metaImage)) {
-            $metaImage = Model_Methods::getDomainAndProtocol() . '/public/app/img/meta_img.png';
-        } else if (empty($metaImageVK)) {
-            $metaImageVK = $metaImage;
-        }
+    <? if (isset($meta)): ?>
+        <? /** @var \Opengraph\Meta $meta_item */ ?>
+        <? foreach ($meta as $meta_item): ?>
+            <?= $meta_item->render(); ?>
+        <? endforeach; ?>
+    <? endif; ?>
 
-        if (empty($metaImageVK)) {
-            $metaImageVK = Model_Methods::getDomainAndProtocol() . '/public/app/img/meta_img_vk.png';
-        }
-    ?>
-
-    <meta property="vk:image" content="<?= $metaImageVK ?>" />
-    <meta property="twitter:image"  content="<?= $metaImage ?>" />
-    <meta property="og:image" id="metaImage" name="image" content="<?= $metaImage ?>" />
-    <link id="linkImage" rel="image_src" href="<?= $metaImage ?>" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
     <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/apple-touch-icon-180x180.png" />
-
-    <script src="/public/build/bundle.js?v=<?= filemtime('public/build/bundle.js') ?>"></script>
 
     <? if (!empty($_SERVER['HAWK_TOKEN'])): ?>
         <script src="https://cdn.rawgit.com/codex-team/hawk.javascript/master/hawk.js" onload="hawk.init({token: '<?= $_SERVER['HAWK_TOKEN'] ?>', revision: <?= filemtime('public/build/bundle.js') ?>})"></script>
@@ -88,12 +77,6 @@
         </div>
     </footer>
 
-    <script>
-        codex.docReady(function () {
-            codex.init();
-        });
-    </script>
-
     <? if ($user->id): ?>
         <div id="utils" class="hidden" style="display: none">
             <iframe name="transport"></iframe>
@@ -108,17 +91,9 @@
         <script type="text/javascript">(window.Image ? (new Image()) : document.createElement('img')).src = location.protocol + '//vk.com/rtrg?r=r/h9TMw6W*8InHxVrFZ4tmb*x6Z5C3xX8BdMxOLhjmn9fIv51wjPMiGmbHGJJd7sOl87xLCs94644RwgS0o2PeBS*/xssAPVS1zN/LOx/HWw2kLUkcg0ELryq4QZF0IJtKIs0pJyo6/*z0qgpPsNl0u8pQPEQ12R4jrwKFQZK4k-';</script>
     <? endif; ?>
 
+    <script onload="codex.init();" src="/public/build/main.bundle.js?v=<?= filemtime('public/build/main.bundle.js') ?>" defer></script>
 
-    <script src="/public/extensions/emoji-parser/specc-emoji.js?v=<?= filemtime('public/extensions/emoji-parser/specc-emoji.js') ?>"></script>
-    <script>
-
-        codex.docReady(function () {
-
-            Emoji.parse();
-
-        });
-
-    </script>
+    <script onload="Emoji.parse();" src="/public/extensions/emoji-parser/specc-emoji.js?v=<?= filemtime('public/extensions/emoji-parser/specc-emoji.js') ?>" defer></script>
 
 </body>
 </html>

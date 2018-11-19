@@ -37,6 +37,11 @@
         <? /* <br><a class="button button--green index-page__join-button" href="/join">Вступить в клуб</a> */ ?>
 
         <?
+            /** Join block */
+            /* include 'join.php' */
+        ?>
+
+        <?
             /** News list */
             include 'news.php';
         ?>

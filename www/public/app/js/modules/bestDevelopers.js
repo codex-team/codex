@@ -4,7 +4,7 @@
  */
 var developer = function () {
 
-    var bind = function () {
+    var init = function () {
 
         var chBoxes = document.querySelectorAll('.developer-checkbox');
 
@@ -34,7 +34,7 @@ var developer = function () {
     };
 
     return {
-        bind: bind
+        init
     };
 
 }();

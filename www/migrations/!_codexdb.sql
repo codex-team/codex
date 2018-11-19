@@ -42,7 +42,7 @@ DROP TABLE IF EXISTS `Articles`;
 
 CREATE TABLE IF NOT EXISTS `Articles` (
 `id` int(10) unsigned NOT NULL,
-  `uri` varchar(128) NOT NULL,
+  `uri` varchar(128) NULL DEFAULT NULL,
   `linked_article` int(10) DEFAULT NULL,
   `title` varchar(128) CHARACTER SET utf8mb4 DEFAULT NULL,
   `text` longtext CHARACTER SET utf8mb4,
@@ -250,7 +250,7 @@ DROP TABLE IF EXISTS `Users`;
 
 CREATE TABLE IF NOT EXISTS `Users` (
 `id` int(10) unsigned NOT NULL,
-  `uri` varchar(128) NOT NULL,
+  `uri` varchar(128) DEFAULT NULL,
   `name` varchar(128) NOT NULL,
   `vk_id` bigint(20) unsigned DEFAULT NULL,
   `vk_uri` varchar(128) DEFAULT NULL,
