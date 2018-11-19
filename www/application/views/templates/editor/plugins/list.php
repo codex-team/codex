@@ -2,7 +2,7 @@
 
     $tag = 'ul';
 
-    if ( !empty($block->type) && strtolower($block->type) == 'ol' ) {
+    if ( $block->style == 'ordered' ) {
         $tag = 'ol';
     }
 

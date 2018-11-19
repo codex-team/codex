@@ -5,8 +5,22 @@
         </article>
     <? else: ?>
         <table class="p_table">
+            <?
+                $prevIterationYear = null;
+            ?>
             <? foreach ($requests as $request): ?>
+                <? $currentItemYear = date('Y', strtotime($request['dt_add'])); ?>
+                <? if ( $currentItemYear !== $prevIterationYear): ?>
+                    <tr class="p_table__section">
+                        <td colspan="6">
+                            <?= $currentItemYear; ?>
+                        </td>
+                    </tr>
+                <? endif;?>
                     <tr>
+                        <td style="color: #b2b3c0">
+                            <?= $request['id']; ?>
+                        </td>
                         <td width="40" >
                             <div class="p_rel">
                                 <div class="list_user_ava">
@@ -42,10 +56,11 @@
                         <td class="">
                             <?= nl2br($request['skills']); ?>
                         </td>
-                          <td class="">
+                        <td class="">
                             <?= nl2br($request['wishes']); ?>
                         </td>
                     </tr>
+                <? $prevIterationYear = date('Y', strtotime($request['dt_add'])); ?>
             <? endforeach; ?>
         </table>
     <? endif; ?>

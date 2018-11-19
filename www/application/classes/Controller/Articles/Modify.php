@@ -1,6 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-use \CodexEditor\CodexEditor;
+use \EditorJS\EditorJS;
+use \EditorJS\EditorJSException;
 
 class Controller_Articles_Modify extends Controller_Base_preDispatch
 {
@@ -15,25 +16,16 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         }
     }
 
-    public function action_save()
+    /**
+     * Show article edit/create page
+     */
+    public function action_edit()
     {
-        $csrfToken = Arr::get($_POST, 'csrf');
-
-        /*
-         * редактирвоание происходит напрямую из роута вида: <controller>/<action>/<id>
-         * так как срабатывает обычный роут, то при отправке формы передается переменная contest_id.
-         * Форма отправляет POST запрос
-         */
-        if ($this->request->post()) {
-            $article_id = Arr::get($_POST, 'article_id');
-            $article = Model_Article::get($article_id, true);
-        }
-
         /*
         * Редактирование через Алиас
         * Здесь сперва запрос получает Controller_Uri, которая будет передавать id сущности через query('id')
         */
-        elseif ($article_id = $this->request->query('id') ?: $this->request->param('id')) {
+        if ($article_id = $this->request->query('id') ?: $this->request->param('id')) {
             $article = Model_Article::get($article_id, true);
         } else {
             $article = new Model_Article();
@@ -41,27 +33,77 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
 
         $feed = new Model_Feed_Articles($article::FEED_PREFIX);
 
+        if ($article->is_published && !$article->dt_publish) {
+            $article->dt_publish = date('Y-m-d H:i:s');
+        } elseif (!$article->is_published) {
+            $article->dt_publish = null;
+        }
+
+        $this->view['article']            = $article;
+        $this->view['linked_articles']    = Model_Article::getActiveArticles();
+        $this->view['languages']          = ['ru', 'en'];
+        $this->view['courses']            = Model_Courses::getActiveCoursesNames();
+        $this->view['coauthors']          = Model_User::getAll();
+
+        $coauthorship                     = new Model_Coauthors($article->id);
+        $this->view["selected_coauthor"]  = $coauthorship->user_id;
+
+        $this->view['selected_courses']   = Model_Courses::getCoursesByArticleId($article);
+        $this->view['topFeed']            = $feed->get(5);
+        $this->view['quizzes']            = Model_Quiz::getTitles();
+
+        $this->template->content = View::factory('templates/articles/create', $this->view);
+    }
+
+    public function action_save()
+    {
+        $csrfToken = Arr::get($_POST, 'csrf');
+
+        /*
+         * редактирование происходит напрямую из роута вида: <controller>/<action>/<id>
+         * так как срабатывает обычный роут, то при отправке формы передается переменная contest_id.
+         * Форма отправляет POST запрос
+         */
+        if (!$this->request->is_ajax()) {
+            $this->sendAjaxResponse(array(
+                'message' => 'Request is not ajax',
+                'success' => 0
+            ));
+            return;
+        }
+
+        $article_id = Arr::get($_POST, 'article_id');
+        $article = Model_Article::get($article_id, true);
+
+        $feed = new Model_Feed_Articles($article::FEED_PREFIX);
+
         /*
          * Articles Title.
          */
         if (!Security::check($csrfToken)) {
-            goto theEnd;
+            $this->sendAjaxResponse(array('message' => 'CSRF token invalid. Please refresh the page.', 'success' => 0));
+            return;
         }
 
         $pageContent = Arr::get($_POST, 'article_text', '');
+
         try {
-            $editor = new CodexEditor($pageContent);
-        } catch (Kohana_Exception $e) {
-            throw new Kohana_Exception($e->getMessage());
+            $editor = new EditorJS($pageContent, Model_Article::getEditorConfig());
+        } catch (Exception $e) {
+            \Hawk\HawkCatcher::catchException($e);
+            $this->sendAjaxResponse(array('message' => 'Fatal Error. Please refresh the page.', 'success' => 0));
+            return;
         }
 
-        $article->lang = Arr::get($_POST, 'lang');
-        $article->title = Arr::get($_POST, 'title');
-        $article->description = Arr::get($_POST, 'description');
-        $article->text = $editor->getData();
+        $article->lang         = Arr::get($_POST, 'lang');
+        $article->cover        = Arr::get($_POST, 'cover');
+        $article->is_big_cover = (int) Arr::get($_POST, 'is_big_cover', 0);
+        $article->title        = Arr::get($_POST, 'title');
+        $article->description  = Arr::get($_POST, 'description');
+        $article->text         = json_encode(["blocks" => $editor->getBlocks()]);
 
-        $article->is_published = Arr::get($_POST, 'is_published') ? 1 : 0;
-        $article->marked       = Arr::get($_POST, 'marked') ? 1 : 0;
+        $article->is_published = (int) Arr::get($_POST, 'is_published', 0);
+        $article->marked       = (int) Arr::get($_POST, 'marked', 0);
         $article->quiz_id      = Arr::get($_POST, 'quiz_id');
         $courses_ids           = Arr::get($_POST, 'courses_ids', 0);
 
@@ -86,8 +128,8 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
                 $articleLinkingResult = $article->linkWithArticle($linked_article_id);
 
                 if (!$articleLinkingResult) {
-                    $this->view['error'] = 'You can\'t link already linked article';
-                    goto theEnd;
+                    $this->sendAjaxResponse(array('message' => 'You can\'t link already linked article', 'success' => 0));
+                    return;
                 }
             }
         }
@@ -99,18 +141,18 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         $item_below_key = Arr::get($_POST, 'item_below_key', 0);
 
         if (!$article->text) {
-            $this->view['error'] = 'А где само тело статьи?';
-            goto theEnd;
+            $this->sendAjaxResponse(array('message' => 'Please fill the body.', 'success' => 0));
+            return;
         }
 
         if (!$article->title) {
-            $this->view['error'] = 'Не заполнен заголовок';
-            goto theEnd;
+            $this->sendAjaxResponse(array('message' => 'Please fill the title.', 'success' => 0));
+            return;
         }
 
         if (!$article->description) {
-            $this->view['error'] = 'Не заполнено описание. Это важное поле: опишите коротко, о чем пойдет речь в статье';
-            goto theEnd;
+            $this->sendAjaxResponse(array('message' => 'Please fill the description.', 'success' => 0));
+            return;
         }
 
         $uri = Arr::get($_POST, 'uri');
@@ -185,36 +227,22 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             $feed->remove($article->id);
         }
 
-        $isRecent = Arr::get($_POST, 'is_recent') ? 1 : 0;
+        $isRecent = (int) Arr::get($_POST, 'is_recent', 0);
         $recentArticlesFeed = new Model_Feed_RecentArticles();
         if ($isRecent) {
             $recentArticlesFeed->add($article->id, true);
         } else {
-            $recentArticlesFeed->remove($article->id, true);
+            $recentArticlesFeed->remove($article->id);
         }
 
         // Если поле uri пустое, то редиректить на обычный роут /article/id
-        $redirect = ($uri) ? $article->uri : '/article/' . $article->id;
-        $this->redirect($redirect);
+        $redirect = ($uri) ? '/' . $article->uri : '/article/' . $article->id;
 
-        theEnd:
-
-        $this->view['article']            = $article;
-        $this->view['linked_articles']    = Model_Article::getActiveArticles();
-        $this->view['languages']          = ['ru', 'en'];
-        $this->view['courses']            = Model_Courses::getActiveCoursesNames();
-        $this->view['coauthors']          = Model_User::getAll();
-
-        $coauthorship                     = new Model_Coauthors($article->id);
-        $this->view["selected_coauthor"]  = $coauthorship->user_id;
-
-        $this->view['selected_courses']   = Model_Courses::getCoursesByArticleId($article);
-        $this->view['topFeed']            = $feed->get(5);
-        $this->view['quizzes']            = Model_Quiz::getTitles();
-
-        $this->template->content = View::factory('templates/articles/create', $this->view);
+        $this->sendAjaxResponse(array(
+            'redirect' => $redirect,
+            'success' => 1
+        ));
     }
-
 
     public function action_delete()
     {
@@ -238,5 +266,19 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         }
 
         $this->redirect('/admin/articles');
+    }
+
+    /**
+     * @param array $response - response which should be returned after attempt to send form
+     * $response = [
+     *  'redirect' => (string|null) uri of article's redirect only in case of successful save
+     *  'success'  => (int) success code, can be 0 or 1
+     *  'message'  => (string|null) error message only in case of failed save
+     * ]
+     */
+    private function sendAjaxResponse($response)
+    {
+        $this->auto_render = false;
+        $this->response->body(json_encode($response));
     }
 }

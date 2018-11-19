@@ -42,6 +42,7 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
             $course->title          = Arr::get($_POST, 'title');
             $course->text           = Arr::get($_POST, 'course_text');
             $course->cover          = Arr::get($_POST, 'cover');
+            $course->is_big_cover   = (int) Arr::get($_POST, 'is_big_cover', 0);
             $course->description    = Arr::get($_POST, 'description');
             $course->marked         = Arr::get($_POST, 'marked', '0');
             $course->is_published   = Arr::get($_POST, 'is_published', '0');
@@ -49,6 +50,15 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
             $course->dt_close       = Arr::get($_POST, 'duration');
             $course->order          = Arr::get($_POST, 'order');
             $course->uri            = Arr::get($_POST, 'uri');
+
+            /**
+             * If Course is published, add `dt_publish` value, otherwise default is null
+             */
+            if ($course->is_published && !$course->dt_publish) {
+                $course->dt_publish = date('Y-m-d H:i:s');
+            } elseif (!$course->is_published) {
+                $course->dt_publish = null;
+            }
 
             /**
              * @var string $item_below_key

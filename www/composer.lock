@@ -1,33 +1,37 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "356e88254b0a1441b45d737064ebba3e",
+    "content-hash": "22bdafd69f105b7c3de5f4847c40f8b2",
     "packages": [
         {
-            "name": "codex-team/codex.editor",
+            "name": "codex-team/editor.js",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/codex-team/codex.editor.backend.git",
-                "reference": "5a525a94f8773eb9314ef50573a79f436e3f1d0a"
+                "url": "https://github.com/codex-editor/editorjs-php.git",
+                "reference": "5b59050b7f76e7f9e6b0c589bc4444a9644cbc3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codex-team/codex.editor.backend/zipball/5a525a94f8773eb9314ef50573a79f436e3f1d0a",
-                "reference": "5a525a94f8773eb9314ef50573a79f436e3f1d0a",
+                "url": "https://api.github.com/repos/codex-editor/editorjs-php/zipball/5b59050b7f76e7f9e6b0c589bc4444a9644cbc3e",
+                "reference": "5b59050b7f76e7f9e6b0c589bc4444a9644cbc3e",
                 "shasum": ""
             },
             "require": {
                 "ezyang/htmlpurifier": "^4.8",
                 "php": ">=5.6"
             },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.13",
+                "phpunit/phpunit": "5.4.*"
+            },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "CodexEditor\\": "CodexEditor"
+                    "EditorJS\\": "EditorJS"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -36,28 +40,29 @@
             ],
             "authors": [
                 {
-                    "name": "khaydarov",
-                    "email": "murod.haydarov@inbox.ru"
+                    "name": "CodeX Team",
+                    "email": "team@ifmo.su"
                 }
             ],
-            "description": "Codex Editor server side example",
-            "time": "2017-03-30T20:04:32+00:00"
+            "description": "PHP backend implementation for the Editor.js",
+            "time": "2018-11-01T08:24:28+00:00"
         },
         {
             "name": "codex-team/hawk.php",
-            "version": "v1.1.1",
+            "version": "v1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codex-team/hawk.php.git",
-                "reference": "8b0e7e947283ba6758d1d15de25d2ee10651a532"
+                "reference": "5ca215037696fd7736df708bcb2b95398d76175b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codex-team/hawk.php/zipball/8b0e7e947283ba6758d1d15de25d2ee10651a532",
-                "reference": "8b0e7e947283ba6758d1d15de25d2ee10651a532",
+                "url": "https://api.github.com/repos/codex-team/hawk.php/zipball/5ca215037696fd7736df708bcb2b95398d76175b",
+                "reference": "5ca215037696fd7736df708bcb2b95398d76175b",
                 "shasum": ""
             },
             "require": {
+                "ext-curl": "*",
                 "php": ">=5.3"
             },
             "type": "library",
@@ -74,7 +79,7 @@
                 "MIT"
             ],
             "description": "PHP errors Catcher module for Hawk.so",
-            "time": "2018-01-26T15:15:44+00:00"
+            "time": "2018-06-05T23:52:20+00:00"
         },
         {
             "name": "euskadi31/opengraph",
@@ -168,6 +173,46 @@
                 "html"
             ],
             "time": "2018-02-23T01:58:20+00:00"
+        },
+        {
+            "name": "pavelzotikov/social-covers-generator",
+            "version": "dev-first-version",
+            "source": {
+                "type": "git",
+                "url": "https://bitbucket.org/pavelzotikov/social-covers-generator.git",
+                "reference": "1dff837b2949eee8cf9e9006fd3a96d1feb7d938"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://bitbucket.org/pavelzotikov/social-covers-generator/get/1dff837b2949eee8cf9e9006fd3a96d1feb7d938.zip",
+                "reference": "1dff837b2949eee8cf9e9006fd3a96d1feb7d938",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "SocialCoversGenerator": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pavel Zotikov",
+                    "email": "pavelzotikov@gmail.com"
+                }
+            ],
+            "description": "Создание картинок для соц. сетей",
+            "homepage": "https://bitbucket.org/pavelzotikov/social-covers-generator",
+            "keywords": [
+                "social-covers-generator"
+            ],
+            "time": "2018-07-23T16:51:22+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -540,21 +585,80 @@
             "time": "2013-01-13T10:24:48+00:00"
         },
         {
-            "name": "symfony/yaml",
-            "version": "v2.8.38",
+            "name": "symfony/polyfill-ctype",
+            "version": "v1.10.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/yaml.git",
-                "reference": "be720fcfae4614df204190d57795351059946a77"
+                "url": "https://github.com/symfony/polyfill-ctype.git",
+                "reference": "e3d826245268269cd66f8326bd8bc066687b4a19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/be720fcfae4614df204190d57795351059946a77",
-                "reference": "be720fcfae4614df204190d57795351059946a77",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/e3d826245268269cd66f8326bd8bc066687b4a19",
+                "reference": "e3d826245268269cd66f8326bd8bc066687b4a19",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.9"
+                "php": ">=5.3.3"
+            },
+            "suggest": {
+                "ext-ctype": "For best performance"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.9-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Polyfill\\Ctype\\": ""
+                },
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                },
+                {
+                    "name": "Gert de Pagter",
+                    "email": "BackEndTea@gmail.com"
+                }
+            ],
+            "description": "Symfony polyfill for ctype functions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "ctype",
+                "polyfill",
+                "portable"
+            ],
+            "time": "2018-08-06T14:22:27+00:00"
+        },
+        {
+            "name": "symfony/yaml",
+            "version": "v2.8.47",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/yaml.git",
+                "reference": "0e16589861f192dbffb19b06683ce3ef58f7f99d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/0e16589861f192dbffb19b06683ce3ef58f7f99d",
+                "reference": "0e16589861f192dbffb19b06683ce3ef58f7f99d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9",
+                "symfony/polyfill-ctype": "~1.8"
             },
             "type": "library",
             "extra": {
@@ -586,32 +690,32 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2018-01-03T07:36:31+00:00"
+            "time": "2018-10-02T16:27:16+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
-            "version": "v2.4.0",
+            "version": "v2.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vlucas/phpdotenv.git",
-                "reference": "3cc116adbe4b11be5ec557bf1d24dc5e3a21d18c"
+                "reference": "8abb4f9aa89ddea9d52112c65bbe8d0125e2fa8e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/3cc116adbe4b11be5ec557bf1d24dc5e3a21d18c",
-                "reference": "3cc116adbe4b11be5ec557bf1d24dc5e3a21d18c",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/8abb4f9aa89ddea9d52112c65bbe8d0125e2fa8e",
+                "reference": "8abb4f9aa89ddea9d52112c65bbe8d0125e2fa8e",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.9"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.8 || ^5.0"
+                "phpunit/phpunit": "^4.8.35 || ^5.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.4-dev"
+                    "dev-master": "2.5-dev"
                 }
             },
             "autoload": {
@@ -621,7 +725,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD-3-Clause-Attribution"
+                "BSD-3-Clause"
             ],
             "authors": [
                 {
@@ -636,14 +740,15 @@
                 "env",
                 "environment"
             ],
-            "time": "2016-09-01T10:05:43+00:00"
+            "time": "2018-07-29T20:33:41+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "codex-team/codex.editor": 20
+        "codex-team/editor.js": 20,
+        "pavelzotikov/social-covers-generator": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

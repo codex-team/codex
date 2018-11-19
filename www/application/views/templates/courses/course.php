@@ -4,7 +4,12 @@
         <? if (!empty($course->dt_update)): ?>
             <meta itemprop="dateModified" content="<?= date(DATE_ISO8601, strtotime($course->dt_update)) ?>" />
         <? endif; ?>
-        <meta itemprop="datePublished" content="<?= date(DATE_ISO8601, strtotime($course->dt_create)) ?>" />
+
+        <? if (isset($course->dt_publish)): ?>
+            <meta itemprop="datePublished" content="<?= date(DATE_ISO8601, strtotime($course->dt_publish)) ?>" />
+        <? else: ?>
+            <meta itemprop="datePublished" content="<?= date(DATE_ISO8601, strtotime($course->dt_create)) ?>" />
+        <? endif; ?>
 
         <div class="disclaimer">Курс от команды CodeX</div>
         <div class="line"></div>
@@ -15,7 +20,11 @@
 
         <table class="course_info">
             <tr>
-                <td>дата <time><?= date('d M <b\r> Y', strtotime($course->dt_create)) ?></time></td>
+                <td>
+                    <time>
+                        <?= !is_null($course->dt_publish) ? Date::fuzzy_span(strtotime($course->dt_publish)) : Date::fuzzy_span(strtotime($course->dt_create)) ?>
+                    </time>
+                </td>
             </tr>
         </table>
 

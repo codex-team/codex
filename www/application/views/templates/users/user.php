@@ -27,9 +27,9 @@
             <a class="profile__social instagram" href="//instagram.com/<?= HTML::chars($viewUser->instagram_uri) ?>" target="_blank"><i class="icon-instagram"></i></a>
         <? endif; ?>
 
-        <? if ($join_requests): ?>
+        <? /* if ($join_requests): ?>
             <div class="profile_join_requests">Заявка на вступление рассматривается</div>
-        <? endif ?>
+        <? endif */ ?>
 
         <? if ($isMyPage): ?>
             <br />

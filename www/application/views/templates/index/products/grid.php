@@ -1,6 +1,37 @@
 <?
     $products = array(
         array(
+            'name' => 'Deeplinker',
+            'description' => 'Create web-links for opening native applications',
+            'logo' => 'public/app/img/products/deeplinker.svg',
+            'tags' => array('JavaScript'),
+            'repo' => 'github.com/codex-team/deeplinker',
+            'npm' => 'https://www.npmjs.com/package/@codexteam/deeplinker',
+        ),
+        array(
+            'name' => '@stimagebot',
+            'description' => 'Get a link to image for any Telegram sticker.',
+            'logo' => 'public/app/img/products/stimage.svg',
+            'tags' => array('Telegram', 'Bot', 'JavaScript'),
+            'repo' => 'github.com/codex-team/stimagebot',
+        ),
+
+        array(
+            'name' => 'Capella for macOS',
+            'description' => 'Make screenshots that will be instantly uploaded to the cloud',
+            'logo' => 'public/app/img/products/capella-tray.svg',
+            'tags' => array('app for macOS', 'Screenshot'),
+            'repo' => 'github.com/codex-team/capella-tray/',
+        ),
+        array(
+            'name' => 'Email provider detector',
+            'description' => 'Detect Provider\'s Service name by email address',
+            'logo' => 'public/app/img/products/email-detector.svg',
+            'tags' => array('JavaScript'),
+            'npm' => 'https://www.npmjs.com/package/email-provider',
+            'repo' => 'github.com/codex-team/email-provider',
+        ),
+        array(
             'name' => 'Codex Shortcuts',
             'description' => 'Micro-library for dispatching keyboard shortcuts in Javascript.',
             'logo' => 'public/app/img/products/shortcuts.svg',

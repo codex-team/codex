@@ -1,0 +1,68 @@
+{
+  "tools": {
+    "header": {
+      "text": {
+        "type": "string",
+        "allowedTags": "a[href],mark[class]"
+      },
+      "level": [2, 3, 4]
+    },
+    "paragraph": {
+      "text": {
+        "type": "string",
+        "allowedTags": "i,b,a[href],span[class],mark[class]"
+      }
+    },
+    "list": {
+      "style": ["ordered", "unordered"],
+      "items": {
+        "type": "array",
+        "data": {
+          "-": {
+            "type": "string",
+            "allowedTags": "i,b,a[href],span[class],mark[class]"
+          }
+        }
+      }
+    },
+    "quote": {
+      "text": {
+        "type": "string",
+        "allowedTags": "i,b,a[href],span[class],mark[class]"
+      },
+      "caption": {
+        "type": "string",
+        "allowedTags": "i,b,a[href],span[class],mark[class]"
+      },
+      "alignment": ["left", "center"]
+    },
+    "delimiter" : {
+    },
+    "code" : {
+      "code" : "string"
+    },
+    "rawTool" : {
+      "html" : {
+        "type" : "string",
+        "allowedTags": "*"
+      }
+    },
+    "image": {
+      "file": {
+        "type": "array",
+        "data": {
+          "width" : "int",
+          "height" : "int",
+          "url": "string"
+        }
+      },
+      "caption": {
+        "type": "string",
+        "allowedTags": "i,b,a[href],span[class],mark[class]"
+      },
+      "withBorder": "boolean",
+      "withBackground": "boolean",
+      "stretched": "boolean"
+    }
+  }
+}

@@ -29,7 +29,7 @@ module.exports = function codeStyling() {
             $.loadResource('JS', library.js, 'highlight'),
             $.loadResource('CSS', library.css, 'highlight')
         ]).catch( err => console.warn('Cannot load code styling module: ', err))
-        .then( () => console.log('Code Styling is ready') );
+            .then( () => console.log('Code Styling is ready') );
 
     };
 

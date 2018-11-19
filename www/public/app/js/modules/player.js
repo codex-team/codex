@@ -121,4 +121,5 @@ export default class Player {
         this.overlay = null;
 
     }
+
 }

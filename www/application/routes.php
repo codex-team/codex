@@ -27,11 +27,23 @@ Route::set('CONTESTS_LIST', 'contests')->defaults(array(
 	'action' => 'showAll',
 ));
 
+Route::set('COVER_IMAGE', 'cover/<social>/<type>/<target>/<version>/cover.jpg')->defaults(array(
+    'controller' => 'Cover_Image',
+    'action' => 'index'
+));
+
 // Add Substance
 
-Route::set('ADD_ARTICLE_SCRIPT', 'article/add')->defaults(array(
-	'controller' => 'Articles_modify',
-	'action' => 'save'
+// Show article edit/create page
+Route::set('ADD_ARTICLE_SCRIPT', 'article/writing')->defaults(array(
+	'controller' => 'Articles_Modify',
+	'action' => 'edit'
+));
+
+// Process article save action
+Route::set('SAVE_ARTICLE_SCRIPT', 'article/save')->defaults(array(
+    'controller' => 'Articles_Modify',
+    'action' => 'save'
 ));
 
 Route::set('ADD_CONTEST_SCRIPT', 'contest/add')->defaults(array(
@@ -73,7 +85,7 @@ Route::set('SHOWCOURSE', 'course(/<id>)')->defaults(array(
 
 Route::set('EDIT_ARTICLE_SCRIPT', 'article/<id>/<action>', array(
     'id' => $DIGIT,
-    'action' => 'save'
+    'action' => 'edit'
 ))->defaults(array(
     'controller' => 'Articles_Modify'
 ));

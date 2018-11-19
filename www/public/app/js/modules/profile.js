@@ -3,11 +3,11 @@
  */
 module.exports = function () {
 
-	/**
-	 * Photo uploading success-callback
-	 * Fired by transport
-	 * @param  {string} newPhotoURL - uploaded file URL
-	 */
+    /**
+     * Photo uploading success-callback
+     * Fired by transport
+     * @param  {string} newPhotoURL - uploaded file URL
+     */
     var uploadPhotoSuccess = function (newPhotoURL) {
 
         var settingsPhoto = document.getElementById('profile-photo-updatable'),

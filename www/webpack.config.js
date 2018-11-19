@@ -1,15 +1,16 @@
-var webpack           = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-
-require('dotenv').config();
-var DevelopmendMode = process.env.KOHANA_ENV === 'DEVELOPMENT';
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+// const webpack = require('webpack');
+const path = require('path');
 
 module.exports = {
 
     entry: './public/app/js/main.js',
 
     output: {
-        filename: './public/build/bundle.js',
+        path: path.resolve(__dirname, 'public', 'build'),
+        publicPath: "/public/build/",
+        filename: '[name].bundle.js',
+        chunkFilename: '[name].bundle.js',
         library: 'codex'
     },
 
@@ -17,11 +18,24 @@ module.exports = {
         rules: [
             {
                 test : /\.(png|jpg|svg)$/,
-                use : 'file-loader?name=[path][name].[ext]'
+                use : [{
+                    loader: 'file-loader?name=[path][name].[ext]',
+                    options: {
+                        emitFile: false
+                    }
+                }]
             },
             {
                 test: /\.css$/,
-                use: ExtractTextPlugin.extract([
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            // you can specify a publicPath here
+                            // by default it use publicPath in webpackOptions.output
+                            publicPath: '../'
+                        }
+                    },
                     {
                         loader: 'css-loader',
                         options: {
@@ -30,7 +44,7 @@ module.exports = {
                         }
                     },
                     'postcss-loader'
-                ])
+                ]
             },
             {
                 test: /\.js$/,
@@ -40,7 +54,14 @@ module.exports = {
                     {
                         loader: 'babel-loader',
                         options: {
-                            presets: [ 'es2015' ]
+                            cacheDirectory: '.cache/babel-loader',
+                            presets: [
+                                '@babel/preset-env',
+                            ],
+                            plugins: [
+                                'babel-plugin-transform-es2015-modules-commonjs',
+                                '@babel/plugin-syntax-dynamic-import'
+                            ]
                         }
                     },
                     /** ES lint For webpack build */
@@ -55,22 +76,26 @@ module.exports = {
         ]},
 
     plugins: [
-        new ExtractTextPlugin('public/build/bundle.css'),
-
-        new webpack.optimize.UglifyJsPlugin({
-            /** Disable warning messages. Cant disable uglify for 3rd party libs such as html-janitor */
-            compress: {
-                warnings: false
-            }
+        new MiniCssExtractPlugin({
+            // Options similar to the same options in webpackOptions.output
+            filename: "[name].css",
         })
     ],
 
-    devtool: 'source-map',
+    resolve: {
+        alias: {
+            classes: path.resolve(__dirname, 'public/app/js/classes'),
+        },
+    },
+    
+    /**
+     * Optimization params
+     */
+    optimization: {
+        noEmitOnErrors: true,
+        minimize: false,
+        splitChunks: false
+    },
 
-    watch: true,
-
-    watchOptions: {
-        aggragateTimeout: 50
-    }
-
+    devtool: 'none'
 };

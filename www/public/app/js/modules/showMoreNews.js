@@ -6,10 +6,10 @@
  */
 var showMoreNews = function () {
 
-	/**
-    * Helper for 'show more news' button
-    * @param {Element} button   - appender button
-    */
+    /**
+     * Helper for 'show more news' button
+     * @param {Element} button   - appender button
+     */
     var init = function ( button ) {
 
         var PORTION = 5; // Amount of news shown each time appender button is fired

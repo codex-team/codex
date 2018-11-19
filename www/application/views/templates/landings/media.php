@@ -13,11 +13,11 @@
             <? include_once(DOCROOT . 'public/app/img/codex-logo.svg'); ?>
         </a>
         <h1 class="codex-media__title">CodeX Media</h1>
-        <div class="codex-media__caption">Platform for building UGC media</div>
-        <div class="codex-media__caption">Free and Open</div>
+        <div class="codex-media__caption">Its time to build modern websites</div>
+        <div class="codex-media__caption">for educational organizations</div>
 
         <ul class="codex-media__advants">
-            <li>Community around your business</li>
+            <li>Community around your organization</li>
             <li>Platform for content marketing</li>
             <li>Own media project</li>
         </ul>
@@ -26,7 +26,7 @@
         <a class="codex-media__link" href="//github.com/codex-team/codex.media">github.com/codex-team/codex.media</a>
 
         <footer class="codex-media__footer clearfix">
-            <div class="codex-media__footer-caption">Mountain view, Santa Clara, California</div>
+            <div class="codex-media__footer-caption">St. Petersburg, Russia</div>
             <a href="mailto:team@ifmo.su">team@ifmo.su</a>
         </footer>
 

@@ -28,4 +28,23 @@
         text-decoration: none;
     }
 
+    &--articles-list {
+        margin: 60px 0 40px;
+
+        .site-section__desc {
+            margin-top: 13px;
+        }
+    }
+}
+
+/**
+* Mobile viewport styles
+* =================================
+*/
+@media (--mobile) {
+    .site-section {
+        &--articles-list {
+            margin: 0 0 60px;
+        }
+    }
 }

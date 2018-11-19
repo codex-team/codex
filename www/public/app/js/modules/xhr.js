@@ -189,8 +189,10 @@ module.exports = (function (xhr) {
 
             }
             switch (formElement.nodeName.toLowerCase()) {
+
                 case 'input':
                     switch (formElement.type) {
+
                         case 'text':
                         case 'email':
                         case 'hidden':
@@ -212,6 +214,7 @@ module.exports = (function (xhr) {
                             break;
                         case 'reset':
                             break;
+
                     }
                     break;
                 case 'textarea':
@@ -219,6 +222,7 @@ module.exports = (function (xhr) {
                     break;
                 case 'select':
                     switch (formElement.type) {
+
                         case 'select-one':
                             addNameValue(formElement.name, formElement.value);
                             break;
@@ -233,17 +237,21 @@ module.exports = (function (xhr) {
 
                             }
                             break;
+
                     }
                     break;
                 case 'button': // jQuery does not submit these, though it is an HTML4 successful control
                     switch (formElement.type) {
+
                         case 'reset':
                         case 'submit':
                         case 'button':
                             addNameValue(formElement.name, formElement.value);
                             break;
+
                     }
                     break;
+
             }
 
         }

@@ -18,7 +18,7 @@
                             Edit
                         </a>
                     <? else: ?>
-                        <a class="site-header__action site-header__action--write mobile-hide" href="/article/add">
+                        <a class="site-header__action site-header__action--write mobile-hide" href="/article/writing">
                             <i class="icon-pencil"></i>
                             Write
                         </a>

@@ -21,31 +21,22 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="format-detection" content="telephone=no">
 
-    <link rel="stylesheet" href="/public/build/bundle.css?v=<?= filemtime('public/build/bundle.css') ?>">
+    <link rel="stylesheet" href="/public/build/main.css?v=<?= filemtime('public/build/main.css') ?>">
     <link rel="icon" type="image/png" href="/public/app/img/fav_shield@3x.png?v=985" id="favicon" />
 
     <meta name="telegram:channel" content="@codex_team">
 
-    <?
-        if (empty($metaImage)) {
-            $metaImage = Model_Methods::getDomainAndProtocol() . '/public/app/img/meta_img.png';
-        } else if (empty($metaImageVK)) {
-            $metaImageVK = $metaImage;
-        }
+    <? if (isset($meta)): ?>
+        <? /** @var \Opengraph\Meta $meta_item */ ?>
+        <? foreach ($meta as $meta_item): ?>
+            <?= $meta_item->render(); ?>
+        <? endforeach; ?>
+    <? endif; ?>
 
-        if (empty($metaImageVK)) {
-            $metaImageVK = Model_Methods::getDomainAndProtocol() . '/public/app/img/meta_img_vk.png';
-        }
-    ?>
-
-    <meta property="vk:image" content="<?= $metaImageVK ?>" />
-    <meta property="twitter:image"  content="<?= $metaImage ?>" />
-    <meta property="og:image" id="metaImage" name="image" content="<?= $metaImage ?>" />
-    <link id="linkImage" rel="image_src" href="<?= $metaImage ?>" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
     <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/apple-touch-icon-180x180.png" />
 
-    <script src="/public/build/bundle.js?v=<?= filemtime('public/build/bundle.js') ?>"></script>
+    <script src="/public/build/main.bundle.js?v=<?= filemtime('public/build/main.bundle.js') ?>"></script>
 
     <? if (!empty($_SERVER['HAWK_TOKEN'])): ?>
         <script src="https://cdn.rawgit.com/codex-team/hawk.client/5f545116/hawk.js" onload="hawk.init('<?= $_SERVER['HAWK_TOKEN'] ?>')"></script>
@@ -81,8 +72,8 @@
             <section class="site-footer__section">
                 <h5>Follow us</h5>
                 <ul>
-                    <li><a href="//vk.com/codex_team" target="_blank" rel="nofollow"><i class="icon-vkontakte"></i> <u>ВКонтакте</u></a></li>
-                    <li><a href="//instagram.com/codex_team/" target="_blank" rel="nofollow"><i class="icon-instagram"></i> <u>Instagram</u></a></li>
+                    <li><a class="deeplinker" href="//vk.com/codex_team"  rel="nofollow" data-app-link="vk://vk.com/codex_team"><i class="icon-vkontakte"></i> <u>ВКонтакте</u></a></li>
+                    <li><a class="deeplinker" href="//instagram.com/codex_team/" rel="nofollow" data-app-link="instagram://user?username=codex_team"><i class="icon-instagram"></i> <u>Instagram</u></a></li>
                 </ul>
             </section>
         </div>

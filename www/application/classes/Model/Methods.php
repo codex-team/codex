@@ -81,6 +81,13 @@ class Model_Methods extends Model
     }
 
 
+    /**
+     * Save uploaded image
+     * @param resource $file - uploaded file
+     * @param string $path - path where image will be saved
+     * @return array|bool - object with image data: filename, width and height
+     * @throws Kohana_Exception
+     */
     public function saveImage($file, $path)
     {
         /**
@@ -98,6 +105,9 @@ class Model_Methods extends Model
         if ($file = Upload::save($file, null, $path)) {
             $filename = bin2hex(openssl_random_pseudo_bytes(16)) . '.jpg';
             $image = Image::factory($file);
+
+            $originalWidth = $image->width;
+            $originalHeight = $image->height;
 
             foreach ($this->IMAGE_SIZES_CONFIG as $prefix => $sizes) {
                 $isSquare = !!$sizes[0];
@@ -122,7 +132,11 @@ class Model_Methods extends Model
             }
             // Delete the temporary file
             unlink($file);
-            return $filename;
+            return array(
+                'width' => $originalWidth,
+                'height' => $originalHeight,
+                'name' => $filename
+            );
         }
 
         return false;
@@ -449,14 +463,15 @@ class Model_Methods extends Model
             'header' => array('text'),
             'quote' => array('text', 'caption'),
             'image' => array('caption'),
-            'code' => array('text')
+            'code' => array('code'),
+            'list' => array('items')
         );
 
         try {
 
             $blocks = json_decode($blocksJSON);
 
-            if (!isset($blocks->data)) {
+            if (!isset($blocks->blocks)) {
                 return 0;
             }
 
@@ -469,7 +484,7 @@ class Model_Methods extends Model
             /**
              * Iterate each entry blocks
              */
-            foreach ($blocks->data as $block) {
+            foreach ($blocks->blocks as $block) {
 
                 /**
                  * Skip block without text
@@ -484,6 +499,18 @@ class Model_Methods extends Model
                  * Iterate all fields with text and concatinate summary text
                  */
                 foreach ($fieldsWithText as $fieldname) {
+
+                    /**
+                     * Because list plugin has nested structure, we concatenate its items' text to the summary text
+                     */
+                    if (is_array($block->data->$fieldname)) {
+                        foreach ($block->data->$fieldname as $item) {
+                            $entryText .= $item;
+                        }
+
+                        continue;
+                    }
+
                     if (!empty($block->data->$fieldname)) {
                         $entryText .= $block->data->$fieldname;
                     }
@@ -501,5 +528,33 @@ class Model_Methods extends Model
             \Hawk\HawkCatcher::catchException($e);
             return 0;
         }
+    }
+
+    /**
+     * Calculate days, hours and minutes left when new members can join the club
+     * @param string $last_chance_to_join - string in Date format Y-m-d H:i
+     * @return array
+     *         string array['days_left'] - days left to join the club
+     *         string array['hours_left'] - hours left to join the club
+     *         string array['minutes_left'] - minutes left to join the club
+     */
+    public static function countDownJoinTime($last_chance_to_join){
+        $today = new DateTime(date("Y-m-d H:i"));
+
+        $join_end_date = new DateTime($last_chance_to_join);
+
+        /**
+         * Get difference between today's date and the end join date
+         */
+        $difference = $today->diff($join_end_date);
+
+        /**
+         * Add zeros to the left if there is only one digit
+         */
+        return array(
+            'days_left' => str_pad($difference->d, 2, 0, STR_PAD_LEFT),
+            'hours_left' => str_pad($difference->h, 2, 0, STR_PAD_LEFT),
+            'minutes_left' => str_pad($difference->i, 2, 0, STR_PAD_LEFT),
+        );
     }
 }

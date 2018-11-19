@@ -1,7 +1,7 @@
 @import url('variables.css');
 @import url('normalize.css');
 @import url("icons.css");
-@import url('base.css');
+@import url('base.css'); /** @todo refactor and separate to components */
 
 /**
  * Layout
@@ -32,6 +32,8 @@
 @import url('components/follow.css');
 @import url('components/course-navigation.css');
 @import url('components/video-overlay.css');
+@import url('components/follow-telegram.css');
+@import url('components/join.css');
 
 /**
  * Pages
@@ -46,3 +48,9 @@
 @import url('pages/admin.css');
 @import url('pages/writing.css');
 @import url('pages/course.css');
+@import url('pages/editor-landing.css');
+
+/**
+ * Packages
+ */
+@import url('~codex-notifier/notifier.css');

@@ -31,6 +31,10 @@
         </section>
 
         <section class="editor-form__section">
+            <input type="checkbox" name="is_big_cover" value="1" <?= $course->is_big_cover ? 'checked' : ''; ?> > Большая обложка <br>
+        </section>
+
+        <section class="editor-form__section">
             <label for="item_below_key">Выводить над (в списке первые 5 элементов фида, если не выбрать, курс останется на своем месте)</label>
             <select name="item_below_key">
                 <option value="0">---</option>

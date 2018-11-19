@@ -39,6 +39,10 @@
     label {
         display: block;
         margin-bottom: 1em;
+
+        &.label--on-same-line {
+            display: inline-block;
+        }
     }
 
     &__editor {
@@ -66,6 +70,10 @@
 
     .ce-block--stretched {
         max-width: none !important;
+
+        .ce-block__content {
+            max-width: none !important;
+        }
     }
 }
 

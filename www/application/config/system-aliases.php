@@ -7,6 +7,7 @@ return array(
      */
     'system' => array(
         '',
+        'ajax',
         'admin',
         'article',
         'articles',
@@ -15,6 +16,7 @@ return array(
         'contests',
         'course',
         'courses',
+        'cover',
         'user',
         'users',
         'test',

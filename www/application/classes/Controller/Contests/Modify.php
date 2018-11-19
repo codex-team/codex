@@ -40,7 +40,7 @@ class Controller_Contests_Modify extends Controller_Base_preDispatch
             $contest->title        = Arr::get($_POST, 'title');
             $contest->uri          = Arr::get($_POST, 'uri');
             $contest->text         = Arr::get($_POST, 'contest_text');
-            $contest->status       = Arr::get($_POST, 'status') ? 1 : 0;
+            $contest->status       = (int) Arr::get($_POST, 'status', 0);
             $contest->description  = Arr::get($_POST, 'description');
             $contest->winner       = Arr::get($_POST, 'winner');
             $contest->results      = Arr::get($_POST, 'results_contest');
