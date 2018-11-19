@@ -58,6 +58,8 @@
         </table>
     <? endif; ?>
 </div>
-<script>
-    codex.developer.bind();
-</script>
+<div data-module="developer">
+    <module-settings hidden>
+        {}
+    </module-settings>
+</div>
