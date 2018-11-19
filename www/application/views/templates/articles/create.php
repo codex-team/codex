@@ -49,12 +49,13 @@
                 <? if ($coauthors): ?>
                     <? foreach ($coauthors as $coauthor): ?>
                         <?
-                           $notAuthor = $coauthor->id !== $article->user_id && $coauthor->id !== $current_user_id;
+                           $notAuthor = $coauthor->id !== $article->user_id;
                            $isAdmin = $coauthor->isAdmin;
+                           $isNewArticle = !$article->id && $coauthor->id === $user->id;
 
                            $isSelected = $coauthor->id == $selected_coauthor ? 'selected' : '';
                         ?>
-                        <? if ($notAuthor && $isAdmin): ?>
+                        <? if ($notAuthor && $isAdmin && !$isNewArticle): ?>
                             <option value="<?= $coauthor->id ?>" <?= $isSelected; ?>>
                                 <?= $coauthor->name ?>
                             </option>
