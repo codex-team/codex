@@ -170,7 +170,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
          * Remove copies of articles if eng and rus version are available
          */
         foreach ($items_to_be_deleted as $index => $item_to_be_deleted) {
-            if (!empty($feed_item->linked_article) && in_array($item_to_be_deleted->linked_article, $published_articles_id_array)) {
+            if (!empty($item_to_be_deleted->linked_article) && in_array($item_to_be_deleted->linked_article, $published_articles_id_array)) {
                 unset($feed_items[$index]);
             }
         }
