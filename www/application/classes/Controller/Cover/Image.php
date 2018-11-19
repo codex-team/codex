@@ -10,7 +10,7 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
 
     const PADDING = 60;
 
-    const BACKGROUND_COLOR = '#FFFFFF';
+    const BACKGROUND_COLOR = '#000000';
 
     public $width = self::WIDTH;
     public $height = self::HEIGHT;
@@ -64,16 +64,21 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
     {
         $cover = new \SocialCoversGenerator\Generator($this->width, $this->height, self::BACKGROUND_COLOR);
 
-        if ($image !== null) {
-            $background = new \SocialCoversGenerator\Types\BackgroundImage();
-            $background->setPath($image);
+        try {
+            if ($image !== null && file_exists($image)) {
+                $background = new \SocialCoversGenerator\Types\BackgroundImage();
+                $background->setPath($image);
 
-            $blackout = new \SocialCoversGenerator\Properties\Blackout();
-            $blackout->setColor('#000000');
-            $blackout->setOpacity(0.7);
+                $blackout = new \SocialCoversGenerator\Properties\Blackout();
+                $blackout->setColor('#000000');
+                $blackout->setOpacity(0.7);
 
-            $background->setBlackout($blackout);
-        } else {
+                $background->setBlackout($blackout);
+            } else {
+                /** Throw local exception to run 'catch' section */
+                throw new Exception('Image is missing');
+            }
+        } catch (\Exception $e) {
             $background = new \SocialCoversGenerator\Types\Background();
         }
 
@@ -89,18 +94,21 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
 
     private function article($articleId)
     {
-        $font_color = '#000000';
+        $font_color = '#FFFFFF';
 
         $article = Model_Article::get($articleId);
 
         $image = null;
+
+        /**
+         * Try to get url of the first image from the article
+         */
         try {
             $editor = new EditorJS($article->text, Model_Article::getEditorConfig());
             $blocks = $editor->getBlocks();
 
             foreach ($blocks as $block) {
                 if ($block['type'] === 'image') {
-                    $font_color = '#FFFFFF';
                     $image_url = $block['data']['file']['url'];
                     $image = substr($image_url, 0, 4) !== 'http' ? sprintf('%s%s', DOCROOT, $image_url) : $image_url;
                     break;
