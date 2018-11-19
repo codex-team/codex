@@ -171,6 +171,7 @@ class Model_Article extends Model
             ->set('dt_publish', $this->dt_publish)
             ->set('dt_update', $this->dt_update)      // TODO(#38) remove
             ->clearcache($this->id)
+            ->clearcache('user_articles:' . $this->user_id)
             ->execute();
     }
 
