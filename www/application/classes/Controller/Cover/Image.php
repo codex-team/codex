@@ -10,7 +10,7 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
 
     const PADDING = 60;
 
-    const BACKGROUND_COLOR = '#000000';
+    const BACKGROUND_COLOR = '#FFFFFF';
 
     public $width = self::WIDTH;
     public $height = self::HEIGHT;
@@ -94,7 +94,7 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
 
     private function article($articleId)
     {
-        $font_color = '#FFFFFF';
+        $font_color = '#000000';
 
         $article = Model_Article::get($articleId);
 
@@ -118,7 +118,18 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
             \Hawk\HawkCatcher::catchException($e);
         }
 
-        $cover = $this->background($image);
+        /**
+         * Check if passed image exists
+         */
+        $image_exists = $image !== null && file_exists($image);
+        $cover = $this->background($image_exists ? $image : null);
+
+        /**
+         * Use black font if background image exists
+         */
+        if ($image_exists) {
+            $font_color = '#FFFFFF';
+        }
 
         if ($article->id === 0) {
             return $cover;
