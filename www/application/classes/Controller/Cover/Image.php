@@ -65,7 +65,7 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
         $cover = new \SocialCoversGenerator\Generator($this->width, $this->height, self::BACKGROUND_COLOR);
 
         try {
-            if ($image !== null && file_exists($image)) {
+            if ($image) {
                 $background = new \SocialCoversGenerator\Types\BackgroundImage();
                 $background->setPath($image);
 
