@@ -49,7 +49,7 @@
                 <? if ($coauthors): ?>
                     <? foreach ($coauthors as $coauthor): ?>
                         <?
-                           $notAuthor = $coauthor->id !== $article->user_id;
+                           $notAuthor = $coauthor->id !== $article->user_id && $coauthor->id !== $current_user_id;
                            $isAdmin = $coauthor->isAdmin;
 
                            $isSelected = $coauthor->id == $selected_coauthor ? 'selected' : '';
