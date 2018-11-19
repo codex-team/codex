@@ -137,15 +137,40 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
          */
         $feed_items  = $feed->get();
 
+        /**
+         * List of published articles ids
+         */
+        $published_articles_id_array = array();
+
+        /**
+         * Items to be removed from articles list
+         */
+        $items_to_be_deleted = array();
+
         foreach ($feed_items as $index => $feed_item) {
             $coauthorship        = new Model_Coauthors($feed_item->id);
             $feed_item->coauthor = Model_User::get($coauthorship->user_id);
 
             /**
+             * Fill up list of available articles
+             */
+            array_push($published_articles_id_array, $feed_item->id);
+
+            /**
              * If article was linked to another one and it's lang is not equal
              * client's lang then remove this article from feed array
              */
-            if ($feed_item->linked_article && $feed_item->lang != LANG) {
+            if (!empty($feed_item->linked_article) && $feed_item->lang != LANG) {
+                $items_to_be_deleted[$index] = $feed_item;
+            }
+
+        }
+
+        /**
+         * Remove copies of articles if eng and rus version are available
+         */
+        foreach ($items_to_be_deleted as $index => $item_to_be_deleted) {
+            if (!empty($feed_item->linked_article) && in_array($item_to_be_deleted->linked_article, $published_articles_id_array)) {
                 unset($feed_items[$index]);
             }
         }
