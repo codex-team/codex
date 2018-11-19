@@ -39,8 +39,6 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             $article->dt_publish = null;
         }
 
-        $this->view['current_user_id']       = $this->user->id;
-
         $this->view['article']            = $article;
         $this->view['linked_articles']    = Model_Article::getActiveArticles();
         $this->view['languages']          = ['ru', 'en'];
