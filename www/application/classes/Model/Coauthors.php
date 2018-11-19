@@ -125,7 +125,7 @@ class Model_Coauthors extends Model
      * @param  boolean $clearCache - pass true to clear cache
      * @return Model_Article[]     - Array of Articles
      */
-    public static function getArticlesByCoauthorId($user_id)
+    public static function getArticlesByCoauthorId($user_id, $clearCache = false)
     {
         $coauthor_articles = array();
         $coauthors_rows = Dao_Coauthors::select('article_id')
@@ -135,7 +135,7 @@ class Model_Coauthors extends Model
              ->execute('article_id');
 
         if ($coauthors_rows) {
-            $coauthor_articles = Model_Article::getSome(array_keys($coauthors_rows), false, true);
+            $coauthor_articles = Model_Article::getSome(array_keys($coauthors_rows), $clearCache, true);
         }
 
         return $coauthor_articles;

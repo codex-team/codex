@@ -106,8 +106,8 @@ class Controller_Users_Index extends Controller_Base_preDispatch
      */
     public function getFeed($user_id)
     {
-        $user_feed_items  = Model_Article::getArticlesByUserId($user_id);
-        $coauthor_feed_items = Model_Coauthors::getArticlesByCoauthorId($user_id);
+        $user_feed_items  = Model_Article::getArticlesByUserId($user_id,true);
+        $coauthor_feed_items = Model_Coauthors::getArticlesByCoauthorId($user_id,true);
 
         $feed_items = array_merge($coauthor_feed_items, $user_feed_items);
 
