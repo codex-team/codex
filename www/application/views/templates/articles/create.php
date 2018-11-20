@@ -50,12 +50,12 @@
                     <? foreach ($coauthors as $coauthor): ?>
                         <?
                            $notAuthor = $coauthor->id !== $article->user_id;
-                           $authorOfNewArticle = !$article->user_id && $coauthor->id === $current_user->id;
+                           $isAuthorOfNewArticle = !$article->user_id && $coauthor->id === $current_user->id;
                            $isAdmin = $coauthor->isAdmin;
 
                            $isSelected = $coauthor->id == $selected_coauthor ? 'selected' : '';
                         ?>
-                        <? if ($notAuthor && $isAdmin && !$authorOfNewArticle): ?>
+                        <? if ($notAuthor && $isAdmin && !$isAuthorOfNewArticle): ?>
                             <option value="<?= $coauthor->id ?>" <?= $isSelected; ?>>
                                 <?= $coauthor->name ?>
                             </option>
