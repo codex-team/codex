@@ -171,7 +171,6 @@ class Model_Article extends Model
             ->set('dt_publish', $this->dt_publish)
             ->set('dt_update', $this->dt_update)      // TODO(#38) remove
             ->clearcache($this->id)
-            ->clearcache('user_articles:' . $this->user_id)
             ->execute();
     }
 
@@ -272,11 +271,13 @@ class Model_Article extends Model
     /**
      * Returns several articles by ids
      *
-     * @param array $ids               - ids of articles to select
-     * @param boolean $needClearCache  - pass true to clear cache
+     * @param array $ids                 - ids of articles to select
+     * @param boolean $needClearCache    - pass true to clear cache
+     * @param boolean $excludeUnpublised - don't include unpublished articles
+     * @param array $tags                - optional caching tags
      * @return Model_Article[]
      */
-    public static function getSome(array $ids, $needClearCache = false, $excludeUnpublised = false)
+    public static function getSome(array $ids, $needClearCache = false, $excludeUnpublised = false, $tags = [])
     {
         $articles = Dao_Articles::select()
             ->where('id', 'IN', $ids);
@@ -288,9 +289,9 @@ class Model_Article extends Model
         $cacheKey = 'getSome:' . implode(',', $ids);
 
         if ($needClearCache) {
-            $articles->clearcache($cacheKey);
+            $articles->clearcache($cacheKey, $tags);
         } else {
-            $articles->cached(Date::MINUTE * 5, $cacheKey);
+            $articles->cached(Date::MINUTE * 5, $cacheKey, $tags);
         }
 
         $articles = $articles->execute();
@@ -339,23 +340,24 @@ class Model_Article extends Model
      * Получает статьи определенного пользователя
      * @param int $uid
      * @param bool $clearCache - позволяет очистить кэш списка
+     * @param array $tags      - дополнительные теги для кэширования
      */
-    public static function getArticlesByUserId($uid, $clearCache = false)
+    public static function getArticlesByUserId($uid, $clearCache = false, $tags = [])
     {
-        return Model_Article::getArticles($uid, false, false, !$clearCache ? Date::MINUTE * 5 : null);
+        return Model_Article::getArticles($uid, false, false, !$clearCache ? Date::MINUTE * 5 : null, $tags);
     }
 
     /**
-     * Получить список статей с указанными условиями.
+     * Получить список статей с указанными условиями. Кэш не сбрасывается при добавлении новой статьи.
      *
      * @param int $uid - получить статьи определенного пользователя
-     * @param $add_removed boolean добавлять ли удалённые статьи в получаемый список статей
-     * @param $add_not_published boolean
-     * @param $cacheMinuteTime int на сколько минут кешировать, по умолчанию null,
-     * кеш не сбрасывается при добавлении новой статьи.
+     * @param boolean $add_removed - добавлять ли удалённые статьи в получаемый список статей
+     * @param boolean $add_not_published - добавлять ли неопубликованные статьи
+     * @param int $cacheMinuteTime - на сколько минут кешировать, по умолчанию null,
+     * @param array $tags - дополнительные теги для кэширования
      * @return array ModelArticle массив моделей, удовлетворяющих запросу
      */
-    private static function getArticles($uid = 0, $add_unpublished = false, $add_removed = false, $cachedTime = null)
+    private static function getArticles($uid = 0, $add_unpublished = false, $add_removed = false, $cachedTime = null, $tags = [])
     {
         $articlesQuery = Dao_Articles::select()->limit(200);        // TODO(#40) add pagination.
 
@@ -374,7 +376,7 @@ class Model_Article extends Model
         if ($cachedTime) {
             /** Используем разные ключи кэша для списка статей /articles и статей в профиле пользователя */
             $cacheKey = !$uid ? 'articles_list' : 'user_articles:' . $uid;
-            $articlesQuery->cached($cachedTime, $cacheKey);
+            $articlesQuery->cached($cachedTime, $cacheKey, $tags);
         }
 
         /**
