@@ -127,12 +127,14 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
      */
     public function getFeed()
     {
+       /*
         $cacheKey = 'articles-feed';
         $cached = $this->memcache->get($cacheKey);
 
         if ($cached) {
             return $cached;
         }
+        */
 
         $articles = new Model_Article();
         $article_items  = $articles->getActiveArticles();
@@ -213,7 +215,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
             }
         }
 
-        $this->memcache->set($cacheKey, $feed_items);
+        //$this->memcache->set($cacheKey, $feed_items);
 
         return $feed_items;
     }
