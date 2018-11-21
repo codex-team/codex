@@ -101,6 +101,13 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
             $this->template->articleEditLink = "/" . $articleUri . "/edit";
         }
 
+        /**
+         * If this article is not on the user's site language then change lang
+         */
+        if (LANG !== $article->lang) {
+            Internationalization::instance()->setLang($article->lang);
+        }
+
         $this->title = $article->title;
         $this->description = $article->description;
 
@@ -133,9 +140,15 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $courses = new Model_Courses();
         $course_items  = $courses->getActiveCourses(false, true);
 
+        /**
+         * Prepare feed items array
+         */
         $feed_items = [];
         $do_not_add_these_articles_to_feed = [];
 
+        /**
+         * Add course articles to feed items
+         */
         foreach ($course_items as $course) {
             $feed_items[$course->dt_publish] = $course;
             $coauthorship = new Model_Coauthors($course->id);
@@ -146,6 +159,9 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
             }
         }
 
+        /**
+         * Add articles to feed items if they weren't added as part of course
+         */
         foreach ($article_items as $article) {
             if (in_array($article->id, $do_not_add_these_articles_to_feed)) {
                 continue;
@@ -158,6 +174,44 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
         ksort($feed_items);
         $feed_items = array_reverse($feed_items);
+
+        /**
+         * List of published articles ids
+         */
+        $published_articles_id_array = array();
+
+        /**
+         * Items to be removed from articles list
+         */
+        $items_to_be_deleted = array();
+
+        foreach ($feed_items as $index => $feed_item) {
+            $coauthorship        = new Model_Coauthors($feed_item->id);
+            $feed_item->coauthor = Model_User::get($coauthorship->user_id);
+
+            /**
+             * Fill up list of available articles
+             */
+            array_push($published_articles_id_array, $feed_item->id);
+
+            /**
+             * If article was linked to another one and it's lang is not equal
+             * client's lang then remove this article from feed array
+             */
+            if (!empty($feed_item->linked_article) && $feed_item->lang != LANG) {
+                $items_to_be_deleted[$index] = $feed_item;
+            }
+
+        }
+
+        /**
+         * Remove copies of articles if eng and rus version are available
+         */
+        foreach ($items_to_be_deleted as $index => $item_to_be_deleted) {
+            if (!empty($item_to_be_deleted->linked_article) && in_array($item_to_be_deleted->linked_article, $published_articles_id_array)) {
+                unset($feed_items[$index]);
+            }
+        }
 
         $this->memcache->set($cacheKey, $feed_items);
 

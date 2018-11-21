@@ -208,7 +208,7 @@ class Model_Article extends Model
     {
         Dao_Articles::update()->where('id', '=', $this->id)
                 ->set('linked_article', $idArticleToLink)
-                ->clearcache('articles_list')
+                ->clearcache($this->id)
                 ->execute();
 
         $this->linked_article = $idArticleToLink;
