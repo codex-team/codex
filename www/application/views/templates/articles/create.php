@@ -49,8 +49,17 @@
                 <? if ($coauthors): ?>
                     <? foreach ($coauthors as $coauthor): ?>
                         <?
-                           $notAuthor = $coauthor->id !== $article->user_id;
-                           $isAdmin = $coauthor->isAdmin;
+                            $isAdmin = $coauthor->isAdmin;
+
+                            $notAuthor = false;
+
+                            /** For published articles */
+                            if ($article->id) {
+                                $notAuthor = $coauthor->id !== $article->user_id;
+                            /** For new articles */
+                            } else {
+                                $notAuthor = $coauthor->id !== $current_user->id;
+                            }
 
                            $isSelected = $coauthor->id == $selected_coauthor ? 'selected' : '';
                         ?>
