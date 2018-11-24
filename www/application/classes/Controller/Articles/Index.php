@@ -16,13 +16,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
          */
         $needClearCache = Arr::get($_GET, 'clear') == 1;
 
-        $feed_items = $this->getFeed();
-
-        foreach ($feed_items as $feed_item) {
-            var_dump($feed_item->title);
-        }
-
-        $this->view["feed_items"] = $feed_items;
+        $this->view["feed_items"] = $this->getFeed();
 
         $this->template->content = View::factory('templates/articles/list_wrapper', $this->view);
     }
