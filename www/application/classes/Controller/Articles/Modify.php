@@ -167,6 +167,8 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             $article->user_id = $this->user->id;
             $insertedId = $article->insert();
             $article->uri = Model_Aliases::addAlias($alias, Aliases_Controller::ARTICLE, $insertedId);
+            // If article is published right after creation set 'dt_publish' immediately
+            $article->dt_publish = $article->is_published ? date('Y-m-d H:i:s') : null;
             $article->update();
         }
 
