@@ -240,6 +240,10 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             $recentArticlesFeed->remove($article->id);
         }
 
+        // Очистка кэша фидов
+        $this->memcache->delete('en:articles-feed');
+        $this->memcache->delete('ru:articles-feed');
+
         // Если поле uri пустое, то редиректить на обычный роут /article/id
         $redirect = ($uri) ? '/' . $article->uri : '/article/' . $article->id;
 

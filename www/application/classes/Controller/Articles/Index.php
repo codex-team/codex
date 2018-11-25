@@ -127,8 +127,15 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
      */
     public function getFeed()
     {
+        $cacheKey = LANG . ':articles-feed';
+        $cached = $this->memcache->get($cacheKey);
+
+        if ($cached) {
+            return $cached;
+        }
+
         $articles = new Model_Article();
-        $article_items  = $articles->getActiveArticles();
+        $article_items  = $articles->getActiveArticles($clearCache=true);
 
         $courses = new Model_Courses();
         $course_items  = $courses->getActiveCourses(false, true);
@@ -205,6 +212,8 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
                 unset($feed_items[$index]);
             }
         }
+
+        $this->memcache->set($cacheKey, $feed_items);
 
         return $feed_items;
     }
