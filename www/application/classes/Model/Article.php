@@ -324,7 +324,7 @@ class Model_Article extends Model
      * @param bool $clearCache      - флаг, отвечающий за очистку кэша статей
      * @return array ModelArticle[] - массив опубликованных статей
      */
-    public static function getActiveArticles($clearCache = false)
+    public static function getActiveArticles(bool $clearCache = false)
     {
         return Model_Article::getArticles(0, false, false, !$clearCache ? Date::MINUTE * 5 : null);
     }
@@ -350,7 +350,7 @@ class Model_Article extends Model
     }
 
     /**
-     * Получить список статей с указанными условиями. Кэш не сбрасывается при добавлении новой статьи.
+     * Получить список статей с указанными условиями.
      *
      * @param int $uid - получить статьи определенного пользователя
      * @param bool $add_removed - добавлять ли удалённые статьи в получаемый список статей

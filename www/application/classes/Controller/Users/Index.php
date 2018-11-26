@@ -102,9 +102,10 @@ class Controller_Users_Index extends Controller_Base_preDispatch
 
     /**
      * Get feed items where User is author or coauthor
+     * @param int $user_id - user id, whose articles to display
      * @return Model_Article[]
      */
-    public function getFeed($user_id)
+    public function getFeed(int $user_id)
     {
         $user_feed_items  = Model_Article::getArticlesByUserId($user_id, true, ['user_articles:'. $user_id]);
         $coauthor_feed_items = Model_Coauthors::getArticlesByCoauthorId($user_id,true,['user_articles:' . $user_id]);
