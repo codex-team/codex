@@ -277,7 +277,7 @@ class Model_Article extends Model
      * @param array $tags = []         - optional caching tags
      * @return Model_Article[]
      */
-    public static function getSome(array $ids, $needClearCache = false, $excludeUnpublised = false, $tags = [])
+    public static function getSome(array $ids, bool $needClearCache = false, bool $excludeUnpublised = false, array $tags = [])
     {
         $articles = Dao_Articles::select()
             ->where('id', 'IN', $ids);
@@ -340,11 +340,11 @@ class Model_Article extends Model
 
     /**
      * Получает статьи определенного пользователя
-     * @param number $uid      - id пользователя, чьи статьи нужно получить
+     * @param int $uid         - id пользователя, чьи статьи нужно получить
      * @param bool $clearCache - флаг, отвечающий за очистку кэша статей
      * @param array $tags = [] - дополнительные теги для кэширования
      */
-    public static function getArticlesByUserId($uid, $clearCache = false, $tags = [])
+    public static function getArticlesByUserId(int $uid, bool $clearCache, array $tags = [])
     {
         return Model_Article::getArticles($uid, false, false, !$clearCache ? Date::MINUTE * 5 : null, $tags);
     }
@@ -353,13 +353,13 @@ class Model_Article extends Model
      * Получить список статей с указанными условиями. Кэш не сбрасывается при добавлении новой статьи.
      *
      * @param int $uid - получить статьи определенного пользователя
-     * @param boolean $add_removed - добавлять ли удалённые статьи в получаемый список статей
-     * @param boolean $add_not_published - добавлять ли неопубликованные статьи
+     * @param bool $add_removed - добавлять ли удалённые статьи в получаемый список статей
+     * @param bool $add_not_published - добавлять ли неопубликованные статьи
      * @param int $cacheMinuteTime - на сколько минут кешировать, по умолчанию null,
      * @param array $tags - дополнительные теги для кэширования
      * @return array ModelArticle массив моделей, удовлетворяющих запросу
      */
-    private static function getArticles($uid = 0, $add_unpublished = false, $add_removed = false, $cachedTime = null, $tags = [])
+    private static function getArticles(int $uid = 0, bool $add_unpublished = false, bool $add_removed = false, $cachedTime = null, array $tags = [])
     {
         $articlesQuery = Dao_Articles::select()->limit(200);        // TODO(#40) add pagination.
 
