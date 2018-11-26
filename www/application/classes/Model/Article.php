@@ -271,10 +271,10 @@ class Model_Article extends Model
     /**
      * Returns several articles by ids
      *
-     * @param array $ids                 - ids of articles to select
-     * @param boolean $needClearCache    - pass true to clear cache
-     * @param boolean $excludeUnpublised - don't include unpublished articles
-     * @param array $tags                - optional caching tags
+     * @param array $ids               - ids of articles to select
+     * @param bool $needClearCache     - pass true to clear cache
+     * @param bool $excludeUnpublised  - don't include unpublished articles
+     * @param array $tags = []         - optional caching tags
      * @return Model_Article[]
      */
     public static function getSome(array $ids, $needClearCache = false, $excludeUnpublised = false, $tags = [])
