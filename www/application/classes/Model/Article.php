@@ -321,6 +321,8 @@ class Model_Article extends Model
 
     /**
      * Получить все активные (опубликованные и не удалённые статьи) в порядке убывания айдишников.
+     * @param bool $clearCache      - флаг, отвечающий за очистку кэша статей
+     * @return array ModelArticle[] - массив опубликованных статей
      */
     public static function getActiveArticles($clearCache = false)
     {
@@ -338,9 +340,9 @@ class Model_Article extends Model
 
     /**
      * Получает статьи определенного пользователя
-     * @param int $uid
-     * @param bool $clearCache - позволяет очистить кэш списка
-     * @param array $tags      - дополнительные теги для кэширования
+     * @param number $uid      - id пользователя, чьи статьи нужно получить
+     * @param bool $clearCache - флаг, отвечающий за очистку кэша статей
+     * @param array $tags = [] - дополнительные теги для кэширования
      */
     public static function getArticlesByUserId($uid, $clearCache = false, $tags = [])
     {
