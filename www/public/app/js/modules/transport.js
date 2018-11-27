@@ -38,8 +38,8 @@ module.exports = (function (transport) {
     };
 
     /**
-    * @param {Event} event
-    */
+     * @param {Event} event
+     */
     transport.buttonCallback = function () {
 
         var action       = this.dataset.action,
@@ -63,9 +63,9 @@ module.exports = (function (transport) {
     };
 
     /**
-    * Append hidden inputs to tranport form
-    * @param {Object} data
-    */
+     * Append hidden inputs to tranport form
+     * @param {Object} data
+     */
     transport.fillForm = function (data) {
 
         var input,
@@ -133,9 +133,9 @@ module.exports = (function (transport) {
     };
 
     /**
-    * Fires from transport-frame window
-    * @param {Object} response
-    */
+     * Fires from transport-frame window
+     * @param {Object} response
+     */
     transport.response = function ( response ) {
 
         transport.currentButtonClicked.className = transport.currentButtonClicked.className.replace('loading', '');
@@ -158,9 +158,9 @@ module.exports = (function (transport) {
 
     };
     /**
-    * @param  {[Element]} fileInput
-    * @return {[type]}           [description]
-    */
+     * @param  {[Element]} fileInput
+     * @return {[type]}           [description]
+     */
     transport.getFileObject = function ( fileInput ) {
 
         if ( !fileInput ) return false;
@@ -173,10 +173,10 @@ module.exports = (function (transport) {
     };
 
     /**
-    * @param {Object} accept
-    * @param {Object} fileObj
-    * @return {Boolean}
-    */
+     * @param {Object} accept
+     * @param {Object} fileObj
+     * @return {Boolean}
+     */
     transport.validateMIME = function ( fileObj, accept ) {
 
 

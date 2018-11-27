@@ -3281,8 +3281,8 @@ module.exports = function (transport) {
     transport.input.addEventListener('change', transport.submitCallback, false);
   };
   /**
-  * @param {Event} event
-  */
+   * @param {Event} event
+   */
 
 
   transport.buttonCallback = function () {
@@ -3302,9 +3302,9 @@ module.exports = function (transport) {
     transport.input.click();
   };
   /**
-  * Append hidden inputs to tranport form
-  * @param {Object} data
-  */
+   * Append hidden inputs to tranport form
+   * @param {Object} data
+   */
 
 
   transport.fillForm = function (data) {
@@ -3354,9 +3354,9 @@ module.exports = function (transport) {
     transport.form.submit();
   };
   /**
-  * Fires from transport-frame window
-  * @param {Object} response
-  */
+   * Fires from transport-frame window
+   * @param {Object} response
+   */
 
 
   transport.response = function (response) {
@@ -3373,9 +3373,9 @@ module.exports = function (transport) {
     }
   };
   /**
-  * @param  {[Element]} fileInput
-  * @return {[type]}           [description]
-  */
+   * @param  {[Element]} fileInput
+   * @return {[type]}           [description]
+   */
 
 
   transport.getFileObject = function (fileInput) {
@@ -3388,10 +3388,10 @@ module.exports = function (transport) {
     return typeof ActiveXObject == 'function' ? new ActiveXObject('Scripting.FileSystemObject').getFile(fileInput.value) : fileInput.files;
   };
   /**
-  * @param {Object} accept
-  * @param {Object} fileObj
-  * @return {Boolean}
-  */
+   * @param {Object} accept
+   * @param {Object} fileObj
+   * @return {Boolean}
+   */
 
 
   transport.validateMIME = function (fileObj, accept) {
