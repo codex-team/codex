@@ -37,7 +37,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/apple-touch-icon-180x180.png" />
 
     <? if (!empty($_SERVER['HAWK_TOKEN'])): ?>
-        <script src="https://cdn.rawgit.com/codex-team/hawk.javascript/master/hawk.js" onload="hawk.init({token: '<?= $_SERVER['HAWK_TOKEN'] ?>', revision: <?= filemtime('public/build/bundle.js') ?>})"></script>
+        <script src="https://cdn.jsdelivr.net/gh/codex-team/hawk.javascript/dist/hawk.js" onload="hawk.init({token: '<?= $_SERVER['HAWK_TOKEN'] ?>', revision: <?= filemtime('public/build/bundle.js') ?>})"></script>
     <? endif; ?>
 
 </head>
