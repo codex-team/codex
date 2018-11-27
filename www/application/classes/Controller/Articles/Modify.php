@@ -196,7 +196,10 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             $coauthorship->remove();
         }
 
-        if (!$courses_ids) {
+        /** Selected course $id = 0 */
+        $isNotInCourse = in_array("0", $courses_ids);
+
+        if ($isNotInCourse) {
             Model_Courses::deleteArticles($article->id);
 
             if ($article->is_published && !$article->is_removed) {
