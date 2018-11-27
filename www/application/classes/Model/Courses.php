@@ -347,6 +347,15 @@ class Model_Courses extends Model
         return $articleList;
     }
 
+    /**
+     * Checks whether or not course contains any articles
+     * @param $course_id - course's id
+     * @return bool
+     */
+    public static function containsArticles(int $course_id) {
+        return (bool) self::getArticles($course_id);
+    }
+
      /**
      * Return unique article authors from the Course
      * @param  Model_Article[] - Articles included in specific Course

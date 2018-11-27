@@ -134,51 +134,20 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
             return $cached;
         }
 
-        $articles = new Model_Article();
-        $article_items  = $articles->getActiveArticles($clearCache=true);
-
-        $courses = new Model_Courses();
-        $course_items  = $courses->getActiveCourses(false, true);
+        /**
+         * Prepare Feed model
+         */
+        $feed = new Model_Feed_Articles();
 
         /**
-         * Prepare feed items array
+         * Get articles and courses feed items
          */
-        $feed_items = [];
-        $do_not_add_these_articles_to_feed = [];
+        $feed_items  = $feed->get();
 
         /**
-         * Add course articles to feed items
+         * List of published feed items ids
          */
-        foreach ($course_items as $course) {
-            $feed_items[$course->dt_publish] = $course;
-            $coauthorship = new Model_Coauthors($course->id);
-            $course->coauthor = Model_User::get($coauthorship->user_id);
-
-            foreach ($course->course_articles as $article) {
-                $do_not_add_these_articles_to_feed[] = $article->id;
-            }
-        }
-
-        /**
-         * Add articles to feed items if they weren't added as part of course
-         */
-        foreach ($article_items as $article) {
-            if (in_array($article->id, $do_not_add_these_articles_to_feed)) {
-                continue;
-            }
-
-            $feed_items[$article->dt_publish] = $article;
-            $coauthorship = new Model_Coauthors($article->id);
-            $article->coauthor = Model_User::get($coauthorship->user_id);
-        }
-
-        ksort($feed_items);
-        $feed_items = array_reverse($feed_items);
-
-        /**
-         * List of published articles ids
-         */
-        $published_articles_id_array = array();
+        $published_feed_items_ids = array();
 
         /**
          * Items to be removed from articles list
@@ -190,9 +159,9 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
             $feed_item->coauthor = Model_User::get($coauthorship->user_id);
 
             /**
-             * Fill up list of available articles
+             * Fill up list of available feed items
              */
-            array_push($published_articles_id_array, $feed_item->id);
+            array_push($published_feed_items_ids, $feed_item->id);
 
             /**
              * If article was linked to another one and it's lang is not equal
@@ -208,7 +177,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
          * Remove copies of articles if eng and rus version are available
          */
         foreach ($items_to_be_deleted as $index => $item_to_be_deleted) {
-            if (!empty($item_to_be_deleted->linked_article) && in_array($item_to_be_deleted->linked_article, $published_articles_id_array)) {
+            if (!empty($item_to_be_deleted->linked_article) && in_array($item_to_be_deleted->linked_article, $published_feed_items_ids)) {
                 unset($feed_items[$index]);
             }
         }

@@ -38,11 +38,15 @@ class Model_Feed_Articles extends Model_Feed_Abstract
                 switch ($prefix) {
 
                     case Model_Article::FEED_PREFIX:
-                        $models_list[] = Model_Article::get($id);
+                        if (!Model_Article::isIncludedInCourse($id)) {
+                            $models_list[] = Model_Article::get($id);
+                        }
                         break;
 
                     case Model_Courses::FEED_PREFIX:
-                        $models_list[] = Model_Courses::get($id);
+                        if (Model_Courses::containsArticles($id)) {
+                            $models_list[] = Model_Courses::get($id);
+                        }
                         break;
 
                     default:
