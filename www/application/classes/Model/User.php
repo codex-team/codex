@@ -242,16 +242,6 @@ class Model_User extends Model
 
 
     /**
-     * Возвращает массив опубликованных статей пользователя
-     * @return true, если данные успешно записаны в БД
-     */
-    public function get_articles_list()
-    {
-        return Model_Article::getByUserId($this->id);
-    }
-
-
-    /**
     * Метод заносит переданные данные о юзере в модель и базу
     * @param $fields - ассоциативный массив "название поля" - "значение"
     */

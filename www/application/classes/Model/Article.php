@@ -1,8 +1,7 @@
 <?php defined('SYSPATH') or die('No Direct Script Access');
 
 /**
- * Модель статьи, имеет поля, соответствующие полям в базе данных и статические методы для получения
- * статьи и массива статей по некоторым признакам.
+ * Модель статьи, имеет поля, соответствующие полям в базе данных
  *
  * @author     Eliseev Alexandr
  */
@@ -274,6 +273,8 @@ class Model_Article extends Model
      * @param array $ids               - ids of articles to select
      * @param boolean $needClearCache  - pass true to clear cache
      * @return Model_Article[]
+     *
+     * @todo move to separated Model_Articles
      */
     public static function getSome(array $ids, $needClearCache = false, $excludeUnpublised = false)
     {
@@ -305,20 +306,9 @@ class Model_Article extends Model
         return $articlesModels;
     }
 
-    public static function getByUserId($user_id)
-    {
-        $articleRows = Dao_Articles::select()
-            ->where('user_id', '=', $user_id)
-            ->where('is_removed', '=', 0)
-            ->limit(1)
-            ->execute();
-
-        return self::rowsToModels($articleRows);
-    }
-
-
     /**
      * Получить все активные (опубликованные и не удалённые статьи) в порядке убывания айдишников.
+     * @todo move to separated Model_Articles
      */
     public static function getActiveArticles($clearCache = false)
     {
@@ -328,6 +318,7 @@ class Model_Article extends Model
 
     /**
      * Получить все не удалённые статьи в порядке убывания айдишников.
+     * @deprecated - use Feed instead
      */
     public static function getAllArticles()
     {
@@ -338,6 +329,7 @@ class Model_Article extends Model
      * Получает статьи определенного пользователя
      * @param int $uid
      * @param bool $clearCache - позволяет очистить кэш списка
+     * @deprecated - use Custom Feed instead
      */
     public static function getArticlesByUserId($uid, $clearCache = false)
     {
@@ -353,6 +345,11 @@ class Model_Article extends Model
      * @param $cacheMinuteTime int на сколько минут кешировать, по умолчанию null,
      * кеш не сбрасывается при добавлении новой статьи.
      * @return array ModelArticle массив моделей, удовлетворяющих запросу
+     *
+     *
+     *
+     * @todo move to separated Model_Articles
+     * @todo remove uid param
      */
     private static function getArticles($uid = 0, $add_unpublished = false, $add_removed = false, $cachedTime = null)
     {
@@ -371,8 +368,11 @@ class Model_Article extends Model
         }
 
         if ($cachedTime) {
-            /** Используем разные ключи кэша для списка статей /articles и статей в профиле пользователя */
-            $cacheKey = !$uid ? 'articles_list' : 'user_articles:' . $uid;
+            /**
+             * @todo handle $add_removed and $add_unpublished -> create different cache keys
+             */
+            $cacheKey = self::CACHE_KEY_ALL_ARTICLES;
+
             $articlesQuery->cached($cachedTime, $cacheKey);
         }
 
@@ -401,32 +401,6 @@ class Model_Article extends Model
         return $articles;
     }
 
-
-    /**
-     * Метод достает из БД все статьи, кеширует их на пять минут и выбирает из них три рандомные статьи.
-     * В перспективе этот метод заменит метод, с выборкой трех популярных статей, либо персональных рекомендаций статей.
-     *
-     * @param $currentArticleId - передается айди статьи, на странице которой выводится блок "Читайте далее".
-     * @param $numberOfRandomArticles - сколько рандомных статей выводить.
-     * @return array Model_Article - массив объектов Article.
-     */
-    public static function getRandomArticles($currentArticleId, $numberOfRandomArticles = 3)
-    {
-        //получаем все статьи и кэшируем их на 5 минут
-        $allArticles = self::getArticles(false, false, 5);
-
-        foreach ($allArticles as $key => $article) {
-            if ($article->id == $currentArticleId) {
-                unset($allArticles[$key]);
-            }
-        }
-
-        //мешаем массив статей
-        shuffle($allArticles);
-
-        return array_slice($allArticles, 0, $numberOfRandomArticles);
-    }
-
     /**
      * Метод проверяет, есть ли в кеше статьи отсортированные по популярности,
      * если нет, тогда достает их из базы и сортирует в порядке убывания просмотров и кеширует.
@@ -435,6 +409,8 @@ class Model_Article extends Model
      * @param int $currentArticleId - айди статьи, на странице которой выдаетсяблок популярных статей.
      * @param int $numberOfArticles - сколько популярных статей выводить.
      * @return array of Model_Article - массив объектов Model_Article.
+     *
+     * @todo move to separated Model_Articles
      */
     public static function getPopularArticles($currentArticleId, $numberOfArticles = 3)
     {
