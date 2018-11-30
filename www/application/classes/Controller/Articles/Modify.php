@@ -198,12 +198,14 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
          * @todo rename articlesFeed
          */
         $feed = new Model_Feed_Articles($article::FEED_PREFIX);
+        $userFeed = new Model_Feed_Custom(sprintf('user:%d', $article->user_id), $article::FEED_PREFIX);
 
         if (!$courses_ids) {
             Model_Courses::deleteArticles($article->id);
 
             if ($article->is_published && !$article->is_removed) {
                 $feed->add($article->id, $article->dt_publish);
+                $userFeed->add($article->id, $article->dt_publish);
 
                 //Ставим статью в переданное место в фиде, если это было указано
                 if ($item_below_key) {
@@ -211,6 +213,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
                 }
             } else {
                 $feed->remove($article->id);
+                $userFeed->remove($article->id);
             }
         } else {
             $current_courses = Model_Courses::getCoursesByArticleId($article);
@@ -231,6 +234,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             }
 
             $feed->remove($article->id);
+            $userFeed->remove($article->id);
         }
 
         $isRecent = (int) Arr::get($_POST, 'is_recent', 0);
