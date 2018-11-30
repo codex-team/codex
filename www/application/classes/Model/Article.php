@@ -368,12 +368,7 @@ class Model_Article extends Model
         }
 
         if ($cachedTime) {
-            /**
-             * @todo handle $add_removed and $add_unpublished -> create different cache keys
-             */
-            $cacheKey = self::CACHE_KEY_ALL_ARTICLES;
-
-            $articlesQuery->cached($cachedTime, $cacheKey);
+            $articlesQuery->cached($cachedTime, 'articles_list');
         }
 
         /**

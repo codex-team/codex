@@ -76,8 +76,6 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         $article_id = Arr::get($_POST, 'article_id');
         $article = Model_Article::get($article_id, true);
 
-        $feed = new Model_Feed_Articles($article::FEED_PREFIX);
-
         /*
          * Articles Title.
          */
@@ -195,6 +193,11 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         } elseif (empty($articleCoauthor) && $coauthorship->user_id) {
             $coauthorship->remove();
         }
+
+        /**
+         * @todo rename articlesFeed
+         */
+        $feed = new Model_Feed_Articles($article::FEED_PREFIX);
 
         if (!$courses_ids) {
             Model_Courses::deleteArticles($article->id);

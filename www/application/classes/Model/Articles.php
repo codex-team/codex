@@ -10,4 +10,8 @@ class Model_Articles extends Model
      */
     const CACHE_KEY_ALL_ARTICLES = 'all-articles';
 
+    /**
+     * @todo move here all methods for forking with several Model_Article instances
+     */
+
 }
