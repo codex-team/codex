@@ -31,7 +31,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             $article = new Model_Article();
         }
 
-        $feed = new Model_Feed_Articles($article::FEED_PREFIX);
+        $articlesFeed = new Model_Feed_Articles($article::FEED_PREFIX);
 
         if ($article->is_published && !$article->dt_publish) {
             $article->dt_publish = date('Y-m-d H:i:s');
@@ -50,7 +50,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         $this->view["selected_coauthor"]  = $coauthorship->user_id;
 
         $this->view['selected_courses']   = Model_Courses::getCoursesByArticleId($article);
-        $this->view['topFeed']            = $feed->get(5);
+        $this->view['topFeed']            = $articlesFeed->get(5);
         $this->view['quizzes']            = Model_Quiz::getTitles();
 
         $this->template->content = View::factory('templates/articles/create', $this->view);
@@ -194,25 +194,22 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             $coauthorship->remove();
         }
 
-        /**
-         * @todo rename articlesFeed
-         */
-        $feed = new Model_Feed_Articles($article::FEED_PREFIX);
+        $articlesFeed = new Model_Feed_Articles($article::FEED_PREFIX);
         $userFeed = new Model_Feed_Custom(sprintf('user:%d', $article->user_id), $article::FEED_PREFIX);
 
         if (!$courses_ids) {
             Model_Courses::deleteArticles($article->id);
 
             if ($article->is_published && !$article->is_removed) {
-                $feed->add($article->id, $article->dt_publish);
+                $articlesFeed->add($article->id, $article->dt_publish);
                 $userFeed->add($article->id, $article->dt_publish);
 
                 //Ставим статью в переданное место в фиде, если это было указано
                 if ($item_below_key) {
-                    $feed->putAbove($article->id, $item_below_key);
+                    $articlesFeed->putAbove($article->id, $item_below_key);
                 }
             } else {
-                $feed->remove($article->id);
+                $articlesFeed->remove($article->id);
                 $userFeed->remove($article->id);
             }
         } else {
@@ -233,7 +230,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
                 }
             }
 
-            $feed->remove($article->id);
+            $articlesFeed->remove($article->id);
             $userFeed->remove($article->id);
         }
 
@@ -271,8 +268,11 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
                 Model_Aliases::deleteAlias($alias->hash);
             }
 
-            $feed = new Model_Feed_Articles($article::FEED_PREFIX);
-            $feed->remove($article->id);
+            $articlesFeed = new Model_Feed_Articles($article::FEED_PREFIX);
+            $articlesFeed->remove($article->id);
+
+            $userFeed = new Model_Feed_Custom(sprintf('user:%d', $article->user_id), $article::FEED_PREFIX);
+            $userFeed->remove($article->id);
         }
 
         $this->redirect('/admin/articles');

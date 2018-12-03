@@ -106,12 +106,12 @@ class Controller_Users_Index extends Controller_Base_preDispatch
      */
     public function getFeed($user_id)
     {
-        $userFeed = new Model_Feed_Custom(sprintf('user:%d', $user_id) );
+        $authorFeed = new Model_Feed_Custom(sprintf('user:%d', $user_id) );
 
-        $user_feed_items  = $userFeed->get();
+        $author_feed_items  = $authorFeed->get();
         $coauthor_feed_items = Model_Coauthors::getArticlesByCoauthorId($user_id);
 
-        $feed_items = array_merge($coauthor_feed_items, $user_feed_items);
+        $feed_items = array_merge($coauthor_feed_items, $author_feed_items);
 
 
         foreach ($feed_items as $feed_item) {
