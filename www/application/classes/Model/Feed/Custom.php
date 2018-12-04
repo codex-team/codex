@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No Direct Script Access');
 
-class Model_Feed_Custom extends Model_Feed_Articles
+class Model_Feed_Custom extends Model_Feed_Abstract
 {
     /**
      * Feed key fill be composed on the fly when instance will be created:
