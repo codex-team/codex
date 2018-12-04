@@ -1,23 +1,27 @@
 <div class="editor-landing">
     <div class="editor-landing__info">
-        <div class="editor-landing__emoji">
-            <img class="editor-landing__emoji-item" src="/public/app/landings/editor/img/star-struck-emoji.png" alt="Star-struck emoji">
-            <img class="editor-landing__emoji-item" src="/public/app/landings/editor/img/socks-emoji.png" alt="Socks emoji">
-            <img class="editor-landing__emoji-item" src="/public/app/landings/editor/img/raised-eyebrow-emoji.png" alt="Raised eyebrow emoji">
+        <div class="editor-landing__logo">
+            <span class="editor-landing__logo-main">
+                <? include(DOCROOT . '/public/app/landings/editor/svg/editorjs-logo.svg'); ?>
+            </span>
+            <span class="editor-landing__logo-shadow">
+                <? include(DOCROOT . '/public/app/landings/editor/svg/editorjs-logo-shadow.svg'); ?>
+            </span>
         </div>
 
         <h1 class="editor-landing__title">
-            CodeX Editor
+            Editor.js
         </h1>
         <div class="editor-landing__description">
-            Next generation block styled editor. Free. Use for pleasure.
+            Next generation block styled editor. <br> Free. Use for pleasure.
         </div>
 
-        <div class="editor-landing__links clearfix">
-            <a href="https://github.com/codex-team/codex.editor/blob/master/docs/usage.md" class="editor-landing__links-item" target="_blank">
+        <div class="editor-landing__menu">
+            <a class="editor-landing__links-item" target="_blank" href="https://github.com/codex-team/codex.editor/blob/master/docs/usage.md">
                 Documentation
             </a>
-            <a href="https://github.com/codex-editor" class="editor-landing__links-item" target="_blank">
+            <br>
+            <a class="editor-landing__links-item" target="_blank" href="https://github.com/codex-editor">
                 Plugins
             </a>
         </div>

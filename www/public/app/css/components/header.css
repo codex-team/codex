@@ -4,9 +4,10 @@
 */
 .site-header {
     position: relative;
-    height: 50px;
+    height: var(--layout-header-height);
     box-sizing: border-box;
     border-bottom: 1px solid var(--line-light);
+    z-index: 2;
 
     &__content {
         display: flex;
@@ -16,7 +17,7 @@
         display: inline-block;
         text-decoration: none;
         letter-spacing: 0.2px;
-        line-height: 50px;
+        line-height: var(--layout-header-height);
     }
 
     &__menu-item:not(:first-of-type) {

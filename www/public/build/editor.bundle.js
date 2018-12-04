@@ -1631,8 +1631,6 @@ function () {
    * @param {function} settings.onReady - Editor is ready callback
    */
   function Editor(settings) {
-    var _this = this;
-
     _classCallCheck(this, Editor);
 
     /**
@@ -1700,9 +1698,8 @@ function () {
       onReady: function onReady() {
         if (settings.onReady instanceof Function) {
           settings.onReady();
-        }
+        } // this.focus();
 
-        _this.focus();
       }
     });
   }

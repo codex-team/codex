@@ -108,7 +108,7 @@ export default class Editor {
 
                 }
 
-                this.focus();
+                // this.focus();
 
             }
         });
