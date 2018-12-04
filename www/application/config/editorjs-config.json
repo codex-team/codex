@@ -52,12 +52,12 @@
         "type": "array",
         "data": {
           "width": {
-            "type": "int",
-            "required": "false"
+            "type": "integer",
+            "required": false
           },
           "height": {
-            "type": "int",
-            "required": "false"
+            "type": "integer",
+            "required": false
           },
           "url": "string"
         }

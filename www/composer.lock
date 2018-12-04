@@ -1,23 +1,23 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "22bdafd69f105b7c3de5f4847c40f8b2",
+    "content-hash": "5a163d6885e3f2e450f96d489d0a03e6",
     "packages": [
         {
             "name": "codex-team/editor.js",
-            "version": "dev-master",
+            "version": "v2.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codex-editor/editorjs-php.git",
-                "reference": "5b59050b7f76e7f9e6b0c589bc4444a9644cbc3e"
+                "reference": "36de3db0a2b9733ac62de0f71832a16fcb71e7f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codex-editor/editorjs-php/zipball/5b59050b7f76e7f9e6b0c589bc4444a9644cbc3e",
-                "reference": "5b59050b7f76e7f9e6b0c589bc4444a9644cbc3e",
+                "url": "https://api.github.com/repos/codex-editor/editorjs-php/zipball/36de3db0a2b9733ac62de0f71832a16fcb71e7f3",
+                "reference": "36de3db0a2b9733ac62de0f71832a16fcb71e7f3",
                 "shasum": ""
             },
             "require": {
@@ -45,7 +45,7 @@
                 }
             ],
             "description": "PHP backend implementation for the Editor.js",
-            "time": "2018-11-01T08:24:28+00:00"
+            "time": "2018-12-04T20:54:43+00:00"
         },
         {
             "name": "codex-team/hawk.php",
@@ -212,7 +212,7 @@
             "keywords": [
                 "social-covers-generator"
             ],
-            "time": "2018-07-23T16:51:22+00:00"
+            "time": "2018-07-23 16:51:22"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -644,16 +644,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.8.47",
+            "version": "v2.8.48",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "0e16589861f192dbffb19b06683ce3ef58f7f99d"
+                "reference": "02c1859112aa779d9ab394ae4f3381911d84052b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/0e16589861f192dbffb19b06683ce3ef58f7f99d",
-                "reference": "0e16589861f192dbffb19b06683ce3ef58f7f99d",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/02c1859112aa779d9ab394ae4f3381911d84052b",
+                "reference": "02c1859112aa779d9ab394ae4f3381911d84052b",
                 "shasum": ""
             },
             "require": {
@@ -690,7 +690,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2018-10-02T16:27:16+00:00"
+            "time": "2018-11-11T11:18:13+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -747,7 +747,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "codex-team/editor.js": 20,
         "pavelzotikov/social-covers-generator": 20
     },
     "prefer-stable": false,
