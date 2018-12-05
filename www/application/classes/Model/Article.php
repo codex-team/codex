@@ -312,7 +312,7 @@ class Model_Article extends Model
      */
     public static function getActiveArticles($clearCache = false)
     {
-        return Model_Article::getArticles(0, false, false, !$clearCache ? Date::MINUTE * 5 : null);
+        return Model_Article::getArticles(false, false, !$clearCache ? Date::MINUTE * 5 : null);
     }
 
 
@@ -322,7 +322,7 @@ class Model_Article extends Model
      */
     public static function getAllArticles()
     {
-        return Model_Article::getArticles(0, true, false);
+        return Model_Article::getArticles(true, false);
     }
 
     /**
@@ -338,15 +338,10 @@ class Model_Article extends Model
      *
      *
      * @todo move to separated Model_Articles
-     * @todo remove uid param
      */
-    private static function getArticles($uid = 0, $add_unpublished = false, $add_removed = false, $cachedTime = null)
+    private static function getArticles($add_unpublished = false, $add_removed = false, $cachedTime = null)
     {
         $articlesQuery = Dao_Articles::select()->limit(200);        // TODO(#40) add pagination.
-
-        if ($uid) {
-            $articlesQuery->where('user_id', '=', $uid);
-        }
 
         if (!$add_removed) {
             $articlesQuery->where('is_removed', '=', false);
