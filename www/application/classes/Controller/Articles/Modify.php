@@ -170,6 +170,11 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             $article->update();
         }
 
+        /**
+         * Get article's previous coauthorship relation
+         */
+        $previous_coauthorship = new Model_Coauthors($article->id);
+
         $articleCoauthor = Arr::get($_POST, 'coauthor');
 
         /**
@@ -189,13 +194,21 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         if (!empty($articleCoauthor) && $articleCoauthor != $article->user_id) {
 
             if ($coauthorship->exists()) {
+                $prevCoauthorFeed = new Model_Feed_Custom(sprintf('user:%d', $previous_coauthorship->user_id), $article::FEED_PREFIX);
+                $prevCoauthorFeed->remove($article->id);
+
                 $coauthorship->update();
             } else {
                 $coauthorship->add();
             }
 
+            if ($article->is_published && !$article->is_removed) {
+                $coauthorFeed->add($article->id, $article->dt_publish);
+            }
+
         /** Remove co-author */
         } elseif (empty($articleCoauthor) && $coauthorship->user_id) {
+            $coauthorFeed->remove($article->id);
             $coauthorship->remove();
         }
 
@@ -211,7 +224,6 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             if ($article->is_published && !$article->is_removed) {
                 $articlesFeed->add($article->id, $article->dt_publish);
                 $authorFeed->add($article->id, $article->dt_publish);
-                $coauthorFeed->add($article->id, $article->dt_publish);
 
                 //Ставим статью в переданное место в фиде, если это было указано
                 if ($item_below_key) {
@@ -220,7 +232,6 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             } else {
                 $articlesFeed->remove($article->id);
                 $authorFeed->remove($article->id);
-                $coauthorFeed->remove($article->id);
             }
         } else {
             $current_courses = Model_Courses::getCoursesByArticleId($article);
