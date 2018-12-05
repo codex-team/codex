@@ -326,17 +326,6 @@ class Model_Article extends Model
     }
 
     /**
-     * Получает статьи определенного пользователя
-     * @param int $uid
-     * @param bool $clearCache - позволяет очистить кэш списка
-     * @deprecated - use Custom Feed instead
-     */
-    public static function getArticlesByUserId($uid, $clearCache = false)
-    {
-        return Model_Article::getArticles($uid, false, false, !$clearCache ? Date::MINUTE * 5 : null);
-    }
-
-    /**
      * Получить список статей с указанными условиями.
      *
      * @param int $uid - получить статьи определенного пользователя
