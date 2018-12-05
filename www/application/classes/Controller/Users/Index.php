@@ -106,7 +106,7 @@ class Controller_Users_Index extends Controller_Base_preDispatch
      */
     public function getFeed($user_id)
     {
-        $feed_items  = $this->getUserArticles(sprintf('user:%d', $user_id));
+        $feed_items  = $this->getUserArticles($user_id);
 
         foreach ($feed_items as $feed_item) {
             $coauthorship        = new Model_Coauthors($feed_item->id);
@@ -117,12 +117,12 @@ class Controller_Users_Index extends Controller_Base_preDispatch
 
     /**
      * Get user's articles from feed
-     * @param $prefix - prefix of author or coauthor feed
+     * @param $user_id - id of articles author or coauthor
      * @return Model_Article[] - array of user's articles
      */
-    public function getUserArticles($prefix)
+    public function getUserArticles($user_id)
     {
-        $userFeed = new Model_Feed_Custom($prefix);
+        $userFeed = new Model_Feed_Custom(sprintf('user:%d', $user_id));
         $user_feed_items_ids  = $userFeed->get();
 
         $models_list = array();
