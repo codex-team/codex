@@ -182,6 +182,10 @@ class Controller_Admin extends Controller_Base_preDispatch
             case 'resetArticlesTimeline':
                 $result = self::scripts_resetArticlesTimeline();
                 break;
+            case 'resetUsersFeeds':
+                self::scripts_clearUsersFeeds();
+                self::scripts_fillUsersFeeds();
+                break;
             default:
                 break;
         }
@@ -210,5 +214,41 @@ class Controller_Admin extends Controller_Base_preDispatch
         $feed->init($articles);
 
         return 'Articles timeline was successfully updated';
+    }
+
+    /**
+     * Clear users feeds
+     */
+    public function scripts_clearUsersFeeds()
+    {
+        $authors_ids = DB::query(Database::SELECT, 'SELECT DISTINCT(`user_id`) FROM `Articles`')->execute()->as_array();
+
+        $coauthors_ids = DB::query(Database::SELECT, 'SELECT DISTINCT(`user_id`) FROM `Coauthors`')->execute()->as_array();
+
+        $unique_users_ids = array_unique(array_merge($authors_ids, $coauthors_ids));
+
+        foreach ($unique_users_ids as $user_id) {
+            $userFeed = new Model_Feed_Custom(sprintf('user:%d', $user_id), 'article');
+            $userFeed->clear();
+        }
+    }
+
+    /**
+     * Fill users feeds with active articles
+     */
+    public function scripts_fillUsersFeeds()
+    {
+        $articles = Model_Article::getActiveArticles();
+        foreach ($articles as $article) {
+            $authorFeed = new Model_Feed_Custom(sprintf('user:%d', $article->user_id),'article');
+            $authorFeed->add($article->id, $article->dt_publish);
+
+            $coauthorship = new Model_Coauthors($article->id);
+
+            if ($coauthorship->user_id) {
+                $coauthorFeed = new Model_Feed_Custom(sprintf('user:%d', $coauthorship->user_id),'article');
+                $coauthorFeed->add($article->id, $article->dt_publish);
+            }
+        }
     }
 }
