@@ -182,10 +182,6 @@ class Controller_Admin extends Controller_Base_preDispatch
             case 'resetArticlesTimeline':
                 $result = self::scripts_resetArticlesTimeline();
                 break;
-            case 'resetUsersFeeds':
-                self::scripts_clearUsersFeeds();
-                self::scripts_fillUsersFeeds();
-                break;
             default:
                 break;
         }
@@ -213,6 +209,9 @@ class Controller_Admin extends Controller_Base_preDispatch
         $feed->clear();
         $feed->init($articles);
 
+        self::scripts_clearUsersFeeds();
+        self::scripts_fillUsersFeeds();
+
         return 'Articles timeline was successfully updated';
     }
 
@@ -225,7 +224,7 @@ class Controller_Admin extends Controller_Base_preDispatch
 
         $coauthors_ids = DB::query(Database::SELECT, 'SELECT DISTINCT(`user_id`) FROM `Coauthors`')->execute()->as_array();
 
-        $unique_users_ids = array_unique(array_merge($authors_ids, $coauthors_ids));
+        $unique_users_ids = array_unique(array_merge($authors_ids, $coauthors_ids), SORT_REGULAR);
 
         foreach ($unique_users_ids as $user_id) {
             $userFeed = new Model_Feed_Custom(sprintf('user:%d', $user_id), 'article');
