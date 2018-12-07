@@ -299,4 +299,14 @@ class Model_User extends Model
 
         return $requestsList->execute();
     }
+
+    /**
+     * Compose user feed key
+     * @param $user_id - user id
+     * @return string - feed key
+     */
+    public static function composeFeedKey($user_id)
+    {
+        return sprintf('user:%d', $user_id);
+    }
 }

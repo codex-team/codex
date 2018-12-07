@@ -45,6 +45,8 @@
             Collect articles in timeline
         </a>
 
-
+        <a class="button" href="/admin/scripts/resetUsersFeeds" style="margin-top: 50px;">
+            Reset users feeds
+        </a>
     <? endif; ?>
 </div>

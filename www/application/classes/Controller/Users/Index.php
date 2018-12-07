@@ -122,7 +122,8 @@ class Controller_Users_Index extends Controller_Base_preDispatch
      */
     public function getUserArticles($user_id)
     {
-        $userFeed = new Model_Feed_Custom(sprintf('user:%d', $user_id));
+        $userFeedKey = Model_User::composeFeedKey($user_id);
+        $userFeed = new Model_Feed_Custom($userFeedKey, Model_Article::FEED_PREFIX);
         $user_feed_items_ids  = $userFeed->get();
 
         $models_list = array();
