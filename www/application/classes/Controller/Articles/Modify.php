@@ -31,7 +31,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             $article = new Model_Article();
         }
 
-        $feed = new Model_Feed_Articles($article::FEED_PREFIX);
+        $articlesFeed = new Model_Feed_Articles($article::FEED_PREFIX);
 
         if ($article->is_published && !$article->dt_publish) {
             $article->dt_publish = date('Y-m-d H:i:s');
@@ -50,7 +50,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         $this->view["selected_coauthor"]  = $coauthorship->user_id;
 
         $this->view['selected_courses']   = Model_Courses::getCoursesByArticleId($article);
-        $this->view['topFeed']            = $feed->get(5);
+        $this->view['topFeed']            = $articlesFeed->get(5);
         $this->view['quizzes']            = Model_Quiz::getTitles();
 
         $this->template->content = View::factory('templates/articles/create', $this->view);
@@ -75,8 +75,6 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
 
         $article_id = Arr::get($_POST, 'article_id');
         $article = Model_Article::get($article_id, true);
-
-        $feed = new Model_Feed_Articles($article::FEED_PREFIX);
 
         /*
          * Articles Title.
@@ -172,6 +170,11 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             $article->update();
         }
 
+        /**
+         * Get article's previous coauthorship relation
+         */
+        $previous_coauthorship = new Model_Coauthors($article->id);
+
         $articleCoauthor = Arr::get($_POST, 'coauthor');
 
         /**
@@ -180,34 +183,58 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         $coauthorship = new Model_Coauthors($article->id, $articleCoauthor);
 
         /**
+         * Coauthor's articles feed
+         */
+        $coauthorFeedKey = Model_User::composeFeedKey($coauthorship->user_id);
+        $coauthorFeed = new Model_Feed_Custom($coauthorFeedKey, Model_Article::FEED_PREFIX);
+
+        /**
          * If coauthorship relation doesn't exist in database - create it
          * Otherwise, update it
          */
         if (!empty($articleCoauthor) && $articleCoauthor != $article->user_id) {
 
             if ($coauthorship->exists()) {
+                $prevCoauthorFeedKey = Model_User::composeFeedKey($previous_coauthorship->user_id);
+                $prevCoauthorFeed = new Model_Feed_Custom($prevCoauthorFeedKey, Model_Article::FEED_PREFIX);
+                $prevCoauthorFeed->remove($article->id);
+
                 $coauthorship->update();
             } else {
                 $coauthorship->add();
             }
 
+            if ($article->is_published && !$article->is_removed) {
+                $coauthorFeed->add($article->id, $article->dt_publish);
+            }
+
         /** Remove co-author */
         } elseif (empty($articleCoauthor) && $coauthorship->user_id) {
+            $coauthorFeed->remove($article->id);
             $coauthorship->remove();
         }
+
+        /**  All articles feed */
+        $articlesFeed = new Model_Feed_Articles($article::FEED_PREFIX);
+
+        /** Current user articles feed */
+        $authorFeedKey = Model_User::composeFeedKey($article->user_id);
+        $authorFeed = new Model_Feed_Custom($authorFeedKey, Model_Article::FEED_PREFIX);
 
         if (!$courses_ids) {
             Model_Courses::deleteArticles($article->id);
 
             if ($article->is_published && !$article->is_removed) {
-                $feed->add($article->id, $article->dt_publish);
+                $articlesFeed->add($article->id, $article->dt_publish);
+                $authorFeed->add($article->id, $article->dt_publish);
 
                 //Ставим статью в переданное место в фиде, если это было указано
                 if ($item_below_key) {
-                    $feed->putAbove($article->id, $item_below_key);
+                    $articlesFeed->putAbove($article->id, $item_below_key);
                 }
             } else {
-                $feed->remove($article->id);
+                $articlesFeed->remove($article->id);
+                $authorFeed->remove($article->id);
             }
         } else {
             $current_courses = Model_Courses::getCoursesByArticleId($article);
@@ -227,7 +254,9 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
                 }
             }
 
-            $feed->remove($article->id);
+            $articlesFeed->remove($article->id);
+            $authorFeed->remove($article->id);
+            $coauthorFeed->remove($article->id);
         }
 
         $isRecent = (int) Arr::get($_POST, 'is_recent', 0);
@@ -264,8 +293,24 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
                 Model_Aliases::deleteAlias($alias->hash);
             }
 
-            $feed = new Model_Feed_Articles($article::FEED_PREFIX);
-            $feed->remove($article->id);
+            $articlesFeed = new Model_Feed_Articles($article::FEED_PREFIX);
+            $articlesFeed->remove($article->id);
+
+            $authorFeedKey = Model_User::composeFeedKey($article->user_id);
+
+            $authorFeed = new Model_Feed_Custom($authorFeedKey, Model_Article::FEED_PREFIX);
+            $authorFeed->remove($article->id);
+
+            /**
+             * Create coauthorship relation article_id : user_id
+             */
+            $coauthorship = new Model_Coauthors($article->id);
+
+            if ($coauthorship->user_id) {
+                $coauthorFeedKey = Model_User::composeFeedKey($coauthorship->user_id);
+                $coauthorFeed = new Model_Feed_Custom($coauthorFeedKey, Model_Article::FEED_PREFIX);
+                $coauthorFeed->remove($article->id);
+            }
         }
 
         $this->redirect('/admin/articles');

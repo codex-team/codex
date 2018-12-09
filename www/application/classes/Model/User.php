@@ -242,16 +242,6 @@ class Model_User extends Model
 
 
     /**
-     * Возвращает массив опубликованных статей пользователя
-     * @return true, если данные успешно записаны в БД
-     */
-    public function get_articles_list()
-    {
-        return Model_Article::getByUserId($this->id);
-    }
-
-
-    /**
     * Метод заносит переданные данные о юзере в модель и базу
     * @param $fields - ассоциативный массив "название поля" - "значение"
     */
@@ -308,5 +298,15 @@ class Model_User extends Model
         if ($isReversed) $requestsList->order_by('id', 'DESC');
 
         return $requestsList->execute();
+    }
+
+    /**
+     * Compose user feed key
+     * @param $user_id - user id
+     * @return string - feed key
+     */
+    public static function composeFeedKey($user_id)
+    {
+        return sprintf('user:%d', $user_id);
     }
 }
