@@ -63,21 +63,6 @@
         </div>
     </div>
 
-    <div class="editor-landing__loved-by">
-        <h2 class="editor-landing__loved-by-title">Loved by</h2>
-        <div class="editor-landing__loved-by-companies">
-            <a rel="nofollow" class="editor-landing__loved-by-item" target="_blank" href="//tjournal.ru">
-                <? include(DOCROOT . '/public/app/landings/editor/svg/tj.svg'); ?>
-            </a>
-            <a rel="nofollow" class="editor-landing__loved-by-item" target="_blank" href="//dtf.ru">
-                <? include(DOCROOT . '/public/app/landings/editor/svg/dtf.svg'); ?>
-            </a>
-            <a rel="nofollow" class="editor-landing__loved-by-item" target="_blank" href="//vc.ru">
-                <? include(DOCROOT . '/public/app/landings/editor/svg/vc-ru.svg'); ?>
-            </a>
-        </div>
-    </div>
-
     <section class="editor-landing__section-header editor-landing__section-header--big">
         <header>
             API is the feature.
@@ -349,6 +334,24 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
                 Contribute your plugin to this featured list
             </a>
         </div>
+
+        <section class="editor-landing__section-header editor-landing__section-header--big">
+            <header>
+                Loved by
+            </header>
+            Thousands of people already write with us.
+            <div class="editor-landing__loved-by">
+                <a rel="nofollow" class="editor-landing__loved-by-item" target="_blank" href="//tjournal.ru">
+                    <? include(DOCROOT . '/public/app/landings/editor/svg/tj.svg'); ?>
+                </a>
+                <a rel="nofollow" class="editor-landing__loved-by-item" target="_blank" href="//dtf.ru">
+                    <? include(DOCROOT . '/public/app/landings/editor/svg/dtf.svg'); ?>
+                </a>
+                <a rel="nofollow" class="editor-landing__loved-by-item" target="_blank" href="//vc.ru">
+                    <? include(DOCROOT . '/public/app/landings/editor/svg/vc-ru.svg'); ?>
+                </a>
+            </div>
+        </section>
 
         <section class="editor-landing__section-header editor-landing__section-header--big">
             <header>

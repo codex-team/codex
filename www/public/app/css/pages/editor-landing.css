@@ -291,53 +291,11 @@
     &__loved-by {
         position: relative;
         display: flex;
+        justify-content: center;
+        margin-top: 30px;
 
         @media (--mobile) {
-            display: block;
-            padding: 20px;
-        }
-
-        &::before {
-            content: 'Loved by';
-            margin: 0 auto;
-            font-size: 148px;
-            line-height: 100%;
-            font-weight: 800;
-            letter-spacing: 4px;
-            color: rgba(196, 205, 213, 0.23);
-            margin-top: -26px;
-
-            @media (--mobile) {
-                display: none;
-            }
-        }
-
-        &-title {
-            font-size: 26px;
-            margin-bottom: 20px;
-            color: #606578;
-            text-align: center;
-            display: none;
-
-            @media (--mobile) {
-                display: block;
-                font-size: 20px;
-            }
-        }
-
-        &-companies {
-            display: flex;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -40%);
-            justify-content: center;
-
-            @media (--mobile) {
-                position: static;
-                margin-top: 20px;
-                transform: none;
-            }
+            margin-bottom: 80px;
         }
 
         &-item {
@@ -389,6 +347,10 @@
         &-filter {
             margin: 30px 0;
 
+            @media (--mobile) {
+                margin: 15px 0 20px;
+            }
+
             &-button {
                 font-size: 15px;
                 font-weight: 500;
@@ -436,14 +398,18 @@
     &__more-plugins {
         float: left;
 
-        svg {
-            margin: -3px 5px 0 3px;
+        @media (--mobile) {
+            float: none;
         }
-
     }
 
     &__contribute {
         float: right;
+
+        @media (--mobile) {
+            display: none;
+        }
+
 
         svg {
             margin: -3px 3px 0 0;
