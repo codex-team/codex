@@ -14,7 +14,37 @@ class Controller_Editor extends Controller_Base_preDispatch
     {
         $this->title = 'CodeX Editor';
         $this->description = 'Block style visual editor for beautiful pages';
+        $this->view['version'] = $this->getEditorVersion();
         $this->template->content = View::factory('templates/editor/landing', $this->view);
+    }
+
+    /**
+     * Load Editor package version from NPM
+     * @return string
+     */
+    private function getEditorVersion(){
+        try {
+            $memcache = Cache::instance('memcache');
+            $cacheKey = 'editor-version';
+            $version = $memcache->get($cacheKey);
+
+            if (!$version) {
+                $req = new Request('http://npmsearch.com/query?q=codex.editor&fields=name,version');
+
+                $response = json_decode($req->execute()->body());
+                $package = array_shift($response->results);
+                $version = array_shift($package->version);
+
+                $memcache->set($cacheKey, $version, Date::HOUR);
+            }
+
+            return $version;
+
+        } catch (Exception $e){
+            \Hawk\HawkCatcher::catchException($e);
+        }
+
+        return '2.7';
     }
 
     public function action_preview()

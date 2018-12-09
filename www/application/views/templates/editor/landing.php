@@ -16,7 +16,15 @@
             Next generation block styled editor. <br> Free. Use for pleasure.
         </div>
 
+        <a class="editor-landing__cta" href="http://github.com/codex-team/codex.editor">
+            Get started
+        </a>
+
         <div class="editor-landing__menu">
+            <a href="http://github.com/codex-team/codex.editor">
+                Current version <span class="editor-landing__version"><?= $version ?></span>
+            </a>
+            <br>
             <a class="editor-landing__links-item" target="_blank" href="https://github.com/codex-team/codex.editor/blob/master/docs/usage.md">
                 Documentation
             </a>
@@ -24,48 +32,36 @@
             <a class="editor-landing__links-item" target="_blank" href="https://github.com/codex-editor">
                 Plugins
             </a>
+            <br>
+            <a class="editor-landing__links-item" target="_blank" href="https://github.com/codex-editor">
+                Changelog
+            </a>
         </div>
     </div>
     <div class="editor-landing__demo" data-module="editorLanding">
         <module-settings hidden>
             {
-                "blocks" : [
-                    {
-                        "type" : "header",
-                        "data" : {
-                            "text" : "Outputs clear data at JSON",
-                            "level" : 2
-                        }
-                    },
-                    {
-                        "type" : "paragraph",
-                        "data" : {
-                            "text" : "Use it in Web, mobile, AMP, Instant Articles, speech readers — everywhere."
-                        }
-                    },
-                    {
-                        "type" : "header",
-                        "data" : {
-                            "text" : "API is the feature",
-                            "level" : 2
-                        }
-                    },
-                    {
-                        "type" : "paragraph",
-                        "data" : {
-                            "text" : "Easy to build Plugins. Dozens of created."
-                        }
-                    }
-                ],
                 "output_id" : "output"
             }
         </module-settings>
 
-        <div id="codex-editor"></div>
+        <div class="editor-landing__demo-inner">
+            <div id="codex-editor"></div>
+        </div>
+
+        <section class="editor-landing__section-header">
+            <header>
+                And here is a generated CLEAN data
+            </header>
+            Use it in Web, mobile, APM, Instant Articles, speech readers — everywhere. Easy to sanitize, extend and integrate with your logic.
+        </section>
+        <div class="editor-landing__preview">
+            <div class="editor-landing__preview-inner">
+                <pre id="output"></pre>
+            </div>
+        </div>
     </div>
-    <div class="editor-landing__preview">
-        <pre id="output"></pre>
-    </div>
+
     <div class="editor-landing__loved-by">
         <h2 class="editor-landing__loved-by-title">Loved by</h2>
         <div class="editor-landing__loved-by-companies">
@@ -80,16 +76,26 @@
             </a>
         </div>
     </div>
+
+    <section class="editor-landing__section-header editor-landing__section-header--big">
+        <header>
+            API is the feature.
+        </header>
+        Each Block provided by plugin. Its really easy to create your own. Dozens of created.
+    </section>
+
     <?
        /**
         * Array of plugins contributors
         */
         $contributors = array(
-            'polinaShneider' => array('name' => 'PolinaShneider', 'photo' => 'https://avatars3.githubusercontent.com/u/15448200?s=460&v=4'),
-            'neSpecc' => array('name' => 'neSpecc', 'photo' => 'https://avatars0.githubusercontent.com/u/3684889?v=4&s=60'),
+            'polinaShneider' => array('name' => 'PolinaShneider', 'photo' => 'https://avatars3.githubusercontent.com/u/15448200?s=40&v=4'),
+            'specc' => array('name' => 'neSpecc', 'photo' => 'https://avatars0.githubusercontent.com/u/3684889?v=4&s=40'),
             'n0str' => array('name' => 'n0str', 'photo' => 'https://avatars1.githubusercontent.com/u/988885?v=4&s=60'),
-            'talyguryn' => array('name' => 'talyguryn', 'photo' => 'https://avatars1.githubusercontent.com/u/15259299?v=4&s=60'),
-            'khaydarov' => array('name' => 'khaydarov', 'photo' => 'https://avatars1.githubusercontent.com/u/6507765?s=400&v=4')
+            'talyguryn' => array('name' => 'talyguryn', 'photo' => 'https://avatars1.githubusercontent.com/u/15259299?v=4&s=40'),
+            'khaydarov' => array('name' => 'khaydarov', 'photo' => 'https://avatars1.githubusercontent.com/u/6507765?s=40&v=4'),
+            'horoyami' => array('name' => 'horoyami', 'photo' => 'https://avatars2.githubusercontent.com/u/34141926?s=40&v=4'),
+            'gohabereg' => array('name' => 'gohabereg', 'photo' => 'https://avatars1.githubusercontent.com/u/23050529?s=40&v=4'),
         );
 
        /**
@@ -102,7 +108,7 @@
                 'description' => 'How will you live without headers?',
                 'demo' => 'header.png',
                 'contributors' => array(
-                    $contributors['neSpecc'],
+                    $contributors['specc'],
                     $contributors['talyguryn'],
                     $contributors['n0str']
                 ),
@@ -111,12 +117,33 @@
             array(
                 'name' => 'Simple Image',
                 'type' => 'Block',
-                'description' => 'Provides image blocks for your writings.',
+                'description' => 'Allow pasting image by URLs',
                 'demo' => 'simple-image.png',
                 'contributors' => array(
-                    $contributors['talyguryn']
+                    $contributors['specc']
                 ),
                 'url' => 'https://github.com/codex-editor/inline-code'
+            ),
+            array(
+                'name' => 'Image',
+                'type' => 'Block',
+                'description' => 'Full featured image Block integrated with your backend.',
+                'demo' => 'simple-image.png',
+                'contributors' => array(
+                    $contributors['specc'],
+                    $contributors['talyguryn'],
+                ),
+                'url' => 'https://github.com/codex-editor/image'
+            ),
+            array(
+                'name' => 'Embed',
+                'type' => 'Block',
+                'description' => 'Here is YouTube, Vimeo, Imgur, Gfycat, Twitch and other embeds',
+                'demo' => 'quote.png',
+                'contributors' => array(
+                    $contributors['gohabereg']
+                ),
+                'url' => 'https://github.com/codex-editor/embed'
             ),
             array(
                 'name' => 'Quote',
@@ -155,7 +182,7 @@
                 'description' => 'Embed links in your articles.',
                 'demo' => 'link.gif',
                 'contributors' => array(
-                    $contributors['neSpecc'],
+                    $contributors['specc'],
                     $contributors['talyguryn'],
                     $contributors['khaydarov']
                 ),
@@ -167,7 +194,8 @@
                 'description' => 'Add ordered or bulleted lists to your article.',
                 'demo' => 'list.png',
                 'contributors' => array(
-                    $contributors['talyguryn']
+                    $contributors['specc'],
+                    $contributors['gohabereg'],
                 ),
                 'url' => 'https://github.com/codex-editor/list'
             ),
@@ -179,7 +207,7 @@
                 'contributors' => array(
                     $contributors['n0str'],
                     $contributors['talyguryn'],
-                    $contributors['neSpecc']
+                    $contributors['specc']
                 ),
                 'url' => 'https://github.com/codex-editor/delimiter'
             ),
@@ -203,17 +231,39 @@
                     $contributors['polinaShneider']
                 ),
                 'url' => 'https://github.com/codex-editor/raw'
+            ),
+            array(
+                'name' => 'Table',
+                'type' => 'Block',
+                'description' => 'Table constructor that you enjoyed',
+                'demo' => 'html.png',
+                'contributors' => array(
+                    $contributors['horoyami'],
+                    $contributors['gohabereg']
+                ),
+                'url' => 'https://github.com/codex-editor/table'
+            ),
+            array(
+                'name' => 'Warning',
+                'type' => 'Block',
+                'description' => 'Editorials notifications, appeals or warnings',
+                'demo' => 'html.png',
+                'contributors' => array(
+                    $contributors['polinaShneider'],
+                    $contributors['specc']
+                ),
+                'url' => 'https://github.com/codex-editor/warning'
             )
 
         )
     ?>
     <div class="editor-landing__plugins">
-        <h2 class="editor-landing__plugins-title">
+        <h4 class="editor-landing__plugins-title">
             Best plugins
-        </h2>
-        <p class="editor-landing__plugins-description">
+        </h4>
+        <div class="editor-landing__plugins-description">
             Plugins can represent any Blocks: Quotes, Galleries, Polls, Embeds, Tables — anything you need. Also they can implement Inline Tools such as Marker, Term, Comments etc.
-        </p>
+        </div>
         <div class="editor-landing__plugins-filter" data-module="pluginsFilter">
             <module-settings hidden>
                 {
@@ -274,18 +324,18 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
   }
 }";
 ?>
-        <div class="editor-plugin clearfix editor-plugin--your-own">
+        <div class="editor-plugin editor-plugin--your-own">
             <h3 class="editor-plugin__title">
                 Your own plugin
             </h3>
-            <div class="editor-plugin__demo">
-                <pre><?= $your_plugin_code ?></pre>
-            </div>
             <div class="editor-plugin__description">
                 Just implement <i>render</i> and <i>save</i> methods.
             </div>
+            <div class="editor-plugin__demo">
+                <pre><?= $your_plugin_code ?></pre>
+            </div>
             <div class="editor-plugin__footer">
-                To make it cool, take a look at the <a href="https://github.com/codex-team/codex.editor/blob/master/docs/api.md">API</a>.
+                To make it cool, take a look at the <a href="https://github.com/codex-team/codex.editor/blob/master/docs/tools.md">API</a>.
             </div>
         </div>
         <div class="editor-landing__actions clearfix">
@@ -298,5 +348,23 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
                 Contribute your plugin to this featured list
             </a>
         </div>
+
+        <section class="editor-landing__section-header editor-landing__section-header--big">
+            <header>
+                Support Team
+            </header>
+            We will be really glad and inspired by <b>every</b> star of the project. It helps community to grow, build new cool plugins and core features.
+
+            <br>
+            <div class="editor-landing__star">
+                <div class="editor-landing__star-line"></div>
+                <div class="editor-landing__star-line"></div>
+                <div class="editor-landing__star-line"></div>
+
+                <a class="github-button" href="https://github.com/codex-team/codex.editor" data-icon="octicon-star" data-size="large" aria-label="Star codex-team/codex.editor on GitHub">Star</a>
+                <script async defer src="https://buttons.github.io/buttons.js"></script>
+            </div>
+        </section>
+
     </div>
 </div>
