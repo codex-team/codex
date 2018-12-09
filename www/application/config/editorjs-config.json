@@ -51,8 +51,14 @@
       "file": {
         "type": "array",
         "data": {
-          "width" : "int",
-          "height" : "int",
+          "width": {
+            "type": "integer",
+            "required": false
+          },
+          "height": {
+            "type": "integer",
+            "required": false
+          },
           "url": "string"
         }
       },
