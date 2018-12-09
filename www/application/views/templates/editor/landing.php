@@ -41,7 +41,8 @@
     <div class="editor-landing__demo" data-module="editorLanding">
         <module-settings hidden>
             {
-                "output_id" : "output"
+                "output_id" : "output",
+                "blocks" : []
             }
         </module-settings>
 
@@ -81,7 +82,7 @@
         <header>
             API is the feature.
         </header>
-        Each Block provided by plugin. Its really easy to create your own. Dozens of created.
+        Each Block provided by plugin. It's really easy to create your own. Dozens of created.
     </section>
 
     <?

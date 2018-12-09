@@ -7,6 +7,11 @@ class Controller_Editor extends Controller_Base_preDispatch
 {
 
     /**
+     * Editor.js package name in NPM/Yarn
+     */
+    const PACKAGE_NAME = 'codex.editor';
+
+    /**
      * Action for index page
      * Codex Editor Landing page in https://ifmo.su/
      */
@@ -29,7 +34,7 @@ class Controller_Editor extends Controller_Base_preDispatch
             $version = $memcache->get($cacheKey);
 
             if (!$version) {
-                $req = new Request('http://npmsearch.com/query?q=codex.editor&fields=name,version');
+                $req = new Request(sprintf('http://npmsearch.com/query?q=%s&fields=version', self::PACKAGE_NAME));
 
                 $response = json_decode($req->execute()->body());
                 $package = array_shift($response->results);

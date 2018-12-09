@@ -139,18 +139,15 @@ export default class Editor {
      * @returns {Object[]} blocks
      */
     defaultEditorData() {
-
-        return {
-            blocks: [
-                {
-                    type: 'header',
-                    data: {
-                        text: '',
-                        level: 2
-                    }
+        return [
+            {
+                type: 'header',
+                data: {
+                    text: '',
+                    level: 2
                 }
-            ]
-        };
+            }
+        ];
 
     }
 
