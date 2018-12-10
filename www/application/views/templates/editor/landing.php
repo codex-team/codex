@@ -92,7 +92,7 @@
                 'name' => 'Header',
                 'type' => 'Block',
                 'description' => 'How will you live without headers?',
-                'demo' => 'header.png',
+                'demo' => '/public/app/landings/editor/demo/header.png',
                 'contributors' => array(
                     $contributors['specc'],
                     $contributors['talyguryn'],
@@ -104,7 +104,7 @@
                 'name' => 'Simple Image',
                 'type' => 'Block',
                 'description' => 'Allow pasting image by URLs',
-                'demo' => 'simple-image.png',
+                'demo' => '/public/app/landings/editor/demo/simple-image.png',
                 'contributors' => array(
                     $contributors['specc']
                 ),
@@ -114,7 +114,7 @@
                 'name' => 'Image',
                 'type' => 'Block',
                 'description' => 'Full featured image Block integrated with your backend.',
-                'demo' => 'simple-image.png',
+                'demo' => '/public/app/landings/editor/demo/image-tool.mp4',
                 'contributors' => array(
                     $contributors['specc'],
                     $contributors['talyguryn'],
@@ -125,7 +125,7 @@
                 'name' => 'Embed',
                 'type' => 'Block',
                 'description' => 'Here is YouTube, Vimeo, Imgur, Gfycat, Twitch and other embeds',
-                'demo' => 'quote.png',
+                'demo' => '/public/app/landings/editor/demo/quote.png',
                 'contributors' => array(
                     $contributors['gohabereg']
                 ),
@@ -135,7 +135,7 @@
                 'name' => 'Quote',
                 'type' => 'Block',
                 'description' => 'Include quotes in your articles.',
-                'demo' => 'quote.png',
+                'demo' => '/public/app/landings/editor/demo/quote.png',
                 'contributors' => array(
                     $contributors['talyguryn']
                 ),
@@ -145,7 +145,7 @@
                 'name' => 'Marker',
                 'type' => 'Inline Tool',
                 'description' => 'Highlight text fragments in your beautiful articles.',
-                'demo' => 'marker.gif',
+                'demo' => '/public/app/landings/editor/demo/marker.gif',
                 'contributors' => array(
                     $contributors['polinaShneider']
                 ),
@@ -155,7 +155,7 @@
                 'name' => 'Code',
                 'type' => 'Block',
                 'description' => 'Include code examples in your writings.',
-                'demo' => 'code.png',
+                'demo' => '/public/app/landings/editor/demo/code.png',
                 'contributors' => array(
                     $contributors['talyguryn'],
                     $contributors['polinaShneider']
@@ -166,7 +166,7 @@
                 'name' => 'Link',
                 'type' => 'Inline Tool',
                 'description' => 'Embed links in your articles.',
-                'demo' => 'link.gif',
+                'demo' => '/public/app/landings/editor/demo/link.gif',
                 'contributors' => array(
                     $contributors['specc'],
                     $contributors['talyguryn'],
@@ -178,7 +178,7 @@
                 'name' => 'List',
                 'type' => 'Block',
                 'description' => 'Add ordered or bulleted lists to your article.',
-                'demo' => 'list.png',
+                'demo' => '/public/app/landings/editor/demo/list.png',
                 'contributors' => array(
                     $contributors['specc'],
                     $contributors['gohabereg'],
@@ -189,7 +189,7 @@
                 'name' => 'Delimiter',
                 'type' => 'Block',
                 'description' => 'Separate blocks of text in your articles.',
-                'demo' => 'delimiter.png',
+                'demo' => '/public/app/landings/editor/demo/delimiter.png',
                 'contributors' => array(
                     $contributors['n0str'],
                     $contributors['talyguryn'],
@@ -201,7 +201,7 @@
                 'name' => 'Inline Code',
                 'type' => 'Inline Tool',
                 'description' => 'Inline Tool for marking code-fragments.',
-                'demo' => 'inline-code.gif',
+                'demo' => '/public/app/landings/editor/demo/inline-code.gif',
                 'contributors' => array(
                     $contributors['talyguryn']
                 ),
@@ -211,7 +211,7 @@
                 'name' => 'HTML',
                 'type' => 'Block',
                 'description' => 'Include raw HTML code in your articles.',
-                'demo' => 'html.png',
+                'demo' => 'https://capella.pics/7cf636b6-dad4-4798-bfa4-5273e6c0250f.jpg',
                 'contributors' => array(
                     $contributors['talyguryn'],
                     $contributors['polinaShneider']
@@ -222,7 +222,7 @@
                 'name' => 'Table',
                 'type' => 'Block',
                 'description' => 'Table constructor that you enjoyed',
-                'demo' => 'html.png',
+                'demo' => '/public/app/landings/editor/demo/table-2.mp4',
                 'contributors' => array(
                     $contributors['horoyami'],
                     $contributors['gohabereg']
@@ -233,7 +233,7 @@
                 'name' => 'Warning',
                 'type' => 'Block',
                 'description' => 'Editorials notifications, appeals or warnings',
-                'demo' => 'html.png',
+                'demo' => 'https://capella.pics/ff210390-4b0b-4655-aaf0-cc4a0414e81b.jpg',
                 'contributors' => array(
                     $contributors['polinaShneider'],
                     $contributors['specc']
@@ -276,7 +276,13 @@
         <? foreach ( $plugins as $plugin ): ?>
             <div class="editor-plugin clearfix <?= $plugin['type'] === 'Block' ? 'js-block-tool' : 'js-inline-tool' ?>">
                 <div class="editor-plugin__demo">
-                    <img src="/public/app/landings/editor/demo/<?= $plugin['demo'] ?>" alt="<?= $plugin['name'] ?>">
+                    <? if (strpos($plugin['demo'], 'mp4') === false): ?>
+                        <img src="<?= $plugin['demo'] ?>" alt="<?= $plugin['name'] ?>">
+                    <? else: ?>
+                        <video autoplay loop muted playsinline>
+                            <source src="<?= $plugin['demo'] ?>" type="video/mp4">
+                        </video>
+                    <? endif; ?>
                 </div>
                 <a href="<?= $plugin['url'] ?>" target="_blank">
                     <h3 class="editor-plugin__title">
@@ -326,7 +332,6 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
         </div>
         <div class="editor-landing__actions clearfix">
             <a class="editor-landing__more-plugins" href="https://github.com/codex-editor" target="_blank">
-                <? /* include(DOCROOT . '/public/app/landings/editor/svg/arrow-icon.svg'); */ ?>
                 View all plugins
             </a>
             <a class="editor-landing__contribute" href="#">

@@ -500,7 +500,6 @@
     border-radius: 7px;
     box-shadow: 0 3px 11px rgba(125, 128, 147, 0.23);
     min-height: 90px;
-    //border: 1px solid var(--line-light);
     padding-right: 120px;
 
     @media (--mobile) {
@@ -509,12 +508,9 @@
 
     &__title {
         font-size: 18px;
-        //font-family: var(--serif-font);
         color: #000;
         margin: 0;
         display: inline-block;
-        //vertical-align: middle;
-        //letter-spacing: -1px;
         margin-bottom: 4px;
         margin-right: 5px;
 
@@ -530,9 +526,6 @@
         border-radius: 3px;
         font-weight: 500;
         opacity: 0.4;
-        //border: solid 1px #dde1e5;
-        //padding: 4px 8px;
-        //vertical-align: middle;
         line-height: 1em;
         margin-top: -5px;
 
@@ -578,7 +571,8 @@
         top: 15px;
         margin-left: 45px;
 
-        img {
+        img,
+        video {
             height: 90px;
 
             @media (--mobile) {
