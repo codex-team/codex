@@ -17,6 +17,8 @@ const InlineCode = require('codex.editor.inline-code');
 const List = require('codex.editor.list');
 const RawTool = require('codex.editor.raw');
 const ImageTool = require('codex.editor.image');
+const Embed = require('codex.editor.embed');
+
 
 /**
  * Class for working with CodeX Editor
@@ -85,6 +87,7 @@ export default class Editor {
                     shortcut: 'CMD+SHIFT+M'
                 },
                 delimiter: Delimiter,
+                embed: Embed,
             },
             data: {
                 blocks: editorData
