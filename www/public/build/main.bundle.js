@@ -1669,8 +1669,7 @@ function () {
         /**
          * Bind onchange callback to preview JSON data
          */
-        onChange: function onChange() {
-          _this.previewData();
+        onChange: function onChange() {// this.previewData();
         },
 
         /**
@@ -1682,6 +1681,7 @@ function () {
       };
       this.loadEditor(editorSettings).then(function (editor) {
         _this.editor = editor;
+        window.__e = editor;
       });
     }
   }, {

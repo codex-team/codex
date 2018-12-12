@@ -104,7 +104,7 @@
                 'name' => 'Simple Image',
                 'type' => 'Block',
                 'description' => 'Allow pasting image by URLs',
-                'demo' => '/public/app/landings/editor/demo/simple-image.png',
+                'demo' => 'https://capella.pics/f67bd749-0115-4ea8-b4b9-4375b20667bc.jpg',
                 'contributors' => array(
                     $contributors['specc']
                 ),
@@ -125,7 +125,7 @@
                 'name' => 'Embed',
                 'type' => 'Block',
                 'description' => 'Here is YouTube, Vimeo, Imgur, Gfycat, Twitch and other embeds',
-                'demo' => '/public/app/landings/editor/demo/quote.png',
+                'demo' => '/public/app/landings/editor/demo/embed.mp4',
                 'contributors' => array(
                     $contributors['gohabereg']
                 ),
@@ -155,7 +155,7 @@
                 'name' => 'Code',
                 'type' => 'Block',
                 'description' => 'Include code examples in your writings.',
-                'demo' => '/public/app/landings/editor/demo/code.png',
+                'demo' => 'https://capella.pics/8c48b0e0-4885-452d-9a78-d563d279d08d.jpg',
                 'contributors' => array(
                     $contributors['talyguryn'],
                     $contributors['polinaShneider']
@@ -189,7 +189,7 @@
                 'name' => 'Delimiter',
                 'type' => 'Block',
                 'description' => 'Separate blocks of text in your articles.',
-                'demo' => '/public/app/landings/editor/demo/delimiter.png',
+                'demo' => 'https://capella.pics/825a3f47-ef7e-4c64-bc73-521c9c3faee4.jpg',
                 'contributors' => array(
                     $contributors['n0str'],
                     $contributors['talyguryn'],
@@ -219,17 +219,6 @@
                 'url' => 'https://github.com/codex-editor/raw'
             ),
             array(
-                'name' => 'Table',
-                'type' => 'Block',
-                'description' => 'Table constructor that you enjoyed',
-                'demo' => '/public/app/landings/editor/demo/table-2.mp4',
-                'contributors' => array(
-                    $contributors['horoyami'],
-                    $contributors['gohabereg']
-                ),
-                'url' => 'https://github.com/codex-editor/table'
-            ),
-            array(
                 'name' => 'Warning',
                 'type' => 'Block',
                 'description' => 'Editorials notifications, appeals or warnings',
@@ -239,7 +228,18 @@
                     $contributors['specc']
                 ),
                 'url' => 'https://github.com/codex-editor/warning'
-            )
+            ),
+            array(
+                'name' => 'Table',
+                'type' => 'Block',
+                'description' => 'Table constructor that you enjoyed',
+                'demo' => '/public/app/landings/editor/demo/table.mp4',
+                'contributors' => array(
+                    $contributors['horoyami'],
+                    $contributors['gohabereg']
+                ),
+                'url' => 'https://github.com/codex-editor/table'
+            ),
 
         )
     ?>

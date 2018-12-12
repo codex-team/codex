@@ -22,7 +22,7 @@
     "codex.editor.delimiter": "^1.0.2",
     "codex.editor.embed": "^2.1.0",
     "codex.editor.header": "^2.1.2",
-    "codex.editor.image": "^1.0.0",
+    "codex.editor.image": "^2.0.2",
     "codex.editor.inline-code": "^1.1.0",
     "codex.editor.list": "^1.2.2",
     "codex.editor.marker": "^1.1.0",

@@ -59,8 +59,11 @@ export default class Editor {
                     class: ImageTool,
                     inlineToolbar: true,
                     config: {
-                        url: '/editor/transport',
-                    }
+                        endpoints: {
+                            byFile: '/editor/transport',
+                            byUrl: '/editor/transport',
+                        }
+                    },
                 },
                 list: {
                     class: List,
@@ -143,13 +146,13 @@ export default class Editor {
      */
     defaultEditorData() {
         return [
-            {
-                type: 'header',
-                data: {
-                    text: '',
-                    level: 2
-                }
-            }
+            // {
+            //     type: 'header',
+            //     data: {
+            //         text: '',
+            //         level: 2
+            //     }
+            // }
         ];
 
     }

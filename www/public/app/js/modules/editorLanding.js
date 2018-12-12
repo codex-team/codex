@@ -63,7 +63,7 @@ export default class EditorLanding {
              */
             onChange: () => {
 
-                this.previewData();
+                // this.previewData();
 
             },
             /**
@@ -79,6 +79,8 @@ export default class EditorLanding {
         this.loadEditor(editorSettings).then((editor) => {
 
             this.editor = editor;
+
+            window.__e = editor;
 
         });
 
