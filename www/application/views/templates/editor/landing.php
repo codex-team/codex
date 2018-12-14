@@ -232,7 +232,7 @@
             array(
                 'name' => 'Table',
                 'type' => 'Block',
-                'description' => 'Table constructor that you enjoyed',
+                'description' => 'Table constructor that you would enjoy',
                 'demo' => '/public/app/landings/editor/demo/table.mp4',
                 'contributors' => array(
                     $contributors['horoyami'],

@@ -366,8 +366,7 @@ function () {
       onReady: function onReady() {
         if (settings.onReady instanceof Function) {
           settings.onReady();
-        } // this.focus();
-
+        }
       }
     });
   }

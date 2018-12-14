@@ -52,18 +52,14 @@ export default class EditorLanding {
 
         }
 
-        /**
-         * Settings for Editor class
-         * @type {{blocks: Object[], onChange: {function}, onReady: {function}}}
-         */
-        let editorSettings = {
+        this.loadEditor({
             blocks: editorLandingSettings.blocks,
             /**
              * Bind onchange callback to preview JSON data
              */
             onChange: () => {
 
-                // this.previewData();
+                this.previewData();
 
             },
             /**
@@ -72,15 +68,14 @@ export default class EditorLanding {
             onReady: () => {
 
                 this.previewData();
+                this.editor.focus();
+
+
 
             }
-        };
-
-        this.loadEditor(editorSettings).then((editor) => {
+        }).then((editor) => {
 
             this.editor = editor;
-
-            window.__e = editor;
 
         });
 

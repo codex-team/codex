@@ -1,4 +1,4 @@
-<div class="product-card product-card--bot">
+<div class="product-card product-card--editor">
     <a class="product-card__title" href="/editor">
         Editor.js
     </a>

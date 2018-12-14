@@ -1657,19 +1657,15 @@ function () {
       if (!this.nodes.outputWrapper) {
         console.warn('Can\'t find output target with ID: «' + editorLandingSettings.output_id + '»');
       }
-      /**
-       * Settings for Editor class
-       * @type {{blocks: Object[], onChange: {function}, onReady: {function}}}
-       */
 
-
-      var editorSettings = {
+      this.loadEditor({
         blocks: editorLandingSettings.blocks,
 
         /**
          * Bind onchange callback to preview JSON data
          */
-        onChange: function onChange() {// this.previewData();
+        onChange: function onChange() {
+          _this.previewData();
         },
 
         /**
@@ -1677,11 +1673,11 @@ function () {
          */
         onReady: function onReady() {
           _this.previewData();
+
+          _this.editor.focus();
         }
-      };
-      this.loadEditor(editorSettings).then(function (editor) {
+      }).then(function (editor) {
         _this.editor = editor;
-        window.__e = editor;
       });
     }
   }, {
