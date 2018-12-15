@@ -17,6 +17,8 @@ const InlineCode = require('codex.editor.inline-code');
 const List = require('codex.editor.list');
 const RawTool = require('codex.editor.raw');
 const ImageTool = require('codex.editor.image');
+const Embed = require('codex.editor.embed');
+
 
 /**
  * Class for working with CodeX Editor
@@ -57,8 +59,11 @@ export default class Editor {
                     class: ImageTool,
                     inlineToolbar: true,
                     config: {
-                        url: '/editor/transport',
-                    }
+                        endpoints: {
+                            byFile: '/editor/transport',
+                            byUrl: '/editor/transport',
+                        }
+                    },
                 },
                 list: {
                     class: List,
@@ -85,6 +90,7 @@ export default class Editor {
                     shortcut: 'CMD+SHIFT+M'
                 },
                 delimiter: Delimiter,
+                embed: Embed,
             },
             data: {
                 blocks: editorData
@@ -107,8 +113,6 @@ export default class Editor {
                     settings.onReady();
 
                 }
-
-                this.focus();
 
             }
         });
@@ -139,18 +143,15 @@ export default class Editor {
      * @returns {Object[]} blocks
      */
     defaultEditorData() {
-
-        return {
-            blocks: [
-                {
-                    type: 'header',
-                    data: {
-                        text: '',
-                        level: 2
-                    }
-                }
-            ]
-        };
+        return [
+            // {
+            //     type: 'header',
+            //     data: {
+            //         text: '',
+            //         level: 2
+            //     }
+            // }
+        ];
 
     }
 

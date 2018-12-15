@@ -329,7 +329,7 @@ var cPreview = function () {
     string = string.replace(/"(\w+)"\s?:/g, '"<span class=sc_key>$1</span>" :');
     /** Stylize tool names */
 
-    string = string.replace(/"(paragraph|quote|list|header|link|code|image|delimiter|raw)"/g, '"<span class=sc_toolname>$1</span>"');
+    string = string.replace(/"(paragraph|quote|list|header|link|code|image|delimiter|raw|table)"/g, '"<span class=sc_toolname>$1</span>"');
     /** Stylize HTML tags */
 
     string = string.replace(/(&lt;[\/a-z]+(&gt;)?)/gi, '<span class=sc_tag>$1</span>');
@@ -339,6 +339,7 @@ var cPreview = function () {
     /** Boolean/Null */
 
     string = string.replace(/\b(true|false|null)\b/gi, '<span class=sc_bool>$1</span>');
+    string = string.replace(/\b(\d+)\b/gi, '<span class=sc_digit>$1</span>');
     return string;
   }
 
@@ -1656,13 +1657,8 @@ function () {
       if (!this.nodes.outputWrapper) {
         console.warn('Can\'t find output target with ID: «' + editorLandingSettings.output_id + '»');
       }
-      /**
-       * Settings for Editor class
-       * @type {{blocks: Object[], onChange: {function}, onReady: {function}}}
-       */
 
-
-      var editorSettings = {
+      this.loadEditor({
         blocks: editorLandingSettings.blocks,
 
         /**
@@ -1677,9 +1673,10 @@ function () {
          */
         onReady: function onReady() {
           _this.previewData();
+
+          _this.editor.focus();
         }
-      };
-      this.loadEditor(editorSettings).then(function (editor) {
+      }).then(function (editor) {
         _this.editor = editor;
       });
     }
