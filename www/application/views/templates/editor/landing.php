@@ -261,15 +261,15 @@
                 }
             </module-settings>
 
-            <span class="editor-landing__plugins-filter-button js-block-tools-filter">
+            <span class="editor-landing__plugins-filter-button js-plugins-filter js-block-tools-filter">
                 <? include(DOCROOT . '/public/app/landings/editor/svg/plus-icon.svg'); ?>
                 Blocks
             </span>
-            <span class="editor-landing__plugins-filter-button js-inline-tools-filter">
+            <span class="editor-landing__plugins-filter-button js-plugins-filter js-inline-tools-filter">
                 <? include(DOCROOT . '/public/app/landings/editor/svg/marker-icon.svg'); ?>
                 Inline Tools
             </span>
-            <span class="editor-landing__plugins-filter-button js-all-tools-filter">
+            <span class="editor-landing__plugins-filter-button editor-landing__plugins-filter-button--active js-plugins-filter js-all-tools-filter">
                 All
             </span>
         </div>

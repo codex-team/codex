@@ -2065,6 +2065,7 @@ module.exports = function () {
 
       if (filterButton) {
         filterButton.addEventListener('click', filterAction);
+        filterButton.addEventListener('click', toggleActiveButtonClass);
       } else {
         console.warn('Can\'t find button with class: «' + buttonClass + '»');
       }
@@ -2093,6 +2094,18 @@ module.exports = function () {
 
   var showAllPlugins = function showAllPlugins() {
     toggleTools(inlineTools, blockTools, false);
+  };
+  /**
+   * Toggle button's active class
+   */
+
+
+  var toggleActiveButtonClass = function toggleActiveButtonClass() {
+    var filterButtons = document.querySelectorAll('.js-plugins-filter');
+    filterButtons.forEach(function (button) {
+      button.classList.remove('editor-landing__plugins-filter-button--active');
+    });
+    this.classList.add('editor-landing__plugins-filter-button--active');
   };
   /**
    * Toggle Editor Block and Inline Tools into view

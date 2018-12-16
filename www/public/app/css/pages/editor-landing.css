@@ -357,6 +357,14 @@
                 vertical-align: middle;
                 cursor: pointer;
 
+                &--active {
+                    color: var(--color-link);
+
+                    svg {
+                        fill: var(--color-link);
+                    }
+                }
+
                 svg {
                     vertical-align: middle;
                     margin: -3px 6px 0 3px;

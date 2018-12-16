@@ -56,6 +56,7 @@ module.exports = (function () {
             if (filterButton) {
 
                 filterButton.addEventListener('click', filterAction);
+                filterButton.addEventListener('click', toggleActiveButtonClass);
 
             } else {
 
@@ -92,6 +93,22 @@ module.exports = (function () {
 
         toggleTools(inlineTools, blockTools, false);
 
+    };
+
+    /**
+     * Toggle button's active class
+     */
+    const toggleActiveButtonClass = function () {
+
+        let filterButtons = document.querySelectorAll('.js-plugins-filter');
+
+        filterButtons.forEach((button) => {
+
+            button.classList.remove('editor-landing__plugins-filter-button--active');
+
+        });
+
+        this.classList.add('editor-landing__plugins-filter-button--active');
     };
 
     /**
