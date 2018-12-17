@@ -2,23 +2,23 @@
  * CodeX Reactions Module Landing
  */
 
-reactions-module {
+.reactions-module {
     font-family: Lato;
 }
 
-reactions-module__about {
+.reactions-module__about {
     padding: 25vh 0 23vh;
     text-align: center;
 }
 
-reactions-module__info {
+.reactions-module__info {
     font-size: 1.5em;
     line-height: 22px;
     font-weight: 400;
     margin: 0;
 }
 
-reactions-module__name {
+.reactions-module__name {
     margin: 0.1em 0 0.9em;
     font-size: 3.5em;
     font-weight: 700;
