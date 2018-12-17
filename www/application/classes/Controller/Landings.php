@@ -58,3 +58,14 @@ class Controller_Landings extends Controller_Base_preDispatch
         $this->template->content = View::factory('templates/landings/beauty_toolbar', $this->view);
     }
 }
+
+
+    /**
+     * CodeX Reactions
+     */
+    public function action_reactions_module()
+    {
+        $this->title = 'CodeX Media';
+        $this->description = 'Platfrom for building UGC media';
+        $this->template->content = View::factory('templates/landings/media', $this->view);
+    }
