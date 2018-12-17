@@ -57,15 +57,17 @@ class Controller_Landings extends Controller_Base_preDispatch
         $this->view['isFromPH'] = $isFromPH;
         $this->template->content = View::factory('templates/landings/beauty_toolbar', $this->view);
     }
-}
-
 
     /**
      * CodeX Reactions
      */
     public function action_reactions_module()
     {
-        $this->title = 'CodeX Media';
-        $this->description = 'Platfrom for building UGC media';
-        $this->template->content = View::factory('templates/landings/media', $this->view);
+        $this->title = 'CodeX Reactions Module';
+        $this->description = 'Light-weight module for gathering users feedback on a webpage content';
+        $this->template->content = View::factory('templates/landings/reactions_module', $this->view);
     }
+}
+
+
+ 
