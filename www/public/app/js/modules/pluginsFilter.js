@@ -16,6 +16,12 @@ module.exports = (function () {
     let inlineTools;
 
     /**
+     * Plugins filter buttons
+     */
+    let filterButtons;
+    let filterButtonActiveClass;
+
+    /**
      * Initialize module
      * @typedef {Object} settings                             - module's parameters passed from ModuleDispatcher
      * @param   {String} settings.blockToolsClass             - class of Editor Block Tools
@@ -56,15 +62,19 @@ module.exports = (function () {
             if (filterButton) {
 
                 filterButton.addEventListener('click', filterAction);
-                filterButton.addEventListener('click', toggleActiveButtonClass);
 
             } else {
 
                 console.warn('Can\'t find button with class: «' + buttonClass + '»');
 
             }
-
         }
+
+        /**
+         * Plugins filter buttons stuff
+         */
+        filterButtons = document.querySelectorAll(settings.filterButtonClass);
+        filterButtonActiveClass = settings.filterButtonActiveClass;
 
     };
 
@@ -73,7 +83,7 @@ module.exports = (function () {
      */
     const showInlineToolsOnly = function () {
 
-        toggleTools(inlineTools, blockTools);
+        toggleTools(inlineTools, blockTools, this);
 
     };
 
@@ -82,7 +92,7 @@ module.exports = (function () {
      */
     const showBlockToolsOnly = function () {
 
-        toggleTools(blockTools, inlineTools);
+        toggleTools(blockTools, inlineTools, this);
 
     };
 
@@ -91,33 +101,33 @@ module.exports = (function () {
      */
     const showAllPlugins = function () {
 
-        toggleTools(inlineTools, blockTools, false);
+        toggleTools(inlineTools, blockTools, this, false);
 
     };
 
     /**
      * Toggle button's active class
+     * @param {HTMLElement} targetButton - Filter button clicked
      */
-    const toggleActiveButtonClass = function () {
-
-        let filterButtons = document.querySelectorAll('.js-plugins-filter');
+    const toggleActiveButtonClass = function (targetButton) {
 
         filterButtons.forEach((button) => {
 
-            button.classList.remove('editor-landing__plugins-filter-button--active');
+            button.classList.remove(filterButtonActiveClass);
 
         });
 
-        this.classList.add('editor-landing__plugins-filter-button--active');
+        targetButton.classList.add(filterButtonActiveClass);
     };
 
     /**
      * Toggle Editor Block and Inline Tools into view
      * @param {HTMLCollection} toolsToShow - Block or Inline Editor's Tools to show
      * @param {HTMLCollection} toolsToHide - Block or Inline Editor's Tools to hide
+     * @param {HTMLElement} button         - Filter button clicked
      * @param {Boolean} hideOneType        - pass false to show both Block and Inline Tools
      */
-    const toggleTools = function (toolsToShow, toolsToHide, hideOneType = true) {
+    const toggleTools = function (toolsToShow, toolsToHide, button, hideOneType = true) {
 
         for (let i = 0; i < toolsToHide.length; i ++) {
 
@@ -130,6 +140,8 @@ module.exports = (function () {
             toolsToShow[i].classList.toggle('hide', false);
 
         }
+
+        toggleActiveButtonClass(button);
 
     };
 

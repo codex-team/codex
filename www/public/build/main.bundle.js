@@ -2032,6 +2032,12 @@ module.exports = function () {
 
   var inlineTools;
   /**
+   * Plugins filter buttons
+   */
+
+  var filterButtons;
+  var filterButtonActiveClass;
+  /**
    * Initialize module
    * @typedef {Object} settings                             - module's parameters passed from ModuleDispatcher
    * @param   {String} settings.blockToolsClass             - class of Editor Block Tools
@@ -2065,11 +2071,17 @@ module.exports = function () {
 
       if (filterButton) {
         filterButton.addEventListener('click', filterAction);
-        filterButton.addEventListener('click', toggleActiveButtonClass);
       } else {
         console.warn('Can\'t find button with class: «' + buttonClass + '»');
       }
     }
+    /**
+     * Plugins filter buttons stuff
+     */
+
+
+    filterButtons = document.querySelectorAll(settings.filterButtonClass);
+    filterButtonActiveClass = settings.filterButtonActiveClass;
   };
   /**
    * Show only Inline Tools, hide Blocks
@@ -2077,7 +2089,7 @@ module.exports = function () {
 
 
   var showInlineToolsOnly = function showInlineToolsOnly() {
-    toggleTools(inlineTools, blockTools);
+    toggleTools(inlineTools, blockTools, this);
   };
   /**
    * Show only Blocks, hide Inline Tools
@@ -2085,7 +2097,7 @@ module.exports = function () {
 
 
   var showBlockToolsOnly = function showBlockToolsOnly() {
-    toggleTools(blockTools, inlineTools);
+    toggleTools(blockTools, inlineTools, this);
   };
   /**
    * Show all types of Editor Tools
@@ -2093,30 +2105,31 @@ module.exports = function () {
 
 
   var showAllPlugins = function showAllPlugins() {
-    toggleTools(inlineTools, blockTools, false);
+    toggleTools(inlineTools, blockTools, this, false);
   };
   /**
    * Toggle button's active class
+   * @param {HTMLElement} targetButton - Filter button clicked
    */
 
 
-  var toggleActiveButtonClass = function toggleActiveButtonClass() {
-    var filterButtons = document.querySelectorAll('.js-plugins-filter');
+  var toggleActiveButtonClass = function toggleActiveButtonClass(targetButton) {
     filterButtons.forEach(function (button) {
-      button.classList.remove('editor-landing__plugins-filter-button--active');
+      button.classList.remove(filterButtonActiveClass);
     });
-    this.classList.add('editor-landing__plugins-filter-button--active');
+    targetButton.classList.add(filterButtonActiveClass);
   };
   /**
    * Toggle Editor Block and Inline Tools into view
    * @param {HTMLCollection} toolsToShow - Block or Inline Editor's Tools to show
    * @param {HTMLCollection} toolsToHide - Block or Inline Editor's Tools to hide
+   * @param {HTMLElement} button         - Filter button clicked
    * @param {Boolean} hideOneType        - pass false to show both Block and Inline Tools
    */
 
 
-  var toggleTools = function toggleTools(toolsToShow, toolsToHide) {
-    var hideOneType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+  var toggleTools = function toggleTools(toolsToShow, toolsToHide, button) {
+    var hideOneType = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
 
     for (var i = 0; i < toolsToHide.length; i++) {
       toolsToHide[i].classList.toggle('hide', hideOneType);
@@ -2125,6 +2138,8 @@ module.exports = function () {
     for (var _i = 0; _i < toolsToShow.length; _i++) {
       toolsToShow[_i].classList.toggle('hide', false);
     }
+
+    toggleActiveButtonClass(button);
   };
 
   return {

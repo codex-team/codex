@@ -257,7 +257,9 @@
                     "blockFilterButtonClass" : ".js-block-tools-filter",
                     "allToolsFilterButtonClass" : ".js-all-tools-filter",
                     "blockToolsClass" : ".js-block-tool",
-                    "inlineToolsClass" : ".js-inline-tool"
+                    "inlineToolsClass" : ".js-inline-tool",
+                    "filterButtonClass": ".js-plugins-filter",
+                    "filterButtonActiveClass": "editor-landing__plugins-filter-button--active"
                 }
             </module-settings>
 
