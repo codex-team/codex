@@ -2082,6 +2082,13 @@ module.exports = function () {
 
     filterButtons = document.querySelectorAll(settings.filterButtonClass);
     filterButtonActiveClass = settings.filterButtonActiveClass;
+    /**
+     * Add event listeners to toggle active button filter class
+     */
+
+    filterButtons.forEach(function (button) {
+      button.addEventListener('click', toggleActiveButtonClass);
+    });
   };
   /**
    * Show only Inline Tools, hide Blocks
@@ -2089,7 +2096,7 @@ module.exports = function () {
 
 
   var showInlineToolsOnly = function showInlineToolsOnly() {
-    toggleTools(inlineTools, blockTools, this);
+    toggleTools(inlineTools, blockTools);
   };
   /**
    * Show only Blocks, hide Inline Tools
@@ -2097,7 +2104,7 @@ module.exports = function () {
 
 
   var showBlockToolsOnly = function showBlockToolsOnly() {
-    toggleTools(blockTools, inlineTools, this);
+    toggleTools(blockTools, inlineTools);
   };
   /**
    * Show all types of Editor Tools
@@ -2105,31 +2112,29 @@ module.exports = function () {
 
 
   var showAllPlugins = function showAllPlugins() {
-    toggleTools(inlineTools, blockTools, this, false);
+    toggleTools(inlineTools, blockTools, false);
   };
   /**
    * Toggle button's active class
-   * @param {HTMLElement} targetButton - Filter button clicked
    */
 
 
-  var toggleActiveButtonClass = function toggleActiveButtonClass(targetButton) {
+  var toggleActiveButtonClass = function toggleActiveButtonClass() {
     filterButtons.forEach(function (button) {
       button.classList.remove(filterButtonActiveClass);
     });
-    targetButton.classList.add(filterButtonActiveClass);
+    this.classList.add(filterButtonActiveClass);
   };
   /**
    * Toggle Editor Block and Inline Tools into view
    * @param {HTMLCollection} toolsToShow - Block or Inline Editor's Tools to show
    * @param {HTMLCollection} toolsToHide - Block or Inline Editor's Tools to hide
-   * @param {HTMLElement} button         - Filter button clicked
    * @param {Boolean} hideOneType        - pass false to show both Block and Inline Tools
    */
 
 
-  var toggleTools = function toggleTools(toolsToShow, toolsToHide, button) {
-    var hideOneType = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
+  var toggleTools = function toggleTools(toolsToShow, toolsToHide) {
+    var hideOneType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
 
     for (var i = 0; i < toolsToHide.length; i++) {
       toolsToHide[i].classList.toggle('hide', hideOneType);
@@ -2138,8 +2143,6 @@ module.exports = function () {
     for (var _i = 0; _i < toolsToShow.length; _i++) {
       toolsToShow[_i].classList.toggle('hide', false);
     }
-
-    toggleActiveButtonClass(button);
   };
 
   return {
