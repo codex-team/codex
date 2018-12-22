@@ -2,25 +2,90 @@
  * CodeX Reactions Module Landing
  */
 
-.reactions-module {
-    font-family: Lato;
+ body, .site-header, .site-footer {
+    background: #191B21;
+    border-color: transparent;
+    color: #646c79;
 }
 
-.reactions-module__about {
-    padding: 25vh 0 23vh;
+.reactions {
+    padding-bottom: 30px;
+    background-color: #212229;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.reactions__about {
+    padding: 10vh 0 23vh;
     text-align: center;
 }
 
-.reactions-module__info {
-    font-size: 1.5em;
+.reactions__info {
+    font-size: 17px;
     line-height: 22px;
     font-weight: 400;
     margin: 0;
+    color: #878e9e;
 }
 
-.reactions-module__name {
-    margin: 0.1em 0 0.9em;
-    font-size: 3.5em;
-    font-weight: 700;
+.reactions__name {
+    margin: 0.1em 0 11px;
+    font-size: 36px;
+    font-weight: 900;
     line-height: initial;
+    color: #fff;
+}
+
+.reactions__logo {
+    display: flex;
+    margin: 0 auto;
+    width: 98px;
+    height: 98px;
+    background: url("/public/app/landings/reactions_module/img/product_hunt_cat.svg") no-repeat;
+}
+
+.reactions__button{
+    width: 125px;
+    height: 39px;
+    border-radius: 19.5px;
+    box-shadow: 0 9px 10px -8px rgba(9, 97, 213, 0.83);
+    background-image: linear-gradient(to bottom, #1ba0ff, #4a9eff);
+    font-size: 15px;
+    line-height: 3.13;
+    letter-spacing: -0.1px;
+    color: #ffffff;
+    display: flex;
+    margin: 10vh auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.reactions__footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.reactions__footer-logo {
+    display: flex;
+    align-items: center;
+}
+
+.reactions__footer-icon {
+    width: 40px;
+    height: 40px;
+    background: url("/public/app/landings/reactions_module/img/product_hunt_logo_orange.svg") no-repeat;
+}
+
+.reactions__footer-logo h2{
+    margin-left: 10px;
+    font-size: 17px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.reactions__footer p {
+    margin: 0 13px 0 21px;
 }

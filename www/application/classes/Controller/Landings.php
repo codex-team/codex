@@ -63,9 +63,9 @@ class Controller_Landings extends Controller_Base_preDispatch
      */
     public function action_reactions_module()
     {
-        $this->title = 'CodeX Reactions Module';
-        $this->description = 'Light-weight module for gathering users feedback on a webpage content';
-        $this->template->content = View::factory('templates/landings/reactions_module', $this->view);
+        $this->title = 'CodeX Reactions';
+        $this->description = 'Collect a feedback for your content without coding';
+        $this->template->content = View::factory('templates/landings/reactions', $this->view);
     }
 }
 
