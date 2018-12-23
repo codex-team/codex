@@ -2,10 +2,17 @@
  * CodeX Reactions Module Landing
  */
 
- body, .site-header, .site-footer {
+ body {
     background: #191B21;
     border-color: transparent;
     color: #646c79;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+.site-header, .site-footer {
+    display: none;
 }
 
 .reactions {
@@ -32,7 +39,7 @@
 .reactions__name {
     margin: 0.4em 0 11px;
     font-size: 36px;
-    font-weight: 900;
+    font-weight: 700;
     line-height: initial;
     color: #fff;
 }
@@ -71,11 +78,17 @@
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
+    cursor: pointer;
+}
+
+.reactions__button:active, .reactions__button:focus, .reactions__button:hover {
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#1ba0ff), to(#0c7abf));
+    background-image: -webkit-linear-gradient(top, #1ba0ff, #0c7abf);
+    background-image: -o-linear-gradient(top, #1ba0ff, #0c7abf);
+    background-image: linear-gradient(to bottom, #1ba0ff, #0c7abf);
 }
 
 .reactions__footer {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: center;
         -ms-flex-pack: center;
@@ -85,6 +98,8 @@
             align-items: center;
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
+    animation: reactions_footer 2s ease-out 2s forwards;
+    opacity: 0;
 }
 
 .reactions__footer-logo {
@@ -110,12 +125,47 @@
 }
 
 .reactions__footer p {
-    margin: 0 20px 0 20px;
+    margin: 0 25px;
 }
 
 @media (max-width: 580px) {
-    .reactions__footer-logo,
+    
+    .reactions__footer-logo {
+        margin-bottom: 15px;
+    }
+
     .reactions__footer p {
         margin-bottom: 25px;
     }
+}
+
+@media (max-width: 320px) {
+
+    .reactions {
+        padding: 0 20px;
+    }
+
+    .reactions__logo {
+        background-size: cover;
+        width: 20%;
+        min-width: 50px;
+        height: 0;
+        padding: 0;
+            padding-bottom: 0px;
+        padding-bottom: 20%;
+    }
+
+    .reactions__info {
+        font-size: 14px;
+    }
+    
+    .reactions__name {
+        font-size: 22px;
+    }
+
+}
+
+@keyframes reactions_footer {
+    from { opacity: 0; }
+    to {opacity: 1; }
 }
