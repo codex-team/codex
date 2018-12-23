@@ -6,7 +6,7 @@
             <div class="reactions__logo"></div>
             <h1 class="reactions__name">CodeX Reactions</h2>
             <h2 class="reactions__info">Collect a feedback for your content without coding</h2>
-            <div type="button" class="reactions__button">Get started</div>
+            <div class="reactions__button">Get started</div>
     </div>
     <div class="reactions__footer">
         <div class="reactions__footer-logo">

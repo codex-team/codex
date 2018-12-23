@@ -17,7 +17,7 @@
 }
 
 .reactions__about {
-    padding: 10vh 0 23vh;
+    padding: 10vh 0 29vh;
     text-align: center;
 }
 
@@ -30,7 +30,7 @@
 }
 
 .reactions__name {
-    margin: 0.1em 0 11px;
+    margin: 0.4em 0 11px;
     font-size: 36px;
     font-weight: 900;
     line-height: initial;
@@ -38,6 +38,8 @@
 }
 
 .reactions__logo {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     margin: 0 auto;
     width: 98px;
@@ -45,32 +47,53 @@
     background: url("/public/app/landings/reactions_module/img/product_hunt_cat.svg") no-repeat;
 }
 
-.reactions__button{
+.reactions__button {
     width: 125px;
     height: 39px;
     border-radius: 19.5px;
-    box-shadow: 0 9px 10px -8px rgba(9, 97, 213, 0.83);
+    -webkit-box-shadow: 0 9px 10px -8px rgba(9, 97, 213, 0.83);
+            box-shadow: 0 9px 10px -8px rgba(9, 97, 213, 0.83);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#1ba0ff), to(#4a9eff));
+    background-image: -webkit-linear-gradient(top, #1ba0ff, #4a9eff);
+    background-image: -o-linear-gradient(top, #1ba0ff, #4a9eff);
     background-image: linear-gradient(to bottom, #1ba0ff, #4a9eff);
     font-size: 15px;
     line-height: 3.13;
     letter-spacing: -0.1px;
     color: #ffffff;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     margin: 10vh auto;
-    justify-content: center;
-    align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 .reactions__footer {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
 }
 
 .reactions__footer-logo {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 .reactions__footer-icon {
@@ -79,7 +102,7 @@
     background: url("/public/app/landings/reactions_module/img/product_hunt_logo_orange.svg") no-repeat;
 }
 
-.reactions__footer-logo h2{
+.reactions__footer-logo h2 {
     margin-left: 10px;
     font-size: 17px;
     font-weight: bold;
@@ -87,5 +110,12 @@
 }
 
 .reactions__footer p {
-    margin: 0 13px 0 21px;
+    margin: 0 20px 0 20px;
+}
+
+@media (max-width: 580px) {
+    .reactions__footer-logo,
+    .reactions__footer p {
+        margin-bottom: 25px;
+    }
 }
