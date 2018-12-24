@@ -7,7 +7,7 @@ class Controller_Transport extends Controller_Base_preDispatch
     );
 
     private $type  = null;
-    private $files = null;
+    private $file = null;
 
     /**
      * Transport file types
@@ -19,42 +19,57 @@ class Controller_Transport extends Controller_Base_preDispatch
      */
     public function action_file_uploader()
     {
-        if (isset($_POST['file'])) {
-            $url = Arr::get($_POST, 'file');
-            $imageData = $this->methods->saveImageByUrl($url, 'upload/redactor_images/');
+        $json_data = json_decode(file_get_contents(
+            'php://input'
+        ));
+
+        if (isset($json_data->url)) {
+            $url = $json_data->url;
+
+            if (!$url) {
+                $this->transportResponse['message'] = 'Image URL is missing';
+                goto finish;
+            }
+
+            $this->file = $this->methods->getFile($url);
+            $imageData = $this->saveEditorImage();
 
             if ($imageData) {
                 $this->transportResponse['success'] = 1;
-                $this->transportResponse['data'] = array(
-                    'file' => array(
-                        'url' => Arr::get($imageData, 'name'),
-                        'width' => Arr::get($imageData, 'width', 0),
-                        'height' => Arr::get($imageData, 'height', 0)
-                    )
+                $this->transportResponse['file']    = array(
+                    'url'    => '/upload/redactor_images/o_'
+                                . Arr::get($imageData, 'name'),
+                    'width'  => Arr::get($imageData, 'width', 0),
+                    'height' => Arr::get($imageData, 'height', 0)
                 );
             }
             goto finish;
         }
 
-        $this->files = Arr::get($_FILES, 'image');
+        $this->file = Arr::get($_FILES, 'image');
 
-        if (!$this->files || !Upload::not_empty($this->files) || !Upload::valid($this->files)) {
-            $this->transportResponse['message'] = 'File is missing or damaged';
+        if ( ! $this->file || ! Upload::not_empty($this->file)
+             || ! Upload::valid($this->file)
+        ) {
+            $this->transportResponse['message']
+                = 'File is missing or damaged';
             goto finish;
         }
 
-        if (!Upload::size($this->files, '30M')) {
-            $this->transportResponse['message'] = 'File size exceeded limit';
+        if ( ! Upload::size($this->file, '30M')) {
+            $this->transportResponse['message']
+                = 'File size exceeded limit';
             goto finish;
         }
 
-        $imageData = $this->saveEditorImage();
+        $imageData = $this->saveEditorImage($this->file);
 
         if ($imageData) {
             $this->transportResponse['success'] = 1;
-            $this->transportResponse['file'] = array(
-                'url' => '/upload/redactor_images/o_' . Arr::get($imageData, 'name'),
-                'width' => Arr::get($imageData, 'width', 0),
+            $this->transportResponse['file']    = array(
+                'url'    => '/upload/redactor_images/o_'
+                            . Arr::get($imageData, 'name'),
+                'width'  => Arr::get($imageData, 'width', 0),
                 'height' => Arr::get($imageData, 'height', 0)
             );
         }
@@ -65,19 +80,19 @@ class Controller_Transport extends Controller_Base_preDispatch
     }
 
     private function saveEditorImage()
-    {   
-        if (Upload::type($this->files, array('jpg', 'jpeg', 'png', 'gif'))) {
-            $imageData = $this->methods->saveImage($this->files, 'upload/redactor_images/');
-        
+    {
+        if (Upload::type($this->file, array('jpg', 'jpeg', 'png', 'gif'))) {
+            $imageData = $this->methods->saveImage($this->file, 'upload/redactor_images/');
+
             if ($imageData) {
                 return $imageData;
             }
-            
+
             $this->transportResponse['message'] = 'Error while saving';
         } else {
             $this->transportResponse['message'] = 'Unsupported file type';
         }
-        
+
         return false;
     }
 }
