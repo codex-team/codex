@@ -37,8 +37,7 @@ class Controller_Transport extends Controller_Base_preDispatch
             if ($imageData) {
                 $this->transportResponse['success'] = 1;
                 $this->transportResponse['file']    = array(
-                    'url'    => '/upload/redactor_images/o_'
-                                . Arr::get($imageData, 'name'),
+                    'url'    => '/upload/redactor_images/o_' . Arr::get($imageData, 'name'),
                     'width'  => Arr::get($imageData, 'width', 0),
                     'height' => Arr::get($imageData, 'height', 0)
                 );
@@ -48,17 +47,13 @@ class Controller_Transport extends Controller_Base_preDispatch
 
         $this->file = Arr::get($_FILES, 'image');
 
-        if ( ! $this->file || ! Upload::not_empty($this->file)
-             || ! Upload::valid($this->file)
-        ) {
-            $this->transportResponse['message']
-                = 'File is missing or damaged';
+        if ( ! $this->file || ! Upload::not_empty($this->file) || ! Upload::valid($this->file)) {
+            $this->transportResponse['message'] = 'File is missing or damaged';
             goto finish;
         }
 
         if ( ! Upload::size($this->file, '30M')) {
-            $this->transportResponse['message']
-                = 'File size exceeded limit';
+            $this->transportResponse['message'] = 'File size exceeded limit';
             goto finish;
         }
 
@@ -67,8 +62,7 @@ class Controller_Transport extends Controller_Base_preDispatch
         if ($imageData) {
             $this->transportResponse['success'] = 1;
             $this->transportResponse['file']    = array(
-                'url'    => '/upload/redactor_images/o_'
-                            . Arr::get($imageData, 'name'),
+                'url'    => '/upload/redactor_images/o_' . Arr::get($imageData, 'name'),
                 'width'  => Arr::get($imageData, 'width', 0),
                 'height' => Arr::get($imageData, 'height', 0)
             );
