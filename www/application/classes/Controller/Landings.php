@@ -61,7 +61,7 @@ class Controller_Landings extends Controller_Base_preDispatch
     /**
      * CodeX Reactions
      */
-    public function action_reactions_module()
+    public function action_reactions()
     {
         $this->title = 'CodeX Reactions';
         $this->description = 'Collect a feedback for your content without coding';

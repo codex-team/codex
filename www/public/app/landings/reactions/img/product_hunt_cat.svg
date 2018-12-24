@@ -1,16 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="98" height="98" viewBox="0 0 98 98">
     <defs>
-        <path id="a" d="M86.864 51.784c0 16.299-13.213 29.511-29.512 29.511H40.648c-16.299 0-29.512-13.212-29.512-29.51 0-.139.001-.277.003-.414a5.976 5.976 0 0 1-.003-.183V9.97a5.568 5.568 0 0 1 9.395-4.045l17.41 16.471a29.885 29.885 0 0 1 2.707-.122h16.704c.863 0 1.718.037 2.562.11L77.31 5.923a5.568 5.568 0 0 1 9.394 4.045l.159 41.815z"/>
+        <path id="catface" d="M86.864 51.784c0 16.299-13.213 29.511-29.512 29.511H40.648c-16.299 0-29.512-13.212-29.512-29.51 0-.139.001-.277.003-.414a5.976 5.976 0 0 1-.003-.183V9.97a5.568 5.568 0 0 1 9.395-4.045l17.41 16.471a29.885 29.885 0 0 1 2.707-.122h16.704c.863 0 1.718.037 2.562.11L77.31 5.923a5.568 5.568 0 0 1 9.394 4.045l.159 41.815z"/>
     </defs>
     <g fill="none" fill-rule="evenodd">
         <circle cx="49" cy="49" r="49" fill="#0A0E1A" fill-rule="nonzero"/>
-        <mask id="b" fill="#fff">
-            <use xlink:href="#a"/>
+        <mask id="catmark" fill="#fff">
+            <use xlink:href="#catface"/>
         </mask>
-        <use fill="#FFA255" fill-rule="nonzero" xlink:href="#a"/>
-        <ellipse cx="10.023" cy="66.261" fill="#FFECE0" fill-rule="nonzero" mask="url(#b)" rx="33.409" ry="27.284"/>
-        <rect width="6.682" height="11.136" x="40.091" y="18.932" fill="#A86848" fill-rule="nonzero" mask="url(#b)" rx="3"/>
-        <rect width="6.682" height="14.477" x="51.227" y="16.705" fill="#A86848" fill-rule="nonzero" mask="url(#b)" rx="3"/>
+        <use fill="#FFA255" fill-rule="nonzero" xlink:href="#catface"/>
+        <ellipse cx="10.023" cy="66.261" fill="#FFECE0" fill-rule="nonzero" mask="url(#catmark)" rx="33.409" ry="27.284"/>
+        <rect width="6.682" height="11.136" x="40.091" y="18.932" fill="#A86848" fill-rule="nonzero" mask="url(#catmark)" rx="3"/>
+        <rect width="6.682" height="14.477" x="51.227" y="16.705" fill="#A86848" fill-rule="nonzero" mask="url(#catmark)" rx="3"/>
         <g fill="#3A2816" fill-rule="nonzero" transform="translate(20.045 53.455)">
             <path d="M15.396 13.845a1.67 1.67 0 1 1 2.617-2.077c.968 1.22 2.07 1.781 3.424 1.781 1.355 0 2.457-.561 3.425-1.78a1.67 1.67 0 0 1 2.617 2.076c-1.586 1.998-3.64 3.045-6.041 3.045-2.402 0-4.456-1.047-6.042-3.045z"/>
             <circle cx="3.898" cy="3.898" r="3.898"/>

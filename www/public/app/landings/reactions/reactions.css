@@ -3,9 +3,9 @@
  */
 
  body {
+    color: #646c79;
     background: #191B21;
     border-color: transparent;
-    color: #646c79;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
@@ -29,34 +29,44 @@
 }
 
 .reactions__info {
+    margin: 0;
+    color: #878e9e;
     font-size: 17px;
     line-height: 22px;
     font-weight: 400;
-    margin: 0;
-    color: #878e9e;
 }
 
 .reactions__name {
     margin: 0.4em 0 11px;
-    font-size: 36px;
-    font-weight: 700;
-    line-height: initial;
     color: #fff;
+    font-size: 36px;
+    line-height: initial;
+    font-weight: 700;
 }
 
 .reactions__logo {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    margin: 0 auto;
     width: 98px;
     height: 98px;
-    background: url("/public/app/landings/reactions_module/img/product_hunt_cat.svg") no-repeat;
+    margin: 0 auto;
 }
 
 .reactions__button {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     width: 125px;
     height: 39px;
+    margin: 10vh auto;
+    color: #ffffff;
     border-radius: 19.5px;
     -webkit-box-shadow: 0 9px 10px -8px rgba(9, 97, 213, 0.83);
             box-shadow: 0 9px 10px -8px rgba(9, 97, 213, 0.83);
@@ -67,17 +77,6 @@
     font-size: 15px;
     line-height: 3.13;
     letter-spacing: -0.1px;
-    color: #ffffff;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    margin: 10vh auto;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
     cursor: pointer;
 }
 
@@ -114,17 +113,16 @@
 .reactions__footer-icon {
     width: 40px;
     height: 40px;
-    background: url("/public/app/landings/reactions_module/img/product_hunt_logo_orange.svg") no-repeat;
 }
 
-.reactions__footer-logo h2 {
+.reactions__footer-title {
     margin-left: 10px;
+    color: #fff;
     font-size: 17px;
     font-weight: bold;
-    color: #fff;
 }
 
-.reactions__footer p {
+.reactions__footer-description {
     margin: 0 25px;
 }
 
@@ -134,7 +132,7 @@
         margin-bottom: 15px;
     }
 
-    .reactions__footer p {
+    .reactions__footer-description {
         margin-bottom: 25px;
     }
 }
@@ -146,13 +144,9 @@
     }
 
     .reactions__logo {
-        background-size: cover;
         width: 20%;
         min-width: 50px;
-        height: 0;
-        padding: 0;
-            padding-bottom: 0px;
-        padding-bottom: 20%;
+        height: 70px;
     }
 
     .reactions__info {
