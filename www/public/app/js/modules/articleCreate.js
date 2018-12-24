@@ -1,7 +1,8 @@
 'use strict';
 
 const ajax = require('@codexteam/ajax');
-const notifier = require('exports-loader?notifier!codex-notifier');
+const notifier = require('codex-notifier');
+
 /**
  * Module for pages using Editor
  */
