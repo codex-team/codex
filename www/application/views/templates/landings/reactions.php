@@ -8,6 +8,7 @@
             </div>
             <h1 class="reactions__name">CodeX Reactions</h2>
             <h2 class="reactions__info">Collect a feedback for your content without coding</h2>
+            <div class="reactions__example"></div>
             <div class="reactions__button">Get started</div>
     </div>
     <div class="reactions__footer">
@@ -21,4 +22,3 @@
         <a href="https://twitter.com/codex_team?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-size="large" data-dnt="true" data-show-count="false">Follow @codex_team</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     </div>
 </div>
-
