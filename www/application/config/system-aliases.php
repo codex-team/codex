@@ -36,6 +36,6 @@ return array(
         'media',
         'special',
         'beauty-toolbar',
-        'reactions-module',
+        'reactions',
     )
 );
