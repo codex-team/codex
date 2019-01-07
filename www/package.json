@@ -70,6 +70,6 @@
   },
   "homepage": "https://github.com/codex-team/codex#readme",
   "dependencies": {
-    "@codexteam/reactions": "^1.0.0"
+    "@codexteam/reactions": "^1.0.2"
   }
 }

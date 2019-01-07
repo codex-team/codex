@@ -22,3 +22,9 @@
         <a href="https://twitter.com/codex_team?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-size="large" data-dnt="true" data-show-count="false">Follow @codex_team</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     </div>
 </div>
+<script type="text/javascript" src="/public/build/main.bundle.js">
+</script>
+<script>
+    const parent = document.querySelector('.reactions__example');
+    let example = new codex.reactions({parent: parent, title: '', reactions: ['👍', '❤', '👎']});
+</script>

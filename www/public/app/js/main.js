@@ -127,6 +127,7 @@ codex.transport = require('./modules/transport');
 codex.vkWidget = require('./modules/vkWidget');
 codex.codeStyling = require('./modules/codeStyling');
 codex.deeplinker = require('@codexteam/deeplinker');
+codex.reactions = require('@codexteam/reactions/dist/reactions.js');
 codex.pluginsFilter = require('./modules/pluginsFilter');
 
 import EditorLanding from './modules/editorLanding';
