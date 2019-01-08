@@ -43,6 +43,10 @@
     margin-top: 48px;
 }
 
+.reactions__counter-emoji {
+    background-color: #fff;
+}
+
 .reactions__name {
     margin: 0.4em 0 11px;
     color: #fff;
