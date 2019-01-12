@@ -16,7 +16,10 @@
 }
 
 .reactions {
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     padding-bottom: 30px;
     background-color: #212229;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
@@ -38,8 +41,12 @@
 }
 
 .reactions__example {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     margin-top: 48px;
 }
 
@@ -56,6 +63,8 @@
 }
 
 .reactions__logo {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     width: 98px;
     height: 98px;
@@ -63,15 +72,25 @@
 }
 
 .reactions__button {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     width: 125px;
     height: 39px;
     margin: 2vh auto;
     color: #ffffff;
     border-radius: 19.5px;
-    box-shadow: 0 9px 10px -8px rgba(9, 97, 213, 0.83);
+    -webkit-box-shadow: 0 9px 10px -8px rgba(9, 97, 213, 0.83);
+            box-shadow: 0 9px 10px -8px rgba(9, 97, 213, 0.83);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#1ba0ff), to(#4a9eff));
+    background-image: -webkit-linear-gradient(top, #1ba0ff, #4a9eff);
+    background-image: -o-linear-gradient(top, #1ba0ff, #4a9eff);
     background-image: linear-gradient(to bottom, #1ba0ff, #4a9eff);
     font-size: 15px;
     line-height: 3.13;
@@ -80,21 +99,36 @@
 }
 
 .reactions__button:active, .reactions__button:focus, .reactions__button:hover {
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#1ba0ff), to(#0c7abf));
+    background-image: -webkit-linear-gradient(top, #1ba0ff, #0c7abf);
+    background-image: -o-linear-gradient(top, #1ba0ff, #0c7abf);
     background-image: linear-gradient(to bottom, #1ba0ff, #0c7abf);
 }
 
 .reactions__footer {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    animation: reactions_footer 2s ease-out 2s forwards;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-animation: reactions_footer 2s ease-out 2s forwards;
+            animation: reactions_footer 2s ease-out 2s forwards;
     opacity: 0;
 }
 
 .reactions__footer-logo {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 .reactions__footer-icon {
@@ -144,6 +178,11 @@
         font-size: 22px;
     }
 
+}
+
+@-webkit-keyframes reactions_footer {
+    from { opacity: 0; }
+    to {opacity: 1; }
 }
 
 @keyframes reactions_footer {
