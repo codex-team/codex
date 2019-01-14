@@ -73,7 +73,7 @@ class Controller_Users_Index extends Controller_Base_preDispatch
             $name          = Arr::get($_POST, 'name');
             $bio           = Arr::get($_POST, 'bio');
             $alias         = Arr::get($_POST, 'alias');
-            $alias = strtolower(Arr::get($_POST, 'alias'));
+            $alias = strtolower(Arr::get($_POST, 'alias')); 
 
             $instagram_uri = $this->methods->parseUri(Arr::get($_POST, 'instagram_uri'));
             $vk_uri        = $this->methods->parseUri(Arr::get($_POST, 'vk_uri'));
