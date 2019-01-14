@@ -154,7 +154,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
             return;
         }
 
-        $uri = Arr::get($_POST, 'uri');
+        $uri = strtolower(Arr::get($_POST, 'uri'));
         $alias = Model_Aliases::generateUri($uri);
 
         if ($article_id) {
