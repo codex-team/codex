@@ -16,6 +16,13 @@ module.exports = (function () {
     let inlineTools;
 
     /**
+     * Plugins filter buttons
+     */
+    let filterButtons;
+    let filterButtonActiveClass;
+    let filterButtonClass;
+
+    /**
      * Initialize module
      * @typedef {Object} settings                             - module's parameters passed from ModuleDispatcher
      * @param   {String} settings.blockToolsClass             - class of Editor Block Tools
@@ -23,6 +30,8 @@ module.exports = (function () {
      * @param   {String} settings.blockFilterButtonClass      - class of button Block Tools filter
      * @param   {String} settings.inlineFilterButtonClass     - class of button Inline Tools filter
      * @param   {String} settings.allToolsFilterButtonClass   - class of button showing all types of Tools
+     * @param   {String} settings.filterButtonClass           - class of all filter buttons
+     * @param   {String} settings.filterButtonActiveClass     - active class selected filter button
      */
     const init = function (settings) {
 
@@ -49,9 +58,9 @@ module.exports = (function () {
          */
         for (let j = 0; j < pluginFilters.length; j++) {
 
-            let filterButton = document.querySelector(pluginFilters[j].buttonClass);
-            let buttonClass  = pluginFilters[j].buttonClass;
-            let filterAction = pluginFilters[j].buttonAction;
+            const filterButton = document.querySelector(pluginFilters[j].buttonClass);
+            const buttonClass  = pluginFilters[j].buttonClass;
+            const filterAction = pluginFilters[j].buttonAction;
 
             if (filterButton) {
 
@@ -62,36 +71,61 @@ module.exports = (function () {
                 console.warn('Can\'t find button with class: «' + buttonClass + '»');
 
             }
-
         }
 
+        /**
+         * Plugins filter buttons stuff
+         */
+        filterButtons = document.querySelectorAll(settings.filterButtonClass);
+        filterButtonActiveClass = settings.filterButtonActiveClass;
+        filterButtonClass = settings.filterButtonClass;
     };
 
     /**
      * Show only Inline Tools, hide Blocks
      */
-    const showInlineToolsOnly = function () {
+    const showInlineToolsOnly = function (event) {
 
         toggleTools(inlineTools, blockTools);
+
+        toggleActiveButtonClass(event.target);
 
     };
 
     /**
      * Show only Blocks, hide Inline Tools
      */
-    const showBlockToolsOnly = function () {
+    const showBlockToolsOnly = function (event) {
 
         toggleTools(blockTools, inlineTools);
+
+        toggleActiveButtonClass(event.target);
 
     };
 
     /**
      * Show all types of Editor Tools
      */
-    const showAllPlugins = function () {
+    const showAllPlugins = function (event) {
 
         toggleTools(inlineTools, blockTools, false);
 
+        toggleActiveButtonClass(event.target);
+
+    };
+
+    /**
+     * Toggle button's active class
+     */
+    const toggleActiveButtonClass = function (target) {
+
+        filterButtons.forEach((button) => {
+
+            button.classList.remove(filterButtonActiveClass);
+
+        });
+
+        target.closest(filterButtonClass).classList.add(filterButtonActiveClass);
     };
 
     /**
