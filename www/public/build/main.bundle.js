@@ -2034,6 +2034,7 @@ module.exports = function () {
 
   var filterButtons;
   var filterButtonActiveClass;
+  var filterButtonClass;
   /**
    * Initialize module
    * @typedef {Object} settings                             - module's parameters passed from ModuleDispatcher
@@ -2042,6 +2043,8 @@ module.exports = function () {
    * @param   {String} settings.blockFilterButtonClass      - class of button Block Tools filter
    * @param   {String} settings.inlineFilterButtonClass     - class of button Inline Tools filter
    * @param   {String} settings.allToolsFilterButtonClass   - class of button showing all types of Tools
+   * @param   {String} settings.filterButtonClass           - class of all filter buttons
+   * @param   {String} settings.filterButtonActiveClass     - active class selected filter button
    */
 
   var init = function init(settings) {
@@ -2079,48 +2082,45 @@ module.exports = function () {
 
     filterButtons = document.querySelectorAll(settings.filterButtonClass);
     filterButtonActiveClass = settings.filterButtonActiveClass;
-    /**
-     * Add event listeners to toggle active button filter class
-     */
-
-    filterButtons.forEach(function (button) {
-      button.addEventListener('click', toggleActiveButtonClass);
-    });
+    filterButtonClass = settings.filterButtonClass;
   };
   /**
    * Show only Inline Tools, hide Blocks
    */
 
 
-  var showInlineToolsOnly = function showInlineToolsOnly() {
+  var showInlineToolsOnly = function showInlineToolsOnly(event) {
     toggleTools(inlineTools, blockTools);
+    toggleActiveButtonClass(event.target);
   };
   /**
    * Show only Blocks, hide Inline Tools
    */
 
 
-  var showBlockToolsOnly = function showBlockToolsOnly() {
+  var showBlockToolsOnly = function showBlockToolsOnly(event) {
     toggleTools(blockTools, inlineTools);
+    toggleActiveButtonClass(event.target);
   };
   /**
    * Show all types of Editor Tools
    */
 
 
-  var showAllPlugins = function showAllPlugins() {
+  var showAllPlugins = function showAllPlugins(event) {
     toggleTools(inlineTools, blockTools, false);
+    toggleActiveButtonClass(event.target);
   };
   /**
    * Toggle button's active class
    */
 
 
-  var toggleActiveButtonClass = function toggleActiveButtonClass() {
+  var toggleActiveButtonClass = function toggleActiveButtonClass(target) {
     filterButtons.forEach(function (button) {
       button.classList.remove(filterButtonActiveClass);
     });
-    this.classList.add(filterButtonActiveClass);
+    target.closest(filterButtonClass).classList.add(filterButtonActiveClass);
   };
   /**
    * Toggle Editor Block and Inline Tools into view
