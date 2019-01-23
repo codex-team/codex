@@ -228,10 +228,10 @@ var codex =
 
 /***/ }),
 
-/***/ "./node_modules/exports-loader/index.js?notifier!./node_modules/codex-notifier/notifier.js":
-/*!****************************************************************************************!*\
-  !*** ./node_modules/exports-loader?notifier!./node_modules/codex-notifier/notifier.js ***!
-  \****************************************************************************************/
+/***/ "./node_modules/codex-notifier/notifier.js":
+/*!*************************************************!*\
+  !*** ./node_modules/codex-notifier/notifier.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -244,9 +244,6 @@ var notifier=function(e){function t(r){if(n[r])return n[r].exports;var c=n[r]={i
  * MIT License | (c) Codex 2017
  */
 e.exports=function(){function e(){if(i)return!0;i=r.wrapper(),document.body.appendChild(i)}function t(t){if(t.message){e();var n=null,a=t.time||8e3;switch(t.type){case"confirm":n=r.confirm(t);break;case"prompt":n=r.prompt(t);break;default:n=r.alert(t),window.setTimeout(function(){n.remove()},a)}i.appendChild(n),n.classList.add(c)}}n(1);var r=n(0),c="cdx-notify--bounce-in",i=null;return{show:t}}()}]);
-
-/*** EXPORTS FROM exports-loader ***/
-module.exports = notifier;
 
 /***/ }),
 
@@ -872,7 +869,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 var ajax = __webpack_require__(/*! @codexteam/ajax */ "./node_modules/@codexteam/ajax/dist/main.js");
 
-var notifier = __webpack_require__(/*! exports-loader?notifier!codex-notifier */ "./node_modules/exports-loader/index.js?notifier!./node_modules/codex-notifier/notifier.js");
+var notifier = __webpack_require__(/*! codex-notifier */ "./node_modules/codex-notifier/notifier.js");
 /**
  * Module for pages using Editor
  */
