@@ -38,7 +38,7 @@
     <div class="center_side">
         <?= View::factory('templates/blocks/share', array('share' => array(
             'offer' => 'Расскажите об этом курсе своим подписчикам',
-            'url'   => 'https://' . Arr::get($_SERVER, 'HTTP_HOST', Arr::get($_SERVER, 'SERVER_NAME', 'ifmo.su')) . '/course/' . $course->id,
+            'url'   => 'https://' . Arr::get($_SERVER, 'HTTP_HOST', Arr::get($_SERVER, 'SERVER_NAME', 'codex.so')) . '/course/' . $course->id,
             'title' => HTML::chars($course->title),
             'desc'  => HTML::chars($course->description),
         ))); ?>

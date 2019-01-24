@@ -2,7 +2,7 @@
 
 Club of web-development, design and marketing. We build team learning how to create full-valued products on the global market.
 
-[ifmo.su](https://ifmo.su)
+[codex.so](https://codex.so)
 
 ## Follow us
 

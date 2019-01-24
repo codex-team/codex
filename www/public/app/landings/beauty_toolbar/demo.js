@@ -1,7 +1,7 @@
 /**
  * Example module wrapper
  * @author Petr Savchenko <specc.dev@gmail.com>
- * @see {@link https://ifmo.su/beauty-toolbar}
+ * @see {@link https://codex.so/beauty-toolbar}
  *
  * ƪ(˘⌣˘)ʃ
  */
@@ -200,7 +200,7 @@ var demo = function (demo) {
 /**
  * Simple rotator for the screenshots
  * @author Petr Savchenko <specc.dev@gmail.com>
- * @see {@link https://ifmo.su/beauty-toolbar}
+ * @see {@link https://codex.so/beauty-toolbar}
  */
 /**
  * @constructor

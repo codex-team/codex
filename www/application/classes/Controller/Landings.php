@@ -5,7 +5,7 @@ defined('SYSPATH') or die('No direct script access.');
 class Controller_Landings extends Controller_Base_preDispatch
 {
 
-    /** Codex Bot Landing page  in https://ifmo.su/ */
+    /** Codex Bot Landing page  in https://codex.so/ */
     public function action_bot()
     {
         $this->title = 'CodeX Bot';
@@ -13,7 +13,7 @@ class Controller_Landings extends Controller_Base_preDispatch
         $this->template->content = View::factory('templates/landings/codex_bot', $this->view);
     }
 
-    /** Codex Special Landing page in https://ifmo.su/special */
+    /** Codex Special Landing page in https://codex.so/special */
     public function action_special()
     {
         $this->title = 'CodeX Special';
@@ -33,17 +33,17 @@ class Controller_Landings extends Controller_Base_preDispatch
 
     /**
      * Safari Beauty Toolbar
-     * https://ifmo.su/beauty-toolbar
+     * https://codex.so/beauty-toolbar
      */
     public function action_beauty_toolbar()
     {
         $this->title = 'Safari Beauty Toolbar';
         $this->description = 'Make the Safari Toolbar more consistent with your brand colors';
-        $this->metaImage = 'https://ifmo.su/public/app/landings/beauty_toolbar/demo.gif';
+        $this->metaImage = 'https://codex.so/public/app/landings/beauty_toolbar/demo.gif';
 
-        $this->meta[] = new Meta('vk:image', 'https://ifmo.su/public/app/landings/beauty_toolbar/demo.gif');
-        $this->meta[] = new Meta('twitter:image', 'https://ifmo.su/public/app/landings/beauty_toolbar/demo.gif');
-        $this->meta[] = new Meta('og:image', 'https://ifmo.su/public/app/landings/beauty_toolbar/demo.gif');
+        $this->meta[] = new Meta('vk:image', 'https://codex.so/public/app/landings/beauty_toolbar/demo.gif');
+        $this->meta[] = new Meta('twitter:image', 'https://codex.so/public/app/landings/beauty_toolbar/demo.gif');
+        $this->meta[] = new Meta('og:image', 'https://codex.so/public/app/landings/beauty_toolbar/demo.gif');
 
         /**
          * Detect visits from Product Hunt
