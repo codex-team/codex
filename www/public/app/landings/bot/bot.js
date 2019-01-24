@@ -389,7 +389,7 @@ var bot = (function (bot) {
 
         metrikaSuccessConnection : function () {
 
-            return 'Яндекс.Метрика успешно подключена для сайта <mono>codex.so</i>.';
+            return 'Яндекс.Метрика успешно подключена для сайта <mono>codex.so</mono>.';
 
         },
 

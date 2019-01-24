@@ -37,14 +37,14 @@ var codex =
 /******/ 	// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 	// Promise = chunk loading, 0 = chunk loaded
 /******/ 	var installedChunks = {
-/******/ 		"main": 0
+/******/ 		1: 0
 /******/ 	};
 /******/
 /******/
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"editor":"editor"}[chunkId]||chunkId) + ".bundle.js"
+/******/ 		return __webpack_require__.p + "" + ({"0":"editor"}[chunkId]||chunkId) + ".bundle.js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -194,60 +194,304 @@ var codex =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./public/app/js/main.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ "./node_modules/@codexteam/ajax/dist/main.js":
-/*!***************************************************!*\
-  !*** ./node_modules/@codexteam/ajax/dist/main.js ***!
-  \***************************************************/
-/*! no static exports found */
+/******/ ([
+/* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-!function(e,t){ true?module.exports=t():undefined}(window,function(){return function(e){var t={};function n(r){if(t[r])return t[r].exports;var o=t[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,n),o.l=!0,o.exports}return n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)n.d(r,o,function(t){return e[t]}.bind(null,o));return r},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=3)}([function(e,t){var n;n=function(){return this}();try{n=n||Function("return this")()||(0,eval)("this")}catch(e){"object"==typeof window&&(n=window)}e.exports=n},function(e,t,n){"use strict";(function(e){var r=n(2),o=setTimeout;function i(){}function a(e){if(!(this instanceof a))throw new TypeError("Promises must be constructed via new");if("function"!=typeof e)throw new TypeError("not a function");this._state=0,this._handled=!1,this._value=void 0,this._deferreds=[],l(e,this)}function u(e,t){for(;3===e._state;)e=e._value;0!==e._state?(e._handled=!0,a._immediateFn(function(){var n=1===e._state?t.onFulfilled:t.onRejected;if(null!==n){var r;try{r=n(e._value)}catch(e){return void s(t.promise,e)}c(t.promise,r)}else(1===e._state?c:s)(t.promise,e._value)})):e._deferreds.push(t)}function c(e,t){try{if(t===e)throw new TypeError("A promise cannot be resolved with itself.");if(t&&("object"==typeof t||"function"==typeof t)){var n=t.then;if(t instanceof a)return e._state=3,e._value=t,void f(e);if("function"==typeof n)return void l(function(e,t){return function(){e.apply(t,arguments)}}(n,t),e)}e._state=1,e._value=t,f(e)}catch(t){s(e,t)}}function s(e,t){e._state=2,e._value=t,f(e)}function f(e){2===e._state&&0===e._deferreds.length&&a._immediateFn(function(){e._handled||a._unhandledRejectionFn(e._value)});for(var t=0,n=e._deferreds.length;t<n;t++)u(e,e._deferreds[t]);e._deferreds=null}function l(e,t){var n=!1;try{e(function(e){n||(n=!0,c(t,e))},function(e){n||(n=!0,s(t,e))})}catch(e){if(n)return;n=!0,s(t,e)}}a.prototype.catch=function(e){return this.then(null,e)},a.prototype.then=function(e,t){var n=new this.constructor(i);return u(this,new function(e,t,n){this.onFulfilled="function"==typeof e?e:null,this.onRejected="function"==typeof t?t:null,this.promise=n}(e,t,n)),n},a.prototype.finally=r.a,a.all=function(e){return new a(function(t,n){if(!e||void 0===e.length)throw new TypeError("Promise.all accepts an array");var r=Array.prototype.slice.call(e);if(0===r.length)return t([]);var o=r.length;function i(e,a){try{if(a&&("object"==typeof a||"function"==typeof a)){var u=a.then;if("function"==typeof u)return void u.call(a,function(t){i(e,t)},n)}r[e]=a,0==--o&&t(r)}catch(e){n(e)}}for(var a=0;a<r.length;a++)i(a,r[a])})},a.resolve=function(e){return e&&"object"==typeof e&&e.constructor===a?e:new a(function(t){t(e)})},a.reject=function(e){return new a(function(t,n){n(e)})},a.race=function(e){return new a(function(t,n){for(var r=0,o=e.length;r<o;r++)e[r].then(t,n)})},a._immediateFn="function"==typeof e&&function(t){e(t)}||function(e){o(e,0)},a._unhandledRejectionFn=function(e){"undefined"!=typeof console&&console&&console.warn("Possible Unhandled Promise Rejection:",e)},t.a=a}).call(this,n(5).setImmediate)},function(e,t,n){"use strict";t.a=function(e){var t=this.constructor;return this.then(function(n){return t.resolve(e()).then(function(){return n})},function(n){return t.resolve(e()).then(function(){return t.reject(n)})})}},function(e,t,n){"use strict";function r(e){return(r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}n(4);var o=n(8),i=function(){var e={URLENCODED:"application/x-www-form-urlencoded; charset=utf-8",FORM:"multipart/form-data",JSON:"application/json; charset=utf-8"},t=function(e){return new Promise(function(t,n){e=a(e),e=u(e);var r=window.XMLHttpRequest?new window.XMLHttpRequest:new window.ActiveXObject("Microsoft.XMLHTTP");r.open(e.method,e.url),r.setRequestHeader("X-Requested-With","XMLHttpRequest"),Object.keys(e.headers).forEach(function(t){var n=e.headers[t];r.setRequestHeader(t,n)});var o=e.ratio;r.upload.addEventListener("progress",function(t){var n=Math.round(t.loaded/t.total*100),r=Math.ceil(n*o/100);e.progress(r)},!1),r.addEventListener("progress",function(t){var n=Math.round(t.loaded/t.total*100),r=Math.ceil(n*(100-o)/100)+o;e.progress(r)},!1),r.onreadystatechange=function(){if(4===r.readyState){var e=r.response;try{e=JSON.parse(e)}catch(e){}200===r.status?t(e):n(e)}},r.send(e.data)})},n=function(e){return e.method="POST",t(e)},a=function(t){if(!t.url||"string"!=typeof t.url)throw new Error("Url must be a non-empty string");if(t.method&&"string"!=typeof t.method)throw new Error("`method` must be a string or null");if(t.method=t.method?t.method.toUpperCase():"GET",t.headers&&"object"!==r(t.headers))throw new Error("`headers` must be an object or null");if(t.headers=t.headers||{},t.type&&("string"!=typeof t.type||!Object.values(e).includes(t.type)))throw new Error("`type` must be taken from module's «contentType» library");if(t.progress&&"function"!=typeof t.progress)throw new Error("`progress` must be a function or null");if(t.progress=t.progress||function(e){},t.beforeSend=t.beforeSend||function(e){},t.ratio&&"number"!=typeof t.ratio)throw new Error("`ratio` must be a number");if(t.ratio<0||t.ratio>100)throw new Error("`ratio` must be in a 0-100 interval");if(t.ratio=t.ratio||90,t.accept&&"string"!=typeof t.accept)throw new Error("`accept` must be a string with a list of allowed mime-types");if(t.accept=t.accept||"*/*",t.multiple&&"boolean"!=typeof t.multiple)throw new Error("`multiple` must be a true or false");if(t.multiple=t.multiple||!1,t.fieldName&&"string"!=typeof t.fieldName)throw new Error("`fieldName` must be a string");return t.fieldName=t.fieldName||"files",t},u=function(t){switch(t.method){case"GET":var n=c(t.data,e.URLENCODED);delete t.data,t.url=/\?/.test(t.url)?t.url+"&"+n:t.url+"?"+n;break;case"POST":case"PUT":case"DELETE":case"UPDATE":var r=function(){return(arguments.length>0&&void 0!==arguments[0]?arguments[0]:{}).type||e.JSON}(t);(o.isFormData(t.data)||o.isFormElement(t.data))&&(r=e.FORM),t.data=c(t.data,r),r!==i.contentType.FORM&&(t.headers["content-type"]=r)}return t},c=function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{};switch(arguments.length>1?arguments[1]:void 0){case e.URLENCODED:return o.urlEncode(t);case e.JSON:return o.jsonEncode(t);case e.FORM:return o.formEncode(t);default:return t}};return{contentType:e,request:t,get:function(e){return e.method="GET",t(e)},post:n,transport:function(e){return e=a(e),o.transport(e).then(function(t){return o.isObject(e.data)&&Object.keys(e.data).forEach(function(n){var r=e.data[n];t.append(n,r)}),e.data=t,n(e)})}}}();e.exports=i},function(e,t,n){"use strict";n.r(t);var r=n(1);window.Promise=window.Promise||r.a},function(e,t,n){(function(e){var r=void 0!==e&&e||"undefined"!=typeof self&&self||window,o=Function.prototype.apply;function i(e,t){this._id=e,this._clearFn=t}t.setTimeout=function(){return new i(o.call(setTimeout,r,arguments),clearTimeout)},t.setInterval=function(){return new i(o.call(setInterval,r,arguments),clearInterval)},t.clearTimeout=t.clearInterval=function(e){e&&e.close()},i.prototype.unref=i.prototype.ref=function(){},i.prototype.close=function(){this._clearFn.call(r,this._id)},t.enroll=function(e,t){clearTimeout(e._idleTimeoutId),e._idleTimeout=t},t.unenroll=function(e){clearTimeout(e._idleTimeoutId),e._idleTimeout=-1},t._unrefActive=t.active=function(e){clearTimeout(e._idleTimeoutId);var t=e._idleTimeout;t>=0&&(e._idleTimeoutId=setTimeout(function(){e._onTimeout&&e._onTimeout()},t))},n(6),t.setImmediate="undefined"!=typeof self&&self.setImmediate||void 0!==e&&e.setImmediate||this&&this.setImmediate,t.clearImmediate="undefined"!=typeof self&&self.clearImmediate||void 0!==e&&e.clearImmediate||this&&this.clearImmediate}).call(this,n(0))},function(e,t,n){(function(e,t){!function(e,n){"use strict";if(!e.setImmediate){var r,o=1,i={},a=!1,u=e.document,c=Object.getPrototypeOf&&Object.getPrototypeOf(e);c=c&&c.setTimeout?c:e,"[object process]"==={}.toString.call(e.process)?r=function(e){t.nextTick(function(){f(e)})}:function(){if(e.postMessage&&!e.importScripts){var t=!0,n=e.onmessage;return e.onmessage=function(){t=!1},e.postMessage("","*"),e.onmessage=n,t}}()?function(){var t="setImmediate$"+Math.random()+"$",n=function(n){n.source===e&&"string"==typeof n.data&&0===n.data.indexOf(t)&&f(+n.data.slice(t.length))};e.addEventListener?e.addEventListener("message",n,!1):e.attachEvent("onmessage",n),r=function(n){e.postMessage(t+n,"*")}}():e.MessageChannel?function(){var e=new MessageChannel;e.port1.onmessage=function(e){f(e.data)},r=function(t){e.port2.postMessage(t)}}():u&&"onreadystatechange"in u.createElement("script")?function(){var e=u.documentElement;r=function(t){var n=u.createElement("script");n.onreadystatechange=function(){f(t),n.onreadystatechange=null,e.removeChild(n),n=null},e.appendChild(n)}}():r=function(e){setTimeout(f,0,e)},c.setImmediate=function(e){"function"!=typeof e&&(e=new Function(""+e));for(var t=new Array(arguments.length-1),n=0;n<t.length;n++)t[n]=arguments[n+1];var a={callback:e,args:t};return i[o]=a,r(o),o++},c.clearImmediate=s}function s(e){delete i[e]}function f(e){if(a)setTimeout(f,0,e);else{var t=i[e];if(t){a=!0;try{!function(e){var t=e.callback,r=e.args;switch(r.length){case 0:t();break;case 1:t(r[0]);break;case 2:t(r[0],r[1]);break;case 3:t(r[0],r[1],r[2]);break;default:t.apply(n,r)}}(t)}finally{s(e),a=!1}}}}}("undefined"==typeof self?void 0===e?this:e:self)}).call(this,n(0),n(7))},function(e,t){var n,r,o=e.exports={};function i(){throw new Error("setTimeout has not been defined")}function a(){throw new Error("clearTimeout has not been defined")}function u(e){if(n===setTimeout)return setTimeout(e,0);if((n===i||!n)&&setTimeout)return n=setTimeout,setTimeout(e,0);try{return n(e,0)}catch(t){try{return n.call(null,e,0)}catch(t){return n.call(this,e,0)}}}!function(){try{n="function"==typeof setTimeout?setTimeout:i}catch(e){n=i}try{r="function"==typeof clearTimeout?clearTimeout:a}catch(e){r=a}}();var c,s=[],f=!1,l=-1;function d(){f&&c&&(f=!1,c.length?s=c.concat(s):l=-1,s.length&&p())}function p(){if(!f){var e=u(d);f=!0;for(var t=s.length;t;){for(c=s,s=[];++l<t;)c&&c[l].run();l=-1,t=s.length}c=null,f=!1,function(e){if(r===clearTimeout)return clearTimeout(e);if((r===a||!r)&&clearTimeout)return r=clearTimeout,clearTimeout(e);try{r(e)}catch(t){try{return r.call(null,e)}catch(t){return r.call(this,e)}}}(e)}}function m(e,t){this.fun=e,this.array=t}function h(){}o.nextTick=function(e){var t=new Array(arguments.length-1);if(arguments.length>1)for(var n=1;n<arguments.length;n++)t[n-1]=arguments[n];s.push(new m(e,t)),1!==s.length||f||u(p)},m.prototype.run=function(){this.fun.apply(null,this.array)},o.title="browser",o.browser=!0,o.env={},o.argv=[],o.version="",o.versions={},o.on=h,o.addListener=h,o.once=h,o.off=h,o.removeListener=h,o.removeAllListeners=h,o.emit=h,o.prependListener=h,o.prependOnceListener=h,o.listeners=function(e){return[]},o.binding=function(e){throw new Error("process.binding is not supported")},o.cwd=function(){return"/"},o.chdir=function(e){throw new Error("process.chdir is not supported")},o.umask=function(){return 0}},function(e,t,n){function r(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}var o=n(9);e.exports=function(){function e(){!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,e)}return function(e,t,n){t&&r(e.prototype,t),n&&r(e,n)}(e,null,[{key:"urlEncode",value:function(e){return o(e)}},{key:"jsonEncode",value:function(e){return JSON.stringify(e)}},{key:"formEncode",value:function(e){if(this.isFormData(e))return e;if(this.isFormElement(e))return new FormData(e);if(this.isObject(e)){var t=new FormData;return Object.keys(e).forEach(function(n){var r=e[n];t.append(n,r)}),t}throw new Error("`data` must be an instance of Object, FormData or <FORM> HTMLElement")}},{key:"isObject",value:function(e){return"[object Object]"===Object.prototype.toString.call(e)}},{key:"isFormData",value:function(e){return e instanceof FormData}},{key:"isFormElement",value:function(e){return e instanceof HTMLFormElement}},{key:"transport",value:function(e){return new Promise(function(t,n){var r=document.createElement("INPUT");r.type="file",e.multiple&&r.setAttribute("multiple","multiple"),e.accept&&r.setAttribute("accept",e.accept),r.addEventListener("change",function(n){for(var r=n.target.files,o=new FormData,i=0;i<r.length;i++)o.append(e.fieldName,r[i],r[i].name);e.beforeSend(r),t(o)},!1),r.click()})}}]),e}()},function(e,t){var n=function(e){return encodeURIComponent(e).replace(/[!'()*]/g,escape).replace(/%20/g,"+")},r=function(e,t,o,i){return t=t||null,o=o||"&",i=i||null,e?function(e){for(var t=new Array,n=0;n<e.length;n++)e[n]&&t.push(e[n]);return t}(Object.keys(e).map(function(a){var u,c=a;if(i&&(c=i+"["+c+"]"),"object"==typeof e[a]&&null!==e[a])u=r(e[a],null,o,c);else{t&&(c=function(e){return!isNaN(parseFloat(e))&&isFinite(e)}(c)?t+Number(c):c);var s=e[a];s=(s=0===(s=!1===(s=!0===s?"1":s)?"0":s)?"0":s)||"",u=n(c)+"="+n(s)}return u})).join(o).replace(/[!'()*]/g,""):""};e.exports=r}])});
+"use strict";
 
-/***/ }),
 
-/***/ "./node_modules/@codexteam/deeplinker/dist/deeplinker.js":
-/*!***************************************************************!*\
-  !*** ./node_modules/@codexteam/deeplinker/dist/deeplinker.js ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-!function(e,n){ true?module.exports=n():undefined}(window,function(){return function(e){var n={};function t(o){if(n[o])return n[o].exports;var r=n[o]={i:o,l:!1,exports:{}};return e[o].call(r.exports,r,r.exports,t),r.l=!0,r.exports}return t.m=e,t.c=n,t.d=function(e,n,o){t.o(e,n)||Object.defineProperty(e,n,{configurable:!1,enumerable:!0,get:o})},t.r=function(e){Object.defineProperty(e,"__esModule",{value:!0})},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,n){return Object.prototype.hasOwnProperty.call(e,n)},t.p="",t(t.s=0)}([function(e,n,t){"use strict";var o,r,i,u,c,f="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e};
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
 /**
- * Helps to set link with custom protocol (to open apps) and usual link (for webpages) to a button
- *
- * @author Taly Guryn <https://github.com/talyguryn>
- * @license MIT
- */e.exports=(o=function(e){"object"!==(void 0===e?"undefined":f(e))&&c("Passed element is not an object");var n=e.dataset.link||e.href,t=e.dataset.appLink;i(t,n)},r=function(e){e||c("Can not open app, because appLink is undefined");var n=document.createElement("iframe");n.style.display="none",document.body.appendChild(n),null!==n&&(n.src=e)},i=function(e,n){var t=!1;window.addEventListener("pagehide",function(){t=!0},!1),window.addEventListener("blur",function(){t=!0},!1),r(e),setTimeout(function(){t||u(n)},100)},u=function(e){e||c("Can not open page because link is undefined"),window.open(e,"_blank")},c=function(e){throw Error("[Deeplinker] "+e)},{click:o,init:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:".deeplinker",n=document.querySelectorAll(e);n.length&&Array.prototype.slice.call(n).forEach(function(e){e.addEventListener("click",function(n){n.preventDefault(),o(e)})})},tryToOpenApp:r})}])});
+ * DOM manipulations methods
+ */
+var DOM =
+/*#__PURE__*/
+function () {
+  function DOM() {
+    _classCallCheck(this, DOM);
+  }
+
+  _createClass(DOM, null, [{
+    key: "make",
+
+    /**
+     * Helper for making Elements with classname and attributes
+     * @param  {string} tagName           - new Element tag name
+     * @param  {array|string} classNames  - list or name of CSS classname(s)
+     * @param  {Object} attributes        - any attributes
+     * @return {Element}
+     */
+    value: function make(tagName, classNames, attributes) {
+      var el = document.createElement(tagName);
+
+      if (Array.isArray(classNames)) {
+        var _el$classList;
+
+        (_el$classList = el.classList).add.apply(_el$classList, _toConsumableArray(classNames));
+      } else if (classNames) {
+        el.classList.add(classNames);
+      }
+
+      for (var attrName in attributes) {
+        el[attrName] = attributes[attrName];
+      }
+
+      return el;
+    }
+    /**
+     * Replaces node with
+     * @param {Element} nodeToReplace
+     * @param {Element} replaceWith
+     */
+
+  }, {
+    key: "replace",
+    value: function replace(nodeToReplace, replaceWith) {
+      return nodeToReplace.parentNode.replaceChild(replaceWith, nodeToReplace);
+    }
+    /**
+     * getElementById alias
+     * @param {String} elementId
+     */
+
+  }, {
+    key: "get",
+    value: function get(elementId) {
+      return document.getElementById(elementId);
+    }
+    /**
+     * Loads static resourse: CSS or JS
+     * @param {string} type  - CSS|JS
+     * @param {string} path  - resource path
+     * @param {string} inctanceName - unique name of resource
+     * @return Promise
+     */
+
+  }, {
+    key: "loadResource",
+    value: function loadResource(type, path, instanceName) {
+      /**
+       * Imported resource ID prefix
+       * @type {String}
+       */
+      var resourcePrefix = 'cdx-resourse';
+      return new Promise(function (resolve, reject) {
+        if (!type || !['JS', 'CSS'].includes(type)) {
+          reject("Unexpected resource type passed. \xABCSS\xBB or \xABJS\xBB expected, \xAB".concat(type, "\xBB passed"));
+        }
+
+        var node;
+        /** Script is already loaded */
+
+        if (!instanceName) {
+          reject('Instance name is missed');
+        } else if (document.getElementById("".concat(resourcePrefix, "-").concat(type.toLowerCase(), "-").concat(instanceName))) {
+          resolve(path);
+        }
+
+        if (type === 'JS') {
+          node = document.createElement('script');
+          node.async = true;
+          node.defer = true;
+          node.charset = 'utf-8';
+        } else {
+          node = document.createElement('link');
+          node.rel = 'stylesheet';
+        }
+
+        node.id = "".concat(resourcePrefix, "-").concat(type.toLowerCase(), "-").concat(instanceName);
+        var timerLabel = "Resource loading ".concat(type, " ").concat(instanceName);
+        console.time(timerLabel);
+
+        node.onload = function () {
+          console.timeEnd(timerLabel);
+          resolve(path);
+        };
+
+        node.onerror = function () {
+          console.timeEnd(timerLabel);
+          reject(path);
+        };
+
+        if (type === 'JS') {
+          node.src = path;
+        } else {
+          node.href = path;
+        }
+
+        document.head.appendChild(node);
+      });
+    }
+  }]);
+
+  return DOM;
+}();
+
+exports.default = DOM;
 
 /***/ }),
-
-/***/ "./node_modules/codex-notifier/dist/bundle.js":
-/*!****************************************************!*\
-  !*** ./node_modules/codex-notifier/dist/bundle.js ***!
-  \****************************************************/
-/*! no static exports found */
+/* 1 */,
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-!function(t,e){ true?module.exports=e():undefined}(window,function(){return function(t){var e={};function n(o){if(e[o])return e[o].exports;var r=e[o]={i:o,l:!1,exports:{}};return t[o].call(r.exports,r,r.exports,n),r.l=!0,r.exports}return n.m=t,n.c=e,n.d=function(t,e,o){n.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:o})},n.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},n.t=function(t,e){if(1&e&&(t=n(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var o=Object.create(null);if(n.r(o),Object.defineProperty(o,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var r in t)n.d(o,r,function(e){return t[e]}.bind(null,r));return o},n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,"a",e),e},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},n.p="/",n(n.s=0)}([function(t,e,n){"use strict";n(1),
-/*!
- * Codex JavaScript Notification module
- * https://github.com/codex-team/js-notifier
+"use strict";
+
+
+var _moduleDispatcher = __webpack_require__(3);
+
+var _moduleDispatcher2 = _interopRequireDefault(_moduleDispatcher);
+
+var _editorLanding = __webpack_require__(4);
+
+var _editorLanding2 = _interopRequireDefault(_editorLanding);
+
+var _articleCreate = __webpack_require__(6);
+
+var _articleCreate2 = _interopRequireDefault(_articleCreate);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Import Dispatcher for Frontend Modules initialization
  */
-t.exports=function(){var t=n(6),e="cdx-notify--bounce-in",o=null;return{show:function(n){if(n.message){!function(){if(o)return!0;o=t.getWrapper(),document.body.appendChild(o)}();var r=null,i=n.time||8e3;switch(n.type){case"confirm":r=t.confirm(n);break;case"prompt":r=t.prompt(n);break;default:r=t.alert(n),window.setTimeout(function(){r.remove()},i)}o.appendChild(r),r.classList.add(e)}}}}()},function(t,e,n){var o=n(2);"string"==typeof o&&(o=[[t.i,o,""]]);var r={hmr:!0,transform:void 0,insertInto:void 0};n(4)(o,r);o.locals&&(t.exports=o.locals)},function(t,e,n){(t.exports=n(3)(!1)).push([t.i,'.cdx-notify--error{background:#fffbfb!important}.cdx-notify--error::before{background:#fb5d5d!important}.cdx-notify__input{max-width:130px;padding:5px 10px;background:#f7f7f7;border:0;border-radius:3px;font-size:13px;color:#656b7c;outline:0}.cdx-notify__input:-ms-input-placeholder{color:#656b7c}.cdx-notify__input::placeholder{color:#656b7c}.cdx-notify__input:focus:-ms-input-placeholder{color:rgba(101,107,124,.3)}.cdx-notify__input:focus::placeholder{color:rgba(101,107,124,.3)}.cdx-notify__button{border:none;border-radius:3px;font-size:13px;padding:5px 10px;cursor:pointer}.cdx-notify__button:last-child{margin-left:10px}.cdx-notify__button--cancel{background:#f2f5f7;box-shadow:0 2px 1px 0 rgba(16,19,29,0);color:#656b7c}.cdx-notify__button--cancel:hover{background:#eee}.cdx-notify__button--confirm{background:#34c992;box-shadow:0 1px 1px 0 rgba(18,49,35,.05);color:#fff}.cdx-notify__button--confirm:hover{background:#33b082}.cdx-notify__btns-wrapper{display:-ms-flexbox;display:flex;-ms-flex-flow:row nowrap;flex-flow:row nowrap;margin-top:5px}.cdx-notify__cross{position:absolute;top:5px;right:5px;width:10px;height:10px;padding:5px;opacity:.54;cursor:pointer}.cdx-notify__cross::after,.cdx-notify__cross::before{content:\'\';position:absolute;left:9px;top:5px;height:12px;width:2px;background:#575d67}.cdx-notify__cross::before{transform:rotate(-45deg)}.cdx-notify__cross::after{transform:rotate(45deg)}.cdx-notify__cross:hover{opacity:1}.cdx-notifies{position:fixed;z-index:2;bottom:20px;left:20px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",sans-serif}.cdx-notify{position:relative;width:220px;margin-top:15px;padding:13px 16px;background:#fff;box-shadow:0 11px 17px 0 rgba(23,32,61,.13);border-radius:5px;font-size:14px;line-height:1.4em;word-wrap:break-word}.cdx-notify::before{content:\'\';position:absolute;display:block;top:0;left:0;width:3px;height:calc(100% - 6px);margin:3px;border-radius:5px;background:0 0}@keyframes bounceIn{0%{opacity:0;transform:scale(.3)}50%{opacity:1;transform:scale(1.05)}70%{transform:scale(.9)}100%{transform:scale(1)}}.cdx-notify--bounce-in{animation-name:bounceIn;animation-duration:.6s;animation-iteration-count:1}.cdx-notify--success{background:#fafffe!important}.cdx-notify--success::before{background:#41ffb1!important}',""])},function(t,e){t.exports=function(t){var e=[];return e.toString=function(){return this.map(function(e){var n=function(t,e){var n=t[1]||"",o=t[3];if(!o)return n;if(e&&"function"==typeof btoa){var r=(a=o,"/*# sourceMappingURL=data:application/json;charset=utf-8;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(a))))+" */"),i=o.sources.map(function(t){return"/*# sourceURL="+o.sourceRoot+t+" */"});return[n].concat(i).concat([r]).join("\n")}var a;return[n].join("\n")}(e,t);return e[2]?"@media "+e[2]+"{"+n+"}":n}).join("")},e.i=function(t,n){"string"==typeof t&&(t=[[null,t,""]]);for(var o={},r=0;r<this.length;r++){var i=this[r][0];"number"==typeof i&&(o[i]=!0)}for(r=0;r<t.length;r++){var a=t[r];"number"==typeof a[0]&&o[a[0]]||(n&&!a[2]?a[2]=n:n&&(a[2]="("+a[2]+") and ("+n+")"),e.push(a))}},e}},function(t,e,n){var o,r,i={},a=(o=function(){return window&&document&&document.all&&!window.atob},function(){return void 0===r&&(r=o.apply(this,arguments)),r}),c=function(t){var e={};return function(t){if("function"==typeof t)return t();if(void 0===e[t]){var n=function(t){return document.querySelector(t)}.call(this,t);if(window.HTMLIFrameElement&&n instanceof window.HTMLIFrameElement)try{n=n.contentDocument.head}catch(t){n=null}e[t]=n}return e[t]}}(),s=null,f=0,d=[],u=n(5);function l(t,e){for(var n=0;n<t.length;n++){var o=t[n],r=i[o.id];if(r){r.refs++;for(var a=0;a<r.parts.length;a++)r.parts[a](o.parts[a]);for(;a<o.parts.length;a++)r.parts.push(h(o.parts[a],e))}else{var c=[];for(a=0;a<o.parts.length;a++)c.push(h(o.parts[a],e));i[o.id]={id:o.id,refs:1,parts:c}}}}function p(t,e){for(var n=[],o={},r=0;r<t.length;r++){var i=t[r],a=e.base?i[0]+e.base:i[0],c={css:i[1],media:i[2],sourceMap:i[3]};o[a]?o[a].parts.push(c):n.push(o[a]={id:a,parts:[c]})}return n}function b(t,e){var n=c(t.insertInto);if(!n)throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");var o=d[d.length-1];if("top"===t.insertAt)o?o.nextSibling?n.insertBefore(e,o.nextSibling):n.appendChild(e):n.insertBefore(e,n.firstChild),d.push(e);else if("bottom"===t.insertAt)n.appendChild(e);else{if("object"!=typeof t.insertAt||!t.insertAt.before)throw new Error("[Style Loader]\n\n Invalid value for parameter 'insertAt' ('options.insertAt') found.\n Must be 'top', 'bottom', or Object.\n (https://github.com/webpack-contrib/style-loader#insertat)\n");var r=c(t.insertInto+" "+t.insertAt.before);n.insertBefore(e,r)}}function m(t){if(null===t.parentNode)return!1;t.parentNode.removeChild(t);var e=d.indexOf(t);e>=0&&d.splice(e,1)}function x(t){var e=document.createElement("style");return void 0===t.attrs.type&&(t.attrs.type="text/css"),y(e,t.attrs),b(t,e),e}function y(t,e){Object.keys(e).forEach(function(n){t.setAttribute(n,e[n])})}function h(t,e){var n,o,r,i;if(e.transform&&t.css){if(!(i=e.transform(t.css)))return function(){};t.css=i}if(e.singleton){var a=f++;n=s||(s=x(e)),o=_.bind(null,n,a,!1),r=_.bind(null,n,a,!0)}else t.sourceMap&&"function"==typeof URL&&"function"==typeof URL.createObjectURL&&"function"==typeof URL.revokeObjectURL&&"function"==typeof Blob&&"function"==typeof btoa?(n=function(t){var e=document.createElement("link");return void 0===t.attrs.type&&(t.attrs.type="text/css"),t.attrs.rel="stylesheet",y(e,t.attrs),b(t,e),e}(e),o=function(t,e,n){var o=n.css,r=n.sourceMap,i=void 0===e.convertToAbsoluteUrls&&r;(e.convertToAbsoluteUrls||i)&&(o=u(o));r&&(o+="\n/*# sourceMappingURL=data:application/json;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(r))))+" */");var a=new Blob([o],{type:"text/css"}),c=t.href;t.href=URL.createObjectURL(a),c&&URL.revokeObjectURL(c)}.bind(null,n,e),r=function(){m(n),n.href&&URL.revokeObjectURL(n.href)}):(n=x(e),o=function(t,e){var n=e.css,o=e.media;o&&t.setAttribute("media",o);if(t.styleSheet)t.styleSheet.cssText=n;else{for(;t.firstChild;)t.removeChild(t.firstChild);t.appendChild(document.createTextNode(n))}}.bind(null,n),r=function(){m(n)});return o(t),function(e){if(e){if(e.css===t.css&&e.media===t.media&&e.sourceMap===t.sourceMap)return;o(t=e)}else r()}}t.exports=function(t,e){if("undefined"!=typeof DEBUG&&DEBUG&&"object"!=typeof document)throw new Error("The style-loader cannot be used in a non-browser environment");(e=e||{}).attrs="object"==typeof e.attrs?e.attrs:{},e.singleton||"boolean"==typeof e.singleton||(e.singleton=a()),e.insertInto||(e.insertInto="head"),e.insertAt||(e.insertAt="bottom");var n=p(t,e);return l(n,e),function(t){for(var o=[],r=0;r<n.length;r++){var a=n[r];(c=i[a.id]).refs--,o.push(c)}t&&l(p(t,e),e);for(r=0;r<o.length;r++){var c;if(0===(c=o[r]).refs){for(var s=0;s<c.parts.length;s++)c.parts[s]();delete i[c.id]}}}};var v,g=(v=[],function(t,e){return v[t]=e,v.filter(Boolean).join("\n")});function _(t,e,n,o){var r=n?"":o.css;if(t.styleSheet)t.styleSheet.cssText=g(e,r);else{var i=document.createTextNode(r),a=t.childNodes;a[e]&&t.removeChild(a[e]),a.length?t.insertBefore(i,a[e]):t.appendChild(i)}}},function(t,e){t.exports=function(t){var e="undefined"!=typeof window&&window.location;if(!e)throw new Error("fixUrls requires window.location");if(!t||"string"!=typeof t)return t;var n=e.protocol+"//"+e.host,o=n+e.pathname.replace(/\/[^\/]*$/,"/");return t.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi,function(t,e){var r,i=e.trim().replace(/^"(.*)"$/,function(t,e){return e}).replace(/^'(.*)'$/,function(t,e){return e});return/^(#|data:|http:\/\/|https:\/\/|file:\/\/\/|\s*$)/i.test(i)?t:(r=0===i.indexOf("//")?i:0===i.indexOf("/")?n+i:o+i.replace(/^\.\//,""),"url("+JSON.stringify(r)+")")})}},function(t,e,n){"use strict";var o,r,i,a,c,s,f,d,u;t.exports=(o="cdx-notifies",r="cdx-notify",i="cdx-notify__cross",a="cdx-notify__button--confirm",c="cdx-notify__button--cancel",s="cdx-notify__input",f="cdx-notify__button",d="cdx-notify__btns-wrapper",{alert:u=function(t){var e=document.createElement("DIV"),n=document.createElement("DIV"),o=t.message,a=t.style;return e.classList.add(r),a&&e.classList.add(r+"--"+a),e.innerHTML=o,n.classList.add(i),n.addEventListener("click",e.remove.bind(e)),e.appendChild(n),e},confirm:function(t){var e=u(t),n=document.createElement("div"),o=document.createElement("button"),r=document.createElement("button"),s=e.querySelector("."+i),l=t.cancelHandler,p=t.okHandler;return n.classList.add(d),o.innerHTML=t.okText||"Confirm",r.innerHTML=t.cancelText||"Cancel",o.classList.add(f),r.classList.add(f),o.classList.add(a),r.classList.add(c),l&&"function"==typeof l&&(r.addEventListener("click",l),s.addEventListener("click",l)),p&&"function"==typeof p&&o.addEventListener("click",p),o.addEventListener("click",e.remove.bind(e)),r.addEventListener("click",e.remove.bind(e)),n.appendChild(o),n.appendChild(r),e.appendChild(n),e},prompt:function(t){var e=u(t),n=document.createElement("div"),o=document.createElement("button"),r=document.createElement("input"),c=e.querySelector("."+i),l=t.cancelHandler,p=t.okHandler;return n.classList.add(d),o.innerHTML=t.okText||"Ok",o.classList.add(f),o.classList.add(a),r.classList.add(s),t.placeholder&&r.setAttribute("placeholder",t.placeholder),t.default&&(r.value=t.default),t.inputType&&(r.type=t.inputType),l&&"function"==typeof l&&c.addEventListener("click",l),p&&"function"==typeof p&&o.addEventListener("click",function(){p(r.value)}),o.addEventListener("click",e.remove.bind(e)),n.appendChild(r),n.appendChild(o),e.appendChild(n),e},getWrapper:function(){var t=document.createElement("DIV");return t.classList.add(o),t}})}])});
+__webpack_require__(9);
+/**
+ * CodeX community id at vk.com.
+ * used by vkWidget module
+ */
+
+
+var VK_COMMUNITY_ID = 103229636;
+
+var codex = function (codex_) {
+  'use strict';
+
+  codex_.settings = {};
+  /**
+  * Preparation method
+  */
+
+  codex_.init = function (settings) {
+    /** Save settings or use defaults */
+    for (var set in settings) {
+      this.settings[set] = settings[set] || this.settings[set] || null;
+    }
+
+    codex.docReady(function () {
+      initModules();
+    });
+  };
+
+  return codex_;
+}({});
+/**
+ * Function responsible for modules initialization
+ * Called no earlier than document is ready
+ */
+
+
+function initModules() {
+  new _moduleDispatcher2.default({
+    Library: codex
+  });
+  codex.scrollUp.init();
+  /**
+   * Find elements with "deeplinker" class and add click listener
+   *
+   * @param {string} selector
+   */
+
+  codex.deeplinker.init('.deeplinker');
+  codex.codeStyling.init('.article-code__content');
+  codex.vkWidget.init({
+    id: 'vk_groups',
+    display: {
+      'mode': 3,
+      'width': 'auto'
+    },
+    communityId: VK_COMMUNITY_ID
+  });
+  /**
+   * Acitve play-video buttons
+   */
+
+  var playVideoButton = document.querySelector('[name="js-show-player"]');
+
+  if (playVideoButton) {
+    var Player = __webpack_require__(10).default;
+
+    new Player({
+      sourceURL: 'public/app/img/products/ar-tester.mp4',
+      toggler: playVideoButton,
+      wrapperSelector: '.product-card--ar-tester'
+    });
+  }
+}
+/**
+* Document ready event listener
+* @usage codex.docReady(function(){ # code ... } );
+*/
+
+
+codex.docReady = function (f) {
+  return /in/.test(document.readyState) ? window.setTimeout(codex.docReady, 9, f) : f();
+};
+/**
+* Pages
+*/
+
+
+codex.admin = __webpack_require__(11);
+codex.join = __webpack_require__(12);
+/**
+ * Modules
+ */
+
+codex.core = __webpack_require__(13);
+codex.dragndrop = __webpack_require__(14);
+codex.scrollUp = __webpack_require__(15);
+codex.sharer = __webpack_require__(16);
+codex.developer = __webpack_require__(17); // codex.simpleCode = require('./modules/simpleCodeStyling');
+
+codex.showMoreNews = __webpack_require__(18);
+codex.polyfills = __webpack_require__(19);
+codex.ajax = __webpack_require__(20);
+codex.profile = __webpack_require__(21);
+codex.helpers = __webpack_require__(22);
+codex.quiz = __webpack_require__(23);
+codex.quizForm = __webpack_require__(24);
+codex.transport = __webpack_require__(25);
+codex.vkWidget = __webpack_require__(26);
+codex.codeStyling = __webpack_require__(27);
+codex.deeplinker = __webpack_require__(28);
+codex.pluginsFilter = __webpack_require__(29);
+codex.editorLanding = new _editorLanding2.default();
+codex.articleCreate = new _articleCreate2.default();
+module.exports = codex;
 
 /***/ }),
-
-/***/ "./node_modules/module-dispatcher/lib/moduleDispatcher.js":
-/*!****************************************************************!*\
-  !*** ./node_modules/module-dispatcher/lib/moduleDispatcher.js ***!
-  \****************************************************************/
-/*! no static exports found */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -261,23 +505,137 @@ t.exports=function(){var t=n(6),e="cdx-notify--bounce-in",o=null;return{show:fun
 !function(e,t){ true?module.exports=t():undefined}("undefined"!=typeof self?self:this,function(){return function(e){function t(o){if(n[o])return n[o].exports;var r=n[o]={i:o,l:!1,exports:{}};return e[o].call(r.exports,r,r.exports,t),r.l=!0,r.exports}var n={};return t.m=e,t.c=n,t.d=function(e,n,o){t.o(e,n)||Object.defineProperty(e,n,{configurable:!1,enumerable:!0,get:o})},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},t.p="",t(t.s=0)}([function(e,t,n){"use strict";function o(e){if(Array.isArray(e)){for(var t=0,n=Array(e.length);t<e.length;t++)n[t]=e[t];return n}return Array.from(e)}function r(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(t,"__esModule",{value:!0});var s=function(){function e(e,t){for(var n=0;n<t.length;n++){var o=t[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}return function(t,n,o){return n&&e(t.prototype,n),o&&e(t,o),t}}(),i=function(){function e(t){var n=t.name,o=t.element,s=t.settings,i=t.moduleClass;r(this,e),this.name=n,this.element=o,this.settings=s,this.moduleClass=i}return s(e,[{key:"init",value:function(){try{console.assert(this.moduleClass.init instanceof Function,"Module «"+this.name+"» should implement init method"),this.moduleClass.init instanceof Function&&(this.moduleClass.init(this.settings,this.element),console.log("Module «"+this.name+"» initialized"))}catch(e){console.warn("Module «"+this.name+"» was not initialized because of ",e)}}},{key:"destroy",value:function(){this.moduleClass.destroy instanceof Function&&(this.moduleClass.destroy(),console.log("Module «"+this.name+"» destroyed."))}}]),e}(),u=function(){function e(t){r(this,e),this.Library=t.Library||window,this.modules=this.findModules(document),this.initModules()}return s(e,[{key:"findModules",value:function(e){for(var t=[],n=e.querySelectorAll("[data-module]"),r=n.length-1;r>=0;r--)t.push.apply(t,o(this.extractModulesData(n[r])));return t}},{key:"extractModulesData",value:function(e){var t=this,n=[],o=e.dataset.module;return o=o.replace(/\s+/," "),o.split(" ").forEach(function(o,r){var s=new i({name:o,element:e,settings:t.getModuleSettings(e,r,o),moduleClass:t.Library[o]});n.push(s)}),n}},{key:"getModuleSettings",value:function(e,t,n){var o=e.querySelector("module-settings"),r=void 0;if(!o)return null;try{r=o.textContent.trim(),r=JSON.parse(r)}catch(e){return console.warn("Can not parse Module «"+n+"» settings bacause of: "+e),console.groupCollapsed(n+" settings"),console.log(r),console.groupEnd(),null}return Array.isArray(r)?r[t]?r[t]:null:0===t?r:(console.warn("Wrong settings format. For several Modules use an array instead of object."),null)}},{key:"initModules",value:function(){console.groupCollapsed("ModuleDispatcher"),this.modules.forEach(function(e){e.init()}),console.groupEnd()}}]),e}();t.default=u}])});
 
 /***/ }),
-
-/***/ "./public/app/css/main.css":
-/*!*********************************!*\
-  !*** ./public/app/css/main.css ***!
-  \*********************************/
-/*! no static exports found */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
-// extracted by mini-css-extract-plugin
+"use strict";
+
+/**
+ * Module to compose output JSON preview
+ */
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var cPreview = __webpack_require__(5);
+/**
+ * Module for pages using Editor
+ */
+
+
+var EditorLanding =
+/*#__PURE__*/
+function () {
+  function EditorLanding() {
+    _classCallCheck(this, EditorLanding);
+
+    /**
+     * Editor class Instance
+     */
+    this.editor = null;
+    /**
+     * DOM elements
+     */
+
+    this.nodes = {
+      /**
+      * Container to output saved Editor data
+      */
+      outputWrapper: null
+    };
+  }
+  /**
+   * @typedef {Object} editorLandingSettings - Editor landing class settings
+   * @property {String} editorLandingSettings.output_id - ID of container where Editor's saved data will be shown
+   * @property {function} editorLandingSettings.onChange - Modifications callback for the Editor
+   */
+
+  /**
+   * Initialization. Called by Module Dispatcher
+   */
+
+
+  _createClass(EditorLanding, [{
+    key: "init",
+    value: function init(editorLandingSettings) {
+      var _this = this;
+
+      /**
+       * Prepare node to output Editor data preview
+       * @type {HTMLElement} - JSON preview container
+       */
+      this.nodes.outputWrapper = document.getElementById(editorLandingSettings.output_id);
+
+      if (!this.nodes.outputWrapper) {
+        console.warn('Can\'t find output target with ID: «' + editorLandingSettings.output_id + '»');
+      }
+
+      this.loadEditor({
+        blocks: editorLandingSettings.blocks,
+
+        /**
+         * Bind onchange callback to preview JSON data
+         */
+        onChange: function onChange() {
+          _this.previewData();
+        },
+
+        /**
+         * When Editor is ready, preview JSON output with initial data
+         */
+        onReady: function onReady() {
+          _this.previewData();
+
+          _this.editor.focus();
+        }
+      }).then(function (editor) {
+        _this.editor = editor;
+      });
+    }
+  }, {
+    key: "loadEditor",
+
+    /**
+     * Load Editor from separate chunk
+     * @param settings - settings for Editor initialization
+     * @return {Promise<Editor>} - CodeX Editor promise
+     */
+    value: function loadEditor(settings) {
+      return __webpack_require__.e(/* import() | editor */ 0).then(__webpack_require__.t.bind(null, 1, 7)).then(function (_ref) {
+        var Editor = _ref.default;
+        return new Editor(settings);
+      });
+    }
+    /**
+     * Shows JSON output of editor saved data
+     */
+
+  }, {
+    key: "previewData",
+    value: function previewData() {
+      var _this2 = this;
+
+      this.editor.save().then(function (savedData) {
+        cPreview.show(savedData, _this2.nodes.outputWrapper);
+      });
+    }
+  }]);
+
+  return EditorLanding;
+}();
+
+exports.default = EditorLanding;
+;
 
 /***/ }),
-
-/***/ "./public/app/js/classes/cPreview.js":
-/*!*******************************************!*\
-  !*** ./public/app/js/classes/cPreview.js ***!
-  \*******************************************/
-/*! no static exports found */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -344,156 +702,371 @@ var cPreview = function () {
 module.exports = cPreview;
 
 /***/ }),
-
-/***/ "./public/app/js/main.js":
-/*!*******************************!*\
-  !*** ./public/app/js/main.js ***!
-  \*******************************/
-/*! no static exports found */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _moduleDispatcher = __webpack_require__(/*! module-dispatcher */ "./node_modules/module-dispatcher/lib/moduleDispatcher.js");
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-var _moduleDispatcher2 = _interopRequireDefault(_moduleDispatcher);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var _editorLanding = __webpack_require__(/*! ./modules/editorLanding */ "./public/app/js/modules/editorLanding.js");
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-var _editorLanding2 = _interopRequireDefault(_editorLanding);
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var _articleCreate = __webpack_require__(/*! ./modules/articleCreate */ "./public/app/js/modules/articleCreate.js");
+var ajax = __webpack_require__(7);
 
-var _articleCreate2 = _interopRequireDefault(_articleCreate);
+var notifier = __webpack_require__(8);
+/**
+ * Module for pages using Editor
+ */
+
+
+var EditorWriting =
+/*#__PURE__*/
+function () {
+  function EditorWriting() {
+    _classCallCheck(this, EditorWriting);
+  }
+
+  _createClass(EditorWriting, [{
+    key: "init",
+
+    /**
+     * Initialize editor on article writing page
+     * @param {Object} settings - article form's parameters
+     * @param {String} settings.article_textarea - textarea with article contents
+     * @param {String} settings.form_url - url of form with Editor's data
+     * @param {String} settings.submit_id - id of submit button
+     */
+    value: function init(settings, form) {
+      var _this = this;
+
+      this.form = form;
+      this.article = document.getElementById(settings.article_textarea);
+      this.button = document.getElementById(settings.submit_id);
+      this.formURL = settings.form_url;
+      /**
+       * Settings for Editor class
+       * @type {{blocks: Object[]}}
+       */
+
+      var editorSettings = {
+        blocks: this.getArticleData()
+      };
+      this.loadEditor(editorSettings).then(function (editor) {
+        _this.editor = editor;
+      });
+      this.prepareSubmit();
+    }
+  }, {
+    key: "prepareSubmit",
+
+    /**
+     * Add eventListener to article submit button, submit data on click
+     */
+    value: function prepareSubmit() {
+      var _this2 = this;
+
+      this.button.addEventListener('click', function () {
+        _this2.saveArticle();
+      }, false);
+    }
+    /**
+     * Save article's data, in case of success redirect to its uri
+     */
+
+  }, {
+    key: "saveArticle",
+    value: function saveArticle() {
+      var _this3 = this;
+
+      var article = this.article;
+      /**
+       * Call Editor's save method
+       */
+
+      this.editor.save().then(function (savedData) {
+        article.value = JSON.stringify(savedData);
+        /**
+         * Send article data via ajax
+         */
+
+        Promise.resolve().then(function () {
+          _this3.button.classList.add('loading');
+        }).then(function () {
+          return ajax.post({
+            url: _this3.formURL,
+            data: _this3.form
+          });
+        })
+        /**
+         * @typedef {Object} responseData - response after attempt to send form via ajax
+         * @property {string} redirect    - article's uri in case of success
+         * @property {string} message     - article saving error in case of fail
+         * @property {number} success     - article saving status, 1 - success, 0 - fail
+         */
+
+        /**
+         * @param {responseData} response - ajax-response after form is sent
+         */
+        .then(function (response) {
+          /**
+           * If data was sent successfully get article's uri and redirect to it
+           */
+          if (response.success) {
+            window.location.href = response.redirect;
+          } else {
+            _this3.showErrorMessage(response.message);
+          }
+        }).catch(function (err) {
+          _this3.showErrorMessage(err);
+        });
+      });
+    }
+    /**
+     * If article's form submission via ajax failed show message with error text
+     * @param {String} err - form submission error message
+     */
+
+  }, {
+    key: "showErrorMessage",
+    value: function showErrorMessage(err) {
+      console.error(err);
+      notifier.show({
+        message: err,
+        style: 'error'
+      });
+      this.button.classList.remove('loading');
+    }
+    /**
+     * If we want to edit existing article, get its data
+     */
+
+  }, {
+    key: "getArticleData",
+    value: function getArticleData() {
+      /** If article exists return its data */
+      if (this.article.textContent.length) {
+        /**
+         * Article's data
+         */
+        var pageContent;
+        /**
+         * Get content that was written before and render with Codex Editor
+         */
+
+        try {
+          pageContent = JSON.parse(this.article.textContent);
+        } catch (error) {
+          console.error('Errors occurred while parsing Editor data', error);
+        }
+
+        return pageContent ? pageContent.blocks : [];
+      }
+    }
+    /**
+     * Load Editor from separate chunk
+     * @param {Object} settings - settings for Editor initialization
+     * @return {Promise<Editor>} - CodeX Editor promise
+     */
+
+  }, {
+    key: "loadEditor",
+    value: function loadEditor(settings) {
+      return __webpack_require__.e(/* import() | editor */ 0).then(__webpack_require__.t.bind(null, 1, 7)).then(function (_ref) {
+        var Editor = _ref.default;
+        return new Editor(settings);
+      });
+    }
+  }]);
+
+  return EditorWriting;
+}();
+
+exports.default = EditorWriting;
+;
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+!function(e,t){ true?module.exports=t():undefined}(window,function(){return function(e){var t={};function n(r){if(t[r])return t[r].exports;var o=t[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,n),o.l=!0,o.exports}return n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)n.d(r,o,function(t){return e[t]}.bind(null,o));return r},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=3)}([function(e,t){var n;n=function(){return this}();try{n=n||Function("return this")()||(0,eval)("this")}catch(e){"object"==typeof window&&(n=window)}e.exports=n},function(e,t,n){"use strict";(function(e){var r=n(2),o=setTimeout;function i(){}function a(e){if(!(this instanceof a))throw new TypeError("Promises must be constructed via new");if("function"!=typeof e)throw new TypeError("not a function");this._state=0,this._handled=!1,this._value=void 0,this._deferreds=[],l(e,this)}function u(e,t){for(;3===e._state;)e=e._value;0!==e._state?(e._handled=!0,a._immediateFn(function(){var n=1===e._state?t.onFulfilled:t.onRejected;if(null!==n){var r;try{r=n(e._value)}catch(e){return void s(t.promise,e)}c(t.promise,r)}else(1===e._state?c:s)(t.promise,e._value)})):e._deferreds.push(t)}function c(e,t){try{if(t===e)throw new TypeError("A promise cannot be resolved with itself.");if(t&&("object"==typeof t||"function"==typeof t)){var n=t.then;if(t instanceof a)return e._state=3,e._value=t,void f(e);if("function"==typeof n)return void l(function(e,t){return function(){e.apply(t,arguments)}}(n,t),e)}e._state=1,e._value=t,f(e)}catch(t){s(e,t)}}function s(e,t){e._state=2,e._value=t,f(e)}function f(e){2===e._state&&0===e._deferreds.length&&a._immediateFn(function(){e._handled||a._unhandledRejectionFn(e._value)});for(var t=0,n=e._deferreds.length;t<n;t++)u(e,e._deferreds[t]);e._deferreds=null}function l(e,t){var n=!1;try{e(function(e){n||(n=!0,c(t,e))},function(e){n||(n=!0,s(t,e))})}catch(e){if(n)return;n=!0,s(t,e)}}a.prototype.catch=function(e){return this.then(null,e)},a.prototype.then=function(e,t){var n=new this.constructor(i);return u(this,new function(e,t,n){this.onFulfilled="function"==typeof e?e:null,this.onRejected="function"==typeof t?t:null,this.promise=n}(e,t,n)),n},a.prototype.finally=r.a,a.all=function(e){return new a(function(t,n){if(!e||void 0===e.length)throw new TypeError("Promise.all accepts an array");var r=Array.prototype.slice.call(e);if(0===r.length)return t([]);var o=r.length;function i(e,a){try{if(a&&("object"==typeof a||"function"==typeof a)){var u=a.then;if("function"==typeof u)return void u.call(a,function(t){i(e,t)},n)}r[e]=a,0==--o&&t(r)}catch(e){n(e)}}for(var a=0;a<r.length;a++)i(a,r[a])})},a.resolve=function(e){return e&&"object"==typeof e&&e.constructor===a?e:new a(function(t){t(e)})},a.reject=function(e){return new a(function(t,n){n(e)})},a.race=function(e){return new a(function(t,n){for(var r=0,o=e.length;r<o;r++)e[r].then(t,n)})},a._immediateFn="function"==typeof e&&function(t){e(t)}||function(e){o(e,0)},a._unhandledRejectionFn=function(e){"undefined"!=typeof console&&console&&console.warn("Possible Unhandled Promise Rejection:",e)},t.a=a}).call(this,n(5).setImmediate)},function(e,t,n){"use strict";t.a=function(e){var t=this.constructor;return this.then(function(n){return t.resolve(e()).then(function(){return n})},function(n){return t.resolve(e()).then(function(){return t.reject(n)})})}},function(e,t,n){"use strict";function r(e){return(r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}n(4);var o=n(8),i=function(){var e={URLENCODED:"application/x-www-form-urlencoded; charset=utf-8",FORM:"multipart/form-data",JSON:"application/json; charset=utf-8"},t=function(e){return new Promise(function(t,n){e=a(e),e=u(e);var r=window.XMLHttpRequest?new window.XMLHttpRequest:new window.ActiveXObject("Microsoft.XMLHTTP");r.open(e.method,e.url),r.setRequestHeader("X-Requested-With","XMLHttpRequest"),Object.keys(e.headers).forEach(function(t){var n=e.headers[t];r.setRequestHeader(t,n)});var o=e.ratio;r.upload.addEventListener("progress",function(t){var n=Math.round(t.loaded/t.total*100),r=Math.ceil(n*o/100);e.progress(r)},!1),r.addEventListener("progress",function(t){var n=Math.round(t.loaded/t.total*100),r=Math.ceil(n*(100-o)/100)+o;e.progress(r)},!1),r.onreadystatechange=function(){if(4===r.readyState){var e=r.response;try{e=JSON.parse(e)}catch(e){}200===r.status?t(e):n(e)}},r.send(e.data)})},n=function(e){return e.method="POST",t(e)},a=function(t){if(!t.url||"string"!=typeof t.url)throw new Error("Url must be a non-empty string");if(t.method&&"string"!=typeof t.method)throw new Error("`method` must be a string or null");if(t.method=t.method?t.method.toUpperCase():"GET",t.headers&&"object"!==r(t.headers))throw new Error("`headers` must be an object or null");if(t.headers=t.headers||{},t.type&&("string"!=typeof t.type||!Object.values(e).includes(t.type)))throw new Error("`type` must be taken from module's «contentType» library");if(t.progress&&"function"!=typeof t.progress)throw new Error("`progress` must be a function or null");if(t.progress=t.progress||function(e){},t.beforeSend=t.beforeSend||function(e){},t.ratio&&"number"!=typeof t.ratio)throw new Error("`ratio` must be a number");if(t.ratio<0||t.ratio>100)throw new Error("`ratio` must be in a 0-100 interval");if(t.ratio=t.ratio||90,t.accept&&"string"!=typeof t.accept)throw new Error("`accept` must be a string with a list of allowed mime-types");if(t.accept=t.accept||"*/*",t.multiple&&"boolean"!=typeof t.multiple)throw new Error("`multiple` must be a true or false");if(t.multiple=t.multiple||!1,t.fieldName&&"string"!=typeof t.fieldName)throw new Error("`fieldName` must be a string");return t.fieldName=t.fieldName||"files",t},u=function(t){switch(t.method){case"GET":var n=c(t.data,e.URLENCODED);delete t.data,t.url=/\?/.test(t.url)?t.url+"&"+n:t.url+"?"+n;break;case"POST":case"PUT":case"DELETE":case"UPDATE":var r=function(){return(arguments.length>0&&void 0!==arguments[0]?arguments[0]:{}).type||e.JSON}(t);(o.isFormData(t.data)||o.isFormElement(t.data))&&(r=e.FORM),t.data=c(t.data,r),r!==i.contentType.FORM&&(t.headers["content-type"]=r)}return t},c=function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{};switch(arguments.length>1?arguments[1]:void 0){case e.URLENCODED:return o.urlEncode(t);case e.JSON:return o.jsonEncode(t);case e.FORM:return o.formEncode(t);default:return t}};return{contentType:e,request:t,get:function(e){return e.method="GET",t(e)},post:n,transport:function(e){return e=a(e),o.transport(e).then(function(t){return o.isObject(e.data)&&Object.keys(e.data).forEach(function(n){var r=e.data[n];t.append(n,r)}),e.data=t,n(e)})}}}();e.exports=i},function(e,t,n){"use strict";n.r(t);var r=n(1);window.Promise=window.Promise||r.a},function(e,t,n){(function(e){var r=void 0!==e&&e||"undefined"!=typeof self&&self||window,o=Function.prototype.apply;function i(e,t){this._id=e,this._clearFn=t}t.setTimeout=function(){return new i(o.call(setTimeout,r,arguments),clearTimeout)},t.setInterval=function(){return new i(o.call(setInterval,r,arguments),clearInterval)},t.clearTimeout=t.clearInterval=function(e){e&&e.close()},i.prototype.unref=i.prototype.ref=function(){},i.prototype.close=function(){this._clearFn.call(r,this._id)},t.enroll=function(e,t){clearTimeout(e._idleTimeoutId),e._idleTimeout=t},t.unenroll=function(e){clearTimeout(e._idleTimeoutId),e._idleTimeout=-1},t._unrefActive=t.active=function(e){clearTimeout(e._idleTimeoutId);var t=e._idleTimeout;t>=0&&(e._idleTimeoutId=setTimeout(function(){e._onTimeout&&e._onTimeout()},t))},n(6),t.setImmediate="undefined"!=typeof self&&self.setImmediate||void 0!==e&&e.setImmediate||this&&this.setImmediate,t.clearImmediate="undefined"!=typeof self&&self.clearImmediate||void 0!==e&&e.clearImmediate||this&&this.clearImmediate}).call(this,n(0))},function(e,t,n){(function(e,t){!function(e,n){"use strict";if(!e.setImmediate){var r,o=1,i={},a=!1,u=e.document,c=Object.getPrototypeOf&&Object.getPrototypeOf(e);c=c&&c.setTimeout?c:e,"[object process]"==={}.toString.call(e.process)?r=function(e){t.nextTick(function(){f(e)})}:function(){if(e.postMessage&&!e.importScripts){var t=!0,n=e.onmessage;return e.onmessage=function(){t=!1},e.postMessage("","*"),e.onmessage=n,t}}()?function(){var t="setImmediate$"+Math.random()+"$",n=function(n){n.source===e&&"string"==typeof n.data&&0===n.data.indexOf(t)&&f(+n.data.slice(t.length))};e.addEventListener?e.addEventListener("message",n,!1):e.attachEvent("onmessage",n),r=function(n){e.postMessage(t+n,"*")}}():e.MessageChannel?function(){var e=new MessageChannel;e.port1.onmessage=function(e){f(e.data)},r=function(t){e.port2.postMessage(t)}}():u&&"onreadystatechange"in u.createElement("script")?function(){var e=u.documentElement;r=function(t){var n=u.createElement("script");n.onreadystatechange=function(){f(t),n.onreadystatechange=null,e.removeChild(n),n=null},e.appendChild(n)}}():r=function(e){setTimeout(f,0,e)},c.setImmediate=function(e){"function"!=typeof e&&(e=new Function(""+e));for(var t=new Array(arguments.length-1),n=0;n<t.length;n++)t[n]=arguments[n+1];var a={callback:e,args:t};return i[o]=a,r(o),o++},c.clearImmediate=s}function s(e){delete i[e]}function f(e){if(a)setTimeout(f,0,e);else{var t=i[e];if(t){a=!0;try{!function(e){var t=e.callback,r=e.args;switch(r.length){case 0:t();break;case 1:t(r[0]);break;case 2:t(r[0],r[1]);break;case 3:t(r[0],r[1],r[2]);break;default:t.apply(n,r)}}(t)}finally{s(e),a=!1}}}}}("undefined"==typeof self?void 0===e?this:e:self)}).call(this,n(0),n(7))},function(e,t){var n,r,o=e.exports={};function i(){throw new Error("setTimeout has not been defined")}function a(){throw new Error("clearTimeout has not been defined")}function u(e){if(n===setTimeout)return setTimeout(e,0);if((n===i||!n)&&setTimeout)return n=setTimeout,setTimeout(e,0);try{return n(e,0)}catch(t){try{return n.call(null,e,0)}catch(t){return n.call(this,e,0)}}}!function(){try{n="function"==typeof setTimeout?setTimeout:i}catch(e){n=i}try{r="function"==typeof clearTimeout?clearTimeout:a}catch(e){r=a}}();var c,s=[],f=!1,l=-1;function d(){f&&c&&(f=!1,c.length?s=c.concat(s):l=-1,s.length&&p())}function p(){if(!f){var e=u(d);f=!0;for(var t=s.length;t;){for(c=s,s=[];++l<t;)c&&c[l].run();l=-1,t=s.length}c=null,f=!1,function(e){if(r===clearTimeout)return clearTimeout(e);if((r===a||!r)&&clearTimeout)return r=clearTimeout,clearTimeout(e);try{r(e)}catch(t){try{return r.call(null,e)}catch(t){return r.call(this,e)}}}(e)}}function m(e,t){this.fun=e,this.array=t}function h(){}o.nextTick=function(e){var t=new Array(arguments.length-1);if(arguments.length>1)for(var n=1;n<arguments.length;n++)t[n-1]=arguments[n];s.push(new m(e,t)),1!==s.length||f||u(p)},m.prototype.run=function(){this.fun.apply(null,this.array)},o.title="browser",o.browser=!0,o.env={},o.argv=[],o.version="",o.versions={},o.on=h,o.addListener=h,o.once=h,o.off=h,o.removeListener=h,o.removeAllListeners=h,o.emit=h,o.prependListener=h,o.prependOnceListener=h,o.listeners=function(e){return[]},o.binding=function(e){throw new Error("process.binding is not supported")},o.cwd=function(){return"/"},o.chdir=function(e){throw new Error("process.chdir is not supported")},o.umask=function(){return 0}},function(e,t,n){function r(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}var o=n(9);e.exports=function(){function e(){!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,e)}return function(e,t,n){t&&r(e.prototype,t),n&&r(e,n)}(e,null,[{key:"urlEncode",value:function(e){return o(e)}},{key:"jsonEncode",value:function(e){return JSON.stringify(e)}},{key:"formEncode",value:function(e){if(this.isFormData(e))return e;if(this.isFormElement(e))return new FormData(e);if(this.isObject(e)){var t=new FormData;return Object.keys(e).forEach(function(n){var r=e[n];t.append(n,r)}),t}throw new Error("`data` must be an instance of Object, FormData or <FORM> HTMLElement")}},{key:"isObject",value:function(e){return"[object Object]"===Object.prototype.toString.call(e)}},{key:"isFormData",value:function(e){return e instanceof FormData}},{key:"isFormElement",value:function(e){return e instanceof HTMLFormElement}},{key:"transport",value:function(e){return new Promise(function(t,n){var r=document.createElement("INPUT");r.type="file",e.multiple&&r.setAttribute("multiple","multiple"),e.accept&&r.setAttribute("accept",e.accept),r.addEventListener("change",function(n){for(var r=n.target.files,o=new FormData,i=0;i<r.length;i++)o.append(e.fieldName,r[i],r[i].name);e.beforeSend(r),t(o)},!1),r.click()})}}]),e}()},function(e,t){var n=function(e){return encodeURIComponent(e).replace(/[!'()*]/g,escape).replace(/%20/g,"+")},r=function(e,t,o,i){return t=t||null,o=o||"&",i=i||null,e?function(e){for(var t=new Array,n=0;n<e.length;n++)e[n]&&t.push(e[n]);return t}(Object.keys(e).map(function(a){var u,c=a;if(i&&(c=i+"["+c+"]"),"object"==typeof e[a]&&null!==e[a])u=r(e[a],null,o,c);else{t&&(c=function(e){return!isNaN(parseFloat(e))&&isFinite(e)}(c)?t+Number(c):c);var s=e[a];s=(s=0===(s=!1===(s=!0===s?"1":s)?"0":s)?"0":s)||"",u=n(c)+"="+n(s)}return u})).join(o).replace(/[!'()*]/g,""):""};e.exports=r}])});
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+!function(t,e){ true?module.exports=e():undefined}(window,function(){return function(t){var e={};function n(o){if(e[o])return e[o].exports;var r=e[o]={i:o,l:!1,exports:{}};return t[o].call(r.exports,r,r.exports,n),r.l=!0,r.exports}return n.m=t,n.c=e,n.d=function(t,e,o){n.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:o})},n.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},n.t=function(t,e){if(1&e&&(t=n(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var o=Object.create(null);if(n.r(o),Object.defineProperty(o,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var r in t)n.d(o,r,function(e){return t[e]}.bind(null,r));return o},n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,"a",e),e},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},n.p="/",n(n.s=0)}([function(t,e,n){"use strict";n(1),
+/*!
+ * Codex JavaScript Notification module
+ * https://github.com/codex-team/js-notifier
+ */
+t.exports=function(){var t=n(6),e="cdx-notify--bounce-in",o=null;return{show:function(n){if(n.message){!function(){if(o)return!0;o=t.getWrapper(),document.body.appendChild(o)}();var r=null,i=n.time||8e3;switch(n.type){case"confirm":r=t.confirm(n);break;case"prompt":r=t.prompt(n);break;default:r=t.alert(n),window.setTimeout(function(){r.remove()},i)}o.appendChild(r),r.classList.add(e)}}}}()},function(t,e,n){var o=n(2);"string"==typeof o&&(o=[[t.i,o,""]]);var r={hmr:!0,transform:void 0,insertInto:void 0};n(4)(o,r);o.locals&&(t.exports=o.locals)},function(t,e,n){(t.exports=n(3)(!1)).push([t.i,'.cdx-notify--error{background:#fffbfb!important}.cdx-notify--error::before{background:#fb5d5d!important}.cdx-notify__input{max-width:130px;padding:5px 10px;background:#f7f7f7;border:0;border-radius:3px;font-size:13px;color:#656b7c;outline:0}.cdx-notify__input:-ms-input-placeholder{color:#656b7c}.cdx-notify__input::placeholder{color:#656b7c}.cdx-notify__input:focus:-ms-input-placeholder{color:rgba(101,107,124,.3)}.cdx-notify__input:focus::placeholder{color:rgba(101,107,124,.3)}.cdx-notify__button{border:none;border-radius:3px;font-size:13px;padding:5px 10px;cursor:pointer}.cdx-notify__button:last-child{margin-left:10px}.cdx-notify__button--cancel{background:#f2f5f7;box-shadow:0 2px 1px 0 rgba(16,19,29,0);color:#656b7c}.cdx-notify__button--cancel:hover{background:#eee}.cdx-notify__button--confirm{background:#34c992;box-shadow:0 1px 1px 0 rgba(18,49,35,.05);color:#fff}.cdx-notify__button--confirm:hover{background:#33b082}.cdx-notify__btns-wrapper{display:-ms-flexbox;display:flex;-ms-flex-flow:row nowrap;flex-flow:row nowrap;margin-top:5px}.cdx-notify__cross{position:absolute;top:5px;right:5px;width:10px;height:10px;padding:5px;opacity:.54;cursor:pointer}.cdx-notify__cross::after,.cdx-notify__cross::before{content:\'\';position:absolute;left:9px;top:5px;height:12px;width:2px;background:#575d67}.cdx-notify__cross::before{transform:rotate(-45deg)}.cdx-notify__cross::after{transform:rotate(45deg)}.cdx-notify__cross:hover{opacity:1}.cdx-notifies{position:fixed;z-index:2;bottom:20px;left:20px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",sans-serif}.cdx-notify{position:relative;width:220px;margin-top:15px;padding:13px 16px;background:#fff;box-shadow:0 11px 17px 0 rgba(23,32,61,.13);border-radius:5px;font-size:14px;line-height:1.4em;word-wrap:break-word}.cdx-notify::before{content:\'\';position:absolute;display:block;top:0;left:0;width:3px;height:calc(100% - 6px);margin:3px;border-radius:5px;background:0 0}@keyframes bounceIn{0%{opacity:0;transform:scale(.3)}50%{opacity:1;transform:scale(1.05)}70%{transform:scale(.9)}100%{transform:scale(1)}}.cdx-notify--bounce-in{animation-name:bounceIn;animation-duration:.6s;animation-iteration-count:1}.cdx-notify--success{background:#fafffe!important}.cdx-notify--success::before{background:#41ffb1!important}',""])},function(t,e){t.exports=function(t){var e=[];return e.toString=function(){return this.map(function(e){var n=function(t,e){var n=t[1]||"",o=t[3];if(!o)return n;if(e&&"function"==typeof btoa){var r=(a=o,"/*# sourceMappingURL=data:application/json;charset=utf-8;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(a))))+" */"),i=o.sources.map(function(t){return"/*# sourceURL="+o.sourceRoot+t+" */"});return[n].concat(i).concat([r]).join("\n")}var a;return[n].join("\n")}(e,t);return e[2]?"@media "+e[2]+"{"+n+"}":n}).join("")},e.i=function(t,n){"string"==typeof t&&(t=[[null,t,""]]);for(var o={},r=0;r<this.length;r++){var i=this[r][0];"number"==typeof i&&(o[i]=!0)}for(r=0;r<t.length;r++){var a=t[r];"number"==typeof a[0]&&o[a[0]]||(n&&!a[2]?a[2]=n:n&&(a[2]="("+a[2]+") and ("+n+")"),e.push(a))}},e}},function(t,e,n){var o,r,i={},a=(o=function(){return window&&document&&document.all&&!window.atob},function(){return void 0===r&&(r=o.apply(this,arguments)),r}),c=function(t){var e={};return function(t){if("function"==typeof t)return t();if(void 0===e[t]){var n=function(t){return document.querySelector(t)}.call(this,t);if(window.HTMLIFrameElement&&n instanceof window.HTMLIFrameElement)try{n=n.contentDocument.head}catch(t){n=null}e[t]=n}return e[t]}}(),s=null,f=0,d=[],u=n(5);function l(t,e){for(var n=0;n<t.length;n++){var o=t[n],r=i[o.id];if(r){r.refs++;for(var a=0;a<r.parts.length;a++)r.parts[a](o.parts[a]);for(;a<o.parts.length;a++)r.parts.push(h(o.parts[a],e))}else{var c=[];for(a=0;a<o.parts.length;a++)c.push(h(o.parts[a],e));i[o.id]={id:o.id,refs:1,parts:c}}}}function p(t,e){for(var n=[],o={},r=0;r<t.length;r++){var i=t[r],a=e.base?i[0]+e.base:i[0],c={css:i[1],media:i[2],sourceMap:i[3]};o[a]?o[a].parts.push(c):n.push(o[a]={id:a,parts:[c]})}return n}function b(t,e){var n=c(t.insertInto);if(!n)throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");var o=d[d.length-1];if("top"===t.insertAt)o?o.nextSibling?n.insertBefore(e,o.nextSibling):n.appendChild(e):n.insertBefore(e,n.firstChild),d.push(e);else if("bottom"===t.insertAt)n.appendChild(e);else{if("object"!=typeof t.insertAt||!t.insertAt.before)throw new Error("[Style Loader]\n\n Invalid value for parameter 'insertAt' ('options.insertAt') found.\n Must be 'top', 'bottom', or Object.\n (https://github.com/webpack-contrib/style-loader#insertat)\n");var r=c(t.insertInto+" "+t.insertAt.before);n.insertBefore(e,r)}}function m(t){if(null===t.parentNode)return!1;t.parentNode.removeChild(t);var e=d.indexOf(t);e>=0&&d.splice(e,1)}function x(t){var e=document.createElement("style");return void 0===t.attrs.type&&(t.attrs.type="text/css"),y(e,t.attrs),b(t,e),e}function y(t,e){Object.keys(e).forEach(function(n){t.setAttribute(n,e[n])})}function h(t,e){var n,o,r,i;if(e.transform&&t.css){if(!(i=e.transform(t.css)))return function(){};t.css=i}if(e.singleton){var a=f++;n=s||(s=x(e)),o=_.bind(null,n,a,!1),r=_.bind(null,n,a,!0)}else t.sourceMap&&"function"==typeof URL&&"function"==typeof URL.createObjectURL&&"function"==typeof URL.revokeObjectURL&&"function"==typeof Blob&&"function"==typeof btoa?(n=function(t){var e=document.createElement("link");return void 0===t.attrs.type&&(t.attrs.type="text/css"),t.attrs.rel="stylesheet",y(e,t.attrs),b(t,e),e}(e),o=function(t,e,n){var o=n.css,r=n.sourceMap,i=void 0===e.convertToAbsoluteUrls&&r;(e.convertToAbsoluteUrls||i)&&(o=u(o));r&&(o+="\n/*# sourceMappingURL=data:application/json;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(r))))+" */");var a=new Blob([o],{type:"text/css"}),c=t.href;t.href=URL.createObjectURL(a),c&&URL.revokeObjectURL(c)}.bind(null,n,e),r=function(){m(n),n.href&&URL.revokeObjectURL(n.href)}):(n=x(e),o=function(t,e){var n=e.css,o=e.media;o&&t.setAttribute("media",o);if(t.styleSheet)t.styleSheet.cssText=n;else{for(;t.firstChild;)t.removeChild(t.firstChild);t.appendChild(document.createTextNode(n))}}.bind(null,n),r=function(){m(n)});return o(t),function(e){if(e){if(e.css===t.css&&e.media===t.media&&e.sourceMap===t.sourceMap)return;o(t=e)}else r()}}t.exports=function(t,e){if("undefined"!=typeof DEBUG&&DEBUG&&"object"!=typeof document)throw new Error("The style-loader cannot be used in a non-browser environment");(e=e||{}).attrs="object"==typeof e.attrs?e.attrs:{},e.singleton||"boolean"==typeof e.singleton||(e.singleton=a()),e.insertInto||(e.insertInto="head"),e.insertAt||(e.insertAt="bottom");var n=p(t,e);return l(n,e),function(t){for(var o=[],r=0;r<n.length;r++){var a=n[r];(c=i[a.id]).refs--,o.push(c)}t&&l(p(t,e),e);for(r=0;r<o.length;r++){var c;if(0===(c=o[r]).refs){for(var s=0;s<c.parts.length;s++)c.parts[s]();delete i[c.id]}}}};var v,g=(v=[],function(t,e){return v[t]=e,v.filter(Boolean).join("\n")});function _(t,e,n,o){var r=n?"":o.css;if(t.styleSheet)t.styleSheet.cssText=g(e,r);else{var i=document.createTextNode(r),a=t.childNodes;a[e]&&t.removeChild(a[e]),a.length?t.insertBefore(i,a[e]):t.appendChild(i)}}},function(t,e){t.exports=function(t){var e="undefined"!=typeof window&&window.location;if(!e)throw new Error("fixUrls requires window.location");if(!t||"string"!=typeof t)return t;var n=e.protocol+"//"+e.host,o=n+e.pathname.replace(/\/[^\/]*$/,"/");return t.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi,function(t,e){var r,i=e.trim().replace(/^"(.*)"$/,function(t,e){return e}).replace(/^'(.*)'$/,function(t,e){return e});return/^(#|data:|http:\/\/|https:\/\/|file:\/\/\/|\s*$)/i.test(i)?t:(r=0===i.indexOf("//")?i:0===i.indexOf("/")?n+i:o+i.replace(/^\.\//,""),"url("+JSON.stringify(r)+")")})}},function(t,e,n){"use strict";var o,r,i,a,c,s,f,d,u;t.exports=(o="cdx-notifies",r="cdx-notify",i="cdx-notify__cross",a="cdx-notify__button--confirm",c="cdx-notify__button--cancel",s="cdx-notify__input",f="cdx-notify__button",d="cdx-notify__btns-wrapper",{alert:u=function(t){var e=document.createElement("DIV"),n=document.createElement("DIV"),o=t.message,a=t.style;return e.classList.add(r),a&&e.classList.add(r+"--"+a),e.innerHTML=o,n.classList.add(i),n.addEventListener("click",e.remove.bind(e)),e.appendChild(n),e},confirm:function(t){var e=u(t),n=document.createElement("div"),o=document.createElement("button"),r=document.createElement("button"),s=e.querySelector("."+i),l=t.cancelHandler,p=t.okHandler;return n.classList.add(d),o.innerHTML=t.okText||"Confirm",r.innerHTML=t.cancelText||"Cancel",o.classList.add(f),r.classList.add(f),o.classList.add(a),r.classList.add(c),l&&"function"==typeof l&&(r.addEventListener("click",l),s.addEventListener("click",l)),p&&"function"==typeof p&&o.addEventListener("click",p),o.addEventListener("click",e.remove.bind(e)),r.addEventListener("click",e.remove.bind(e)),n.appendChild(o),n.appendChild(r),e.appendChild(n),e},prompt:function(t){var e=u(t),n=document.createElement("div"),o=document.createElement("button"),r=document.createElement("input"),c=e.querySelector("."+i),l=t.cancelHandler,p=t.okHandler;return n.classList.add(d),o.innerHTML=t.okText||"Ok",o.classList.add(f),o.classList.add(a),r.classList.add(s),t.placeholder&&r.setAttribute("placeholder",t.placeholder),t.default&&(r.value=t.default),t.inputType&&(r.type=t.inputType),l&&"function"==typeof l&&c.addEventListener("click",l),p&&"function"==typeof p&&o.addEventListener("click",function(){p(r.value)}),o.addEventListener("click",e.remove.bind(e)),n.appendChild(r),n.appendChild(o),e.appendChild(n),e},getWrapper:function(){var t=document.createElement("DIV");return t.classList.add(o),t}})}])});
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _dom = __webpack_require__(0);
+
+var _dom2 = _interopRequireDefault(_dom);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
 /**
- * Import Dispatcher for Frontend Modules initialization
+ * @class  Player
+ * @classdesc Simple player on the overlay container
+ *
+ * @typedef {Player}
+ * @property {String} sourceURL - video URL
+ * @property {Element} toggler  - Play Button
+ * @property {Element} wrapper  - In wich Element player should be added
+ * @property {Element} overlay  - Player main container
+ * @property {Object} CSS       - CSS dictionary
+ *
  */
-__webpack_require__(/*! ../css/main.css */ "./public/app/css/main.css");
-/**
- * CodeX community id at vk.com.
- * used by vkWidget module
- */
-
-
-var VK_COMMUNITY_ID = 103229636;
-
-var codex = function (codex_) {
-  'use strict';
-
-  codex_.settings = {};
+var Player =
+/*#__PURE__*/
+function () {
   /**
-  * Preparation method
-  */
-
-  codex_.init = function (settings) {
-    /** Save settings or use defaults */
-    for (var set in settings) {
-      this.settings[set] = settings[set] || this.settings[set] || null;
-    }
-
-    codex.docReady(function () {
-      initModules();
-    });
-  };
-
-  return codex_;
-}({});
-/**
- * Function responsible for modules initialization
- * Called no earlier than document is ready
- */
-
-
-function initModules() {
-  new _moduleDispatcher2.default({
-    Library: codex
-  });
-  codex.scrollUp.init();
-  /**
-   * Find elements with "deeplinker" class and add click listener
-   *
-   * @param {string} selector
+   * @constructor
+   * @param  {String} options.sourceURL        - video URL
+   * @param  {Element} options.toggler         - play button
+   * @param  {String} options.wrapperSelector  - xpath selector for the player holder
    */
+  function Player(_ref) {
+    var _this = this;
 
-  codex.deeplinker.init('.deeplinker');
-  codex.codeStyling.init('.article-code__content');
-  codex.vkWidget.init({
-    id: 'vk_groups',
-    display: {
-      'mode': 3,
-      'width': 'auto'
-    },
-    communityId: VK_COMMUNITY_ID
-  });
-  /**
-   * Acitve play-video buttons
-   */
+    var sourceURL = _ref.sourceURL,
+        toggler = _ref.toggler,
+        wrapperSelector = _ref.wrapperSelector;
 
-  var playVideoButton = document.querySelector('[name="js-show-player"]');
+    _classCallCheck(this, Player);
 
-  if (playVideoButton) {
-    var Player = __webpack_require__(/*! ./modules/player */ "./public/app/js/modules/player.js").default;
+    this.sourceURL = sourceURL;
+    this.toggler = toggler;
+    this.wrapper = document.querySelector(wrapperSelector);
+    this.overlay = null;
+    this.CSS = {
+      overlay: 'video-overlay',
+      overlayShowed: 'video-overlay--showed',
+      overlayLoaded: 'video-overlay--loaded',
+      closeButton: 'video-overlay__close'
+    };
+    /**
+     * Add Play Button click listener
+     */
 
-    new Player({
-      sourceURL: 'public/app/img/products/ar-tester.mp4',
-      toggler: playVideoButton,
-      wrapperSelector: '.product-card--ar-tester'
-    });
+    this.toggler.addEventListener('click', function () {
+      _this.showVideoOverlay();
+    }, false);
   }
-}
-/**
-* Document ready event listener
-* @usage codex.docReady(function(){ # code ... } );
-*/
+  /**
+   * Creates player container and append it to the parent element
+   */
 
 
-codex.docReady = function (f) {
-  return /in/.test(document.readyState) ? window.setTimeout(codex.docReady, 9, f) : f();
-};
-/**
-* Pages
-*/
+  _createClass(Player, [{
+    key: "showVideoOverlay",
+    value: function showVideoOverlay() {
+      var _this2 = this;
+
+      this.overlay = _dom2.default.make('div', this.CSS.overlay);
+
+      var video = _dom2.default.make('video', null, {
+        autoplay: true,
+        loop: true
+      }),
+          source = _dom2.default.make('source', null, {
+        src: this.sourceURL,
+        type: 'video/mp4'
+      }),
+          closeButton = _dom2.default.make('div', this.CSS.closeButton);
+      /**
+       * Append <video>
+       */
 
 
-codex.admin = __webpack_require__(/*! ./modules/admin */ "./public/app/js/modules/admin.js");
-codex.join = __webpack_require__(/*! ./modules/join */ "./public/app/js/modules/join.js");
-/**
- * Modules
- */
+      video.appendChild(source);
+      this.overlay.appendChild(video);
+      /**
+       * Bind loading callback
+       */
 
-codex.core = __webpack_require__(/*! ./modules/core */ "./public/app/js/modules/core.js");
-codex.dragndrop = __webpack_require__(/*! ./modules/dragndrop */ "./public/app/js/modules/dragndrop.js");
-codex.scrollUp = __webpack_require__(/*! ./modules/scrollUp */ "./public/app/js/modules/scrollUp.js");
-codex.sharer = __webpack_require__(/*! ./modules/sharer */ "./public/app/js/modules/sharer.js");
-codex.developer = __webpack_require__(/*! ./modules/bestDevelopers */ "./public/app/js/modules/bestDevelopers.js"); // codex.simpleCode = require('./modules/simpleCodeStyling');
+      video.addEventListener('loadeddata', function () {
+        _this2.videoLoaded();
+      });
+      /**
+       * Activate close button
+       */
 
-codex.showMoreNews = __webpack_require__(/*! ./modules/showMoreNews */ "./public/app/js/modules/showMoreNews.js");
-codex.polyfills = __webpack_require__(/*! ./modules/polyfills */ "./public/app/js/modules/polyfills.js");
-codex.ajax = __webpack_require__(/*! ./modules/ajax */ "./public/app/js/modules/ajax.js");
-codex.profile = __webpack_require__(/*! ./modules/profile */ "./public/app/js/modules/profile.js");
-codex.helpers = __webpack_require__(/*! ./modules/helpers */ "./public/app/js/modules/helpers.js");
-codex.quiz = __webpack_require__(/*! ./modules/quiz */ "./public/app/js/modules/quiz.js");
-codex.quizForm = __webpack_require__(/*! ./modules/quizForm */ "./public/app/js/modules/quizForm.js");
-codex.transport = __webpack_require__(/*! ./modules/transport */ "./public/app/js/modules/transport.js");
-codex.vkWidget = __webpack_require__(/*! ./modules/vkWidget */ "./public/app/js/modules/vkWidget.js");
-codex.codeStyling = __webpack_require__(/*! ./modules/codeStyling */ "./public/app/js/modules/codeStyling.js");
-codex.deeplinker = __webpack_require__(/*! @codexteam/deeplinker */ "./node_modules/@codexteam/deeplinker/dist/deeplinker.js");
-codex.pluginsFilter = __webpack_require__(/*! ./modules/pluginsFilter */ "./public/app/js/modules/pluginsFilter.js");
-codex.editorLanding = new _editorLanding2.default();
-codex.articleCreate = new _articleCreate2.default();
-module.exports = codex;
+      this.overlay.appendChild(closeButton);
+      closeButton.addEventListener('click', function () {
+        _this2.close();
+      });
+      /**
+       * Add overlay to the wrapper
+       */
+
+      this.wrapper.appendChild(this.overlay);
+      window.setTimeout(function () {
+        _this2.overlay.classList.add(_this2.CSS.overlayShowed);
+      }, 50);
+    }
+    /**
+     * Video loaded callback
+     * Shows player
+     */
+
+  }, {
+    key: "videoLoaded",
+    value: function videoLoaded() {
+      this.wrapper.classList.add(this.CSS.overlayLoaded);
+    }
+    /**
+     * Removes overlay with video
+     */
+
+  }, {
+    key: "close",
+    value: function close() {
+      this.overlay.remove();
+      this.overlay = null;
+    }
+  }]);
+
+  return Player;
+}();
+
+exports.default = Player;
 
 /***/ }),
-
-/***/ "./public/app/js/modules/admin.js":
-/*!****************************************!*\
-  !*** ./public/app/js/modules/admin.js ***!
-  \****************************************/
-/*! no static exports found */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -599,12 +1172,646 @@ module.exports = function (admin) {
 }({});
 
 /***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
 
-/***/ "./public/app/js/modules/ajax.js":
-/*!***************************************!*\
-  !*** ./public/app/js/modules/ajax.js ***!
-  \***************************************/
-/*! no static exports found */
+"use strict";
+
+
+/**
+ * Module for /join page
+ * Blocks writing without authorization
+ *
+ * Toggles into view blankAdditionalFields: Name and Surname, Email
+ */
+var join = function () {
+  var animationClass = 'wobble';
+  /**
+  * Module initialization
+  */
+
+  var init = function init() {
+    var joinBlank = document.getElementById('joinBlank');
+
+    if (typeof joinBlank != 'undefined' && joinBlank !== null) {
+      var joinBlankTextareas = joinBlank.getElementsByTagName('textarea');
+
+      if (joinBlankTextareas.length) {
+        for (var i = joinBlankTextareas.length - 1; i >= 0; i--) {
+          joinBlankTextareas[i].addEventListener('keyup', checkUserCanEdit, false);
+        }
+      }
+    }
+
+    var blankShowAdditionalFieldsButton = document.getElementById('blankShowAdditionalFieldsButton');
+
+    if (typeof blankShowAdditionalFieldsButton != 'undefined' && blankShowAdditionalFieldsButton !== null) {
+      blankShowAdditionalFieldsButton.addEventListener('click', showAdditionalFields, false);
+    }
+  };
+  /**
+   * Adds wobble-effect to Auth block if user starts typing into textarea unauthorized
+   * @param {Event} event
+   */
+
+
+  var checkUserCanEdit = function checkUserCanEdit(event) {
+    var textarea = event.target,
+        blankAuthBlock = document.getElementById('js-join-auth'),
+        emailInput = document.getElementById('js-email');
+
+    if (blankAuthBlock && !emailInput.value.length) {
+      blankAuthBlock.classList.add(animationClass);
+      window.setTimeout(function () {
+        return blankAuthBlock.classList.remove(animationClass);
+      }, 450);
+      textarea.value = '';
+    }
+  };
+  /**
+   * Toggles into view blankAdditionalFields: Name and Surname, Email
+   * @param {Event} event
+   */
+
+
+  var showAdditionalFields = function showAdditionalFields() {
+    var blankAdditionalFields = document.getElementById('blankAdditionalFields');
+    blankAdditionalFields.classList.toggle('hide');
+  };
+
+  return {
+    init: init
+  };
+}({});
+
+module.exports = join;
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+* Significant core methods
+*/
+module.exports = function () {
+  /** Logging method */
+  var log = function log(str, prefix, type, arg) {
+    var staticLength = 32;
+
+    if (prefix) {
+      prefix = prefix.length < staticLength ? prefix : prefix.substr(0, staticLength - 2);
+
+      while (prefix.length < staticLength - 1) {
+        prefix += ' ';
+      }
+
+      prefix += ':';
+      str = prefix + str;
+    }
+
+    type = type || 'log';
+
+    try {
+      if ('console' in window && window.console[type]) {
+        if (arg) console[type](str, arg);else console[type](str);
+      }
+    } catch (e) {}
+  };
+  /**
+  * Native ajax method.
+  * @param {Object} data
+  */
+
+
+  var ajax = function ajax(data) {
+    if (!data || !data.url) {
+      return;
+    }
+
+    var XMLHTTP = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP'),
+        successFunction = function successFunction() {};
+
+    data.async = true;
+    data.type = data.type || 'GET';
+    data.data = data.data || '';
+    data['content-type'] = data['content-type'] || 'application/json; charset=utf-8';
+    successFunction = data.success || successFunction;
+
+    if (data.type == 'GET' && data.data) {
+      data.url = /\?/.test(data.url) ? data.url + '&' + data.data : data.url + '?' + data.data;
+    }
+
+    if (data.withCredentials) {
+      XMLHTTP.withCredentials = true;
+    }
+
+    if (data.beforeSend && typeof data.beforeSend == 'function') {
+      data.beforeSend.call();
+    }
+
+    XMLHTTP.open(data.type, data.url, data.async);
+    XMLHTTP.setRequestHeader('Content-type', data['content-type']);
+    XMLHTTP.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+    XMLHTTP.onreadystatechange = function () {
+      if (XMLHTTP.readyState == 4 && XMLHTTP.status == 200) {
+        successFunction(XMLHTTP.responseText);
+      }
+    };
+
+    XMLHTTP.send(data.data);
+  };
+
+  return {
+    ajax: ajax,
+    log: log
+  };
+}();
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function (settings) {
+  var defaultHandlers = {
+    findDraggable: function findDraggable(e) {
+      return e.target.closest('.' + draggableClass);
+    },
+    findDroppable: function findDroppable(e) {
+      return document.elementFromPoint(e.clientX, e.clientY).closest('.' + droppableClass);
+    },
+
+    /**
+     * The simplest makeAvatar method.
+     *
+     * Just set elem to avatar.elem. And remembers element position in document.
+     * If drop isn`t success, returns elem to start position.
+     */
+    makeAvatar: function makeAvatar(elem) {
+      var avatar = {};
+
+      var avatarRollback = function avatarRollback() {
+        avatar.elem.classList.remove('dnd-default-avatar');
+        if (avatar.nextSibling) avatar.parentNode.insertBefore(avatar.elem, avatar.nextSibling);else avatar.parentNode.appendChild(avatar.elem);
+        delete dragObj.avatar;
+      };
+
+      avatar = {
+        elem: elem,
+        parentNode: elem.parentNode,
+        nextSibling: elem.nextElementSibling,
+        rollback: avatarRollback
+      }; // Set avatar position: absolute; for drag'n'drop
+
+      avatar.elem.classList.add('dnd-default-avatar');
+      return avatar;
+    },
+
+    /**
+     * Highlights droppable elements under cursor with border
+     */
+    targetChanged: function targetChanged(target, newTarget) {
+      if (target) target.classList('dnd-default-target-highlight');
+      if (newTarget) newTarget.classList.add('dnd-default-target-highlight');
+    },
+    move: function move(e, avatar, shift) {
+      avatar.elem.style.left = e.pageX - shift.x + 'px';
+      avatar.elem.style.top = e.pageY - shift.y + 'px';
+    },
+
+    /**
+     * Inserts elem into document if drop is success
+     */
+    targetReached: function targetReached(target, avatar, elem) {
+      target.classList.remove('dnd-default-target-highlight');
+      target.parentNode.insertBefore(elem, target.nextElementSibling);
+      avatar.elem.classList.remove('dnd-default-avatar');
+    }
+  };
+  var draggableClass = settings.draggableClass || 'draggable',
+      droppableClass = settings.droppableClass || 'droppable',
+      findDraggable = settings.findDraggable || defaultHandlers.findDraggable,
+      findDroppable = settings.findDroppable || defaultHandlers.findDroppable,
+      makeAvatar = settings.makeAvatar || defaultHandlers.makeAvatar,
+      targetChanged = settings.targetChanged || defaultHandlers.targetChanged,
+      move = settings.move || defaultHandlers.move,
+      targetReached = settings.targetReached || defaultHandlers.targetReached;
+  var dragObj = {};
+
+  var onMouseDown = function onMouseDown(e) {
+    /**
+     * Check mouse (which=1 - right mouse button) or touch (which=0 - touch) event.
+     */
+    if (e.which > 1) return;
+    e = touchSupported(e);
+    dragObj.clickedAt = {
+      x: e.pageX,
+      y: e.pageY
+    };
+    dragObj.elem = findDraggable(e);
+    if (!dragObj.elem) return;
+    toggleSelection();
+    var coords = getCoords(dragObj.elem);
+    dragObj.shift = {
+      x: e.pageX - coords.x,
+      y: e.pageY - coords.y
+    };
+  };
+
+  var onMouseMove = function onMouseMove(e) {
+    if (!dragObj.elem) return; // Prevent touchmove scroll
+
+    e.preventDefault();
+    e = touchSupported(e); // Check mouse offset. If x or y offset <5, assume that it`s accidental move
+
+    if (Math.abs(e.pageX - dragObj.clickedAt.x) < 5 && Math.abs(e.pageY - dragObj.clickedAt.y) < 5) return;
+
+    if (!dragObj.avatar) {
+      dragObj.avatar = makeAvatar(dragObj.elem);
+    }
+
+    var newTarget = findDroppable(e);
+
+    if (newTarget != dragObj.target) {
+      targetChanged(dragObj.target, newTarget, dragObj.avatar);
+      dragObj.target = newTarget;
+    }
+
+    move(e, dragObj.avatar, dragObj.shift);
+  };
+
+  var onMouseUp = function onMouseUp(e) {
+    if (e.which > 1) return;
+
+    if (!dragObj.avatar) {
+      dragObj = {};
+      return;
+    }
+
+    e = touchSupported(e);
+    var target = findDroppable(e);
+    if (target) targetReached(target, dragObj.avatar, dragObj.elem, e);else dragObj.avatar.rollback();
+    dragObj = {};
+    toggleSelection();
+  };
+
+  var getCoords = function getCoords(elem) {
+    var rect = elem.getBoundingClientRect();
+    return {
+      x: rect.left + window.pageXOffset,
+      y: rect.top + window.pageYOffset
+    };
+  };
+
+  var touchSupported = function touchSupported(e) {
+    if (e.changedTouches) var touch = e.changedTouches[0];else return e;
+    e.pageX = touch.pageX;
+    e.pageY = touch.pageY;
+    e.clientX = touch.clientX;
+    e.clientY = touch.clientY;
+    e.screenX = touch.screenX;
+    e.screenY = touch.screenY;
+    e.target = touch.target;
+    return e;
+  };
+
+  var toggleSelection = function toggleSelection() {
+    document.body.classList.toggle('no-selection');
+  };
+
+  document.addEventListener('mousedown', onMouseDown);
+  document.addEventListener('touchstart', onMouseDown);
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('touchmove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+  document.addEventListener('touchend', onMouseUp);
+
+  document.ondragstart = function () {
+    return false;
+  };
+};
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+* Module for scroll-up button
+*/
+module.exports = function () {
+  /**
+  * Page scroll offset to show scroll-up button
+  */
+  var SCROLL_UP_OFFSET = 100,
+      button = null;
+
+  var scrollPage = function scrollPage() {
+    window.scrollTo(0, 0);
+  };
+
+  var windowScrollHandler = function windowScrollHandler() {
+    if (window.pageYOffset > SCROLL_UP_OFFSET) {
+      button.classList.add('show');
+    } else {
+      button.classList.remove('show');
+    }
+  };
+  /**
+  * Init method
+  * Fired after document is ready
+  */
+
+
+  var init = function init() {
+    /** Find scroll-up button */
+    button = document.createElement('DIV');
+    button.classList.add('scroll-up');
+    document.body.appendChild(button);
+    /** Bind click event on scroll-up button */
+
+    button.addEventListener('click', scrollPage);
+    /** Global window scroll handler */
+
+    window.addEventListener('scroll', windowScrollHandler);
+  };
+
+  return {
+    init: init
+  };
+}();
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Module for social sharing
+ */
+module.exports = function (sharer) {
+  /**
+   * @param  {Object} data - Info about item we want to share
+   */
+  sharer.vkontakte = function (data) {
+    var link = 'https://vk.com/share.php?';
+    link += 'url=' + data.url;
+    link += '&title=' + data.title;
+    link += '&description=' + data.desc;
+    link += '&image=' + data.img;
+    link += '&noparse=true';
+    sharer.popup(link, 'vkontakte');
+  };
+
+  sharer.facebook = function (data) {
+    var FB_APP_ID = 1740455756240878,
+        link = 'https://www.facebook.com/dialog/share?display=popup';
+    link += '&app_id=' + FB_APP_ID;
+    link += '&href=' + data.url;
+    link += '&redirect_uri=' + document.location.href;
+    sharer.popup(link, 'facebook');
+  };
+
+  sharer.twitter = function (data) {
+    var link = 'https://twitter.com/share?';
+    link += 'text=' + data.title;
+    link += '&url=' + data.url;
+    link += '&counturl=' + data.url;
+    sharer.popup(link, 'twitter');
+  };
+
+  sharer.telegram = function (data) {
+    var link = 'https://telegram.me/share/url';
+    link += '?text=' + data.title;
+    link += '&url=' + data.url;
+    sharer.popup(link, 'telegram');
+  };
+  /**
+   * @param  {String} url
+   * @param  {String} socialType
+   */
+
+
+  sharer.popup = function (url, socialType) {
+    window.open(url, '', 'toolbar=0,status=0,width=626,height=436');
+    /**
+    * Write analytics goal
+    */
+
+    if (window.yaCounter32652805) {
+      window.yaCounter32652805.reachGoal('article-share', function () {}, this, {
+        type: socialType,
+        url: url
+      });
+    }
+  };
+  /**
+   * Init sharer
+   * @param {Object} settings
+   * @param {String} settings.buttonsSelector - button selector on which elements should bind sharing
+   */
+
+
+  sharer.init = function (settings) {
+    console.assert(settings.buttonsSelector, 'Sharer: buttons selector is missed');
+    var shareButtons = document.querySelectorAll(settings.buttonsSelector);
+
+    for (var i = shareButtons.length - 1; i >= 0; i--) {
+      shareButtons[i].addEventListener('click', sharer.click, true);
+    }
+  };
+  /**
+   * @param  {Event} event
+   */
+
+
+  sharer.click = function (event) {
+    var target = event.target;
+    /**
+    * Social provider stores in data 'shareType' attribute on share-button
+    * But click may be fired on child-element in button, so we need to handle it.
+    */
+
+    var type = target.dataset.shareType || target.parentNode.dataset.shareType;
+    if (!sharer[type]) return;
+    /**
+    * Sanitize share params
+    * @todo test for taint strings
+    */
+    // for (key in window.shareData){
+    //      window.shareData[key] = encodeURIComponent(window.shareData[key]);
+    // }
+
+    var shareData = {
+      url: target.dataset.url || target.parentNode.dataset.url,
+      title: target.dataset.title || target.parentNode.dataset.title,
+      desc: target.dataset.desc || target.parentNode.dataset.desc,
+      img: target.dataset.img || target.parentNode.dataset.title
+    };
+    /**
+    * Fire click handler
+    */
+
+    sharer[type](shareData);
+  };
+
+  return sharer;
+}({});
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * codex.bestDevelopers module
+ * Sets best developers values in admin/user for further output in templates/developers.php
+ */
+var developer = function () {
+  var init = function init() {
+    var chBoxes = document.querySelectorAll('.developer-checkbox');
+
+    for (var i = chBoxes.length - 1; i > -1; i--) {
+      chBoxes[i].addEventListener('change', toggle);
+    }
+  };
+  /**
+   * Sends ajax data 0 or 1, whether user is best developer or not
+   * @param {Event} event
+   * @uses codex.core.ajax
+   */
+
+
+  var toggle = function toggle(event) {
+    var data = {
+      data: 'id=' + event.target.id + '&value=' + (event.target.checked ? 1 : 0),
+      url: '/admin/developer'
+    };
+    codex.core.ajax(data);
+  };
+
+  return {
+    init: init
+  };
+}();
+
+module.exports = developer;
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * codex.showMoreNews module
+ * Used in news block
+ * Reveals more news when appender button is fired
+ * Usage onclick="codex.showMoreNews.init( this );"
+ */
+var showMoreNews = function () {
+  /**
+   * Helper for 'show more news' button
+   * @param {Element} button   - appender button
+   */
+  var init = function init(button) {
+    var PORTION = 5; // Amount of news shown each time appender button is fired
+
+    var news = document.querySelectorAll('.news__list_item'),
+        hided = [];
+
+    for (var i = 0, newsItem; !!(newsItem = news[i]); i++) {
+      if (newsItem.classList.contains('news__list_item--hidden')) {
+        hided.push(newsItem);
+      }
+    }
+    /**
+     * @param {Element} item
+     * Remove PORTION of first elements from array hided
+     */
+
+
+    hided.splice(0, PORTION).map(function (item) {
+      item.classList.remove('news__list_item--hidden');
+    });
+
+    if (!hided.length) {
+      button.classList.add('news__list_item--hidden');
+    }
+  };
+
+  return {
+    init: init
+  };
+}({});
+
+module.exports = showMoreNews;
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var polyfills = function () {
+  /**
+   * Polyfilling ECMAScript 6 method String.includes
+   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes#Browser_compatibility
+   */
+  if (!String.prototype.includes) {
+    String.prototype.includes = function () {
+      'use strict';
+
+      return String.prototype.indexOf.apply(this, arguments) !== -1;
+    };
+  }
+  /**
+   * Polyfill for Element.prototype.matches method
+   */
+
+
+  if (!Element.prototype.matches) {
+    Element.prototype.matches = Element.prototype.matchesSelector || Element.prototype.webkitMatchesSelector || Element.prototype.mozMatchesSelector || Element.prototype.msMatchesSelector;
+  }
+  /**
+   * Polyfill for Element.prototype.closest method
+   */
+
+
+  if (!Element.prototype.closest) {
+    Element.prototype.closest = function (selector) {
+      var node = this;
+
+      while (node) {
+        if (node.matches(selector)) return node;
+        node = node.parentElement;
+      }
+
+      return null;
+    };
+  }
+
+  ;
+}({});
+
+module.exports = polyfills;
+
+/***/ }),
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -842,879 +2049,35 @@ var ajax = function () {
 module.exports = ajax;
 
 /***/ }),
-
-/***/ "./public/app/js/modules/articleCreate.js":
-/*!************************************************!*\
-  !*** ./public/app/js/modules/articleCreate.js ***!
-  \************************************************/
-/*! no static exports found */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var ajax = __webpack_require__(/*! @codexteam/ajax */ "./node_modules/@codexteam/ajax/dist/main.js");
-
-var notifier = __webpack_require__(/*! codex-notifier */ "./node_modules/codex-notifier/dist/bundle.js");
 /**
- * Module for pages using Editor
+ * Profile page methods
  */
-
-
-var EditorWriting =
-/*#__PURE__*/
-function () {
-  function EditorWriting() {
-    _classCallCheck(this, EditorWriting);
-  }
-
-  _createClass(EditorWriting, [{
-    key: "init",
-
-    /**
-     * Initialize editor on article writing page
-     * @param {Object} settings - article form's parameters
-     * @param {String} settings.article_textarea - textarea with article contents
-     * @param {String} settings.form_url - url of form with Editor's data
-     * @param {String} settings.submit_id - id of submit button
-     */
-    value: function init(settings, form) {
-      var _this = this;
-
-      this.form = form;
-      this.article = document.getElementById(settings.article_textarea);
-      this.button = document.getElementById(settings.submit_id);
-      this.formURL = settings.form_url;
-      /**
-       * Settings for Editor class
-       * @type {{blocks: Object[]}}
-       */
-
-      var editorSettings = {
-        blocks: this.getArticleData()
-      };
-      this.loadEditor(editorSettings).then(function (editor) {
-        _this.editor = editor;
-      });
-      this.prepareSubmit();
-    }
-  }, {
-    key: "prepareSubmit",
-
-    /**
-     * Add eventListener to article submit button, submit data on click
-     */
-    value: function prepareSubmit() {
-      var _this2 = this;
-
-      this.button.addEventListener('click', function () {
-        _this2.saveArticle();
-      }, false);
-    }
-    /**
-     * Save article's data, in case of success redirect to its uri
-     */
-
-  }, {
-    key: "saveArticle",
-    value: function saveArticle() {
-      var _this3 = this;
-
-      var article = this.article;
-      /**
-       * Call Editor's save method
-       */
-
-      this.editor.save().then(function (savedData) {
-        article.value = JSON.stringify(savedData);
-        /**
-         * Send article data via ajax
-         */
-
-        Promise.resolve().then(function () {
-          _this3.button.classList.add('loading');
-        }).then(function () {
-          return ajax.post({
-            url: _this3.formURL,
-            data: _this3.form
-          });
-        })
-        /**
-         * @typedef {Object} responseData - response after attempt to send form via ajax
-         * @property {string} redirect    - article's uri in case of success
-         * @property {string} message     - article saving error in case of fail
-         * @property {number} success     - article saving status, 1 - success, 0 - fail
-         */
-
-        /**
-         * @param {responseData} response - ajax-response after form is sent
-         */
-        .then(function (response) {
-          /**
-           * If data was sent successfully get article's uri and redirect to it
-           */
-          if (response.success) {
-            window.location.href = response.redirect;
-          } else {
-            _this3.showErrorMessage(response.message);
-          }
-        }).catch(function (err) {
-          _this3.showErrorMessage(err);
-        });
-      });
-    }
-    /**
-     * If article's form submission via ajax failed show message with error text
-     * @param {String} err - form submission error message
-     */
-
-  }, {
-    key: "showErrorMessage",
-    value: function showErrorMessage(err) {
-      console.error(err);
-      notifier.show({
-        message: err,
-        style: 'error'
-      });
-      this.button.classList.remove('loading');
-    }
-    /**
-     * If we want to edit existing article, get its data
-     */
-
-  }, {
-    key: "getArticleData",
-    value: function getArticleData() {
-      /** If article exists return its data */
-      if (this.article.textContent.length) {
-        /**
-         * Article's data
-         */
-        var pageContent;
-        /**
-         * Get content that was written before and render with Codex Editor
-         */
-
-        try {
-          pageContent = JSON.parse(this.article.textContent);
-        } catch (error) {
-          console.error('Errors occurred while parsing Editor data', error);
-        }
-
-        return pageContent ? pageContent.blocks : [];
-      }
-    }
-    /**
-     * Load Editor from separate chunk
-     * @param {Object} settings - settings for Editor initialization
-     * @return {Promise<Editor>} - CodeX Editor promise
-     */
-
-  }, {
-    key: "loadEditor",
-    value: function loadEditor(settings) {
-      return __webpack_require__.e(/*! import() | editor */ "editor").then(__webpack_require__.t.bind(null, /*! classes/editor */ "./public/app/js/classes/editor.js", 7)).then(function (_ref) {
-        var Editor = _ref.default;
-        return new Editor(settings);
-      });
-    }
-  }]);
-
-  return EditorWriting;
-}();
-
-exports.default = EditorWriting;
-;
-
-/***/ }),
-
-/***/ "./public/app/js/modules/bestDevelopers.js":
-/*!*************************************************!*\
-  !*** ./public/app/js/modules/bestDevelopers.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * codex.bestDevelopers module
- * Sets best developers values in admin/user for further output in templates/developers.php
- */
-var developer = function () {
-  var init = function init() {
-    var chBoxes = document.querySelectorAll('.developer-checkbox');
-
-    for (var i = chBoxes.length - 1; i > -1; i--) {
-      chBoxes[i].addEventListener('change', toggle);
-    }
-  };
-  /**
-   * Sends ajax data 0 or 1, whether user is best developer or not
-   * @param {Event} event
-   * @uses codex.core.ajax
-   */
-
-
-  var toggle = function toggle(event) {
-    var data = {
-      data: 'id=' + event.target.id + '&value=' + (event.target.checked ? 1 : 0),
-      url: '/admin/developer'
-    };
-    codex.core.ajax(data);
-  };
-
-  return {
-    init: init
-  };
-}();
-
-module.exports = developer;
-
-/***/ }),
-
-/***/ "./public/app/js/modules/codeStyling.js":
-/*!**********************************************!*\
-  !*** ./public/app/js/modules/codeStyling.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * Code Styling module
- */
-module.exports = function codeStyling() {
-  'use strict';
-  /**
-   * DOM manipulations helper
-   */
-
-  var $ = __webpack_require__(/*! ./dom */ "./public/app/js/modules/dom.js").default;
-  /**
-   * Extrnal library for code styling
-   * @link https://highlightjs.org
-   * @type {Object}
-   */
-
-
-  var library = {
-    js: '//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js',
-    css: '//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github-gist.min.css'
-  };
-  /**
-   * Loads styling library
-   */
-
-  var prepare = function prepare() {
-    return Promise.all([$.loadResource('JS', library.js, 'highlight'), $.loadResource('CSS', library.css, 'highlight')]).catch(function (err) {
-      return console.warn('Cannot load code styling module: ', err);
-    }).then(function () {
-      return console.log('Code Styling is ready');
-    });
-  };
-  /**
-   * Finds code blocks and fires highlighting
-   * @param {String} codeBlocksSelector - where to find <code> blocks
-   */
-
-
-  var init = function init(codeBlocksSelector) {
-    var codeBlocks = document.querySelectorAll(codeBlocksSelector);
-
-    if (codeBlocks) {
-      prepare().then(function () {
-        if (!window.hljs) {
-          console.warn('Code Styling script loaded but not ready');
-          return;
-        }
-
-        for (var i = codeBlocks.length - 1; i >= 0; i--) {
-          window.hljs.highlightBlock(codeBlocks[i]);
-        }
-      });
-    }
-  };
-
-  return {
-    init: init
-  };
-}();
-
-/***/ }),
-
-/***/ "./public/app/js/modules/core.js":
-/*!***************************************!*\
-  !*** ./public/app/js/modules/core.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
-* Significant core methods
-*/
 module.exports = function () {
-  /** Logging method */
-  var log = function log(str, prefix, type, arg) {
-    var staticLength = 32;
-
-    if (prefix) {
-      prefix = prefix.length < staticLength ? prefix : prefix.substr(0, staticLength - 2);
-
-      while (prefix.length < staticLength - 1) {
-        prefix += ' ';
-      }
-
-      prefix += ':';
-      str = prefix + str;
-    }
-
-    type = type || 'log';
-
-    try {
-      if ('console' in window && window.console[type]) {
-        if (arg) console[type](str, arg);else console[type](str);
-      }
-    } catch (e) {}
-  };
   /**
-  * Native ajax method.
-  * @param {Object} data
-  */
-
-
-  var ajax = function ajax(data) {
-    if (!data || !data.url) {
-      return;
-    }
-
-    var XMLHTTP = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP'),
-        successFunction = function successFunction() {};
-
-    data.async = true;
-    data.type = data.type || 'GET';
-    data.data = data.data || '';
-    data['content-type'] = data['content-type'] || 'application/json; charset=utf-8';
-    successFunction = data.success || successFunction;
-
-    if (data.type == 'GET' && data.data) {
-      data.url = /\?/.test(data.url) ? data.url + '&' + data.data : data.url + '?' + data.data;
-    }
-
-    if (data.withCredentials) {
-      XMLHTTP.withCredentials = true;
-    }
-
-    if (data.beforeSend && typeof data.beforeSend == 'function') {
-      data.beforeSend.call();
-    }
-
-    XMLHTTP.open(data.type, data.url, data.async);
-    XMLHTTP.setRequestHeader('Content-type', data['content-type']);
-    XMLHTTP.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-
-    XMLHTTP.onreadystatechange = function () {
-      if (XMLHTTP.readyState == 4 && XMLHTTP.status == 200) {
-        successFunction(XMLHTTP.responseText);
-      }
-    };
-
-    XMLHTTP.send(data.data);
+   * Photo uploading success-callback
+   * Fired by transport
+   * @param  {string} newPhotoURL - uploaded file URL
+   */
+  var uploadPhotoSuccess = function uploadPhotoSuccess(newPhotoURL) {
+    var settingsPhoto = document.getElementById('profile-photo-updatable'),
+        headerPhoto = document.getElementById('header-avatar-updatable');
+    settingsPhoto.src = newPhotoURL;
+    headerPhoto.src = newPhotoURL;
   };
 
   return {
-    ajax: ajax,
-    log: log
+    uploadPhotoSuccess: uploadPhotoSuccess
   };
 }();
 
 /***/ }),
-
-/***/ "./public/app/js/modules/dom.js":
-/*!**************************************!*\
-  !*** ./public/app/js/modules/dom.js ***!
-  \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
-
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-/**
- * DOM manipulations methods
- */
-var DOM =
-/*#__PURE__*/
-function () {
-  function DOM() {
-    _classCallCheck(this, DOM);
-  }
-
-  _createClass(DOM, null, [{
-    key: "make",
-
-    /**
-     * Helper for making Elements with classname and attributes
-     * @param  {string} tagName           - new Element tag name
-     * @param  {array|string} classNames  - list or name of CSS classname(s)
-     * @param  {Object} attributes        - any attributes
-     * @return {Element}
-     */
-    value: function make(tagName, classNames, attributes) {
-      var el = document.createElement(tagName);
-
-      if (Array.isArray(classNames)) {
-        var _el$classList;
-
-        (_el$classList = el.classList).add.apply(_el$classList, _toConsumableArray(classNames));
-      } else if (classNames) {
-        el.classList.add(classNames);
-      }
-
-      for (var attrName in attributes) {
-        el[attrName] = attributes[attrName];
-      }
-
-      return el;
-    }
-    /**
-     * Replaces node with
-     * @param {Element} nodeToReplace
-     * @param {Element} replaceWith
-     */
-
-  }, {
-    key: "replace",
-    value: function replace(nodeToReplace, replaceWith) {
-      return nodeToReplace.parentNode.replaceChild(replaceWith, nodeToReplace);
-    }
-    /**
-     * getElementById alias
-     * @param {String} elementId
-     */
-
-  }, {
-    key: "get",
-    value: function get(elementId) {
-      return document.getElementById(elementId);
-    }
-    /**
-     * Loads static resourse: CSS or JS
-     * @param {string} type  - CSS|JS
-     * @param {string} path  - resource path
-     * @param {string} inctanceName - unique name of resource
-     * @return Promise
-     */
-
-  }, {
-    key: "loadResource",
-    value: function loadResource(type, path, instanceName) {
-      /**
-       * Imported resource ID prefix
-       * @type {String}
-       */
-      var resourcePrefix = 'cdx-resourse';
-      return new Promise(function (resolve, reject) {
-        if (!type || !['JS', 'CSS'].includes(type)) {
-          reject("Unexpected resource type passed. \xABCSS\xBB or \xABJS\xBB expected, \xAB".concat(type, "\xBB passed"));
-        }
-
-        var node;
-        /** Script is already loaded */
-
-        if (!instanceName) {
-          reject('Instance name is missed');
-        } else if (document.getElementById("".concat(resourcePrefix, "-").concat(type.toLowerCase(), "-").concat(instanceName))) {
-          resolve(path);
-        }
-
-        if (type === 'JS') {
-          node = document.createElement('script');
-          node.async = true;
-          node.defer = true;
-          node.charset = 'utf-8';
-        } else {
-          node = document.createElement('link');
-          node.rel = 'stylesheet';
-        }
-
-        node.id = "".concat(resourcePrefix, "-").concat(type.toLowerCase(), "-").concat(instanceName);
-        var timerLabel = "Resource loading ".concat(type, " ").concat(instanceName);
-        console.time(timerLabel);
-
-        node.onload = function () {
-          console.timeEnd(timerLabel);
-          resolve(path);
-        };
-
-        node.onerror = function () {
-          console.timeEnd(timerLabel);
-          reject(path);
-        };
-
-        if (type === 'JS') {
-          node.src = path;
-        } else {
-          node.href = path;
-        }
-
-        document.head.appendChild(node);
-      });
-    }
-  }]);
-
-  return DOM;
-}();
-
-exports.default = DOM;
-
-/***/ }),
-
-/***/ "./public/app/js/modules/dragndrop.js":
-/*!********************************************!*\
-  !*** ./public/app/js/modules/dragndrop.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function (settings) {
-  var defaultHandlers = {
-    findDraggable: function findDraggable(e) {
-      return e.target.closest('.' + draggableClass);
-    },
-    findDroppable: function findDroppable(e) {
-      return document.elementFromPoint(e.clientX, e.clientY).closest('.' + droppableClass);
-    },
-
-    /**
-     * The simplest makeAvatar method.
-     *
-     * Just set elem to avatar.elem. And remembers element position in document.
-     * If drop isn`t success, returns elem to start position.
-     */
-    makeAvatar: function makeAvatar(elem) {
-      var avatar = {};
-
-      var avatarRollback = function avatarRollback() {
-        avatar.elem.classList.remove('dnd-default-avatar');
-        if (avatar.nextSibling) avatar.parentNode.insertBefore(avatar.elem, avatar.nextSibling);else avatar.parentNode.appendChild(avatar.elem);
-        delete dragObj.avatar;
-      };
-
-      avatar = {
-        elem: elem,
-        parentNode: elem.parentNode,
-        nextSibling: elem.nextElementSibling,
-        rollback: avatarRollback
-      }; // Set avatar position: absolute; for drag'n'drop
-
-      avatar.elem.classList.add('dnd-default-avatar');
-      return avatar;
-    },
-
-    /**
-     * Highlights droppable elements under cursor with border
-     */
-    targetChanged: function targetChanged(target, newTarget) {
-      if (target) target.classList('dnd-default-target-highlight');
-      if (newTarget) newTarget.classList.add('dnd-default-target-highlight');
-    },
-    move: function move(e, avatar, shift) {
-      avatar.elem.style.left = e.pageX - shift.x + 'px';
-      avatar.elem.style.top = e.pageY - shift.y + 'px';
-    },
-
-    /**
-     * Inserts elem into document if drop is success
-     */
-    targetReached: function targetReached(target, avatar, elem) {
-      target.classList.remove('dnd-default-target-highlight');
-      target.parentNode.insertBefore(elem, target.nextElementSibling);
-      avatar.elem.classList.remove('dnd-default-avatar');
-    }
-  };
-  var draggableClass = settings.draggableClass || 'draggable',
-      droppableClass = settings.droppableClass || 'droppable',
-      findDraggable = settings.findDraggable || defaultHandlers.findDraggable,
-      findDroppable = settings.findDroppable || defaultHandlers.findDroppable,
-      makeAvatar = settings.makeAvatar || defaultHandlers.makeAvatar,
-      targetChanged = settings.targetChanged || defaultHandlers.targetChanged,
-      move = settings.move || defaultHandlers.move,
-      targetReached = settings.targetReached || defaultHandlers.targetReached;
-  var dragObj = {};
-
-  var onMouseDown = function onMouseDown(e) {
-    /**
-     * Check mouse (which=1 - right mouse button) or touch (which=0 - touch) event.
-     */
-    if (e.which > 1) return;
-    e = touchSupported(e);
-    dragObj.clickedAt = {
-      x: e.pageX,
-      y: e.pageY
-    };
-    dragObj.elem = findDraggable(e);
-    if (!dragObj.elem) return;
-    toggleSelection();
-    var coords = getCoords(dragObj.elem);
-    dragObj.shift = {
-      x: e.pageX - coords.x,
-      y: e.pageY - coords.y
-    };
-  };
-
-  var onMouseMove = function onMouseMove(e) {
-    if (!dragObj.elem) return; // Prevent touchmove scroll
-
-    e.preventDefault();
-    e = touchSupported(e); // Check mouse offset. If x or y offset <5, assume that it`s accidental move
-
-    if (Math.abs(e.pageX - dragObj.clickedAt.x) < 5 && Math.abs(e.pageY - dragObj.clickedAt.y) < 5) return;
-
-    if (!dragObj.avatar) {
-      dragObj.avatar = makeAvatar(dragObj.elem);
-    }
-
-    var newTarget = findDroppable(e);
-
-    if (newTarget != dragObj.target) {
-      targetChanged(dragObj.target, newTarget, dragObj.avatar);
-      dragObj.target = newTarget;
-    }
-
-    move(e, dragObj.avatar, dragObj.shift);
-  };
-
-  var onMouseUp = function onMouseUp(e) {
-    if (e.which > 1) return;
-
-    if (!dragObj.avatar) {
-      dragObj = {};
-      return;
-    }
-
-    e = touchSupported(e);
-    var target = findDroppable(e);
-    if (target) targetReached(target, dragObj.avatar, dragObj.elem, e);else dragObj.avatar.rollback();
-    dragObj = {};
-    toggleSelection();
-  };
-
-  var getCoords = function getCoords(elem) {
-    var rect = elem.getBoundingClientRect();
-    return {
-      x: rect.left + window.pageXOffset,
-      y: rect.top + window.pageYOffset
-    };
-  };
-
-  var touchSupported = function touchSupported(e) {
-    if (e.changedTouches) var touch = e.changedTouches[0];else return e;
-    e.pageX = touch.pageX;
-    e.pageY = touch.pageY;
-    e.clientX = touch.clientX;
-    e.clientY = touch.clientY;
-    e.screenX = touch.screenX;
-    e.screenY = touch.screenY;
-    e.target = touch.target;
-    return e;
-  };
-
-  var toggleSelection = function toggleSelection() {
-    document.body.classList.toggle('no-selection');
-  };
-
-  document.addEventListener('mousedown', onMouseDown);
-  document.addEventListener('touchstart', onMouseDown);
-  document.addEventListener('mousemove', onMouseMove);
-  document.addEventListener('touchmove', onMouseMove);
-  document.addEventListener('mouseup', onMouseUp);
-  document.addEventListener('touchend', onMouseUp);
-
-  document.ondragstart = function () {
-    return false;
-  };
-};
-
-/***/ }),
-
-/***/ "./public/app/js/modules/editorLanding.js":
-/*!************************************************!*\
-  !*** ./public/app/js/modules/editorLanding.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-/**
- * Module to compose output JSON preview
- */
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var cPreview = __webpack_require__(/*! ../classes/cPreview */ "./public/app/js/classes/cPreview.js");
-/**
- * Module for pages using Editor
- */
-
-
-var EditorLanding =
-/*#__PURE__*/
-function () {
-  function EditorLanding() {
-    _classCallCheck(this, EditorLanding);
-
-    /**
-     * Editor class Instance
-     */
-    this.editor = null;
-    /**
-     * DOM elements
-     */
-
-    this.nodes = {
-      /**
-      * Container to output saved Editor data
-      */
-      outputWrapper: null
-    };
-  }
-  /**
-   * @typedef {Object} editorLandingSettings - Editor landing class settings
-   * @property {String} editorLandingSettings.output_id - ID of container where Editor's saved data will be shown
-   * @property {function} editorLandingSettings.onChange - Modifications callback for the Editor
-   */
-
-  /**
-   * Initialization. Called by Module Dispatcher
-   */
-
-
-  _createClass(EditorLanding, [{
-    key: "init",
-    value: function init(editorLandingSettings) {
-      var _this = this;
-
-      /**
-       * Prepare node to output Editor data preview
-       * @type {HTMLElement} - JSON preview container
-       */
-      this.nodes.outputWrapper = document.getElementById(editorLandingSettings.output_id);
-
-      if (!this.nodes.outputWrapper) {
-        console.warn('Can\'t find output target with ID: «' + editorLandingSettings.output_id + '»');
-      }
-
-      this.loadEditor({
-        blocks: editorLandingSettings.blocks,
-
-        /**
-         * Bind onchange callback to preview JSON data
-         */
-        onChange: function onChange() {
-          _this.previewData();
-        },
-
-        /**
-         * When Editor is ready, preview JSON output with initial data
-         */
-        onReady: function onReady() {
-          _this.previewData();
-
-          _this.editor.focus();
-        }
-      }).then(function (editor) {
-        _this.editor = editor;
-      });
-    }
-  }, {
-    key: "loadEditor",
-
-    /**
-     * Load Editor from separate chunk
-     * @param settings - settings for Editor initialization
-     * @return {Promise<Editor>} - CodeX Editor promise
-     */
-    value: function loadEditor(settings) {
-      return __webpack_require__.e(/*! import() | editor */ "editor").then(__webpack_require__.t.bind(null, /*! classes/editor */ "./public/app/js/classes/editor.js", 7)).then(function (_ref) {
-        var Editor = _ref.default;
-        return new Editor(settings);
-      });
-    }
-    /**
-     * Shows JSON output of editor saved data
-     */
-
-  }, {
-    key: "previewData",
-    value: function previewData() {
-      var _this2 = this;
-
-      this.editor.save().then(function (savedData) {
-        cPreview.show(savedData, _this2.nodes.outputWrapper);
-      });
-    }
-  }]);
-
-  return EditorLanding;
-}();
-
-exports.default = EditorLanding;
-;
-
-/***/ }),
-
-/***/ "./public/app/js/modules/helpers.js":
-/*!******************************************!*\
-  !*** ./public/app/js/modules/helpers.js ***!
-  \******************************************/
-/*! no static exports found */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1764,449 +2127,7 @@ module.exports = function (helpers) {
 }({});
 
 /***/ }),
-
-/***/ "./public/app/js/modules/join.js":
-/*!***************************************!*\
-  !*** ./public/app/js/modules/join.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * Module for /join page
- * Blocks writing without authorization
- *
- * Toggles into view blankAdditionalFields: Name and Surname, Email
- */
-var join = function () {
-  var animationClass = 'wobble';
-  /**
-  * Module initialization
-  */
-
-  var init = function init() {
-    var joinBlank = document.getElementById('joinBlank');
-
-    if (typeof joinBlank != 'undefined' && joinBlank !== null) {
-      var joinBlankTextareas = joinBlank.getElementsByTagName('textarea');
-
-      if (joinBlankTextareas.length) {
-        for (var i = joinBlankTextareas.length - 1; i >= 0; i--) {
-          joinBlankTextareas[i].addEventListener('keyup', checkUserCanEdit, false);
-        }
-      }
-    }
-
-    var blankShowAdditionalFieldsButton = document.getElementById('blankShowAdditionalFieldsButton');
-
-    if (typeof blankShowAdditionalFieldsButton != 'undefined' && blankShowAdditionalFieldsButton !== null) {
-      blankShowAdditionalFieldsButton.addEventListener('click', showAdditionalFields, false);
-    }
-  };
-  /**
-   * Adds wobble-effect to Auth block if user starts typing into textarea unauthorized
-   * @param {Event} event
-   */
-
-
-  var checkUserCanEdit = function checkUserCanEdit(event) {
-    var textarea = event.target,
-        blankAuthBlock = document.getElementById('js-join-auth'),
-        emailInput = document.getElementById('js-email');
-
-    if (blankAuthBlock && !emailInput.value.length) {
-      blankAuthBlock.classList.add(animationClass);
-      window.setTimeout(function () {
-        return blankAuthBlock.classList.remove(animationClass);
-      }, 450);
-      textarea.value = '';
-    }
-  };
-  /**
-   * Toggles into view blankAdditionalFields: Name and Surname, Email
-   * @param {Event} event
-   */
-
-
-  var showAdditionalFields = function showAdditionalFields() {
-    var blankAdditionalFields = document.getElementById('blankAdditionalFields');
-    blankAdditionalFields.classList.toggle('hide');
-  };
-
-  return {
-    init: init
-  };
-}({});
-
-module.exports = join;
-
-/***/ }),
-
-/***/ "./public/app/js/modules/player.js":
-/*!*****************************************!*\
-  !*** ./public/app/js/modules/player.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = undefined;
-
-var _dom = __webpack_require__(/*! ./dom */ "./public/app/js/modules/dom.js");
-
-var _dom2 = _interopRequireDefault(_dom);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-/**
- * @class  Player
- * @classdesc Simple player on the overlay container
- *
- * @typedef {Player}
- * @property {String} sourceURL - video URL
- * @property {Element} toggler  - Play Button
- * @property {Element} wrapper  - In wich Element player should be added
- * @property {Element} overlay  - Player main container
- * @property {Object} CSS       - CSS dictionary
- *
- */
-var Player =
-/*#__PURE__*/
-function () {
-  /**
-   * @constructor
-   * @param  {String} options.sourceURL        - video URL
-   * @param  {Element} options.toggler         - play button
-   * @param  {String} options.wrapperSelector  - xpath selector for the player holder
-   */
-  function Player(_ref) {
-    var _this = this;
-
-    var sourceURL = _ref.sourceURL,
-        toggler = _ref.toggler,
-        wrapperSelector = _ref.wrapperSelector;
-
-    _classCallCheck(this, Player);
-
-    this.sourceURL = sourceURL;
-    this.toggler = toggler;
-    this.wrapper = document.querySelector(wrapperSelector);
-    this.overlay = null;
-    this.CSS = {
-      overlay: 'video-overlay',
-      overlayShowed: 'video-overlay--showed',
-      overlayLoaded: 'video-overlay--loaded',
-      closeButton: 'video-overlay__close'
-    };
-    /**
-     * Add Play Button click listener
-     */
-
-    this.toggler.addEventListener('click', function () {
-      _this.showVideoOverlay();
-    }, false);
-  }
-  /**
-   * Creates player container and append it to the parent element
-   */
-
-
-  _createClass(Player, [{
-    key: "showVideoOverlay",
-    value: function showVideoOverlay() {
-      var _this2 = this;
-
-      this.overlay = _dom2.default.make('div', this.CSS.overlay);
-
-      var video = _dom2.default.make('video', null, {
-        autoplay: true,
-        loop: true
-      }),
-          source = _dom2.default.make('source', null, {
-        src: this.sourceURL,
-        type: 'video/mp4'
-      }),
-          closeButton = _dom2.default.make('div', this.CSS.closeButton);
-      /**
-       * Append <video>
-       */
-
-
-      video.appendChild(source);
-      this.overlay.appendChild(video);
-      /**
-       * Bind loading callback
-       */
-
-      video.addEventListener('loadeddata', function () {
-        _this2.videoLoaded();
-      });
-      /**
-       * Activate close button
-       */
-
-      this.overlay.appendChild(closeButton);
-      closeButton.addEventListener('click', function () {
-        _this2.close();
-      });
-      /**
-       * Add overlay to the wrapper
-       */
-
-      this.wrapper.appendChild(this.overlay);
-      window.setTimeout(function () {
-        _this2.overlay.classList.add(_this2.CSS.overlayShowed);
-      }, 50);
-    }
-    /**
-     * Video loaded callback
-     * Shows player
-     */
-
-  }, {
-    key: "videoLoaded",
-    value: function videoLoaded() {
-      this.wrapper.classList.add(this.CSS.overlayLoaded);
-    }
-    /**
-     * Removes overlay with video
-     */
-
-  }, {
-    key: "close",
-    value: function close() {
-      this.overlay.remove();
-      this.overlay = null;
-    }
-  }]);
-
-  return Player;
-}();
-
-exports.default = Player;
-
-/***/ }),
-
-/***/ "./public/app/js/modules/pluginsFilter.js":
-/*!************************************************!*\
-  !*** ./public/app/js/modules/pluginsFilter.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-/**
- * Plugins filter on editor landing page
- */
-
-module.exports = function () {
-  /**
-   * Block plugins
-   */
-  var blockTools;
-  /**
-   * Inline Tool plugins
-   */
-
-  var inlineTools;
-  /**
-   * Initialize module
-   * @typedef {Object} settings                             - module's parameters passed from ModuleDispatcher
-   * @param   {String} settings.blockToolsClass             - class of Editor Block Tools
-   * @param   {String} settings.inlineToolsClass            - class of Editor Inline Tools
-   * @param   {String} settings.blockFilterButtonClass      - class of button Block Tools filter
-   * @param   {String} settings.inlineFilterButtonClass     - class of button Inline Tools filter
-   * @param   {String} settings.allToolsFilterButtonClass   - class of button showing all types of Tools
-   */
-
-  var init = function init(settings) {
-    blockTools = document.querySelectorAll(settings.blockToolsClass);
-    inlineTools = document.querySelectorAll(settings.inlineToolsClass);
-    var pluginFilters = [{
-      'buttonClass': settings.blockFilterButtonClass,
-      'buttonAction': showBlockToolsOnly
-    }, {
-      'buttonClass': settings.inlineFilterButtonClass,
-      'buttonAction': showInlineToolsOnly
-    }, {
-      'buttonClass': settings.allToolsFilterButtonClass,
-      'buttonAction': showAllPlugins
-    }];
-    /**
-     * Add event listener if filter button exists, otherwise show console message
-     */
-
-    for (var j = 0; j < pluginFilters.length; j++) {
-      var filterButton = document.querySelector(pluginFilters[j].buttonClass);
-      var buttonClass = pluginFilters[j].buttonClass;
-      var filterAction = pluginFilters[j].buttonAction;
-
-      if (filterButton) {
-        filterButton.addEventListener('click', filterAction);
-      } else {
-        console.warn('Can\'t find button with class: «' + buttonClass + '»');
-      }
-    }
-  };
-  /**
-   * Show only Inline Tools, hide Blocks
-   */
-
-
-  var showInlineToolsOnly = function showInlineToolsOnly() {
-    toggleTools(inlineTools, blockTools);
-  };
-  /**
-   * Show only Blocks, hide Inline Tools
-   */
-
-
-  var showBlockToolsOnly = function showBlockToolsOnly() {
-    toggleTools(blockTools, inlineTools);
-  };
-  /**
-   * Show all types of Editor Tools
-   */
-
-
-  var showAllPlugins = function showAllPlugins() {
-    toggleTools(inlineTools, blockTools, false);
-  };
-  /**
-   * Toggle Editor Block and Inline Tools into view
-   * @param {HTMLCollection} toolsToShow - Block or Inline Editor's Tools to show
-   * @param {HTMLCollection} toolsToHide - Block or Inline Editor's Tools to hide
-   * @param {Boolean} hideOneType        - pass false to show both Block and Inline Tools
-   */
-
-
-  var toggleTools = function toggleTools(toolsToShow, toolsToHide) {
-    var hideOneType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
-
-    for (var i = 0; i < toolsToHide.length; i++) {
-      toolsToHide[i].classList.toggle('hide', hideOneType);
-    }
-
-    for (var _i = 0; _i < toolsToShow.length; _i++) {
-      toolsToShow[_i].classList.toggle('hide', false);
-    }
-  };
-
-  return {
-    init: init
-  };
-}({});
-
-/***/ }),
-
-/***/ "./public/app/js/modules/polyfills.js":
-/*!********************************************!*\
-  !*** ./public/app/js/modules/polyfills.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var polyfills = function () {
-  /**
-   * Polyfilling ECMAScript 6 method String.includes
-   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes#Browser_compatibility
-   */
-  if (!String.prototype.includes) {
-    String.prototype.includes = function () {
-      'use strict';
-
-      return String.prototype.indexOf.apply(this, arguments) !== -1;
-    };
-  }
-  /**
-   * Polyfill for Element.prototype.matches method
-   */
-
-
-  if (!Element.prototype.matches) {
-    Element.prototype.matches = Element.prototype.matchesSelector || Element.prototype.webkitMatchesSelector || Element.prototype.mozMatchesSelector || Element.prototype.msMatchesSelector;
-  }
-  /**
-   * Polyfill for Element.prototype.closest method
-   */
-
-
-  if (!Element.prototype.closest) {
-    Element.prototype.closest = function (selector) {
-      var node = this;
-
-      while (node) {
-        if (node.matches(selector)) return node;
-        node = node.parentElement;
-      }
-
-      return null;
-    };
-  }
-
-  ;
-}({});
-
-module.exports = polyfills;
-
-/***/ }),
-
-/***/ "./public/app/js/modules/profile.js":
-/*!******************************************!*\
-  !*** ./public/app/js/modules/profile.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * Profile page methods
- */
-module.exports = function () {
-  /**
-   * Photo uploading success-callback
-   * Fired by transport
-   * @param  {string} newPhotoURL - uploaded file URL
-   */
-  var uploadPhotoSuccess = function uploadPhotoSuccess(newPhotoURL) {
-    var settingsPhoto = document.getElementById('profile-photo-updatable'),
-        headerPhoto = document.getElementById('header-avatar-updatable');
-    settingsPhoto.src = newPhotoURL;
-    headerPhoto.src = newPhotoURL;
-  };
-
-  return {
-    uploadPhotoSuccess: uploadPhotoSuccess
-  };
-}();
-
-/***/ }),
-
-/***/ "./public/app/js/modules/quiz.js":
-/*!***************************************!*\
-  !*** ./public/app/js/modules/quiz.js ***!
-  \***************************************/
-/*! no static exports found */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2540,12 +2461,7 @@ module.exports = function () {
 }();
 
 /***/ }),
-
-/***/ "./public/app/js/modules/quizForm.js":
-/*!*******************************************!*\
-  !*** ./public/app/js/modules/quizForm.js ***!
-  \*******************************************/
-/*! no static exports found */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3106,249 +3022,7 @@ module.exports = function (quiz) {
 }({});
 
 /***/ }),
-
-/***/ "./public/app/js/modules/scrollUp.js":
-/*!*******************************************!*\
-  !*** ./public/app/js/modules/scrollUp.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
-* Module for scroll-up button
-*/
-module.exports = function () {
-  /**
-  * Page scroll offset to show scroll-up button
-  */
-  var SCROLL_UP_OFFSET = 100,
-      button = null;
-
-  var scrollPage = function scrollPage() {
-    window.scrollTo(0, 0);
-  };
-
-  var windowScrollHandler = function windowScrollHandler() {
-    if (window.pageYOffset > SCROLL_UP_OFFSET) {
-      button.classList.add('show');
-    } else {
-      button.classList.remove('show');
-    }
-  };
-  /**
-  * Init method
-  * Fired after document is ready
-  */
-
-
-  var init = function init() {
-    /** Find scroll-up button */
-    button = document.createElement('DIV');
-    button.classList.add('scroll-up');
-    document.body.appendChild(button);
-    /** Bind click event on scroll-up button */
-
-    button.addEventListener('click', scrollPage);
-    /** Global window scroll handler */
-
-    window.addEventListener('scroll', windowScrollHandler);
-  };
-
-  return {
-    init: init
-  };
-}();
-
-/***/ }),
-
-/***/ "./public/app/js/modules/sharer.js":
-/*!*****************************************!*\
-  !*** ./public/app/js/modules/sharer.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * Module for social sharing
- */
-module.exports = function (sharer) {
-  /**
-   * @param  {Object} data - Info about item we want to share
-   */
-  sharer.vkontakte = function (data) {
-    var link = 'https://vk.com/share.php?';
-    link += 'url=' + data.url;
-    link += '&title=' + data.title;
-    link += '&description=' + data.desc;
-    link += '&image=' + data.img;
-    link += '&noparse=true';
-    sharer.popup(link, 'vkontakte');
-  };
-
-  sharer.facebook = function (data) {
-    var FB_APP_ID = 1740455756240878,
-        link = 'https://www.facebook.com/dialog/share?display=popup';
-    link += '&app_id=' + FB_APP_ID;
-    link += '&href=' + data.url;
-    link += '&redirect_uri=' + document.location.href;
-    sharer.popup(link, 'facebook');
-  };
-
-  sharer.twitter = function (data) {
-    var link = 'https://twitter.com/share?';
-    link += 'text=' + data.title;
-    link += '&url=' + data.url;
-    link += '&counturl=' + data.url;
-    sharer.popup(link, 'twitter');
-  };
-
-  sharer.telegram = function (data) {
-    var link = 'https://telegram.me/share/url';
-    link += '?text=' + data.title;
-    link += '&url=' + data.url;
-    sharer.popup(link, 'telegram');
-  };
-  /**
-   * @param  {String} url
-   * @param  {String} socialType
-   */
-
-
-  sharer.popup = function (url, socialType) {
-    window.open(url, '', 'toolbar=0,status=0,width=626,height=436');
-    /**
-    * Write analytics goal
-    */
-
-    if (window.yaCounter32652805) {
-      window.yaCounter32652805.reachGoal('article-share', function () {}, this, {
-        type: socialType,
-        url: url
-      });
-    }
-  };
-  /**
-   * Init sharer
-   * @param {Object} settings
-   * @param {String} settings.buttonsSelector - button selector on which elements should bind sharing
-   */
-
-
-  sharer.init = function (settings) {
-    console.assert(settings.buttonsSelector, 'Sharer: buttons selector is missed');
-    var shareButtons = document.querySelectorAll(settings.buttonsSelector);
-
-    for (var i = shareButtons.length - 1; i >= 0; i--) {
-      shareButtons[i].addEventListener('click', sharer.click, true);
-    }
-  };
-  /**
-   * @param  {Event} event
-   */
-
-
-  sharer.click = function (event) {
-    var target = event.target;
-    /**
-    * Social provider stores in data 'shareType' attribute on share-button
-    * But click may be fired on child-element in button, so we need to handle it.
-    */
-
-    var type = target.dataset.shareType || target.parentNode.dataset.shareType;
-    if (!sharer[type]) return;
-    /**
-    * Sanitize share params
-    * @todo test for taint strings
-    */
-    // for (key in window.shareData){
-    //      window.shareData[key] = encodeURIComponent(window.shareData[key]);
-    // }
-
-    var shareData = {
-      url: target.dataset.url || target.parentNode.dataset.url,
-      title: target.dataset.title || target.parentNode.dataset.title,
-      desc: target.dataset.desc || target.parentNode.dataset.desc,
-      img: target.dataset.img || target.parentNode.dataset.title
-    };
-    /**
-    * Fire click handler
-    */
-
-    sharer[type](shareData);
-  };
-
-  return sharer;
-}({});
-
-/***/ }),
-
-/***/ "./public/app/js/modules/showMoreNews.js":
-/*!***********************************************!*\
-  !*** ./public/app/js/modules/showMoreNews.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * codex.showMoreNews module
- * Used in news block
- * Reveals more news when appender button is fired
- * Usage onclick="codex.showMoreNews.init( this );"
- */
-var showMoreNews = function () {
-  /**
-   * Helper for 'show more news' button
-   * @param {Element} button   - appender button
-   */
-  var init = function init(button) {
-    var PORTION = 5; // Amount of news shown each time appender button is fired
-
-    var news = document.querySelectorAll('.news__list_item'),
-        hided = [];
-
-    for (var i = 0, newsItem; !!(newsItem = news[i]); i++) {
-      if (newsItem.classList.contains('news__list_item--hidden')) {
-        hided.push(newsItem);
-      }
-    }
-    /**
-     * @param {Element} item
-     * Remove PORTION of first elements from array hided
-     */
-
-
-    hided.splice(0, PORTION).map(function (item) {
-      item.classList.remove('news__list_item--hidden');
-    });
-
-    if (!hided.length) {
-      button.classList.add('news__list_item--hidden');
-    }
-  };
-
-  return {
-    init: init
-  };
-}({});
-
-module.exports = showMoreNews;
-
-/***/ }),
-
-/***/ "./public/app/js/modules/transport.js":
-/*!********************************************!*\
-  !*** ./public/app/js/modules/transport.js ***!
-  \********************************************/
-/*! no static exports found */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3527,12 +3201,7 @@ module.exports = function (transport) {
 }({});
 
 /***/ }),
-
-/***/ "./public/app/js/modules/vkWidget.js":
-/*!*******************************************!*\
-  !*** ./public/app/js/modules/vkWidget.js ***!
-  \*******************************************/
-/*! no static exports found */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3610,6 +3279,192 @@ var vkWidget = function () {
 
 module.exports = vkWidget;
 
-/***/ })
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
 
-/******/ });
+"use strict";
+
+
+/**
+ * Code Styling module
+ */
+module.exports = function codeStyling() {
+  'use strict';
+  /**
+   * DOM manipulations helper
+   */
+
+  var $ = __webpack_require__(0).default;
+  /**
+   * Extrnal library for code styling
+   * @link https://highlightjs.org
+   * @type {Object}
+   */
+
+
+  var library = {
+    js: '//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js',
+    css: '//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github-gist.min.css'
+  };
+  /**
+   * Loads styling library
+   */
+
+  var prepare = function prepare() {
+    return Promise.all([$.loadResource('JS', library.js, 'highlight'), $.loadResource('CSS', library.css, 'highlight')]).catch(function (err) {
+      return console.warn('Cannot load code styling module: ', err);
+    }).then(function () {
+      return console.log('Code Styling is ready');
+    });
+  };
+  /**
+   * Finds code blocks and fires highlighting
+   * @param {String} codeBlocksSelector - where to find <code> blocks
+   */
+
+
+  var init = function init(codeBlocksSelector) {
+    var codeBlocks = document.querySelectorAll(codeBlocksSelector);
+
+    if (codeBlocks) {
+      prepare().then(function () {
+        if (!window.hljs) {
+          console.warn('Code Styling script loaded but not ready');
+          return;
+        }
+
+        for (var i = codeBlocks.length - 1; i >= 0; i--) {
+          window.hljs.highlightBlock(codeBlocks[i]);
+        }
+      });
+    }
+  };
+
+  return {
+    init: init
+  };
+}();
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+!function(e,n){ true?module.exports=n():undefined}(window,function(){return function(e){var n={};function t(o){if(n[o])return n[o].exports;var r=n[o]={i:o,l:!1,exports:{}};return e[o].call(r.exports,r,r.exports,t),r.l=!0,r.exports}return t.m=e,t.c=n,t.d=function(e,n,o){t.o(e,n)||Object.defineProperty(e,n,{configurable:!1,enumerable:!0,get:o})},t.r=function(e){Object.defineProperty(e,"__esModule",{value:!0})},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,n){return Object.prototype.hasOwnProperty.call(e,n)},t.p="",t(t.s=0)}([function(e,n,t){"use strict";var o,r,i,u,c,f="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e};
+/**
+ * Helps to set link with custom protocol (to open apps) and usual link (for webpages) to a button
+ *
+ * @author Taly Guryn <https://github.com/talyguryn>
+ * @license MIT
+ */e.exports=(o=function(e){"object"!==(void 0===e?"undefined":f(e))&&c("Passed element is not an object");var n=e.dataset.link||e.href,t=e.dataset.appLink;i(t,n)},r=function(e){e||c("Can not open app, because appLink is undefined");var n=document.createElement("iframe");n.style.display="none",document.body.appendChild(n),null!==n&&(n.src=e)},i=function(e,n){var t=!1;window.addEventListener("pagehide",function(){t=!0},!1),window.addEventListener("blur",function(){t=!0},!1),r(e),setTimeout(function(){t||u(n)},100)},u=function(e){e||c("Can not open page because link is undefined"),window.open(e,"_blank")},c=function(e){throw Error("[Deeplinker] "+e)},{click:o,init:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:".deeplinker",n=document.querySelectorAll(e);n.length&&Array.prototype.slice.call(n).forEach(function(e){e.addEventListener("click",function(n){n.preventDefault(),o(e)})})},tryToOpenApp:r})}])});
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/**
+ * Plugins filter on editor landing page
+ */
+
+module.exports = function () {
+  /**
+   * Block plugins
+   */
+  var blockTools;
+  /**
+   * Inline Tool plugins
+   */
+
+  var inlineTools;
+  /**
+   * Initialize module
+   * @typedef {Object} settings                             - module's parameters passed from ModuleDispatcher
+   * @param   {String} settings.blockToolsClass             - class of Editor Block Tools
+   * @param   {String} settings.inlineToolsClass            - class of Editor Inline Tools
+   * @param   {String} settings.blockFilterButtonClass      - class of button Block Tools filter
+   * @param   {String} settings.inlineFilterButtonClass     - class of button Inline Tools filter
+   * @param   {String} settings.allToolsFilterButtonClass   - class of button showing all types of Tools
+   */
+
+  var init = function init(settings) {
+    blockTools = document.querySelectorAll(settings.blockToolsClass);
+    inlineTools = document.querySelectorAll(settings.inlineToolsClass);
+    var pluginFilters = [{
+      'buttonClass': settings.blockFilterButtonClass,
+      'buttonAction': showBlockToolsOnly
+    }, {
+      'buttonClass': settings.inlineFilterButtonClass,
+      'buttonAction': showInlineToolsOnly
+    }, {
+      'buttonClass': settings.allToolsFilterButtonClass,
+      'buttonAction': showAllPlugins
+    }];
+    /**
+     * Add event listener if filter button exists, otherwise show console message
+     */
+
+    for (var j = 0; j < pluginFilters.length; j++) {
+      var filterButton = document.querySelector(pluginFilters[j].buttonClass);
+      var buttonClass = pluginFilters[j].buttonClass;
+      var filterAction = pluginFilters[j].buttonAction;
+
+      if (filterButton) {
+        filterButton.addEventListener('click', filterAction);
+      } else {
+        console.warn('Can\'t find button with class: «' + buttonClass + '»');
+      }
+    }
+  };
+  /**
+   * Show only Inline Tools, hide Blocks
+   */
+
+
+  var showInlineToolsOnly = function showInlineToolsOnly() {
+    toggleTools(inlineTools, blockTools);
+  };
+  /**
+   * Show only Blocks, hide Inline Tools
+   */
+
+
+  var showBlockToolsOnly = function showBlockToolsOnly() {
+    toggleTools(blockTools, inlineTools);
+  };
+  /**
+   * Show all types of Editor Tools
+   */
+
+
+  var showAllPlugins = function showAllPlugins() {
+    toggleTools(inlineTools, blockTools, false);
+  };
+  /**
+   * Toggle Editor Block and Inline Tools into view
+   * @param {HTMLCollection} toolsToShow - Block or Inline Editor's Tools to show
+   * @param {HTMLCollection} toolsToHide - Block or Inline Editor's Tools to hide
+   * @param {Boolean} hideOneType        - pass false to show both Block and Inline Tools
+   */
+
+
+  var toggleTools = function toggleTools(toolsToShow, toolsToHide) {
+    var hideOneType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
+    for (var i = 0; i < toolsToHide.length; i++) {
+      toolsToHide[i].classList.toggle('hide', hideOneType);
+    }
+
+    for (var _i = 0; _i < toolsToShow.length; _i++) {
+      toolsToShow[_i].classList.toggle('hide', false);
+    }
+  };
+
+  return {
+    init: init
+  };
+}({});
+
+/***/ })
+/******/ ]);
