@@ -87,13 +87,13 @@ module.exports = {
             classes: path.resolve(__dirname, 'public/app/js/classes'),
         },
     },
-    
+
     /**
      * Optimization params
      */
     optimization: {
         noEmitOnErrors: true,
-        minimize: false,
+        // minimize: false,
         splitChunks: false
     },
 
