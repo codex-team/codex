@@ -334,7 +334,7 @@ var bot = (function (bot) {
                 ' - Оповещения о создании Pull-реквестов', '<br>',
                 ' - Оповещения о создании Issues', '<br>',
                 '<br>',
-                'Модуль активирован для сайта ifmo.su'
+                'Модуль активирован для сайта codex.so'
             );
 
         },
@@ -343,7 +343,7 @@ var bot = (function (bot) {
 
             var users = ['@neSpecc', '@guryn', '@khaydarovm', '@dn0str', '@polinashneider'],
                 branches = ['master', 'master', 'master', 'redesign', 'client-updates', 'new-editor'],
-                repos = ['ifmo.su', 'codex.editor', 'codex.bot', 'kohana.aliases', 'codex.special'],
+                repos = ['codex.so', 'codex.editor', 'codex.bot', 'kohana.aliases', 'codex.special'],
                 commits = [
                     '* meet up land mobile view improved',
                     '* styles imroved <br> * mobile view updated',
@@ -389,7 +389,7 @@ var bot = (function (bot) {
 
         metrikaSuccessConnection : function () {
 
-            return 'Яндекс.Метрика успешно подключена для сайта <mono>ifmo.su</i>.';
+            return 'Яндекс.Метрика успешно подключена для сайта <mono>codex.so</mono>.';
 
         },
 
@@ -398,7 +398,7 @@ var bot = (function (bot) {
             return ''.concat(
                 buildDate_(), '<br>',
                 '<br>',
-                'ifmo.su:', '<br>',
+                'codex.so:', '<br>',
                 '637 уникальных посетителей', '<br>',
                 '2 048 просмотров'
             );
@@ -410,7 +410,7 @@ var bot = (function (bot) {
             return ''.concat(
                 'С понедельника по сегодняшний день', '<br>',
                 '<br>',
-                'ifmo.su:', '<br>',
+                'codex.so:', '<br>',
                 '2 452 уникальных посетителя', '<br>',
                 '10 348 просмотров'
             );
@@ -423,7 +423,7 @@ var bot = (function (bot) {
                 'Данные за текущий месяц',
                 '<br>',
                 '<br>',
-                'ifmo.su:', '<br>',
+                'codex.so:', '<br>',
                 '24 132 уникальных посетителя', '<br>',
                 '49 939 просмотров'
             );

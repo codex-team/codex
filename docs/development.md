@@ -121,7 +121,7 @@ Set `mysql` as a hostname of MySQL container. Type database name, username and p
 
 ### telegram-notification.php (optional feature)
 
-Somewhere in the project we use notifications from [@codex_bot](https://ifmo.su/bot). You can get a notifications link from it typing a command `/notify_start`. You have to add [@codex_bot](https://t.me/codex_bot) in Telegram for that and start conversation.
+Somewhere in the project we use notifications from [@codex_bot](https://codex.so/bot). You can get a notifications link from it typing a command `/notify_start`. You have to add [@codex_bot](https://t.me/codex_bot) in Telegram for that and start conversation.
 
 ### oauth.php
 
