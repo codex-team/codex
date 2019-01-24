@@ -4,9 +4,9 @@
 User-agent: *
 
 Disallow: /admin
-Disallow: /login
+Disallow: /auth
 Disallow: /logout
-Host: ifmo.su
+Host: codex.so
 Crawl-delay: 4.5
 
 Clean-param: saved&success
