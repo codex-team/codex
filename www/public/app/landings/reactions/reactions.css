@@ -34,7 +34,7 @@
  }
  
  .reactions-page__about {
-     min-height: calc(100% - 10vh - 20px);
+     min-height: calc(100% - 10vh - 90px);
      margin-bottom: -50px;
      padding: 10vh 0 0;
      text-align: center;
@@ -55,7 +55,7 @@
      -webkit-box-pack: center;
          -ms-flex-pack: center;
              justify-content: center;
-     margin-top: 48px;
+     margin-top: 43px;
  }
  
  .reactions__counter-emoji {
@@ -99,7 +99,7 @@
              align-items: center;
      width: 125px;
      height: 39px;
-     margin: 2vh auto;
+     margin: 51px auto 0;
      color: #ffffff;
      border-radius: 19.5px;
      -webkit-box-shadow: 0 9px 10px -8px rgba(9, 97, 213, 0.83);
@@ -138,6 +138,7 @@
      -webkit-animation: reactions_footer 250ms ease-out 2s forwards;
              animation: reactions_footer 250ms ease-out 2s forwards;
      opacity: 0;
+     margin: 70px 0 10px;
      -webkit-transform: translateY(20px);
          -ms-transform: translateY(20px);
              transform: translateY(20px);
