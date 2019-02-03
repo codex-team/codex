@@ -13,7 +13,7 @@ class Controller_Editor extends Controller_Base_preDispatch
 
     /**
      * Action for index page
-     * Codex Editor Landing page in https://ifmo.su/
+     * Codex Editor Landing page in https://codex.so/
      */
     public function action_landing()
     {
@@ -58,7 +58,7 @@ class Controller_Editor extends Controller_Base_preDispatch
         $article->title = 'Codex Editor';
 
         $html = Arr::get($_POST, 'html');
-       
+
         $text = Arr::get($_POST, 'article_text');
         $editor = new CodexEditor($text);
 

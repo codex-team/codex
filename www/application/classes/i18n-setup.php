@@ -25,7 +25,7 @@ class Internationalization
      * Name of your .mo and .po files
      * (usually named after your domain)
      */
-    private $domain = 'ifmo.su';
+    private $domain = 'codex.so';
 
     /**
      * Directory for gettext translations

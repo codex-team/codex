@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="/public/app/landings/media/media.css?v=<?= filemtime("public/app/landings/media/media.css") ?>">
 <div class="center_side">
     <div class="codex-media">
-        <a class="codex-media__logo" href="//ifmo.su" title="CodeX Team">
+        <a class="codex-media__logo" href="//codex.so" title="CodeX Team">
             <? include_once(DOCROOT . 'public/app/img/codex-logo.svg'); ?>
         </a>
         <h1 class="codex-media__title">CodeX Media</h1>

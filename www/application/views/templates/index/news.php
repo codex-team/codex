@@ -1,14 +1,14 @@
 <?
     $news = array(
         array(
-            'text' => 'Открыт <a href="https://ifmo.su/join">набор в команду</a>',
-            'textEn' => 'Have introduced <a href="https://ifmo.su/join">Joining CodeX</a> 👋 — doors are open till 7th, October',
+            'text' => 'Открыт <a href="/join">набор в команду</a>',
+            'textEn' => 'Have introduced <a href="/join">Joining CodeX</a> 👋 — doors are open till 7th, October',
             'date' => '21 sep',
             'release' => false
         ),
         array(
-            'text' => 'Набросали <a href="https://ifmo.su/elastic-search">гайд по Elasticsearch</a> для начинающих',
-            'textEn' => 'Beginners guide about <a href="https://ifmo.su/elastic-search">first steps in Elasticsearch</a>',
+            'text' => 'Набросали <a href="/elastic-search">гайд по Elasticsearch</a> для начинающих',
+            'textEn' => 'Beginners guide about <a href="/elastic-search">first steps in Elasticsearch</a>',
             'date' => '20 sep',
             'release' => false
         ),
@@ -37,8 +37,8 @@
             'release' => true
         ),
         array(
-            'text' => 'Написали про <a href="https://ifmo.su/ts-classes">классы в TypeScript</a>',
-            'textEn' => '<a href="https://ifmo.su/ts-classes">TypeScript classes</a> — simply explained',
+            'text' => 'Написали про <a href="/ts-classes">классы в TypeScript</a>',
+            'textEn' => '<a href="/ts-classes">TypeScript classes</a> — simply explained',
             'date' => '31 may',
             'release' => false
         ),
@@ -96,8 +96,8 @@
             'date' => '6 feb',
         ),
         array(
-            'text' => 'Представляем обновленный <a href="https://ifmo.su">сайт CodeX</a>»',
-            'textEn' => 'Meet the new <a href="https://ifmo.su">CodeX\'s website</a>',
+            'text' => 'Представляем обновленный <a href="/">сайт CodeX</a>»',
+            'textEn' => 'Meet the new <a href="/">CodeX\'s website</a>',
             'date' => '7 dec',
             'release' => true
         ),
@@ -204,8 +204,8 @@
             'date' => '29 mar'
         ),
         array(
-            'text' => 'Написали простую инструкцию о том, <a href="https://ifmo.su/ssl">как бесплатно и просто настроить HTTPS с помощью Let\'s Encrypt</a>',
-            'textEn' => 'Wrote a simple guide about <a href="https://ifmo.su/ssl">setting up a HTTPS connection to the website with Let\'s Encrypt</a>',
+            'text' => 'Написали простую инструкцию о том, <a href="/ssl">как бесплатно и просто настроить HTTPS с помощью Let\'s Encrypt</a>',
+            'textEn' => 'Wrote a simple guide about <a href="/ssl">setting up a HTTPS connection to the website with Let\'s Encrypt</a>',
             'date' => '22 mar'
         ),
         array(
