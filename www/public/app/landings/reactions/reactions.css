@@ -1,6 +1,11 @@
 /**
  * CodeX Reactions Module Landing
  */
+html,
+body,
+.reactions-page {
+    height: 100%;
+}
 
  body {
     color: #646c79;
@@ -15,24 +20,27 @@
     display: none;
 }
 
-.reactions {
+.reactions-page {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
-    padding-bottom: 30px;
+    min-width: 320px;
+    overflow-y: auto;
     background-color: #212229;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
     "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
-.reactions__about {
-    padding: 10vh 0 22vh;
+.reactions-page__about {
+    min-height: calc(100% - 10vh - 20px);
+    margin-bottom: -50px;
+    padding: 10vh 0 0;
     text-align: center;
 }
 
-.reactions__info {
+.reactions-page__info {
     margin: 0;
     color: #878e9e;
     font-size: 17px;
@@ -40,7 +48,7 @@
     font-weight: 400;
 }
 
-.reactions__example {
+.reactions-page__example {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -54,7 +62,15 @@
     background-color: #fff;
 }
 
-.reactions__name {
+.reactions__counter:last-child {
+    margin-right: 0;
+}
+
+.reactions {
+    margin-left: 15px;
+}
+
+.reactions-page__name {
     margin: 0.4em 0 11px;
     color: #fff;
     font-size: 36px;
@@ -62,7 +78,7 @@
     font-weight: 700;
 }
 
-.reactions__logo {
+.reactions-page__logo {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -71,7 +87,7 @@
     margin: 0 auto;
 }
 
-.reactions__button {
+.reactions-page__button {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -98,14 +114,16 @@
     cursor: pointer;
 }
 
-.reactions__button:active, .reactions__button:focus, .reactions__button:hover {
+.reactions-page__button:active, 
+.reactions-page__button:focus, 
+.reactions-page__button:hover {
     background-image: -webkit-gradient(linear, left top, left bottom, from(#1ba0ff), to(#0c7abf));
     background-image: -webkit-linear-gradient(top, #1ba0ff, #0c7abf);
     background-image: -o-linear-gradient(top, #1ba0ff, #0c7abf);
     background-image: linear-gradient(to bottom, #1ba0ff, #0c7abf);
 }
 
-.reactions__footer {
+.reactions-page__footer {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -117,12 +135,13 @@
             align-items: center;
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
-    -webkit-animation: reactions_footer 2s ease-out 2s forwards;
-            animation: reactions_footer 2s ease-out 2s forwards;
+    -webkit-animation: reactions_footer 250ms ease-out 2s forwards;
+            animation: reactions_footer 250ms ease-out 2s forwards;
     opacity: 0;
+    transform: translateY(20px);
 }
 
-.reactions__footer-logo {
+.reactions-page__footer-logo {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -131,61 +150,81 @@
             align-items: center;
 }
 
-.reactions__footer-icon {
+.reactions-page__footer-icon {
     width: 40px;
     height: 40px;
 }
 
-.reactions__footer-title {
+.reactions-page__footer-title {
     margin-left: 10px;
     color: #fff;
     font-size: 17px;
     font-weight: bold;
 }
 
-.reactions__footer-description {
+.reactions-page__footer-description {
     margin: 0 25px;
 }
 
 @media (max-width: 580px) {
     
-    .reactions__footer-logo {
+    .reactions-page__footer-logo {
         margin-bottom: 15px;
     }
 
-    .reactions__footer-description {
+    .reactions-page__footer-description {
         margin-bottom: 25px;
+    }
+
+    .reactions-page__footer {
+        margin-bottom: 10px;
     }
 }
 
 @media (max-width: 320px) {
 
-    .reactions {
+    .reactions-page {
         padding: 0 20px;
     }
 
-    .reactions__logo {
+    .reactions-page__logo {
         width: 20%;
         min-width: 50px;
         height: 70px;
     }
 
-    .reactions__info {
+    .reactions-page__info {
         font-size: 14px;
     }
     
-    .reactions__name {
+    .reactions-page__name {
         font-size: 22px;
+    }
+
+    .reactions-page__footer {
+        margin-bottom: 10px;
     }
 
 }
 
 @-webkit-keyframes reactions_footer {
-    from { opacity: 0; }
-    to {opacity: 1; }
+    from { 
+        opacity: 0;
+        transform: translateY(70px); 
+    }
+    to {
+        opacity: 1; 
+        transform: translateY(0px); 
+    }
 }
 
 @keyframes reactions_footer {
-    from { opacity: 0; }
-    to {opacity: 1; }
+    from { 
+        opacity: 0; 
+        transform: translateY(20px); 
+    }
+    to {
+        opacity: 1; 
+        transform: translateY(0px); 
+    }
 }
