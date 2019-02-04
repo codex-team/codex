@@ -119,6 +119,10 @@ Route::set('DEL_COURSE_SCRIPT', 'courses/delcourse/<course_id>', array('course_i
 	'action' => 'delete'
 ));
 
+Route::set('SITEMAP_XML', 'sitemap.xml')->defaults(array(
+    'controller' => 'Sitemap',
+    'action' => 'sitemap'
+));
 
 /**
 * Join page
