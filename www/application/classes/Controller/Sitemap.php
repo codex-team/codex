@@ -2,6 +2,8 @@
 
 class Controller_Sitemap extends Controller_Base_preDispatch
 {
+    protected $cacheKey = 'sitemap';
+
     public function before()
     {
         parent::before();
@@ -11,14 +13,21 @@ class Controller_Sitemap extends Controller_Base_preDispatch
     public function action_sitemap()
     {
         $this->response->headers('Content-Type', 'text/xml');
-        $this->response->body($this->generate_sitemap());
+        $xmlResponse = $this->generate_sitemap();
+        $this->response->body($xmlResponse);
     }
 
     /**
-     * Fill Sitemap with users and articles data
+     * Generate Sitemap with users and articles data
      */
-    public function fill_sitemap_data()
+    public function generate_sitemap()
     {
+        $cached = $this->memcache->get($this->cacheKey);
+
+        if ($cached) {
+            return $cached;
+        }
+
         /**
          * Create Sitemap instance
          */
@@ -30,63 +39,32 @@ class Controller_Sitemap extends Controller_Base_preDispatch
         $users = Model_User::getAll();
         $articles = Model_Article::getActiveArticles();
 
-        $items_urls = [];
+        $domain_and_protocol = Model_Methods::getDomainAndProtocol();
+
+        $sitemapItems = array();
 
         /**
-         * Compose entities' urls
+         * Gather entities' urls
          */
         foreach ($users as $user) {
-            $url = $user->uri ? $user->uri : 'user/' . $user->id;
-            array_push($items_urls, $url);
+            array_push($sitemapItems, $url = $user->uri ? $user->uri : 'user/' . $user->id);
         }
 
         foreach ($articles as $article) {
-            $url = $article->uri ? $article->uri : 'article/' . $article->id;
-            array_push($items_urls, $url);
+            array_push($sitemapItems, $url = $article->uri ? $article->uri : 'article/' . $article->id);
         }
-
-        $domain_and_protocol = Model_Methods::getDomainAndProtocol();
 
         /**
          * Fill Sitemap model
          */
-        foreach ($items_urls as $url) {
-            $sitemap_item = $domain_and_protocol . '/' . $url;
-            $sitemap->add($sitemap_item);
+        foreach ($sitemapItems as $url) {
+            $sitemap->add($domain_and_protocol . '/' . $url);
         }
 
-        return $sitemap;
-    }
+        $result = $sitemap->draw($sitemapItems);
 
-    /**
-     * Generate Sitemap XML from model data
-     * @return mixed Sitemap XML
-     */
-    public function generate_sitemap()
-    {
-        $cacheKey ='sitemap';
-        $cached = $this->memcache->get($cacheKey);
+        $this->memcache->set($this->cacheKey, $result);
 
-        if ($cached) {
-            return $cached;
-        }
-
-        $sitemap = $this->fill_sitemap_data();
-
-        $xml = new SimpleXMLElement('<urlset/>');
-        $xml->addAttribute('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
-        $xml->addAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
-        $xml->addAttribute('xsi:schemaLocation', 'http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd');
-
-        foreach ($sitemap->items as $item) {
-            $track = $xml->addChild('url');
-            $track->addChild('loc', $item);
-        }
-
-        Header('Content-type: text/xml');
-
-        $this->memcache->set($cacheKey, $xml->asXML());
-
-        return $xml->asXML();
+        return $result;
     }
 }
