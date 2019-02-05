@@ -2,8 +2,6 @@
 
 class Controller_Sitemap extends Controller_Base_preDispatch
 {
-    private $sitemap;
-
     public function before()
     {
         parent::before();
@@ -24,7 +22,7 @@ class Controller_Sitemap extends Controller_Base_preDispatch
         /**
          * Create Sitemap instance
          */
-        $this->sitemap = new Model_Sitemap();
+        $sitemap = new Model_Sitemap();
 
         /**
          * Get users and articles
@@ -54,8 +52,10 @@ class Controller_Sitemap extends Controller_Base_preDispatch
          */
         foreach ($items_urls as $url) {
             $sitemap_item = $domain_and_protocol . '/' . $url;
-            $this->sitemap->add($sitemap_item);
+            $sitemap->add($sitemap_item);
         }
+
+        return $sitemap;
     }
 
     /**
@@ -64,16 +64,25 @@ class Controller_Sitemap extends Controller_Base_preDispatch
      */
     public function generate_sitemap()
     {
-        $this->fill_sitemap_data();
+        $cacheKey ='sitemap';
+        $cached = $this->memcache->get($cacheKey);
+
+        if ($cached) {
+            return $cached;
+        }
+
+        $sitemap = $this->fill_sitemap_data();
 
         $xml = new SimpleXMLElement('<xml/>');
 
-        foreach ($this->sitemap->items as $item) {
+        foreach ($sitemap->items as $item) {
             $track = $xml->addChild('url');
             $track->addChild('loc', $item);
         }
 
         Header('Content-type: text/xml');
+
+        $this->memcache->set($cacheKey, $xml->asXML());
 
         return $xml->asXML();
     }
