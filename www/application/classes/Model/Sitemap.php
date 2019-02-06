@@ -23,14 +23,14 @@ class Model_Sitemap extends Model
      * @type string $sitemapItems['dt_update'] - date item was modified
      * @return string
      */
-    public function draw($sitemapItems)
+    public function draw()
     {
         $xml = new SimpleXMLElement('<urlset/>');
         $xml->addAttribute('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
         $xml->addAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
         $xml->addAttribute('xsi:schemaLocation', 'http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd');
 
-        foreach ($sitemapItems as $item) {
+        foreach ($this->items as $item) {
             $track = $xml->addChild('url');
             $track->addChild('loc', $item['uri']);
             $track->addChild('lastmod', $item['dt_update']);

@@ -12,8 +12,9 @@ class Controller_Sitemap extends Controller_Base_preDispatch
 
     public function action_sitemap()
     {
-        $this->response->headers('Content-Type', 'text/xml');
         $xmlResponse = $this->generate_sitemap();
+
+        $this->response->headers('Content-Type', 'text/xml');
         $this->response->body($xmlResponse);
     }
 
@@ -41,39 +42,30 @@ class Controller_Sitemap extends Controller_Base_preDispatch
 
         $domain_and_protocol = Model_Methods::getDomainAndProtocol();
 
-        $sitemapItems = array();
-
         /**
-         * Gather entities' urls
+         * Collect Sitemap data
          */
         foreach ($users as $user) {
             $dtUpdate = $user->dt_update ? $user->dt_update : $user->dt_create;
             $itemUri = $user->uri ? $user->uri : 'user/' . $user->id;
 
-            array_push($sitemapItems, array(
+            $sitemap->add([
                 'uri' => $domain_and_protocol . '/' . $itemUri,
-                'dt_update' => $dtUpdate)
-            );
+                'dt_update' => $dtUpdate
+            ]);
         }
 
         foreach ($articles as $article) {
             $dtUpdate = $article->dt_update ? $article->dt_update : $article->dt_create;
             $itemUri = $user->uri ? $article->uri : 'article/' . $article->id;
 
-            array_push($sitemapItems, array(
+            $sitemap->add([
                 'uri' => $domain_and_protocol . '/' . $itemUri,
-                'dt_update' => $dtUpdate)
-            );
+                'dt_update' => $dtUpdate
+            ]);
         }
 
-        /**
-         * Fill Sitemap model
-         */
-        foreach ($sitemapItems as $item) {
-            $sitemap->add($item);
-        }
-
-        $result = $sitemap->draw($sitemapItems);
+        $result = $sitemap->draw();
 
         $this->memcache->set($this->cacheKey, $result);
 
