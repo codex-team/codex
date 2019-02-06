@@ -47,18 +47,30 @@ class Controller_Sitemap extends Controller_Base_preDispatch
          * Gather entities' urls
          */
         foreach ($users as $user) {
-            array_push($sitemapItems, $url = $user->uri ? $user->uri : 'user/' . $user->id);
+            $dtUpdate = $user->dt_update ? $user->dt_update : $user->dt_create;
+            $itemUri = $user->uri ? $user->uri : 'user/' . $user->id;
+
+            array_push($sitemapItems, array(
+                'uri' => $domain_and_protocol . '/' . $itemUri,
+                'dt_update' => $dtUpdate)
+            );
         }
 
         foreach ($articles as $article) {
-            array_push($sitemapItems, $url = $article->uri ? $article->uri : 'article/' . $article->id);
+            $dtUpdate = $article->dt_update ? $article->dt_update : $article->dt_create;
+            $itemUri = $user->uri ? $article->uri : 'article/' . $article->id;
+
+            array_push($sitemapItems, array(
+                'uri' => $domain_and_protocol . '/' . $itemUri,
+                'dt_update' => $dtUpdate)
+            );
         }
 
         /**
          * Fill Sitemap model
          */
-        foreach ($sitemapItems as $url) {
-            $sitemap->add($domain_and_protocol . '/' . $url);
+        foreach ($sitemapItems as $item) {
+            $sitemap->add($item);
         }
 
         $result = $sitemap->draw($sitemapItems);

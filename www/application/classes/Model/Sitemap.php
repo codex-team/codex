@@ -18,6 +18,9 @@ class Model_Sitemap extends Model
 
     /**
      * Generate sitemap.xml
+     * @param array $sitemapItems
+     * @type string $sitemapItems['uri'] - item uri
+     * @type string $sitemapItems['dt_update'] - date item was modified
      * @return string
      */
     public function draw($sitemapItems)
@@ -29,7 +32,8 @@ class Model_Sitemap extends Model
 
         foreach ($sitemapItems as $item) {
             $track = $xml->addChild('url');
-            $track->addChild('loc', $item);
+            $track->addChild('loc', $item['uri']);
+            $track->addChild('lastmod', $item['dt_update']);
         }
 
         return $xml->asXML();
