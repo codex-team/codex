@@ -33,9 +33,36 @@ class Model_Sitemap extends Model
         foreach ($this->items as $item) {
             $track = $xml->addChild('url');
             $track->addChild('loc', $item['uri']);
-            $track->addChild('lastmod', $item['dt_update']);
+
+            /**
+             * Landings won't have 'lastmod' param
+             */
+            if (array_key_exists('dt_update', $item)) {
+                $track->addChild('lastmod', $item['dt_update']);
+            }
         }
 
         return $xml->asXML();
+    }
+
+    /**
+     * Add landings to sitemap
+     */
+    public function include_landings()
+    {
+        $domain_and_protocol = Model_Methods::getDomainAndProtocol();
+        $landing_urls = array(
+            'bot',
+            'editor',
+            'media',
+            'special',
+            'beauty-toolbar'
+        );
+
+        foreach ($landing_urls as $item) {
+            $this->add([
+                'uri' => $domain_and_protocol . '/' . $item
+            ]);
+        }
     }
 }

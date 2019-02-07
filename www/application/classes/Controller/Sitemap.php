@@ -23,7 +23,9 @@ class Controller_Sitemap extends Controller_Base_preDispatch
      */
     public function generate_sitemap()
     {
-        $cached = $this->memcache->get($this->cacheKey);
+        $fullKey = URL::base('https', TRUE) . ':' . $this->cacheKey;
+
+        $cached = $this->memcache->get($fullKey);
 
         if ($cached) {
             return $cached;
@@ -33,6 +35,11 @@ class Controller_Sitemap extends Controller_Base_preDispatch
          * Create Sitemap instance
          */
         $sitemap = new Model_Sitemap();
+
+        /**
+         * Include landing items
+         */
+        $sitemap->include_landings();
 
         /**
          * Get users and articles
@@ -67,7 +74,7 @@ class Controller_Sitemap extends Controller_Base_preDispatch
 
         $result = $sitemap->draw();
 
-        $this->memcache->set($this->cacheKey, $result);
+        $this->memcache->set($fullKey, $result);
 
         return $result;
     }
