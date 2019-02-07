@@ -4,6 +4,17 @@ class Controller_Sitemap extends Controller_Base_preDispatch
 {
     protected $cacheKey = 'sitemap';
 
+    /**
+     * Landing items to include
+     */
+    const landingUrls = array(
+        'bot',
+        'editor',
+        'media',
+        'special',
+        'beauty-toolbar'
+    );
+
     public function before()
     {
         parent::before();
@@ -36,23 +47,12 @@ class Controller_Sitemap extends Controller_Base_preDispatch
          */
         $sitemap = new Model_Sitemap();
 
-        /**
-         * Landing items to include
-         */
-        $landingUrls = array(
-            'bot',
-            'editor',
-            'media',
-            'special',
-            'beauty-toolbar'
-        );
-
         $domain_and_protocol = Model_Methods::getDomainAndProtocol();
 
         /**
          * Add landings
          */
-        foreach ($landingUrls as $item) {
+        foreach (self::landingUrls as $item) {
             $sitemap->add([
                 'uri' => $domain_and_protocol . '/' . $item
             ]);
