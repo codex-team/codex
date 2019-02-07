@@ -19,7 +19,7 @@ class Controller_Sitemap extends Controller_Base_preDispatch
      * Other public site pages
      */
     const sitePages = array(
-      'articles'
+        'articles'
     );
 
     public function before()
