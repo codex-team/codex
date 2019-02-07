@@ -44,25 +44,4 @@ class Model_Sitemap extends Model
 
         return $xml->asXML();
     }
-
-    /**
-     * Add landings to sitemap
-     */
-    public function include_landings()
-    {
-        $domain_and_protocol = Model_Methods::getDomainAndProtocol();
-        $landing_urls = array(
-            'bot',
-            'editor',
-            'media',
-            'special',
-            'beauty-toolbar'
-        );
-
-        foreach ($landing_urls as $item) {
-            $this->add([
-                'uri' => $domain_and_protocol . '/' . $item
-            ]);
-        }
-    }
 }

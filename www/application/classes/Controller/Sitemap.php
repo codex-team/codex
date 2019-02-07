@@ -37,9 +37,26 @@ class Controller_Sitemap extends Controller_Base_preDispatch
         $sitemap = new Model_Sitemap();
 
         /**
-         * Include landing items
+         * Landing items to include
          */
-        $sitemap->include_landings();
+        $landingUrls = array(
+            'bot',
+            'editor',
+            'media',
+            'special',
+            'beauty-toolbar'
+        );
+
+        $domain_and_protocol = Model_Methods::getDomainAndProtocol();
+
+        /**
+         * Add landings
+         */
+        foreach ($landingUrls as $item) {
+            $sitemap->add([
+                'uri' => $domain_and_protocol . '/' . $item
+            ]);
+        }
 
         /**
          * Get users and articles
@@ -47,10 +64,8 @@ class Controller_Sitemap extends Controller_Base_preDispatch
         $users = Model_User::getAll();
         $articles = Model_Article::getActiveArticles();
 
-        $domain_and_protocol = Model_Methods::getDomainAndProtocol();
-
         /**
-         * Collect Sitemap data
+         * Add users
          */
         foreach ($users as $user) {
             $dtUpdate = $user->dt_update ? $user->dt_update : $user->dt_create;
@@ -62,6 +77,9 @@ class Controller_Sitemap extends Controller_Base_preDispatch
             ]);
         }
 
+        /**
+         * Add articles
+         */
         foreach ($articles as $article) {
             $dtUpdate = $article->dt_update ? $article->dt_update : $article->dt_create;
             $itemUri = $user->uri ? $article->uri : 'article/' . $article->id;
