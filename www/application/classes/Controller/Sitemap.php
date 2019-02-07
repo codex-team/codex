@@ -15,6 +15,13 @@ class Controller_Sitemap extends Controller_Base_preDispatch
         'beauty-toolbar'
     );
 
+    /**
+     * Other public site pages
+     */
+    const sitePages = array(
+      'articles'
+    );
+
     public function before()
     {
         parent::before();
@@ -57,6 +64,15 @@ class Controller_Sitemap extends Controller_Base_preDispatch
                 'uri' => $domain_and_protocol . '/' . $item
             ]);
         }
+
+        /**
+         * Add other public site pages
+         */
+        foreach (self::sitePages as $item) {
+            $sitemap->add([
+                'uri' => $domain_and_protocol . '/' . $item
+            ]);
+        };
 
         /**
          * Get users and articles
