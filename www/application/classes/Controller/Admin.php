@@ -182,6 +182,9 @@ class Controller_Admin extends Controller_Base_preDispatch
             case 'resetArticlesTimeline':
                 $result = self::scripts_resetArticlesTimeline();
                 break;
+            case 'resetUsersFeeds':
+                $result = $this->scripts_resetUsersFeeds();
+                break;
             default:
                 break;
         }
@@ -226,5 +229,55 @@ class Controller_Admin extends Controller_Base_preDispatch
         $feed_courses->init($courses);
 
         return 'Articles and Courses timeline was successfully updated';
+    }
+
+    /**
+     * Clears users feeds and fills them with active articles
+     */
+    public function scripts_resetUsersFeeds()
+    {
+        $this->scripts_clearUsersFeeds();
+        $this->scripts_fillUsersFeeds();
+
+        return 'Users feeds were successfully reseted';
+    }
+
+    /**
+     * Clear users feeds
+     */
+    public function scripts_clearUsersFeeds()
+    {
+        $authors_ids = DB::query(Database::SELECT, 'SELECT DISTINCT(`user_id`) FROM `Articles`')->execute()->as_array();
+
+        $coauthors_ids = DB::query(Database::SELECT, 'SELECT DISTINCT(`user_id`) FROM `Coauthors`')->execute()->as_array();
+
+        $unique_users_ids = array_unique(array_merge($authors_ids, $coauthors_ids), SORT_REGULAR);
+
+        foreach ($unique_users_ids as $user_id) {
+            $userFeedKey = Model_User::composeFeedKey($user_id);
+            $userFeed = new Model_Feed_Custom($userFeedKey, Model_Article::FEED_PREFIX);
+            $userFeed->clear();
+        }
+    }
+
+    /**
+     * Fill users feeds with active articles
+     */
+    public function scripts_fillUsersFeeds()
+    {
+        $articles = Model_Article::getActiveArticles();
+        foreach ($articles as $article) {
+            $authorFeedKey = Model_User::composeFeedKey($article->user_id);
+            $authorFeed = new Model_Feed_Custom($authorFeedKey, Model_Article::FEED_PREFIX);
+            $authorFeed->add($article->id, $article->dt_publish);
+
+            $coauthorship = new Model_Coauthors($article->id);
+
+            if ($coauthorship->user_id) {
+                $coauthorFeedKey = Model_User::composeFeedKey($coauthorship->user_id);
+                $coauthorFeed = new Model_Feed_Custom($coauthorFeedKey, Model_Article::FEED_PREFIX);
+                $coauthorFeed->add($article->id, $article->dt_publish);
+            }
+        }
     }
 }

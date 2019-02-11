@@ -19,6 +19,9 @@
     /** Bounce timing function for transition */
     --timing-bounce: cubic-bezier(0.6, -0.28, 0.735, 0.045);
 
+    /** Some layout sizes */
+    --layout-header-height: 50px;
+
     /** Editor block inner width */
     --article-max-width: 650px;
 

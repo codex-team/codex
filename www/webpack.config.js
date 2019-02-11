@@ -93,7 +93,7 @@ module.exports = {
      */
     optimization: {
         noEmitOnErrors: true,
-        minimize: false,
+        // minimize: false,
         splitChunks: false
     },
 

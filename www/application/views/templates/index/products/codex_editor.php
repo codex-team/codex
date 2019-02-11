@@ -1,6 +1,6 @@
-<div class="product-card product-card--bot">
+<div class="product-card product-card--editor">
     <a class="product-card__title" href="/editor">
-        CodeX Editor
+        Editor.js
     </a>
     <div class="product-card__caption">
         API-oriented, block-styled editor for Media. Generates useful JSON-output with clear data.
@@ -21,7 +21,7 @@
     </div>
     <div class="product-card__right">
         <video class="product-card__video" width="482" autoplay loop muted playsinline>
-            <source src="public/app/img/products/codex-editor-sample.mp4" type="video/mp4">
+            <source src="public/app/img/products/editorjs.mp4" type="video/mp4">
         </video>
         <div class="product-card__right-caption">
             Try our best plugins or create your own

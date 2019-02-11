@@ -91,20 +91,20 @@ class Model_Methods extends Model
     public function saveImage($file, $path)
     {
         /**
-         *   Проверки на  Upload::valid($file) OR Upload::not_empty($file) OR Upload::size($file, '8M') делаются в контроллере.
+         * Проверки на  Upload::valid($file) OR Upload::not_empty($file) OR Upload::size($file, '8M') делаются в контроллере.
          */
         if (!Upload::type($file, array('jpg', 'jpeg', 'png', 'gif'))) {
             return false;
         }
+
         if (!is_dir($path)) {
             mkdir($path);
         }
 
-        $copy_file = $file;
-
-        if ($file = Upload::save($file, null, $path)) {
+        if (isset($file['tmp_name'])) {
             $filename = bin2hex(openssl_random_pseudo_bytes(16)) . '.jpg';
-            $image = Image::factory($file);
+            $image = Image::factory($file['tmp_name']);
+            $image->save($path . $filename);
 
             $originalWidth = $image->width;
             $originalHeight = $image->height;
@@ -128,10 +128,13 @@ class Model_Methods extends Model
                         $image->resize($width, $height, true);
                     }
                 }
+
                 $image->save($path . $prefix . '_' . $filename);
             }
+
             // Delete the temporary file
-            unlink($file);
+            unlink($file['tmp_name']);
+
             return array(
                 'width' => $originalWidth,
                 'height' => $originalHeight,
@@ -145,6 +148,7 @@ class Model_Methods extends Model
     public function saveRedactorsImage($file)
     {
         $filename = uniqid() . '.jpg';
+
         $image = Image::factory($file['tmp_name'])->save('upload/redactor_images/' . $filename);
 
         return $filename;
@@ -156,7 +160,7 @@ class Model_Methods extends Model
      */
     public function saveImageByUrl($url, $path, $sizes = null, $forcedSizes = null)
     {
-        $file = $this->getFiles($url);
+        $file = $this->getFile($url);
 
         if ($file) {
             if (!Upload::type($file, array('jpg', 'jpeg', 'png', 'gif'))) {
@@ -165,13 +169,14 @@ class Model_Methods extends Model
             if (!is_dir($path)) {
                 mkdir($path);
             }
+
             return $this->saveRedactorsImage($file);
         }
 
         return false;
     }
 
-    public function getFiles($url)
+    public function getFile($url)
     {
         $tempName = tempnam('/tmp', 'tmp_files');
 

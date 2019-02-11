@@ -28,7 +28,7 @@
 
             <h2>Раздача изображений</h2>
             <p>
-                При обращении на наш сервис за изображением по адресу вида <span class="technic">https://images.ifmo.su/9c6f59c3-abe9-4ff5-962d-f0580aca77ce/</span> получаем идентификатор изображения, скачиваем файл из облака, применяем фильтры, кешируем и отдаем.
+                При обращении на наш сервис за изображением по адресу вида <span class="technic">https://images.codex.so/9c6f59c3-abe9-4ff5-962d-f0580aca77ce/</span> получаем идентификатор изображения, скачиваем файл из облака, применяем фильтры, кешируем и отдаем.
             </p>
 
             <img src="/public/app/img/task/capella/delivery.png">
@@ -38,10 +38,10 @@
                 Запрашивать картинки можно с фильтрами <span class="technic">crop</span> и <span class="technic">resize</span>, которые дописываются к адресу изображения (или в виде GET параметров). Формат фильтров можно придумать свой, например такой:
             </p>
             <p>
-                <span class="technic">https://images.ifmo.su/9c6f59c3-abe9-4ff5-962d-f0580aca77ce/crop300x300/</span>
+                <span class="technic">https://images.codex.so/9c6f59c3-abe9-4ff5-962d-f0580aca77ce/crop300x300/</span>
             </p>
             <p>
-                <span class="technic">https://images.ifmo.su/9c6f59c3-abe9-4ff5-962d-f0580aca77ce/resize1200x700/</span>
+                <span class="technic">https://images.codex.so/9c6f59c3-abe9-4ff5-962d-f0580aca77ce/resize1200x700/</span>
             </p>
             <p>
                 Все операции над изображениями делаем на нашей стороне. Amazon S3 в данном сервисе должен выступать исключительно в роли облака, которое в теории может быть безболезненно заменено на любое другое.

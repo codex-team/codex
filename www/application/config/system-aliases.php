@@ -20,6 +20,7 @@ return array(
         'cover',
         'user',
         'users',
+        'sitemap.xml',
         'test',
         'quiz',
 

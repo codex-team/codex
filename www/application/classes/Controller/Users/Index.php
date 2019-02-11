@@ -106,16 +106,33 @@ class Controller_Users_Index extends Controller_Base_preDispatch
      */
     public function getFeed($user_id)
     {
-        $user_feed_items  = Model_Article::getArticlesByUserId($user_id);
-        $coauthor_feed_items = Model_Coauthors::getArticlesByCoauthorId($user_id);
-
-        $feed_items = array_merge($coauthor_feed_items, $user_feed_items);
+        $feed_items  = $this->getUserArticles($user_id);
 
         foreach ($feed_items as $feed_item) {
             $coauthorship        = new Model_Coauthors($feed_item->id);
             $feed_item->coauthor = Model_User::get($coauthorship->user_id);
         }
         return $feed_items;
+    }
+
+    /**
+     * Get user's articles from feed
+     * @param $user_id - id of articles author or coauthor
+     * @return Model_Article[] - array of user's articles
+     */
+    public function getUserArticles($user_id)
+    {
+        $userFeedKey = Model_User::composeFeedKey($user_id);
+        $userFeed = new Model_Feed_Custom($userFeedKey, Model_Article::FEED_PREFIX);
+        $user_feed_items_ids  = $userFeed->get();
+
+        $models_list = array();
+
+        foreach ($user_feed_items_ids as $item) {
+            list($prefix, $id) = $userFeed->decomposeValueIdentity($item);
+            $models_list[] = Model_Article::get($id);
+        }
+        return $models_list;
     }
 
 }

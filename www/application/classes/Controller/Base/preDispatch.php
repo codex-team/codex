@@ -25,7 +25,7 @@ class Controller_Base_preDispatch extends Template
     {
         /** Disallow requests from other domains */
         if (Kohana::$environment === Kohana::PRODUCTION) {
-            if ((Arr::get($_SERVER, 'SERVER_NAME') != 'stage.ifmo.su') &&
+            if ((Arr::get($_SERVER, 'SERVER_NAME') != 'codex.so') &&
                 (Arr::get($_SERVER, 'SERVER_NAME') != 'ifmo.su')) {
                 exit();
             }

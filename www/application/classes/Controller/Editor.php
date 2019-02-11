@@ -7,14 +7,49 @@ class Controller_Editor extends Controller_Base_preDispatch
 {
 
     /**
+     * Editor.js package name in NPM/Yarn
+     */
+    const PACKAGE_NAME = 'codex.editor';
+
+    /**
      * Action for index page
-     * Codex Editor Landing page in https://ifmo.su/
+     * Codex Editor Landing page in https://codex.so/
      */
     public function action_landing()
     {
         $this->title = 'CodeX Editor';
         $this->description = 'Block style visual editor for beautiful pages';
+        $this->view['version'] = $this->getEditorVersion();
         $this->template->content = View::factory('templates/editor/landing', $this->view);
+    }
+
+    /**
+     * Load Editor package version from NPM
+     * @return string
+     */
+    private function getEditorVersion(){
+        try {
+            $memcache = Cache::instance('memcache');
+            $cacheKey = 'editor-version';
+            $version = $memcache->get($cacheKey);
+
+            if (!$version) {
+                $req = new Request(sprintf('http://npmsearch.com/query?q=%s&fields=version', self::PACKAGE_NAME));
+
+                $response = json_decode($req->execute()->body());
+                $package = array_shift($response->results);
+                $version = array_shift($package->version);
+
+                $memcache->set($cacheKey, $version, Date::HOUR);
+            }
+
+            return $version;
+
+        } catch (Exception $e){
+            \Hawk\HawkCatcher::catchException($e);
+        }
+
+        return '2.7';
     }
 
     public function action_preview()
@@ -23,7 +58,7 @@ class Controller_Editor extends Controller_Base_preDispatch
         $article->title = 'Codex Editor';
 
         $html = Arr::get($_POST, 'html');
-       
+
         $text = Arr::get($_POST, 'article_text');
         $editor = new CodexEditor($text);
 

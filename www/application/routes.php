@@ -119,6 +119,10 @@ Route::set('DEL_COURSE_SCRIPT', 'courses/delcourse/<course_id>', array('course_i
 	'action' => 'delete'
 ));
 
+Route::set('SITEMAP_XML', 'sitemap.xml')->defaults(array(
+    'controller' => 'Sitemap',
+    'action' => 'sitemap'
+));
 
 /**
 * Join page
@@ -186,11 +190,10 @@ Route::set('ADMIN', 'admin(/<category>(/<list>))', array('category' => 'articles
         'action' => 'index'
     ));
 
-Route::set('SCRIPTS', 'admin/scripts(/<script>)', array('script' => 'resetArticlesTimeline'))->defaults(array(
+Route::set('SCRIPTS', 'admin/scripts(/<script>)', array('script' => 'resetArticlesTimeline|resetUsersFeeds'))->defaults(array(
     'controller' => 'admin',
     'action' => 'scripts'
 ));
-
 
 // - viz redaktor -
 

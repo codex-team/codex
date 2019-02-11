@@ -32,7 +32,7 @@
             'repo' => 'github.com/codex-team/email-provider',
         ),
         array(
-            'name' => 'Codex Shortcuts',
+            'name' => 'CodeX Shortcuts',
             'description' => 'Micro-library for dispatching keyboard shortcuts in Javascript.',
             'logo' => 'public/app/img/products/shortcuts.svg',
             'tags' => array('JavaScript'),

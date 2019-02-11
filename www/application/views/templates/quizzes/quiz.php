@@ -1,10 +1,10 @@
 <div id="quiz"></div>
 
 <div data-module="quiz">
-    <module-settings hidden>
+    <textarea name="module-settings" hidden>
         {
             "quizDataInput" : <?= $quizData; ?>,
             "holder" : "quiz"
         }
-    </module-settings>
+    </textarea>
 </div>

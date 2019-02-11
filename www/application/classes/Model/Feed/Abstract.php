@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No Direct Script Access');
 
-class Model_Feed_Abstract extends Model
+abstract class Model_Feed_Abstract extends Model
 {
     protected $redis;
     protected $prefix;

@@ -67,14 +67,6 @@
     .ce-block__content a {
         color: inherit;
     }
-
-    .ce-block--stretched {
-        max-width: none !important;
-
-        .ce-block__content {
-            max-width: none !important;
-        }
-    }
 }
 
 /**
@@ -83,4 +75,12 @@
 .ce-block__content,
 .ce-toolbar__content {
     max-width: var(--article-max-width) !important;
+}
+
+.ce-block--stretched {
+    max-width: none !important;
+
+    .ce-block__content {
+        max-width: none !important;
+    }
 }

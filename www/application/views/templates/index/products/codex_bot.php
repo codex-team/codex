@@ -1,5 +1,5 @@
 <div class="product-card product-card--bot">
-    <a class="product-card__title" href="https://ifmo.su/bot">
+    <a class="product-card__title" href="https://codex.so/bot">
         @codex_bot
     </a>
     <div class="product-card__caption">
