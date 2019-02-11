@@ -66,6 +66,10 @@
         border: 3px solid #fff;
         overflow: hidden;
 
+        &--multiple {
+            margin-left: -10px;
+        }
+
         img {
             width: inherit;
             height: auto;
@@ -99,6 +103,11 @@
         font-size: 14.4px;
         letter-spacing: 0.2px;
         line-height: 1.55em;
+    }
+
+    > .course-menu-list {
+        margin-top: 12px;
+        margin-left: 0;
     }
 
     &--with-cover {

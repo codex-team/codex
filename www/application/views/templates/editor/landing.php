@@ -39,12 +39,12 @@
         </div>
     </div>
     <div class="editor-landing__demo" data-module="editorLanding">
-        <module-settings hidden>
+        <textarea name="module-settings" hidden>
             {
                 "output_id" : "output",
                 "blocks" : []
             }
-        </module-settings>
+        </textarea>
 
         <div class="editor-landing__demo-inner">
             <div id="codex-editor"></div>
@@ -251,7 +251,7 @@
             Plugins can represent any Blocks: Quotes, Galleries, Polls, Embeds, Tables — anything you need. Also they can implement Inline Tools such as Marker, Term, Comments etc.
         </div>
         <div class="editor-landing__plugins-filter" data-module="pluginsFilter">
-            <module-settings hidden>
+            <textarea name="module-settings" hidden>
                 {
                     "inlineFilterButtonClass" : ".js-inline-tools-filter",
                     "blockFilterButtonClass" : ".js-block-tools-filter",
@@ -259,7 +259,7 @@
                     "blockToolsClass" : ".js-block-tool",
                     "inlineToolsClass" : ".js-inline-tool"
                 }
-            </module-settings>
+            </textarea>
 
             <span class="editor-landing__plugins-filter-button js-block-tools-filter">
                 <? include(DOCROOT . '/public/app/landings/editor/svg/plus-icon.svg'); ?>

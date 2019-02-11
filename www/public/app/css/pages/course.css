@@ -1,42 +1,225 @@
-.course {
-    margin: 30px 0px;
+/**
+ * Styles for Course Menu Mobile Toggler on top of Article
+ */
+.course-toggler {
+    margin: 70px auto 0;
+
+    @media (--mobile) {
+        margin: 35px auto 0;
+    }
+
+    .course-menu {
+        margin-bottom: 0;
+
+        @media (--mobile) {
+            margin-bottom: 30px;
+        }
+
+        &__title {
+
+            @media (--mobile) {
+                align-items: center;
+                line-height: 19px;
+                font-size: 14px;
+                margin-bottom: 0;
+
+                &::before {
+                    content: '';
+                    background: url('/public/app/img/hamburger.svg') no-repeat;
+                    display: block;
+                    width: 1px;
+                    height: 16px;
+                    margin-right: 20px;
+                    padding-right: 15px;
+                    margin-top: 5px;
+                }
+
+                a {
+                    pointer-events: none;
+                }
+
+                + .course-menu-list {
+                    display: none;
+
+                    &--show {
+                        display: block;
+                        margin-top: 20px;
+                    }
+                }
+            }
+
+        }
+    }
+
+    + .article {
+
+        .article__title {
+            padding-top: 55px;
+
+            @media (--mobile) {
+                padding: 0 20px 30px;
+            }
+        }
+    }
 }
 
-.course__title {
-    text-align: center;
-    position: relative;
-    margin-bottom: 25px;
-}
+/**
+ * General Styles for Course Menu Navigation
+ */
+.course-menu {
+    margin: 30px 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 
-.course__title::before {
-    display: block;
-    content: 'курс';
-    font-size: 14px;
-    line-height: 1.5em;
-    font-weight: normal;
-    margin-bottom: 10px;
-}
+    @media (--mobile) {
+        margin: 35px 0 30px;
+    }
 
-.courses-list {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 0;
-    list-style: none;
-}
 
-.courses-list__item {
-    margin-top: 15px;
-    text-align: center;
-}
+    &__title {
+        display: flex;
+        max-width: var(--article-max-width);
+        font-size: 17px;
+        font-weight: 500;
+        margin: 0 auto 20px;
+        color: #6c7580;
 
-.courses-list__link {
-    text-decoration: none;
-    padding-bottom: 3px;
-    border-bottom: 1px solid #d6deec;
-    line-height: 1.5em;
-}
+        @media (--mobile) {
+            font-size: 16px;
+        }
 
-.courses-list__link:hover {
-    text-decoration: none;
-}
+        a {
+            color: #6c7580;
+        }
+    }
 
+    &-list {
+        list-style: none;
+        position: relative;
+        max-width: var(--article-max-width);
+        margin: 0 auto;
+        padding: 0;
+
+        &::after {
+            content: '';
+            display: inline-block;
+            position: absolute;
+            top: 12.5px;
+            bottom: 12.5px;
+            right: 3.0px;
+            z-index: 1;
+            width: 2px;
+            background: #e7e9f5;
+
+            @media (--mobile) {
+                display: none;
+            }
+        }
+
+        &--progress-left {
+            margin-top: 12px;
+
+            @media (--mobile) {
+                margin-left: 0;
+            }
+
+            &::after {
+                left: 4.5px;
+            }
+
+            ^&__link {
+                line-height: 1.3em;
+                padding-left: 25px;
+
+                &::before {
+                    width: 7px;
+                    height: 7px;
+                    left: 0;
+                }
+
+                @media (--mobile) {
+                    padding-left: 0;
+                }
+            }
+        }
+
+        &__item {
+            position: relative;
+
+            &:hover {
+                ^^&__link {
+                    color: #3987e1;
+
+                    &::before {
+                        border-color: #2c7fe5;
+                    }
+                }
+            }
+
+            &--current {
+                a {
+                    color: var(--color-link);
+
+                    &:hover {
+                        color: var(--color-hover);
+                    }
+
+                    &::before {
+                        border-color: #2c7fe5;
+                    }
+                }
+            }
+        }
+
+        &__link {
+            display: block;
+            position: relative;
+            text-decoration: none;
+            color: var(--text-gray);
+            font-size: 14.6px;
+            line-height: 1.5em;
+            padding: 6px 0;
+
+            @media (--mobile) {
+                padding-left: 0;
+            }
+
+            &::before {
+                content: '';
+                display: block;
+                position: absolute;
+                z-index: 2;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                background: #fff;
+                border: 2px solid #e7e9f5;
+
+                @media (--mobile) {
+                    display: none;
+                }
+            }
+
+
+            &--black {
+                color: #000;
+            }
+
+            &:hover {
+                text-decoration: none;
+                color: color(var(--text-gray) blackness(+50%));
+            }
+        }
+    }
+
+    &.feed-item {
+        margin-bottom: 50px;
+    }
+
+    a {
+        border-bottom: 0;
+    }
+}

@@ -1,0 +1,4 @@
+ALTER TABLE `Articles` CHANGE `cover` `cover` VARCHAR(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;
+ALTER TABLE `Articles` ADD `is_big_cover` TINYINT(1) NOT NULL DEFAULT '0' AFTER `cover`;
+ALTER TABLE `Courses` CHANGE `cover` `cover` VARCHAR(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;
+ALTER TABLE `Courses` ADD `is_big_cover` TINYINT(1) NOT NULL DEFAULT '0' AFTER `cover`;

@@ -15,6 +15,8 @@ class Model_Courses extends Model
     public $description;
     public $cover;
     public $is_big_cover;
+    public $course_articles = [];
+    public $course_authors = [];
     public $dt_publish;
     public $dt_create;
     public $dt_update;
@@ -82,6 +84,9 @@ class Model_Courses extends Model
                 $this->$fieldname = $value;
             }
         }
+
+        $this->course_articles = self::getArticles($this->id);
+        $this->course_authors  = $this->getUniqueCourseAuthors();
 
         return $this;
     }
@@ -182,7 +187,7 @@ class Model_Courses extends Model
     {
         $deleteQuery = Dao_CoursesArticles::delete()->where('article_id', '=', $article_id);
 
-        if (!$courses_ids) {
+        if ($courses_ids === 0) {
             return $deleteQuery->execute();
         }
 
@@ -215,13 +220,32 @@ class Model_Courses extends Model
     }
 
     /**
-     * Получить все активные (опубликованные и не удалённые курсы) в порядке убывания ID.
+     *  Return
+     *  a) All published courses to output them on Article editing page
+     *  b) All published courses, containing at least one Article to show in feed
+     *
+     * @return Model_Courses[] - array of Model_Courses
      */
-    public static function getActiveCourses($clearCache = false)
+    public static function getActiveCourses($clearCache = false, $excludeCoursesWithoutArticles = false)
     {
-        return Model_Courses::getCourses(false, false, !$clearCache ? Date::MINUTE * 5 : null);
-    }
+        $active_courses = Model_Courses::getCourses(false, false, !$clearCache ? Date::MINUTE * 5 : null);
+        $courses_with_articles = array();
 
+        if ($excludeCoursesWithoutArticles) {
+
+            foreach ($active_courses as $course) {
+                if (self::getArticles($course->id)) {
+                    $courses_with_articles[] = $course;
+                }
+            }
+
+            return $courses_with_articles;
+
+        } else {
+            return $active_courses;
+        }
+
+    }
 
     /**
      * Получить все неудалённые курсы в порядке убывания ID.
@@ -284,10 +308,9 @@ class Model_Courses extends Model
     }
 
     /**
-     * Получить id статей, входящих в курс
-     *
-     * @param $course_id
-     * @return bool|object
+     * Get Articles from Course
+     * @param [int] $courseId  - ID of Course
+     * @return Model_Article[] - Array of Articles
      */
     public static function getArticles($course_id)
     {
@@ -295,6 +318,64 @@ class Model_Courses extends Model
             return false;
         }
 
-        return Dao_CoursesArticles::select('article_id')->where('course_id', '=', $course_id)->execute();
+        $articles_ids = Dao_CoursesArticles::select('article_id')->where('course_id', '=', $course_id)->execute();
+
+        /** $articleList - empty array. Needs to fill by article ids */
+        $articleList = array();
+
+        /**
+         * If Course has Articles
+         */
+        if ($articles_ids) {
+            foreach ($articles_ids as $article) {
+                $course_article = Model_Article::get($article['article_id']);
+
+                /**
+                 * Show only published Articles in Course
+                 */
+                if ($course_article->is_published) {
+                    $articleList[] = $course_article;
+                }
+            }
+            /** Get Articles with Coauthors to display on Course Page */
+            foreach ($articleList as $article) {
+                $coauthorship      = new Model_Coauthors($article->id);
+                $article->coauthor = Model_User::get($coauthorship->user_id);
+            }
+        }
+
+        return $articleList;
+    }
+
+    /**
+     * Checks whether or not course contains any articles
+     * @param $course_id - course's id
+     * @return bool
+     */
+    public static function containsArticles(int $course_id) {
+        return (bool) self::getArticles($course_id);
+    }
+
+     /**
+     * Return unique article authors from the Course
+     * @param  Model_Article[] - Articles included in specific Course
+     * @return Model_User[]    - Array of unique Course authors
+     */
+    public function getUniqueCourseAuthors()
+    {
+        $course_articles = self::getArticles($this->id);
+        $course_authors_ids = array();
+        $course_authors     = array();
+
+        foreach ($course_articles as $article) {
+            $author_id = $article->author->id;
+
+            if (!in_array($author_id, $course_authors_ids))
+            {
+                $course_authors_ids[] = $author_id;
+                $course_authors[] = Model_User::get($author_id);
+            }
+        }
+        return $course_authors;
     }
 }

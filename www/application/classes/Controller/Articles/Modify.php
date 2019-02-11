@@ -243,7 +243,9 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
                 $courses_to_delete = array_diff($current_courses, $courses_ids);
                 $courses_to_add = array_diff($courses_ids, $current_courses);
 
-                Model_Courses::deleteArticles($article->id, $courses_to_delete);
+                if ($courses_to_delete) {
+                    Model_Courses::deleteArticles($article->id, $courses_to_delete);
+                }
 
                 foreach ($courses_to_add as $course_id) {
                     Model_Courses::addArticle($article->id, $course_id);
@@ -266,6 +268,10 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         } else {
             $recentArticlesFeed->remove($article->id);
         }
+
+        // Очистка кэша фидов
+        $this->memcache->delete('en:articles-feed');
+        $this->memcache->delete('ru:articles-feed');
 
         // Если поле uri пустое, то редиректить на обычный роут /article/id
         $redirect = ($uri) ? '/' . $article->uri : '/article/' . $article->id;

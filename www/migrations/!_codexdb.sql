@@ -21,6 +21,7 @@ SET time_zone = "+00:00";
 --
 
 DROP TABLE IF EXISTS `Aliases`;
+
 CREATE TABLE IF NOT EXISTS `Aliases` (
 `id_alias` int(18) NOT NULL,
   `uri` text NOT NULL,
@@ -38,6 +39,7 @@ CREATE TABLE IF NOT EXISTS `Aliases` (
 --
 
 DROP TABLE IF EXISTS `Articles`;
+
 CREATE TABLE IF NOT EXISTS `Articles` (
 `id` int(10) unsigned NOT NULL,
   `uri` varchar(128) NULL DEFAULT NULL,
@@ -67,6 +69,7 @@ CREATE TABLE IF NOT EXISTS `Articles` (
 --
 
 DROP TABLE IF EXISTS `Coauthors`;
+
 CREATE TABLE IF NOT EXISTS `Coauthors` (
   `article_id` int(10) unsigned NOT NULL,
   `user_id` int(10) DEFAULT NULL
@@ -79,6 +82,7 @@ CREATE TABLE IF NOT EXISTS `Coauthors` (
 --
 
 DROP TABLE IF EXISTS `Comments`;
+
 CREATE TABLE IF NOT EXISTS `Comments` (
 `id` int(10) unsigned NOT NULL,
   `user_id` int(10) unsigned NOT NULL,
@@ -99,6 +103,7 @@ CREATE TABLE IF NOT EXISTS `Comments` (
 --
 
 DROP TABLE IF EXISTS `Contests`;
+
 CREATE TABLE IF NOT EXISTS `Contests` (
 `id` int(11) NOT NULL,
   `uri` varchar(128) NOT NULL,
@@ -122,6 +127,7 @@ CREATE TABLE IF NOT EXISTS `Contests` (
 --
 
 DROP TABLE IF EXISTS `Courses`;
+
 CREATE TABLE IF NOT EXISTS `Courses` (
 `id` int(11) NOT NULL,
   `uri` varchar(128) NOT NULL,
@@ -146,6 +152,7 @@ CREATE TABLE IF NOT EXISTS `Courses` (
 --
 
 DROP TABLE IF EXISTS `Courses_articles`;
+
 CREATE TABLE IF NOT EXISTS `Courses_articles` (
 `id` int(11) NOT NULL,
   `course_id` int(11) NOT NULL,
@@ -160,6 +167,7 @@ CREATE TABLE IF NOT EXISTS `Courses_articles` (
 --
 
 DROP TABLE IF EXISTS `Quizzes`;
+
 CREATE TABLE IF NOT EXISTS `Quizzes` (
 `id` int(11) NOT NULL,
   `title` varchar(25) NOT NULL,
@@ -177,6 +185,7 @@ CREATE TABLE IF NOT EXISTS `Quizzes` (
 --
 
 DROP TABLE IF EXISTS `Requests`;
+
 CREATE TABLE IF NOT EXISTS `Requests` (
 `id` int(11) NOT NULL,
   `uid` int(11) unsigned DEFAULT NULL,
@@ -195,6 +204,7 @@ CREATE TABLE IF NOT EXISTS `Requests` (
 --
 
 DROP TABLE IF EXISTS `Sessions`;
+
 CREATE TABLE IF NOT EXISTS `Sessions` (
 `id` int(10) unsigned NOT NULL,
   `user_id` int(10) unsigned NOT NULL,
@@ -211,6 +221,7 @@ CREATE TABLE IF NOT EXISTS `Sessions` (
 --
 
 DROP TABLE IF EXISTS `Tags`;
+
 CREATE TABLE IF NOT EXISTS `Tags` (
 `id` int(10) unsigned NOT NULL,
   `name` varchar(128) NOT NULL
@@ -223,6 +234,7 @@ CREATE TABLE IF NOT EXISTS `Tags` (
 --
 
 DROP TABLE IF EXISTS `Tags_articles`;
+
 CREATE TABLE IF NOT EXISTS `Tags_articles` (
   `tag_id` int(10) unsigned NOT NULL,
   `article_id` int(10) unsigned NOT NULL
@@ -235,6 +247,7 @@ CREATE TABLE IF NOT EXISTS `Tags_articles` (
 --
 
 DROP TABLE IF EXISTS `Users`;
+
 CREATE TABLE IF NOT EXISTS `Users` (
 `id` int(10) unsigned NOT NULL,
   `uri` varchar(128) DEFAULT NULL,
@@ -346,6 +359,7 @@ ALTER TABLE `Users`
 -- AUTO_INCREMENT for table `Aliases`
 --
 ALTER TABLE `Aliases`
+
 MODIFY `id_alias` int(18) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1210;
 --
 -- AUTO_INCREMENT for table `Articles`

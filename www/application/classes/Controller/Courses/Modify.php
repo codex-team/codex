@@ -77,6 +77,9 @@ class Controller_Courses_Modify extends Controller_Base_preDispatch
                 } else {
                     $insertedId   = $course->insert();
                     $course->uri = Model_Aliases::addAlias($alias, Aliases_Controller::COURSE, $insertedId);
+                    // If course is published right after creation set 'dt_publish' immediately
+                    $course->dt_publish = $course->is_published ? date('Y-m-d H:i:s') : null;
+                    $course->update();
                 }
 
                 if ($course->is_published && !$course->is_removed) {

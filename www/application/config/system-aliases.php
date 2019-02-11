@@ -9,6 +9,7 @@ return array(
         '',
         'ajax',
         'admin',
+        'ajax',
         'article',
         'articles',
         'auth',

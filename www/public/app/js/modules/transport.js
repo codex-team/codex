@@ -1,10 +1,10 @@
 'use strict';
 
 /**
-* Ajax file transport module
-* @author Savchenko Peter (vk.com/specc)
-* @param {Object} transport
-*/
+ * Ajax file transport module
+ * @author Savchenko Peter (vk.com/specc)
+ * @param {Object} transport
+ */
 module.exports = (function (transport) {
 
     transport.currentButtonClicked = {};
@@ -63,9 +63,9 @@ module.exports = (function (transport) {
     };
 
     /**
-    * Append hidden inputs to tranport form
-    * @param {Object} data
-    */
+     * Append hidden inputs to tranport form
+     * @param {Object} data
+     */
     transport.fillForm = function (data) {
 
         var input,
@@ -133,9 +133,9 @@ module.exports = (function (transport) {
     };
 
     /**
-    * Fires from transport-frame window
-    * @param {Object} response
-    */
+     * Fires from transport-frame window
+     * @param {Object} response
+     */
     transport.response = function ( response ) {
 
         transport.currentButtonClicked.className = transport.currentButtonClicked.className.replace('loading', '');
@@ -165,9 +165,9 @@ module.exports = (function (transport) {
 
         if ( !fileInput ) return false;
         /**
-        * Workaround with IE that doesn't support File API
-        * @todo test and delete this crutch
-        */
+     * Workaround with IE that doesn't support File API
+     * @todo test and delete this crutch
+     */
         return typeof ActiveXObject == 'function' ? (new ActiveXObject('Scripting.FileSystemObject')).getFile(fileInput.value) : fileInput.files;
 
     };

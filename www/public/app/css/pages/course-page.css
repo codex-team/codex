@@ -1,0 +1,26 @@
+/**
+ * Course Page
+ */
+.course-page {
+
+    &__feed-wrapper {
+        max-width: var(--article-max-width);
+        margin: 50px auto 0;
+
+        @media (--mobile) {
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .feed {
+            margin-left: 0;
+        }
+    }
+
+    .course {
+
+        @media (--mobile) {
+            margin: 15px 0;
+        }
+    }
+}

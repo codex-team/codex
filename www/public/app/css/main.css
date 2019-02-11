@@ -48,4 +48,10 @@
 @import url('pages/admin.css');
 @import url('pages/writing.css');
 @import url('pages/course.css');
+@import url('pages/course-page.css');
 @import url('pages/editor-landing.css');
+
+/**
+ * Packages
+ */
+@import url('~codex-notifier/notifier.css');

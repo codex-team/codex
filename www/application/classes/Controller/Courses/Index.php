@@ -5,11 +5,18 @@ class Controller_Courses_Index extends Controller_Base_preDispatch
     public function action_show()
     {
         $courseId = $this->request->param('id') ?: $this->request->query('id');
+        $isAlias = $this->request->query('id');
 
         $course = Model_Courses::get($courseId);
 
         if ($course->id == 0) {
             throw new HTTP_Exception_404();
+        }
+
+        if (!empty($courseId)) {
+            if ($course->uri && !$isAlias) {
+                $this->redirect($course->uri);
+            }
         }
 
         $this->view["course"] = $course;

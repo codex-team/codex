@@ -5,11 +5,11 @@
     $share['desc']  =  HTML::chars($share['desc']);
 ?>
 <div class="sharing" data-module="sharer">
-    <module-settings hidden>
+    <textarea name="module-settings" hidden>
         {
             "buttonsSelector" : ".sharing__main-button, .sharing__button"
         }
-    </module-settings>
+    </textarea>
     <div class="sharing__offer">
         <?= $share['offer'] ?>
     </div>

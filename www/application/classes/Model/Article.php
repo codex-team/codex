@@ -200,6 +200,16 @@ class Model_Article extends Model
     }
 
     /**
+     * Checks whether or not article is included in any course
+     * @param int $article_id - article's id
+     * @return bool
+     */
+    public static function isIncludedInCourse(int $article_id) {
+        $article = self::get($article_id);
+        return (bool) Model_Courses::getCoursesByArticleId($article);
+    }
+
+    /**
      * Links article to other one
      * @param integer $idArticleToLink - articles's ID to link if empty, unlink article
      */

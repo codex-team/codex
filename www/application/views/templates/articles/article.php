@@ -1,33 +1,13 @@
-<div class="center_side clear">
+<div class="center_side clear course-toggler">
     <? if (isset($articlesFromCourse)): ?>
         <?= View::factory('templates/articles/course_list')
             ->set('articles', $articlesFromCourse)
+            ->set('mobileToggleClass', true)
+            ->set('currentArticle', $article)
             ->set('course', $course)
         ?>
     <? endif; ?>
 </div>
-
-<? if (isset($previousArticle)): ?>
-    <div class="course-navigation-wrapper course-navigation-wrapper--previous" name="js-course-navigation">
-        <a class="course-navigation course-navigation--previous" href="<?= URL::site($previousArticle->uri ?: '/article/' . $previousArticle->id) ?>">
-            <div class="course-navigation__icon course-navigation__icon--previous"></div>
-            <div class="course-navigation__title"><?= HTML::chars($previousArticle->title) ?></div>
-            <img class="course-navigation__avatar" src="<?= $previousArticle->author->photo ?>" itemprop="image">
-            <div class="course-navigation__author"><?= HTML::chars($previousArticle->author->name) ?></div>
-        </a>
-    </div>
-<? endif; ?>
-
-<? if (isset($nextArticle)): ?>
-    <div class="course-navigation-wrapper course-navigation-wrapper--next" name="js-course-navigation">
-        <a class="course-navigation course-navigation--next" href="<?=URL::site($nextArticle->uri ?: '/article/' . $nextArticle->id); ?>">
-            <div class="course-navigation__icon course-navigation__icon--next"></div>
-            <div class="course-navigation__title"><?= HTML::chars($nextArticle->title) ?></div>
-            <img class="course-navigation__avatar" src="<?= $nextArticle->author->photo ?>" itemprop="image">
-            <div class="course-navigation__author"><?= HTML::chars($nextArticle->author->name) ?></div>
-        </a>
-    </div>
-<? endif; ?>
 
 <article class="article" itemscope itemtype="http://schema.org/Article">
 
@@ -174,6 +154,25 @@
 
     </div>
 
+    <? if (isset($previousArticle) && isset($nextArticle)): ?>
+        <?= View::factory('templates/articles/course-navigation', array('previousArticle' => $previousArticle, 'nextArticle' => $nextArticle)); ?>
+    <? elseif (isset($previousArticle)): ?>
+        <?= View::factory('templates/articles/course-navigation', array('previousArticle' => $previousArticle)); ?>
+    <? elseif (isset($nextArticle)): ?>
+        <?= View::factory('templates/articles/course-navigation', array('nextArticle' => $nextArticle)); ?>
+    <? endif; ?>
+
+    <div class="center_side clear">
+        <? if (isset($articlesFromCourse)) : ?>
+            <?=View::factory('templates/articles/course_list')
+                ->set('articles', $articlesFromCourse)
+                ->set('mobileToggleClass', false)
+                ->set('currentArticle', $article)
+                ->set('course', $course)
+            ?>
+        <? endif; ?>
+    </div>
+
     <? if(!empty($quiz)): ?>
         <?= View::factory('templates/quizzes/quiz', array('quizData' => $quiz->quiz_data)); ?>
     <? endif ?>
@@ -199,13 +198,3 @@
     </ul>
 
 </article>
-
-
-<div class="center_side clear">
-    <? if (isset($articlesFromCourse)) : ?>
-        <?=View::factory('templates/articles/course_list')
-            ->set('articles', $articlesFromCourse)
-            ->set('course', $course)
-        ?>
-    <? endif; ?>
-</div>

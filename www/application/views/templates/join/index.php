@@ -91,7 +91,7 @@
                         <?= $joinTimeLeft['minutes_left'] ?>
                     </span>
                 </time>
-            </section> 
+            </section>
             */
         ?>
 
@@ -176,9 +176,9 @@
         <? endif ; ?>
 
         <div data-module="join">
-            <module-settings hidden>
+            <textarea name="module-settings" hidden>
                 {}
-            </module-settings>
+            </textarea>
         </div>
     </div>
 </div>

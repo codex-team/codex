@@ -127,20 +127,27 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
      */
     public function getFeed()
     {
+        $cacheKey = LANG . ':articles-feed';
+        $cached = $this->memcache->get($cacheKey);
+
+        if ($cached) {
+            return $cached;
+        }
+
         /**
          * Prepare Feed model
          */
         $feed = new Model_Feed_Articles();
 
         /**
-         * Get all published articles
+         * Get articles and courses feed items
          */
         $feed_items  = $feed->get();
 
         /**
-         * List of published articles ids
+         * List of published feed items ids
          */
-        $published_articles_id_array = array();
+        $published_feed_items_ids = array();
 
         /**
          * Items to be removed from articles list
@@ -152,9 +159,9 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
             $feed_item->coauthor = Model_User::get($coauthorship->user_id);
 
             /**
-             * Fill up list of available articles
+             * Fill up list of available feed items
              */
-            array_push($published_articles_id_array, $feed_item->id);
+            array_push($published_feed_items_ids, $feed_item->id);
 
             /**
              * If article was linked to another one and it's lang is not equal
@@ -170,10 +177,12 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
          * Remove copies of articles if eng and rus version are available
          */
         foreach ($items_to_be_deleted as $index => $item_to_be_deleted) {
-            if (!empty($item_to_be_deleted->linked_article) && in_array($item_to_be_deleted->linked_article, $published_articles_id_array)) {
+            if (!empty($item_to_be_deleted->linked_article) && in_array($item_to_be_deleted->linked_article, $published_feed_items_ids)) {
                 unset($feed_items[$index]);
             }
         }
+
+        $this->memcache->set($cacheKey, $feed_items);
 
         return $feed_items;
     }
@@ -227,10 +236,12 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
          * search in array of article ids the position of current article
          */
         $counter = 0;
-        foreach ($course_articles as $articles) {
-            $articleList[] = Model_Article::get($articles['article_id']);
+        $position = 0;
 
-            if ($articles['article_id'] == $articleId) {
+        foreach ($course_articles as $articles) {
+            $articleList[] = Model_Article::get($articles->id);
+
+            if ($articles->id == $articleId) {
                 $position = $counter;
             }
 
@@ -242,14 +253,14 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
          * If next or previous article exists, then we send it to view
          */
         if ($position + 1 < count($course_articles)) {
-            $nextArticleId = $course_articles[$position + 1]['article_id'];
+            $nextArticleId = $course_articles[$position + 1]->id;
             $nextArticle = Model_Article::get($nextArticleId);
 
             $this->view["nextArticle"] = $nextArticle;
         }
 
         if ($position - 1 >= 0) {
-            $previousArticleId = $course_articles[$position - 1]['article_id'];
+            $previousArticleId = $course_articles[$position - 1]->id;
             $previousArticle = Model_Article::get($previousArticleId);
 
             $this->view["previousArticle"] = $previousArticle;

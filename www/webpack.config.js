@@ -1,4 +1,4 @@
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // const webpack = require('webpack');
 const path = require('path');
 
@@ -8,7 +8,7 @@ module.exports = {
 
     output: {
         path: path.resolve(__dirname, 'public', 'build'),
-        publicPath: "/public/build/",
+        publicPath: '/public/build/',
         filename: '[name].bundle.js',
         chunkFilename: '[name].bundle.js',
         library: 'codex'
@@ -78,7 +78,7 @@ module.exports = {
     plugins: [
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
-            filename: "[name].css",
+            filename: '[name].css',
         })
     ],
 
