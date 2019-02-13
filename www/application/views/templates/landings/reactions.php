@@ -9,7 +9,7 @@
             <h1 class="reactions-page__name">CodeX Reactions</h2>
             <h2 class="reactions-page__info">Collect a feedback for your content without coding</h2>
             <div class="reactions-page__example"></div>
-            <div class="reactions-page__button">Get started</div>
+            <a class="reactions-page__button" href="https://github.com/codex-team/reactions">Get started</a>
     </div>
     <div class="reactions-page__footer">
         <div class="reactions-page__footer-logo">
