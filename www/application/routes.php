@@ -203,11 +203,6 @@ Route::set('EDITOR_FILE_TRANSORT', 'editor/transport', array())
         'action' => 'file_uploader'
     ));
 
-Route::set('EDITOR_LANDING', 'editor(/<action>)', array())->defaults(array(
-	'controller' => 'editor',
-	'action' => 'landing'
-));
-
 Route::set('ARTICLE_EDITOR_SAVE_IMG', 'editorsaveimg', array())->defaults(array(
     'controller' => 'articles_edit',
     'action' => 'saveEditorImg'
@@ -227,7 +222,7 @@ Route::set('FETCH_URL', 'editor/fetchURL')
 * Landing pages
 */
 Route::set('LANDINGS', '<action>', array(
-   'actions' => 'bot|special|media|beauty-toolbar'
+   'actions' => 'bot|special|media|beauty-toolbar|editor'
 ))
 ->filter(function($route, $params, $request) {
     // Replacing the hyphens for underscores.

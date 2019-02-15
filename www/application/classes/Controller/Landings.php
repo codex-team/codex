@@ -4,8 +4,14 @@ defined('SYSPATH') or die('No direct script access.');
 
 class Controller_Landings extends Controller_Base_preDispatch
 {
+    /**
+     * Editor.js package name in NPM/Yarn
+     */
+    const EDITOR_PACKAGE_NAME = 'codex.editor';
 
-    /** Codex Bot Landing page  in https://codex.so/ */
+    /**
+     * Codex Bot Landing page  in https://codex.so/bot
+     */
     public function action_bot()
     {
         $this->title = 'CodeX Bot';
@@ -57,4 +63,63 @@ class Controller_Landings extends Controller_Base_preDispatch
         $this->view['isFromPH'] = $isFromPH;
         $this->template->content = View::factory('templates/landings/beauty_toolbar', $this->view);
     }
+
+    /**
+     * Codex Editor Landing page
+     * https://codex.so/editor
+     */
+    public function action_editor()
+    {
+        $this->title = 'CodeX Editor';
+        $this->description = 'Block style visual editor for beautiful pages';
+        $this->view['version'] = $this->getEditorVersion();
+
+        $landing = View::factory('templates/landings/editor', $this->view);;
+
+        /**
+         * On editorjs.io we inject landing as an iframe
+         * where we does not need a site header
+         */
+        if ($this->request->query('frame') === '1') {
+            $landing .= '
+                <style>
+                    .site-header {
+                        display: none;
+                    }
+                </style>   
+            ';
+        }
+
+        $this->template->content = $landing;
+    }
+
+    /**
+     * Load Editor package version from NPM
+     * @return string
+     */
+    private function getEditorVersion(){
+        try {
+            $memcache = Cache::instance('memcache');
+            $cacheKey = 'editor-version';
+            $version = $memcache->get($cacheKey);
+
+            if (!$version) {
+                $req = new Request(sprintf('http://npmsearch.com/query?q=%s&fields=version', self::EDITOR_PACKAGE_NAME));
+
+                $response = json_decode($req->execute()->body());
+                $package = array_shift($response->results);
+                $version = array_shift($package->version);
+
+                $memcache->set($cacheKey, $version, Date::HOUR);
+            }
+
+            return $version;
+
+        } catch (Exception $e){
+            \Hawk\HawkCatcher::catchException($e);
+        }
+
+        return '2.7';
+    }
+
 }

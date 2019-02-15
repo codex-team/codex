@@ -92,16 +92,18 @@
     &__cta {
         display: inline-block;
         margin-top: 40px;
-        padding: 12px 18px;
+        padding: 13px 19px;
         border-radius: 30px;
-        background: #388AE5;
+        background: #388ffe;
         box-shadow: 0 9px 12px -6px rgba(11,132,242,0.78);
         font-size: 16px;
         color: #FFFFFF;
+        transition: all 150ms ease;
+        will-change: background-color, box-shadow;
 
         &:hover {
             color: #fff;
-            background: #3180D7;
+            background: #3684fe;
             box-shadow: 0 9px 16px -6px rgba(11,132,242,0.78);
         }
     }
