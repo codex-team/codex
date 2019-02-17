@@ -5,6 +5,7 @@
 		"codex-team/editor.js": "^2.0",
 		"euskadi31/Opengraph": "^1.0",
 		"codex-team/hawk.php": "^1.0",
-		"pavelzotikov/social-covers-generator": "dev-first-version"
+		"pavelzotikov/social-covers-generator": "dev-first-version",
+		"ext-SimpleXML": "*"
 	}
 }

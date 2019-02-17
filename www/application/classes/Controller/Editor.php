@@ -1,87 +1,9 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-use CodexEditor\CodexEditor;
 use Opengraph\Reader;
 
 class Controller_Editor extends Controller_Base_preDispatch
 {
-
-    /**
-     * Editor.js package name in NPM/Yarn
-     */
-    const PACKAGE_NAME = 'codex.editor';
-
-    /**
-     * Action for index page
-     * Codex Editor Landing page in https://codex.so/
-     */
-    public function action_landing()
-    {
-        $this->title = 'CodeX Editor';
-        $this->description = 'Block style visual editor for beautiful pages';
-        $this->view['version'] = $this->getEditorVersion();
-        $this->template->content = View::factory('templates/editor/landing', $this->view);
-    }
-
-    /**
-     * Load Editor package version from NPM
-     * @return string
-     */
-    private function getEditorVersion(){
-        try {
-            $memcache = Cache::instance('memcache');
-            $cacheKey = 'editor-version';
-            $version = $memcache->get($cacheKey);
-
-            if (!$version) {
-                $req = new Request(sprintf('http://npmsearch.com/query?q=%s&fields=version', self::PACKAGE_NAME));
-
-                $response = json_decode($req->execute()->body());
-                $package = array_shift($response->results);
-                $version = array_shift($package->version);
-
-                $memcache->set($cacheKey, $version, Date::HOUR);
-            }
-
-            return $version;
-
-        } catch (Exception $e){
-            \Hawk\HawkCatcher::catchException($e);
-        }
-
-        return '2.7';
-    }
-
-    public function action_preview()
-    {
-        $article = new Model_Article();
-        $article->title = 'Codex Editor';
-
-        $html = Arr::get($_POST, 'html');
-
-        $text = Arr::get($_POST, 'article_text');
-        $editor = new CodexEditor($text);
-
-        try {
-            $data = json_decode($editor->getData());
-            // get only block
-            $blocks = $data->data;
-        } catch (Exception $e) {
-            throw new Kohana_Exception($e->getMessage());
-        }
-
-        for ($i = 0; $i < count($blocks); $i++) {
-            $render[] = View::factory('templates/editor/plugins/' . $blocks[$i]->type, array('block' => $blocks[$i]->data))
-                        ->render();
-        }
-
-        $this->template->content = View::factory('templates/editor/article',
-            array(
-                'render'  => $render,
-                'article' => $article
-            ));
-    }
-
     /**
      * fetch Action
      * @public
