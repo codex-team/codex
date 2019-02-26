@@ -2,8 +2,7 @@
  * CodeX Reactions Module Landing
  */
 html,
-body,
-.reactions-page {
+body {
     height: 100%;
 }
  
@@ -19,13 +18,27 @@ body {
  
 .site-header, .site-footer {
     background-color: #212229;
+    border-color: rgba(97, 104, 143, 0.13);
+}
+
+.site-footer {
+    margin-top: 0;
+}
+
+.site-header a, .site-footer a{
+    color: #9092ab;
 }
  
 .reactions-page {
+    display: flex;
+    align-items: center;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
+    position: relative;
+    height: calc(100% - 50px);
+    min-height: 700px;
     background-color: #212229;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
     "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
@@ -43,8 +56,7 @@ body {
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
-    min-height: calc(100% - 160px);
-    margin-bottom: -50px;
+    min-height: 100%;
     text-align: center;
 }
  
@@ -163,9 +175,10 @@ body {
         flex-wrap: wrap;
     -webkit-animation: reactions_footer 250ms ease-out 2s forwards;
             animation: reactions_footer 250ms ease-out 2s forwards;
+    position: absolute;
+    bottom: 10px;
     height: 0;
     opacity: 0;
-    margin: 70px 0 10px;
     -webkit-transform: translateY(20px);
         -ms-transform: translateY(20px);
             transform: translateY(20px);
@@ -205,10 +218,6 @@ body {
     .reactions-page__footer-description {
         margin-bottom: 25px;
     }
- 
-    .reactions-page__footer {
-        margin-bottom: 10px;
-    }
 }
  
 @media (max-width: 320px) {
@@ -234,7 +243,12 @@ body {
     .reactions-page__about {
         margin-bottom: -90px;
     }
- 
+}
+
+@media (max-height: 800px) and (max-width: 450px){
+    .reactions-page {
+        min-height: 750px;
+    }
 }
  
 @-webkit-keyframes reactions_footer {
