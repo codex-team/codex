@@ -5,7 +5,7 @@ html,
 body {
     height: 100%;
 }
- 
+  
 body {
     min-width: 320px;
     color: #646c79;
@@ -15,23 +15,27 @@ body {
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
 }
- 
+  
 .site-header, .site-footer {
     background-color: #212229;
     border-color: rgba(97, 104, 143, 0.13);
 }
-
+ 
 .site-footer {
     margin-top: 0;
 }
-
+ 
 .site-header a, .site-footer a{
     color: #9092ab;
 }
- 
+  
 .reactions-page {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
@@ -44,7 +48,7 @@ body {
     "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol";
 }
- 
+  
 .reactions-page__about {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -59,7 +63,7 @@ body {
     min-height: 100%;
     text-align: center;
 }
- 
+  
 .reactions-page__info {
     margin: 0;
     color: #878e9e;
@@ -67,7 +71,7 @@ body {
     line-height: 22px;
     font-weight: 400;
 }
- 
+  
 .reactions-page__example {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -77,19 +81,19 @@ body {
             justify-content: center;
     margin-top: 43px;
 }
- 
+  
 .reactions__counter-emoji {
     background-color: #fff;
 }
- 
+  
 .reactions__counter:last-child {
     margin-right: 0;
 }
- 
+  
 .reactions {
     margin-left: 15px;
 }
- 
+  
 .reactions-page__name {
     margin: 0.4em 0 11px;
     color: #fff;
@@ -97,7 +101,7 @@ body {
     line-height: initial;
     font-weight: 700;
 }
- 
+  
 .reactions-page__logo {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -106,7 +110,7 @@ body {
     height: 98px;
     margin: 0 auto;
 }
- 
+  
 .reactions-page__button {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -133,7 +137,7 @@ body {
     letter-spacing: -0.1px;
     cursor: pointer;
 }
- 
+  
 .reactions-page__button:active, 
 .reactions-page__button:focus, 
 .reactions-page__button:hover {
@@ -143,24 +147,24 @@ body {
     background-image: -o-linear-gradient(top, #1ba0ff, #0c7abf);
     background-image: linear-gradient(to bottom, #1ba0ff, #0c7abf);
 }
-
+ 
 .reactions__counter-votes {
     color: #878e9e;
 }
-
+ 
 .reactions__counter-emoji {
     border: solid 1px transparent;
 }
-
+ 
 .reactions__counter-emoji:hover {
     border-color: none;
 }
-
+ 
 .reactions__counter-emoji--picked {
     border-color: #f4e964;
     background-color: #fffacc;
 }
- 
+  
 .reactions-page__footer {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -183,7 +187,7 @@ body {
         -ms-transform: translateY(20px);
             transform: translateY(20px);
 }
- 
+  
 .reactions-page__footer-logo {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -192,87 +196,72 @@ body {
         -ms-flex-align: center;
             align-items: center;
 }
- 
+  
 .reactions-page__footer-icon {
     width: 40px;
     height: 40px;
 }
- 
+  
 .reactions-page__footer-title {
     margin-left: 10px;
     color: #fff;
     font-size: 17px;
     font-weight: bold;
 }
- 
+  
 .reactions-page__footer-description {
     margin: 0 25px;
 }
- 
+  
 @media (max-width: 607px) {
-     
+      
     .reactions-page__footer-logo {
         margin-bottom: 15px;
     }
- 
+  
     .reactions-page__footer-description {
         margin-bottom: 25px;
     }
 }
- 
+  
 @media (max-width: 320px) {
- 
+  
     .reactions-page {
         padding: 0 20px;
     }
- 
+  
     .reactions-page__logo {
         width: 20%;
         min-width: 50px;
         height: 70px;
     }
- 
+  
     .reactions-page__info {
         font-size: 14px;
     }
-     
+      
     .reactions-page__name {
         font-size: 22px;
     }
- 
+  
     .reactions-page__about {
         margin-bottom: -90px;
     }
 }
-
+ 
 @media (max-height: 800px) and (max-width: 450px){
     .reactions-page {
         min-height: 750px;
     }
 }
- 
+  
 @-webkit-keyframes reactions_footer {
     from { 
         height: 0;
         opacity: 0;
         -webkit-transform: translateY(70px);
                 transform: translateY(70px); 
-     }
-    to {
-        height: auto;
-        opacity: 1; 
-        -webkit-transform: translateY(0px); 
-                transform: translateY(0px); 
-     }
-}
- 
-@keyframes reactions_footer {
-    from { 
-        height: 0;
-        opacity: 0; 
-        -webkit-transform: translateY(20px); 
-                transform: translateY(20px); 
-     }
+    }
     to {
         height: auto;
         opacity: 1; 
@@ -280,7 +269,22 @@ body {
                 transform: translateY(0px); 
     }
 }
-
+  
+@keyframes reactions_footer {
+    from { 
+        height: 0;
+        opacity: 0; 
+        -webkit-transform: translateY(20px); 
+                transform: translateY(20px); 
+    }
+    to {
+        height: auto;
+        opacity: 1; 
+        -webkit-transform: translateY(0px); 
+                transform: translateY(0px); 
+    }
+}
+ 
 @-webkit-keyframes cr-hover {
     0% {
         -webkit-box-shadow: 0 0 0 10px #88acd4;
@@ -295,7 +299,7 @@ body {
                 box-shadow: 0 0 0 5px rgba(136,172,212, 0.4), 0 0 0 10px #88acd4;
     }
 }
-
+ 
 @keyframes cr-hover {
     0% {
         -webkit-box-shadow: 0 0 0 10px #88acd4;
