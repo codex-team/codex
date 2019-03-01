@@ -164,11 +164,12 @@
             ),
             array(
                 'name' => 'Link',
-                'type' => 'Inline Tool',
+                'type' => 'Block',
                 'description' => 'Embed links in your articles.',
                 'demo' => '/public/app/landings/editor/demo/link.gif',
                 'contributors' => array(
                     $contributors['specc'],
+                    $contributors['polinaShneider'],
                     $contributors['talyguryn'],
                     $contributors['khaydarov']
                 ),
