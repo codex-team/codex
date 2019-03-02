@@ -331,6 +331,16 @@
         }
     }
 
+    &--backgrounded {
+        padding: 15px;
+        background: var(--line-light);
+
+        img {
+            max-width: 60%;
+            margin: 0 auto;
+        }
+    }
+
     &-caption {
         margin: 1em auto;
         color: var(--text-gray);
