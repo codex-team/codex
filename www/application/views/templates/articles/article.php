@@ -156,7 +156,7 @@
 
         <?
         /**
-         * For articles craeted with Codex.Editor
+         * For articles created with Editor.js
          */
         ?>
         <? foreach ($article->blocks as $block): ?>

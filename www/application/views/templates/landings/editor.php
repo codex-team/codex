@@ -47,7 +47,7 @@
         </module-settings>
 
         <div class="editor-landing__demo-inner">
-            <div id="codex-editor"></div>
+            <div id="editorjs"></div>
         </div>
 
         <section class="editor-landing__section-header">
