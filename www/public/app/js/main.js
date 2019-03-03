@@ -128,6 +128,7 @@ codex.vkWidget = require('./modules/vkWidget');
 codex.codeStyling = require('./modules/codeStyling');
 codex.deeplinker = require('@codexteam/deeplinker');
 codex.pluginsFilter = require('./modules/pluginsFilter');
+codex.reaction = require('@codexteam/reactions');
 
 import EditorLanding from './modules/editorLanding';
 codex.editorLanding = new EditorLanding();

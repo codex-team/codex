@@ -54,5 +54,8 @@
   "scripts": {
     "build": "webpack --mode production",
     "build:dev": "webpack --mode development --progress --display-error-details --watch"
+  },
+  "dependencies": {
+    "@codexteam/reactions": "^1.0.2"
   }
 }
