@@ -7,6 +7,8 @@ body {
 }
   
 body {
+    display: flex;
+    flex-flow: column;
     min-width: 320px;
     color: #646c79;
     background-color: #212229;
@@ -41,7 +43,7 @@ body {
         -ms-flex-direction: column;
             flex-direction: column;
     position: relative;
-    height: calc(100% - 50px);
+    flex-grow: 2;
     min-height: 700px;
     background-color: #212229;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
@@ -60,8 +62,8 @@ body {
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
-    min-height: 100%;
     text-align: center;
+    margin: auto;
 }
   
 .reactions-page__info {
@@ -161,7 +163,7 @@ body {
 }
  
 .reactions__counter-emoji--picked {
-    border-color: #f4e964;
+    border: none;
     background-color: #fffacc;
 }
   
@@ -180,7 +182,7 @@ body {
     -webkit-animation: reactions_footer 250ms ease-out 2s forwards;
             animation: reactions_footer 250ms ease-out 2s forwards;
     position: absolute;
-    bottom: 10px;
+    bottom: 30px;
     height: 0;
     opacity: 0;
     -webkit-transform: translateY(20px);
@@ -243,15 +245,11 @@ body {
     .reactions-page__name {
         font-size: 22px;
     }
-  
-    .reactions-page__about {
-        margin-bottom: -90px;
-    }
 }
  
-@media (max-height: 800px) and (max-width: 450px){
+@media (max-height: 850px) and (max-width: 450px){
     .reactions-page {
-        min-height: 750px;
+        min-height: 850px;
     }
 }
   
