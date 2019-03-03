@@ -44,7 +44,6 @@ body {
             flex-direction: column;
     position: relative;
     flex-grow: 2;
-    min-height: 700px;
     background-color: #212229;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
     "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
@@ -213,6 +212,12 @@ body {
   
 .reactions-page__footer-description {
     margin: 0 25px;
+}
+
+@media screen and (min-device-width: 1200px) {
+    .reactions-page {
+        min-height: 600px;
+    }
 }
   
 @media (max-width: 607px) {
