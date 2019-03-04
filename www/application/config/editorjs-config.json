@@ -41,7 +41,7 @@
     "code" : {
       "code" : "string"
     },
-    "raw" : {
+    "rawTool" : {
       "html" : {
         "type" : "string",
         "allowedTags": "*"

@@ -94,7 +94,7 @@ export default class Editor {
 
                 embed: Embed,
 
-                raw: RawTool,
+                rawTool: RawTool,
 
                 inlineCode: {
                     class: InlineCode,
