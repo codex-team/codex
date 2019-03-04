@@ -40,7 +40,9 @@ class Controller_Editor extends Controller_Base_preDispatch
          * Make external request
          * Use Kohana Native Request Factory
          */
-        $request = Request::factory($URL)
+        $request = Request::factory($URL, array(
+            'follow' => TRUE
+        ))
             ->headers('Content-Type', 'utf8')
             ->execute();
 
