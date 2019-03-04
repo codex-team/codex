@@ -41,10 +41,38 @@
     "code" : {
       "code" : "string"
     },
-    "rawTool" : {
+    "raw" : {
       "html" : {
         "type" : "string",
         "allowedTags": "*"
+      }
+    },
+    "linkTool" :  {
+      "link": "string",
+      "meta": {
+        "type": "array",
+        "data": {
+          "url": {
+            "type": "string"
+          },
+          "domain": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "image": {
+            "type": "array",
+            "data": {
+              "url": {
+                "type": "string"
+              }
+            }
+          }
+        }
       }
     },
     "image": {

@@ -452,10 +452,14 @@
 
     &__image {
         float: right;
-        max-width: 150px;
+        max-width: 70px;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        margin: 0 0 30px 30px;
+        border-radius: 3px;
 
         @media (--mobile) {
-            max-width: 70px;
             margin: 0 0 15px 15px;
         }
     }

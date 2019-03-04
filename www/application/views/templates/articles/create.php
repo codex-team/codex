@@ -24,7 +24,7 @@
         <textarea name="article_text" id="article_text" hidden rows="10" hidden><?= $article->text ?: ''; ?></textarea>
 
         <div class="editor-form__editor">
-            <div id="codex-editor"></div>
+            <div id="editorjs"></div>
         </div>
 
         <section class="editor-form__section">
