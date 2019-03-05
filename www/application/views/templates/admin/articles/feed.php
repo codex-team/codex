@@ -2,11 +2,11 @@
 
     <? $link = ($mode == 'list')?'cards':'list' ?>
     <div class="top-menu clearfix" data-module="admin">
-        <module-settings hidden>
+        <textarea name="module-settings" hidden>
             {
                 "list" : "<?= $mode ?>"
             }
-        </module-settings>
+        </textarea>
         <div class="top-menu__saved top-menu__saved_hidden" id="saved">saved</div>
     </div>
 
