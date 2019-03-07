@@ -59,7 +59,7 @@
     <? endif; ?>
 </div>
 <div data-module="developer">
-    <module-settings hidden>
+    <textarea name="module-settings" hidden>
         {}
-    </module-settings>
+    </textarea>
 </div>

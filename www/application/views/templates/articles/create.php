@@ -2,13 +2,13 @@
 
     <form class="editor-form article-content" name="codex_article" data-module="articleCreate">
 
-        <module-settings hidden>
+        <textarea name="module-settings" hidden>
             {
                 "article_textarea" : "article_text",
                 "submit_id" : "submitButton",
                 "form_url" : "/<?= $article->id && $article->uri ? $article->uri . '/save' : 'article/save' ?>"
             }
-        </module-settings>
+        </textarea>
 
         <? if (!empty($error)): ?>
             <div class="editor-form__error">
