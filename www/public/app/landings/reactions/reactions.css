@@ -259,7 +259,7 @@ body {
 
 @media only screen 
   and (min-device-width: 320px) 
-  and (max-device-width: 568px)
+  and (max-device-width: 823px)
   and (-webkit-min-device-pixel-ratio: 2) {
       .reactions-page {
           min-height: 650px;
@@ -286,96 +286,6 @@ body {
           margin-bottom: 0px;
       }
 }
-
-@media only screen 
-  and (min-device-width: 375px) 
-  and (max-device-width: 667px) 
-  and (-webkit-min-device-pixel-ratio: 2) {
-    .reactions-page {
-        min-height: 650px;
-    }
-
-    .reactions-page__example {
-        margin-top: 10px;
-    }
-    
-    .reactions-page__button {
-        margin-top: 10px;
-    }
-
-    .reactions-page__footer-icon {
-        display: flex;
-        width: 20%;
-    }
-
-    .reactions-page__footer-description {
-        margin-bottom: 10px;
-    }
-
-    .reactions-page__footer-logo {
-        margin-bottom: 0px;
-    }
-
-}
-
-@media only screen 
-  and (min-device-width: 375px) 
-  and (max-device-width: 812px) 
-  and (-webkit-min-device-pixel-ratio: 3) { 
-    .reactions-page {
-        min-height: 650px;
-    }
-
-    .reactions-page__example {
-        margin-top: 10px;
-    }
-    
-    .reactions-page__button {
-        margin-top: 10px;
-    }
-
-    .reactions-page__footer-icon {
-        display: flex;
-        width: 20%;
-    }
-
-    .reactions-page__footer-description {
-        margin-bottom: 10px;
-    }
-
-    .reactions-page__footer-logo {
-        margin-bottom: 0px;
-    }
-}
-
-@media only screen 
-  and (min-device-width: 411px) 
-  and (max-device-width: 823px) {
-    .reactions-page {
-        min-height: 650px;
-    }
-
-    .reactions-page__example {
-        margin-top: 10px;
-    }
-    
-    .reactions-page__button {
-        margin-top: 10px;
-    }
-
-    .reactions-page__footer-icon {
-        display: flex;
-        width: 20%;
-    }
-
-    .reactions-page__footer-description {
-        margin-bottom: 10px;
-    }
-
-    .reactions-page__footer-logo {
-        margin-bottom: 0px;
-    }
-  }
 
 @-webkit-keyframes reactions_footer {
     from {
