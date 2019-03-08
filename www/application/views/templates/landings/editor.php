@@ -335,7 +335,7 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
             <a class="editor-landing__more-plugins" href="//github.com/editor-js" target="_blank">
                 View all plugins
             </a>
-            <a class="editor-landing__contribute" href="#">
+            <a class="editor-landing__contribute" href="//editorjs.io/contribution">
                 <? include(DOCROOT . '/public/app/landings/editor/svg/plus-icon.svg'); ?>
                 Contribute your plugin to this featured list
             </a>
