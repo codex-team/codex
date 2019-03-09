@@ -10,7 +10,7 @@
     "paragraph": {
       "text": {
         "type": "string",
-        "allowedTags": "i,b,a[href],span[class],mark[class]"
+        "allowedTags": "i,b,a[href],code[class],mark[class]"
       }
     },
     "list": {
@@ -20,7 +20,7 @@
         "data": {
           "-": {
             "type": "string",
-            "allowedTags": "i,b,a[href],span[class],mark[class]"
+            "allowedTags": "i,b,a[href],code[class],mark[class]"
           }
         }
       }
@@ -28,11 +28,11 @@
     "quote": {
       "text": {
         "type": "string",
-        "allowedTags": "i,b,a[href],span[class],mark[class]"
+        "allowedTags": "i,b,a[href],code[class],mark[class]"
       },
       "caption": {
         "type": "string",
-        "allowedTags": "i,b,a[href],span[class],mark[class]"
+        "allowedTags": "i,b,a[href],code[class],mark[class]"
       },
       "alignment": ["left", "center"]
     },
@@ -92,7 +92,7 @@
       },
       "caption": {
         "type": "string",
-        "allowedTags": "i,b,a[href],span[class],mark[class]"
+        "allowedTags": "i,b,a[href],code[class],mark[class]"
       },
       "withBorder": "boolean",
       "withBackground": "boolean",
