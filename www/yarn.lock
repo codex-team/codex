@@ -562,9 +562,10 @@
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/@editorjs/embed/-/embed-2.2.0.tgz#4a6121cd4c526ea1db20c9cc9629e6022861f18f"
 
-"@editorjs/header@^2.2.0":
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/@editorjs/header/-/header-2.2.0.tgz#df19f1dd6a22a0a2264ed7ef3c0611d841420390"
+"@editorjs/header@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/@editorjs/header/-/header-2.2.1.tgz#7b726caa8b6415df688cf1acd4c10863dc15271f"
+  integrity sha512-CK8gS3AuOrlEvBRbNSeuyrepJbbvvgBlS0xQuo0vi3KaxgyRP76D6MbdZ9n6HAEf8xq/U3DLmHHr/2+Vjs7Fbw==
 
 "@editorjs/image@^2.1.0":
   version "2.1.0"
