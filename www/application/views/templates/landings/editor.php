@@ -421,21 +421,5 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
                 <input type="submit" value="Subscribe" name="subscribe" id="ph-subscribe-button" />
             </form>
         </section>
-
-        <script>
-            window.productHuntUpcoming = {
-                appId: 14540,
-                position: 'bottomRight',
-            };
-
-            (function(doc, scr, src, a, b) {
-                a = doc.createElement(scr);
-                b = doc.getElementsByTagName(scr)[0];
-                a.async = true;
-                a.src = src;
-                b.parentNode.insertBefore(a, b);
-            })(document, 'script', '//assets.producthunt.com/assets/upwigloader.js');
-        </script>
-
     </div>
 </div>
