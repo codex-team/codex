@@ -416,9 +416,9 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
                 }
             </style>
 
-            <form action="//api.producthunt.com/widgets/upcoming/v1/upcoming/editor-js/forms" method="post" name="ph-email-form" target="_blank">
-                <input type="email" value="" name="email" placeholder="Email Address" required />
-                <input type="submit" value="Subscribe" name="subscribe" />
+            <form action="//api.producthunt.com/widgets/upcoming/v1/upcoming/editor-js/forms" method="post" name="ph-email-form" id="ph-email-form" target="_blank">
+                <input type="email" value="" name="email" id="ph-email" placeholder="Email Address" required />
+                <input type="submit" value="Subscribe" name="subscribe" id="ph-subscribe-button" />
             </form>
         </section>
     </div>
