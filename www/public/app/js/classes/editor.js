@@ -6,19 +6,24 @@
 const EditorJS = require('@editorjs/editorjs');
 
 /**
- * Tools for the Editor
+ * Block Tools for the Editor
  */
 const Header = require('@editorjs/header');
 const Quote = require('@editorjs/quote');
-const Marker = require('@editorjs/marker');
 const CodeTool = require('@editorjs/code');
 const Delimiter = require('@editorjs/delimiter');
-const InlineCode = require('@editorjs/inline-code');
 const List = require('@editorjs/list');
 const LinkTool = require('@editorjs/link');
 const RawTool = require('@editorjs/raw');
 const ImageTool = require('@editorjs/image');
 const Embed = require('@editorjs/embed');
+const Table = require('@editorjs/table');
+
+/**
+ * Inline Tools for the Editor
+ */
+const InlineCode = require('@editorjs/inline-code');
+const Marker = require('@editorjs/marker');
 
 
 /**
@@ -93,6 +98,11 @@ export default class Editor {
                 delimiter: Delimiter,
 
                 embed: Embed,
+
+                table: {
+                    class: Table,
+                    inlineToolbar: true
+                },
 
                 rawTool: RawTool,
 

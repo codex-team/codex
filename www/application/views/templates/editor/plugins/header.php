@@ -1,12 +1,14 @@
 <?
-
     if (property_exists($block, 'level')) {
         $level = $block->{'level'};
     }
 
     switch ($level) {
+        case '1':
         case '3':
         case '4':
+        case '5':
+        case '6':
             $tag = 'h' . $block->{'level'};
             break;
         default:
@@ -15,6 +17,6 @@
 ?>
 
 <!-- Create block tag -->
-<<?=$tag; ?>>
-    <?=$block->text; ?>
-</<?=$tag; ?>>
+<<?= $tag ?>>
+    <?= $block->text ?>
+</<?= $tag ?>>

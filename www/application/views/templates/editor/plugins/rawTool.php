@@ -1,3 +1,1 @@
-<p>
-    <?= $block->html; ?>
-</p>
+<?= $block->html ?>

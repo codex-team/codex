@@ -5,7 +5,7 @@
         "type": "string",
         "allowedTags": "a[href],mark[class]"
       },
-      "level": [2, 3, 4]
+      "level": [1, 2, 3, 4, 5, 6]
     },
     "paragraph": {
       "text": {
@@ -97,6 +97,30 @@
       "withBorder": "boolean",
       "withBackground": "boolean",
       "stretched": "boolean"
+    },
+    "embed": {
+      "service": "string",
+      "source": "string",
+      "embed": "string",
+      "width": "integer",
+      "height": "integer",
+      "caption": "string"
+    },
+    "table": {
+      "content": {
+        "type": "array",
+        "data": {
+          "-": {
+            "type": "array",
+            "data": {
+              "-": {
+                "type": "string",
+                "allowedTags": "i,b,a[href],code[class],mark[class]"
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

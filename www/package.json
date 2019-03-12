@@ -2,6 +2,11 @@
   "name": "codex",
   "description": "CodeX website engine",
   "license": "UNLICENSED",
+  "scripts": {
+    "build": "webpack --mode production",
+    "build:dev": "webpack --mode development --progress --display-error-details --watch",
+    "editor-upgrade": "yarn add -D @editorjs/{editorjs,header,code,delimiter,list,link,quote,raw,image,table,embed,inline-code,marker}@latest"
+  },
   "devDependencies": {
     "@babel/core": "^7.1.2",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
@@ -10,16 +15,17 @@
     "@codexteam/deeplinker": "^1.0.7",
     "@editorjs/code": "^2.4.0",
     "@editorjs/delimiter": "^1.1.0",
-    "@editorjs/editorjs": "^2.11.5",
+    "@editorjs/editorjs": "^2.11.8",
     "@editorjs/embed": "^2.2.0",
-    "@editorjs/header": "^2.2.1",
+    "@editorjs/header": "^2.2.2",
     "@editorjs/image": "^2.1.0",
     "@editorjs/inline-code": "^1.3.0",
     "@editorjs/link": "^2.1.2",
-    "@editorjs/list": "^1.3.0",
+    "@editorjs/list": "^1.3.1",
     "@editorjs/marker": "^1.2.0",
     "@editorjs/quote": "^2.2.0",
     "@editorjs/raw": "^2.1.1",
+    "@editorjs/table": "^1.2.0",
     "autoprefixer": "^8.6.2",
     "babel-eslint": "^9.0.0",
     "babel-loader": "^8.0.4",
@@ -32,6 +38,7 @@
     "eslint-loader": "^2.1.1",
     "exports-loader": "^0.7.0",
     "file-loader": "^1.1.11",
+    "hawk.javascript": "^2.0.0",
     "mini-css-extract-plugin": "^0.4.4",
     "module-dispatcher": "^2.0.0",
     "postcss-apply": "^0.10.0",
@@ -52,9 +59,5 @@
     "stylelint-webpack-plugin": "^0.10.5",
     "webpack": "^4.21.0",
     "webpack-cli": "^3.1.2"
-  },
-  "scripts": {
-    "build": "webpack --mode production",
-    "build:dev": "webpack --mode development --progress --display-error-details --watch"
   }
 }
