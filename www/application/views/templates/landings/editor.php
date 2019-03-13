@@ -25,7 +25,7 @@
                 Current version <span class="editor-landing__version"><?= $version ?></span>
             </a>
             <br>
-            <a class="editor-landing__links-item" target="_top" href="//editorjs.io/usage">
+            <a class="editor-landing__links-item" target="_top" href="//editorjs.io/base-concepts">
                 Documentation
             </a>
             <br>
