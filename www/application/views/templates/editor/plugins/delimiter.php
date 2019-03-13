@@ -1,2 +1,1 @@
-<div class="article-delimiter">
-</div>
+<div class="article-delimiter"></div>

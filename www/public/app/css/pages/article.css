@@ -584,3 +584,40 @@
         }
     }
 }
+
+
+/**
+ * Table
+ * ==================
+ */
+.article-table {
+    @apply --entry-column-width;
+
+    margin: 20px auto;
+    table-layout: fixed;
+    width: 100%;
+    border-radius: 3px;
+    border-collapse: collapse;
+    border: 1px solid var(--line-light);
+
+    & td {
+        padding: 8px 10px;
+        border: 1px solid var(--line-light);
+    }
+}
+
+/**
+ * Embed
+ * ==================
+ */
+.article-embed {
+    @apply --entry-column-width;
+
+    margin: 20px auto;
+
+    &-caption {
+        text-align: center;
+        margin: 1em auto;
+        color: var(--text-gray);
+    }
+}
