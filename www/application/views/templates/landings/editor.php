@@ -16,7 +16,7 @@
             Next generation block styled editor. <br> Free. Use for pleasure.
         </div>
 
-        <a class="editor-landing__cta" href="//github.com/codex-team/editor.js/blob/master/docs/usage.md">
+        <a class="editor-landing__cta" href="//editorjs.io/getting-started" target="_top">
             Get started
         </a>
 
@@ -25,7 +25,7 @@
                 Current version <span class="editor-landing__version"><?= $version ?></span>
             </a>
             <br>
-            <a class="editor-landing__links-item" target="_blank" href="//github.com/codex-team/editor.js/blob/master/docs/usage.md">
+            <a class="editor-landing__links-item" target="_top" href="//editorjs.io/usage">
                 Documentation
             </a>
             <br>
@@ -328,14 +328,14 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
                 <pre><?= $your_plugin_code ?></pre>
             </div>
             <div class="editor-plugin__footer">
-                To make it cool, take a look at the <a href="//github.com/codex-team/editor.js/blob/master/docs/tools.md">API</a>.
+                To make it cool, take a look at the <a href="//editorjs.io/tools-api" target="_top">API</a>.
             </div>
         </div>
         <div class="editor-landing__actions clearfix">
             <a class="editor-landing__more-plugins" href="//github.com/editor-js" target="_blank">
                 View all plugins
             </a>
-            <a class="editor-landing__contribute" href="//editorjs.io/contribution">
+            <a class="editor-landing__contribute" href="//editorjs.io/contribution" target="_top">
                 <? include(DOCROOT . '/public/app/landings/editor/svg/plus-icon.svg'); ?>
                 Contribute your plugin to this featured list
             </a>
@@ -371,7 +371,7 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
                 <div class="editor-landing__star-line"></div>
                 <div class="editor-landing__star-line"></div>
 
-                <a class="github-button" href="//github.com/codex-team/editor.js" data-icon="octicon-star" data-size="large" aria-label="Star codex-team/editor.js on GitHub">Star</a>
+                <a class="github-button" href="//github.com/codex-team/editor.js" data-icon="octicon-star" data-size="large" aria-label="Star codex-team/editor.js on GitHub" target="_blank">Star</a>
                 <script async defer src="//buttons.github.io/buttons.js"></script>
             </div>
         </section>
