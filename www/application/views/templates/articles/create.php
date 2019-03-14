@@ -181,6 +181,6 @@
         </section>
 
 
-        <span id="submitButton" class="button button--master" style="margin: 40px 139px 40px">Отправить</span>
+        <span id="submitButton" class="button button--master" style="margin: 40px 139px 40px">Save article</span>
     </form>
 </div>
