@@ -556,10 +556,10 @@
   resolved "https://registry.yarnpkg.com/@editorjs/delimiter/-/delimiter-1.1.0.tgz#f61808ea92e4e289607d54441964f1cb8605410a"
   integrity sha512-0G36vEvvb94g6nu/qs2rVjC/qjxLnY20OfOgxROKSOOXzS7xnkTij5raeIxRiYueeLL5fMrzrvtFH7wclfxF+g==
 
-"@editorjs/editorjs@^2.11.8":
-  version "2.11.8"
-  resolved "https://registry.yarnpkg.com/@editorjs/editorjs/-/editorjs-2.11.8.tgz#b3269158ec866e9667b5ce0d96982bfc7922ce85"
-  integrity sha512-kUYofUe9Csp+d7/MiDmIv05cTY3WRBynz01ImjjEG+4d7YDgYdAqRHrl/nF4ffLZ/VpL3OyTI3Crgq3Rf6E4bA==
+"@editorjs/editorjs@^2.11.9":
+  version "2.11.9"
+  resolved "https://registry.yarnpkg.com/@editorjs/editorjs/-/editorjs-2.11.9.tgz#ad83dbdee09babfedbb6062cf0222ad05c1b2fd6"
+  integrity sha512-sIam8ECTfLRvyCcjyuRTfoubHHezGpXOLuCvQWU63Tw0+i6D+MZVaein7GaxmoKceaI8itJ9KXaWRkXs/5tqTw==
 
 "@editorjs/embed@^2.2.0":
   version "2.2.0"

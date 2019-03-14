@@ -15,7 +15,7 @@
     "@codexteam/deeplinker": "^1.0.7",
     "@editorjs/code": "^2.4.0",
     "@editorjs/delimiter": "^1.1.0",
-    "@editorjs/editorjs": "^2.11.8",
+    "@editorjs/editorjs": "^2.11.9",
     "@editorjs/embed": "^2.2.0",
     "@editorjs/header": "^2.2.2",
     "@editorjs/image": "^2.1.2",
