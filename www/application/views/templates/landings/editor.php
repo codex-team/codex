@@ -21,7 +21,7 @@
         </a>
 
         <div class="editor-landing__menu">
-            <a href="//github.com/codex-team/editor.js">
+            <a href="//github.com/codex-team/editor.js" target="_blank">
                 Current version <span class="editor-landing__version"><?= $version ?></span>
             </a>
             <br>
