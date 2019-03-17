@@ -3,21 +3,27 @@
 /**
  * CodeX Editor bundle
  */
-const CodexEditor = require('codex.editor');
+const EditorJS = require('@editorjs/editorjs');
 
 /**
- * Tools for the Editor
+ * Block Tools for the Editor
  */
-const Header = require('codex.editor.header');
-const Quote = require('codex.editor.quote');
-const Marker = require('codex.editor.marker');
-const CodeTool = require('codex.editor.code');
-const Delimiter = require('codex.editor.delimiter');
-const InlineCode = require('codex.editor.inline-code');
-const List = require('codex.editor.list');
-const RawTool = require('codex.editor.raw');
-const ImageTool = require('codex.editor.image');
-const Embed = require('codex.editor.embed');
+const Header = require('@editorjs/header');
+const Quote = require('@editorjs/quote');
+const CodeTool = require('@editorjs/code');
+const Delimiter = require('@editorjs/delimiter');
+const List = require('@editorjs/list');
+const LinkTool = require('@editorjs/link');
+const RawTool = require('@editorjs/raw');
+const ImageTool = require('@editorjs/image');
+const Embed = require('@editorjs/embed');
+const Table = require('@editorjs/table');
+
+/**
+ * Inline Tools for the Editor
+ */
+const InlineCode = require('@editorjs/inline-code');
+const Marker = require('@editorjs/marker');
 
 
 /**
@@ -36,7 +42,7 @@ export default class Editor {
 
         /**
          * CodeX Editor instance
-         * @type {CodexEditor|null}
+         * @type {EditorJS|null}
          */
         this.editor = null;
 
@@ -49,12 +55,13 @@ export default class Editor {
         /**
          * Instantiate new CodeX Editor with set of Tools
          */
-        this.editor = new CodexEditor({
+        this.editor = new EditorJS({
             tools: {
                 header: {
                     class: Header,
                     inlineToolbar: ['link', 'marker'],
                 },
+
                 image: {
                     class: ImageTool,
                     inlineToolbar: true,
@@ -65,35 +72,51 @@ export default class Editor {
                         }
                     },
                 },
+
                 list: {
                     class: List,
                     inlineToolbar: true
                 },
-                quote: {
-                    class: Quote,
-                    inlineToolbar: true,
+
+                linkTool: {
+                    class: LinkTool,
+                    config: {
+                        endpoint: '/editor/fetchUrl', // Your backend endpoint for url data fetching
+                    }
                 },
+
                 code: {
                     class: CodeTool,
                     shortcut: 'CMD+SHIFT+D'
                 },
-                delimiter: Delimiter,
-                rawTool: {
-                    class: RawTool,
-                    shortcut: 'CMD+SHIFT+R'
+
+                quote: {
+                    class: Quote,
+                    inlineToolbar: true,
                 },
+
+                delimiter: Delimiter,
+
+                embed: Embed,
+
+                table: {
+                    class: Table,
+                    inlineToolbar: true
+                },
+
+                rawTool: RawTool,
 
                 inlineCode: {
                     class: InlineCode,
                     shortcut: 'CMD+SHIFT+C'
                 },
+
                 marker: {
                     class: Marker,
                     shortcut: 'CMD+SHIFT+M'
                 },
-
-                embed: Embed,
             },
+
             data: {
                 blocks: editorData
             },
@@ -116,7 +139,9 @@ export default class Editor {
 
                 }
 
-            }
+            },
+
+            autofocus: true
         });
 
     }
@@ -145,6 +170,7 @@ export default class Editor {
      * @returns {Object[]} blocks
      */
     defaultEditorData() {
+
         return [
             // {
             //     type: 'header',

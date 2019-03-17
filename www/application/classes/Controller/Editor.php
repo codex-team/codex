@@ -40,7 +40,9 @@ class Controller_Editor extends Controller_Base_preDispatch
          * Make external request
          * Use Kohana Native Request Factory
          */
-        $request = Request::factory($URL)
+        $request = Request::factory($URL, array(
+            'follow' => TRUE
+        ))
             ->headers('Content-Type', 'utf8')
             ->execute();
 
@@ -49,12 +51,14 @@ class Controller_Editor extends Controller_Base_preDispatch
             goto finish;
         } else {
             $htmlContent = $request->body();
-            $response = array_merge(
-                $this->getLinkInfo($URL),
-                $this->getMetaFromHTML($htmlContent)
+            $response = array(
+                'meta' => array_merge(
+                    $this->getLinkInfo($URL),
+                    $this->getMetaFromHTML($htmlContent)
+                )
             );
 
-            if (!trim($response['title']) && !trim($response['description'])) {
+            if (!trim($response['meta']['title']) && !trim($response['meta']['description'])) {
                 $response['message'] = 'Данные не найдены';
             } else {
                 $response['success'] = 1;
@@ -87,11 +91,12 @@ class Controller_Editor extends Controller_Base_preDispatch
      */
     private function getMetaFromHTML($html)
     {
-
         $meta = array(
             'title' => '',
             'description' => '',
-            'image' => ''
+            'image' => array(
+                'url' => ''
+            )
         );
 
         /**
@@ -143,7 +148,7 @@ class Controller_Editor extends Controller_Base_preDispatch
          * Fill an Image
          */
         if (!empty($opengraph['og:image'][0]['og:image:url'])){
-            $meta['image'] = $opengraph['og:image'][0]['og:image:url'];
+            $meta['image']['url'] = $opengraph['og:image'][0]['og:image:url'];
         }
 
         return $meta;

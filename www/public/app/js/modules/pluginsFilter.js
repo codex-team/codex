@@ -50,7 +50,9 @@ module.exports = (function () {
         for (let j = 0; j < pluginFilters.length; j++) {
 
             let filterButton = document.querySelector(pluginFilters[j].buttonClass);
+
             let buttonClass  = pluginFilters[j].buttonClass;
+
             let filterAction = pluginFilters[j].buttonAction;
 
             if (filterButton) {

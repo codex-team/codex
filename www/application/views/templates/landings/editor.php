@@ -16,38 +16,38 @@
             Next generation block styled editor. <br> Free. Use for pleasure.
         </div>
 
-        <a class="editor-landing__cta" href="http://github.com/codex-team/codex.editor">
+        <a class="editor-landing__cta" href="//editorjs.io/getting-started" target="_top">
             Get started
         </a>
 
         <div class="editor-landing__menu">
-            <a href="http://github.com/codex-team/codex.editor">
+            <a href="//github.com/codex-team/editor.js" target="_blank">
                 Current version <span class="editor-landing__version"><?= $version ?></span>
             </a>
             <br>
-            <a class="editor-landing__links-item" target="_blank" href="https://github.com/codex-team/codex.editor/blob/master/docs/usage.md">
+            <a class="editor-landing__links-item" target="_top" href="//editorjs.io/base-concepts">
                 Documentation
             </a>
             <br>
-            <a class="editor-landing__links-item" target="_blank" href="https://github.com/codex-editor">
+            <a class="editor-landing__links-item" target="_blank" href="//github.com/editor-js">
                 Plugins
             </a>
             <br>
-            <a class="editor-landing__links-item" target="_blank" href="https://github.com/codex-editor">
+            <a class="editor-landing__links-item" target="_blank" href="//github.com/codex-team/editor.js/blob/master/docs/CHANGELOG.md">
                 Changelog
             </a>
         </div>
     </div>
     <div class="editor-landing__demo" data-module="editorLanding">
-        <module-settings hidden>
+        <textarea name="module-settings" hidden>
             {
                 "output_id" : "output",
                 "blocks" : []
             }
-        </module-settings>
+        </textarea>
 
         <div class="editor-landing__demo-inner">
-            <div id="codex-editor"></div>
+            <div id="editorjs"></div>
         </div>
 
         <section class="editor-landing__section-header">
@@ -75,13 +75,13 @@
         * Array of plugins contributors
         */
         $contributors = array(
-            'polinaShneider' => array('name' => 'PolinaShneider', 'photo' => 'https://avatars3.githubusercontent.com/u/15448200?s=40&v=4'),
-            'specc' => array('name' => 'neSpecc', 'photo' => 'https://avatars0.githubusercontent.com/u/3684889?v=4&s=40'),
-            'n0str' => array('name' => 'n0str', 'photo' => 'https://avatars1.githubusercontent.com/u/988885?v=4&s=60'),
-            'talyguryn' => array('name' => 'talyguryn', 'photo' => 'https://avatars1.githubusercontent.com/u/15259299?v=4&s=40'),
-            'khaydarov' => array('name' => 'khaydarov', 'photo' => 'https://avatars1.githubusercontent.com/u/6507765?s=40&v=4'),
-            'horoyami' => array('name' => 'horoyami', 'photo' => 'https://avatars2.githubusercontent.com/u/34141926?s=40&v=4'),
-            'gohabereg' => array('name' => 'gohabereg', 'photo' => 'https://avatars1.githubusercontent.com/u/23050529?s=40&v=4'),
+            'polinaShneider' => array('name' => 'PolinaShneider', 'photo' => '//avatars3.githubusercontent.com/u/15448200?s=40&v=4'),
+            'specc' => array('name' => 'neSpecc', 'photo' => '//avatars0.githubusercontent.com/u/3684889?v=4&s=40'),
+            'n0str' => array('name' => 'n0str', 'photo' => '//avatars1.githubusercontent.com/u/988885?v=4&s=60'),
+            'talyguryn' => array('name' => 'talyguryn', 'photo' => '//avatars1.githubusercontent.com/u/15259299?v=4&s=40'),
+            'khaydarov' => array('name' => 'khaydarov', 'photo' => '//avatars1.githubusercontent.com/u/6507765?s=40&v=4'),
+            'horoyami' => array('name' => 'horoyami', 'photo' => '//avatars2.githubusercontent.com/u/34141926?s=40&v=4'),
+            'gohabereg' => array('name' => 'gohabereg', 'photo' => '//avatars1.githubusercontent.com/u/23050529?s=40&v=4'),
         );
 
        /**
@@ -98,17 +98,17 @@
                     $contributors['talyguryn'],
                     $contributors['n0str']
                 ),
-                'url' => 'https://github.com/codex-editor/header'
+                'url' => '//github.com/editor-js/header'
             ),
             array(
                 'name' => 'Simple Image',
                 'type' => 'Block',
                 'description' => 'Allow pasting image by URLs',
-                'demo' => 'https://capella.pics/f67bd749-0115-4ea8-b4b9-4375b20667bc.jpg',
+                'demo' => '//capella.pics/f67bd749-0115-4ea8-b4b9-4375b20667bc.jpg',
                 'contributors' => array(
                     $contributors['specc']
                 ),
-                'url' => 'https://github.com/codex-editor/inline-code'
+                'url' => '//github.com/editor-js/inline-code'
             ),
             array(
                 'name' => 'Image',
@@ -119,7 +119,7 @@
                     $contributors['specc'],
                     $contributors['talyguryn'],
                 ),
-                'url' => 'https://github.com/codex-editor/image'
+                'url' => '//github.com/editor-js/image'
             ),
             array(
                 'name' => 'Embed',
@@ -129,7 +129,7 @@
                 'contributors' => array(
                     $contributors['gohabereg']
                 ),
-                'url' => 'https://github.com/codex-editor/embed'
+                'url' => '//github.com/editor-js/embed'
             ),
             array(
                 'name' => 'Quote',
@@ -139,7 +139,7 @@
                 'contributors' => array(
                     $contributors['talyguryn']
                 ),
-                'url' => 'https://github.com/codex-editor/quote'
+                'url' => '//github.com/editor-js/quote'
             ),
             array(
                 'name' => 'Marker',
@@ -149,18 +149,18 @@
                 'contributors' => array(
                     $contributors['polinaShneider']
                 ),
-                'url' => 'https://github.com/codex-editor/marker'
+                'url' => '//github.com/editor-js/marker'
             ),
             array(
                 'name' => 'Code',
                 'type' => 'Block',
                 'description' => 'Include code examples in your writings.',
-                'demo' => 'https://capella.pics/8c48b0e0-4885-452d-9a78-d563d279d08d.jpg',
+                'demo' => '//capella.pics/8c48b0e0-4885-452d-9a78-d563d279d08d.jpg',
                 'contributors' => array(
                     $contributors['talyguryn'],
                     $contributors['polinaShneider']
                 ),
-                'url' => 'https://github.com/codex-editor/code'
+                'url' => '//github.com/editor-js/code'
             ),
             array(
                 'name' => 'Link',
@@ -173,7 +173,7 @@
                     $contributors['talyguryn'],
                     $contributors['khaydarov']
                 ),
-                'url' => 'https://github.com/codex-editor/link'
+                'url' => '//github.com/editor-js/link'
             ),
             array(
                 'name' => 'List',
@@ -184,19 +184,19 @@
                     $contributors['specc'],
                     $contributors['gohabereg'],
                 ),
-                'url' => 'https://github.com/codex-editor/list'
+                'url' => '//github.com/editor-js/list'
             ),
             array(
                 'name' => 'Delimiter',
                 'type' => 'Block',
                 'description' => 'Separate blocks of text in your articles.',
-                'demo' => 'https://capella.pics/825a3f47-ef7e-4c64-bc73-521c9c3faee4.jpg',
+                'demo' => '//capella.pics/825a3f47-ef7e-4c64-bc73-521c9c3faee4.jpg',
                 'contributors' => array(
                     $contributors['n0str'],
                     $contributors['talyguryn'],
                     $contributors['specc']
                 ),
-                'url' => 'https://github.com/codex-editor/delimiter'
+                'url' => '//github.com/editor-js/delimiter'
             ),
             array(
                 'name' => 'Inline Code',
@@ -206,29 +206,29 @@
                 'contributors' => array(
                     $contributors['talyguryn']
                 ),
-                'url' => 'https://github.com/codex-editor/inline-code'
+                'url' => '//github.com/editor-js/inline-code'
             ),
             array(
                 'name' => 'HTML',
                 'type' => 'Block',
                 'description' => 'Include raw HTML code in your articles.',
-                'demo' => 'https://capella.pics/7cf636b6-dad4-4798-bfa4-5273e6c0250f.jpg',
+                'demo' => '//capella.pics/7cf636b6-dad4-4798-bfa4-5273e6c0250f.jpg',
                 'contributors' => array(
                     $contributors['talyguryn'],
                     $contributors['polinaShneider']
                 ),
-                'url' => 'https://github.com/codex-editor/raw'
+                'url' => '//github.com/editor-js/raw'
             ),
             array(
                 'name' => 'Warning',
                 'type' => 'Block',
                 'description' => 'Editorials notifications, appeals or warnings',
-                'demo' => 'https://capella.pics/ff210390-4b0b-4655-aaf0-cc4a0414e81b.jpg',
+                'demo' => '//capella.pics/ff210390-4b0b-4655-aaf0-cc4a0414e81b.jpg',
                 'contributors' => array(
                     $contributors['polinaShneider'],
                     $contributors['specc']
                 ),
-                'url' => 'https://github.com/codex-editor/warning'
+                'url' => '//github.com/editor-js/warning'
             ),
             array(
                 'name' => 'Table',
@@ -239,7 +239,7 @@
                     $contributors['horoyami'],
                     $contributors['gohabereg']
                 ),
-                'url' => 'https://github.com/codex-editor/table'
+                'url' => '//github.com/editor-js/table'
             ),
 
         )
@@ -252,7 +252,7 @@
             Plugins can represent any Blocks: Quotes, Galleries, Polls, Embeds, Tables — anything you need. Also they can implement Inline Tools such as Marker, Term, Comments etc.
         </div>
         <div class="editor-landing__plugins-filter" data-module="pluginsFilter">
-            <module-settings hidden>
+            <textarea name="module-settings" hidden>
                 {
                     "inlineFilterButtonClass" : ".js-inline-tools-filter",
                     "blockFilterButtonClass" : ".js-block-tools-filter",
@@ -260,7 +260,7 @@
                     "blockToolsClass" : ".js-block-tool",
                     "inlineToolsClass" : ".js-inline-tool"
                 }
-            </module-settings>
+            </textarea>
 
             <span class="editor-landing__plugins-filter-button js-block-tools-filter">
                 <? include(DOCROOT . '/public/app/landings/editor/svg/plus-icon.svg'); ?>
@@ -298,7 +298,7 @@
                 </div>
                 <div class="editor-plugin__contributors">
                     <? foreach ( $plugin['contributors'] as $contributor ): ?>
-                        <a href="https://github.com/<?= $contributor['name']; ?>" class="editor-plugin__contributors-item" title="<?= $contributor['name'] ?>" target="_blank">
+                        <a href="//github.com/<?= $contributor['name']; ?>" class="editor-plugin__contributors-item" title="<?= $contributor['name'] ?>" target="_blank">
                             <img src="<?= $contributor['photo'] ?>" alt="<?= $contributor['name'] ?>">
                         </a>
                     <? endforeach; ?>
@@ -328,14 +328,14 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
                 <pre><?= $your_plugin_code ?></pre>
             </div>
             <div class="editor-plugin__footer">
-                To make it cool, take a look at the <a href="https://github.com/codex-team/codex.editor/blob/master/docs/tools.md">API</a>.
+                To make it cool, take a look at the <a href="//editorjs.io/tools-api" target="_top">API</a>.
             </div>
         </div>
         <div class="editor-landing__actions clearfix">
-            <a class="editor-landing__more-plugins" href="https://github.com/codex-editor" target="_blank">
+            <a class="editor-landing__more-plugins" href="//github.com/editor-js" target="_blank">
                 View all plugins
             </a>
-            <a class="editor-landing__contribute" href="#">
+            <a class="editor-landing__contribute" href="//editorjs.io/contribution" target="_top">
                 <? include(DOCROOT . '/public/app/landings/editor/svg/plus-icon.svg'); ?>
                 Contribute your plugin to this featured list
             </a>
@@ -371,8 +371,8 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
                 <div class="editor-landing__star-line"></div>
                 <div class="editor-landing__star-line"></div>
 
-                <a class="github-button" href="https://github.com/codex-team/codex.editor" data-icon="octicon-star" data-size="large" aria-label="Star codex-team/codex.editor on GitHub">Star</a>
-                <script async defer src="https://buttons.github.io/buttons.js"></script>
+                <a class="github-button" href="//github.com/codex-team/editor.js" data-icon="octicon-star" data-size="large" aria-label="Star codex-team/editor.js on GitHub" target="_blank">Star</a>
+                <script async defer src="//buttons.github.io/buttons.js"></script>
             </div>
         </section>
 
@@ -416,26 +416,10 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
                 }
             </style>
 
-            <form action="https://api.producthunt.com/widgets/upcoming/v1/upcoming/editor-js/forms" method="post" id="ph-email-form" name="ph-email-form" target="_blank">
+            <form action="//api.producthunt.com/widgets/upcoming/v1/upcoming/editor-js/forms" method="post" name="ph-email-form" id="ph-email-form" target="_blank">
                 <input type="email" value="" name="email" id="ph-email" placeholder="Email Address" required />
                 <input type="submit" value="Subscribe" name="subscribe" id="ph-subscribe-button" />
             </form>
         </section>
-
-        <script>
-            window.productHuntUpcoming = {
-                appId: 14540,
-                position: 'bottomRight',
-            };
-
-            (function(doc, scr, src, a, b) {
-                a = doc.createElement(scr);
-                b = doc.getElementsByTagName(scr)[0];
-                a.async = true;
-                a.src = src;
-                b.parentNode.insertBefore(a, b);
-            })(document, 'script', 'https://assets.producthunt.com/assets/upwigloader.js');
-        </script>
-
     </div>
 </div>

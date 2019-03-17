@@ -1,17 +1,19 @@
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-// const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 
 module.exports = {
 
-    entry: './public/app/js/main.js',
+    entry: {
+        codex: './public/app/js/main.js',
+        hawk: './public/app/js/modules/hawk.js'
+    },
 
     output: {
         path: path.resolve(__dirname, 'public', 'build'),
-        publicPath: "/public/build/",
+        publicPath: '/public/build/',
         filename: '[name].bundle.js',
-        chunkFilename: '[name].bundle.js',
-        library: 'codex'
+        chunkFilename: '[name].bundle.js?h=[hash]',
+        library: '[name]'
     },
 
     module: {
@@ -93,7 +95,6 @@ module.exports = {
      */
     optimization: {
         noEmitOnErrors: true,
-        // minimize: false,
         splitChunks: false
     },
 

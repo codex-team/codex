@@ -42,11 +42,11 @@
         </table>
 
         <div class="quiz-form__quiz-buttons-holder" data-module="quizForm">
-            <module-settings hidden>
+            <textarea name="module-settings" hidden>
                 {
                     "quizData" : <?= $quiz->quiz_data; ?>
                 }
-            </module-settings>
+            </textarea>
             <button class="button button--master quiz-form__button-submit" type="submit" formaction="/quiz/<?= $quiz->id ? "$quiz->id" + '/' : '' ?>save">Сохранить тест</button>
             <? if ($quiz->id): ?><button class="button quiz-form__button-delete" type="submit" formaction="<?= $quiz->id ?>">Удалить тест</button><? endif; ?>
         </div>
