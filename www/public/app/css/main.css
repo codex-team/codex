@@ -1,39 +1,39 @@
-@import url('variables.css');
-@import url('normalize.css');
-@import url("icons.css");
-@import url('base.css'); /** @todo refactor and separate to components */
+@import 'normalize.css';
+@import './variables.css';
+@import './icons.css';
+@import './base.css'; /** @todo refactor and separate to components */
 
 /**
  * Layout
  */
-@import url('components/header.css');
-@import url('components/footer.css');
+@import './components/header.css';
+@import './components/footer.css';
 
 /**
  * Components
  */
-@import url('components/read-also.css');
-@import url('components/event-alert.css');
-@import url('components/page-menu.css');
-@import url('components/feed-drag-n-drop.css');
-@import url('components/page-header.css');
-@import url('components/best-developers.css');
-@import url('components/breadcrumbs.css');
-@import url('components/news.css');
-@import url('components/scroll-up.css');
-@import url('components/sharing.css');
-@import url('components/vk-community.css');
-@import url('components/quiz.css');
-@import url('components/quiz-form.css');
-@import url('components/site-section.css');
-@import url('components/article-card.css');
-@import url('components/product-card.css');
-@import url('components/product-cell.css');
-@import url('components/follow.css');
-@import url('components/course-navigation.css');
-@import url('components/video-overlay.css');
-@import url('components/follow-telegram.css');
-@import url('components/join.css');
+@import './components/read-also.css';
+@import './components/event-alert.css';
+@import './components/page-menu.css';
+@import './components/feed-drag-n-drop.css';
+@import './components/page-header.css';
+@import './components/best-developers.css';
+@import './components/breadcrumbs.css';
+@import './components/news.css';
+@import './components/scroll-up.css';
+@import './components/sharing.css';
+@import './components/vk-community.css';
+@import './components/quiz.css';
+@import './components/quiz-form.css';
+@import './components/site-section.css';
+@import './components/article-card.css';
+@import './components/product-card.css';
+@import './components/product-cell.css';
+@import './components/follow.css';
+@import './components/course-navigation.css';
+@import './components/video-overlay.css';
+@import './components/follow-telegram.css';
+@import './components/join.css';
 
 /**
  * Pages

@@ -38,13 +38,7 @@ module.exports = {
                             publicPath: '../'
                         }
                     },
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            minimize: 1,
-                            importLoaders: 1
-                        }
-                    },
+                    'css-loader',
                     'postcss-loader'
                 ]
             },
@@ -80,7 +74,7 @@ module.exports = {
     plugins: [
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
-            filename: "[name].css",
+            filename: '[name].css'
         })
     ],
 
