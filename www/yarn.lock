@@ -546,6 +546,11 @@
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@codexteam/deeplinker/-/deeplinker-1.1.1.tgz#563229240db6ae35ea016a0490b9634ed5abac40"
 
+"@codexteam/reactions@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@codexteam/reactions/-/reactions-1.0.3.tgz#d4c4d5678fd54ad6f4b72924d03e1f7f57b83978"
+  integrity sha512-D2QfNx6TplvRR2Llv2gtjG/4IdpW7xOO+Fd6jxODswEUBe3sjaPqQd4jgsZubQGyZytIk/hW8HEjDmkd5tPn5A==
+
 "@csstools/convert-colors@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"

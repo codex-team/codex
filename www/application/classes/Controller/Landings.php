@@ -128,10 +128,6 @@ class Controller_Landings extends Controller_Base_preDispatch
             \Hawk\HawkCatcher::catchException($e);
         }
 
-        return '2.11';
+        return '2.12';
     }
-
 }
-
-
- 

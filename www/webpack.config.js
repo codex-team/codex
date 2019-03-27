@@ -74,7 +74,7 @@ module.exports = {
     plugins: [
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
-            filename: '[name].css'
+            filename: '[name].bundle.css'
         })
     ],
 
@@ -90,7 +90,5 @@ module.exports = {
     optimization: {
         noEmitOnErrors: true,
         splitChunks: false
-    },
-
-    devtool: 'none'
+    }
 };
