@@ -21,7 +21,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="format-detection" content="telephone=no">
 
-    <link rel="stylesheet" href="/public/build/codex.css?v=<?= filemtime('public/build/codex.css') ?>">
+    <link rel="stylesheet" href="/public/build/codex.bundle.css?v=<?= filemtime('public/build/codex.bundle.css') ?>">
     <link rel="icon" type="image/png" href="/public/app/img/fav_shield@3x.png?v=985" id="favicon" />
 
     <meta name="telegram:channel" content="@codex_team">

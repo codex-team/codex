@@ -222,7 +222,7 @@ Route::set('FETCH_URL', 'editor/fetchURL')
 * Landing pages
 */
 Route::set('LANDINGS', '<action>', array(
-   'actions' => 'bot|special|media|beauty-toolbar|editor'
+   'actions' => 'bot|special|media|beauty-toolbar|editor|reactions'
 ))
 ->filter(function($route, $params, $request) {
     // Replacing the hyphens for underscores.
