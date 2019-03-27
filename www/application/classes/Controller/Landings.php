@@ -7,7 +7,7 @@ class Controller_Landings extends Controller_Base_preDispatch
     /**
      * Editor.js package name in NPM/Yarn
      */
-    const EDITOR_PACKAGE_NAME = 'codex.editor';
+    const EDITOR_PACKAGE_NAME = '@editorjs/editorjs';
 
     /**
      * Codex Bot Landing page  in https://codex.so/bot
@@ -114,11 +114,10 @@ class Controller_Landings extends Controller_Base_preDispatch
             $version = $memcache->get($cacheKey);
 
             if (!$version) {
-                $req = new Request(sprintf('http://npmsearch.com/query?q=%s&fields=version', self::EDITOR_PACKAGE_NAME));
+                $req = new Request(sprintf('https://registry.npmjs.org/-/package/%s/dist-tags', self::EDITOR_PACKAGE_NAME));
 
                 $response = json_decode($req->execute()->body());
-                $package = array_shift($response->results);
-                $version = array_shift($package->version);
+                $version = $response->latest;
 
                 $memcache->set($cacheKey, $version, Date::HOUR);
             }
@@ -129,7 +128,7 @@ class Controller_Landings extends Controller_Base_preDispatch
             \Hawk\HawkCatcher::catchException($e);
         }
 
-        return '2.7';
+        return '2.11';
     }
 
 }

@@ -27,17 +27,17 @@
             Try our best plugins or create your own
 
             <div class="product-card__right-menu">
-                <a target="_blank" href="https://github.com/codex-editor/paragraph">Paragraph</a>
-                <a target="_blank" href="https://github.com/codex-editor/header">Header</a>
-                <a target="_blank" href="https://github.com/codex-team/codex.editor/tree/master/plugins/image">Image</a>
-                <a target="_blank" href="https://github.com/codex-editor/link">Embeded Link</a>
-                <a target="_blank" href="https://github.com/codex-editor/personality">Personality</a>
+                <a target="_blank" href="https://github.com/editor-js/paragraph">Paragraph</a>
+                <a target="_blank" href="https://github.com/editor-js/header">Header</a>
+                <a target="_blank" href="https://github.com/editor-js/image">Image</a>
+                <a target="_blank" href="https://github.com/editor-js/list">List</a>
+                <a target="_blank" href="https://github.com/editor-js/table">Table</a>
             </div>
 
-            <a href="https://github.com/codex-editor">View full catalog</a>
+            <a href="https://github.com/editor-js">View full catalog</a>
         </div>
     </div>
-    <a class="product-card__repo" href="https://github.com/codex-team/codex.editor">
-        github.com/codex-team/codex.editor
+    <a class="product-card__repo" href="https://github.com/codex-team/editor.js">
+        github.com/codex-team/editor.js
     </a>
 </div>

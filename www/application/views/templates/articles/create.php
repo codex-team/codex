@@ -2,13 +2,13 @@
 
     <form class="editor-form article-content" name="codex_article" data-module="articleCreate">
 
-        <module-settings hidden>
+        <textarea name="module-settings" hidden>
             {
                 "article_textarea" : "article_text",
                 "submit_id" : "submitButton",
                 "form_url" : "/<?= $article->id && $article->uri ? $article->uri . '/save' : 'article/save' ?>"
             }
-        </module-settings>
+        </textarea>
 
         <? if (!empty($error)): ?>
             <div class="editor-form__error">
@@ -24,7 +24,7 @@
         <textarea name="article_text" id="article_text" hidden rows="10" hidden><?= $article->text ?: ''; ?></textarea>
 
         <div class="editor-form__editor">
-            <div id="codex-editor"></div>
+            <div id="editorjs"></div>
         </div>
 
         <section class="editor-form__section">
@@ -181,6 +181,6 @@
         </section>
 
 
-        <span id="submitButton" class="button button--master" style="margin: 40px 139px 40px">Отправить</span>
+        <span id="submitButton" class="button button--master" style="margin: 40px 139px 40px">Save article</span>
     </form>
 </div>

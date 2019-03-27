@@ -12,11 +12,11 @@
             </div>
             <br/>
             <div data-module="transport" class="button file-transport-button" data-action="<?= Controller_Base_Ajax::TRANSPORT_ACTION_PROFILE_PHOTO ?>">
-                <module-settings hidden>
+                <textarea name="module-settings" hidden>
                     {
                         "buttonsClass": ".file-transport-button"
                     }
-                </module-settings>
+                </textarea>
                 <i class="icon-picture"></i>Change
             </div>
         </div>

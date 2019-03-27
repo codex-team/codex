@@ -5,12 +5,12 @@
         "type": "string",
         "allowedTags": "a[href],mark[class]"
       },
-      "level": [2, 3, 4]
+      "level": [1, 2, 3, 4, 5, 6]
     },
     "paragraph": {
       "text": {
         "type": "string",
-        "allowedTags": "i,b,a[href],span[class],mark[class]"
+        "allowedTags": "i,b,a[href],code[class],mark[class]"
       }
     },
     "list": {
@@ -20,7 +20,7 @@
         "data": {
           "-": {
             "type": "string",
-            "allowedTags": "i,b,a[href],span[class],mark[class]"
+            "allowedTags": "i,b,a[href],code[class],mark[class]"
           }
         }
       }
@@ -28,11 +28,11 @@
     "quote": {
       "text": {
         "type": "string",
-        "allowedTags": "i,b,a[href],span[class],mark[class]"
+        "allowedTags": "i,b,a[href],code[class],mark[class]"
       },
       "caption": {
         "type": "string",
-        "allowedTags": "i,b,a[href],span[class],mark[class]"
+        "allowedTags": "i,b,a[href],code[class],mark[class]"
       },
       "alignment": ["left", "center"]
     },
@@ -45,6 +45,34 @@
       "html" : {
         "type" : "string",
         "allowedTags": "*"
+      }
+    },
+    "linkTool" :  {
+      "link": "string",
+      "meta": {
+        "type": "array",
+        "data": {
+          "url": {
+            "type": "string"
+          },
+          "domain": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "image": {
+            "type": "array",
+            "data": {
+              "url": {
+                "type": "string"
+              }
+            }
+          }
+        }
       }
     },
     "image": {
@@ -64,11 +92,35 @@
       },
       "caption": {
         "type": "string",
-        "allowedTags": "i,b,a[href],span[class],mark[class]"
+        "allowedTags": "i,b,a[href],code[class],mark[class]"
       },
       "withBorder": "boolean",
       "withBackground": "boolean",
       "stretched": "boolean"
+    },
+    "embed": {
+      "service": "string",
+      "source": "string",
+      "embed": "string",
+      "width": "integer",
+      "height": "integer",
+      "caption": "string"
+    },
+    "table": {
+      "content": {
+        "type": "array",
+        "data": {
+          "-": {
+            "type": "array",
+            "data": {
+              "-": {
+                "type": "string",
+                "allowedTags": "i,b,a[href],code[class],mark[class]"
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
