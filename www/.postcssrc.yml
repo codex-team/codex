@@ -7,6 +7,20 @@ plugins:
     # https://github.com/pascalduez/postcss-apply
     postcss-apply: {}
 
+    # PostCSS Nested ancestors helper
+    # https://github.com/toomuchdesign/postcss-nested-ancestors
+    #
+    # This plugin should be used before a PostCSS rules unwrapper like postcss-nested.
+    postcss-nested-ancestors: {}
+
+    # Nested rules unwrapper
+    # https://github.com/postcss/postcss-nested
+    #
+    # As you know 'postcss-preset-env' plugin has an ability to process
+    # 'postcss-nesting' feature but it does not work with BEM
+    # Report: https://github.com/csstools/postcss-preset-env/issues/40
+    postcss-nested: {}
+
     # Convert modern CSS into something most browsers can understand
     # https://github.com/csstools/postcss-preset-env
     postcss-preset-env:
@@ -25,14 +39,6 @@ plugins:
         # Instruct all plugins to omit pre-polyfilled CSS
         # https://github.com/csstools/postcss-preset-env#preserve
         preserve: false
-
-    # Nested rules unwrapper
-    # https://github.com/postcss/postcss-nested
-    #
-    # As you know 'postcss-preset-env' plugin has an ability to process
-    # 'postcss-nesting' feature but it does not work with BEM
-    # Report: https://github.com/csstools/postcss-preset-env/issues/40
-    postcss-nested: {}
 
     # Compression tool
     # https://github.com/cssnano/cssnano
