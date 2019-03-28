@@ -251,17 +251,19 @@
         <div class="editor-landing__plugins-description">
             Plugins can represent any Blocks: Quotes, Galleries, Polls, Embeds, Tables — anything you need. Also they can implement Inline Tools such as Marker, Term, Comments etc.
         </div>
-        <div class="editor-landing__plugins-filter" data-module="pluginsFilter">
+        <div class="editor-landing__plugins-filter" data-module="pluginsFilter lazyLoad">
             <textarea name="module-settings" hidden>
-                {
-                    "inlineFilterButtonClass" : ".js-inline-tools-filter",
-                    "blockFilterButtonClass" : ".js-block-tools-filter",
-                    "allToolsFilterButtonClass" : ".js-all-tools-filter",
-                    "blockToolsClass" : ".js-block-tool",
-                    "inlineToolsClass" : ".js-inline-tool"
-                }
+                [
+                    {
+                        "inlineFilterButtonClass" : ".js-inline-tools-filter",
+                        "blockFilterButtonClass" : ".js-block-tools-filter",
+                        "allToolsFilterButtonClass" : ".js-all-tools-filter",
+                        "blockToolsClass" : ".js-block-tool",
+                        "inlineToolsClass" : ".js-inline-tool"
+                    },
+                    {}
+                ]
             </textarea>
-
             <span class="editor-landing__plugins-filter-button js-block-tools-filter">
                 <? include(DOCROOT . '/public/app/landings/editor/svg/plus-icon.svg'); ?>
                 Blocks
@@ -277,13 +279,15 @@
         <? foreach ( $plugins as $plugin ): ?>
             <div class="editor-plugin clearfix <?= $plugin['type'] === 'Block' ? 'js-block-tool' : 'js-inline-tool' ?>">
                 <div class="editor-plugin__demo">
-                    <? if (strpos($plugin['demo'], 'mp4') === false): ?>
-                        <img src="<?= $plugin['demo'] ?>" alt="<?= $plugin['name'] ?>">
-                    <? else: ?>
-                        <video autoplay loop muted playsinline>
-                            <source src="<?= $plugin['demo'] ?>" type="video/mp4">
-                        </video>
-                    <? endif; ?>
+                    <div class="lazy-load js_lazy-load">
+                        <? if (strpos($plugin['demo'], 'mp4') === false): ?>
+                            <img class="lazy-load__media js_lazy-media" src="<?= $plugin['demo'] ?>" alt="<?= $plugin['name'] ?>">
+                        <? else: ?>
+                            <video class="lazy-load__media js_lazy-media" autoplay loop muted playsinline>
+                                <source src="<?= $plugin['demo'] ?>" type="video/mp4">
+                            </video>
+                        <? endif; ?>
+                    </div>
                 </div>
                 <a href="<?= $plugin['url'] ?>" target="_blank">
                     <h3 class="editor-plugin__title">

@@ -75,7 +75,7 @@
         "XMLHttpRequest": true,
         "ActiveXObject": true,
         "FileReader": true,
-        "Element": true
-
+        "Element": true,
+        "Image" : true
     }
 }

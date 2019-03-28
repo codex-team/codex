@@ -136,5 +136,8 @@ codex.editorLanding = new EditorLanding();
 import ArticleCreate from './modules/articleCreate';
 codex.articleCreate = new ArticleCreate();
 
+import LazyLoad from './modules/lazyLoad';
+codex.lazyLoad = new LazyLoad();
+
 module.exports = codex;
 
