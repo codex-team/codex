@@ -572,7 +572,7 @@
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/@editorjs/embed/-/embed-2.2.0.tgz#4a6121cd4c526ea1db20c9cc9629e6022861f18f"
 
-"@editorjs/header@^2.2.2":
+"@editorjs/header@^2.2.3":
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/@editorjs/header/-/header-2.2.3.tgz#801908f2aadda708aa09da544a5683448ca01be1"
 
