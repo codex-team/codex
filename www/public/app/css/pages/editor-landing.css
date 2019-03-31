@@ -192,6 +192,22 @@
                 min-height: 100px;
             }
         }
+
+        .codex-editor__redactor {
+            font-size: 15px;
+            color: #313649;
+            line-height: 1.6;
+            letter-spacing: 0.005em;
+
+            .ce-paragraph a {
+                color: inherit;
+            }
+
+            .ce-header {
+                font-family: var(--serif-font);
+                letter-spacing: -0.03em;
+            }
+        }
     }
 
     &__preview {
