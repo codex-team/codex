@@ -84,6 +84,17 @@ class Controller_Landings extends Controller_Base_preDispatch
         $this->description = 'Block style visual editor for beautiful pages';
         $this->view['version'] = $this->getEditorVersion();
 
+        /**
+         * Detect visits from Product Hunt
+         */
+        $isFromPH = $this->request->query('ref') == 'producthunt';
+
+        if ($isFromPH){
+            Cookie::set('from', 'product hunt', Date::YEAR * 3);
+        }
+
+        $this->view['isFromPH'] = $isFromPH;
+
         $landing = View::factory('templates/landings/editor', $this->view);;
 
         /**
