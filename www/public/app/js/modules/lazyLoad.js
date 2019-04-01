@@ -11,7 +11,7 @@ export default class LazyLoad {
         return {
             wrapper: 'js_lazy-load',
             loaded: 'lazy-load--loaded',
-            item: 'js_lazy-media'
+            itemAttribute: 'data-lazy-src'
         };
 
     }
@@ -30,7 +30,7 @@ export default class LazyLoad {
      */
     loadMedia() {
 
-        const items = document.querySelectorAll(`.${LazyLoad.classes.item}`);
+        const items = document.querySelectorAll(`[${LazyLoad.classes.itemAttribute}]`);
 
         items.forEach((item) => {
 
@@ -60,10 +60,12 @@ export default class LazyLoad {
          * When temporary image is loaded, reveal real image
          */
         const tempImage = new Image();
+        const imageSrc = element.getAttribute(LazyLoad.classes.itemAttribute);
 
-        tempImage.src = element.src;
+        tempImage.src = imageSrc;
         tempImage.onload = () => {
 
+            element.src = imageSrc;
             this.addLoadedClass(element);
 
         };
@@ -78,13 +80,16 @@ export default class LazyLoad {
 
         const tempVideo = document.createElement('video');
         const tempVideoSource = document.createElement('source');
+        const videoSrc = element.getAttribute(LazyLoad.classes.itemAttribute);
 
-        tempVideoSource.src = element.querySelector('source').src;
+        tempVideoSource.src = videoSrc;
         tempVideo.appendChild(tempVideoSource);
 
         tempVideo.onloadeddata = () => {
 
+            element.querySelector('source').src = videoSrc;
             this.addLoadedClass(element);
+            element.load();
 
         };
 

@@ -280,12 +280,12 @@
             <div class="editor-plugin clearfix <?= $plugin['type'] === 'Block' ? 'js-block-tool' : 'js-inline-tool' ?>">
                 <div class="editor-plugin__demo">
                     <div class="lazy-load js_lazy-load">
-                        <? if (strpos($plugin['demo'], 'mp4') === false): ?>
-                            <img class="lazy-load__media js_lazy-media" src="<?= $plugin['demo'] ?>" alt="<?= $plugin['name'] ?>">
-                        <? else: ?>
-                            <video class="lazy-load__media js_lazy-media" autoplay loop muted playsinline>
-                                <source src="<?= $plugin['demo'] ?>" type="video/mp4">
+                        <? if (substr($plugin['demo'], -strlen('.mp4')) === '.mp4'): ?>
+                            <video data-lazy-src="<?= $plugin['demo'] ?>" class="lazy-load__media" autoplay loop muted playsinline>
+                                <source type="video/mp4">
                             </video>
+                        <? else: ?>
+                            <img class="lazy-load__media" data-lazy-src="<?= $plugin['demo'] ?>" alt="<?= $plugin['name'] ?>">
                         <? endif; ?>
                     </div>
                 </div>
