@@ -87,10 +87,10 @@ class Controller_Landings extends Controller_Base_preDispatch
         /**
          * Detect visits from Product Hunt
          */
-        $isFromPH = $this->request->query('ref') == 'producthunt';
+        $isFromPH = $this->request->query('ref') === 'producthunt';
 
-        if ($isFromPH){
-            Cookie::set('from', 'product hunt', Date::YEAR * 3);
+        if ($isFromPH) {
+            Cookie::set('from', 'producthunt', Date::YEAR * 3);
         }
 
         $this->view['isFromPH'] = $isFromPH;
