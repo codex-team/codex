@@ -10,6 +10,7 @@
 
     &--loaded {
         width: auto;
+        background: transparent;
 
         > ^&__media {
             opacity: 1;
