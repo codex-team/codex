@@ -397,14 +397,14 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
             <a style="display: inline-block; margin-top: 100px;" href="https://www.producthunt.com/posts/editor-js?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-editor-js" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=150153&theme=light" alt="Editor.js - New block-styled editor with clean JSON output | Product Hunt Embed" style="width: 250px; height: 54px;" width="250px" height="54px" /></a>
         </section>
 
-        <? /*
         <section class="editor-landing__section-header editor-landing__section-header--big">
             Support our team with a small donation and help us continue our work.
 
             <div style="margin: 50px -50px 0;">
-                <script src="https://opencollective.com/editorjs/donate/button.js" color="white" async></script>
+                <a href="https://opencollective.com/editorjs/donate" target="_blank">
+                    <? include(DOCROOT . 'public/app/img/opencollective-button.svg'); ?>
+                </a>
             </div>
         </section>
-        */ ?>
     </div>
 </div>
