@@ -401,7 +401,7 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
             Support our team with a small donation and help us continue our work.
 
             <div style="margin: 50px -50px 0;">
-                <script src="https://opencollective.com/editorjs/donate/button.js" color="white" async></script>
+                <script src="https://opencollective.com/editorjs/donate/button.js" color="white" defer></script>
             </div>
         </section>
 
