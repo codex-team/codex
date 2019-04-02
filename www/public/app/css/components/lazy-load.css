@@ -1,13 +1,18 @@
 .lazy-load {
     background: #f7fafb;
     border-radius: 3px;
+    width: 150px;
 
     &__media {
         opacity: 0;
         transition: opacity 0.6s ease;
     }
 
-    &--loaded > &__media {
-        opacity: 1;
+    &--loaded {
+        width: auto;
+
+        > ^&__media {
+            opacity: 1;
+        }
     }
 }
