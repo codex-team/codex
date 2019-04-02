@@ -5,7 +5,8 @@ module.exports = {
 
     entry: {
         codex: './public/app/js/main.js',
-        hawk: './public/app/js/modules/hawk.js'
+        hawk: './public/app/js/modules/hawk.js',
+        reactions: './public/app/js/modules/reactions.js',
     },
 
     output: {
