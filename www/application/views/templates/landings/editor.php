@@ -402,7 +402,7 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
 
             <div style="margin: 50px -50px 0;">
                 <a href="https://opencollective.com/editorjs/donate" target="_blank">
-                    <? include(DOCROOT . 'public/app/img/opencollective-button.svg'); ?>
+                    <img src="https://opencollective.com/editorjs/donate/button@2x.png?color=white" width="300">
                 </a>
             </div>
         </section>
