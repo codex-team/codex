@@ -1,6 +1,42 @@
 <?
     $news = array(
         array(
+            'text' => 'Провели эксперимент: <a href="/article/256">fs.readFileSync() или require() — что быстрее</a>',
+            'textEn' => 'Made an experiment: <a href="/article/256">fs.readFileSync() or require() — what is faster</a>',
+            'date' => '28 dec',
+            'release' => false
+        ),
+        array(
+            'text' => 'Вышла статья об <a href="/npm-auto-publish">Автоматической публикации пакетов в NPM</a>',
+            'textEn' => 'New article <a href="/npm-auto-publish">NPM: automatic publishing</a>',
+            'date' => '28 dec',
+            'release' => false
+        ),
+        array(
+            'text' => '<a href="https://vk.com/wall-103229636_454">CodeX Meetup: TypeScript</a>',
+            'textEn' => '<a href="https://vk.com/wall-103229636_454">CodeX Meetup: TypeScript</a>',
+            'date' => '22 nov',
+            'release' => false
+        ),
+        array(
+            'text' => 'Новая заметка о том, <a href="/devops-basics">как запустить сайт на своем сервере</a>',
+            'textEn' => 'Meet new <a href="/devops-basics">DevOps Basics</a> guide',
+            'date' => '25 oct',
+            'release' => false
+        ),
+        array(
+            'text' => 'Написали <a href="/proxy">инструкцию по настройке собственного прокси-сервера</a>',
+            'textEn' => 'Created a new <a href="/proxy">guide for building up your own proxy server</a>',
+            'date' => '25 oct',
+            'release' => false
+        ),
+        array(
+            'text' => 'Опубликованы <a href="/tasks2018">задания для вступающих в команду</a>',
+            'textEn' => '<a href="/tasks2018">Joining tasks</a> have published',
+            'date' => '15 oct',
+            'release' => false
+        ),
+        array(
             'text' => 'Открыт <a href="/join">набор в команду</a>',
             'textEn' => 'Have introduced <a href="/join">Joining CodeX</a> 👋 — doors are open till 7th, October',
             'date' => '21 sep',

@@ -7,6 +7,11 @@
             <span class="editor-landing__logo-shadow">
                 <? include(DOCROOT . '/public/app/landings/editor/svg/editorjs-logo-shadow.svg'); ?>
             </span>
+            <? if (isset($isFromPH) && $isFromPH === true): ?>
+                <span class="editor-landing__logo-ph-cat">
+                    <? include(DOCROOT . '/public/app/landings/editor/svg/ph-cat.svg'); ?>
+                </span>
+            <? endif; ?>
         </div>
 
         <h1 class="editor-landing__title">
@@ -376,50 +381,7 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
             </div>
         </section>
 
-        <section class="editor-landing__section-header editor-landing__section-header--big">
-            Subscribe on Product Hunt
+        <script src="https://opencollective.com/editorjs/donate/button.js" color="white" async></script>
 
-            <style type="text/css">
-                #ph-email-form {
-                    display: -webkit-box;
-                    display: -ms-flexbox;
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: center;
-                    margin-top: 20px;
-                }
-
-                #ph-email {
-                    border: 1px solid #e8e8e8;
-                    box-sizing: border-box;
-                    color: #000000;
-                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-                    font-size: 13px;
-                    padding: 8px;
-                }
-
-                #ph-subscribe-button {
-                    margin-left: 10px;
-                    background: #da552f;
-                    border-radius: 3px;
-                    border: 1px solid #da552f;
-                    box-sizing: border-box;
-                    color: #ffffff;
-                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-                    font-size: 11px;
-                    font-weight: 600;
-                    height: 34px;
-                    letter-spacing: .3px;
-                    line-height: 16px;
-                    padding: 0 13px;
-                    text-transform: uppercase;
-                }
-            </style>
-
-            <form action="//api.producthunt.com/widgets/upcoming/v1/upcoming/editor-js/forms" method="post" name="ph-email-form" id="ph-email-form" target="_blank">
-                <input type="email" value="" name="email" id="ph-email" placeholder="Email Address" required />
-                <input type="submit" value="Subscribe" name="subscribe" id="ph-subscribe-button" />
-            </form>
-        </section>
     </div>
 </div>
