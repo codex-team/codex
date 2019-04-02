@@ -72,7 +72,7 @@
             }
 
             #cat-eye {
-                animation: ph-cat-blink 1 200ms 3500ms cubic-bezier(.54,1.2,.79,1.22);
+                animation: ph-cat-blink 1 150ms 3500ms cubic-bezier(.54,1.2,.79,1.22);
                 will-change: transform;
                 animation-fill-mode: forwards;
             }
