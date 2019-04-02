@@ -167,6 +167,12 @@
             display: inline-block;
             border-bottom: 1px solid rgba(93,100,134,0.20);
             margin-bottom: 6px;
+
+            svg {
+                margin-right: -40px;
+                margin-left: 5px;
+                vertical-align: text-bottom;
+            }
         }
     }
 
