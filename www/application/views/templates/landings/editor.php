@@ -379,9 +379,11 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
                 <a class="github-button" href="//github.com/codex-team/editor.js" data-icon="octicon-star" data-size="large" aria-label="Star codex-team/editor.js on GitHub" target="_blank">Star</a>
                 <script async defer src="//buttons.github.io/buttons.js"></script>
             </div>
+            <br>
+            <a style="display: inline-block; margin-top: 100px;" href="https://www.producthunt.com/posts/editor-js?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-editor-js" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=150153&theme=light" alt="Editor.js - New block-styled editor with clean JSON output | Product Hunt Embed" style="width: 250px; height: 54px;" width="250px" height="54px" /></a>
         </section>
 
-        <script src="https://opencollective.com/editorjs/donate/button.js" color="white" async></script>
+        <? // <script src="https://opencollective.com/editorjs/donate/button.js" color="white" async></script> ?>
 
     </div>
 </div>
