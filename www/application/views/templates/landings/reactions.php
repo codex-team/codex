@@ -1,12 +1,12 @@
 <link rel="stylesheet" href="/public/app/landings/reactions/reactions.css?v=<?= filemtime("public/app/landings/reactions/reactions.css") ?>">
 <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
 
-<div class="reactions-page" data-module="reactions">
-    <textarea name="module-settings" hidden>
+<div class="reactions-page" <? /* data-module="reactions" */ ?>>
+    <? /* <textarea name="module-settings" hidden>
         {
             "holderId": "reactions-holder"
         }
-    </textarea>
+    </textarea> */ ?>
 
     <div class="reactions-page__about">
         <div class="reactions-page__logo">
@@ -35,3 +35,5 @@
         <a href="https://twitter.com/codex_team?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-size="large" data-dnt="true" data-show-count="false">Follow @codex_team</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     </div>
 </div>
+
+<script onload="new reactions({parent: `#reactions-holder`, title: '', reactions: ['👍', '❤️', '👎']});" src="/public/build/reactions.bundle.js?v=<?= filemtime('public/build/reactions.bundle.js') ?>" defer></script>
