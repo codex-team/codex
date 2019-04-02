@@ -266,17 +266,19 @@
         <div class="editor-landing__plugins-description">
             Plugins can represent any Blocks: Quotes, Galleries, Polls, Embeds, Tables — anything you need. Also they can implement Inline Tools such as Marker, Term, Comments etc.
         </div>
-        <div class="editor-landing__plugins-filter" data-module="pluginsFilter">
+        <div class="editor-landing__plugins-filter" data-module="pluginsFilter lazyLoad">
             <textarea name="module-settings" hidden>
-                {
-                    "inlineFilterButtonClass" : ".js-inline-tools-filter",
-                    "blockFilterButtonClass" : ".js-block-tools-filter",
-                    "allToolsFilterButtonClass" : ".js-all-tools-filter",
-                    "blockToolsClass" : ".js-block-tool",
-                    "inlineToolsClass" : ".js-inline-tool"
-                }
+                [
+                    {
+                        "inlineFilterButtonClass" : ".js-inline-tools-filter",
+                        "blockFilterButtonClass" : ".js-block-tools-filter",
+                        "allToolsFilterButtonClass" : ".js-all-tools-filter",
+                        "blockToolsClass" : ".js-block-tool",
+                        "inlineToolsClass" : ".js-inline-tool"
+                    },
+                    {}
+                ]
             </textarea>
-
             <span class="editor-landing__plugins-filter-button js-block-tools-filter">
                 <? include(DOCROOT . '/public/app/landings/editor/svg/plus-icon.svg'); ?>
                 Blocks
@@ -292,13 +294,15 @@
         <? foreach ( $plugins as $plugin ): ?>
             <div class="editor-plugin clearfix <?= $plugin['type'] === 'Block' ? 'js-block-tool' : 'js-inline-tool' ?>">
                 <div class="editor-plugin__demo">
-                    <? if (strpos($plugin['demo'], 'mp4') === false): ?>
-                        <img src="<?= $plugin['demo'] ?>" alt="<?= $plugin['name'] ?>">
-                    <? else: ?>
-                        <video autoplay loop muted playsinline>
-                            <source src="<?= $plugin['demo'] ?>" type="video/mp4">
-                        </video>
-                    <? endif; ?>
+                    <div class="lazy-load js_lazy-load">
+                        <? if (substr($plugin['demo'], -strlen('.mp4')) === '.mp4'): ?>
+                            <video data-lazy-src="<?= $plugin['demo'] ?>" class="lazy-load__media" autoplay loop muted playsinline>
+                                <source type="video/mp4">
+                            </video>
+                        <? else: ?>
+                            <img class="lazy-load__media" data-lazy-src="<?= $plugin['demo'] ?>" alt="<?= $plugin['name'] ?>">
+                        <? endif; ?>
+                    </div>
                 </div>
                 <a href="<?= $plugin['url'] ?>" target="_blank">
                     <h3 class="editor-plugin__title">
@@ -393,6 +397,7 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
             <a style="display: inline-block; margin-top: 100px;" href="https://www.producthunt.com/posts/editor-js?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-editor-js" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=150153&theme=light" alt="Editor.js - New block-styled editor with clean JSON output | Product Hunt Embed" style="width: 250px; height: 54px;" width="250px" height="54px" /></a>
         </section>
 
+        <? /*
         <section class="editor-landing__section-header editor-landing__section-header--big">
             Support our team with a small donation and help us continue our work.
 
@@ -400,8 +405,6 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
                 <script src="https://opencollective.com/editorjs/donate/button.js" color="white" async></script>
             </div>
         </section>
-
-
-
+        */ ?>
     </div>
 </div>
