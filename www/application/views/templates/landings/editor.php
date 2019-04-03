@@ -69,7 +69,7 @@
             <header>
                 And here is a generated CLEAN data
             </header>
-            Use it in Web, mobile, APM, Instant Articles, speech readers — everywhere. Easy to sanitize, extend and integrate with your logic.
+            Use it in Web, mobile, AMP, Instant Articles, speech readers — everywhere. Easy to sanitize, extend and integrate with your logic.
         </section>
         <div class="editor-landing__preview">
             <div class="editor-landing__preview-inner">
