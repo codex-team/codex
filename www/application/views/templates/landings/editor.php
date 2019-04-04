@@ -397,7 +397,7 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
             Support our team with a small donation and help us continue our work.
 
             <div style="margin: 50px -50px 0;">
-                <a href="https://opencollective.com/editorjs/donate" target="_blank">
+                <a href="https://opencollective.com/editorjs" target="_blank">
                     <img src="https://opencollective.com/editorjs/donate/button@2x.png?color=white" width="300">
                 </a>
             </div>
