@@ -82,7 +82,7 @@
         <header>
             API is the feature.
         </header>
-        Each Block provided by plugin. It's really easy to create your own. Dozens of created.
+        Each Block is provided by a plugin. It's easy to create your own. Dozens of created.
     </section>
 
     <?
