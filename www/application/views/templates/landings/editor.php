@@ -80,9 +80,9 @@
 
     <section class="editor-landing__section-header editor-landing__section-header--big">
         <header>
-            The API is the feature.
+            API is the feature.
         </header>
-        Each Block provided by a plugin and it's really easy to create your own. Dozens have already been created.
+        Each Block provided by plugin. It's really easy to create your own. Dozens of created.
     </section>
 
     <?
