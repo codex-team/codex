@@ -34,6 +34,7 @@
 @import './components/video-overlay.css';
 @import './components/follow-telegram.css';
 @import './components/join.css';
+@import './components/lazy-load.css';
 
 /**
  * Pages
