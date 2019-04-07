@@ -136,8 +136,8 @@ codex.editorLanding = new EditorLanding();
 import ArticleCreate from './modules/articleCreate';
 codex.articleCreate = new ArticleCreate();
 
-import ReactionsCreate from './modules/reactionsCreate';
-codex.reactionsCreate = new ReactionsCreate();
+import Reactions from './modules/reactions';
+codex.reactionsCreate = new Reactions();
 
 module.exports = codex;
 
