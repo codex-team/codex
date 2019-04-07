@@ -178,8 +178,13 @@
         <?= View::factory('templates/quizzes/quiz', array('quizData' => $quiz->quiz_data)); ?>
     <? endif ?>
 
-    <div class='reactions-page_voting'></div>
-
+    <div class='js_reactions-page_voting' data-module="reactionsCreate">
+        <textarea name="module-settings" hidden>
+            {
+                "parent" : ".js_reactions-page_voting"
+            }
+        </textarea>
+    </div>
 
     <?= View::factory('templates/blocks/share', array('share' => array(
         'offer' => 'Если вам понравилась статья, поделитесь ссылкой на нее',
@@ -215,7 +220,3 @@
 
 
 <script type="text/javascript" src="/public/build/codex.bundle.js"></script>
-<script>
-    const parent = document.querySelector('.reactions-page_voting');
-    let reactionsModule = new codex.reaction({parent: parent, title: '', reactions: ['👍', '❤', '👎']});
-</script>
