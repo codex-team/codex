@@ -6,7 +6,7 @@ export default class LazyLoad {
     /**
      * Classes used in module
      */
-    static get classes() {
+    static get CSS() {
 
         return {
             wrapper: 'js_lazy-load',
@@ -30,7 +30,7 @@ export default class LazyLoad {
      */
     loadMedia() {
 
-        const items = document.querySelectorAll(`[${LazyLoad.classes.itemAttribute}]`);
+        const items = document.querySelectorAll(`[${LazyLoad.CSS.itemAttribute}]`);
 
         items.forEach((item) => {
 
@@ -60,7 +60,7 @@ export default class LazyLoad {
          * When temporary image is loaded, reveal real image
          */
         const tempImage = new Image();
-        const imageSrc = element.getAttribute(LazyLoad.classes.itemAttribute);
+        const imageSrc = element.getAttribute(LazyLoad.CSS.itemAttribute);
 
         tempImage.src = imageSrc;
         tempImage.onload = () => {
@@ -80,7 +80,7 @@ export default class LazyLoad {
 
         const tempVideo = document.createElement('video');
         const tempVideoSource = document.createElement('source');
-        const videoSrc = element.getAttribute(LazyLoad.classes.itemAttribute);
+        const videoSrc = element.getAttribute(LazyLoad.CSS.itemAttribute);
 
         tempVideoSource.src = videoSrc;
         tempVideo.appendChild(tempVideoSource);
@@ -101,7 +101,7 @@ export default class LazyLoad {
      */
     addLoadedClass(element) {
 
-        element.closest(`.${LazyLoad.classes.wrapper}`).classList.add(LazyLoad.classes.loaded);
+        element.closest(`.${LazyLoad.CSS.wrapper}`).classList.add(LazyLoad.CSS.loaded);
 
     }
 
