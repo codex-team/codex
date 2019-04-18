@@ -178,6 +178,15 @@
         <?= View::factory('templates/quizzes/quiz', array('quizData' => $quiz->quiz_data)); ?>
     <? endif ?>
 
+    <div class="js_reactions-voting" data-module="reactions">
+        <textarea name="module-settings" hidden>
+            {
+                "parent" : "js_reactions-voting",
+                "title" : "How do you like this article?"
+            }
+        </textarea>
+    </div>
+
     <?= View::factory('templates/blocks/share', array('share' => array(
         'offer' => 'Если вам понравилась статья, поделитесь ссылкой на нее',
         'url'   => 'https://' . Arr::get($_SERVER, 'HTTP_HOST', Arr::get($_SERVER, 'SERVER_NAME', 'codex.so')) . '/' . $article->uri ?: 'article/' . $article->id,
@@ -209,3 +218,6 @@
         ?>
     <? endif; ?>
 </div>
+
+
+<script type="text/javascript" src="/public/build/codex.bundle.js"></script>
