@@ -21,7 +21,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="format-detection" content="telephone=no">
 
-    <link rel="stylesheet" href="/public/build/codex.css?v=<?= filemtime('public/build/codex.css') ?>">
+    <link rel="stylesheet" href="/public/build/codex.bundle.css?v=<?= filemtime('public/build/codex.bundle.css') ?>">
     <link rel="icon" type="image/png" href="/public/app/img/fav_shield@3x.png?v=985" id="favicon" />
 
     <meta name="telegram:channel" content="@codex_team">
@@ -59,7 +59,7 @@
             <section class="site-footer__section site-footer__section--contacts">
                 <h5>Contact team</h5>
                 <ul>
-                    <li><a href="mailto:team@ifmo.su?Subject=CodeX%20Team"><u>team@ifmo.su</u></a></li>
+                    <li><a href="mailto:all@codex.so?Subject=CodeX%20Team"><u>all@codex.so</u></a></li>
                     <!--googleoff: all-->
                     <!--noindex-->
                         <li><a href="mailto:specc.dev@gmail.com?Subject=CodeX%20Team" rel="nofollow"><u>specc.dev@gmail.com</u></a> <span class="desclimer">— Petr Savchenko</span></li>
@@ -70,8 +70,12 @@
             <section class="site-footer__section">
                 <h5>Follow us</h5>
                 <ul>
-                    <li><a class="deeplinker" href="//vk.com/codex_team"  rel="nofollow" data-app-link="vk://vk.com/codex_team"><i class="icon-vkontakte"></i> <u>ВКонтакте</u></a></li>
-                    <li><a class="deeplinker" href="//instagram.com/codex_team/" rel="nofollow" data-app-link="instagram://user?username=codex_team"><i class="icon-instagram"></i> <u>Instagram</u></a></li>
+                    <? if (LANG === 'en'): ?>
+                        <li><a href="//twitter.com/codex_team" rel="nofollow" target="_blank"><i class="icon-twitter"></i> <u>Twitter</u></a></li>
+                    <? else: ?>
+                        <li><a class="deeplinker" href="//vk.com/codex_team" rel="nofollow" target="_blank" data-app-link="vk://vk.com/codex_team"><i class="icon-vkontakte"></i> <u>ВКонтакте</u></a></li>
+                    <? endif;?>
+                    <li><a class="deeplinker" href="//instagram.com/codex_team/" rel="nofollow" target="_blank" data-app-link="instagram://user?username=codex_team"><i class="icon-instagram"></i> <u>Instagram</u></a></li>
                 </ul>
             </section>
         </div>

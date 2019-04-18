@@ -5,7 +5,8 @@ module.exports = {
 
     entry: {
         codex: './public/app/js/main.js',
-        hawk: './public/app/js/modules/hawk.js'
+        hawk: './public/app/js/modules/hawk.js',
+        reactions: './public/app/js/modules/reactions.js',
     },
 
     output: {
@@ -38,13 +39,7 @@ module.exports = {
                             publicPath: '../'
                         }
                     },
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            minimize: 1,
-                            importLoaders: 1
-                        }
-                    },
+                    'css-loader',
                     'postcss-loader'
                 ]
             },
@@ -80,7 +75,7 @@ module.exports = {
     plugins: [
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
-            filename: "[name].css",
+            filename: '[name].bundle.css'
         })
     ],
 
@@ -96,7 +91,5 @@ module.exports = {
     optimization: {
         noEmitOnErrors: true,
         splitChunks: false
-    },
-
-    devtool: 'none'
+    }
 };

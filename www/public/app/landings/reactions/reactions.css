@@ -1,0 +1,348 @@
+/**
+ * CodeX Reactions Module Landing
+ */
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: column;
+            flex-flow: column;
+    min-width: 320px;
+    color: #646c79;
+    background-color: #212229;
+    border-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+.site-header, .site-footer {
+    background-color: #212229;
+    border-color: rgba(97, 104, 143, 0.13);
+}
+
+.site-footer {
+    margin-top: 0;
+}
+
+.site-header a, .site-footer a {
+    color: #9092ab;
+}
+
+.reactions-page {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    position: relative;
+    -webkit-box-flex: 2;
+        -ms-flex-positive: 2;
+            flex-grow: 2;
+    background-color: #212229;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.reactions-page__about {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: column;
+            flex-flow: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    text-align: center;
+    margin: auto;
+}
+
+.reactions-page__info {
+    margin: 0;
+    color: #878e9e;
+    font-size: 17px;
+    line-height: 22px;
+    font-weight: 400;
+}
+
+.reactions-page__example {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    margin-top: 43px;
+}
+
+.reactions__counter-emoji {
+    background-color: #fff;
+}
+
+.reactions__counter:last-child {
+    margin-right: 0;
+}
+
+.reactions {
+    margin-left: 15px;
+}
+
+.reactions-page__name {
+    margin: 0.4em 0 11px;
+    color: #fff;
+    font-size: 36px;
+    line-height: initial;
+    font-weight: 700;
+}
+
+.reactions-page__logo {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 98px;
+    height: 98px;
+    margin: 0 auto;
+}
+
+.reactions-page__button {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    width: 125px;
+    height: 39px;
+    margin: 51px auto 0;
+    color: #ffffff;
+    border-radius: 19.5px;
+    -webkit-box-shadow: 0 9px 10px -8px rgba(9, 97, 213, 0.83);
+            box-shadow: 0 9px 10px -8px rgba(9, 97, 213, 0.83);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#1ba0ff), to(#4a9eff));
+    background-image: -webkit-linear-gradient(top, #1ba0ff, #4a9eff);
+    background-image: -o-linear-gradient(top, #1ba0ff, #4a9eff);
+    background-image: linear-gradient(to bottom, #1ba0ff, #4a9eff);
+    font-size: 15px;
+    line-height: 3.13;
+    letter-spacing: -0.1px;
+    cursor: pointer;
+}
+
+.reactions-page__button:active,
+.reactions-page__button:focus,
+.reactions-page__button:hover {
+    color: #ffffff;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#1ba0ff), to(#0c7abf));
+    background-image: -webkit-linear-gradient(top, #1ba0ff, #0c7abf);
+    background-image: -o-linear-gradient(top, #1ba0ff, #0c7abf);
+    background-image: linear-gradient(to bottom, #1ba0ff, #0c7abf);
+}
+
+.reactions__counter-votes {
+    color: #878e9e;
+}
+
+.reactions__counter-emoji {
+    border: solid 1px transparent;
+}
+
+.reactions__counter-emoji:hover {
+    border: none;
+}
+
+.reactions__counter-emoji--picked {
+    border: none;
+    background-color: #fffacc;
+}
+
+.reactions-page__footer {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-animation: reactions_footer 250ms ease-out 2s forwards;
+            animation: reactions_footer 250ms ease-out 2s forwards;
+    position: absolute;
+    bottom: 30px;
+    height: 0;
+    opacity: 0;
+    -webkit-transform: translateY(20px);
+        -ms-transform: translateY(20px);
+            transform: translateY(20px);
+}
+
+.reactions-page__footer-logo {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+
+.reactions-page__footer-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.reactions-page__footer-title {
+    margin-left: 10px;
+    color: #fff;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.reactions-page__footer-description {
+    margin: 0 25px;
+}
+
+@media screen and (min-device-width: 1200px) {
+    .reactions-page {
+        min-height: 600px;
+    }
+}
+
+@media (max-width: 607px) {
+    .reactions-page__footer-logo {
+        margin-bottom: 15px;
+    }
+
+    .reactions-page__footer-description {
+        margin-bottom: 25px;
+    }
+}
+
+@media (max-width: 320px) {
+    .reactions-page {
+        padding: 0 20px;
+    }
+
+    .reactions-page__logo {
+        width: 20%;
+        min-width: 50px;
+        height: 70px;
+    }
+
+    .reactions-page__info {
+        font-size: 14px;
+    }
+
+    .reactions-page__name {
+        font-size: 22px;
+    }
+}
+
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 823px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+      .reactions-page {
+          min-height: 650px;
+      }
+
+      .reactions-page__example {
+          margin-top: 10px;
+      }
+      
+      .reactions-page__button {
+          margin-top: 10px;
+      }
+
+      .reactions-page__footer-icon {
+          display: flex;
+          width: 20%;
+      }
+
+      .reactions-page__footer-description {
+          margin-bottom: 10px;
+      }
+
+      .reactions-page__footer-logo {
+          margin-bottom: 0px;
+      }
+}
+
+@-webkit-keyframes reactions_footer {
+    from {
+        height: 0;
+        opacity: 0;
+        -webkit-transform: translateY(70px);
+            transform: translateY(70px);
+    }
+    to {
+        height: auto;
+        opacity: 1;
+        -webkit-transform: translateY(0px);
+                transform: translateY(0px);
+    }
+}
+
+@keyframes reactions_footer {
+    from {
+        height: 0;
+        opacity: 0;
+        -webkit-transform: translateY(20px);
+                transform: translateY(20px);
+    }
+    to {
+        height: auto;
+        opacity: 1;
+        -webkit-transform: translateY(0px);
+                transform: translateY(0px);
+    }
+}
+
+@-webkit-keyframes cr-hover {
+    0% {
+        -webkit-box-shadow: 0 0 0 10px #88acd4;
+                box-shadow: 0 0 0 10px #88acd4;
+    }
+    40% {
+        -webkit-box-shadow: 0 0 0 25px rgba(136,172,212, 0.4), 0 0 0 10px #88acd4;
+                box-shadow: 0 0 0 25px rgba(136,172,212, 0.4), 0 0 0 10px #88acd4;
+    }
+    40.05% {
+        -webkit-box-shadow: 0 0 0 5px rgba(136,172,212, 0.4), 0 0 0 10px #88acd4;
+                box-shadow: 0 0 0 5px rgba(136,172,212, 0.4), 0 0 0 10px #88acd4;
+    }
+}
+
+@keyframes cr-hover {
+    0% {
+        -webkit-box-shadow: 0 0 0 10px #88acd4;
+                box-shadow: 0 0 0 10px #88acd4;
+    }
+    40% {
+        -webkit-box-shadow: 0 0 0 25px rgba(136,172,212, 0.4), 0 0 0 10px #88acd4;
+                box-shadow: 0 0 0 25px rgba(136,172,212, 0.4), 0 0 0 10px #88acd4;
+    }
+    40.05% {
+        -webkit-box-shadow: 0 0 0 5px rgba(136,172,212, 0.4), 0 0 0 10px #88acd4;
+                box-shadow: 0 0 0 5px rgba(136,172,212, 0.4), 0 0 0 10px #88acd4;
+    }
+}

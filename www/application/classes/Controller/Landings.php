@@ -65,6 +65,16 @@ class Controller_Landings extends Controller_Base_preDispatch
     }
 
     /**
+     * CodeX Reactions
+     */
+    public function action_reactions()
+    {
+        $this->title = 'CodeX Reactions';
+        $this->description = 'Collect a feedback for your content without coding';
+        $this->template->content = View::factory('templates/landings/reactions', $this->view);
+    }
+
+    /**
      * Codex Editor Landing page
      * https://codex.so/editor
      */
@@ -73,6 +83,17 @@ class Controller_Landings extends Controller_Base_preDispatch
         $this->title = 'CodeX Editor';
         $this->description = 'Block style visual editor for beautiful pages';
         $this->view['version'] = $this->getEditorVersion();
+
+        /**
+         * Detect visits from Product Hunt
+         */
+        $isFromPH = $this->request->query('ref') === 'producthunt';
+
+        if ($isFromPH) {
+            Cookie::set('from', 'producthunt', Date::YEAR * 3);
+        }
+
+        $this->view['isFromPH'] = $isFromPH;
 
         $landing = View::factory('templates/landings/editor', $this->view);;
 
@@ -118,7 +139,6 @@ class Controller_Landings extends Controller_Base_preDispatch
             \Hawk\HawkCatcher::catchException($e);
         }
 
-        return '2.11';
+        return '2.12';
     }
-
 }

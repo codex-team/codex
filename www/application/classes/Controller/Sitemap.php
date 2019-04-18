@@ -12,7 +12,8 @@ class Controller_Sitemap extends Controller_Base_preDispatch
         'editor',
         'media',
         'special',
-        'beauty-toolbar'
+        'beauty-toolbar',
+        'reactions'
     );
 
     /**

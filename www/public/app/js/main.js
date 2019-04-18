@@ -136,7 +136,7 @@ codex.editorLanding = new EditorLanding();
 import ArticleCreate from './modules/articleCreate';
 codex.articleCreate = new ArticleCreate();
 
-import Reactions from './modules/reactions';
+import Reactions from './modules/reactionsArticles';
 codex.reactionsCreate = new Reactions();
 
 module.exports = codex;

@@ -1,21 +1,57 @@
-'use strict';
+module.exports = require('@codexteam/reactions');
 
-/**
- * Module for reactions module initialization and inserting it in a specified place on an article's page
- */
-
-export default class Reactions {
-
-    /**
-     * Initialize reactions on pages
-     * @param {Object} settings - reactions parameters
-     * @param {String} settings.parent - container's class name for reactions module
-     * @param {String} settings.title - title for reactions module
-     * 
-     */
-    init(settings) {
-
-        let parentElement = document.querySelector('.' + settings.parent),
-            reactionsModule = new codex.reactions({parent: parentElement, title: settings.title, reactions: ['👍', '❤', '👎']});
-    };
-};
+// const Reactions = require('@codexteam/reactions');
+//
+// /**
+//  * Module for pages using Editor
+//  */
+// class ReactionsModule {
+//
+//     /**
+//      * Create a new Reactions instance
+//      * @param {object} settings — module settings
+//      * @param {string} settings.holderId — name for a Reactions holder element
+//      */
+//     init(settings) {
+//
+//         /**
+//          * If holderId is missing then do nothing
+//          */
+//         if (!settings.holderId) return;
+//
+//         /**
+//          * Try to find holder element with given id
+//          * @type {HTMLElement}
+//          */
+//         const holder = document.getElementById(settings.holderId);
+//
+//         /**
+//          * If holder element is missing then do nothing
+//          */
+//         if (!holder) return;
+//
+//         /**
+//          * Init Reactions module
+//          */
+//         return new Reactions({
+//             /**
+//              * Holder element
+//              */
+//             parent: `#${settings.holderId}`,
+//
+//             /**
+//              * Text before buttons
+//              */
+//             title: '',
+//
+//             /**
+//              * Define buttons
+//              */
+//             reactions: ['👍', '❤️', '👎']
+//         });
+//
+//     }
+//
+// }
+//
+// module.exports = new ReactionsModule();
