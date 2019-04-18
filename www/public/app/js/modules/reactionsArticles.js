@@ -1,5 +1,7 @@
 'use strict';
 
+const reactions = require('@codexteam/reactions');
+
 /**
  * Module for reactions module initialization and inserting it in a specified place on an article's page
  */
@@ -16,7 +18,7 @@ export default class Reactions {
     init(settings) {
 
         let parentElement = document.querySelector('.' + settings.parent),
-            reactionsModule = new codex.reactions({parent: parentElement, title: settings.title, reactions: ['👍', '❤', '👎']});
+            reactionsModule = new reactions({parent: parentElement, title: settings.title, reactions: ['👍', '❤', '👎']});
 
     };
 

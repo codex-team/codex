@@ -128,7 +128,6 @@ codex.vkWidget = require('./modules/vkWidget');
 codex.codeStyling = require('./modules/codeStyling');
 codex.deeplinker = require('@codexteam/deeplinker');
 codex.pluginsFilter = require('./modules/pluginsFilter');
-codex.reactions = require('@codexteam/reactions');
 
 import EditorLanding from './modules/editorLanding';
 codex.editorLanding = new EditorLanding();
@@ -137,7 +136,7 @@ import ArticleCreate from './modules/articleCreate';
 codex.articleCreate = new ArticleCreate();
 
 import Reactions from './modules/reactionsArticles';
-codex.reactionsCreate = new Reactions();
+codex.reactions = new Reactions();
 
 module.exports = codex;
 
