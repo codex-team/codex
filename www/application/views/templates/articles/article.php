@@ -178,10 +178,10 @@
         <?= View::factory('templates/quizzes/quiz', array('quizData' => $quiz->quiz_data)); ?>
     <? endif ?>
 
-    <div class="js_reactions-page_voting" data-module="reactions">
+    <div class="js_reactions-voting" data-module="reactions">
         <textarea name="module-settings" hidden>
             {
-                "parent" : "js_reactions-page_voting",
+                "parent" : "js_reactions-voting",
                 "title" : "How do you like this article?"
             }
         </textarea>
