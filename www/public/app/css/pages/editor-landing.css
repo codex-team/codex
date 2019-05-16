@@ -536,23 +536,23 @@
     }
 
     &__patreon {
-        margin-top: 15px;
         display: inline-block;
+        margin-top: 15px;
         background: rgb(232, 91, 70);
         padding: 5px 15px;
         border-radius: 25px;
         color: #fff;
 
         &:hover {
-            color: #fff;
             background: #DB5240;
+            color: #fff;
         }
 
         svg {
+            display: inline-block;
             height: 16px;
             width: 18px;
             margin-right: 3px;
-            display: inline-block;
             vertical-align: text-bottom;
         }
     }
