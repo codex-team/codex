@@ -1,9 +1,27 @@
 <?
     $news = array(
         array(
+            'text' => 'Интервью Itmo News <a href="http://news.ifmo.ru/ru/startups_and_business/startup/news/8390">о выпуске Editor.js</a>',
+            'textEn' => 'Interview about <a href="http://news.ifmo.ru/en/startups_and_business/startup/news/8390">Editor.js</a> release',
+            'date' => '4 apr',
+            'release' => false
+        ),
+        array(
+            'text' => 'Написали на vc.ru об <a href="https://vc.ru/dev/60626">истории создания Editor.js</a>',
+            'textEn' => 'History of <a href="https://vc.ru/dev/60626">Editor.js</a> development (Ru)',
+            'date' => '3 apr',
+            'release' => false
+        ),
+        array(
+            'text' => 'Пердставили <a href="https://www.producthunt.com/posts/editor-js">Editor.js</a> на Product Hunt',
+            'textEn' => '<a href="https://www.producthunt.com/posts/editor-js">Editor.js</a> launched on Product Hunt',
+            'date' => '2 apr',
+            'release' => true
+        ),
+        array(
             'text' => 'Провели эксперимент: <a href="/article/256">fs.readFileSync() или require() — что быстрее</a>',
             'textEn' => 'Made an experiment: <a href="/article/256">fs.readFileSync() or require() — what is faster</a>',
-            'date' => '28 dec',
+            'date' => '13 jan',
             'release' => false
         ),
         array(

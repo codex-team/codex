@@ -372,13 +372,66 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
                     <? include(DOCROOT . '/public/app/landings/editor/svg/vc-ru.svg'); ?>
                 </a>
             </div>
+
+            <div class="editor-landing__ph-gaming">
+                #1 on Product Hunt <br/>
+                <a href="https://www.producthunt.com/posts/editor-js" target="_blank">
+                    <? include(DOCROOT . '/public/app/landings/editor/svg/ph-day.svg'); ?>
+                    <? include(DOCROOT . '/public/app/landings/editor/svg/ph-week.svg'); ?>
+                    <? include(DOCROOT . '/public/app/landings/editor/svg/ph-month.svg'); ?>
+                </a>
+            </div>
+
+            <a style="display: inline-block; margin-top: 30px;" href="https://www.producthunt.com/posts/editor-js?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-editor-js" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=150153&theme=light" alt="Editor.js - New block-styled editor with clean JSON output | Product Hunt Embed" style="width: 150px; height: 34px;" width="150px" height="34px" /></a>
+
         </section>
 
         <section class="editor-landing__section-header editor-landing__section-header--big">
             <header>
                 Support Team
             </header>
-            We will be really glad and inspired by <b>every</b> star of the project. It helps community to grow, build new cool plugins and core features.
+            If you like Editor.js, support project improvements with a small donation. That's will help us to continue our work and increase speed of developing new features.
+
+            <div style="margin: 50px -50px 0;">
+                <a href="https://opencollective.com/editorjs" target="_blank">
+                    <img src="https://opencollective.com/editorjs/donate/button@2x.png?color=white" width="300">
+                </a>
+                <br>
+                <a class="editor-landing__patreon" href="https://www.patreon.com/bePatron?u=18957085" target="_blank">
+                    <? include(DOCROOT . '/public/app/landings/editor/svg/patreon.svg'); ?>
+                    Become a Patron
+                </a>
+            </div>
+
+            <div class="editor-landing__backers">
+                <h3>Backers</h3>
+                Thank you to all our backers! 🙏
+                <br>
+                <a href="https://opencollective.com/editorjs#backers" target="_blank">
+                    <img src="https://opencollective.com/editorjs/backers.svg?width=600">
+                </a>
+                <br>
+                <a class="editor-landing__become" href="https://opencollective.com/editorjs#backer" target="_blank">
+                    Become a backer
+                </a>
+            </div>
+            <div class="editor-landing__sponsors">
+                <h3>Sponsors</h3>
+
+                Support Editor.js by becoming a sponsor with pledge 100$ or more. Your logo will show up here with a link to your website.
+                <br>
+                <a href="https://opencollective.com/editorjs/sponsor/0/website" target="_blank">
+                    <img src="https://opencollective.com/editorjs/sponsor/0/avatar.svg">
+                </a>
+                <br>
+                <a class="editor-landing__become" href="https://opencollective.com/editorjs#sponsor" target="_blank">
+                    Become a sponsor 🎩
+                </a>
+            </div>
+        </section>
+
+        <section class="editor-landing__section-header editor-landing__section-header--big">
+            <p>We will be really glad and inspired by <b>every</b> star of the project. It helps community to grow, build new cool plugins and core features.</p>
 
             <br>
             <div class="editor-landing__star">
@@ -388,18 +441,6 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
 
                 <a class="github-button" href="//github.com/codex-team/editor.js" data-icon="octicon-star" data-size="large" aria-label="Star codex-team/editor.js on GitHub" target="_blank">Star</a>
                 <script async defer src="//buttons.github.io/buttons.js"></script>
-            </div>
-            <br>
-            <a style="display: inline-block; margin-top: 100px;" href="https://www.producthunt.com/posts/editor-js?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-editor-js" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=150153&theme=light" alt="Editor.js - New block-styled editor with clean JSON output | Product Hunt Embed" style="width: 250px; height: 54px;" width="250px" height="54px" /></a>
-        </section>
-
-        <section class="editor-landing__section-header editor-landing__section-header--big">
-            Support our team with a small donation and help us continue our work.
-
-            <div style="margin: 50px -50px 0;">
-                <a href="https://opencollective.com/editorjs" target="_blank">
-                    <img src="https://opencollective.com/editorjs/donate/button@2x.png?color=white" width="300">
-                </a>
             </div>
         </section>
     </div>

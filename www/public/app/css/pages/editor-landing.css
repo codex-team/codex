@@ -524,6 +524,57 @@
             }
         }
     }
+
+    &__ph-gaming {
+        margin-top: 30px;
+        color: #c3aa6d;
+
+        svg {
+            margin-top: 10px;
+            vertical-align: middle;
+        }
+    }
+
+    &__patreon {
+        margin-top: 15px;
+        display: inline-block;
+        background: rgb(232, 91, 70);
+        padding: 5px 15px;
+        border-radius: 25px;
+        color: #fff;
+
+        &:hover {
+            color: #fff;
+            background: #DB5240;
+        }
+
+        svg {
+            height: 16px;
+            width: 18px;
+            margin-right: 3px;
+            display: inline-block;
+            vertical-align: text-bottom;
+        }
+    }
+
+    &__backers,
+    &__sponsors {
+        margin-top: 50px;
+
+        h3 {
+            margin-bottom: 8px;
+        }
+
+        img {
+            margin: 15px 0 10px;
+        }
+    }
+
+    &__backers {
+        img {
+            max-width: 300px;
+        }
+    }
 }
 
 @keyframes arrow-moving-left {
