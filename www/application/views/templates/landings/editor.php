@@ -123,7 +123,7 @@
                 'contributors' => array(
                     $contributors['specc']
                 ),
-                'url' => '//github.com/editor-js/inline-code'
+                'url' => '//github.com/editor-js/simple-image'
             ),
             array(
                 'name' => 'Image',
