@@ -125,12 +125,12 @@ Route::set('SITEMAP_XML', 'sitemap.xml')->defaults(array(
 ));
 
 /**
-* Join page
-*/
-Route::set('JOIN_PAGE', 'join')->defaults(array(
-    'controller' => 'pages',
-    'action' => 'join',
-));
+ * Join page
+ */
+// Route::set('JOIN_PAGE', 'join')->defaults(array(
+//    'controller' => 'pages',
+//    'action' => 'join',
+// ));
 Route::set('TASK_LIST', 'task')->defaults(array(
     'controller' => 'pages',
     'action' => 'All',
@@ -142,23 +142,18 @@ Route::set('TASK_PAGE', 'task/<who>', array('who' => $STRING))->defaults(array(
 ));
 
 
-/*Route::set('INDEX_PAGE', '')->defaults(array(
+/*
+Route::set('INDEX_PAGE', '')->defaults(array(
     'controller' => 'index',
     'action' => 'index',
 ));
-
-Route::set('JOIN_PAGE', 'join')->defaults(array(
-    'controller' => 'pages',
-    'action' => 'index',
-));
-
 
 Route::set('CONTEST_PAGE', 'contest/<contest_id>', array('contest_id' => $DIGIT))->defaults(array(
     'controller' => 'contests_index',
     'action' => 'showContest'
 ));
-
 */
+
 // Scripts for users
 Route::set('USER_PROFILE', 'user(/<id>)', array('id' => $DIGIT))
 	->defaults(array(
