@@ -564,9 +564,9 @@
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@editorjs/delimiter/-/delimiter-1.1.0.tgz#f61808ea92e4e289607d54441964f1cb8605410a"
 
-"@editorjs/editorjs@^2.14.0":
-  version "2.14.0"
-  resolved "https://registry.yarnpkg.com/@editorjs/editorjs/-/editorjs-2.14.0.tgz#5f2783b92c675cb2afb223920dc3fdbc6ce96cfb"
+"@editorjs/editorjs@^2.15.0":
+  version "2.15.0"
+  resolved "https://registry.yarnpkg.com/@editorjs/editorjs/-/editorjs-2.15.0.tgz#7bb1cd38863e613be904a7e3d048a99590c9f5d9"
   dependencies:
     codex-notifier "^1.1.2"
 
@@ -574,9 +574,9 @@
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@editorjs/embed/-/embed-2.2.1.tgz#90dbcac6e163d20c665fcc1a218d4ba1db80e2f1"
 
-"@editorjs/header@^2.2.4":
-  version "2.2.4"
-  resolved "https://registry.yarnpkg.com/@editorjs/header/-/header-2.2.4.tgz#3bc25154f385eb7df0682e1743a31be9347af285"
+"@editorjs/header@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@editorjs/header/-/header-2.3.0.tgz#ce48414e3d8b39b1ed5633d35e3684b158fb9e98"
 
 "@editorjs/image@^2.3.1":
   version "2.3.1"
@@ -592,17 +592,17 @@
   dependencies:
     "@babel/runtime" "^7.3.1"
 
-"@editorjs/list@^1.3.4":
-  version "1.3.4"
-  resolved "https://registry.yarnpkg.com/@editorjs/list/-/list-1.3.4.tgz#3fee58c0bec7979adfffe71f4d91fea3b4751941"
+"@editorjs/list@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@editorjs/list/-/list-1.4.0.tgz#e92459a8ac2305bc4385245e329c8b5c8437456a"
 
-"@editorjs/marker@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@editorjs/marker/-/marker-1.2.0.tgz#4e3130870c2ca4b3ac5b05405b4e49add55893cb"
+"@editorjs/marker@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@editorjs/marker/-/marker-1.2.1.tgz#c0d8ebcc7a421e659b5d01c1e59c8aec911c7818"
 
-"@editorjs/quote@^2.2.1":
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/@editorjs/quote/-/quote-2.2.1.tgz#57e16f04da99307ebda377585225c55377ad26cd"
+"@editorjs/quote@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@editorjs/quote/-/quote-2.3.0.tgz#5585cf93a87a1fd4e0c72ba08c90eb8eb06b518d"
 
 "@editorjs/raw@^2.1.1":
   version "2.1.1"
