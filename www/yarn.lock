@@ -2592,9 +2592,9 @@ hash.js@^1.0.0, hash.js@^1.0.3:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.1"
 
-hawk.javascript@^2.0.0:
+hawk.javascript@codex-team/hawk.javascript#hawk2.0:
   version "2.0.0"
-  resolved "https://registry.yarnpkg.com/hawk.javascript/-/hawk.javascript-2.0.0.tgz#43e7835dc8ff33791fbd26b5a8ae8dccbce75585"
+  resolved "https://codeload.github.com/codex-team/hawk.javascript/tar.gz/ed2c9c1a87adf3a8fb94a3f5ded840e1b4809545"
 
 hex-color-regex@^1.1.0:
   version "1.1.0"
