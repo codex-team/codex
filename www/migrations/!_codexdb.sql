@@ -156,6 +156,25 @@ CREATE TABLE IF NOT EXISTS `Courses_articles` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `News`
+--
+
+CREATE TABLE `News` (
+    `id` INTEGER(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `user_id` INTEGER(10) UNSIGNED,
+    `ru_text` VARCHAR(255) NOT NULL,
+    `en_text` VARCHAR(255) NOT NULL,
+    `is_release` BOOL NOT NULL DEFAULT FALSE,
+    `dt_display` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `dt_create` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (`user_id`)
+        REFERENCES `Users`(`id`)
+        ON DELETE RESTRICT
+) ENGINE INNODB CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `Quizzes`
 --
 
