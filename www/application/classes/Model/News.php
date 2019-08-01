@@ -1,0 +1,154 @@
+<?php defined('SYSPATH') or die('No Direct Script Access');
+
+
+class Model_News extends Model
+{
+    public $id;
+    public $user_id;
+    public $ru_text;
+    public $en_text;
+    public $is_release;
+    public $dt_display;
+    public $dt_create;
+
+    /**
+     * Добавить новую запись в таблицу 'News'
+     *
+     * @return array|bool|Dao_News|mixed|NULL|object
+     */
+    public function insert()
+    {
+        $idAndRowAffected = Dao_News::insert()
+            ->set('user_id', $this->user_id)
+            ->set('ru_text', $this->ru_text)
+            ->set('en_text', $this->en_text)
+            ->set('is_release', $this->is_release)
+            ->set('dt_display', $this->dt_display)
+            ->execute();
+
+        if ($idAndRowAffected) {
+            $this->get($idAndRowAffected);
+        }
+
+        return $idAndRowAffected;
+    }
+
+    /**
+     * Обновить новость
+     *
+     * @return void
+     */
+    public function update(): void
+    {
+        Dao_News::update()
+            ->where('id', '=', $this->id)
+            ->set('user_id', $this->user_id)
+            ->set('ru_text', $this->ru_text)
+            ->set('en_text', $this->en_text)
+            ->set('is_release', $this->is_release)
+            ->set('dt_display', $this->dt_display)
+            ->clearcache($this->id)
+            ->execute();
+    }
+
+    /**
+     * Получить одну новость по её идентификатору
+     *
+     * @param $id
+     *
+     * @return Model_News
+     */
+    public function get($id): self
+    {
+        $quiz = Dao_News::select()
+            ->where('id', '=', $id)
+            ->limit(1)
+            ->cached(DATE::MINUTE * 5, $id)
+            ->execute();
+
+        $this->fillByRow($quiz);
+
+        return $this;
+    }
+
+    /**
+     * Получить все нововости
+     *
+     * @return array
+     */
+    public static function getAll(): array
+    {
+        $news_rows = Dao_News::select()->order_by('dt_display', 'DESC')->execute();
+
+        return self::rowsToModels($news_rows);
+    }
+
+    /**
+     * Преобразовать записи из базы в массив моделей
+     *
+     * @param $news_rows
+     *
+     * @return array
+     */
+    private static function rowsToModels($news_rows): array
+    {
+        $all_news = [];
+
+        foreach ($news_rows as $article_row) {
+            $news = new self();
+            $news->fillByRow($article_row);
+            $all_news[] = $news;
+        }
+
+        return $all_news;
+    }
+
+    /**
+     * Заполнить объект данными из записи
+     *
+     * @param $news_row
+     *
+     * @return Model_News
+     */
+    private function fillByRow($news_row): self
+    {
+        if (!empty($news_row['id'])) {
+            $this->id         = $news_row['id'];
+            $this->user_id    = $news_row['user_id'];
+            $this->ru_text    = $news_row['ru_text'];
+            $this->en_text    = $news_row['en_text'];
+            $this->is_release = $news_row['is_release'];
+            $this->dt_display = $news_row['dt_display'];
+            $this->dt_create  = $news_row['dt_create'];
+        }
+
+        return $this;
+    }
+
+    /**
+     * Преобразовать и получить дату для человеко-приятного отображения
+     *
+     * @return string
+     */
+    public function getPrettifiedDtDisplay(): string
+    {
+        static $numberToMonth = [
+            1 => 'jan',
+            2 => 'feb',
+            3 => 'mar',
+            4 => 'apr',
+            5 => 'may',
+            6 => 'jun',
+            7 => 'jul',
+            8 => 'aug',
+            9 => 'sep',
+            10 => 'oct' ,
+            11 => 'nov' ,
+            12 => 'dec'
+        ];
+
+        $parsedDate = date_parse($this->dt_display);
+
+        return sprintf('%s %s', $parsedDate['day'], $numberToMonth[$parsedDate['month']]);
+    }
+}
