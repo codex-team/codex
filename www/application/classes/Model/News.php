@@ -14,7 +14,7 @@ class Model_News extends Model
     /**
      * Добавить новую запись в таблицу 'News'
      *
-     * @return array|bool|Dao_News|mixed|NULL|object
+     * @return mixed
      */
     public function insert()
     {
