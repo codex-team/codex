@@ -94,9 +94,9 @@ class Model_News extends Model
     {
         $all_news = [];
 
-        foreach ($news_rows as $article_row) {
+        foreach ($news_rows as $news_row) {
             $news = new self();
-            $news->fillByRow($article_row);
+            $news->fillByRow($news_row);
             $all_news[] = $news;
         }
 
@@ -106,11 +106,11 @@ class Model_News extends Model
     /**
      * Заполнить объект данными из записи
      *
-     * @param $news_row
+     * @param array $news_row
      *
      * @return Model_News
      */
-    private function fillByRow($news_row): self
+    private function fillByRow(array $news_row): self
     {
         if (!empty($news_row['id'])) {
             $this->id         = $news_row['id'];
@@ -142,8 +142,8 @@ class Model_News extends Model
             7 => 'jul',
             8 => 'aug',
             9 => 'sep',
-            10 => 'oct' ,
-            11 => 'nov' ,
+            10 => 'oct',
+            11 => 'nov',
             12 => 'dec'
         ];
 
