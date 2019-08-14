@@ -229,6 +229,21 @@ Route::set('LANDINGS', '<action>', array(
 ));
 
 /**
+ * News
+ */
+Route::set('NEWS_CREATE', 'news/create')
+    ->defaults([
+        'controller' => 'News',
+        'action' => 'create'
+    ]);
+
+Route::set('NEWS_SAVE', 'news/save')
+    ->defaults([
+        'controller' => 'News',
+        'action' => 'save'
+    ]);
+
+/**
  * Core
  */
 

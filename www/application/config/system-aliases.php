@@ -22,6 +22,7 @@ return array(
         'sitemap.xml',
         'test',
         'quiz',
+        'news',
 
         /**
          * Join page and task
