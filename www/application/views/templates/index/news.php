@@ -3,11 +3,11 @@
 
     <ul class="news js-emoji-included">
         <?
-            $MAX_PORTION = 3;
+            const MAX_PORTION = 3;
             $i = 0;
         ?>
         <? foreach ( $allNews as $news ): ?>
-            <li class="news__list_item <?= $i >= $MAX_PORTION ? 'news__list_item--hidden' : ''?>" data-time="<?= $news->getPrettifiedDtDisplay() ?>">
+            <li class="news__list_item <?= $i >= MAX_PORTION ? 'news__list_item--hidden' : ''?>" data-time="<?= $news->getPrettifiedDtDisplay() ?>">
                 <? if ($news->is_release): ?>
                     <span class="news__bage">✨release</span>
                 <? endif ?>
