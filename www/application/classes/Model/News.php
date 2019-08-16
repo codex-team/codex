@@ -94,10 +94,12 @@ class Model_News extends Model
     {
         $all_news = [];
 
-        foreach ($news_rows as $news_row) {
-            $news = new self();
-            $news->fillByRow($news_row);
-            $all_news[] = $news;
+        if (is_array($news_rows)) {
+            foreach ($news_rows as $news_row) {
+                $news = new self();
+                $news->fillByRow($news_row);
+                $all_news[] = $news;
+            }
         }
 
         return $all_news;
