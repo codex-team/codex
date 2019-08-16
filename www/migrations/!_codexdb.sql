@@ -166,10 +166,7 @@ CREATE TABLE `News` (
     `en_text` VARCHAR(255) NOT NULL,
     `is_release` BOOL NOT NULL DEFAULT FALSE,
     `dt_display` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `dt_create` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (`user_id`)
-        REFERENCES `Users`(`id`)
-        ON DELETE RESTRICT
+    `dt_create` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE INNODB CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
