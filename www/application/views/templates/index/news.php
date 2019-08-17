@@ -2,24 +2,26 @@
     <h2 class="site-section__title">Latest news</h2>
 
     <ul class="news js-emoji-included">
-        <?
+        <?php
             const MAX_PORTION = 3;
             $i = 0;
         ?>
-        <? foreach ( $allNews as $news ): ?>
+        <?php foreach ($allNews as $news ): ?>
             <li class="news__list_item <?= $i >= MAX_PORTION ? 'news__list_item--hidden' : ''?>" data-time="<?= $news->getPrettifiedDtDisplay() ?>">
-                <? if ($news->is_release): ?>
+                <?php if ($news->is_release): ?>
                     <span class="news__bage">✨release</span>
-                <? endif ?>
-                <? if (isset($news->en_text)): ?>
+                <?php endif ?>
+                <?php if (isset($news->en_text)): ?>
                     <?= $news->en_text ?>
-                <? else: ?>
+                <?php else: ?>
                     <?= $news->ru_text ?>
-                <? endif ?>
+                <?php endif ?>
             </li>
-            <? $i++; ?>
-        <? endforeach; ?>
-        <span class="news__showmore" onclick="codex.showMoreNews.init( this );">Show more news</span>
+            <?php $i++; ?>
+        <?php endforeach; ?>
+        <?php if ($i > MAX_PORTION): ?>
+            <span class="news__showmore" onclick="codex.showMoreNews.init( this );">Show more news</span>
+        <?php endif ?>
     </ul>
 
 </section>
