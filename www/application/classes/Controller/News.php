@@ -98,15 +98,4 @@ class Controller_News extends Controller_Base_preDispatch
             'redirect' => '/'
         ]);
     }
-
-    /**
-     * @param array $response
-     *
-     * @return void
-     */
-    private function sendAjaxResponse(array $response): void
-    {
-        $this->auto_render = false;
-        $this->response->body(json_encode($response));
-    }
 }

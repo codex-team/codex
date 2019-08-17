@@ -2,7 +2,6 @@
 
 class Controller_Base_preDispatch extends Template
 {
-
     /** Wrapper template name */
     public $template = 'main';
 
@@ -13,7 +12,6 @@ class Controller_Base_preDispatch extends Template
      * @var Model_User активный пользователь.
      */
     protected $user;
-
 
     /**
      * The before() method is called before your controller action.
@@ -187,5 +185,21 @@ class Controller_Base_preDispatch extends Template
 
         View::set_global('user', $this->user);
         View::set_global('auth', $auth);
+    }
+
+    /**
+     * @param array $response - response which should be returned after attempt to send form
+     * $response = [
+     *  'redirect' => (string|null) uri of article's redirect only in case of successful save
+     *  'success'  => (int) success code, can be 0 or 1
+     *  'message'  => (string|null) error message only in case of failed save
+     * ]
+     *
+     * @return void
+     */
+    protected function sendAjaxResponse(array $response): void
+    {
+        $this->auto_render = false;
+        $this->response->body(json_encode($response));
     }
 }
