@@ -3,7 +3,7 @@
         <textarea name="module-settings" hidden>
             {
                 "submit_id" : "submitButton",
-                "form_url" : "save"
+                "form_url" : "create"
             }
         </textarea>
         <input type="hidden" name="csrf" value="<?= Security::token() ?>" />

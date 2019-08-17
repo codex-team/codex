@@ -237,12 +237,6 @@ Route::set('NEWS_CREATE', 'news/create')
         'action' => 'create'
     ]);
 
-Route::set('NEWS_SAVE', 'news/save')
-    ->defaults([
-        'controller' => 'News',
-        'action' => 'save'
-    ]);
-
 /**
  * Core
  */

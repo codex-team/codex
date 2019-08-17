@@ -18,11 +18,34 @@ class Controller_News extends Controller_Base_preDispatch
     }
 
     /**
-     * Display template for creating News
+     * Display form for GET
+     * Save news for POST
+     *
+     * @throws HTTP_Exception_405
      *
      * @return void
      */
     public function action_create(): void
+    {
+        switch ($this->request->method()) {
+            case Request::GET:
+                $this->displayCreateNewsForm();
+                break;
+            case Request::POST:
+                $this->saveNews();
+                break;
+            default:
+                throw new HTTP_Exception_405();
+                break;
+        }
+    }
+
+    /**
+     * Display template for creating News
+     *
+     * @return void
+     */
+    private function displayCreateNewsForm(): void
     {
         $this->template->content = View::factory('templates/news/create', $this->view);
     }
@@ -32,7 +55,7 @@ class Controller_News extends Controller_Base_preDispatch
      *
      * @return void
      */
-    public function action_save(): void
+    private function saveNews(): void
     {
         if (!Model_Methods::isAjax()) {
             $this->sendAjaxResponse([
