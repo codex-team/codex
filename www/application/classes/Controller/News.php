@@ -34,6 +34,14 @@ class Controller_News extends Controller_Base_preDispatch
      */
     public function action_save(): void
     {
+        if (!Model_Methods::isAjax()) {
+            $this->sendAjaxResponse([
+                'message' => 'Request is not ajax',
+                'success' => 0
+            ]);
+            return;
+        }
+
         if (!Security::check(Arr::get($_POST, 'csrf'))) {
             $this->sendAjaxResponse([
                 'success' => 0,
