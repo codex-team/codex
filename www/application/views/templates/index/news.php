@@ -9,7 +9,7 @@
             <? $i = 0; ?>
             <? foreach ($allNews as $news ): ?>
                 <li class="news__list_item <?= $i >= MAX_PORTION ? 'news__list_item--hidden' : ''?>" data-time="<?= $news->getPrettifiedDtDisplay() ?>">
-                    <? if ($news->is_release): ?>
+                    <? if ($news->type == Model_News::TYPE_RELEASE): ?>
                         <span class="news__bage">✨release</span>
                     <? endif; ?>
                     <? if (isset($news->en_text)): ?>
