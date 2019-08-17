@@ -3,11 +3,14 @@
 
 class Model_News extends Model
 {
+    public const TYPE_DEFAULT = 1;
+    public const TYPE_RELEASE = 2;
+
     public $id;
     public $user_id;
     public $ru_text;
     public $en_text;
-    public $is_release;
+    public $type;
     public $dt_display;
     public $dt_create;
 
@@ -22,7 +25,7 @@ class Model_News extends Model
             ->set('user_id', $this->user_id)
             ->set('ru_text', $this->ru_text)
             ->set('en_text', $this->en_text)
-            ->set('is_release', $this->is_release)
+            ->set('type', $this->type)
             ->set('dt_display', $this->dt_display)
             ->execute();
 
@@ -45,7 +48,7 @@ class Model_News extends Model
             ->set('user_id', $this->user_id)
             ->set('ru_text', $this->ru_text)
             ->set('en_text', $this->en_text)
-            ->set('is_release', $this->is_release)
+            ->set('type', $this->type)
             ->set('dt_display', $this->dt_display)
             ->clearcache($this->id)
             ->execute();
@@ -119,7 +122,7 @@ class Model_News extends Model
             $this->user_id    = $news_row['user_id'];
             $this->ru_text    = $news_row['ru_text'];
             $this->en_text    = $news_row['en_text'];
-            $this->is_release = $news_row['is_release'];
+            $this->type       = $news_row['type'];
             $this->dt_display = $news_row['dt_display'];
             $this->dt_create  = $news_row['dt_create'];
         }
