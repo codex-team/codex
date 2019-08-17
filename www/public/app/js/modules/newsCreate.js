@@ -1,6 +1,7 @@
 'use strict';
 
 const ajax = require('@codexteam/ajax');
+const notifier = require('codex-notifier');
 
 export default class NewsCreate {
 
@@ -54,16 +55,30 @@ export default class NewsCreate {
 
                 } else {
 
-                    console.log(response.message);
+                    this.showErrorMessage(response.message);
 
                 }
 
             })
             .catch((err) => {
 
-                console.log(err);
+                this.showErrorMessage(err);
 
             });
+
+    }
+
+    /**
+     * Show any error message
+     *
+     * @param  err
+     */
+    showErrorMessage(err) {
+
+        notifier.show({
+            message: err,
+            style: 'error'
+        });
 
     }
 
