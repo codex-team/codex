@@ -54,19 +54,19 @@ class Model_News extends Model
     /**
      * Получить одну новость по её идентификатору
      *
-     * @param $id
+     * @param int $id
      *
      * @return Model_News
      */
-    public function get($id): self
+    public function get(int $id): self
     {
-        $quiz = Dao_News::select()
+        $news = Dao_News::select()
             ->where('id', '=', $id)
             ->limit(1)
             ->cached(DATE::MINUTE * 5, $id)
-            ->execute();
+            ->execute() ?: [];
 
-        $this->fillByRow($quiz);
+        $this->fillByRow($news);
 
         return $this;
     }
@@ -78,7 +78,9 @@ class Model_News extends Model
      */
     public static function getAll(): array
     {
-        $news_rows = Dao_News::select()->order_by('dt_display', 'DESC')->execute();
+        $news_rows = Dao_News::select()
+            ->order_by('dt_display', 'DESC')
+            ->execute() ?: [];
 
         return self::rowsToModels($news_rows);
     }
@@ -86,20 +88,18 @@ class Model_News extends Model
     /**
      * Преобразовать записи из базы в массив моделей
      *
-     * @param $news_rows
+     * @param array $news_rows
      *
      * @return array
      */
-    private static function rowsToModels($news_rows): array
+    private static function rowsToModels(array $news_rows): array
     {
         $all_news = [];
 
-        if (is_array($news_rows)) {
-            foreach ($news_rows as $news_row) {
-                $news = new self();
-                $news->fillByRow($news_row);
-                $all_news[] = $news;
-            }
+        foreach ($news_rows as $news_row) {
+            $news = new self();
+            $news->fillByRow($news_row);
+            $all_news[] = $news;
         }
 
         return $all_news;
