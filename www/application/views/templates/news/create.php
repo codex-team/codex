@@ -16,8 +16,12 @@
             <textarea id="en_text" name="en_text" required></textarea>
         </section>
         <section>
-            <label for="is_release">Is release</label>
-            <input type="checkbox" id="is_release" name="is_release" value="1">
+            <label for="type">Type</label>
+            <select id="type" name="type" required>
+                <? foreach ($types as $type): ?>
+                    <option value=<?= $type['value'] ?>><?= $type['name'] ?></option>
+                <? endforeach; ?>
+            </select>
         </section>
         <span id="submitButton" class="button">Create news</span>
     </form>

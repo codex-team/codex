@@ -47,6 +47,17 @@ class Controller_News extends Controller_Base_preDispatch
      */
     private function displayCreateNewsForm(): void
     {
+        $this->view['types'] = [
+            [
+                'name' => 'Default',
+                'value' => Model_News::TYPE_DEFAULT
+            ],
+            [
+                'name' => 'Release',
+                'value' => Model_News::TYPE_RELEASE
+            ]
+        ];
+
         $this->template->content = View::factory('templates/news/create', $this->view);
     }
 
@@ -78,7 +89,7 @@ class Controller_News extends Controller_Base_preDispatch
         $news->user_id = $this->user->id;
         $news->en_text = Arr::get($_POST, 'en_text');
         $news->ru_text = Arr::get($_POST, 'ru_text');
-        $news->is_release = Arr::get($_POST, 'is_release', 0);
+        $news->type = Arr::get($_POST, 'type');
 
         $news->insert();
 
