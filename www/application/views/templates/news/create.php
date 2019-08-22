@@ -23,6 +23,10 @@
                 <? endforeach; ?>
             </select>
         </section>
+        <section>
+            <label for="dt_display">Displayable date</label>
+            <input type="text" id="dt_display" name="dt_display" placeholder="4 mar">
+        </section>
         <span id="submitButton" class="button">Create news</span>
     </form>
 </div>

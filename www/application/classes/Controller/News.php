@@ -86,6 +86,18 @@ class Controller_News extends Controller_Base_preDispatch
 
         $news = new Model_News();
 
+        $dt_display = Arr::get($_POST, 'dt_display') ?: date('j M');
+
+        if ($time = strtotime($dt_display)) {
+            $news->dt_display = date('Y-m-d H:i:s', $time);
+        } else {
+            $this->sendAjaxResponse([
+                'success' => 0,
+                'message' => 'Improper displayable date value. Try again.'
+            ]);
+            return;
+        }
+
         $news->user_id = $this->user->id;
         $news->en_text = Arr::get($_POST, 'en_text');
         $news->ru_text = Arr::get($_POST, 'ru_text');
