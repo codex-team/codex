@@ -9,13 +9,20 @@ export default class NewsCreate {
      * Initialize news form
      *
      * @param {Object} settings - news form's parameters
-     * @param {String} settings.form_url - url of form with Editor's data
+     * @param {String} settings.form_url - url of form with news data
      * @param {String} settings.submit_id - id of submit button
      */
     init(settings, form) {
 
         this.form = form;
         this.button = document.getElementById(settings.submit_id);
+
+        if (!this.button) {
+
+            console.warn('Missing submit button');
+
+        }
+
         this.formURL = settings.form_url;
 
         this.prepareSubmit();
@@ -46,9 +53,9 @@ export default class NewsCreate {
         })
             .then((response) => {
 
-            /**
-             * If data was sent successfully get article's uri and redirect to it
-             */
+                /**
+                 * If data was sent successfully redirect to home page
+                 */
                 if (response.success) {
 
                     window.location.href = response.redirect;
@@ -71,7 +78,7 @@ export default class NewsCreate {
     /**
      * Show any error message
      *
-     * @param  err
+     * @param {String} err - form submission error message
      */
     showErrorMessage(err) {
 
