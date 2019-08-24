@@ -15,7 +15,7 @@ class Model_News extends Model
     public $dt_create;
 
     /**
-     * Добавить новую запись в таблицу 'News'
+     * Insert new record in 'News' table
      *
      * @return mixed
      */
@@ -37,7 +37,7 @@ class Model_News extends Model
     }
 
     /**
-     * Обновить новость
+     * Update news
      *
      * @return void
      */
@@ -55,7 +55,7 @@ class Model_News extends Model
     }
 
     /**
-     * Получить одну новость по её идентификатору
+     * Get one news with its id
      *
      * @param int $id
      *
@@ -75,7 +75,7 @@ class Model_News extends Model
     }
 
     /**
-     * Получить все нововости
+     * Get all news
      *
      * @return array
      */
@@ -89,7 +89,7 @@ class Model_News extends Model
     }
 
     /**
-     * Преобразовать записи из базы в массив моделей
+     * Convert db rows to models
      *
      * @param array $news_rows
      *
@@ -109,7 +109,7 @@ class Model_News extends Model
     }
 
     /**
-     * Заполнить объект данными из записи
+     * Fill the object with db row
      *
      * @param array $news_row
      *
@@ -131,7 +131,7 @@ class Model_News extends Model
     }
 
     /**
-     * Преобразовать и получить дату для человеко-приятного отображения
+     * Convert date to user-friendly format
      *
      * @return string
      */
