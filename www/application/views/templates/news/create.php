@@ -1,5 +1,5 @@
-<div class="center_side clear">
-    <form name="codex_news" data-module="newsCreate">
+<div class="news-create-page">
+    <form class="news-create-page__form" name="codex_news" data-module="newsCreate">
         <textarea name="module-settings" hidden>
             {
                 "submit_id" : "submitButton",
@@ -8,24 +8,24 @@
         </textarea>
         <input type="hidden" name="csrf" value="<?= Security::token() ?>" />
         <section>
-            <label for="ru_text">In Russian</label>
-            <textarea id="ru_text" name="ru_text" required></textarea>
+            <label class="news-create-page__form-label" for="ru_text">In Russian</label>
+            <textarea class="input" id="ru_text" name="ru_text" required></textarea>
         </section>
         <section>
-            <label for="en_text">In English</label>
-            <textarea id="en_text" name="en_text" required></textarea>
+            <label class="news-create-page__form-label" for="en_text">In English</label>
+            <textarea class="input" id="en_text" name="en_text" required></textarea>
         </section>
         <section>
-            <label for="type">Type</label>
-            <select id="type" name="type" required>
+            <label class="news-create-page__form-label" for="type">Type</label>
+            <select class="input" id="type" name="type" required>
                 <? foreach ($types as $type): ?>
                     <option value=<?= $type['value'] ?>><?= $type['name'] ?></option>
                 <? endforeach; ?>
             </select>
         </section>
         <section>
-            <label for="dt_display">Displayable date</label>
-            <input type="text" id="dt_display" name="dt_display" placeholder="4 mar">
+            <label class="news-create-page__form-label" for="dt_display">Displayable date</label>
+            <input class="input" type="text" id="dt_display" name="dt_display" placeholder="4 mar">
         </section>
         <span id="submitButton" class="button">Create news</span>
     </form>

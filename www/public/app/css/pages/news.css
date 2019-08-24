@@ -1,0 +1,25 @@
+/**
+*
+* Create news form
+*
+*/
+.news-create-page {
+    display: flex;
+
+    &__form {
+        margin: 0 auto;
+        padding-top: 30px;
+        min-width: 400px;
+    }
+
+    &__form-label {
+        display: block;
+        margin-bottom: 0.7em;
+    }
+
+    &__form input,
+    &__form textarea,
+    &__form select {
+        margin-bottom: 20px;
+    }
+}
