@@ -9,8 +9,8 @@ export default class NewsCreate {
      * Initialize news form
      *
      * @param {Object} settings - news form's parameters
-     * @param {String} settings.form_url - url of form with news data
-     * @param {String} settings.submit_id - id of submit button
+     * @param {string} settings.form_url - url of form with news data
+     * @param {string} settings.submit_id - id of submit button
      */
     init(settings, form) {
 
@@ -19,7 +19,7 @@ export default class NewsCreate {
 
         if (!this.button) {
 
-            console.warn('Missing submit button');
+            console.warn(`Can't find button with «${settings.submit_id}» id`);
 
         }
 
@@ -78,7 +78,7 @@ export default class NewsCreate {
     /**
      * Show any error message
      *
-     * @param {String} err - form submission error message
+     * @param {string} err - form submission error message
      */
     showErrorMessage(err) {
 
