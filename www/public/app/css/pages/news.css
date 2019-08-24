@@ -17,9 +17,7 @@
         margin-bottom: 0.7em;
     }
 
-    &__form input,
-    &__form textarea,
-    &__form select {
+    &__form-input {
         margin-bottom: 20px;
     }
 }

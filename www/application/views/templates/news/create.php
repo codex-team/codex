@@ -9,15 +9,15 @@
         <input type="hidden" name="csrf" value="<?= Security::token() ?>" />
         <section>
             <label class="news-create-page__form-label" for="ru_text">In Russian</label>
-            <textarea class="input" id="ru_text" name="ru_text" required></textarea>
+            <textarea class="input news-create-page__form-input" id="ru_text" name="ru_text" required></textarea>
         </section>
         <section>
             <label class="news-create-page__form-label" for="en_text">In English</label>
-            <textarea class="input" id="en_text" name="en_text" required></textarea>
+            <textarea class="input news-create-page__form-input" id="en_text" name="en_text" required></textarea>
         </section>
         <section>
             <label class="news-create-page__form-label" for="type">Type</label>
-            <select class="input" id="type" name="type" required>
+            <select class="input news-create-page__form-input" id="type" name="type" required>
                 <? foreach ($types as $type): ?>
                     <option value=<?= $type['value'] ?>><?= $type['name'] ?></option>
                 <? endforeach; ?>
@@ -25,7 +25,7 @@
         </section>
         <section>
             <label class="news-create-page__form-label" for="dt_display">Displayable date</label>
-            <input class="input" type="text" id="dt_display" name="dt_display" placeholder="4 mar">
+            <input class="input news-create-page__form-input" type="text" id="dt_display" name="dt_display" placeholder="4 mar">
         </section>
         <span id="submitButton" class="button">Create news</span>
     </form>
