@@ -9,6 +9,7 @@ export default class NewsCreate {
      * Initialize news form
      *
      * @param {Object} settings - news form's parameters
+     * @param {HTMLElement} form – news form to submit
      * @param {string} settings.form_url - url of form with news data
      * @param {string} settings.submit_id - id of submit button
      */
@@ -17,15 +18,11 @@ export default class NewsCreate {
         this.form = form;
         this.button = document.getElementById(settings.submit_id);
 
-        if (!this.button) {
-
-            console.warn(`Can't find button with «${settings.submit_id}» id`);
-
-        }
+        this.button
+            ? this.prepareSubmit()
+            : console.warn(`Can't find button with «${settings.submit_id}» id`);
 
         this.formURL = settings.form_url;
-
-        this.prepareSubmit();
 
     }
 
