@@ -3,6 +3,8 @@
 
 class Model_News extends Model
 {
+    public const PRETTY_DATE_FORMAT = 'j M';
+
     public const TYPE_DEFAULT = 1;
     public const TYPE_RELEASE = 2;
 
@@ -137,6 +139,6 @@ class Model_News extends Model
      */
     public function getPrettifiedDtDisplay(): string
     {
-        return strtolower(date('j M', strtotime($this->dt_display)));
+        return strtolower(date(self::PRETTY_DATE_FORMAT, strtotime($this->dt_display)));
     }
 }

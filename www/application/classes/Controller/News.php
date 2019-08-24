@@ -58,6 +58,8 @@ class Controller_News extends Controller_Base_preDispatch
             ]
         ];
 
+        $this->view['todayDay'] = date(Model_News::PRETTY_DATE_FORMAT);
+
         $this->template->content = View::factory('templates/news/create', $this->view);
     }
 
@@ -86,7 +88,7 @@ class Controller_News extends Controller_Base_preDispatch
 
         $news = new Model_News();
 
-        $dt_display = Arr::get($_POST, 'dt_display') ?: date('j M');
+        $dt_display = Arr::get($_POST, 'dt_display') ?: date(Model_News::PRETTY_DATE_FORMAT);
 
         if ($time = strtotime($dt_display)) {
             $news->dt_display = date('Y-m-d H:i:s', $time);
