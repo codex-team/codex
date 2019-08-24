@@ -29,7 +29,7 @@ class Controller_News extends Controller_Base_preDispatch
     {
         switch ($this->request->method()) {
             case Request::GET:
-                $this->displayCreateNewsForm();
+                $this->showCreateNewsForm();
                 break;
             case Request::POST:
                 $this->saveNews();
@@ -45,7 +45,7 @@ class Controller_News extends Controller_Base_preDispatch
      *
      * @return void
      */
-    private function displayCreateNewsForm(): void
+    private function showCreateNewsForm(): void
     {
         $this->view['types'] = [
             [
@@ -93,7 +93,7 @@ class Controller_News extends Controller_Base_preDispatch
         } else {
             $this->sendAjaxResponse([
                 'success' => 0,
-                'message' => 'Improper displayable date value. Try again.'
+                'message' => 'Wrong date format. Try again'
             ]);
             return;
         }
