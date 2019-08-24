@@ -58,7 +58,7 @@ class Controller_News extends Controller_Base_preDispatch
             ]
         ];
 
-        $this->view['todayDay'] = date(Model_News::PRETTY_DATE_FORMAT);
+        $this->view['dtDisplayPlaceholder'] = date(Model_News::PRETTY_DATE_FORMAT);
 
         $this->template->content = View::factory('templates/news/create', $this->view);
     }
@@ -100,10 +100,21 @@ class Controller_News extends Controller_Base_preDispatch
             return;
         }
 
+        $type = Arr::get($_POST, 'type');
+
+        if (in_array($type, Model_News::AVAILABLE_TYPES)) {
+            $news->type = $type;
+        } else {
+            $this->sendAjaxResponse([
+                'success' => 0,
+                'message' => 'Invalid news type.'
+            ]);
+            return;
+        }
+
         $news->user_id = $this->user->id;
         $news->en_text = Arr::get($_POST, 'en_text');
         $news->ru_text = Arr::get($_POST, 'ru_text');
-        $news->type = Arr::get($_POST, 'type');
 
         $news->insert();
 

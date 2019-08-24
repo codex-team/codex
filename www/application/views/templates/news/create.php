@@ -25,7 +25,8 @@
         </section>
         <section>
             <label class="news-create-page__form-label" for="dt_display">Displayable date</label>
-            <input class="input news-create-page__form-input" type="text" id="dt_display" name="dt_display" placeholder="<?= $todayDay ?>">
+            <input class="input news-create-page__form-input" type="text"
+                   id="dt_display" name="dt_display" placeholder="<?= $dtDisplayPlaceholder ?>">
         </section>
         <span id="submitButton" class="button">Create news</span>
     </form>

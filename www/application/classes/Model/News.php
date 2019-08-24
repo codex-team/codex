@@ -7,6 +7,7 @@ class Model_News extends Model
 
     public const TYPE_DEFAULT = 1;
     public const TYPE_RELEASE = 2;
+    public const AVAILABLE_TYPES = [self::TYPE_DEFAULT, self::TYPE_RELEASE];
 
     public $id;
     public $user_id;
