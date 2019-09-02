@@ -30,6 +30,7 @@ class Model_News extends Model
             ->set('en_text', $this->en_text)
             ->set('type', $this->type)
             ->set('dt_display', $this->dt_display)
+            ->set('dt_create', $this->dt_create ?: date('Y-m-d H:i:s'))
             ->execute();
 
         if ($idAndRowAffected) {
