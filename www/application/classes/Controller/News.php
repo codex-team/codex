@@ -88,16 +88,16 @@ class Controller_News extends Controller_Base_preDispatch
 
         $news = new Model_News();
 
-        $dt_display = Arr::get($_POST, 'dt_display') ?: date(Model_News::PRETTY_DATE_FORMAT);
-
-        if ($time = strtotime($dt_display)) {
-            $news->dt_display = date('Y-m-d H:i:s', $time);
-        } else {
-            $this->sendAjaxResponse([
-                'success' => 0,
-                'message' => 'Wrong date format. Try again'
-            ]);
-            return;
+        if ($dt_display = Arr::get($_POST, 'dt_display')) {
+            if ($time = strtotime($dt_display)) {
+                $news->dt_display = date('Y-m-d H:i:s', $time + 5*60*60);
+            } else {
+                $this->sendAjaxResponse([
+                    'success' => 0,
+                    'message' => 'Wrong date format. Try again'
+                ]);
+                return;
+            }
         }
 
         $type = Arr::get($_POST, 'type');

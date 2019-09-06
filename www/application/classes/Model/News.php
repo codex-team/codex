@@ -29,7 +29,7 @@ class Model_News extends Model
             ->set('ru_text', $this->ru_text)
             ->set('en_text', $this->en_text)
             ->set('type', $this->type)
-            ->set('dt_display', $this->dt_display)
+            ->set('dt_display', $this->dt_display ?: date('Y-m-d H:i:s'))
             ->set('dt_create', $this->dt_create ?: date('Y-m-d H:i:s'))
             ->execute();
 
