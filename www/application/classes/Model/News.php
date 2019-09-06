@@ -3,18 +3,81 @@
 
 class Model_News extends Model
 {
+    /**
+     * Format for displaying news date
+     *
+     * @var string
+     */
     public const PRETTY_DATE_FORMAT = 'j M';
 
+    /**
+     * Default news type
+     *
+     * @var int
+     */
     public const TYPE_DEFAULT = 1;
+
+    /**
+     * Release news type
+     *
+     * @var int
+     */
     public const TYPE_RELEASE = 2;
+
+    /**
+     * Available news types
+     *
+     * @var array
+     */
     public const AVAILABLE_TYPES = [self::TYPE_DEFAULT, self::TYPE_RELEASE];
 
+    /**
+     * News identifier
+     *
+     * @var int
+     */
     public $id;
+
+    /**
+     * User identifier who added news
+     *
+     * @var int
+     */
     public $user_id;
+
+    /**
+     * News text in Russian
+     *
+     * @var string
+     */
     public $ru_text;
+
+    /**
+     * News text in English
+     *
+     * @var string
+     */
     public $en_text;
+
+    /**
+     * News type
+     *
+     * @var int
+     */
     public $type;
+
+    /**
+     * News displaying date
+     *
+     * @var string
+     */
     public $dt_display;
+
+    /**
+     * News creation date
+     *
+     * @var string
+     */
     public $dt_create;
 
     /**
