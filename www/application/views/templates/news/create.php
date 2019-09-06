@@ -9,11 +9,11 @@
         <input type="hidden" name="csrf" value="<?= Security::token() ?>" />
         <section>
             <label class="news-create-page__form-label" for="ru_text">In Russian</label>
-            <textarea class="input news-create-page__form-input" id="ru_text" name="ru_text" required></textarea>
+            <textarea class="input news-create-page__form-input" id="ru_text" name="news_ru_text" required></textarea>
         </section>
         <section>
             <label class="news-create-page__form-label" for="en_text">In English</label>
-            <textarea class="input news-create-page__form-input" id="en_text" name="en_text" required></textarea>
+            <textarea class="input news-create-page__form-input" id="en_text" name="news_en_text" required></textarea>
         </section>
         <section>
             <label class="news-create-page__form-label" for="type">Type</label>

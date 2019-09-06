@@ -98,7 +98,7 @@ class Controller_Base_preDispatch extends Template
         /**
          * @var array Исключения для полей с визуальным редактором
          */
-        $exceptionsAllowingHTML = array( 'contest_text', 'results_contest' );
+        $exceptionsAllowingHTML = array( 'contest_text', 'results_contest', 'news_ru_text', 'news_en_text');
 
         /**
          * Exception for CodeX Editor that has own sanitize methods in vendor package

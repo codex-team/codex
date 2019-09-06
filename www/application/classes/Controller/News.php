@@ -113,8 +113,8 @@ class Controller_News extends Controller_Base_preDispatch
         }
 
         $news->user_id = $this->user->id;
-        $news->en_text = Arr::get($_POST, 'en_text');
-        $news->ru_text = Arr::get($_POST, 'ru_text');
+        $news->en_text = Arr::get($_POST, 'news_en_text');
+        $news->ru_text = Arr::get($_POST, 'news_ru_text');
 
         $news->insert();
 
