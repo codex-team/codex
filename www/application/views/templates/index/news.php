@@ -12,7 +12,7 @@
                     <? if ($news->type == Model_News::TYPE_RELEASE): ?>
                         <span class="news__bage">✨release</span>
                     <? endif; ?>
-                    <? if (isset($news->en_text)): ?>
+                    <? if (LANG === 'en'): ?>
                         <?= $news->en_text ?>
                     <? else: ?>
                         <?= $news->ru_text ?>
