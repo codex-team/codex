@@ -6,6 +6,7 @@
         <li><a href="/admin/contests">Contests</a></li>
         <li><a href="/admin/courses">Courses</a></li>
         <li><a href="/admin/requests">Requests</a></li>
+        <li><a href="/news/create">News</a></li>
     </ul>
 </div>
 <?= $content ?>

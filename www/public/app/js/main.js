@@ -135,5 +135,8 @@ codex.editorLanding = new EditorLanding();
 import ArticleCreate from './modules/articleCreate';
 codex.articleCreate = new ArticleCreate();
 
+import NewsCreate from './modules/newsCreate';
+codex.newsCreate = new NewsCreate();
+
 module.exports = codex;
 

@@ -35,6 +35,11 @@ class Controller_Index extends Controller_Base_preDispatch
          */
         //$this->view['joinTimeLeft'] = Model_Methods::countDownJoinTime("2018-10-7 23:59");
 
+        /**
+         * Add all news
+         */
+        $this->view['allNews'] = Model_News::getAll();
+
         $this->title = 'CodeX Team';
         $this->description = 'Club of web-development, design and marketing. We build team learning how to build full-valued projects on the world market.';
         $this->template->content = View::factory('templates/index/index', $this->view);

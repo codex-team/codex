@@ -315,18 +315,4 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
 
         $this->redirect('/admin/articles');
     }
-
-    /**
-     * @param array $response - response which should be returned after attempt to send form
-     * $response = [
-     *  'redirect' => (string|null) uri of article's redirect only in case of successful save
-     *  'success'  => (int) success code, can be 0 or 1
-     *  'message'  => (string|null) error message only in case of failed save
-     * ]
-     */
-    private function sendAjaxResponse($response)
-    {
-        $this->auto_render = false;
-        $this->response->body(json_encode($response));
-    }
 }
