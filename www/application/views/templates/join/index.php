@@ -71,29 +71,25 @@
             Для подачи заявки на вступление, авторизуйтесь через VK или почту, через которые можно будет с вами связаться. И заполните небольшую анкету.
         </p>
 
-        <?
-            /*
-            <section class="join-component join-component--compact">
-                <div class="join-component__label">
-                    До окончания набора
-                </div>
+        <section class="join-component join-component--compact">
+            <div class="join-component__label">
+                До окончания набора
+            </div>
 
-                <time class="join-component__time">
-                    <span data-time="days" class="join-component__time-item">
-                        <?= $joinTimeLeft['days_left'] ?>
-                    </span>
-                    <span class="join-component__time-delimiter"></span>
-                    <span data-time="hrs" class="join-component__time-item">
-                        <?= $joinTimeLeft['hours_left'] ?>
-                    </span>
-                    <span class="join-component__time-delimiter join-component__time-delimiter--blinking"></span>
-                    <span data-time="mins" class="join-component__time-item">
-                        <?= $joinTimeLeft['minutes_left'] ?>
-                    </span>
-                </time>
-            </section>
-            */
-        ?>
+            <time class="join-component__time">
+                <span data-time="days" class="join-component__time-item">
+                    <?= $joinTimeLeft['days_left'] ?>
+                </span>
+                <span class="join-component__time-delimiter"></span>
+                <span data-time="hrs" class="join-component__time-item">
+                    <?= $joinTimeLeft['hours_left'] ?>
+                </span>
+                <span class="join-component__time-delimiter join-component__time-delimiter--blinking"></span>
+                <span data-time="mins" class="join-component__time-item">
+                    <?= $joinTimeLeft['minutes_left'] ?>
+                </span>
+            </time>
+        </section>
 
         <? if ( !$request ): ?>
             <form class="join-page__form" id="joinBlank" method="post" action="/join">
