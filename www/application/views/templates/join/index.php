@@ -3,7 +3,7 @@
         <div class="join-page__success">
             <div class="join-page__success-inner">
                 <h2>Спасибо!</h2>
-                <p>Мы получили вашу заявку. Набор продлится приблизительно две недели, после чего мы свяжемся с вами. А пока подписывайтесь на нашу <a href="https://vk.com/codex_team">группу ВКонтакте</a> и следите за новостями. </p>
+                <p>Мы получили вашу заявку. Прием заявок продлится до 22 сентября, после чего мы с вами свяжемся. А пока подписывайтесь на нашу <a href="https://vk.com/codex_team">группу ВКонтакте</a> и следите за новостями. </p>
             </div>
         </div>
     <? endif ?>
@@ -71,29 +71,25 @@
             Для подачи заявки на вступление, авторизуйтесь через VK или почту, через которые можно будет с вами связаться. И заполните небольшую анкету.
         </p>
 
-        <?
-            /*
-            <section class="join-component join-component--compact">
-                <div class="join-component__label">
-                    До окончания набора
-                </div>
+        <section class="join-component join-component--compact">
+            <div class="join-component__label">
+                До окончания набора
+            </div>
 
-                <time class="join-component__time">
-                    <span data-time="days" class="join-component__time-item">
-                        <?= $joinTimeLeft['days_left'] ?>
-                    </span>
-                    <span class="join-component__time-delimiter"></span>
-                    <span data-time="hrs" class="join-component__time-item">
-                        <?= $joinTimeLeft['hours_left'] ?>
-                    </span>
-                    <span class="join-component__time-delimiter join-component__time-delimiter--blinking"></span>
-                    <span data-time="mins" class="join-component__time-item">
-                        <?= $joinTimeLeft['minutes_left'] ?>
-                    </span>
-                </time>
-            </section>
-            */
-        ?>
+            <time class="join-component__time">
+                <span data-time="days" class="join-component__time-item">
+                    <?= $joinTimeLeft['days_left'] ?>
+                </span>
+                <span class="join-component__time-delimiter"></span>
+                <span data-time="hrs" class="join-component__time-item">
+                    <?= $joinTimeLeft['hours_left'] ?>
+                </span>
+                <span class="join-component__time-delimiter join-component__time-delimiter--blinking"></span>
+                <span data-time="mins" class="join-component__time-item">
+                    <?= $joinTimeLeft['minutes_left'] ?>
+                </span>
+            </time>
+        </section>
 
         <? if ( !$request ): ?>
             <form class="join-page__form" id="joinBlank" method="post" action="/join">
@@ -170,7 +166,7 @@
             <? endif ?>
 
             <div class="join-page__success join-page__success--compact">
-                По окончании набора мы с вами свяжемся
+                После окончания приема заявок мы с вам свяжемся.
             </div>
 
         <? endif ; ?>

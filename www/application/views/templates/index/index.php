@@ -33,12 +33,10 @@
         </p>
         <p><?= _('Our goal is to make a team with fire in the eyes and idealistic tempers.') ?></p>
 
-        <? /** Join button */ ?>
-        <? /* <br><a class="button button--green index-page__join-button" href="/join">Вступить в клуб</a> */ ?>
-
         <?
             /** Join block */
-            /* include 'join.php' */
+            include 'join.php';
+
         ?>
 
         <?
