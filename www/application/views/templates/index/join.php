@@ -2,7 +2,7 @@
     <h2 class="site-section__title">Join Team</h2>
     <div class="join-component__desc site-section__desc">
         We are opening the new development season and invite developers, designers, QA engineers and PR eagles.<br><br>
-        Joining opened till 22th, september 2019
+        Joining opened till 22nd, september 2019
     </div>
 
     <time class="join-component__time">
