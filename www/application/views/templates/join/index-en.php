@@ -141,7 +141,7 @@
                 <label for="wishes">What would you like to do in the club?</label>
                 <textarea class="input" name="wishes" id="wishes" rows="5"><?= Arr::get($_POST, 'wishes') ?></textarea>
 
-                <input class="button button--master" type="submit" id="blankSendButton" value="Отправить" />
+                <input class="button button--master" type="submit" id="blankSendButton" value="Send" />
 
             </form>
 
