@@ -2,8 +2,8 @@
     <? if (!empty($success)): ?>
         <div class="join-page__success">
             <div class="join-page__success-inner">
-                <h2>Спасибо!</h2>
-                <p>Мы получили вашу заявку. Прием заявок продлится до 22 сентября, после чего мы с вами свяжемся. А пока подписывайтесь на нашу <a href="https://vk.com/codex_team">группу ВКонтакте</a> и следите за новостями. </p>
+                <h2>Thanks!</h2>
+                <p>We received your application. The deadline is September 22, after that we will message you. Join our <a href="https://vk.com/codex_team">VK group</a> to follow the news. </p>
             </div>
         </div>
     <? endif ?>
@@ -17,83 +17,79 @@
             Join CodeX
         </h1>
         <p>
-            CodeX — это новый клуб в Университете ИТМО, объединяющий студентов, интересующихся веб-разработкой, дизайном и изучением новых технологий на практике.
+            CodeX is a new coding club in ITMO university. It gathers students interested in web-development, design, and learning new technologies at practice.
         </p>
         <p>
-            Мы занимаемся созданием и запуском полноценных продуктов в интернете на всех уровнях. Раз в год мы открываем набор в команду.
+            We create and launch full-featured projects in the Internet on all levels. Once a year we open our doors to new people.
         </p>
         <h2>
-            Кого мы ищем
+            Who are we looking for
         </h2>
         <p>
-            Будем рады познакомиться, если вы хотите развиваться в одной из следующих областей. Или сразу во всех.
+            It would be a pleasure to meet you, if you want to learn one of the following categories, or all at the same time.
         </p>
         <ul>
             <li>
-                Веб-разработка (Frontend, Backend, DevOps)
+                Web-development (Frontend, Backend, DevOps)
             </li>
             <li>
-                Мобильная разработка
+                Mobile development
             </li>
             <li>
-                Проектирование и дизайн
+                UI and UX
             </li>
             <li>
-                Тестирование и контроль качества
+                Testing and quality assurance
             </li>
             <li>
-                Маркетинг, пиар
+                Marketing, SMM
             </li>
         </ul>
         <h2>
-            Требования
+            Requirements
         </h2>
         <p>
-            Мы не занимаемся изучением основ. Все обучение проходит самостоятельно, а в команде мы развиваем полученные навыки в боевых задачах. Отсюда первое требование:
+            We don't study basics. Everything is learned by yourself. In team we apply and develop acquired skills on real tasks and projects. Hence the first requirement:
         </p>
         <ul>
             <li>
-                Наличие начальных навыков
+                Basic skills
             </li>
         </ul>
         <p>
-            Мы работаем очень много, а спим очень мало. Это непросто, поэтому второе требование:
+            We work much, sleep a little. That's not quite easy, second requirement:
         </p>
         <ul>
             <li>
-                Быть готовым к большому количеству ежедневной  самостоятельной работы
+                Be ready to have a high workload.
             </li>
         </ul>
         <p>
-            Ключевой фактор — ваш энтузиазм. Взамен вы получите гигантское количество опыта и новых навыков, интересные и сложные задачи, возможность поучаствовать в создании и запуске проектов на мировом рынке.
+            The key factor is your enthusiasm. In exchange, you will get huge amount of experience, new skills, interesting and hard projects, an opportunity to take part in creating and launching world market products.
         </p>
         <p>
-            Для подачи заявки на вступление, авторизуйтесь через VK или почту, через которые можно будет с вами связаться. И заполните небольшую анкету.
+            To apply, authorize via VK or enter email, so we can contact you. Also fill a little form.
         </p>
 
-        <?
-            /*
-            <section class="join-component join-component--compact">
-                <div class="join-component__label">
-                    До окончания набора
-                </div>
+        <section class="join-component join-component--compact">
+            <div class="join-component__label">
+                Until the deadline
+            </div>
 
-                <time class="join-component__time">
-                    <span data-time="days" class="join-component__time-item">
-                        <?= $joinTimeLeft['days_left'] ?>
-                    </span>
-                    <span class="join-component__time-delimiter"></span>
-                    <span data-time="hrs" class="join-component__time-item">
-                        <?= $joinTimeLeft['hours_left'] ?>
-                    </span>
-                    <span class="join-component__time-delimiter join-component__time-delimiter--blinking"></span>
-                    <span data-time="mins" class="join-component__time-item">
-                        <?= $joinTimeLeft['minutes_left'] ?>
-                    </span>
-                </time>
-            </section>
-            */
-        ?>
+            <time class="join-component__time">
+                <span data-time="days" class="join-component__time-item">
+                    <?= $joinTimeLeft['days_left'] ?>
+                </span>
+                <span class="join-component__time-delimiter"></span>
+                <span data-time="hrs" class="join-component__time-item">
+                    <?= $joinTimeLeft['hours_left'] ?>
+                </span>
+                <span class="join-component__time-delimiter join-component__time-delimiter--blinking"></span>
+                <span data-time="mins" class="join-component__time-item">
+                    <?= $joinTimeLeft['minutes_left'] ?>
+                </span>
+            </time>
+        </section>
 
         <? if ( !$request ): ?>
             <form class="join-page__form" id="joinBlank" method="post" action="/join">
@@ -102,7 +98,7 @@
 
                 <? if (!empty($error)): ?>
                     <div class="join-page__error">
-                        Авторизуйтесь или укажите почту, чтобы мы могли с вами связаться.
+                        Authorize via VK or enter email, so we can message you.
                     </div>
                 <? endif ?>
 
@@ -118,11 +114,11 @@
                     <div class="join-page__auth" id="js-join-auth">
                         <a class="join-page__auth-vk-button" href="/auth/vk">
                             <? include(DOCROOT . 'public/app/img/vk-logo.svg'); ?>
-                            Авторизоваться
+                            Authorize
                         </a>
-                        или
+                        or
                         <span class="join-page__auth-show-email" id="blankShowAdditionalFieldsButton">
-                            ввести почту
+                            enter email
                         </span>
                     </div>
 
@@ -130,7 +126,7 @@
 
                 <div class="hide" id="blankAdditionalFields">
                     <label for="name">
-                        Имя и Фамилия
+                        Name and surname
                     </label>
                     <input class="input" type="text" name="name" id="name" value="<?= Arr::get($_POST, 'name') ?>">
                     <label for="js-email">
@@ -139,10 +135,10 @@
                     <input class="input" type="email" name="email" id="js-email" autocomplete="off">
                 </div>
 
-                <label for="skills">Расскажите о своих навыках и опыте</label>
+                <label for="skills">Tell us about your skills</label>
                 <textarea class="input" name="skills" id="skills" rows="5" required=""><?= Arr::get($_POST, 'skills') ?></textarea>
 
-                <label for="wishes">Чем бы вам хотелось заниматься в клубе?</label>
+                <label for="wishes">What would you like to do in the club?</label>
                 <textarea class="input" name="wishes" id="wishes" rows="5"><?= Arr::get($_POST, 'wishes') ?></textarea>
 
                 <input class="button button--master" type="submit" id="blankSendButton" value="Отправить" />
@@ -153,24 +149,24 @@
 
             <? $lastRequest = array_pop($request); ?>
 
-            <h4>Заявка отправлена</h4>
+            <h4>Your application is sent</h4>
 
             <? if (!empty($lastRequest['skills'])): ?>
 
-                <h5>Навыки</h5>
+                <h5>Your skills</h5>
                 <p><?= $lastRequest['skills'] ?></p>
 
             <? endif ?>
 
             <? if (!empty($lastRequest['wishes'])): ?>
 
-                <h5>Пожелания</h5>
+                <h5>Wishes</h5>
                 <p><?= $lastRequest['wishes'] ?></p>
 
             <? endif ?>
 
             <div class="join-page__success join-page__success--compact">
-                После окончания приема заявок мы с вам свяжемся.
+                We will message you after the application deadline.
             </div>
 
         <? endif ; ?>
