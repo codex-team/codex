@@ -3,7 +3,7 @@
         <div class="join-page__success">
             <div class="join-page__success-inner">
                 <h2>Thanks!</h2>
-                <p>We received your application. The deadline is September 22, after that we will message you. Join our <a href="https://vk.com/codex_team">VK group</a> to follow the news. </p>
+                <p>We've received your request. Joining opened till September 22, after that we will message you. </p>
             </div>
         </div>
     <? endif ?>
@@ -17,16 +17,16 @@
             Join CodeX
         </h1>
         <p>
-            CodeX is a new coding club in ITMO university. It gathers students interested in web-development, design, and learning new technologies at practice.
+            CodeX is a coding club. It gathers students interested in web-development, design and learning new technologies at practice.
         </p>
         <p>
-            We create and launch full-featured projects in the Internet on all levels. Once a year we open our doors to new people.
+            We create and launch full-featured products in the Internet. Once a year we open our doors to new people.
         </p>
         <h2>
             Who are we looking for
         </h2>
         <p>
-            It would be a pleasure to meet you, if you want to learn one of the following categories, or all at the same time.
+            It would be a pleasure to become acquainted, if you want to learn one of the following categories, or all of them.
         </p>
         <ul>
             <li>
@@ -39,10 +39,10 @@
                 UI and UX
             </li>
             <li>
-                Testing and quality assurance
+                QA engineering
             </li>
             <li>
-                Marketing, SMM
+                Marketing
             </li>
         </ul>
         <h2>
