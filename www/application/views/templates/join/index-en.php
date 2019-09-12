@@ -53,7 +53,7 @@
         </p>
         <ul>
             <li>
-                Basic skills
+                Presence of basic skills
             </li>
         </ul>
         <p>
