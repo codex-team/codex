@@ -98,7 +98,7 @@
 
                 <? if (!empty($error)): ?>
                     <div class="join-page__error">
-                        Authorize via VK or enter email, so we can message you.
+                        Enter an email, so we can message you.
                     </div>
                 <? endif ?>
 
