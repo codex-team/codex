@@ -49,7 +49,7 @@
             Requirements
         </h2>
         <p>
-            We don't study basics. Everything is learned by yourself. In team we apply and develop acquired skills on real tasks and projects. Hence the first requirement:
+            We don't study basics. Everyone is learning technologies by himself. In team we apply and develop acquired skills on real tasks at our projects. Hence the first requirement:
         </p>
         <ul>
             <li>
