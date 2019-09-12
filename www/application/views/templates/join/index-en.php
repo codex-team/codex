@@ -13,6 +13,11 @@
     </div>
 
     <div class="join-page__content center_side clearfix">
+        <div class="read-in join-page__read-in">
+            Read in
+            <a class="read-in-item read-in-item--russian" href="<?= "/join" ?>">Russian</a>
+        </div>
+
         <h1>
             Join CodeX
         </h1>
@@ -112,11 +117,6 @@
                 <? else: ?>
 
                     <div class="join-page__auth" id="js-join-auth">
-                        <a class="join-page__auth-vk-button" href="/auth/vk">
-                            <? include(DOCROOT . 'public/app/img/vk-logo.svg'); ?>
-                            Authorize
-                        </a>
-                        or
                         <span class="join-page__auth-show-email" id="blankShowAdditionalFieldsButton">
                             enter email
                         </span>

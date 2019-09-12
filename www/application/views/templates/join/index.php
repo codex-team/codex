@@ -13,6 +13,10 @@
     </div>
 
     <div class="join-page__content center_side clearfix">
+        <div class="read-in join-page__read-in">
+            Read in
+            <a class="read-in-item read-in-item--english" href="<?= "/join/en" ?>">English</a>
+        </div>
         <h1>
             Набор в команду
         </h1>

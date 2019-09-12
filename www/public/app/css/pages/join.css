@@ -1,10 +1,13 @@
-
 /**
 * Joining page
 */
 .join-page {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    &__read-in {
+        margin: 25px 0;
+    }
 
     &__logo {
         margin: 60px auto;
@@ -126,7 +129,7 @@
             display: inline-block;
             cursor: pointer;
             border-bottom: 1px dotted #D0D4D8;
-            
+
             &:hover {
                 color: #6C7580;
             }

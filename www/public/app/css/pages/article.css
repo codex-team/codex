@@ -150,53 +150,6 @@
         }
     }
 
-    /**
-     * Read on English | Russian
-     */
-    &__read-on {
-        margin: auto 0 auto auto;
-        color: var(--text-gray);
-
-        @media (--mobile) {
-            margin: 25px 0 0;
-        }
-
-        &-item {
-            cursor: pointer;
-
-            &:first-of-type {
-                margin-left: 10px;
-            }
-
-            &::before {
-                display: inline-block;
-                vertical-align: text-bottom;
-                content: '';
-                width: 16px;
-                height: 16px;
-                margin-right: 9px;
-            }
-
-            &:hover {
-                color: color(var(--text-gray) blackness(+70%));
-            }
-
-            &--english::before {
-                background-image: url('/public/app/img/components/article/flag-english.svg');
-            }
-
-            &--russian::before {
-                background-image: url('/public/app/img/components/article/flag-russian.svg');
-                background-size: contain;
-            }
-
-            &:not(:last-of-type)::after {
-                content: '|';
-                margin: 0 8px 0 12px;
-            }
-        }
-    }
-
     .sharing {
         @apply --entry-column-width;
 
@@ -395,7 +348,7 @@
     font-style: italic;
     font-size: 20.4px;
     line-height: 1.6em;
-    
+
     &--center {
         text-align: center;
     }
