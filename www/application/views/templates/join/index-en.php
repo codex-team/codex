@@ -138,7 +138,7 @@
                 <label for="skills">Tell us about your skills</label>
                 <textarea class="input" name="skills" id="skills" rows="5" required=""><?= Arr::get($_POST, 'skills') ?></textarea>
 
-                <label for="wishes">What would you like to do in the club?</label>
+                <label for="wishes">What would you like to do in CodeX?</label>
                 <textarea class="input" name="wishes" id="wishes" rows="5"><?= Arr::get($_POST, 'wishes') ?></textarea>
 
                 <input class="button button--master" type="submit" id="blankSendButton" value="Send" />
