@@ -20,7 +20,7 @@
             CodeX is a coding club. It gathers students interested in web-development, design and learning new technologies at practice.
         </p>
         <p>
-            We create and launch full-featured products in the Internet. Once a year we open our doors to new people.
+            We create and launch full-featured products in the Internet. Once a year we open our doors for new people.
         </p>
         <h2>
             Who are we looking for
