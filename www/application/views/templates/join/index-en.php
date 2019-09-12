@@ -116,10 +116,15 @@
 
                 <? else: ?>
 
-                    <div class="join-page__auth" id="js-join-auth">
-                        <span class="join-page__auth-show-email" id="blankShowAdditionalFieldsButton">
-                            enter email
-                        </span>
+                    <div>
+                        <label for="name">
+                            Name and surname
+                        </label>
+                        <input class="input" type="text" name="name" id="name" value="<?= Arr::get($_POST, 'name') ?>">
+                        <label for="js-email">
+                            Email
+                        </label>
+                        <input class="input" type="email" name="email" id="js-email" autocomplete="off">
                     </div>
 
                 <? endif ?>
