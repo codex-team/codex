@@ -97,7 +97,7 @@
         </section>
 
         <? if ( !$request ): ?>
-            <form class="join-page__form" id="joinBlank" method="post" action="/join">
+            <form class="join-page__form" id="joinBlank" method="post" action="/join/en">
 
                 <input type="hidden" name="csrf" value="<?= Security::token() ?>">
 
