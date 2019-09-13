@@ -118,13 +118,13 @@
 
                     <div>
                         <label for="name">
-                            Name and surname
+                            Your name
                         </label>
-                        <input class="input" type="text" name="name" id="name" value="<?= Arr::get($_POST, 'name') ?>">
+                        <input class="input" type="text" name="name" id="name" value="<?= Arr::get($_POST, 'name') ?>" required>
                         <label for="js-email">
                             Email
                         </label>
-                        <input class="input" type="email" name="email" id="js-email" autocomplete="off">
+                        <input class="input" type="email" name="email" id="js-email" autocomplete="off" required>
                     </div>
 
                 <? endif ?>
