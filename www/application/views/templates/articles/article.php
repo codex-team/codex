@@ -131,19 +131,19 @@
 
             <?
                 if ($article->lang == 'en') {
-                    $labelClass = 'article__read-on-item--russian';
+                    $labelClass = 'read-in-item--russian';
                     $labelText = 'Russian';
                 } else {
-                    $labelClass = 'article__read-on-item--english';
+                    $labelClass = 'read-in-item--english';
                     $labelText = 'English';
                 }
 
                 $linkedArticle = '/article/' . $article->linked_article;
             ?>
 
-            <div class="article__read-on">
+            <div class="read-in">
                 Read on
-                <a class="article__read-on-item <?=$labelClass?>" href="<?= $linkedArticle ?>"><?= $labelText ?></a>
+                <a class="read-in-item <?=$labelClass?>" href="<?= $linkedArticle ?>"><?= $labelText ?></a>
             </div>
         <? else: ?>
             <div class="article__read-time">

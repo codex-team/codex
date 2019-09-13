@@ -11,6 +11,8 @@ class Controller_Pages extends Controller_Base_preDispatch
             Security::token(true);
         }
 
+        $lang = $this->request->param('lang');
+
         $this->view['request'] = $this->user->getUserRequest();
         /**
          * Till what date and time people can join the club
@@ -18,10 +20,18 @@ class Controller_Pages extends Controller_Base_preDispatch
          */
         $this->view['joinTimeLeft'] = Model_Methods::countDownJoinTime("2019-09-22 23:59");
 
+        if ($lang == 'en') {
+            $this->title = 'Join CodeX team';
+            $this->description = 'How to join CodeX';
+            $this->template->content = View::factory('templates/join/index-en', $this->view);
+        } else {
+            $this->title = 'Набор в команду CodeX';
+            $this->description = 'Как вступить в CodeX';
+            $this->template->content = View::factory('templates/join/index', $this->view);
+        }
 
-        $this->title = 'Набор в команду CodeX';
-        $this->description = 'Как вступить в CodeX';
-        $this->template->content = View::factory('templates/join/index', $this->view);
+
+
     }
 
 

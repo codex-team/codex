@@ -13,6 +13,7 @@
  * Components
  */
 @import './components/read-also.css';
+@import './components/read-in.css';
 @import './components/event-alert.css';
 @import './components/page-menu.css';
 @import './components/feed-drag-n-drop.css';
