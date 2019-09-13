@@ -72,7 +72,7 @@ class Controller_Pages extends Controller_Base_preDispatch
         $fields = array(
             'skills' => Arr::get($_POST, 'skills'),
             'wishes' => Arr::get($_POST, 'wishes'),
-            'email'  => Arr::get($_POST, 'email', null) || Arr::get($_POST, 'email_en', null),
+            'email'  => Arr::get($_POST, 'email', null),
             'name'   => Arr::get($_POST, 'name', null),
         );
 

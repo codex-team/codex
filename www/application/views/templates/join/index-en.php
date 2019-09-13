@@ -124,21 +124,10 @@
                         <label for="js-email">
                             Email
                         </label>
-                        <input class="input" type="email" name="email_en" id="js-email" autocomplete="off" required>
+                        <input class="input" type="email" name="email" id="js-email" autocomplete="off" required>
                     </div>
 
                 <? endif ?>
-
-                <div class="hide" id="blankAdditionalFields">
-                    <label for="name">
-                        Name and surname
-                    </label>
-                    <input class="input" type="text" name="name" id="name" value="<?= Arr::get($_POST, 'name') ?>">
-                    <label for="js-email">
-                        Email
-                    </label>
-                    <input class="input" type="email" name="email" id="js-email" autocomplete="off">
-                </div>
 
                 <label for="skills">Tell us about your skills</label>
                 <textarea class="input" name="skills" id="skills" rows="5" required=""><?= Arr::get($_POST, 'skills') ?></textarea>
