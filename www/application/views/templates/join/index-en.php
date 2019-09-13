@@ -124,7 +124,7 @@
                         <label for="js-email">
                             Email
                         </label>
-                        <input class="input" type="email" name="email" id="js-email" autocomplete="off" required>
+                        <input class="input" type="email" name="email_en" id="js-email" autocomplete="off" required>
                     </div>
 
                 <? endif ?>
