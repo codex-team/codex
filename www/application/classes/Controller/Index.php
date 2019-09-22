@@ -33,7 +33,7 @@ class Controller_Index extends Controller_Base_preDispatch
          * Till what date and time people can join the club
          * @param string $last_chance_to_join - string in Date format Y-m-d H:i
          */
-        $this->view['joinTimeLeft'] = Model_Methods::countDownJoinTime("2019-09-22 23:59");
+        // $this->view['joinTimeLeft'] = Model_Methods::countDownJoinTime("2019-09-22 23:59");
 
         /**
          * Add all news

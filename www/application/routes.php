@@ -127,10 +127,13 @@ Route::set('SITEMAP_XML', 'sitemap.xml')->defaults(array(
 /**
  * Join page
  */
+/*
  Route::set('JOIN_PAGE', 'join(/<lang>)', array('lang' => $STRING))->defaults(array(
     'controller' => 'pages',
     'action' => 'join',
  ));
+*/
+
 Route::set('TASK_LIST', 'task')->defaults(array(
     'controller' => 'pages',
     'action' => 'All',
