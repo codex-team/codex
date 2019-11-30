@@ -167,6 +167,7 @@
             display: inline-block;
             border-bottom: 1px solid rgba(93,100,134,0.20);
             margin-bottom: 6px;
+            white-space: nowrap;
 
             svg {
                 margin-right: -40px;
