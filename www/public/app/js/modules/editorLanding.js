@@ -171,6 +171,23 @@ export default class EditorLanding {
                 this.previewData();
                 // this.editor.focus();
 
+            },
+            /**
+             * Override some default Editor config properties
+             */
+            editorConfigOverride: {
+                tools: {
+                    image: {
+                        config: {
+                            additionalRequestData: {
+                                /**
+                                 * This flag tells the backend to store file temporary
+                                 */
+                                temporary: true
+                            }
+                        }
+                    }
+                }
             }
         }).then((editor) => {
 

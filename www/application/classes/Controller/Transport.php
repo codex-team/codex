@@ -10,9 +10,10 @@ class Controller_Transport extends Controller_Base_preDispatch
     private $file = null;
 
     /**
-     * Transport file types
+     * Where all image files will be stored
+     * Can be overridden, for example, for storing in a temporary dir
      */
-    const EDITOR_FILE = 1;
+    private $imagesDir = 'upload/redactor_images/';
 
     /**
      * File transport module
@@ -22,6 +23,16 @@ class Controller_Transport extends Controller_Base_preDispatch
         $json_data = json_decode(file_get_contents(
             'php://input'
         ));
+
+        /**
+         * Sometimes we need to store files in a temporary directory,
+         * for example, for editor.js landing
+         */
+        $isTemporary = (bool) $this->request->post('temporary');
+
+        if ($isTemporary){
+            $this->imagesDir = 'upload/temporary/';
+        }
 
         if (isset($json_data->url)) {
             $url = $json_data->url;
@@ -37,7 +48,7 @@ class Controller_Transport extends Controller_Base_preDispatch
             if ($imageData) {
                 $this->transportResponse['success'] = 1;
                 $this->transportResponse['file']    = array(
-                    'url'    => '/upload/redactor_images/o_' . Arr::get($imageData, 'name'),
+                    'url'    => '/' . $this->imagesDir . 'o_' . Arr::get($imageData, 'name'),
                     'width'  => Arr::get($imageData, 'width', 0),
                     'height' => Arr::get($imageData, 'height', 0)
                 );
@@ -62,7 +73,7 @@ class Controller_Transport extends Controller_Base_preDispatch
         if ($imageData) {
             $this->transportResponse['success'] = 1;
             $this->transportResponse['file']    = array(
-                'url'    => '/upload/redactor_images/o_' . Arr::get($imageData, 'name'),
+                'url'    => '/' . $this->imagesDir . 'o_' . Arr::get($imageData, 'name'),
                 'width'  => Arr::get($imageData, 'width', 0),
                 'height' => Arr::get($imageData, 'height', 0)
             );
@@ -76,7 +87,7 @@ class Controller_Transport extends Controller_Base_preDispatch
     private function saveEditorImage()
     {
         if (Upload::type($this->file, array('jpg', 'jpeg', 'png', 'gif'))) {
-            $imageData = $this->methods->saveImage($this->file, 'upload/redactor_images/');
+            $imageData = $this->methods->saveImage($this->file, $this->imagesDir);
 
             if ($imageData) {
                 return $imageData;

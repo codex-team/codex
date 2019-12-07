@@ -193,18 +193,11 @@ Route::set('SCRIPTS', 'admin/scripts(/<script>)', array('script' => 'resetArticl
     'action' => 'scripts'
 ));
 
-// - viz redaktor -
-
 Route::set('EDITOR_FILE_TRANSORT', 'editor/transport', array())
     ->defaults(array(
         'controller' => 'transport',
         'action' => 'file_uploader'
     ));
-
-Route::set('ARTICLE_EDITOR_SAVE_IMG', 'editorsaveimg', array())->defaults(array(
-    'controller' => 'articles_edit',
-    'action' => 'saveEditorImg'
-));
 
 /**
  * Route for Link plugin, CodeX Editor
