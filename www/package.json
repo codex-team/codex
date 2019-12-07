@@ -16,7 +16,7 @@
     "@codexteam/reactions": "^1.0.3",
     "@editorjs/code": "^2.4.1",
     "@editorjs/delimiter": "^1.1.0",
-    "@editorjs/editorjs": "^2.16.0",
+    "@editorjs/editorjs": "^2.16.1",
     "@editorjs/embed": "^2.2.1",
     "@editorjs/header": "^2.3.2",
     "@editorjs/image": "^2.3.3",
