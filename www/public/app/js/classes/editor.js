@@ -25,6 +25,8 @@ const Table = require('@editorjs/table');
 const InlineCode = require('@editorjs/inline-code');
 const Marker = require('@editorjs/marker');
 
+import * as _ from '../utils';
+
 
 /**
  * Class for working with CodeX Editor
@@ -37,6 +39,7 @@ export default class Editor {
      * @param {Object[]} settings.blocks - Editor's blocks content
      * @param {function} settings.onChange - Modifications callback for the Editor
      * @param {function} settings.onReady - Editor is ready callback
+     * @param {EditorConfig} settings.editorConfigOverride - any properties to override the default Editor config
      */
     constructor(settings) {
 
@@ -55,7 +58,7 @@ export default class Editor {
         /**
          * Instantiate new CodeX Editor with set of Tools
          */
-        this.editor = new EditorJS({
+        this.editor = new EditorJS(_.mergeDeep({
             tools: {
                 header: {
                     class: Header,
@@ -142,7 +145,7 @@ export default class Editor {
             },
 
             autofocus: true
-        });
+        }, settings.editorConfigOverride || {}));
 
     }
 

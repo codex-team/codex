@@ -145,37 +145,6 @@ class Model_Methods extends Model
         return false;
     }
 
-    public function saveRedactorsImage($file)
-    {
-        $filename = uniqid() . '.jpg';
-
-        $image = Image::factory($file['tmp_name'])->save('upload/redactor_images/' . $filename);
-
-        return $filename;
-    }
-
-    /**
-     * @param array $sizes - array of keys in IMAGE_SIZES_CONFIG that need to be cropped
-     * @param array $forcedSizes - new size config looks like IMAGE_SIZES_CONFIG
-     */
-    public function saveImageByUrl($url, $path, $sizes = null, $forcedSizes = null)
-    {
-        $file = $this->getFile($url);
-
-        if ($file) {
-            if (!Upload::type($file, array('jpg', 'jpeg', 'png', 'gif'))) {
-                return false;
-            }
-            if (!is_dir($path)) {
-                mkdir($path);
-            }
-
-            return $this->saveRedactorsImage($file);
-        }
-
-        return false;
-    }
-
     public function getFile($url)
     {
         $tempName = tempnam('/tmp', 'tmp_files');
