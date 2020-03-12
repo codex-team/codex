@@ -121,7 +121,7 @@
                         <label for="name">
                             Your name
                         </label>
-                        <input class="input" type="text" name="name" id="name" value="<?= Arr::get($_POST, 'name') ?>" required>
+                        <input class="input" type="text" name="name" id="name" value="<?= HTML::chars(Arr::get($_POST, 'name')) ?>" required>
                         <label for="js-email">
                             Email
                         </label>

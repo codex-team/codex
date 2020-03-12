@@ -138,7 +138,7 @@
                     <label for="name">
                         Имя и Фамилия
                     </label>
-                    <input class="input" type="text" name="name" id="name" value="<?= Arr::get($_POST, 'name') ?>">
+                    <input class="input" type="text" name="name" id="name" value="<?= HTML::chars(Arr::get($_POST, 'name')) ?>">
                     <label for="js-email">
                         Email
                     </label>
