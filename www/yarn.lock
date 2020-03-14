@@ -597,9 +597,9 @@
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@editorjs/delimiter/-/delimiter-1.1.0.tgz#f61808ea92e4e289607d54441964f1cb8605410a"
 
-"@editorjs/editorjs@^2.16.1":
-  version "2.16.1"
-  resolved "https://registry.yarnpkg.com/@editorjs/editorjs/-/editorjs-2.16.1.tgz#41a2707fc126518dca513a09aa207aa8b6d9a65c"
+"@editorjs/editorjs@^2.17.0":
+  version "2.17.0"
+  resolved "https://registry.yarnpkg.com/@editorjs/editorjs/-/editorjs-2.17.0.tgz#38f20d7f99bc21868904b6b937905b6daad5a2a2"
   dependencies:
     codex-notifier "^1.1.2"
     codex-tooltip "^1.0.0"
@@ -608,9 +608,9 @@
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@editorjs/embed/-/embed-2.2.1.tgz#90dbcac6e163d20c665fcc1a218d4ba1db80e2f1"
 
-"@editorjs/header@^2.3.2":
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/@editorjs/header/-/header-2.3.2.tgz#419b24196ce7142c0ae8bac837e6b5f68977dc8f"
+"@editorjs/header@^2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@editorjs/header/-/header-2.4.0.tgz#0ac14bf68e4a01305bbb20c8ffb754a75a3d374a"
 
 "@editorjs/image@^2.3.3":
   version "2.3.3"
@@ -642,9 +642,9 @@
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/@editorjs/raw/-/raw-2.1.1.tgz#00cea181d8ce1a2a082352c6644090660c8237c7"
 
-"@editorjs/table@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@editorjs/table/-/table-1.2.0.tgz#547d7b28c96f8a37605bea10bd4f016e8bfc344d"
+"@editorjs/table@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@editorjs/table/-/table-1.2.2.tgz#6a3746acecf5e87e42d551dcd2716e911bd7efbc"
 
 "@types/q@^1.5.1":
   version "1.5.2"
