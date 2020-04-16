@@ -100,7 +100,7 @@ class Model_User extends Model
      */
     public static function getAll()
     {
-        $users_rows = DB::select()->from('Users')->limit(200)->execute()->as_array();    // TODO(#40) add pagination
+        $users_rows = DB::select()->from('Users')->execute()->as_array();    // TODO(#40) add pagination
 
         $users = array();
 

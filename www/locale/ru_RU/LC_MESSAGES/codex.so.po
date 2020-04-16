@@ -31,3 +31,9 @@ msgid ""
 msgstr ""
 "Наша цель — собрать команду молодых специалистов с горящими глазами и "
 "идеалистическим настроем."
+
+#: application/views/templates/index/developers.php:3
+msgid ""
+"Best developers"
+msgstr ""
+"Лучшие разработчики"
