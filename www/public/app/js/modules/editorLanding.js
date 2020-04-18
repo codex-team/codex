@@ -142,11 +142,11 @@ export default class EditorLanding {
                 type: 'image',
                 data: {
                     file: {
-                        url: 'https://capella.pics/6d8f1a84-9544-4afa-b806-5167d45baf7c.jpg',
+                        url: 'https://codex.so/public/app/img/external/codex2x.png',
                     },
                     caption: '',
                     stretched: false,
-                    withBorder: true,
+                    withBorder: false,
                     withBackground: false,
                 }
             },
