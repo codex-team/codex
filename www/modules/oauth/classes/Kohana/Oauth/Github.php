@@ -34,18 +34,14 @@ class Kohana_Oauth_GitHub extends Oauth {
             throw new Kohana_Exception('Невозможно получить токен и id');
         }
 
-        $params = array(
-            'access_token' => $gh_token,
-        );
-
         $headers = array(
-            'user-agent' => 'codex browser'
+            'user-agent' => 'codex browser',
+            'Authorization' => 'token ' . $gh_token
         );
 
         $resp = Request::factory('https://api.github.com/user')
             ->method(Request::GET)
             ->headers($headers)
-            ->query($params)
             ->execute();
 
         $resp = json_decode($resp);
