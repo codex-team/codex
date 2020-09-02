@@ -1,6 +1,21 @@
 .join-component {
-    margin: 156px 0 152px;
+    margin: 96px auto 92px;
     text-align: center;
+
+
+    &:not(&--compact) {
+        background: #f3faff;
+        max-width: 674px;
+        padding: 35px 0;
+        border-radius: 14px;
+
+        @media (--mobile) {
+            max-width: none;
+            padding: 35px 20px;
+            margin: 50px -20px;
+            border-radius: 0;
+        }
+    }
 
     &--compact {
         margin: 50px 0 80px;
@@ -8,6 +23,7 @@
 
     &__desc {
         max-width: 322px;
+        margin-top: 22px;
         margin-bottom: 32px;
     }
 
@@ -20,7 +36,7 @@
         font-size: 16.9px;
         font-weight: 500;
         color: #fff;
-        border-radius: 3px;
+        border-radius: 20px;
         background-color: #4a90e2;
         padding: 10px 35.5px;
         box-shadow: 0 7px 12px -4px rgba(65,140,227,0.7);
@@ -39,7 +55,7 @@
         font-weight: 500;
         line-height: 1.08;
         color: #6c7580;
-        margin-bottom: 60px;
+        margin-bottom: 63px;
 
         &-delimiter {
             padding: 0 8px;
