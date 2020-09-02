@@ -3,7 +3,7 @@
         <div class="join-page__success">
             <div class="join-page__success-inner">
                 <h2>Thanks!</h2>
-                <p>We've received your request. Joining opened till September 22, after that we will message you. </p>
+                <p>We've received your request. Joining opened till September 15, after that we will message you. </p>
             </div>
         </div>
     <? endif ?>
