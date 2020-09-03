@@ -2,7 +2,7 @@
     <h2 class="site-section__title">Join CodeX</h2>
     <div class="join-component__desc site-section__desc">
         We are opening the new development season and invite developers, designers, and DevOps engineers.<br><br>
-        Joining opened till 15th, September 2020
+        Joining opened till 20th, September 2020
     </div>
 
     <time class="join-component__time">
