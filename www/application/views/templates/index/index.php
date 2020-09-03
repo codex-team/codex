@@ -35,8 +35,7 @@
 
         <?
             /** Join block */
-            /* include 'join.php'; */
-
+            include 'join.php';
         ?>
 
         <?

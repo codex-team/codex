@@ -1,8 +1,8 @@
 <section class="join-component site-section">
-    <h2 class="site-section__title">Join Team</h2>
+    <h2 class="site-section__title">Join CodeX</h2>
     <div class="join-component__desc site-section__desc">
-        We are opening the new development season and invite developers, designers, QA engineers and PR eagles.<br><br>
-        Joining opened till 22nd, september 2019
+        We are opening the new development season and invite developers, designers, and DevOps engineers.<br><br>
+        Joining opened till 20th, September 2020
     </div>
 
     <time class="join-component__time">
