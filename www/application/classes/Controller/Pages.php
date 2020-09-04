@@ -97,8 +97,10 @@ class Controller_Pages extends Controller_Base_preDispatch
              */
             if ($this->user->id) {
                 $name = $this->user->name;
+                $id = $this->user->id;
+                $host = Arr::get($_SERVER, 'HTTP_HOST');
                 
-                $link = "{Arr::get($_SERVER, 'HTTP_HOST')}/user/{$this->user->id}";
+                $link = "{$host}/user/{$id}";
                 $footer = "👤 [$link]($link)";
             } else {
                 $footer = "✉️ [{$email}](mailto:{$email})";
