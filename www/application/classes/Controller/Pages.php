@@ -91,7 +91,18 @@ class Controller_Pages extends Controller_Base_preDispatch
         $this->view['success'] = $this->methods->saveJoinRequest($fields);
 
         if ($this->view['success']) {
-            $link = array_key_exists('uid', $fields) ? "👤 [codex.so/user/{$fields['uid']}](codex.so/user/{$fields['uid']})" : "✉️ [{$email}](mailto:{$email})";
+            /**
+             * If user is registered then show link to the profile
+             * otherwise show email and mailto link
+             */
+            if (array_key_exists('uid', $fields)) {
+                $name = $this->user->name;
+                
+                $link = "{Arr::get($_SERVER, 'HTTP_HOST')}/user/{$fields['uid']}";
+                $footer = "👤 [$link]($link)"
+            } else {
+                $footer = "✉️ [{$email}](mailto:{$email})";
+            }
             
             $text = "🦄 {$name} wants to join the team\n" .
                     "\n" .
@@ -101,7 +112,7 @@ class Controller_Pages extends Controller_Base_preDispatch
                     "💫 *Wishes*\n" .
                     "{$wishes}\n" .
                     "\n" .
-                    "{$link}";
+                    "{$footer}";
             
             $parse_mode = 'Markdown';
             
