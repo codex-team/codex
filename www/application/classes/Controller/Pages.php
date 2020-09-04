@@ -91,7 +91,7 @@ class Controller_Pages extends Controller_Base_preDispatch
         $this->view['success'] = $this->methods->saveJoinRequest($fields);
 
         if ($this->view['success']) {
-            $link = $fields['uid'] ? "👤 [codex.so/user/{$fields['uid']}](codex.so/user/{$fields['uid']})" : "✉️ [{$email}](mailto:{$email})";
+            $link = array_key_exists('uid', $fields) ? "👤 [codex.so/user/{$fields['uid']}](codex.so/user/{$fields['uid']})" : "✉️ [{$email}](mailto:{$email})";
             
             $text = "🦄 {$name} wants to join the team\n" .
                     "\n" .
