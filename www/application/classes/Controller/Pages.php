@@ -95,10 +95,10 @@ class Controller_Pages extends Controller_Base_preDispatch
             
             $text = "🦄 {$name} wants to join the team\n" .
                     "\n" .
-                    "🛠 **Skills**\n" .
+                    "🛠 *Skills*\n" .
                     "{$skills}\n" .
                     "\n" .
-                    "💫 **Wishes**\n" .
+                    "💫 *Wishes*\n" .
                     "{$wishes}\n" .
                     "\n" .
                     "{$link}";
