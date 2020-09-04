@@ -15,6 +15,8 @@ class Kohana_Oauth_Vkontakte extends Oauth {
     public function __construct($config)
     {
         self::$config = $config;
+       
+        self::$version = "5.122";
     }
 
 
@@ -39,7 +41,7 @@ class Kohana_Oauth_Vkontakte extends Oauth {
             'uid' => $vk_user_id,
             'access_token' => $vk_token,
             'fields' => $fields,
-            'v' => 5.122
+            'v' => self::$version
         );
 
         $resp = Request::factory('https://api.vk.com/method/users.get')
@@ -103,7 +105,7 @@ class Kohana_Oauth_Vkontakte extends Oauth {
             'code'          => $params['code'],
             'client_secret' => self::$config['APP_SECRET'],
             'redirect_uri'  => self::$config['REDIRECT_URI'],
-            'v' => 5.122
+            'v' => self::$version
         );
 
         $resp = Request::factory(self::$config['GET_TOKEN_URI'])
@@ -135,7 +137,7 @@ class Kohana_Oauth_Vkontakte extends Oauth {
             'scope'         => self::$config['SETTINGS'],
             'redirect_uri'  => self::$config['REDIRECT_URI'],
             'response_type' => 'code',
-            'v' => 5.122
+            'v' => self::$version
         );
 
         return self::$config['GET_CODE_URI'].'?'.http_build_query($params);
