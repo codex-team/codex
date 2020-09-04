@@ -321,7 +321,7 @@ class Model_Methods extends Model
         }
 
         $params = array(
-            'message' => $text
+            'message' => $text,
             'parse_mode' => $parse_mode
         );
 
