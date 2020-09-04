@@ -8,6 +8,10 @@ class Kohana_Oauth_Vkontakte extends Oauth {
 
     protected static $config;
     
+    /**
+     * API version
+     * @property string
+     */
     protected static $version;
 
     /**
@@ -143,5 +147,4 @@ class Kohana_Oauth_Vkontakte extends Oauth {
 
         return self::$config['GET_CODE_URI'].'?'.http_build_query($params);
     }
-
 }
