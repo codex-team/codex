@@ -296,7 +296,13 @@ class Model_Methods extends Model
         return $comments_table_rebuild;
     }
 
-    public static function sendBotNotification($text)
+    /**
+     * Send a notification to project's chat in Telegram
+     *
+     * @param {string} $text - message's text
+     * @param {string} $parse_mode - HTML, Markdown or none
+     */
+    public static function sendBotNotification($text, $parse_mode)
     {
         $telegramConfigFilename = 'telegram-notification';
 
@@ -315,7 +321,8 @@ class Model_Methods extends Model
         }
 
         $params = array(
-            'message' => $text
+            'message' => $text,
+            'parse_mode' => $parse_mode
         );
 
         $ch = curl_init($url);
