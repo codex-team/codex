@@ -67,11 +67,16 @@ class Controller_Pages extends Controller_Base_preDispatch
 
     private function saveRequest()
     {
+        $name = HTML::chars(Arr::get($_POST, 'name', null));
+        $email = HTML::chars(Arr::get($_POST, 'email', null));
+        $skills = HTML::chars(Arr::get($_POST, 'skills'));
+        $wishes = HTML::chars(Arr::get($_POST, 'wishes'));
+        
         $fields = array(
-            'skills' => Arr::get($_POST, 'skills'),
-            'wishes' => Arr::get($_POST, 'wishes'),
-            'email'  => Arr::get($_POST, 'email', null),
-            'name'   => Arr::get($_POST, 'name', null),
+            'skills' => $skills,
+            'wishes' => $wishes,
+            'email'  => $email,
+            'name'   => $name
         );
 
         if (!$fields['email'] && !$this->user->id) {
@@ -86,7 +91,21 @@ class Controller_Pages extends Controller_Base_preDispatch
         $this->view['success'] = $this->methods->saveJoinRequest($fields);
 
         if ($this->view['success']) {
-            Model_Methods::sendBotNotification('Зарегистрирована новая заявка на вступление в клуб.');
+            $link = $fields['uid'] ? "👤 [codex.so/user/{$fields['uid']}](codex.so/user/{$fields['uid']})" : "✉️ [{$email}](mailto:{$email})";
+            
+            $text = "🦄 {$name} wants to join the team\n" \
+                    "\n" \
+                    "🛠 *Skills:*" \
+                    "{$skills}" \
+                    "" \
+                    "💫 *Wishes:*" \
+                    "{$wishes}" \
+                    "" \
+                    "{$link}";
+            
+            $parse_mode = 'Markdown';
+            
+            Model_Methods::sendBotNotification($text, $parse_mode);
         }
     }
 }
