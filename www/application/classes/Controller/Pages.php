@@ -11,7 +11,6 @@ class Controller_Pages extends Controller_Base_preDispatch
             Security::token(true);
         }
 
-        $lang = $this->request->param('lang');
 
         $this->view['request'] = $this->user->getUserRequest();
         /**
@@ -20,7 +19,11 @@ class Controller_Pages extends Controller_Base_preDispatch
          */
         $this->view['joinTimeLeft'] = Model_Methods::countDownJoinTime("2020-09-20 23:59");
 
-        if ($lang == 'en') {
+        $lang = $this->request->param('lang');
+        /**
+         * If lang param from uri or LANG from i18n equals "en" then show english page
+         */
+        if ($lang == 'en' || LANG == 'en') {
             $this->title = 'Join CodeX team';
             $this->description = 'How to join CodeX';
             $this->template->content = View::factory('templates/join/index-en', $this->view);
