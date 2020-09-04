@@ -95,10 +95,10 @@ class Controller_Pages extends Controller_Base_preDispatch
              * If user is registered then show link to the profile
              * otherwise show email and mailto link
              */
-            if (array_key_exists('uid', $fields)) {
+            if ($this->user->id) {
                 $name = $this->user->name;
                 
-                $link = "{Arr::get($_SERVER, 'HTTP_HOST')}/user/{$fields['uid']}";
+                $link = "{Arr::get($_SERVER, 'HTTP_HOST')}/user/{$this->user->id}";
                 $footer = "👤 [$link]($link)";
             } else {
                 $footer = "✉️ [{$email}](mailto:{$email})";
