@@ -93,14 +93,14 @@ class Controller_Pages extends Controller_Base_preDispatch
         if ($this->view['success']) {
             $link = $fields['uid'] ? "👤 [codex.so/user/{$fields['uid']}](codex.so/user/{$fields['uid']})" : "✉️ [{$email}](mailto:{$email})";
             
-            $text = "🦄 {$name} wants to join the team\n" \
-                    "\n" \
-                    "🛠 *Skills:*" \
-                    "{$skills}" \
-                    "" \
-                    "💫 *Wishes:*" \
-                    "{$wishes}" \
-                    "" \
+            $text = "🦄 {$name} wants to join the team\n" .
+                    "\n" .
+                    "🛠 **Skills**\n" .
+                    "{$skills}\n" .
+                    "\n" .
+                    "💫 **Wishes**\n" .
+                    "{$wishes}\n" .
+                    "\n" .
                     "{$link}";
             
             $parse_mode = 'Markdown';
