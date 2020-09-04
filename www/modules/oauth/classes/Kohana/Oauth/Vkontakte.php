@@ -7,7 +7,8 @@
 class Kohana_Oauth_Vkontakte extends Oauth {
 
     protected static $config;
-
+    
+    protected static $version;
 
     /**
      * @param string $config
