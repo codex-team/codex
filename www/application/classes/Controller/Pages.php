@@ -99,7 +99,7 @@ class Controller_Pages extends Controller_Base_preDispatch
                 $name = $this->user->name;
                 
                 $link = "{Arr::get($_SERVER, 'HTTP_HOST')}/user/{$fields['uid']}";
-                $footer = "👤 [$link]($link)"
+                $footer = "👤 [$link]($link)";
             } else {
                 $footer = "✉️ [{$email}](mailto:{$email})";
             }
