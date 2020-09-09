@@ -303,7 +303,7 @@ class Model_Methods extends Model
      * @param {string} $parse_mode - HTML, Markdown or none
      * @param {boolean} $disable_web_page_preview — disable links preview
      */
-    public static function sendBotNotification($text, $parse_mode = '', disable_web_page_preview = false)
+    public static function sendBotNotification($text, $parse_mode = '', $disable_web_page_preview = false)
     {
         $telegramConfigFilename = 'telegram-notification';
 
