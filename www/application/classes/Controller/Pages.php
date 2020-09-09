@@ -103,7 +103,7 @@ class Controller_Pages extends Controller_Base_preDispatch
                 $link = "{$host}/user/{$id}";
                 $footer = "👤 [$link]($link)";
             } else {
-                $footer = "✉️ [{$email}](mailto:{$email})";
+                $footer = "✉️ {$email}";
             }
             
             $text = "🦄 {$name} wants to join the team\n" .
@@ -117,8 +117,9 @@ class Controller_Pages extends Controller_Base_preDispatch
                     "{$footer}";
             
             $parse_mode = 'Markdown';
+            $disable_web_page_preview = true;
             
-            Model_Methods::sendBotNotification($text, $parse_mode);
+            Model_Methods::sendBotNotification($text, $parse_mode, $disable_web_page_preview);
         }
     }
 }

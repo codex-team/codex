@@ -301,8 +301,9 @@ class Model_Methods extends Model
      *
      * @param {string} $text - message's text
      * @param {string} $parse_mode - HTML, Markdown or none
+     * @param {boolean} $disable_web_page_preview — disable links preview
      */
-    public static function sendBotNotification($text, $parse_mode)
+    public static function sendBotNotification($text, $parse_mode = '', $disable_web_page_preview = false)
     {
         $telegramConfigFilename = 'telegram-notification';
 
@@ -322,7 +323,8 @@ class Model_Methods extends Model
 
         $params = array(
             'message' => $text,
-            'parse_mode' => $parse_mode
+            'parse_mode' => $parse_mode,
+            'disable_web_page_preview' => $disable_web_page_preview
         );
 
         $ch = curl_init($url);
