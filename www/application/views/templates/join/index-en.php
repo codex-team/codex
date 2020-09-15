@@ -22,16 +22,16 @@
             Join CodeX
         </h1>
         <p>
-            CodeX is a coding club. It gathers students interested in web-development, design and learning new technologies at practice.
+            CodeX is a coding club. It gathers passionate people interested in web-development, design, and learning new technologies at practice.
         </p>
         <p>
-            We create and launch full-featured products in the Internet. Once a year we open our doors for new people.
+            We create and launch full-featured products on the Internet. Once a year we open our doors for new people.
         </p>
         <h2>
             Who are we looking for
         </h2>
         <p>
-            It would be a pleasure to become acquainted, if you want to learn one of the following categories, or all of them.
+            It would be a pleasure to become acquainted if you want to learn one of the following categories or all of them.
         </p>
         <ul>
             <li>
@@ -54,7 +54,7 @@
             Requirements
         </h2>
         <p>
-            We don't study basics. Everyone is learning technologies by himself. In team we apply and develop acquired skills on real tasks at our projects. Hence the first requirement:
+            We don't study the basics. Everyone is learning technologies by himself. In a team, we apply and develop acquired skills on real tasks at our projects. Hence the first requirement:
         </p>
         <ul>
             <li>
@@ -70,7 +70,7 @@
             </li>
         </ul>
         <p>
-            The key factor is your enthusiasm. In exchange, you will get huge amount of experience, new skills, interesting and hard projects, an opportunity to take part in creating and launching world market products.
+            The key factor is your enthusiasm. In exchange, you will get a huge amount of experience, new skills, interesting and hard projects, an opportunity to take part in creating and launching world market products.
         </p>
         <p>
             To apply, enter email, so we can contact you, and fill a little form. Also, please write where are you from.
