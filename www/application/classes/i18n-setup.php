@@ -10,6 +10,7 @@ class Internationalization
 {
     const GET_PARAM_NAME = 'lang';
     const COOKIE_NAME = 'lang';
+    const HEADER_NAME = 'HTTP_ACCEPT_LANGUAGE';
 
     /**
      * Supported languages
@@ -76,8 +77,17 @@ class Internationalization
         return self::instance()->lang;
     }
 
-    public static function setLang($lang)
+    /**
+     * Set target language and save it to cookies
+     *
+     * @param string $lang
+     */
+    public function setLang($lang)
     {
+        if (!$this->valid($lang)) {
+            throw new Exception('Language ' . $lang . ' is not supported');
+        };
+
         setcookie(self::COOKIE_NAME, $lang, 0, '/');
         self::instance()->lang = $lang;
     }
@@ -99,29 +109,43 @@ class Internationalization
      */
     private function langSetup()
     {
-        /**
-         * Set default language
-         */
-        $this->lang = array_keys($this->langsSupported)[0];
-
+        $langDefault = array_keys($this->langsSupported)[0];
         $langFromGetParam = Arr::get($_GET, self::GET_PARAM_NAME);
         $langFromCookies = Arr::get($_COOKIE, self::COOKIE_NAME);
-
-        /**
-         * Choose language based on user's previous choice
-         */
-        if ($langFromCookies && $this->valid($langFromCookies)) {
-            $this->lang = $langFromCookies;
-        } else {
-            $this->setLang($this->lang);
-        }
+        $langFromBrowser = substr(Arr::get($_SERVER, self::HEADER_NAME), 0, 2);
 
         /**
          * If lang in GET params then save this value to cookies
          */
         if ($langFromGetParam && $this->valid($langFromGetParam)) {
             $this->setLang($langFromGetParam);
+            echo "Lang from GET";
+            return;
         }
+
+        /**
+         * Choose language based on user's previous choice
+         */
+        if ($langFromCookies && $this->valid($langFromCookies)) {
+            $this->setLang($langFromCookies);
+            echo "Lang from COOKIES";
+            return;
+        }
+
+        /**
+         * Choose language based on user's previous choice
+         */
+        if ($langFromBrowser && $this->valid($langFromBrowser)) {
+            $this->setLang($langFromBrowser);
+            echo "Lang from HEADERS";
+            return;
+        }
+
+        /**
+         * Set default language
+         */
+        $this->setLang($langDefault);
+        echo "DEFAULT LANG";
     }
 
     /**

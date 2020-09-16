@@ -69,6 +69,12 @@ I18n::lang('en-us');
 require APPPATH . 'classes/i18n-setup.php';
 define('LANG', Internationalization::instance()->getLang());
 
+if (LANG == 'en') {
+    echo "[EN] <a href='?lang=ru'>RU</a>";
+} else {
+    echo "<a href='?lang=en'>EN</a> [RU]";
+}
+
 /**
 * Composer autoloader
 */
