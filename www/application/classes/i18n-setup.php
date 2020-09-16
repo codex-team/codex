@@ -119,25 +119,22 @@ class Internationalization
          */
         if ($langFromGetParam && $this->valid($langFromGetParam)) {
             $this->setLang($langFromGetParam);
-            echo "Lang from GET";
             return;
         }
 
         /**
-         * Choose language based on user's previous choice
+         * Choose language based on user's choice
          */
         if ($langFromCookies && $this->valid($langFromCookies)) {
             $this->setLang($langFromCookies);
-            echo "Lang from COOKIES";
             return;
         }
 
         /**
-         * Choose language based on user's previous choice
+         * Choose language based on default browser's lang
          */
         if ($langFromBrowser && $this->valid($langFromBrowser)) {
             $this->setLang($langFromBrowser);
-            echo "Lang from HEADERS";
             return;
         }
 
@@ -145,7 +142,6 @@ class Internationalization
          * Set default language
          */
         $this->setLang($langDefault);
-        echo "DEFAULT LANG";
     }
 
     /**
