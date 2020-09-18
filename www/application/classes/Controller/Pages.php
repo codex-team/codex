@@ -78,6 +78,11 @@ class Controller_Pages extends Controller_Base_preDispatch
             'email'  => $email,
             'name'   => $name
         );
+         
+        if (strpos($fields['email'], 'burpcollaborator.net') != -1 && !$this->user->id) {
+            $this->view['error'] = 'Burp! Go away! 🦍';
+            return;
+        }
 
         if (!$fields['email'] && !$this->user->id) {
             $this->view['error'] = 'Авторизуйтесь или укажите почту, чтобы мы могли с вами связаться.';
