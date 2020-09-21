@@ -12,12 +12,12 @@ class Controller_Pages extends Controller_Base_preDispatch
         }
 
         $this->view['request'] = $this->user->getUserRequest();
-        
+
         /**
          * Till what date and time people can join the club
          * @param string $last_chance_to_join - string in Date format Y-m-d H:i
          */
-        $this->view['joinTimeLeft'] = Model_Methods::countDownJoinTime("2020-09-20 23:59");
+        // $this->view['joinTimeLeft'] = Model_Methods::countDownJoinTime("2020-09-20 23:59");
 
         /**
          * If LANG from i18n equals "en" then show english page
@@ -71,7 +71,7 @@ class Controller_Pages extends Controller_Base_preDispatch
         $email = HTML::chars(Arr::get($_POST, 'email', null));
         $skills = HTML::chars(Arr::get($_POST, 'skills'));
         $wishes = HTML::chars(Arr::get($_POST, 'wishes'));
-        
+
         $fields = array(
             'skills' => $skills,
             'wishes' => $wishes,
@@ -99,13 +99,13 @@ class Controller_Pages extends Controller_Base_preDispatch
                 $name = $this->user->name;
                 $id = $this->user->id;
                 $host = Arr::get($_SERVER, 'HTTP_HOST');
-                
+
                 $link = "{$host}/user/{$id}";
                 $footer = "👤 [$link]($link)";
             } else {
                 $footer = "✉️ {$email}";
             }
-            
+
             $text = "🦄 {$name} wants to join the team\n" .
                     "\n" .
                     "🛠 *Skills*\n" .
@@ -115,10 +115,10 @@ class Controller_Pages extends Controller_Base_preDispatch
                     "{$wishes}\n" .
                     "\n" .
                     "{$footer}";
-            
+
             $parse_mode = 'Markdown';
             $disable_web_page_preview = true;
-            
+
             Model_Methods::sendBotNotification($text, $parse_mode, $disable_web_page_preview);
         }
     }

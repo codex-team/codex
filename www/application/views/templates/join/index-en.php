@@ -3,7 +3,10 @@
         <div class="join-page__success">
             <div class="join-page__success-inner">
                 <h2>Thanks!</h2>
+                <p>We've received your request. We will message you.</p>
+                <!--
                 <p>We've received your request. Joining opened till September 20, after that we will message you. </p>
+                -->
             </div>
         </div>
     <? endif ?>
@@ -75,7 +78,7 @@
         <p>
             To apply, enter email, so we can contact you, and fill a little form. Also, please write where are you from.
         </p>
-
+        <!--
         <section class="join-component join-component--compact">
             <div class="join-component__label">
                 Until the deadline
@@ -83,18 +86,19 @@
 
             <time class="join-component__time">
                 <span data-time="days" class="join-component__time-item">
-                    <?= $joinTimeLeft['days_left'] ?>
+                    <?//= $joinTimeLeft['days_left'] ?>
                 </span>
                 <span class="join-component__time-delimiter"></span>
                 <span data-time="hrs" class="join-component__time-item">
-                    <?= $joinTimeLeft['hours_left'] ?>
+                    <?//= $joinTimeLeft['hours_left'] ?>
                 </span>
                 <span class="join-component__time-delimiter join-component__time-delimiter--blinking"></span>
                 <span data-time="mins" class="join-component__time-item">
-                    <?= $joinTimeLeft['minutes_left'] ?>
+                    <?//= $joinTimeLeft['minutes_left'] ?>
                 </span>
             </time>
         </section>
+        -->
 
         <? if ( !$request ): ?>
             <form class="join-page__form" id="joinBlank" method="post" action="/join">
