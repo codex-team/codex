@@ -39,8 +39,6 @@
     <? if (!empty($_SERVER['HAWK_TOKEN'])): ?>
         <script src="/public/build/hawk.bundle.js?v=<?= filemtime('public/build/hawk.bundle.js') ?>" onload="hawk.init('<?= $_SERVER['HAWK_TOKEN'] ?>');" async></script>
     <? endif; ?>
-
-    <?= View::factory('templates/metrika')->render(); ?>
 </head>
 <body>
     <?
