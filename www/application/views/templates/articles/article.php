@@ -195,8 +195,9 @@
             <?= View::factory('templates/articles/card', array('article'=> $popularArticle))->render(); ?>
              <? /*<li><a href="/<?= $popularArticle->uri ?: ('article/' . $popularArticle->id) ; ?>" class="js-emoji-included"><?= $popularArticle->title; ?></a></li> */ ?>
         <? endforeach; ?>
-
     </ul>
+
+    <?= View::factory('templates/metrika')->render(); ?>
 
 </article>
 

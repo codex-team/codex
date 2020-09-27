@@ -6,6 +6,7 @@ module.exports = {
     entry: {
         codex: './public/app/js/main.js',
         hawk: './public/app/js/modules/hawk.js',
+        metrika: './public/app/js/modules/metrika.js',
         reactions: './public/app/js/modules/reactions.js',
     },
 

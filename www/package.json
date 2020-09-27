@@ -27,6 +27,7 @@
     "@editorjs/quote": "^2.3.0",
     "@editorjs/raw": "^2.1.2",
     "@editorjs/table": "^1.2.2",
+    "@hawk.so/javascript": "^2.5.0",
     "autoprefixer": "^8.6.2",
     "babel-eslint": "^9.0.0",
     "babel-loader": "^8.0.4",
