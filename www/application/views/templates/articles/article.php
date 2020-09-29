@@ -197,8 +197,6 @@
         <? endforeach; ?>
     </ul>
 
-    <?= View::factory('templates/metrika')->render(); ?>
-
 </article>
 
 

@@ -54,6 +54,4 @@
         </article>
 
     <? endforeach; ?>
-
-    <?= View::factory('templates/metrika')->render(); ?>
 </div>

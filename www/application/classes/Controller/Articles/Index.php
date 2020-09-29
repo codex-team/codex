@@ -19,6 +19,11 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $this->view["feed_items"] = $this->getFeed();
 
         $this->template->content = View::factory('templates/articles/list_wrapper', $this->view);
+
+        /**
+         * Collect hits for article pages
+         */
+        $this->template->enableMetrika = true;
     }
 
     public function action_show()
@@ -119,6 +124,11 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $this->meta[] = new Meta('og:image:height', 315);
 
         $this->template->content = View::factory('templates/articles/article', $this->view);
+
+        /**
+         * Collect hits for article pages
+         */
+        $this->template->enableMetrika = true;
     }
 
     /**
