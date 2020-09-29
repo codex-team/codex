@@ -37,7 +37,31 @@
     <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/apple-touch-icon-180x180.png" />
 
     <? if (!empty($_SERVER['HAWK_TOKEN'])): ?>
-        <script src="/public/build/hawk.bundle.js?v=<?= filemtime('public/build/hawk.bundle.js') ?>" onload="hawk.init('<?= $_SERVER['HAWK_TOKEN'] ?>');" async></script>
+        <script>
+            /**
+             * Tiny wrapper for Hawk service initializing
+             */
+            function initializeHawk() {
+                /**
+                 * Define global catcher for errors
+                 */
+                new HawkCatcher({
+                    token: '<?= $_SERVER['HAWK_TOKEN'] ?>'
+                });
+
+                <? if ($enableMetrika && !empty($_SERVER['METRIKA_HAWK_TOKEN'])): ?>
+                /**
+                 * Send a hit for a page open
+                 */
+                (new HawkCatcher({
+                    token: '<?= $_SERVER['METRIKA_HAWK_TOKEN'] ?>',
+                    disableGlobalErrorsHandling: true
+                }))
+                    .send(new Error(window.location.pathname));
+                <? endif; ?>
+            }
+        </script>
+        <script src="/public/build/HawkCatcher.bundle.js?v=<?= filemtime('public/build/HawkCatcher.bundle.js') ?>" onload="initializeHawk()"></script>
     <? endif; ?>
 </head>
 <body>

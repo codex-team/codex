@@ -58,6 +58,7 @@ class Controller_Base_preDispatch extends Template
             );
             $this->template->content     = '';
             $this->template->nofollow    = false;
+            $this->template->enableMetrika = false;
         }
     }
 

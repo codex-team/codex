@@ -659,10 +659,10 @@
   resolved "https://registry.yarnpkg.com/@editorjs/table/-/table-1.2.2.tgz#6a3746acecf5e87e42d551dcd2716e911bd7efbc"
   integrity sha512-1uQlSk/hDxshZbRgSpsSbB966qaIOIy7r0BkSL+dh9rtx8HJSjAsSWaT22z105YkWDpm16VINzHkdURt4UhTqA==
 
-"@hawk.so/javascript@^2.5.0":
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/@hawk.so/javascript/-/javascript-2.5.0.tgz#f529f5744db513967ae6527e45d8a37d155d064d"
-  integrity sha512-LbBJ1zWpkR8I5FLWjxgLYvWd10NajO9IBUe2I2dVYyzlbEW+d4i1yI4SmPd1pEn/YaXHQFXN3pNq7C/pITA85w==
+"@hawk.so/javascript@^2.6.0":
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/@hawk.so/javascript/-/javascript-2.6.0.tgz#3f544720b71906bcd67232510be958c532b1e19a"
+  integrity sha512-mQzheE+6RmQpmSCgtQdCIlhJfkGOZUVCQmN14JCLM30dUarA7u1TFTUiIecrhMSXAdAottu7cUVWQJkvZAKHqg==
   dependencies:
     error-stack-parser "^2.0.6"
 
@@ -2661,10 +2661,6 @@ hash.js@^1.0.0, hash.js@^1.0.3:
   dependencies:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.1"
-
-hawk.javascript@codex-team/hawk.javascript#hawk2.0:
-  version "2.0.0"
-  resolved "https://codeload.github.com/codex-team/hawk.javascript/tar.gz/55d546fb4b8cf46b6fc340638753b15d6604a1b1"
 
 hex-color-regex@^1.1.0:
   version "1.1.0"
