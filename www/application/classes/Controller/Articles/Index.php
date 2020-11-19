@@ -163,6 +163,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
             /**
              * Fill up list of available articles
+             * Except items with hide_from_feed opted in
              */
             array_push($published_articles_id_array, $feed_item->id);
 
@@ -174,6 +175,12 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
                 $items_to_be_deleted[$index] = $feed_item;
             }
 
+            /**
+             * Do not show articles flaged hide_from_feed
+             */
+            if ((int) $feed_item->hide_from_feed) {
+                unset($feed_items[$index]);
+            }
         }
 
         /**

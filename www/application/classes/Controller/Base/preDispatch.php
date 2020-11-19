@@ -151,7 +151,11 @@ class Controller_Base_preDispatch extends Template
 
         $redis = new Redis();
         $redis->connect($redisHost, $redisPort);
-        $redis->auth($redisPswd);
+
+        if ($redisPswd) {
+            $redis->auth($redisPswd);
+        }
+
         $redis->select($redisDB);
 
         return $redis;

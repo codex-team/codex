@@ -171,6 +171,11 @@
         </section>
 
         <section class="editor-form__section">
+            <input type="checkbox" id="hide_from_feed" name="hide_from_feed" value="1" <?= $article->hide_from_feed ? 'checked' : ''; ?> >
+            <label for="hide_from_feed" class="label--on-same-line">Скрыть запись из общего списка статей сайта</label>
+        </section>
+
+        <section class="editor-form__section">
             <input type="checkbox" id="marked" name="marked" value="1" <?= $article->marked ? 'checked' : ''; ?> >
             <label for="marked" class="label--on-same-line">Отметить как важную</label>
         </section>
