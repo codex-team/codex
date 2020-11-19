@@ -39,7 +39,10 @@
     "delimiter" : {
     },
     "code" : {
-      "code" : "string"
+      "code" : {
+        "type": "string",
+        "allowedTags": "*"
+      }
     },
     "rawTool" : {
       "html" : {
