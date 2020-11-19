@@ -171,8 +171,8 @@
         </section>
 
         <section class="editor-form__section">
-            <input type="checkbox" id="is_personal_blog" name="is_personal_blog" value="1" <?= $article->is_personal_blog ? 'checked' : ''; ?> >
-            <label for="is_personal_blog" class="label--on-same-line">Скрыть запись из общего списка статей сайта</label>
+            <input type="checkbox" id="hide_from_feed" name="hide_from_feed" value="1" <?= $article->hide_from_feed ? 'checked' : ''; ?> >
+            <label for="hide_from_feed" class="label--on-same-line">Скрыть запись из общего списка статей сайта</label>
         </section>
 
         <section class="editor-form__section">

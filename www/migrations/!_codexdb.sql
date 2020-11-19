@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `Articles` (
   `dt_update` timestamp NULL DEFAULT NULL,
   `is_removed` tinyint(1) NOT NULL DEFAULT '0',
   `is_published` tinyint(1) NOT NULL DEFAULT '0',
-  `is_personal_blog` tinyint(1) NOT NULL DEFAULT '0',
+  `hide_from_feed` tinyint(1) NOT NULL DEFAULT '0',
   `deprecated` tinyint(1) NOT NULL DEFAULT '0',
   `marked` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Помечает статью в списке как важную',
   `order` int(11) NOT NULL DEFAULT '0' COMMENT 'Порядок вывода статей'

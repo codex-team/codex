@@ -103,7 +103,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
 
         $article->is_published     = (int) Arr::get($_POST, 'is_published', 0);
         $article->marked           = (int) Arr::get($_POST, 'marked', 0);
-        $article->is_personal_blog = (int) Arr::get($_POST, 'is_personal_blog', 0);
+        $article->hide_from_feed = (int) Arr::get($_POST, 'hide_from_feed', 0);
 
         $article->quiz_id      = Arr::get($_POST, 'quiz_id');
         $courses_ids           = Arr::get($_POST, 'courses_ids', 0);

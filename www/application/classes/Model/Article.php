@@ -22,7 +22,7 @@ class Model_Article extends Model
     public $dt_publish;
     public $is_removed;
     public $is_published;
-    public $is_personal_blog;
+    public $hide_from_feed;
     public $quiz_id;
     public $lang = 'ru';
     const FEED_PREFIX = 'article';
@@ -76,7 +76,7 @@ class Model_Article extends Model
                                 ->set('user_id', $this->user_id)
                                 ->set('marked', $this->marked)
                                 ->set('is_published', $this->is_published)
-                                ->set('is_personal_blog', $this->is_personal_blog)
+                                ->set('hide_from_feed', $this->hide_from_feed)
                                 ->clearcache('articles_list')
                                 ->execute();
 
@@ -121,7 +121,7 @@ class Model_Article extends Model
             $this->dt_update    = Arr::get($article_row, 'dt_update');
             $this->is_removed   = Arr::get($article_row, 'is_removed');
             $this->is_published = Arr::get($article_row, 'is_published');
-            $this->is_personal_blog = Arr::get($article_row, 'is_personal_blog');
+            $this->hide_from_feed = Arr::get($article_row, 'hide_from_feed');
             $this->is_recent    = $recentArticlesFeed->isExist($this->id);
             $this->read_time    = Model_Methods::estimateReadingTime(null, $this->text);
 
@@ -170,7 +170,7 @@ class Model_Article extends Model
             ->set('marked', $this->marked)
             ->set('user_id', $this->user_id)
             ->set('is_published', $this->is_published)
-            ->set('is_personal_blog', $this->is_personal_blog)
+            ->set('hide_from_feed', $this->hide_from_feed)
             ->set('dt_publish', $this->dt_publish)
             ->set('dt_update', $this->dt_update)      // TODO(#38) remove
             ->clearcache($this->id)
