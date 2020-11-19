@@ -163,7 +163,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
             /**
              * Fill up list of available articles
-             * Exclude items from personal blogs
+             * Except items with hide_from_feed opted in
              */
             array_push($published_articles_id_array, $feed_item->id);
 
