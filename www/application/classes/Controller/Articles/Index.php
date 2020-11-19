@@ -179,7 +179,6 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
              * Do not show articles from personal blogs
              */
             if ((int) $feed_item->hide_from_feed) {
-                var_dump($feed_item->hide_from_feed);
                 unset($feed_items[$index]);
             }
         }
