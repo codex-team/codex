@@ -163,6 +163,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
 
             /**
              * Fill up list of available articles
+             * Exclude items from personal blogs
              */
             array_push($published_articles_id_array, $feed_item->id);
 
@@ -174,6 +175,13 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
                 $items_to_be_deleted[$index] = $feed_item;
             }
 
+            /**
+             * Do not show articles from personal blogs
+             */
+            if ((int) $feed_item->is_personal_blog) {
+                var_dump($feed_item->is_personal_blog);
+                unset($feed_items[$index]);
+            }
         }
 
         /**
