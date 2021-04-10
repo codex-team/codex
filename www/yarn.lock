@@ -597,16 +597,16 @@
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@editorjs/delimiter/-/delimiter-1.2.0.tgz#5075f1a3e68765cfb6aec8694b316d81e2b41607"
 
-"@editorjs/editorjs@^2.19.3":
-  version "2.19.3"
-  resolved "https://registry.yarnpkg.com/@editorjs/editorjs/-/editorjs-2.19.3.tgz#cb0c804bf06f9953f8a78d6af8c7fa85ca2d804f"
+"@editorjs/editorjs@^2.20.1":
+  version "2.20.1"
+  resolved "https://registry.yarnpkg.com/@editorjs/editorjs/-/editorjs-2.20.1.tgz#76a4695d28cf3aa186abcdbf26e65cf84bc704f3"
   dependencies:
     codex-notifier "^1.1.2"
     codex-tooltip "^1.0.1"
 
-"@editorjs/embed@^2.4.0":
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/@editorjs/embed/-/embed-2.4.0.tgz#589a579df9766f5f675af0f39408eb862fd5b4f3"
+"@editorjs/embed@^2.4.1":
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/@editorjs/embed/-/embed-2.4.1.tgz#746c7b1336da6be26d869b7548cfb083789d83fd"
 
 "@editorjs/header@^2.6.1":
   version "2.6.1"
