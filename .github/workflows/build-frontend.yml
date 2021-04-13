@@ -19,9 +19,6 @@ jobs:
       - name: Install Node.js packages
         run: yarn
 
-      - name: Upgrade Editor.js
-        run: yarn editor-upgrade
-
       - name: Build static files
         run: yarn build
 
