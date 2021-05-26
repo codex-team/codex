@@ -11,6 +11,7 @@ class Controller_Sitemap extends Controller_Base_preDispatch
         'bot',
         'editor',
         'media',
+        'lab',
         'special',
         'beauty-toolbar',
         'reactions'
