@@ -42,6 +42,9 @@ class Controller_Landings extends Controller_Base_preDispatch
      */
     public function action_lab()
     {
+        /**
+         * Remove this if when landing page is ready to be public
+         */
         if (!$this->user->checkAccess(array(Model_User::ROLE_ADMIN))) {
             throw new HTTP_Exception_404();
         }
