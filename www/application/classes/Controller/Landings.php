@@ -42,6 +42,10 @@ class Controller_Landings extends Controller_Base_preDispatch
      */
     public function action_lab()
     {
+        if (!$this->user->checkAccess(array(Model_User::ROLE_ADMIN))) {
+            throw new HTTP_Exception_404();
+        }
+
         $this->title = 'CodeX Lab';
         $this->description = 'CodeX Lab';
         $this->template->content = View::factory('templates/landings/lab', $this->view);
