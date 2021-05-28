@@ -1,0 +1,12 @@
+<svg width="158" height="160" viewBox="0 0 158 160" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient x1="50%" y1="10.449%" x2="50%" y2="91.174%" id="edjls-a">
+            <stop stop-color="#217DE9" stop-opacity=".919" offset="0%"/>
+            <stop stop-color="#308EFF" offset="100%"/>
+        </linearGradient>
+        <filter x="-81.4%" y="-81.4%" width="262.9%" height="262.9%" filterUnits="objectBoundingBox" id="edjls-b">
+            <feGaussianBlur stdDeviation="19" in="SourceGraphic"/>
+        </filter>
+    </defs>
+    <circle filter="url(#edjls-b)" cx="163" cy="116" r="35" transform="translate(-84 -37)" fill="url(#edjls-a)" fill-rule="nonzero"/>
+</svg>

@@ -1,0 +1,104 @@
+/**
+ * Follow-us block
+ * uses on articles lists
+ */
+.follow-telegram {
+    max-width: 380px;
+    margin: 120px auto 0;
+
+    &::before {
+        display: block;
+        width: 30px;
+        height: 30px;
+        content: '';
+        background: url('/public/app/img/codex-logo-gray.svg');
+        background-size: cover;
+        border: 3px solid #eaf2f7;
+        background-color: #eaf2f7;
+        border-radius: 50%;
+        float: left;
+    }
+
+    &__contents {
+        position: relative;
+        border-radius: 9.5px;
+        border-top-left-radius: 0;
+        border: 1px solid #d7e3ec;
+        padding: 15px 17px;
+        margin-left: 46.5px;
+
+        &:before {
+            position: absolute;
+            left: -8px;
+            top: -1px;
+            width: 9px;
+            height: 20px;
+            content: '';
+            background: url('/public/app/img/bubble-corner.svg');
+        }
+    }
+
+    &__title {
+        display: inline-block;
+        font-size: 15px;
+        letter-spacing: -0.4px;
+        line-height: 1em;
+        color: #2c86cd;
+        font-weight: 600;
+        margin-bottom: 6px;
+    }
+
+    &__desc {
+        line-height: 1.5em;
+        font-size: 13.6px;
+    }
+
+    &__button {
+        display: inline-block;
+        background: #5ca9e6;
+        border-radius: 25px;
+        font-size: 14.2px;
+        letter-spacing: 0.3px;
+        color: #fff;
+        margin-top: 10px;
+        margin-left: 46.5px;
+        padding: 8px 20px;
+
+        &:hover {
+            background-color: #52a1e0;
+            color: #fff;
+        }
+
+        svg {
+            display: inline-block;
+            vertical-align: middle;
+            margin: -2px 7px 0 -2px;
+        }
+    }
+}
+
+/**
+* Mobile viewport styles
+* =================================
+*/
+@media (--mobile) {
+    /**
+     * Follow mobile
+     */
+    .follow-telegram {
+        width: auto;
+        margin: 0 auto;
+
+        &__contents {
+            padding: 11px 15px;
+        }
+
+        &__title {
+            font-size: 14px;
+        }
+
+        &__desc {
+            font-size: 13px;
+        }
+    }
+}

@@ -1,0 +1,40 @@
+/**
+* Read-also recommendations block
+*/
+.random_articles {
+    padding: 35px 0;
+    margin: 0 auto;
+    max-width: var(--article-max-width);
+    font-size: 15px;
+    line-height: 1.6em;
+
+    h3 {
+        margin-bottom: 8px;
+        font-size: 1.4em;
+        font-family: var(--serif-font);
+    }
+
+    p {
+        margin: 10px 0 30px;
+    }
+
+    .article-card:not(:last-of-type) {
+        margin-bottom: 20px;
+    }
+}
+
+/**
+* Mobile viewport styles
+* =================================
+*/
+@media (--mobile) and (max-width: 690px){
+    /**
+    * Recommendations block
+    */
+    .random_articles {
+        margin: 0 20px;
+        padding-bottom: 0;
+        font-size: 14px;
+    }
+
+}

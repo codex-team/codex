@@ -1,0 +1,260 @@
+::selection {
+    background: #b3d4fc;
+}
+
+/**
+*
+* Site blocks rules
+* =========================================
+*
+*/
+
+html {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    line-height: 1.5em;
+    letter-spacing: 0.1px;
+}
+
+.center_side {
+    max-width: 1100px;
+    margin: 0 auto;
+
+    @media (max-width: 1140px) {
+        padding: 0 20px;
+    }
+}
+
+/**
+*
+* Some base rules
+* ================================================
+*
+*/
+
+.hide {
+    display: none !important;
+}
+
+.block {
+    display: block;
+}
+
+.p_rel {
+    position: relative;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+a {
+    color: var(--color-link);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--color-hover);
+}
+
+.align_c {
+    text-align: center;
+}
+
+textarea {
+    resize: vertical;
+}
+
+/**
+* Clearfix hack
+*/
+.clearfix::after {
+    content: " ";
+    display: table;
+}
+
+.clearfix::after {
+    clear: both;
+}
+
+/**
+* Floating shorthands
+*/
+.fl_l {
+    float: left;
+}
+
+.fl_r {
+    float: right;
+}
+
+.constrain {
+    overflow: hidden;
+}
+
+/**
+* No-selection shorthand
+ */
+
+.no-selection {
+    user-select: none;
+}
+
+/**
+* Forms elements
+* =========================================
+*/
+.input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 2px;
+    border: 0;
+    font-size: 15px;
+    font-family: inherit;
+    outline: none;
+    background: #f4f5f8;
+
+    &:focus {
+        background: #eef5fd;
+    }
+}
+
+.button {
+    user-select: none;
+    border-radius: 30px;
+    border: 0 ;
+    display: inline-block;
+    padding: 12px 24px;
+    color: #3f4b63;
+    vertical-align: top;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: inherit;
+    background: #ecf3f9;
+    line-height: 1em;
+
+
+    &:hover {
+        background: #4592da;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    &--master {
+        background: #5c95cf;
+        color: #fff;
+
+        &:hover {
+            background: #3c7ab9;
+            color: #fff;
+        }
+    }
+
+    &--green {
+        background: #00ad7c;
+        color: #fff;
+
+        &:hover {
+            background: #0d936d;
+            color: #fff;
+        }
+    }
+
+    /*
+    * Imrove padding on buttons with icons
+    */
+    i {
+        margin: 0 0.74em 0 -0.3em;
+    }
+}
+
+/**
+* Loading button animation
+*/
+.button.loading {
+    position: relative;
+    overflow: hidden;
+    background: #f5f5f5;
+    color: #434c61;
+}
+
+.button.loading::before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    content: '';
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: url('/public/app/img/load_pattern.gif');
+    opacity: 0.1;
+}
+
+@keyframes wobble {
+    0% {
+        transform: translateX(0%);
+    }
+
+    15% {
+        transform: translateX(-1%) rotate(-5deg);
+    }
+
+    30% {
+        transform: translateX(3%) rotate(3deg);
+    }
+
+    45% {
+        transform: translateX(-1%) rotate(-3deg);
+    }
+
+    60% {
+        transform: translateX(3%) rotate(2deg);
+    }
+
+    75% {
+        transform: translateX(-1%) rotate(-1deg);
+    }
+
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+.wobble {
+    animation-name: wobble;
+    animation-duration: 400ms;
+    animation-iteration-count: 1;
+}
+
+.show-in-mobile {
+    display: none !important;
+}
+
+@media (--mobile) {
+    .mobile-hide {
+        display: none !important;
+    }
+
+    .show-in-mobile {
+        display: block !important;
+    }
+}
+
+.codex-logo {
+    display: inline-block;
+    background: url('/public/app/img/codex-logo.svg') no-repeat;
+    width: 224px;
+    height: 224px;
+}
+
+.technic {
+    display: inline-block;
+    background: color(var(--text-pink) alpha(7%));
+    padding: 0 7px;
+    margin-right: 0.2em;
+    border-radius: 2px;
+    color: var(--text-pink);
+    text-decoration: none;
+    font-size: 0.9em;
+}

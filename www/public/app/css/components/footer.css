@@ -1,0 +1,74 @@
+/**
+*
+* Footer
+*
+*/
+
+.site-footer {
+    border-top: 1px solid var(--line-light);
+    padding: 30px 0;
+    margin-top: 30px;
+    font-size: 13px;
+
+    @media (--mobile) {
+        padding: 25px 0;
+    }
+
+    .center_side {
+        display: flex;
+
+        @media (--mobile) {
+            flex-direction: column;
+        }
+    }
+
+    &__section {
+        max-width: 420px;
+
+        @media (--mobile) {
+            max-width: none;
+
+            &:not(:last-of-type){
+                margin-bottom: 25px;
+            }
+        }
+
+        &--contacts {
+            margin-left: auto;
+            margin-right: 45px;
+
+            @media (--mobile) {
+                margin-left: 0;
+                margin-right: 0;
+            }
+        }
+    }
+
+    ul {
+        list-style: none;
+        padding-left: 0;
+        line-height: 1.8em;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    h5 {
+        margin: 0 0 10px;
+        font-size: 1.02em;
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+    }
+
+    p {
+        margin: 0;
+    }
+
+    .desclimer {
+        opacity: 0.5;
+    }
+}

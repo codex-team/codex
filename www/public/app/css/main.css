@@ -1,0 +1,53 @@
+@import 'normalize.css';
+@import './variables.css';
+@import './icons.css';
+@import './base.css'; /** @todo refactor and separate to components */
+
+/**
+ * Layout
+ */
+@import './components/header.css';
+@import './components/footer.css';
+
+/**
+ * Components
+ */
+@import './components/read-also.css';
+@import './components/read-in.css';
+@import './components/event-alert.css';
+@import './components/page-menu.css';
+@import './components/feed-drag-n-drop.css';
+@import './components/page-header.css';
+@import './components/best-developers.css';
+@import './components/breadcrumbs.css';
+@import './components/news.css';
+@import './components/scroll-up.css';
+@import './components/sharing.css';
+@import './components/vk-community.css';
+@import './components/quiz.css';
+@import './components/quiz-form.css';
+@import './components/site-section.css';
+@import './components/article-card.css';
+@import './components/product-card.css';
+@import './components/product-cell.css';
+@import './components/follow.css';
+@import './components/course-navigation.css';
+@import './components/video-overlay.css';
+@import './components/follow-telegram.css';
+@import './components/join.css';
+
+/**
+ * Pages
+ */
+@import url('pages/index.css');
+@import url('pages/join.css');
+@import url('pages/task.css');
+@import url('pages/articles.css');
+@import url('pages/article.css');
+@import url('pages/profile.css');
+@import url('pages/contests.css');
+@import url('pages/admin.css');
+@import url('pages/writing.css');
+@import url('pages/course.css');
+@import url('pages/editor-landing.css');
+@import url('pages/news.css');

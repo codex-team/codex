@@ -1,0 +1,35 @@
+/**
+* Page header block
+* with description and follow-us block
+*/
+.page-header {
+    padding: 60px 0;
+}
+
+.page-header__title {
+    font-size: 1.68em;
+    line-height: 1.2em;
+    letter-spacing: 0.2px;
+}
+
+.page-header__description {
+    max-width: 500px;
+}
+
+/**
+* Telegram icon
+* uses in follow-us offer block
+*/
+.icon_telegram {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    background: url('/public/app/img/icon_telegram.png') no-repeat;
+}
+
+@media print, (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 1.25dppx), (min-resolution: 120dpi) {
+    .icon_telegram {
+        background: url('/public/app/img/icon_telegram@2x.png') no-repeat;
+        background-size: 28px 28px;
+    }
+}

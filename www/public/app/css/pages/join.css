@@ -1,0 +1,193 @@
+/**
+* Joining page
+*/
+.join-page {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    &__read-in {
+        margin: 25px 0;
+    }
+
+    &__logo {
+        margin: 60px auto;
+        display: block;
+
+        svg {
+            display: block;
+            margin: 0 auto;
+
+            @media (--mobile) {
+                width: 150px;
+                height: auto;
+            }
+        }
+
+        @media (--mobile) {
+            margin: 50px auto 30px;
+        }
+    }
+
+    &__content {
+        padding: 85px 100px;
+        border: 1px solid var(--line-light);
+        border-radius: 20px;
+        max-width: 650px;
+        margin: 0 auto;
+        line-height: 1.64em;
+        font-size: 15.3px;
+        box-sizing: border-box;
+
+        @media (--mobile) {
+            padding: 20px;
+            border: 0;
+        }
+    }
+
+    ul {
+        margin: 1.75em 0;
+    }
+
+    li {
+        margin: 0.8em 0;
+    }
+
+    h1 {
+        font-size: 26px;
+        margin-bottom: 1.35em;
+
+        @media (--mobile) {
+            margin-top: 0;
+        }
+    }
+
+    h2 {
+        margin: 2em 0 0.8em;
+        font-size: 21px;
+        font-weight: normal;
+    }
+
+    &__form {
+        @media (--mobile) {
+            margin-top: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.7em;
+        }
+
+        .input {
+            margin-bottom: 30px;
+        }
+    }
+
+    /**
+    * Joining page auth form
+    */
+    &__auth {
+        margin: 50px 0;
+        color: #838ea1;
+
+        @media (--mobile) {
+            font-size: 14px;
+        }
+
+        &-vk-button {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 12px;
+            border: 1px solid #BED8F9;
+            border-radius: 6px;
+            padding: 7px 9px;
+
+            @media (--mobile) {
+                padding: 4px 7px;
+                margin-right: 7px;
+            }
+
+            svg {
+                vertical-align: middle;
+                margin-right: 0.3em;
+                margin-top: -3px;
+
+                @media (--mobile) {
+                    width: 16px;
+                    height: 16px;
+                    vertical-align: text-bottom;
+                }
+            }
+
+            &:hover {
+                border-color: #94BDF2;
+            }
+
+
+        }
+
+        &-show-email {
+            display: inline-block;
+            cursor: pointer;
+            border-bottom: 1px dotted #D0D4D8;
+
+            &:hover {
+                color: #6C7580;
+            }
+        }
+    }
+
+    .button {
+        border-radius: 3px;
+    }
+
+    /**
+    * Authored user block on /join page
+    */
+    &__user {
+        font-size: 1.1em;
+        margin: 50px 0 30px;
+    }
+
+    &__user-photo {
+        width: 26px;
+        height: 26px;
+        border-radius: 13px;
+        margin-right: 10px;
+        vertical-align: middle;
+    }
+
+    &__user-name {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    &__error {
+        margin: 15px 0;
+        color: #e04545;
+    }
+
+    &__success {
+        padding: 100px 200px;
+        background: #f2f5fb;
+        color: #6f809a;
+        line-height: 1.6em;
+        font-size: 16px;
+        text-align: center;
+
+        @media (--mobile) {
+            padding: 15px;
+            font-size: 14px;
+        }
+
+        &--compact {
+            margin-top: 2em;
+            padding: 30px;
+            font-size: 14px;
+        }
+
+        &-inner {
+            max-width: 550px;
+            margin: 0 auto;
+        }
+    }
+}

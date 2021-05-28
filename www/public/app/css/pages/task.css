@@ -1,0 +1,128 @@
+/**
+* /task pages styles
+*/
+.task-page {
+    padding-bottom: 50px;
+
+    &__cols {
+        display: flex;
+        align-items: stretch;
+        justify-content: space-between;
+        max-width: var(--article-max-width);
+        margin: 50px auto;
+        text-align: center;
+
+        @media (--mobile) {
+            flex-direction: column;
+        }
+    }
+
+    &__col {
+        display: block;
+        width: 33.3%;
+        text-align: center;
+        font-size: 18px;
+
+        @media (--mobile) {
+            width: auto;
+            text-align: left;
+            padding: 5px 0;
+        }
+    }
+
+    &__left {
+        padding-right: 50px;
+
+        @media (--mobile) {
+            margin-bottom: 50px;
+        }
+    }
+
+    h3 {
+        margin-top: 0;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    &__download {
+        display: block;
+        width: 200px;
+        text-align: center;
+        padding: 15px 10px;
+        border-radius: 50px;
+        background: #1f253c;
+        border: 0 !important;
+        color: #fff !important;
+        font-size: 16px;
+        margin: 50px auto 0;
+
+        svg {
+            width: 30px;
+            height: auto;
+            vertical-align: middle;
+            margin-right: 0.3em;
+        }
+    }
+
+    &__disclaimer {
+        color: var(--text-gray);
+        margin: 20px auto;
+        max-width: 400px;
+        text-align: center;
+        line-height: 1.5em;
+    }
+}
+
+.additional_tasks {
+    margin: 0;
+    padding: 0;
+
+    li {
+        position: relative;
+        margin: 0 !important;
+        list-style-type: none;
+        padding: 20px 0 20px 30px;
+        border-bottom: 1px solid #e4eaf5;
+
+        &::before {
+            position: absolute;
+            left: 0;
+            top: 1.9em;
+            width: 10px;
+            height: 10px;
+            display: inline-block;
+            border-radius: 5px;
+            background: #dfe7f5;
+            margin-right: 15px;
+            content: '';
+        }
+    }
+
+    .back::before {
+        background: #6699df;
+    }
+
+    .front::before {
+        background: #e87474;
+    }
+
+    .ui::before {
+        background: #9bf1b3;
+    }
+
+    &--legend {
+        li {
+            display: inline-block;
+            border-bottom: 0;
+            margin-right: 50px !important;
+            font-size: 14px;
+            font-weight: bold;
+
+            &::before {
+                top: 2em;
+            }
+        }
+    }
+}

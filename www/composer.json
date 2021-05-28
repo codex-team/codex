@@ -1,0 +1,11 @@
+{
+	"require": {
+		"phpunit/phpunit": "3.7.*",
+		"vlucas/phpdotenv": "^2.4",
+		"codex-team/editor.js": "^2.0",
+		"euskadi31/opengraph": "^1.0",
+		"codex-team/hawk.php": "^2.0",
+		"pavelzotikov/social-covers-generator": "dev-first-version",
+		"ext-SimpleXML": "*"
+	}
+}

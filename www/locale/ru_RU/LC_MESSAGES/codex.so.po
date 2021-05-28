@@ -1,0 +1,36 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2017-12-15 19:26+0300\n"
+"PO-Revision-Date: 2020-09-15 00:10+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.1\n"
+"X-Poedit-Basepath: ../../..\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: application/views/templates/index/index.php:31
+msgid ""
+"CodeX is a team of passionate engineers and designers, unifying students, "
+"graduates, and other young specialists around the world interested in making "
+"high-quality open-source projects and getting a priceless experience of making "
+"full-valued products on a global market."
+msgstr ""
+"CodeX — это новый клуб в НИУ ИТМО, объединяющий студентов, интересующихся веб-"
+"разработкой, дизайном и изучением новых технологий на практике."
+
+#: application/views/templates/index/index.php:34
+msgid "Our goal is to make a team with fire in the eyes and idealistic tempers."
+msgstr ""
+"Наша цель — собрать команду молодых специалистов с горящими глазами и "
+"идеалистическим настроем."
+
+#: application/views/templates/index/developers.php:3
+msgid "Best developers"
+msgstr "Лучшие разработчики"

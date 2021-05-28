@@ -1,0 +1,95 @@
+/**
+* Event promo block
+*/
+.event_alert {
+    padding: 80px 0px;
+    max-width: 700px;
+    margin: 0 auto;
+    border-bottom: 1px solid #ebe8e8;
+    text-align: center;
+    font-size: 1.8em;
+
+    @media (--mobile) {
+        font-size: 1.5em;
+    }
+
+    &__day {
+        min-width: 70px;
+        line-height: 1.3em;
+        letter-spacing: 1.2px;
+        font-size: 2.3em;
+    }
+
+    &__month {
+        letter-spacing: 2px;
+    }
+
+    &__title {
+        margin-top: 1.4em;
+        font-size: 0.62em;
+        color: #ea6e6e;
+    }
+
+    &__description {
+        margin-top: 1em;
+        font-size: 0.64em;
+
+        @media (--mobile) {
+            font-size: 1.5em;
+
+            &::before,
+            &::after {
+                display: none;
+            }
+        }
+    }
+
+    &__link {
+        display: inline-block;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    &__link:hover {
+        text-decoration: none;
+    }
+
+    &__icon_delimiter {
+        font-size: 0.7em;
+    }
+}
+
+
+/**
+* Contest invitations
+*/
+.contest_alert {
+
+    a {
+        display: block;
+        margin: -20px 40px 40px;
+        text-align: center;
+        text-decoration: none;
+        font-variant: small-caps;
+        letter-spacing: 1.4px;
+        color: #988e8e;
+    }
+
+    .line {
+        position: relative;
+        margin: 0 70px 70px;
+        height: 1px;
+        background: #ebe8e8;
+
+        &:before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: -19px;
+            width: 40px;
+            height: 40px;
+            margin-left: -20px;
+            background: #fff url('../img/contest_icon_goblet.png') no-repeat 50% 50%;
+        }
+    }
+}

@@ -1,0 +1,99 @@
+/**
+* Social sharing block
+*/
+.sharing {
+    display: flex;
+    padding: 30px;
+    border-radius: 3px;
+    background: #f1f5f8;
+    color: #616c98;
+
+    @media (--mobile) {
+        text-align: center;
+        display: block;
+    }
+
+    &__offer {
+        max-width: 250px;
+
+        @media (--mobile) {
+            max-width: none;
+        }
+    }
+
+    &__button {
+        margin: auto 0 auto 13px;
+        cursor: pointer;
+        color: #a1acc1;
+        font-size: 20px;
+
+        &:hover {
+            color: #5d75bd;
+        }
+
+        &.tw:hover {
+            color: #6e98fd;
+        }
+
+        &.tg {
+            font-size: 17px;
+
+            &:hover {
+                color: #41adff;
+            }
+        }
+
+        @media (--mobile) {
+            margin: 0 8px;
+        }
+    }
+
+    &__main-button {
+        margin: auto 15px auto auto;
+        padding: 10px 24px;
+        border-radius: 25px;
+        background: #507299;
+        color: #fff;
+        cursor: pointer;
+
+        @media (--mobile) {
+            display: block;
+            max-width: 120px;
+            margin: 20px auto;
+        }
+
+        &:hover {
+            background: color(#507299 blackness(+5%));
+        }
+
+        i {
+            margin: 0 4px 0 -5px;
+        }
+    }
+}
+
+
+/**
+* Mobile viewport styles
+* =================================
+*/
+@media (--mobile) {
+    /**
+    * Sharing
+    */
+    .sharing {
+        text-align: center;
+    }
+
+    .sharing .main_but {
+        float: none;
+        display: block;
+        margin: 0 0 15px;
+    }
+
+    .sharing .but {
+        display: inline-block;
+        float: none;
+        margin: 0 7px 18px;
+    }
+}
