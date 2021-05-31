@@ -84,14 +84,9 @@ class Controller_Auth extends Controller_Base_preDispatch
             } catch (Exception $e) {
                 $this->generate_auth_error();
             }
-
-            Controller::redirect('/');
-        } else {
-            $this->template->content = View::factory('templates/auth/telegram', [
-                'BOT_USERNAME' => Oauth_Telegram::$botUsername,
-                'REDIRECT_URI' => Oauth_Telegram::$redirectUri
-            ]);
         }
+
+        Controller::redirect($this->get_return_url());
     }
 
 
