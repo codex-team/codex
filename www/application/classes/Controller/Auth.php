@@ -68,7 +68,7 @@ class Controller_Auth extends Controller_Base_preDispatch
 
                     $user->tg_id = $profile['id'];
                     $user->name = Oauth_Telegram::get_tg_name($profile);
-                    $user->photo = $profile['photo_url'];
+                    $user->photo = Arr::get($profile, 'photo_url');
 
                     if ($result = $user->save('tg')) {
                         $inserted_id = $result[0];
