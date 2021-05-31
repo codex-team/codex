@@ -82,7 +82,7 @@ class Controller_Auth extends Controller_Base_preDispatch
                     }
                 }
             } catch (Exception $e) {
-                $this->generate_auth_error();
+                $this->generate_auth_error($e);
             }
         }
 
