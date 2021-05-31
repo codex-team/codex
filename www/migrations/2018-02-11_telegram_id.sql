@@ -1,1 +1,0 @@
-ALTER TABLE `users` ADD `tg_id` VARCHAR(128) NULL AFTER `github_uri`;
