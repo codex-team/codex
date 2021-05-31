@@ -200,17 +200,18 @@ class Controller_Auth extends Controller_Base_preDispatch
 
     /**
      * Метод, вызываемый при ошибке авторизации со стороны соц. сети
-     * @return HTTP_Exception
      */
-    private function generate_auth_error()
+    private function generate_auth_error($e)
     {
-        $error_code = $this->request->query('error_code');
-        $error_message = $this->request->query('error_message');
+        throw new Kohana_Exception($e);
 
-        throw new HTTP_Exception('Ошибка #:error_code : :error_message', array(
-            ':error_code' => $error_code,
-            ':error_message' => $error_message,
-        ));
+//        $error_code = $this->request->query('error_code');
+//        $error_message = $this->request->query('error_message');
+//
+//        throw new HTTP_Exception('Ошибка #:error_code : :error_message', array(
+//            ':error_code' => $error_code,
+//            ':error_message' => $error_message,
+//        ));
     }
 
 
