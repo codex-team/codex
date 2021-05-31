@@ -38,6 +38,23 @@ class Controller_Landings extends Controller_Base_preDispatch
     }
 
     /**
+     * CodeX Lab
+     */
+    public function action_lab()
+    {
+        /**
+         * Remove this if when landing page is ready to be public
+         */
+        if (!$this->user->checkAccess(array(Model_User::ROLE_ADMIN))) {
+            throw new HTTP_Exception_404();
+        }
+
+        $this->title = 'CodeX Lab';
+        $this->description = 'CodeX Lab';
+        $this->template->content = View::factory('templates/landings/lab', $this->view);
+    }
+
+    /**
      * Safari Beauty Toolbar
      * https://codex.so/beauty-toolbar
      */
@@ -107,7 +124,7 @@ class Controller_Landings extends Controller_Base_preDispatch
                     .site-header {
                         display: none;
                     }
-                </style>   
+                </style>
             ';
         }
 

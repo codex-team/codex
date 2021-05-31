@@ -36,6 +36,7 @@ return array(
         'bot',
         'editor',
         'media',
+        'lab',
         'special',
         'beauty-toolbar',
         'reactions',
