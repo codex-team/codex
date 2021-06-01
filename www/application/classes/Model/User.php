@@ -13,6 +13,7 @@ class Model_User extends Model
     public $dt_update;
     public $vk_id       = 0;
     public $fb_id       = 0;
+    public $tg_id       = 0;
     public $vk_uri      = '';
     public $fb_uri      = '';
     public $github_id   = 0;
@@ -134,6 +135,7 @@ class Model_User extends Model
             $model->github_id     = $user['github_id'];
             $model->github_uri    = $user['github_uri'];
             $model->vk_id         = $user['vk_id'];
+            $model->tg_id         = $user['tg_id'];
             $model->vk_uri        = $user['vk_uri'];
             $model->fb_uri        = $user['fb_uri'];
             $model->instagram_uri = $user['instagram_uri'];
@@ -180,16 +182,39 @@ class Model_User extends Model
 
         if ($social == "vk") {
             $result = DB::insert('Users', array('name', 'vk_id',
-                'photo', 'photo_small', 'photo_big', 'role', 'is_removed'))->
-            values(array($this->name, $this->vk_id,
-                $this->photo, $this->photo_small, $this->photo_big, $this->role, $this->is_removed))
-                ->execute();
+                'photo', 'photo_small', 'photo_big', 'role', 'is_removed'))
+                ->values(array(
+                    $this->name,
+                    $this->vk_id,
+                    $this->photo,
+                    $this->photo_small,
+                    $this->photo_big,
+                    $this->role,
+                    $this->is_removed
+                ))->execute();
+        } elseif ($social == "tg") {
+            $result = DB::insert('Users', array('name', 'tg_id',
+                'photo', 'role', 'is_removed'))
+                ->values(array(
+                    $this->name,
+                    $this->tg_id,
+                    $this->photo,
+                    $this->role,
+                    $this->is_removed
+                ))->execute();
         } else {
             $result = DB::insert('Users', array('name', 'github_id', 'github_uri',
-                'photo', 'photo_small', 'photo_big', 'role', 'is_removed'))->
-            values(array($this->name, $this->github_id, $this->github_uri,
-                $this->photo, $this->photo_small, $this->photo_big, $this->role, $this->is_removed))
-                ->execute();
+                'photo', 'photo_small', 'photo_big', 'role', 'is_removed'))
+                ->values(array(
+                    $this->name,
+                    $this->github_id,
+                    $this->github_uri,
+                    $this->photo,
+                    $this->photo_small,
+                    $this->photo_big,
+                    $this->role,
+                    $this->is_removed
+                ))->execute();
         }
 
         if ($result) {
@@ -218,6 +243,7 @@ class Model_User extends Model
             ->set('role', $this->role)
             ->set('is_removed', $this->is_removed)
             ->set('vk_id', $this->vk_id)
+            ->set('tg_id', $this->tg_id)
             ->set('vk_uri', $this->vk_uri)
             ->set('fb_uri', $this->fb_uri)
             ->set('instagram_uri', $this->instagram_uri)

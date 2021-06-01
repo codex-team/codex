@@ -21,7 +21,7 @@ docker-compose up
 ## 3. Run composer in PHP container and install all dependencies.
 
 ```shell
-docker exec -i codex_php_1 composer install
+docker-compose exec php composer install
 ```
 
 ## 4. Create `.env` config file in a subfolder `www` and fill up params.
