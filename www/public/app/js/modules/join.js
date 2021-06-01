@@ -1,3 +1,6 @@
+const ajax = require('@codexteam/ajax');
+const notifier = require('codex-notifier');
+
 /**
  * Module for /join page
  * Blocks writing without authorization
@@ -8,22 +11,23 @@ var join = function () {
 
     const animationClass = 'wobble';
 
+    const formElement = document.getElementById('joinBlank');
+    const successMessageBanner = document.getElementById('success-message-banner');
+
     /**
     * Module initialization
     */
     var init = function () {
 
-        var joinBlank = document.getElementById('joinBlank');
+        if ( typeof formElement != 'undefined' && formElement !== null ) {
 
-        if ( typeof joinBlank != 'undefined' && joinBlank !== null ) {
+            var formElementTextareas = formElement.getElementsByTagName('textarea');
 
-            var joinBlankTextareas = joinBlank.getElementsByTagName('textarea');
+            if (formElementTextareas.length) {
 
-            if (joinBlankTextareas.length) {
+                for (var i = formElementTextareas.length - 1; i >= 0; i--) {
 
-                for (var i = joinBlankTextareas.length - 1; i >= 0; i--) {
-
-                    joinBlankTextareas[i].addEventListener('keyup', checkUserCanEdit, false);
+                    formElementTextareas[i].addEventListener('keyup', checkUserCanEdit, false);
 
                 }
 
@@ -38,6 +42,54 @@ var join = function () {
             blankShowAdditionalFieldsButton.addEventListener('click', showAdditionalFields, false);
 
         }
+
+        formElement.addEventListener('submit', (event) => {
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            sendForm(formElement);
+
+        });
+
+    };
+
+    const sendForm = function (form) {
+
+        ajax.post({
+            url: '/process-join-form',
+            data: new FormData(form),
+            type: ajax.contentType.FORM
+        })
+            .then((response) => {
+
+                if (response.success === 1) {
+
+                    successMessageBanner.style.display = 'block';
+                    formElement.style.display = 'none';
+
+                }  else {
+
+                    notifier.show({
+                        message: response.message,
+                        style: 'error'
+                    });
+
+                }
+
+                console.log(response);
+
+            })
+            .catch((error) => {
+
+                notifier.show({
+                    message: 'Something went wrong',
+                    style: 'error'
+                });
+
+                console.error(error);
+
+            });
 
     };
 

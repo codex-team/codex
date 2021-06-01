@@ -65,14 +65,42 @@ class Controller_Pages extends Controller_Base_preDispatch
         }
     }
 
-    private function saveRequest()
+    public function action_process_join_form()
     {
+        $this->auto_render = false;
+
+        if (!$this->request->is_ajax()) {
+            $this->sendAjaxResponse(array(
+                'message' => 'Request is not ajax.',
+                'success' => 0
+            ));
+            return;
+        }
+
+        if (!Security::check(Arr::get($_POST, 'csrf'))) {
+            $this->sendAjaxResponse(array(
+                'message' => 'CSRF token is bad. Please reload a page and try again.',
+                'success' => 0
+            ));
+            return;
+        }
+
+//        if ($this->user->getUserRequest()) {
+//            $this->sendAjaxResponse(array(
+//                'message' => 'You have already send a request.',
+//                'success' => 0
+//            ));
+//            return;
+//        }
+
+        $targetTeam = HTML::chars(Arr::get($_POST, 'targetTeam', 'main'));
         $name = HTML::chars(Arr::get($_POST, 'name', null));
         $email = HTML::chars(Arr::get($_POST, 'email', null));
         $skills = HTML::chars(Arr::get($_POST, 'skills'));
         $wishes = HTML::chars(Arr::get($_POST, 'wishes'));
 
         $fields = array(
+            'targetTeam' => $targetTeam,
             'skills' => $skills,
             'wishes' => $wishes,
             'email'  => $email,
@@ -106,7 +134,7 @@ class Controller_Pages extends Controller_Base_preDispatch
                 $footer = "✉️ {$email}";
             }
 
-            $text = "🦄 {$name} wants to join the team\n" .
+            $text = "🦄 {$name} wants to join the team *{$targetTeam}*\n" .
                     "\n" .
                     "🛠 *Skills*\n" .
                     "{$skills}\n" .
@@ -120,6 +148,18 @@ class Controller_Pages extends Controller_Base_preDispatch
             $disable_web_page_preview = true;
 
             Model_Methods::sendBotNotification($text, $parse_mode, $disable_web_page_preview);
+
+            $this->sendAjaxResponse(array(
+                'message' => 'Your request has been saved successfully',
+                'success' => 1
+            ));
+            return;
         }
+
+        $this->sendAjaxResponse(array(
+            'message' => 'Something went wrong. Please try again later',
+            'success' => 0
+        ));
+        return;
     }
 }
