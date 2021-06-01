@@ -262,6 +262,7 @@ CREATE TABLE IF NOT EXISTS `Users` (
   `fb_uri` varchar(32) DEFAULT NULL,
   `github_id` varchar(128) DEFAULT NULL,
   `github_uri` varchar(128) DEFAULT NULL,
+  `tg_id` varchar(128) DEFAULT NULL,
   `photo_small` varchar(256) DEFAULT NULL,
   `photo` varchar(256) DEFAULT NULL,
   `photo_big` varchar(256) DEFAULT NULL,

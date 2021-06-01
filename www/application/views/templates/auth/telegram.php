@@ -1,0 +1,1 @@
+<script async src="https://telegram.org/js/telegram-widget.js?15" data-telegram-login="<?= $telegramBot['BOT_USERNAME'] ?>" data-size="medium" data-auth-url="<?= $telegramBot['REDIRECT_URI'] ?>" data-request-access="write"></script>

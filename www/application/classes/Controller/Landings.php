@@ -49,6 +49,12 @@ class Controller_Landings extends Controller_Base_preDispatch
             throw new HTTP_Exception_404();
         }
 
+        $tgAuthModule = Oauth::instance('telegram');
+        $this->view['telegramBot'] = [
+            'BOT_USERNAME' => $tgAuthModule::$botUsername,
+            'REDIRECT_URI' => $tgAuthModule::$redirectUri
+        ];
+
         $this->title = 'CodeX Lab';
         $this->description = 'CodeX Lab';
         $this->template->content = View::factory('templates/landings/lab', $this->view);

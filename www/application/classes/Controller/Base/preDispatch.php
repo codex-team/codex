@@ -22,9 +22,15 @@ class Controller_Base_preDispatch extends Template
     public function before()
     {
         /** Disallow requests from other domains */
+        $allowed_domains = [
+            'codex.so', 'ifmo.su',
+            'alpha.codex.so', 'alpha.ifmo.su',
+        ];
+        $domain = Arr::get($_SERVER, 'SERVER_NAME');
+
         if (Kohana::$environment === Kohana::PRODUCTION) {
-            if ((Arr::get($_SERVER, 'SERVER_NAME') != 'codex.so') &&
-                (Arr::get($_SERVER, 'SERVER_NAME') != 'ifmo.su')) {
+            if (in_array($domain, $allowed_domains)) {
+                echo 'Sorry. Domain '.$domain.' is not be able to show our site.'.
                 exit();
             }
 

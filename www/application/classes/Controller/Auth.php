@@ -48,6 +48,47 @@ class Controller_Auth extends Controller_Base_preDispatch
         Controller::redirect($this->get_return_url());
     }
 
+    /**
+     * Осуществляет авторизацию в telegram. В случае, если пользователь авторизован в первый раз - добавляет новую запись
+     * в таблицу Users. Модель пользователя помещается в сессию "profile". Далее проиходит редирект на главную страницу /
+     */
+    public function action_telegram()
+    {
+        $tg = Oauth::instance('telegram');
+
+        if ($this->request->query('hash')) {
+            try {
+                $profile = $tg->getProfileData($_GET);
+                Cookie::set("auth_token", $profile['id'], $this->cookiesLifetime);
+                $token = $profile['id'];
+
+                $user = Model_User::findByAttribute('tg_id', $profile['id']);
+                if ($user->is_empty()) {
+                    $user = new Model_User();
+
+                    $user->tg_id = $profile['id'];
+                    $user->name = Oauth_Telegram::get_tg_name($profile);
+                    $user->photo = Arr::get($profile, 'photo_url');
+
+                    if ($result = $user->save('tg')) {
+                        $inserted_id = $result[0];
+                        $new_session = new Model_Sessions();
+                        $new_session->save($inserted_id, $token);
+                    }
+                } else {
+                    $new_session = new Model_Sessions();
+                    if (!$new_session->get_user_id($token)) {
+                        $new_session->save($user->id, $token);
+                    }
+                }
+            } catch (Exception $e) {
+                $this->generate_auth_error($e);
+            }
+        }
+
+        Controller::redirect($this->get_return_url());
+    }
+
 
     /**
      * Осуществляет авторизацию в facebook. В случае, если пользователь авторизован в первый раз - добавляет новую запись
@@ -152,24 +193,17 @@ class Controller_Auth extends Controller_Base_preDispatch
         if ($ref) {
             return $ref;
         } else {
-            return "/";
+            return '/';
         }
     }
 
 
     /**
      * Метод, вызываемый при ошибке авторизации со стороны соц. сети
-     * @return HTTP_Exception_FacebookException
      */
-    private function generate_auth_error()
+    private function generate_auth_error($e)
     {
-        $error_code = $this->request->query('error_code');
-        $error_message = $this->request->query('error_message');
-
-        throw new HTTP_Exception_FacebookException('Ошибка #:error_code : :error_message', array(
-            ':error_code' => $error_code,
-            ':error_message' => $error_message,
-        ));
+        throw new Kohana_Exception($e);
     }
 
 
