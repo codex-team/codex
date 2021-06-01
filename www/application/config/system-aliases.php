@@ -23,6 +23,7 @@ return array(
         'test',
         'quiz',
         'news',
+        'process-join-form',
 
         /**
          * Join page and task

@@ -55,6 +55,9 @@ class Controller_Landings extends Controller_Base_preDispatch
             'REDIRECT_URI' => $tgAuthModule::$redirectUri
         ];
 
+        $this->view['request'] = $this->user->getUserRequest();
+        $this->view['targetTeam'] = 'lab';
+
         $this->title = 'CodeX Lab';
         $this->description = 'CodeX Lab';
         $this->template->content = View::factory('templates/landings/lab', $this->view);
