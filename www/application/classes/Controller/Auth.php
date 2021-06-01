@@ -204,14 +204,6 @@ class Controller_Auth extends Controller_Base_preDispatch
     private function generate_auth_error($e)
     {
         throw new Kohana_Exception($e);
-
-//        $error_code = $this->request->query('error_code');
-//        $error_message = $this->request->query('error_message');
-//
-//        throw new HTTP_Exception('Ошибка #:error_code : :error_message', array(
-//            ':error_code' => $error_code,
-//            ':error_message' => $error_message,
-//        ));
     }
 
 
