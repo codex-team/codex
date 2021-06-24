@@ -117,6 +117,7 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
         $this->description = $article->description;
 
         $this->meta[] = new Meta('vk:image', sprintf('%s/cover/vk/article/%d/%d/cover.jpg', Model_Methods::getDomainAndProtocol(), $article->id, strtotime($article->dt_update)));
+        $this->meta[] = new Meta('twitter:card', 'summary_large_image');
         $this->meta[] = new Meta('twitter:image', sprintf('%s/cover/tw/article/%d/%d/cover.jpg', Model_Methods::getDomainAndProtocol(), $article->id, strtotime($article->dt_update)));
 
         $this->meta[] = new Meta('og:image', sprintf('%s/cover/fb/article/%d/%d/cover.jpg', Model_Methods::getDomainAndProtocol(), $article->id, strtotime($article->dt_update)));
