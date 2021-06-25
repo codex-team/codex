@@ -11,13 +11,14 @@
 
     &__content {
         display: flex;
+        height: 100%;
+        align-items: center;
     }
 
     a {
-        display: inline-block;
+        display: flex;
         text-decoration: none;
         letter-spacing: 0.2px;
-        line-height: var(--layout-header-height);
     }
 
     &__menu-item:not(:first-of-type) {
@@ -29,6 +30,7 @@
     }
 
     &__right {
+        display: flex;
         margin-left: auto;
     }
 
