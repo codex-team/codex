@@ -137,12 +137,12 @@
         </div>
 
         <div class="lab-page__about-icons">
-            <span class="lab-page__about-icons-item lab-page__about-icons-item--instagram"></span>
-            <span class="lab-page__about-icons-item lab-page__about-icons-item--vk"></span>
-            <span class="lab-page__about-icons-item lab-page__about-icons-item--twitter"></span>
-            <span class="lab-page__about-icons-item lab-page__about-icons-item--telegram"></span>
-            <span class="lab-page__about-icons-item lab-page__about-icons-item--github"></span>
-            <span class="lab-page__about-icons-item lab-page__about-icons-item--npm"></span>
+            <a href="https://instagram.com/codex_team" target="_blank" class="lab-page__about-icons-item lab-page__about-icons-item--instagram"></a>
+            <a href="https://vk.com/codex_team" target="_blank" class="lab-page__about-icons-item lab-page__about-icons-item--vk"></a>
+            <a href="https://twitter.com/codex_team" target="_blank" class="lab-page__about-icons-item lab-page__about-icons-item--twitter"></a>
+            <a href="https://t.me/codex_team" target="_blank" class="lab-page__about-icons-item lab-page__about-icons-item--telegram"></a>
+            <a href="https://github.com/codex-team" target="_blank" class="lab-page__about-icons-item lab-page__about-icons-item--github"></a>
+            <a href="https://www.npmjs.com/~codex-team" target="_blank" class="lab-page__about-icons-item lab-page__about-icons-item--npm"></a>
         </div>
     </div>
 
@@ -153,9 +153,7 @@
 
         <div class="lab-page__partners-list">
             <div class="lab-page__partners-list-row">
-                <div class="lab-page__partners-item lab-page__partners-item--faculty">
-                    Faculty of Secure Information Technologies
-                </div>
+                <div class="lab-page__partners-item lab-page__partners-item--faculty"></div>
                 <div class="lab-page__partners-item lab-page__partners-item--itmo"></div>
             </div>
             <div class="lab-page__partners-list-row">

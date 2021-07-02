@@ -166,7 +166,7 @@ h2 {
                     position: relative;
                     width: 61px;
                     height: 118px;
-                    background-image: url('/public/app/landings/lab/rectangle.svg');
+                    background-image: url('/public/app/landings/lab/assets/rectangle.svg');
                     background-size: cover;
                     background-repeat: no-repeat;
                     background-position: center center;
@@ -219,7 +219,7 @@ h2 {
                     position: relative;
                     width: 39px;
                     height: 39px;
-                    background-image: url('/public/app/landings/lab/star.svg');
+                    background-image: url('/public/app/landings/lab/assets/star.svg');
                     background-size: cover;
                     background-repeat: no-repeat;
                     background-position: center center;
@@ -259,11 +259,15 @@ h2 {
         }
 
         &-description {
-
+            font-size: 16px;
+            letter-spacing: -0.32px;
         }
 
         &-icons {
             margin-top: 35px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
 
             &-item {
                 display: inline-block;
@@ -280,33 +284,28 @@ h2 {
                 }
 
                 &--instagram {
-                    //background-image: url('/public/app/landings/lab/star.svg');
-                    background-color: #fff;
+                    background-image: url('/public/app/landings/lab/assets/icons/instagram.svg');
                 }
 
                 &--vk {
-                //background-image: url('/public/app/landings/lab/star.svg');
-                    background-color: #2787f5;
+                    background-image: url('/public/app/landings/lab/assets/icons/vk.svg');
                 }
 
                 &--twitter {
-                //background-image: url('/public/app/landings/lab/star.svg');
-                    background-color: #55acee;
+                    height: 28px;
+                    background-image: url('/public/app/landings/lab/assets/icons/twitter.svg');
                 }
 
                 &--telegram {
-                //background-image: url('/public/app/landings/lab/star.svg');
-                    background-color: #40b3e0;
+                    background-image: url('/public/app/landings/lab/assets/icons/telegram.svg');
                 }
 
                 &--github {
-                //background-image: url('/public/app/landings/lab/star.svg');
-                    background-color: #fff;
+                    background-image: url('/public/app/landings/lab/assets/icons/github.svg');
                 }
 
                 &--npm {
-                //background-image: url('/public/app/landings/lab/star.svg');
-                    background-color: #c12127;
+                    background-image: url('/public/app/landings/lab/assets/icons/npm.svg');
                 }
             }
         }
@@ -326,6 +325,7 @@ h2 {
             &-row {
                 display: flex;
                 justify-content: space-between;
+                align-items: center;
 
                 &:not(:first-of-type) {
                     margin-top: 50px;
@@ -335,15 +335,23 @@ h2 {
 
         &-item {
             &--faculty {
-                font-size: 24px;
-                line-height: 1.13;
-                font-weight: bold;
-                width: 262px;
+                width: 200px;
+                height: 77px;
+                background-image: url('/public/app/landings/lab/assets/faculty-of-secure-information-technologies.svg');
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center center;
+                padding: 0;
             }
 
             &--itmo {
-                width: 262px;
-                background-color: #fff;
+                width: 278px;
+                height: 34px;
+                background-image: url('/public/app/landings/lab/assets/itmo-logo.svg');
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center center;
+                padding: 0;
             }
 
             &--isac {
@@ -402,6 +410,7 @@ h2 {
 
                 &:hover {
                     cursor: pointer;
+                    background-color: #3183EB;
                 }
 
                 &:active {
