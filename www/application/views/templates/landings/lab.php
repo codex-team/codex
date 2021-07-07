@@ -214,4 +214,4 @@
 <!--    --><?// endif; ?>
 </div>
 
-<link rel="stylesheet" href="/public/build/landingLab.bundle.js?v=<?= filemtime("public/build/landingLab.bundle.js") ?>">
+<script src="/public/build/landingLab.bundle.js?v=<?= filemtime("public/build/landingLab.bundle.js") ?>"></script>
