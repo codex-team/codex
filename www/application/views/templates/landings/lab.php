@@ -59,28 +59,26 @@
         <div class="lab-page__cycle-list">
             <div class="lab-page__cycle-list-items">
                 <? for ($i = 0; $i < 15; $i++): ?>
-                    <div class="lab-page__cycle-list-items-polygon lab-page__cycle-list-items-polygon--<?= $i ?>"></div>
+                    <div class="lab-page__cycle-list-items-polygon lab-page__cycle-list-items-polygon--<?= $i ?> lab-page--transparent"></div>
                 <? endfor; ?>
             </div>
 
             <ul>
-                <li>Idea</li>
-                <li>Prototyping</li>
-                <li>Investigations</li>
-                <li>Design</li>
-                <li>Architecture</li>
-
-                <li>Development</li>
-                <li>Documentation</li>
-                <li>DevOps</li>
-                <li>QA</li>
-                <li>Legal</li>
-
-                <li>Release 🎉</li>
-                <li>PR</li>
-                <li>Support</li>
-                <li>Product roadmap</li>
-                <li>Analytics</li>
+                <li class="lab-page--transparent">Idea</li>
+                <li class="lab-page--transparent">Prototyping</li>
+                <li class="lab-page--transparent">Investigations</li>
+                <li class="lab-page--transparent">Design</li>
+                <li class="lab-page--transparent">Architecture</li>
+                <li class="lab-page--transparent">Development</li>
+                <li class="lab-page--transparent">Documentation</li>
+                <li class="lab-page--transparent">DevOps</li>
+                <li class="lab-page--transparent">QA</li>
+                <li class="lab-page--transparent">Legal</li>
+                <li class="lab-page--transparent">Release 🎉</li>
+                <li class="lab-page--transparent">PR</li>
+                <li class="lab-page--transparent">Support</li>
+                <li class="lab-page--transparent">Product roadmap</li>
+                <li class="lab-page--transparent">Analytics</li>
             </ul>
         </div>
     </div>
@@ -98,28 +96,28 @@
         <div class="lab-page__roles-list">
             <div class="lab-page__roles-list-items">
                 <? for ($i = 0; $i < 17; $i++): ?>
-                    <div class="lab-page__roles-list-items-star lab-page__roles-list-items-star--<?= $i ?>"></div>
+                    <div class="lab-page__roles-list-items-star lab-page__roles-list-items-star--<?= $i ?> lab-page--transparent"></div>
                 <? endfor; ?>
             </div>
 
             <ul>
-                <li>Engineering</li>
-                <li>Tech leading</li>
-                <li>Design</li>
-                <li>Task management</li>
-                <li>System design</li>
-                <li>SRE & DevOps</li>
-                <li>Scaling</li>
-                <li>Public Relations</li>
-                <li>Cmmunity management</li>
-                <li>Events management</li>
-                <li>Human Resources</li>
-                <li>Legal Relations</li>
-                <li>Business analytics</li>
-                <li>Quality Assurance</li>
-                <li>Teammates motivation</li>
-                <li>Risk management</li>
-                <li>Incident management</li>
+                <li class="lab-page--transparent">Engineering</li>
+                <li class="lab-page--transparent">Tech leading</li>
+                <li class="lab-page--transparent">Design</li>
+                <li class="lab-page--transparent">Task management</li>
+                <li class="lab-page--transparent">System design</li>
+                <li class="lab-page--transparent">SRE & DevOps</li>
+                <li class="lab-page--transparent">Scaling</li>
+                <li class="lab-page--transparent">Public Relations</li>
+                <li class="lab-page--transparent">Cmmunity management</li>
+                <li class="lab-page--transparent">Events management</li>
+                <li class="lab-page--transparent">Human Resources</li>
+                <li class="lab-page--transparent">Legal Relations</li>
+                <li class="lab-page--transparent">Business analytics</li>
+                <li class="lab-page--transparent">Quality Assurance</li>
+                <li class="lab-page--transparent">Teammates motivation</li>
+                <li class="lab-page--transparent">Risk management</li>
+                <li class="lab-page--transparent">Incident management</li>
 
 
             </ul>

@@ -76,6 +76,7 @@
         "ActiveXObject": true,
         "FileReader": true,
         "Element": true,
-        "IntersectionObserver": true
+        "IntersectionObserver": true,
+        "setTimeout": true
     }
 }
