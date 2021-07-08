@@ -29,7 +29,7 @@ require('./lab.pcss');
 
     });
 
-})).observe(document.querySelector('.lab-page__cycle-list'));
+}, {threshold: 0.5})).observe(document.querySelector('.lab-page__cycle-list'));
 
 
 (new IntersectionObserver(entries => {
@@ -58,4 +58,4 @@ require('./lab.pcss');
 
     });
 
-})).observe(document.querySelector('.lab-page__roles-list'));
+}, {threshold: 0.5})).observe(document.querySelector('.lab-page__roles-list'));
