@@ -1,8 +1,16 @@
+/**
+ * Define custom media directives
+ */
+@custom-media --mobile (max-width: 980px);
 
+/**
+ * Site style overrides
+ */
 body {
     background: #131416;
 }
-.site-footer, .site-header {
+.site-footer,
+.site-header {
     background: #131416;
 }
 
@@ -11,9 +19,6 @@ body {
     display: none !important;
 }
 
-/**
- * Site style overrides
- */
 .site-header,
 .site-footer {
     border-color: #181616;
@@ -24,7 +29,7 @@ body {
     color: #fff;
 }
 .site-footer a {
-    color: #595A5C;
+    color: #595a5c;
 }
 
 .site-footer h5 {
@@ -40,6 +45,9 @@ h2 {
     margin-top: 130px;
 }
 
+/**
+ * Lab page styles
+ */
 .lab-page {
     background-color: #131416;
     color: #ffffff;
@@ -48,6 +56,10 @@ h2 {
     line-height: 25px;
     letter-spacing: 0.18px;
     font-weight: 300;
+
+    @media (--mobile) {
+        margin: 0 20px;
+    }
 
     &__intro-block {
         display: flex;
@@ -65,6 +77,11 @@ h2 {
             font-weight: 900;
             letter-spacing: -1.21px;
             color: #ffffff;
+
+            @media (--mobile) {
+                font-size: 64px;
+                margin-top: 260px;
+            }
         }
 
         &-description {
@@ -80,17 +97,25 @@ h2 {
             letter-spacing: -0.22px;
             line-height: 1.4;
             font-size: 20px;
+
+            @media (--mobile) {
+                margin-bottom: 80px;
+            }
         }
     }
 
     &__banner-pic {
         width: 100%;
         height: 520px;
-        background-image: url('https://codex.so/upload/redactor_images/o_9fe12a632b1dbe4e13d4561865dfb7fe.jpg');
+        background-image: url("https://codex.so/upload/redactor_images/o_9fe12a632b1dbe4e13d4561865dfb7fe.jpg");
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center center;
         padding: 0;
+
+        @media (--mobile) {
+            height: 100px;
+        }
     }
 
     &__description {
@@ -102,19 +127,28 @@ h2 {
         margin: 100px auto 0 auto;
 
         &-text {
-            width: 371px;
+            max-width: 371px;
             line-height: 1.56;
             letter-spacing: -0.32px;
+
+            @media (--mobile) {
+                max-width: 304px;
+            }
         }
 
         &-pic {
             width: 151px;
             height: 150px;
-            background-image: url('/public/app/img/codex-logo.svg');
+            background-image: url("/public/app/img/codex-logo.svg");
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center center;
             padding: 0;
+
+            @media (--mobile) {
+                width: 100px;
+                height: 100px;
+            }
         }
     }
 
@@ -143,7 +177,8 @@ h2 {
             padding: 0;
         }
 
-        & li {}
+        & li {
+        }
     }
 
     &__cycle {
@@ -176,7 +211,7 @@ h2 {
                     position: relative;
                     width: 61px;
                     height: 118px;
-                    background-image: url('/public/app/landings/lab/assets/rectangle.svg');
+                    background-image: url("/public/app/landings/lab/assets/rectangle.svg");
                     background-size: cover;
                     background-repeat: no-repeat;
                     background-position: center center;
@@ -187,10 +222,13 @@ h2 {
                         &--$i {
                             top: calc(-99px * $(i));
                             left: calc(28px * $(i));
+
+                            @media (--mobile) {
+                                left: calc(18px * $(i));
+                            }
                         }
                     }
                 }
-
             }
 
             & ul {
@@ -200,7 +238,8 @@ h2 {
                 letter-spacing: -0.24px;
             }
 
-            & li {}
+            & li {
+            }
         }
     }
 
@@ -233,7 +272,7 @@ h2 {
                     position: relative;
                     width: 39px;
                     height: 39px;
-                    background-image: url('/public/app/landings/lab/assets/star.svg');
+                    background-image: url("/public/app/landings/lab/assets/star.svg");
                     background-size: cover;
                     background-repeat: no-repeat;
                     background-position: center center;
@@ -245,12 +284,19 @@ h2 {
                             top: calc(-39px * $(i) + 180px);
                             left: calc(180px);
                             transform: rotate(calc($(i) * (360 / 17))deg)
-                                       translateY(-180px)
-                                       rotate(calc(-$(i) * (360 / 17))deg);
+                                translateY(-180px)
+                                rotate(calc(-$(i) * (360 / 17))deg);
+
+                            @media (--mobile) {
+                                top: calc(-39px * $(i) + 120px);
+                                left: calc(120px);
+                                transform: rotate(calc($(i) * (360 / 17))deg)
+                                    translateY(-120px)
+                                    rotate(calc(-$(i) * (360 / 17))deg);
+                            }    
                         }
                     }
                 }
-
             }
 
             & ul {
@@ -261,7 +307,8 @@ h2 {
                 letter-spacing: -0.24px;
             }
 
-            & li {}
+            & li {
+            }
         }
     }
 
@@ -302,28 +349,28 @@ h2 {
                 }
 
                 &--instagram {
-                    background-image: url('/public/app/landings/lab/assets/icons/instagram.svg');
+                    background-image: url("/public/app/landings/lab/assets/icons/instagram.svg");
                 }
 
                 &--vk {
-                    background-image: url('/public/app/landings/lab/assets/icons/vk.svg');
+                    background-image: url("/public/app/landings/lab/assets/icons/vk.svg");
                 }
 
                 &--twitter {
                     height: 28px;
-                    background-image: url('/public/app/landings/lab/assets/icons/twitter.svg');
+                    background-image: url("/public/app/landings/lab/assets/icons/twitter.svg");
                 }
 
                 &--telegram {
-                    background-image: url('/public/app/landings/lab/assets/icons/telegram.svg');
+                    background-image: url("/public/app/landings/lab/assets/icons/telegram.svg");
                 }
 
                 &--github {
-                    background-image: url('/public/app/landings/lab/assets/icons/github.svg');
+                    background-image: url("/public/app/landings/lab/assets/icons/github.svg");
                 }
 
                 &--npm {
-                    background-image: url('/public/app/landings/lab/assets/icons/npm.svg');
+                    background-image: url("/public/app/landings/lab/assets/icons/npm.svg");
                 }
             }
         }
@@ -350,15 +397,28 @@ h2 {
 
                 &:not(:first-of-type) {
                     margin-top: 50px;
+
+                    @media (--mobile) {
+                        margin-top: 40px;
+                    }
+                }
+
+                @media (--mobile) {
+                    flex-direction: column;
+                    align-items: flex-start;
                 }
             }
         }
 
         &-item {
+            @media (--mobile) {
+                margin: 20px 0;
+            }
+
             &--faculty {
                 width: 200px;
                 height: 77px;
-                background-image: url('/public/app/landings/lab/assets/faculty-of-secure-information-technologies.svg');
+                background-image: url("/public/app/landings/lab/assets/faculty-of-secure-information-technologies.svg");
                 background-size: cover;
                 background-repeat: no-repeat;
                 background-position: center center;
@@ -368,7 +428,7 @@ h2 {
             &--itmo {
                 width: 278px;
                 height: 34px;
-                background-image: url('/public/app/landings/lab/assets/itmo-logo.svg');
+                background-image: url("/public/app/landings/lab/assets/itmo-logo.svg");
                 background-size: cover;
                 background-repeat: no-repeat;
                 background-position: center center;
@@ -441,7 +501,7 @@ h2 {
 
                 &:hover {
                     cursor: pointer;
-                    background-color: #3183EB;
+                    background-color: #3183eb;
                 }
 
                 &:active {

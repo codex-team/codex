@@ -118,8 +118,6 @@
                 <li class="lab-page--transparent">Teammates motivation</li>
                 <li class="lab-page--transparent">Risk management</li>
                 <li class="lab-page--transparent">Incident management</li>
-
-
             </ul>
         </div>
     </div>
