@@ -9,6 +9,8 @@
     <meta property="og:title" content="<?= HTML::chars($title) ?>" />
     <meta property="og:site_name" content="<?= $GLOBALS['SITE_NAME'] ?>" />
 
+<!--    <meta http-equiv="refresh" content="3">-->
+
     <meta name="description" property="og:description" content="<?= HTML::chars($description) ?>">
 
     <? if ($nofollow): ?>
@@ -85,7 +87,7 @@
                     <li><a href="mailto:all@codex.so?Subject=CodeX%20Team"><u>all@codex.so</u></a></li>
                     <!--googleoff: all-->
                     <!--noindex-->
-                        <li><a href="mailto:specc.dev@gmail.com?Subject=CodeX%20Team" rel="nofollow"><u>specc.dev@gmail.com</u></a> <span class="desclimer">— Petr Savchenko</span></li>
+                        <li><a href="mailto:specc.dev@gmail.com?Subject=CodeX%20Team" rel="nofollow"><u>specc.dev@gmail.com</u></a> <span class="desclimer">— Peter Savchenko</span></li>
                     <!--/noindex-->
                     <!--googleon: all-->
                 </ul>

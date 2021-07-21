@@ -1,69 +1,73 @@
 <link rel="stylesheet" href="/public/build/landingLab.bundle.css?v=<?= filemtime("public/build/landingLab.bundle.css") ?>">
 
 <div class="lab-page">
-    <div class="lab-page__intro-block">
-        <h1 class="lab-page__intro-block-header">CodeX Lab</h1>
-        <div class="lab-page__intro-block-description">Software engineering laboratory</div>
-        <div class="lab-page__intro-block-anthem">
+    <div class="lab-page__intro">
+        <h1 class="lab-page__intro-header">
+            CodeX Lab
+        </h1>
+        <div class="lab-page__intro-description">
+            Software engineering laboratory
+        </div>
+        <div class="lab-page__intro-anthem">
             We have an experience in product making.<br>
             We know how to build working processes.<br>
             We will share it.
         </div>
     </div>
 
-    <div class="lab-page__banner-pic"></div>
+    <div class="lab-page__banner-pic">
+        <img src="https://codex.so/upload/redactor_images/o_9fe12a632b1dbe4e13d4561865dfb7fe.jpg" />
+    </div>
 
     <div class="lab-page__description">
         <div class="lab-page__description-text">
             CodeX Lab is our non-profit educational initiative for young enthusiasts around the world that would like to work in a team. CodeX core members will become mentors for CodeX Lab residents. Together we’ll make open-source products and many experiments in sofware engineering.
         </div>
-        <div class="lab-page__description-pic">
-
-        </div>
+        <img class="lab-page__description-pic" src="/public/app/img/codex-logo.svg" />
     </div>
 
-    <div class="lab-page__directions">
-        <h2 class="lab-page__directions-title">
+    <section class="lab-page__section">
+        <h2 class="lab-page__section-title">
             Directions of work. Many.
         </h2>
 
-        <div class="lab-page__directions-description">
-            If you are young and passionate, we’d be honored to work with you. You can choose an any way for self improvement and we’ll support it.
+        <div class="lab-page__section-description">
+            If you are young and passionate, we’d be honored to work with you.<br>
+            You can choose an any way for self improvement and we’ll support it.
         </div>
 
-        <ul>
-            <li>Web design</li>
-            <li>Frontend development</li>
-            <li>Backend development</li>
-            <li>SRE</li>
-            <li>DevOps</li>
-            <li>QA</li>
-            <li>PR</li>
-            <li>Project management</li>
-            <li>Team management</li>
-            <li>Analytics</li>
-        </ul>
+        <div class="lab-page__section-content lab-page__directions">
+            <ul>
+                <li>Web Design</li>
+                <li>Frontend Development</li>
+                <li>Backend Development</li>
+                <li>SRE</li>
+                <li>DevOps</li>
+                <li>QA</li>
+                <li>PR</li>
+                <li>Project Management</li>
+                <li>Team Management</li>
+                <li>Analytics</li>
+            </ul>
+        </div>
+    </section>
 
-    </div>
-
-    <div class="lab-page__cycle">
-        <h2 class="lab-page__cycle-title">
-            Full cycle of product making
+    <section class="lab-page__section">
+        <h2 class="lab-page__section-title">
+            Full cycle of product making
         </h2>
 
-        <div class="lab-page__cycle-description">
-            Get a rearest experience in product building and launching.<br>
-            It’s is not just a code.
+        <div class="lab-page__section-description">
+            Get a rearest experience in product building and launching.<br>
+            It’s is not just a code.
         </div>
 
-        <div class="lab-page__cycle-list">
-            <div class="lab-page__cycle-list-items">
-                <? for ($i = 0; $i < 15; $i++): ?>
-                    <div class="lab-page__cycle-list-items-polygon lab-page__cycle-list-items-polygon--<?= $i ?> lab-page--transparent"></div>
-                <? endfor; ?>
+        <div class="lab-page__section-content lab-page__cycle-list">
+            <div class="lab-page__cycle-list-items lab-page__cycle-list-items--slide">
+                <? include(DOCROOT . 'public/app/landings/lab/assets/rectangles.svg'); ?>
             </div>
 
-            <ul>
+            <ul class="lab-page__cycle-list-items-titles">
                 <li class="lab-page--transparent">Idea</li>
                 <li class="lab-page--transparent">Prototyping</li>
                 <li class="lab-page--transparent">Investigations</li>
@@ -77,77 +81,91 @@
                 <li class="lab-page--transparent">Release 🎉</li>
                 <li class="lab-page--transparent">PR</li>
                 <li class="lab-page--transparent">Support</li>
-                <li class="lab-page--transparent">Product roadmap</li>
+                <li class="lab-page--transparent">Product Roadmap</li>
                 <li class="lab-page--transparent">Analytics</li>
             </ul>
+
+            <div class="lab-page__cycle-list-items lab-page__cycle-list-items--stack">
+                <? include(DOCROOT . 'public/app/landings/lab/assets/rectangles-stack.svg'); ?>
+            </div>
         </div>
-    </div>
+    </section>
 
-
-    <div class="lab-page__roles">
-        <h2 class="lab-page__roles-title">
-            Find a role and lead it
+    <section class="lab-page__section">
+        <h2 class="lab-page__section-title">
+            Find a role and lead it
         </h2>
 
-        <div class="lab-page__roles-description">
-            A unique ability to find yourself. You’ll learn how to build a business processes, how to resolve challenging team problems, how to make things done.
+        <div class="lab-page__section-description">
+            An unique ability to find yourself. You’ll learn how to build a business processes,<br>
+            how to resolve challenging team problems, how to make things done.
         </div>
 
-        <div class="lab-page__roles-list">
+        <div class="lab-page__section-list lab-page__roles-list">
             <div class="lab-page__roles-list-items">
-                <? for ($i = 0; $i < 17; $i++): ?>
-                    <div class="lab-page__roles-list-items-star lab-page__roles-list-items-star--<?= $i ?> lab-page--transparent"></div>
-                <? endfor; ?>
+                <? include(DOCROOT . 'public/app/landings/lab/assets/stars.svg'); ?>
             </div>
 
-            <ul>
+            <ul class="lab-page__roles-list-items-titles">
                 <li class="lab-page--transparent">Engineering</li>
-                <li class="lab-page--transparent">Tech leading</li>
+                <li class="lab-page--transparent">Tech Leading</li>
                 <li class="lab-page--transparent">Design</li>
-                <li class="lab-page--transparent">Task management</li>
-                <li class="lab-page--transparent">System design</li>
-                <li class="lab-page--transparent">SRE & DevOps</li>
+                <li class="lab-page--transparent">Task Management</li>
+                <li class="lab-page--transparent">System Design</li>
+                <li class="lab-page--transparent">SRE & DevOps</li>
                 <li class="lab-page--transparent">Scaling</li>
                 <li class="lab-page--transparent">Public Relations</li>
-                <li class="lab-page--transparent">Cmmunity management</li>
-                <li class="lab-page--transparent">Events management</li>
+                <li class="lab-page--transparent">Community Management</li>
+                <li class="lab-page--transparent">Events Management</li>
                 <li class="lab-page--transparent">Human Resources</li>
                 <li class="lab-page--transparent">Legal Relations</li>
-                <li class="lab-page--transparent">Business analytics</li>
+                <li class="lab-page--transparent">Business Analytics</li>
                 <li class="lab-page--transparent">Quality Assurance</li>
-                <li class="lab-page--transparent">Teammates motivation</li>
-                <li class="lab-page--transparent">Risk management</li>
-                <li class="lab-page--transparent">Incident management</li>
+                <li class="lab-page--transparent">Teammates Motivation</li>
+                <li class="lab-page--transparent">Risk Management</li>
+                <li class="lab-page--transparent">Incident Management</li>
             </ul>
         </div>
-    </div>
+    </section>
 
 
-    <div class="lab-page__about">
-        <h2 class="lab-page__about-title">
-            Who we are
+    <section class="lab-page__section">
+        <h2 class="lab-page__section-title">
+            Who we are
         </h2>
 
-        <div class="lab-page__about-description">
-            CodeX is a team of passionate specialists around the world interested in making high-quality open-source projects and getting a priceless experience of making full-valued products on a global market.
+        <div class="lab-page__section-description">
+            CodeX is a team of passionate specialists around the world interested in making high-quality <a href="https://github.com/codex-team" target="_blank">open-source projects</a> and getting a priceless experience of making full-valued products on a global market.
         </div>
 
-        <div class="lab-page__about-icons">
-            <a href="https://instagram.com/codex_team" target="_blank" class="lab-page__about-icons-item lab-page__about-icons-item--instagram"></a>
-            <a href="https://vk.com/codex_team" target="_blank" class="lab-page__about-icons-item lab-page__about-icons-item--vk"></a>
-            <a href="https://twitter.com/codex_team" target="_blank" class="lab-page__about-icons-item lab-page__about-icons-item--twitter"></a>
-            <a href="https://t.me/codex_team" target="_blank" class="lab-page__about-icons-item lab-page__about-icons-item--telegram"></a>
-            <a href="https://github.com/codex-team" target="_blank" class="lab-page__about-icons-item lab-page__about-icons-item--github"></a>
-            <a href="https://www.npmjs.com/~codex-team" target="_blank" class="lab-page__about-icons-item lab-page__about-icons-item--npm"></a>
+        <div class="lab-page__section-content lab-page__about-icons">
+            <a href="https://instagram.com/codex_team"  target="_blank" class="lab-page__about-icons-item lab-page__about-icons-item--instagram">
+                <img src="/public/app/landings/lab/assets/icons/instagram.svg"/>
+            </a>
+            <a href="https://vk.com/codex_team"         target="_blank" class="lab-page__about-icons-item lab-page__about-icons-item--vk">
+                <img src="/public/app/landings/lab/assets/icons/vk.svg"/>
+            </a>
+            <a href="https://twitter.com/codex_team"    target="_blank" class="lab-page__about-icons-item lab-page__about-icons-item--twitter">
+                <img src="/public/app/landings/lab/assets/icons/twitter.svg"/>
+            </a>
+            <a href="https://t.me/codex_team"           target="_blank" class="lab-page__about-icons-item lab-page__about-icons-item--telegram">
+                <img src="/public/app/landings/lab/assets/icons/telegram.svg"/>
+            </a>
+            <a href="https://github.com/codex-team"     target="_blank" class="lab-page__about-icons-item lab-page__about-icons-item--github">
+                <img src="/public/app/landings/lab/assets/icons/github.svg"/>
+            </a>
+            <a href="https://www.npmjs.com/~codex-team" target="_blank" class="lab-page__about-icons-item lab-page__about-icons-item--npm">
+                <img src="/public/app/landings/lab/assets/icons/npm.svg"/>
+            </a>
         </div>
-    </div>
+    </section>
 
-    <div class="lab-page__partners">
-        <h2 class="lab-page__partners-title">
+    <section class="lab-page__section">
+        <h2 class="lab-page__section-title">
             Partners
         </h2>
 
-        <div class="lab-page__partners-list">
+        <div class="lab-page__section-list">
             <div class="lab-page__partners-list-row">
                 <div class="lab-page__partners-item lab-page__partners-item--faculty"></div>
                 <div class="lab-page__partners-item lab-page__partners-item--itmo"></div>
@@ -155,44 +173,44 @@
             <div class="lab-page__partners-list-row">
                 <div class="lab-page__partners-item lab-page__partners-item--isac">
                     <div class="lab-page__partners-item--isac-title">
-                        International Scientific and Academic Center
+                        International Scientific and Academic Center
                     </div>
                     <div class="lab-page__partners-item--isac-name">
-                        “Security and Safety for Critical Digital Technologies”
+                        “Security and Safety for Critical Digital Technologies”
                     </div>
                 </div>
             </div>
             <div class="lab-page__partners-list-row">
                 <div class="lab-page__partners-item lab-page__partners-item--mail">
                     Become a partner<br>
-                    💌&nbsp;&nbsp;lab@codex.so
+                    💌  lab@codex.so
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="lab-page__form">
-        <h2 class="lab-page__form-title">
-            Wanna join? Jump in.
+    <section class="lab-page__section">
+        <h2 class="lab-page__section-title">
+            Wanna join? Jump in.
         </h2>
 
-        <div class="lab-page__form-body">
+        <div class="lab-page__section-content lab-page__form">
             <div>
-                <label>Tell about your skills</label>
-                <textarea name="" id="" cols="30" rows="10"></textarea>
+                <label for="skills">Tell about your skills</label><br>
+                <textarea name="skills" id="" cols="30" rows="10"></textarea>
             </div>
 
 
             <div>
-                <label>What do you want to do in CodeX</label>
-                <textarea name="" id="" cols="30" rows="10"></textarea>
+                <label for="wishes">What do you want to do in CodeX</label><br>
+                <textarea name="wishes" id="" cols="30" rows="10"></textarea>
             </div>
 
             <div>
                 <button>Send a request</button>
             </div>
         </div>
-    </div>
+    </section>
 
 
 <!--    --><?//

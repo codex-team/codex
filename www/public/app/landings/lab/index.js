@@ -2,34 +2,7 @@
 
 require('./lab.pcss');
 
-
-(new IntersectionObserver(entries => {
-
-    entries.forEach(entry => {
-
-        if (entry.isIntersecting) {
-
-            const polygons = Array.from(document.querySelectorAll('.lab-page__cycle-list-items-polygon'));
-            const polygonTitles = Array.from(document.querySelectorAll('.lab-page__cycle-list li'));
-
-            polygons.forEach(polygon => {
-
-                const polygonIndex = polygons.indexOf(polygon);
-
-                setTimeout(() => {
-
-                    polygon.classList.add('lab-page--animated-visible');
-                    polygonTitles[polygonIndex].classList.add('lab-page--animated-visible');
-
-                }, polygonIndex * 50);
-
-            });
-
-        }
-
-    });
-
-}, {threshold: 0.5})).observe(document.querySelector('.lab-page__cycle-list'));
+const DELAY_BETWEEN_ITEMS = 300;
 
 
 (new IntersectionObserver(entries => {
@@ -38,19 +11,21 @@ require('./lab.pcss');
 
         if (entry.isIntersecting) {
 
-            const stars = Array.from(document.querySelectorAll('.lab-page__roles-list-items-star'));
-            const starTitles = Array.from(document.querySelectorAll('.lab-page__roles-list li'));
+            const polygonTitles = Array.from(document.querySelectorAll('.lab-page__cycle-list-items-titles li'));
+            const polygonsSlide = Array.from(document.querySelectorAll('.lab-page__cycle-list-items--slide path'));
+            const polygonsStack = Array.from(document.querySelectorAll('.lab-page__cycle-list-items--stack path'));
 
-            stars.forEach(star => {
+            polygonTitles.forEach(polygonTitle => {
 
-                const starIndex = stars.indexOf(star);
+                const polygonIndex = polygonTitles.indexOf(polygonTitle);
 
                 setTimeout(() => {
 
-                    star.classList.add('lab-page--animated-visible');
-                    starTitles[starIndex].classList.add('lab-page--animated-visible');
+                    polygonTitle.classList.add('lab-page--animated-visible');
+                    polygonsStack[polygonIndex].classList.add('lab-page--animated-visible');
+                    polygonsSlide[polygonIndex].classList.add('lab-page--animated-visible');
 
-                }, starIndex * 50);
+                }, polygonIndex * DELAY_BETWEEN_ITEMS);
 
             });
 
@@ -58,4 +33,33 @@ require('./lab.pcss');
 
     });
 
-}, {threshold: 0.5})).observe(document.querySelector('.lab-page__roles-list'));
+}, {threshold: 0.3})).observe(document.querySelector('.lab-page__cycle-list-items-titles'));
+
+
+(new IntersectionObserver(entries => {
+
+    entries.forEach(entry => {
+
+        if (entry.isIntersecting) {
+
+            const starTitles = Array.from(document.querySelectorAll('.lab-page__roles-list-items-titles li'));
+            const stars = Array.from(document.querySelectorAll('.lab-page__roles-list-items path'));
+
+            starTitles.forEach(starTitle => {
+
+                const starIndex = starTitles.indexOf(starTitle);
+
+                setTimeout(() => {
+
+                    starTitle.classList.add('lab-page--animated-visible');
+                    stars[starIndex].classList.add('lab-page--animated-visible');
+
+                }, starIndex * DELAY_BETWEEN_ITEMS);
+
+            });
+
+        }
+
+    });
+
+}, {threshold: 0.3})).observe(document.querySelector('.lab-page__roles-list-items-titles'));
