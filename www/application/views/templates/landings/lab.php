@@ -98,7 +98,7 @@
         </h2>
 
         <div class="lab-page__section-description">
-            An unique ability to find yourself. You’ll learn how to build a business processes,<br>
+            A unique ability to find yourself. You’ll learn how to build a business processes,<br>
             how to resolve challenging team problems, how to make things done.
         </div>
 
