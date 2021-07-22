@@ -230,8 +230,7 @@ body {
                 }
             }
 
-            & svg {
-            }
+            & svg {}
 
             & path {
                 opacity: 0;
@@ -510,6 +509,14 @@ body {
 
         .lab-page__cycle-list-items--stack & {
             animation-name: rectangle-stack__bounce;
+
+            @for $i from 1 to 15 {
+                &:nth-child($(i)) {
+                    animation-duration: calc(150ms * (15 - $(i) + 1));
+                    transform: translateY(calc(-22px * (15 - $(i))));
+                }
+            }
+
         }
 
         .lab-page__roles-list-items & {
@@ -542,11 +549,9 @@ body {
 }
 
 @keyframes rectangle-stack__bounce {
-    from {
-        transform: translateY(-30px);
-    }
+    from {}
 
-    40% {
+    25% {
         opacity: 1;
     }
 

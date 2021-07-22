@@ -86,7 +86,8 @@
             </ul>
 
             <div class="lab-page__cycle-list-items lab-page__cycle-list-items--stack">
-                <? include(DOCROOT . 'public/app/landings/lab/assets/rectangles-stack.svg'); ?>
+<!--                --><?// include(DOCROOT . 'public/app/landings/lab/assets/rectangles-stack.svg'); ?>
+                <? include(DOCROOT . 'public/app/landings/lab/assets/stack.svg'); ?>
             </div>
         </div>
     </section>
