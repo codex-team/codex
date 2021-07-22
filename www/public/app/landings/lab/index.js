@@ -33,7 +33,7 @@ const DELAY_BETWEEN_ITEMS = 300;
 
     });
 
-}, {threshold: 0.3})).observe(document.querySelector('.lab-page__cycle-list-items-titles'));
+}, {threshold: 0.5})).observe(document.querySelector('.lab-page__cycle-list-items-titles'));
 
 
 (new IntersectionObserver(entries => {
@@ -62,4 +62,4 @@ const DELAY_BETWEEN_ITEMS = 300;
 
     });
 
-}, {threshold: 0.3})).observe(document.querySelector('.lab-page__roles-list-items-titles'));
+}, {threshold: 0.5})).observe(document.querySelector('.lab-page__roles-list-items-titles'));
