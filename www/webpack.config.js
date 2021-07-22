@@ -7,6 +7,7 @@ module.exports = {
         codex: './public/app/js/main.js',
         HawkCatcher: './public/app/js/modules/hawk.js',
         reactions: './public/app/js/modules/reactions.js',
+        landingLab: './public/app/landings/lab/index.js'
     },
 
     output: {
@@ -29,7 +30,7 @@ module.exports = {
                 }]
             },
             {
-                test: /\.css$/,
+                test: /\.(css|pcss)$/,
                 use: [
                     {
                         loader: MiniCssExtractPlugin.loader,
