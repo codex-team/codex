@@ -9,8 +9,6 @@
     <meta property="og:title" content="<?= HTML::chars($title) ?>" />
     <meta property="og:site_name" content="<?= $GLOBALS['SITE_NAME'] ?>" />
 
-<!--    <meta http-equiv="refresh" content="3">-->
-
     <meta name="description" property="og:description" content="<?= HTML::chars($description) ?>">
 
     <? if ($nofollow): ?>
