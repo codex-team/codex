@@ -169,24 +169,25 @@
             <div class="lab-page__partners-list-row">
                 <img class="lab-page__partners-item lab-page__partners-item--mnoc" src="/public/app/landings/lab/assets/faculty-of-secure-information-technologies.svg"/>
 
-                <a href="//itmo.ru"></a>
-                <img class="lab-page__partners-item lab-page__partners-item--itmo" src="/public/app/landings/lab/assets/itmo-logo.svg"/>
+                <a href="https://en.itmo.ru" target="_blank">
+                    <img class="lab-page__partners-item lab-page__partners-item--itmo" src="/public/app/landings/lab/assets/itmo-logo.svg"/>
+                </a>
             </div>
             <div class="lab-page__partners-list-row">
-                <div class="lab-page__partners-item lab-page__partners-item--isac">
+                <a class="lab-page__partners-item lab-page__partners-item--isac" href="https://cit.itmo.ru/ru/" target="_blank">
                     <div class="lab-page__partners-item--isac-title">
                         International Scientific and Academic Center
                     </div>
                     <div class="lab-page__partners-item--isac-name">
                         “Security and Safety for Critical Digital Technologies”
                     </div>
-                </div>
+                </a>
             </div>
             <div class="lab-page__partners-list-row">
-                <div class="lab-page__partners-item lab-page__partners-item--mail">
+                <a class="lab-page__partners-item lab-page__partners-item--mail" href="mailto:lab@codex.so">
                     Become a partner<br>
                     💌  lab@codex.so
-                </div>
+                </a>
             </div>
         </div>
     </section>
