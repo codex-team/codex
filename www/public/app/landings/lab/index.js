@@ -3,7 +3,10 @@
 require('./lab.pcss');
 
 const DELAY_BETWEEN_ITEMS = 300;
+const animatedClassName = 'animated';
 
+const landing = document.querySelector('.lab-page');
+const fullCycleList = landing.querySelector('.lab-page__section-list--cycle');
 
 (new IntersectionObserver(entries => {
 
@@ -11,9 +14,9 @@ const DELAY_BETWEEN_ITEMS = 300;
 
         if (entry.isIntersecting) {
 
-            const polygonTitles = Array.from(document.querySelectorAll('.lab-page__cycle-list-items-titles li'));
-            const polygonsSlide = Array.from(document.querySelectorAll('.lab-page__cycle-list-items--slide path'));
-            const polygonsStack = Array.from(document.querySelectorAll('.lab-page__cycle-list-items--stack path'));
+            const polygonTitles = Array.from(landing.querySelectorAll('.lab-page__section-list--cycle li'));
+            const polygonsSlide = Array.from(landing.querySelectorAll('.lab-page__cycle-list-items--slide path'));
+            const polygonsStack = Array.from(landing.querySelectorAll('.lab-page__cycle-list-items--stack path'));
 
             polygonTitles.forEach(polygonTitle => {
 
@@ -21,9 +24,9 @@ const DELAY_BETWEEN_ITEMS = 300;
 
                 setTimeout(() => {
 
-                    polygonTitle.classList.add('lab-page--animated-visible');
-                    polygonsStack[polygonIndex].classList.add('lab-page--animated-visible');
-                    polygonsSlide[polygonIndex].classList.add('lab-page--animated-visible');
+                    polygonTitle.classList.add(animatedClassName);
+                    polygonsStack[polygonsStack.length - polygonIndex -1 ].classList.add(animatedClassName);
+                    polygonsSlide[polygonIndex].classList.add(animatedClassName);
 
                 }, polygonIndex * DELAY_BETWEEN_ITEMS);
 
@@ -33,8 +36,9 @@ const DELAY_BETWEEN_ITEMS = 300;
 
     });
 
-}, {threshold: 0.5})).observe(document.querySelector('.lab-page__cycle-list-items-titles'));
+}, {threshold: 0.5})).observe(fullCycleList);
 
+const rolesList = landing.querySelector('.lab-page__section-list--roles');
 
 (new IntersectionObserver(entries => {
 
@@ -42,8 +46,8 @@ const DELAY_BETWEEN_ITEMS = 300;
 
         if (entry.isIntersecting) {
 
-            const starTitles = Array.from(document.querySelectorAll('.lab-page__roles-list-items-titles li'));
-            const stars = Array.from(document.querySelectorAll('.lab-page__roles-list-items path'));
+            const starTitles = Array.from(landing.querySelectorAll('.lab-page__section-list--roles li'));
+            const stars = Array.from(landing.querySelectorAll('.lab-page__roles-list-items path'));
 
             starTitles.forEach(starTitle => {
 
@@ -51,7 +55,7 @@ const DELAY_BETWEEN_ITEMS = 300;
 
                 setTimeout(() => {
 
-                    starTitle.classList.add('lab-page--animated-visible');
+                    starTitle.classList.add(animatedClassName);
                     stars[starIndex].classList.add('lab-page--animated-visible');
 
                 }, starIndex * DELAY_BETWEEN_ITEMS);
@@ -62,4 +66,4 @@ const DELAY_BETWEEN_ITEMS = 300;
 
     });
 
-}, {threshold: 0.5})).observe(document.querySelector('.lab-page__roles-list-items-titles'));
+}, {threshold: 0.5})).observe(rolesList);

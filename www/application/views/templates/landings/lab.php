@@ -67,26 +67,25 @@
                 <? include(DOCROOT . 'public/app/landings/lab/assets/rectangles.svg'); ?>
             </div>
 
-            <ul class="lab-page__cycle-list-items-titles">
-                <li class="lab-page--transparent">Idea</li>
-                <li class="lab-page--transparent">Prototyping</li>
-                <li class="lab-page--transparent">Investigations</li>
-                <li class="lab-page--transparent">Design</li>
-                <li class="lab-page--transparent">Architecture</li>
-                <li class="lab-page--transparent">Development</li>
-                <li class="lab-page--transparent">Documentation</li>
-                <li class="lab-page--transparent">DevOps</li>
-                <li class="lab-page--transparent">QA</li>
-                <li class="lab-page--transparent">Legal</li>
-                <li class="lab-page--transparent">Release 🎉</li>
-                <li class="lab-page--transparent">PR</li>
-                <li class="lab-page--transparent">Support</li>
-                <li class="lab-page--transparent">Product Roadmap</li>
-                <li class="lab-page--transparent">Analytics</li>
+            <ul class="lab-page__section-list lab-page__section-list--cycle">
+                <li>Idea</li>
+                <li>Prototyping</li>
+                <li>Investigations</li>
+                <li>Design</li>
+                <li>Architecture</li>
+                <li>Development</li>
+                <li>Documentation</li>
+                <li>DevOps</li>
+                <li>QA</li>
+                <li>Legal</li>
+                <li>Release 🎉</li>
+                <li>PR</li>
+                <li>Support</li>
+                <li>Product Roadmap</li>
+                <li>Analytics</li>
             </ul>
 
             <div class="lab-page__cycle-list-items lab-page__cycle-list-items--stack">
-<!--                --><?// include(DOCROOT . 'public/app/landings/lab/assets/rectangles-stack.svg'); ?>
                 <? include(DOCROOT . 'public/app/landings/lab/assets/stack.svg'); ?>
             </div>
         </div>
@@ -107,24 +106,24 @@
                 <? include(DOCROOT . 'public/app/landings/lab/assets/stars.svg'); ?>
             </div>
 
-            <ul class="lab-page__roles-list-items-titles">
-                <li class="lab-page--transparent">Engineering</li>
-                <li class="lab-page--transparent">Tech Leading</li>
-                <li class="lab-page--transparent">Design</li>
-                <li class="lab-page--transparent">Task Management</li>
-                <li class="lab-page--transparent">System Design</li>
-                <li class="lab-page--transparent">SRE & DevOps</li>
-                <li class="lab-page--transparent">Scaling</li>
-                <li class="lab-page--transparent">Public Relations</li>
-                <li class="lab-page--transparent">Community Management</li>
-                <li class="lab-page--transparent">Events Management</li>
-                <li class="lab-page--transparent">Human Resources</li>
-                <li class="lab-page--transparent">Legal Relations</li>
-                <li class="lab-page--transparent">Business Analytics</li>
-                <li class="lab-page--transparent">Quality Assurance</li>
-                <li class="lab-page--transparent">Teammates Motivation</li>
-                <li class="lab-page--transparent">Risk Management</li>
-                <li class="lab-page--transparent">Incident Management</li>
+            <ul class="lab-page__section-list lab-page__section-list--roles">
+                <li>Engineering</li>
+                <li>Tech Leading</li>
+                <li>Design</li>
+                <li>Task Management</li>
+                <li>System Design</li>
+                <li>SRE & DevOps</li>
+                <li>Scaling</li>
+                <li>Public Relations</li>
+                <li>Community Management</li>
+                <li>Events Management</li>
+                <li>Human Resources</li>
+                <li>Legal Relations</li>
+                <li>Business Analytics</li>
+                <li>Quality Assurance</li>
+                <li>Teammates Motivation</li>
+                <li>Risk Management</li>
+                <li>Incident Management</li>
             </ul>
         </div>
     </section>
@@ -166,10 +165,12 @@
             Partners
         </h2>
 
-        <div class="lab-page__section-list">
+        <div class="lab-page__section-content">
             <div class="lab-page__partners-list-row">
-                <div class="lab-page__partners-item lab-page__partners-item--faculty"></div>
-                <div class="lab-page__partners-item lab-page__partners-item--itmo"></div>
+                <img class="lab-page__partners-item lab-page__partners-item--mnoc" src="/public/app/landings/lab/assets/faculty-of-secure-information-technologies.svg"/>
+
+                <a href="//itmo.ru"></a>
+                <img class="lab-page__partners-item lab-page__partners-item--itmo" src="/public/app/landings/lab/assets/itmo-logo.svg"/>
             </div>
             <div class="lab-page__partners-list-row">
                 <div class="lab-page__partners-item lab-page__partners-item--isac">
