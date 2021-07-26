@@ -75,7 +75,8 @@
         "XMLHttpRequest": true,
         "ActiveXObject": true,
         "FileReader": true,
-        "Element": true
-
+        "Element": true,
+        "IntersectionObserver": true,
+        "setTimeout": true
     }
 }
