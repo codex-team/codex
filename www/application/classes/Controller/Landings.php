@@ -161,8 +161,8 @@ class Controller_Landings extends Controller_Base_preDispatch
 
             return $version;
 
-        } catch (Exception $e){
-            \Hawk\HawkCatcher::catchException($e);
+        } catch (\Exception $e){
+            \Hawk\Catcher::get()->sendException($e);
         }
 
         return '2.12';

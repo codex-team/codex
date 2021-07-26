@@ -88,8 +88,8 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
 
         try {
             $editor = new EditorJS($pageContent, Model_Article::getEditorConfig());
-        } catch (Exception $e) {
-            \Hawk\HawkCatcher::catchException($e);
+        } catch (\Exception $e) {
+            \Hawk\Catcher::get()->sendException($e);
             $this->sendAjaxResponse(array('message' => 'Fatal Error. Please refresh the page.', 'success' => 0));
             return;
         }

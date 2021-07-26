@@ -3,19 +3,11 @@
 
         <input type="hidden" name="csrf" value="<?= Security::token() ?>">
 
-<!--        --><?// if (!empty($error)): ?>
-<!--            <div class="join-page__error">-->
-<!--                Enter an email, so we can message you.-->
-<!--            </div>-->
-<!--        --><?// endif ?>
-
-        <? if (!$user->id): ?>
-
-            <div class="lab-page__telegram-auth-button">
-                <? include __DIR__ . '/../auth/telegram.php'; ?>
+        <? if (!empty($error)): ?>
+            <div class="join-page__error">
+                Enter an email, so we can message you.
             </div>
-
-        <? else: ?>
+        <? endif ?>
 
             <div class="join-page__user">
                 <img class="join-page__user-photo" src="<?= $user->photo ?>" alt="<?= $user->name ?>"/>
@@ -49,8 +41,6 @@
         <div class="join-page__success join-page__success--compact" id="success-message-banner" hidden>
             We will message you after the application deadline.
         </div>
-
-    <? endif ?>
 
 <? else: ?>
 

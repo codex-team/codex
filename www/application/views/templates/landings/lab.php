@@ -197,40 +197,67 @@
             Wanna join? Jump in.
         </h2>
 
-        <div class="lab-page__section-content lab-page__form">
-            <div>
-                <label for="skills">Tell about your skills</label><br>
-                <textarea name="skills" id="" cols="30" rows="10"></textarea>
-            </div>
+        <? if ( !$request ): ?>
+            <form class="join-page__form" id="joinBlank" method="post" action="/process-join-form">
+                <div class="lab-page__section-content lab-page__form">
+                    <input type="hidden" name="csrf" value="<?= Security::token() ?>">
+                    <input class="input" type="text" name="targetTeam" hidden value="<?= isset($targetTeam) ? $targetTeam : 'main' ?>">
+
+                    <? if ($user->id): ?>
+                        <div class="join-page__user">
+                            <img class="join-page__user-photo" src="<?= $user->photo ?>" alt="<?= $user->name ?>"/>
+                            <span class="join-page__user-name"><?= $user->name ?></span>
+                        </div>
+                    <? else:?>
+                        <div>
+                            <label for="name">Name</label><br>
+                            <input name="name" type="text"/>
+                        </div>
+
+                        <div>
+                            <label for="email">Email</label><br>
+                            <input name="email" type="email"/>
+                        </div>
+                    <? endif ?>
+
+                    <div>
+                        <label for="skills">Tell about your skills</label><br>
+                        <textarea name="skills" id="" cols="30" rows="10"></textarea>
+                    </div>
 
 
-            <div>
-                <label for="wishes">What do you want to do in CodeX</label><br>
-                <textarea name="wishes" id="" cols="30" rows="10"></textarea>
-            </div>
+                    <div>
+                        <label for="wishes">What do you want to do in CodeX</label><br>
+                        <textarea name="wishes" id="" cols="30" rows="10"></textarea>
+                    </div>
 
-            <div>
-                <button>Send a request</button>
-            </div>
-        </div>
+                    <div>
+                        <button type="submit">Send a request</button>
+                    </div>
+                </div>
+            </form>
+
+            <p id="success-message-banner" hidden>
+                We will message you after the application deadline.
+            </p>
+        <? else: ?>
+            <? $lastRequest = array_pop($request); ?>
+
+            <p>
+                Your application is sent.
+            </p>
+
+            <p>
+                We will message you after the application deadline.
+            </p>
+        <? endif ; ?>
     </section>
 
-
-<!--    --><?//
-//        /**
-//         * Show auth form if user is not logged in
-//         */
-//
-//        /** Debug variable for showing auth form */
-//        $FORCE_SHOW_AUTH_BUTTON = True;
-//    ?>
-<!--    --><?// if (!$user->id || $FORCE_SHOW_AUTH_BUTTON): ?>
-<!--        <div class="lab-page__telegram-auth-button">-->
-<!--            --><?// require __DIR__ . '/../auth/telegram.php'; ?>
-<!--        </div>-->
-<!--    --><?// endif; ?>
-
-    <? include __DIR__ . '/../blocks/form-join.php'; ?>
+    <div data-module="join">
+        <textarea name="module-settings" hidden>
+            {}
+        </textarea>
+    </div>
 </div>
 
 <script src="/public/build/landingLab.bundle.js?v=<?= filemtime("public/build/landingLab.bundle.js") ?>"></script>

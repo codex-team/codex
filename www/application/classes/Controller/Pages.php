@@ -147,7 +147,11 @@ class Controller_Pages extends Controller_Base_preDispatch
             $parse_mode = 'Markdown';
             $disable_web_page_preview = true;
 
-            Model_Methods::sendBotNotification($text, $parse_mode, $disable_web_page_preview);
+            try {
+                Model_Methods::sendBotNotification($text, $parse_mode, $disable_web_page_preview);
+            } catch (\Exception $e) {
+                \Hawk\Catcher::get()->sendException($e);
+            }
 
             $this->sendAjaxResponse(array(
                 'message' => 'Your request has been saved successfully',
