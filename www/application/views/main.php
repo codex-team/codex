@@ -85,7 +85,7 @@
                     <li><a href="mailto:all@codex.so?Subject=CodeX%20Team"><u>all@codex.so</u></a></li>
                     <!--googleoff: all-->
                     <!--noindex-->
-                        <li><a href="mailto:specc.dev@gmail.com?Subject=CodeX" rel="nofollow"><u>peter@codex.so</u></a> <span class="disclaimer">— Peter Savchenko</span></li>
+                        <li><a href="mailto:peter@codex.so?Subject=CodeX" rel="nofollow"><u>peter@codex.so</u></a> <span class="disclaimer">— Peter Savchenko</span></li>
                     <!--/noindex-->
                     <!--googleon: all-->
                 </ul>
