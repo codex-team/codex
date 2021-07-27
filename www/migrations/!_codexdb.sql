@@ -199,7 +199,6 @@ CREATE TABLE IF NOT EXISTS `Requests` (
   `uid` int(11) unsigned DEFAULT NULL,
   `skills` text,
   `wishes` text,
-  `targetTeam` text,
   `dt_add` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `name` varchar(255) DEFAULT NULL,

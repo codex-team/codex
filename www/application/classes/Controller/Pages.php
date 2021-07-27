@@ -2,14 +2,6 @@
 
 class Controller_Pages extends Controller_Base_preDispatch
 {
-    /**
-     * Pages with a form
-     */
-    public const TARGET_TEAMS = [
-        'join',
-        'lab'
-    ];
-
     public function action_join()
     {
         if (Security::check(Arr::get($_POST, 'csrf'))) {
@@ -101,22 +93,12 @@ class Controller_Pages extends Controller_Base_preDispatch
             return;
         }
 
-        $targetTeam = HTML::chars(Arr::get($_POST, 'targetTeam', 'main'));
         $name = HTML::chars(Arr::get($_POST, 'name', null));
         $email = HTML::chars(Arr::get($_POST, 'email', null));
         $skills = HTML::chars(Arr::get($_POST, 'skills'));
         $wishes = HTML::chars(Arr::get($_POST, 'wishes'));
 
-        if (!in_array($targetTeam, self::TARGET_TEAMS)) {
-            $this->sendAjaxResponse(array(
-                'message' => 'Wrong team. Please reload page.',
-                'success' => 0
-            ));
-            return;
-        }
-
         $fields = array(
-            'targetTeam' => $targetTeam,
             'skills' => $skills,
             'wishes' => $wishes,
             'email'  => $email,
@@ -153,7 +135,7 @@ class Controller_Pages extends Controller_Base_preDispatch
                 $footer = "✉️ {$email}";
             }
 
-            $text = "🦄 {$name} wants to join the team *{$targetTeam}*\n" .
+            $text = "🦄 {$name} wants to join\n" .
                     "\n" .
                     "🛠 *Skills*\n" .
                     "{$skills}\n" .

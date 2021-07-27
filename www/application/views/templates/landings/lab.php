@@ -202,7 +202,6 @@
             <? if ( !$request ): ?>
                 <form class="lab-page__form" id="joinBlank" method="post" action="/process-join-form">
                         <input type="hidden" name="csrf" value="<?= Security::token() ?>">
-                        <input class="input" type="text" name="targetTeam" hidden value="<?= isset($targetTeam) ? $targetTeam : 'main' ?>">
 
                         <? if ($user->id): ?>
                             <div class="lab-page__user">

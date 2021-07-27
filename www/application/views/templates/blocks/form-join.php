@@ -34,8 +34,6 @@
             <label for="wishes">What would you like to do in CodeX?</label>
             <textarea class="input" name="wishes" id="wishes" rows="5"><?= Arr::get($_POST, 'wishes') ?></textarea>
 
-            <input class="input" type="text" name="targetTeam" hidden value="<?= isset($targetTeam) ? $targetTeam : 'main' ?>">
-
             <input class="button button--master" type="submit" id="blankSendButton" value="Send" />
 
         </form>
