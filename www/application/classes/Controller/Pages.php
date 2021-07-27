@@ -85,13 +85,13 @@ class Controller_Pages extends Controller_Base_preDispatch
             return;
         }
 
-//        if ($this->user->getUserRequest()) {
-//            $this->sendAjaxResponse(array(
-//                'message' => 'You have already send a request.',
-//                'success' => 0
-//            ));
-//            return;
-//        }
+        if ($this->user->getUserRequest()) {
+            $this->sendAjaxResponse(array(
+                'message' => 'You have already send a request.',
+                'success' => 0
+            ));
+            return;
+        }
 
         $targetTeam = HTML::chars(Arr::get($_POST, 'targetTeam', 'main'));
         $name = HTML::chars(Arr::get($_POST, 'name', null));
@@ -108,7 +108,7 @@ class Controller_Pages extends Controller_Base_preDispatch
         );
 
         if (!$fields['email'] && !$this->user->id) {
-            $this->view['error'] = 'Авторизуйтесь или укажите почту, чтобы мы могли с вами связаться.';
+            $this->view['error'] = 'Log in or enter your email so that we can contact you.';
             return;
         }
 
@@ -154,7 +154,7 @@ class Controller_Pages extends Controller_Base_preDispatch
             }
 
             $this->sendAjaxResponse(array(
-                'message' => 'Your request has been saved successfully',
+                'message' => 'Your request has been saved successfully 😎',
                 'success' => 1
             ));
             return;
