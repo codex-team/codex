@@ -127,10 +127,17 @@ Route::set('SITEMAP_XML', 'sitemap.xml')->defaults(array(
 /**
  * Join page
  */
-
 Route::set('JOIN_PAGE', 'join')->defaults(array(
     'controller' => 'pages',
     'action' => 'join',
+));
+
+/**
+ * Form for join page
+ */
+Route::set('PROCESS_JOIN_FORM', 'process-join-form')->defaults(array(
+    'controller' => 'pages',
+    'action' => 'process_join_form',
 ));
 
 
@@ -204,25 +211,27 @@ Route::set('EDITOR_FILE_TRANSORT', 'editor/transport', array())
  * Fetches page data by URL
  */
 Route::set('FETCH_URL', 'editor/fetchURL')
-->defaults(array(
-    'controller' => 'Editor',
-    'action'    => 'fetchURL'
-));
+    ->defaults(array(
+        'controller' => 'Editor',
+        'action'    => 'fetchURL'
+    ));
 
 /**
-* Landing pages
-*/
+ * Landing pages
+ */
 Route::set('LANDINGS', '<action>', array(
    'actions' => 'bot|special|media|beauty-toolbar|editor|reactions|lab'
 ))
-->filter(function($route, $params, $request) {
-    // Replacing the hyphens for underscores.
-    $params['action'] = str_replace('-', '_', $params['action']);
-    return $params; // Returning an array will replace the parameters.
-})
-->defaults(array(
-   'controller' => 'landings'
-));
+    ->filter(function($route, $params, $request) {
+        // Replacing the hyphens for underscores.
+        $params['action'] = str_replace('-', '_', $params['action']);
+
+        return $params; // Returning an array will replace the parameters.
+    })
+    ->defaults(array(
+       'controller' => 'landings'
+    ));
+
 
 /**
  * News

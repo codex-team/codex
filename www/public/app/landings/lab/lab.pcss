@@ -421,6 +421,23 @@ body {
         }
     }
 
+    &__user {
+        display: flex;
+        align-items: center;
+
+        &-photo {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        &-name {
+            font-size: 1.1em;
+        }
+    }
+
     &__form {
         margin-bottom: 50px;
 
@@ -438,6 +455,20 @@ body {
             display: inline-block;
             letter-spacing: -0.18px;
             line-height: 19px;
+        }
+
+        & input {
+            width: 100%;
+            max-width: 407px;
+            background-color: rgba(255, 255, 255, 0.08);
+            box-sizing: border-box;
+            border-radius: 10px;
+            border: 0;
+            font-family: inherit;
+            outline: none;
+            color: #fff;
+            padding: 12px;
+            vertical-align: bottom;
         }
 
         & textarea {
@@ -489,6 +520,10 @@ body {
     .lab-page__roles-list-items &--animated-visible {
         animation: star-bounce 150ms ease-in forwards;
     }
+}
+
+#success-message-banner {
+    margin-bottom: 300px;
 }
 
 @keyframes text-in {

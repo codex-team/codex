@@ -5,7 +5,7 @@ class Controller_Pages extends Controller_Base_preDispatch
     public function action_join()
     {
         if (Security::check(Arr::get($_POST, 'csrf'))) {
-            $this->saveRequest();
+            $this->action_process_join_form();
 
             /** Refresh CSRF token */
             Security::token(true);
@@ -65,8 +65,34 @@ class Controller_Pages extends Controller_Base_preDispatch
         }
     }
 
-    private function saveRequest()
+    public function action_process_join_form()
     {
+        $this->auto_render = false;
+
+        if (!$this->request->is_ajax()) {
+            $this->sendAjaxResponse(array(
+                'message' => 'Request is not ajax.',
+                'success' => 0
+            ));
+            return;
+        }
+
+        if (!Security::check(Arr::get($_POST, 'csrf'))) {
+            $this->sendAjaxResponse(array(
+                'message' => 'CSRF token is bad. Please reload a page and try again.',
+                'success' => 0
+            ));
+            return;
+        }
+
+        if ($this->user->getUserRequest()) {
+            $this->sendAjaxResponse(array(
+                'message' => 'You have already send a request.',
+                'success' => 0
+            ));
+            return;
+        }
+
         $name = HTML::chars(Arr::get($_POST, 'name', null));
         $email = HTML::chars(Arr::get($_POST, 'email', null));
         $skills = HTML::chars(Arr::get($_POST, 'skills'));
@@ -80,7 +106,10 @@ class Controller_Pages extends Controller_Base_preDispatch
         );
 
         if (!$fields['email'] && !$this->user->id) {
-            $this->view['error'] = 'Авторизуйтесь или укажите почту, чтобы мы могли с вами связаться.';
+            $this->sendAjaxResponse(array(
+                'message' => 'Log in or enter your email so that we can contact you.',
+                'success' => 0
+            ));
             return;
         }
 
@@ -120,6 +149,18 @@ class Controller_Pages extends Controller_Base_preDispatch
             $disable_web_page_preview = true;
 
             Model_Methods::sendBotNotification($text, $parse_mode, $disable_web_page_preview);
+
+            $this->sendAjaxResponse(array(
+                'message' => 'Your request has been saved successfully 😎',
+                'success' => 1
+            ));
+            return;
         }
+
+        $this->sendAjaxResponse(array(
+            'message' => 'Something went wrong. Please try again later',
+            'success' => 0
+        ));
+        return;
     }
 }

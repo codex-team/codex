@@ -43,7 +43,7 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
                     break;
             }
         } catch (\Throwable $e) {
-            \Hawk\HawkCatcher::catchException($e);
+            \Hawk\Catcher::get()->sendException($e);
             die();
 
             /** @todo throw 500 */
@@ -114,8 +114,8 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
                     break;
                 }
             }
-        } catch (Exception $e) {
-            \Hawk\HawkCatcher::catchException($e);
+        } catch (\Exception $e) {
+            \Hawk\Catcher::get()->sendException($e);
         }
 
         /**

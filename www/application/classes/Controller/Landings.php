@@ -55,6 +55,8 @@ class Controller_Landings extends Controller_Base_preDispatch
             'REDIRECT_URI' => $tgAuthModule::$redirectUri
         ];
 
+        $this->view['request'] = $this->user->getUserRequest();
+
         $this->title = 'CodeX Lab';
         $this->description = 'CodeX Lab';
         $this->template->content = View::factory('templates/landings/lab', $this->view);
@@ -158,8 +160,8 @@ class Controller_Landings extends Controller_Base_preDispatch
 
             return $version;
 
-        } catch (Exception $e){
-            \Hawk\HawkCatcher::catchException($e);
+        } catch (\Exception $e){
+            \Hawk\Catcher::get()->sendException($e);
         }
 
         return '2.12';
