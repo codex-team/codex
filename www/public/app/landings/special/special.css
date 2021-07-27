@@ -104,7 +104,7 @@ html body .codex-special__toolbar{
 .special-green  .site-footer{
     border-color: #464134;
 }
-.special-green .site-footer .desclimer{
+.special-green .site-footer .disclaimer{
     color: #796647
 }
 /** black*/
@@ -117,7 +117,7 @@ html body .codex-special__toolbar{
 .special-blue  .site-footer{
     border-color: #a1ccf9;
 }
-.special-blue .site-footer .desclimer{
+.special-blue .site-footer .disclaimer{
     color: #3897ef
 }
 

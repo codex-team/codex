@@ -69,8 +69,8 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
              */
             try {
                 $article->blocks = $this->drawArticleBlocks($article->text);
-            } catch (Exception $e) {
-                \Hawk\HawkCatcher::catchException($e);
+            } catch (\Exception $e) {
+                \Hawk\Catcher::get()->sendException($e);
             }
 
         }

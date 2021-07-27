@@ -1,15 +1,15 @@
-# CodeX Team
+# CodeX
 
-Club of web-development, design and marketing. We build team learning how to create full-valued products on the global market.
+This repo contains the source code of CodeX website. 
 
 [codex.so](https://codex.so)
 
-## Follow us
+# About CodeX
 
-[vk.com/codex_team](https://vk.com/codex_team)
+<img align="right" width="120" height="120" src="https://codex.so/public/app/img/codex-logo.svg" hspace="50">
 
-[instagram.com/codex_team](https://instagram.com/codex_team)
+CodeX is a team of digital specialists around the world interested in building high-quality open source products on a global market. We are [open](https://codex.so/join) for young people who want to constantly improve their skills and grow professionally with experiments in cutting-edge technologies.
 
-Join our Telegram-channel and stay in touch! You'll be notified about new articles, meet-ups and other events.
-
-[t.me/codex_team](https://t.me/codex_team)
+| 🌐 | Join  👋  | Twitter | Instagram |
+| -- | -- | -- | -- |
+| [codex.so](https://codex.so) | [codex.so/join](https://codex.so/join) |[@codex_team](http://twitter.com/codex_team) | [@codex_team](http://instagram.com/codex_team) |

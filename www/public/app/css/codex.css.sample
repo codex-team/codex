@@ -349,7 +349,7 @@ html {
     .site-footer p{
         margin: 0;
     }
-    .site-footer .desclimer{
+    .site-footer .disclaimer{
         color: #aaa;
     }
 

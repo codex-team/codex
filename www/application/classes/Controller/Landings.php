@@ -42,18 +42,7 @@ class Controller_Landings extends Controller_Base_preDispatch
      */
     public function action_lab()
     {
-        /**
-         * Remove this if when landing page is ready to be public
-         */
-        if (!$this->user->checkAccess(array(Model_User::ROLE_ADMIN))) {
-            throw new HTTP_Exception_404();
-        }
-
-        $tgAuthModule = Oauth::instance('telegram');
-        $this->view['telegramBot'] = [
-            'BOT_USERNAME' => $tgAuthModule::$botUsername,
-            'REDIRECT_URI' => $tgAuthModule::$redirectUri
-        ];
+        $this->view['request'] = $this->user->getUserRequest();
 
         $this->title = 'CodeX Lab';
         $this->description = 'CodeX Lab';
@@ -158,8 +147,8 @@ class Controller_Landings extends Controller_Base_preDispatch
 
             return $version;
 
-        } catch (Exception $e){
-            \Hawk\HawkCatcher::catchException($e);
+        } catch (\Exception $e){
+            \Hawk\Catcher::get()->sendException($e);
         }
 
         return '2.12';

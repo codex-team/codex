@@ -7,6 +7,10 @@ plugins:
     # https://github.com/pascalduez/postcss-apply
     postcss-apply: {}
 
+    # PostCSS plugin that enables @for loop syntax in your CSS
+    # https://github.com/antyakushev/postcss-for
+    postcss-for: {}
+
     # PostCSS Nested ancestors helper
     # https://github.com/toomuchdesign/postcss-nested-ancestors
     #
