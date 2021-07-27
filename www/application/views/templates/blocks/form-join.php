@@ -41,14 +41,14 @@
         </form>
 
         <div class="join-page__success join-page__success--compact" id="success-message-banner" hidden>
-            We will message you after the application deadline.
+            ✅ Your application is sent. We will message you.
         </div>
 
 <? else: ?>
 
     <? $lastRequest = array_pop($request); ?>
 
-    <h4>Your application is sent:</h4>
+    <h4>✅ Your application is sent. </h4>
 
     <? if (!empty($lastRequest['skills'])): ?>
 
@@ -65,7 +65,7 @@
     <? endif ?>
 
     <div class="join-page__success join-page__success--compact">
-        We will message you after the application deadline.
+        We will message you.
     </div>
 
 <? endif ; ?>

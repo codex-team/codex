@@ -240,10 +240,7 @@
 
             <div id="success-message-banner" <?= !$request ? 'hidden' : '' ?>>
                 <p>
-                    Your application is sent.
-                </p>
-                <p>
-                    We will message you after the application deadline.
+                    ✅ Your application is sent. We will message you.
                 </p>
             </div>
         </div>
