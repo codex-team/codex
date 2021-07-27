@@ -82,7 +82,7 @@
             <section class="site-footer__section site-footer__section--contacts">
                 <h5>Contact team</h5>
                 <ul>
-                    <li><a href="mailto:all@codex.so?Subject=CodeX%20Team"><u>all@codex.so</u></a></li>
+                    <li><a href="mailto:team@codex.so?Subject=CodeX"><u>team@codex.so</u></a></li>
                     <!--googleoff: all-->
                     <!--noindex-->
                         <li><a href="mailto:peter@codex.so?Subject=CodeX" rel="nofollow"><u>peter@codex.so</u></a> <span class="disclaimer">— Peter Savchenko</span></li>
