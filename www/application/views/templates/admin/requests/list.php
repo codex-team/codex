@@ -59,9 +59,6 @@
                         <td class="">
                             <?= nl2br($request['wishes']); ?>
                         </td>
-                        <td class="">
-                            <?= nl2br($request['targetTeam']); ?>
-                        </td>
                     </tr>
                 <? $prevIterationYear = date('Y', strtotime($request['dt_add'])); ?>
             <? endforeach; ?>
