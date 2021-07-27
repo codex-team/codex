@@ -200,7 +200,7 @@
 
         <div class="lab-page__section-content">
             <? if ( !$request ): ?>
-                <form class="lab-page__form" id="joinBlank" method="post" action="/process-join-form">
+                <form class="lab-page__form" id="joinForm" method="post" action="/process-join-form">
                         <input type="hidden" name="csrf" value="<?= Security::token() ?>">
 
                         <? if ($user->id): ?>

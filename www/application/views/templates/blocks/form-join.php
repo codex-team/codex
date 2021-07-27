@@ -1,5 +1,5 @@
 <? if ( !$request ): ?>
-    <form class="join-page__form" id="joinBlank" method="post" action="/process-join-form">
+    <form class="join-page__form" id="joinForm" method="post" action="/process-join-form">
 
         <input type="hidden" name="csrf" value="<?= Security::token() ?>">
 

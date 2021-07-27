@@ -135,7 +135,7 @@ class Controller_Pages extends Controller_Base_preDispatch
                 $footer = "✉️ {$email}";
             }
 
-            $text = "🦄 {$name} wants to join\n" .
+            $text = "🦄 {$name} wants to join the team\n" .
                     "\n" .
                     "🛠 *Skills*\n" .
                     "{$skills}\n" .
@@ -148,11 +148,7 @@ class Controller_Pages extends Controller_Base_preDispatch
             $parse_mode = 'Markdown';
             $disable_web_page_preview = true;
 
-            try {
-                Model_Methods::sendBotNotification($text, $parse_mode, $disable_web_page_preview);
-            } catch (\Exception $e) {
-                \Hawk\Catcher::get()->sendException($e);
-            }
+            Model_Methods::sendBotNotification($text, $parse_mode, $disable_web_page_preview);
 
             $this->sendAjaxResponse(array(
                 'message' => 'Your request has been saved successfully 😎',

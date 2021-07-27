@@ -11,7 +11,7 @@ var join = function () {
 
     const animationClass = 'wobble';
 
-    const formElement = document.getElementById('joinBlank');
+    const formElement = document.getElementById('joinForm');
     const successMessageBanner = document.getElementById('success-message-banner');
 
     /**
