@@ -2,10 +2,18 @@
 
 class Controller_Pages extends Controller_Base_preDispatch
 {
+    /**
+     * Pages with a form
+     */
+    public const TARGET_TEAMS = [
+        'join',
+        'lab'
+    ];
+
     public function action_join()
     {
         if (Security::check(Arr::get($_POST, 'csrf'))) {
-            $this->saveRequest();
+            $this->action_process_join_form();
 
             /** Refresh CSRF token */
             Security::token(true);
@@ -99,6 +107,14 @@ class Controller_Pages extends Controller_Base_preDispatch
         $skills = HTML::chars(Arr::get($_POST, 'skills'));
         $wishes = HTML::chars(Arr::get($_POST, 'wishes'));
 
+        if (!in_array($targetTeam, self::TARGET_TEAMS)) {
+            $this->sendAjaxResponse(array(
+                'message' => 'Wrong team. Please reload page.',
+                'success' => 0
+            ));
+            return;
+        }
+
         $fields = array(
             'targetTeam' => $targetTeam,
             'skills' => $skills,
@@ -108,7 +124,10 @@ class Controller_Pages extends Controller_Base_preDispatch
         );
 
         if (!$fields['email'] && !$this->user->id) {
-            $this->view['error'] = 'Log in or enter your email so that we can contact you.';
+            $this->sendAjaxResponse(array(
+                'message' => 'Log in or enter your email so that we can contact you.',
+                'success' => 0
+            ));
             return;
         }
 
