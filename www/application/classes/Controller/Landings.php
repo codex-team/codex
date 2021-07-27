@@ -56,7 +56,6 @@ class Controller_Landings extends Controller_Base_preDispatch
         ];
 
         $this->view['request'] = $this->user->getUserRequest();
-        $this->view['targetTeam'] = 'lab';
 
         $this->title = 'CodeX Lab';
         $this->description = 'CodeX Lab';
