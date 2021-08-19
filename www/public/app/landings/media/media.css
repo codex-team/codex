@@ -172,8 +172,6 @@
     }
 
     .codex-media__footer-caption {
-        float: none;
-        margin-bottom: 5px;
-        margin-top: 15px;
+        display: none;
     }
 }
