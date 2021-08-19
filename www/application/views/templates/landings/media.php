@@ -18,14 +18,14 @@
         <ul class="codex-media__advants">
             <li>Удобное управление страницами и меню</li>
             <li>Блоги преподавателей и учеников</li>
-            <li>Можно публиковать образовательные и административные документы</li>
+            <li>Можно публиковать образовательные и административные материалы</li>
         </ul>
 
         <a class="codex-media__link" target="_blank" href="//school332.ru">Пример</a>
         <a class="codex-media__link" href="//github.com/codex-team/codex.media">Исходный код</a>
 
         <footer class="codex-media__footer clearfix">
-            <a class="codex-media__mail-link" href="mailto:team@codex.so?subject=CodeX Media">Подключить своей школе</a>
+            <a class="codex-media__mail-link" href="mailto:team@codex.so?subject=CodeX Media">Подключить свою школу</a>
             <div class="codex-media__footer-caption">St. Petersburg, Russia</div>
         </footer>
 
