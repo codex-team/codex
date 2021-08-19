@@ -56,8 +56,14 @@
 }
 
 .codex-media__footer a {
-    color: inherit;
     text-decoration: none;
+}
+
+.codex-media__mail-link {
+    background: #007ade;
+    padding: 10px 15px;
+    color: #fff;
+    border-radius: 9px;
 }
 
 .codex-media__footer-caption {
@@ -166,7 +172,6 @@
     }
 
     .codex-media__footer-caption {
-        float: none;
-        margin-bottom: 5px;
+        display: none;
     }
 }
