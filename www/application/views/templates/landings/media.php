@@ -13,21 +13,20 @@
             <? include_once(DOCROOT . 'public/app/img/codex-logo.svg'); ?>
         </a>
         <h1 class="codex-media__title">CodeX Media</h1>
-        <div class="codex-media__caption">Its time to build modern websites</div>
-        <div class="codex-media__caption">for educational organizations</div>
+        <div class="codex-media__caption">Бесплатный движок для сайтов школ</div>
 
         <ul class="codex-media__advants">
-            <li>Community around your organization</li>
-            <li>Platform for content marketing</li>
-            <li>Own media project</li>
+            <li>Удобное управление страницами и меню</li>
+            <li>Блоги преподавателей и учеников</li>
+            <li>Можно публиковать образовательные и административные документы</li>
         </ul>
 
-        <a class="codex-media__link" target="_blank" href="//school332.ru">Example</a>
-        <a class="codex-media__link" href="//github.com/codex-team/codex.media">github.com/codex-team/codex.media</a>
+        <a class="codex-media__link" target="_blank" href="//school332.ru">Пример</a>
+        <a class="codex-media__link" href="//github.com/codex-team/codex.media">Исходный код</a>
 
         <footer class="codex-media__footer clearfix">
+            <a class="codex-media__mail-link" href="mailto:team@codex.so?subject=CodeX Media">Подключить своей школе</a>
             <div class="codex-media__footer-caption">St. Petersburg, Russia</div>
-            <a href="mailto:team@ifmo.su">team@ifmo.su</a>
         </footer>
 
     </div>
