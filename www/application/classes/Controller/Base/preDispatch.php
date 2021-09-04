@@ -29,10 +29,10 @@ class Controller_Base_preDispatch extends Template
         $domain = Arr::get($_SERVER, 'SERVER_NAME');
 
         if (Kohana::$environment === Kohana::PRODUCTION) {
-            if (!in_array($domain, $allowed_domains)) {
-                echo 'Sorry. Domain '.$domain.' is not be able to show our site.'.
-                exit();
-            }
+//            if (!in_array($domain, $allowed_domains)) {
+//                echo 'Sorry. Domain '.$domain.' is not be able to show our site.'.
+//                exit();
+//            }
 
             /** Mark requests as secure and working with HTTPS  */
             $this->request->secure(true);
