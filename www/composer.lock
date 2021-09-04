@@ -53,16 +53,16 @@
         },
         {
             "name": "codex-team/hawk.php",
-            "version": "2.1.1",
+            "version": "2.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codex-team/hawk.php.git",
-                "reference": "9fd5d21756203e1ba9f51c50d59cc8617eddbd6a"
+                "reference": "900844cf475938334aac66f9d21b75a9380063ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codex-team/hawk.php/zipball/9fd5d21756203e1ba9f51c50d59cc8617eddbd6a",
-                "reference": "9fd5d21756203e1ba9f51c50d59cc8617eddbd6a",
+                "url": "https://api.github.com/repos/codex-team/hawk.php/zipball/900844cf475938334aac66f9d21b75a9380063ba",
+                "reference": "900844cf475938334aac66f9d21b75a9380063ba",
                 "shasum": ""
             },
             "require": {
@@ -96,9 +96,9 @@
             ],
             "support": {
                 "issues": "https://github.com/codex-team/hawk.php/issues",
-                "source": "https://github.com/codex-team/hawk.php/tree/v2.1.1"
+                "source": "https://github.com/codex-team/hawk.php/tree/v2.1.4"
             },
-            "time": "2021-06-21T15:40:19+00:00"
+            "time": "2021-08-11T08:16:13+00:00"
         },
         {
             "name": "euskadi31/opengraph",
