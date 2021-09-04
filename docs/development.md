@@ -13,9 +13,16 @@ cd codex
 
 ## 2. In the repository's root build and run Docker containers.
 
+Copy `.env` file for docker containers and update field inside.
+
 ```shell
-docker-compose build
-docker-compose up
+cp .env.sample .env
+```
+
+Then build and run containers.
+
+```shell
+docker-compose up -d
 ```
 
 ## 3. Run composer in PHP container and install all dependencies.
@@ -69,13 +76,15 @@ chmod 777 cache logs
 
 ## 6. Create a MySQL database.
 
-Open phpMyAdmin in [localhost:8081](http://localhost:8081).
+Open phpMyAdmin in [localhost:8885/phpmyadmin/](http://localhost:8885/phpmyadmin/).
+
+Check port which defined in [.env](../.env) file.
 
 Use these credentials to sign in.
 
 - server: `mysql`
 - login: `root`
-- password: `root`
+- password: defined in [.env](../.env) file
 
 Create a new database with the name, say, `codexdb` with `utf8_general_ci` collation.
 
@@ -112,6 +121,8 @@ On 10th line in `host` param you should set Memcached container's hostname `memc
 
 Set `mysql` as a hostname of MySQL container. Type database name, username and password.
 
+Password defined in [.env](../.env) file.
+
 ```
 'hostname'   => 'mysql',
 'database'   => 'codexdb',
@@ -134,7 +145,7 @@ Set any `Application name` and enter a correct link (with protocol) to your site
 In the field `Authorization callback URL` you should type a link to your local site with `/auth/github` uri:
 
 ```
-http://localhost:8080/auth/github
+http://localhost:8885/auth/github
 ```
 
 ![](assets/create-a-new-github-app.png)
@@ -149,7 +160,7 @@ After registering an application you will be redirected to app's settings page. 
 ...    
 ```
 
-## 8. Open [http://localhost:8080](http://localhost:8080). You'll see a CodeX site's homepage. Try to auth.
+## 8. Open [http://localhost:8885](http://localhost:8885). You'll see a CodeX site's homepage. Try to auth.
 
 ![](assets/local-codex-site.png)
 
