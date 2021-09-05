@@ -42,7 +42,9 @@ RUN set -x \
     && rm -rf /tmp/pecl-memcache-php7 php7.zip
 
 # Install ImageMagick
-RUN pecl install imagick
+# > use version 3.4.3 cause "Function Imagick::setImageOpacity() is deprecated"
+# > in 3.4.4 and above. Read: https://www.php.net/manual/en/imagick.setimageopacity.php
+RUN pecl install -f imagick-3.4.3
 RUN docker-php-ext-enable \
     imagick
 
