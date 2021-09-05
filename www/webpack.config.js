@@ -1,5 +1,8 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HawkWebpackPlugin = require('@hawk.so/webpack-plugin');
 const path = require('path');
+
+require('dotenv').config();
 
 module.exports = {
 
@@ -77,6 +80,10 @@ module.exports = {
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
             filename: '[name].bundle.css'
+        }),
+
+        new HawkWebpackPlugin({
+            integrationToken: process.env.HAWK_TOKEN
         })
     ],
 
@@ -92,5 +99,7 @@ module.exports = {
     optimization: {
         noEmitOnErrors: true,
         splitChunks: false
-    }
+    },
+
+    devtool: 'hidden-source-map',
 };
