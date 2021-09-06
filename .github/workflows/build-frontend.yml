@@ -13,6 +13,13 @@ jobs:
         with:
           node-version: 15
 
+      # Create a env file with a Hawk token to send a release info
+      - name: Make envfile with Hawk token
+        uses: ozaytsev86/create-env-file@v1
+        with:
+          file-name: './www/.env'
+          ENV_HAWK_TOKEN: ${{ secrets.HAWK_TOKEN }}
+
       - name: Go to app dir, Install Node.js packages, Build static files
         run: cd www && yarn && yarn build
 

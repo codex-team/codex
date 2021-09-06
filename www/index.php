@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * The directory in which your application specific resources are located.
  * The application directory must contain the bootstrap.php file.
@@ -28,6 +27,11 @@ $system = 'system';
 * Third party libs
 */
 $vendor = 'vendor';
+
+/**
+ * The directory where public files are stored
+ */
+$public = 'public';
 
 /**
  * The default extension of resource files. If you change this, all resources
@@ -79,14 +83,20 @@ if ( ! is_dir($system) AND is_dir(DOCROOT.$system))
 if ( ! is_dir($vendor) AND is_dir(DOCROOT.$vendor))
 	$vendor = DOCROOT.$vendor;
 
+// Make the public relative to the docroot, for symlink'd index.php
+if (! is_dir($public) and is_dir(DOCROOT . $public)) {
+    $public = DOCROOT . $public;
+}
+
 // Define the absolute paths for configured directories
 define('APPPATH', realpath($application).DIRECTORY_SEPARATOR);
 define('MODPATH', realpath($modules).DIRECTORY_SEPARATOR);
 define('SYSPATH', realpath($system).DIRECTORY_SEPARATOR);
 define('VENDORPATH', realpath($vendor).DIRECTORY_SEPARATOR);
+define('PUBLICPATH', realpath($public) . DIRECTORY_SEPARATOR);
 
 // Clean up the configuration vars
-unset($application, $modules, $system, $vendor);
+unset($application, $modules, $system, $vendor, $public);
 
 if (file_exists('install'.EXT))
 {

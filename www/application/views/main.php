@@ -36,28 +36,50 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
     <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/apple-touch-icon-180x180.png" />
 
-    <? if (!empty($_SERVER['HAWK_TOKEN'])): ?>
+    <? if (!empty($_SERVER['HAWK_TOKEN']) || !empty($_SERVER['METRIKA_HAWK_TOKEN'])): ?>
         <script>
             /**
              * Tiny wrapper for Hawk service initializing
              */
             function initializeHawk() {
-                /**
-                 * Define global catcher for errors
-                 */
-                new HawkCatcher({
-                    token: '<?= $_SERVER['HAWK_TOKEN'] ?>'
-                });
+                <? if (!empty($_SERVER['HAWK_TOKEN'])): ?>
+                    <?
+                        $release = '';
 
-                <? if ($enableMetrika && !empty($_SERVER['METRIKA_HAWK_TOKEN'])): ?>
-                /**
-                 * Send a hit for a page open
-                 */
-                (new HawkCatcher({
-                    token: '<?= $_SERVER['METRIKA_HAWK_TOKEN'] ?>',
-                    disableGlobalErrorsHandling: true
-                }))
-                    .send(new Error(window.location.pathname));
+                        try {
+                            $releaseConfig = file_get_contents(PUBLICPATH . DIRECTORY_SEPARATOR . 'build' . DIRECTORY_SEPARATOR . 'release.json');
+
+                            $releaseConfig = json_decode($releaseConfig, true);
+
+                            $release = $releaseConfig['release'];
+                        } catch (Exception $e) {
+                            // throw new Error ('release.json file is missing. Rebuild frontend scripts, please.');
+                        }
+
+                        $config = [
+                            'token' => $_SERVER['HAWK_TOKEN'],
+                            'release' => $release,
+                        ];
+                    ?>
+
+                    /**
+                     * Define global catcher for errors
+                     */
+                    new HawkCatcher({
+                        token: '<?= $config['token'] ?>',
+                        release: '<?= $config['release'] ?>'
+                    });
+                <? endif; ?>
+
+                <? if (!empty($_SERVER['METRIKA_HAWK_TOKEN'])): ?>
+                    /**
+                     * Send a hit for a page open
+                     */
+                    (new HawkCatcher({
+                        token: '<?= $_SERVER['METRIKA_HAWK_TOKEN'] ?>',
+                        disableGlobalErrorsHandling: true
+                    }))
+                        .send(new Error(window.location.pathname));
                 <? endif; ?>
             }
         </script>
