@@ -21,6 +21,22 @@
         margin: 50px 0 80px;
     }
 
+    &--lab {
+        text-align: initial;
+        margin: 20px 0 40px;
+
+        ^&__time {
+            justify-content: flex-start;
+        }
+        ^&__label, ^&__time-item {
+            color: white;
+        }
+        ^&__time-delimiter:after,
+        ^&__time-delimiter:before {
+            background-color: white;
+        }
+    }
+
     &__desc {
         max-width: 322px;
         margin-top: 22px;
@@ -40,7 +56,7 @@
         background-color: #4a90e2;
         padding: 10px 35.5px;
         box-shadow: 0 7px 12px -4px rgba(65,140,227,0.7);
-        
+
         &:hover {
             color: #fff;
             background: #4484db;
