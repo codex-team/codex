@@ -107,6 +107,7 @@ class Internationalization
         /**
          * Force use default lang
          */
+        $this->setLang($this->lang);
         return;
 
         $langFromGetParam = Arr::get($_GET, self::GET_PARAM_NAME);
