@@ -104,6 +104,11 @@ class Internationalization
          */
         $this->lang = array_keys($this->langsSupported)[0];
 
+        /**
+         * Force use default lang
+         */
+        return;
+
         $langFromGetParam = Arr::get($_GET, self::GET_PARAM_NAME);
         $langFromCookies = Arr::get($_COOKIE, self::COOKIE_NAME);
 
