@@ -33,9 +33,17 @@
                                 </div>
                             </div>
                         </td>
+
+                        <? /*
+                        <td>
+                            <?= $request['dt_add'] ?>
+                        </td>
+                        */ ?>
+
                         <td class="user">
-                            <? /* <?= $request['dt_add'] ?> */ ?>
                             <a class="name" href="/user/<?= $request['user']->id ?>"><?= $request['user']->name ?></a> <br />
+                        </td>
+                        <td>
                             <? if ($request['user']->github_uri): ?>
                                 <a class="nick" href="//github.com/<?= $request['user']->github_uri ?>" target="_blank"><i class="icon-github-circled"></i><?= $request['user']->github_uri ?></a>
                             <? endif ?>
@@ -43,6 +51,8 @@
                                 <a class="nick" href="mailto:<?= $request['email'] ?>" target="_blank"><i class="icon-link"></i><?= $request['email'] ?></a>
                             <? endif ?>
                         </td>
+
+                        <? /*
                         <td>
                             <? if ($request['user']->vk_uri || $request['user']->vk_id): ?>
                                 <a href="//vk.com/<?= $request['user']->vk_uri ? $request['user']->vk_uri : 'id'.$request['user']->vk_id ?>" target="_blank"><i class="icon-vkontakte"></i></a>
@@ -53,6 +63,8 @@
                                 <a href="//vk.com/<?= $request['user']->fb_uri?>" target="_blank"><i class="icon-facebook-squared"></i></a>
                             <? endif ?>
                         </td>
+                        */ ?>
+
                         <td class="">
                             <?= nl2br($request['skills']); ?>
                         </td>
