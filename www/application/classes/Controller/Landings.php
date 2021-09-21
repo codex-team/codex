@@ -46,11 +46,7 @@ class Controller_Landings extends Controller_Base_preDispatch
 
         $this->title = 'CodeX Lab';
         $this->description = 'CodeX Lab';
-        /**
-         * Till what date and time people can join the club
-         * @param string $last_chance_to_join - string in Date format Y-m-d H:i
-         */
-        $this->view['joinTimeLeft'] = Model_Methods::countDownJoinTime("2021-09-22 23:59");
+
         $this->template->content = View::factory('templates/landings/lab', $this->view);
     }
 
