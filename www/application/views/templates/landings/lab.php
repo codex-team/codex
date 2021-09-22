@@ -197,26 +197,6 @@
             Wanna join? Jump in.
         </h2>
 
-        <section class="join-component join-component--compact join-component--lab">
-            <div class="join-component__label">
-                Time left to apply
-            </div>
-            <time class="join-component__time">
-                <span data-time="days" class="join-component__time-item">
-                    <?= $joinTimeLeft['days_left'] ?>
-                </span>
-                <span class="join-component__time-delimiter"></span>
-                <span data-time="hrs" class="join-component__time-item">
-                    <?= $joinTimeLeft['hours_left'] ?>
-                </span>
-                <span class="join-component__time-delimiter join-component__time-delimiter--blinking"></span>
-                <span data-time="mins" class="join-component__time-item">
-                    <?= $joinTimeLeft['minutes_left'] ?>
-                </span>
-            </time>
-        </section>
-
-
         <div class="lab-page__section-content">
             <? if ( !$request ): ?>
                 <form class="lab-page__form" id="joinForm" method="post" action="/process-join-form">
