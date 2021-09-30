@@ -717,6 +717,67 @@
     }
 }
 
+/**
+ * Hawk banner styles 
+ */
+.hawk-bnnr {
+    &__body {
+        width: 80%;
+        padding: 0 1%;
+        margin: 0 auto;
+        margin-top: 100px;
+        position: relative;
+        color: #fff;
+        line-height: 1.2;
+    }
+
+    &__content {
+        position: absolute;
+        font-size: 1.3vw;
+        margin-left: 23%;
+        top: 12%;
+    }
+
+    &__illustration {
+        width: 100%;
+        border-radius: 1%;
+        filter: brightness(0.8);
+    }
+
+    &__title {
+        font-size: 2.5em;
+        font-weight: bold;
+        margin-bottom: 0.5em;
+    }
+
+    &__text {
+        font-size: 1em;
+        width: 35%;
+        line-height: 1.5;
+        margin-bottom: 7.5%;
+    }
+
+    &__second_title {
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+
+    &__slogan {
+        font-size: 1em;
+        font-weight: 500;
+    }
+    
+    &__garage {
+        position: absolute;
+        width: 50%;
+        border-radius: 1%;
+        right: -2%;
+        top: 47%;
+        border: 1px solid #30323d;
+        box-shadow: 0 12px 44px 0 rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+    }
+}
+
 @keyframes logoIn {
     0% {
         transform: translateY(-80px) scale(1, 1.3   );

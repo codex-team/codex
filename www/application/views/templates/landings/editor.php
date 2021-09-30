@@ -1,4 +1,14 @@
 <div class="editor-landing">
+    <div class="hawk-bnnr__body">   
+        <img class="hawk-bnnr__illustration" src="https://capella.pics/249391e3-63fa-4926-85c4-5713843d5402.jpg" alt="">
+        <div class="hawk-bnnr__content">
+            <div class="hawk-bnnr__title">What a day! 🥳🎈🎉 </div>
+            <div class="hawk-bnnr__text">Today we are releasing our next big open-source project. As big as Editor.js or bigger. It is the error tracking service called Hawk!<br> Check it out.</div>
+            <div class="hawk-bnnr__second_title">Hawk</div>
+            <div class="hawk-bnnr__slogan">Code problems. Resolved.</div>
+        </div>
+        <img class="hawk-bnnr__garage" src="https://capella.pics/ae86cbae-925b-453c-a89b-81334e39169d" alt="">
+    </div>
     <div class="editor-landing__info">
         <div class="editor-landing__logo">
             <span class="editor-landing__logo-main">
