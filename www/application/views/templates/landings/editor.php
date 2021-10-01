@@ -424,6 +424,8 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
                     <img src="https://opencollective.com/editorjs/sponsor/0/avatar.svg">
                 </a>
                 <br>
+                <img src="https://capella.pics/f3fa97af-3dd7-4a46-9ebc-41432a9e5bbd.jpg" style="width: 100px;">
+                <br>
                 <a class="editor-landing__become" href="https://opencollective.com/editorjs#sponsor" target="_blank">
                     Become a sponsor 🎩
                 </a>
