@@ -422,8 +422,8 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
 
                 Support Editor.js by becoming a sponsor with pledge 100$ or more. Your logo will show up here with a link to your website.
                 <br>
-                <a href="https://opencollective.com/editorjs/sponsor/0/website" target="_blank">
-                    <img src="https://opencollective.com/editorjs/sponsor/0/avatar.svg">
+                <a href="https://opencollective.com/editorjs#sponsors" target="_blank">
+                    <img src="https://opencollective.com/editorjs/sponsors.svg?width=600">
                 </a>
                 <br>
                 <a class="editor-landing__become" href="https://opencollective.com/editorjs#sponsor" target="_blank">
