@@ -413,7 +413,7 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
                 <br>
                 <img src="https://capella.pics/f3fa97af-3dd7-4a46-9ebc-41432a9e5bbd.jpg" style="width: 100px;">
                 <br>
-                <a class="editor-landing__become" href="https://opencollective.com/editorjs#backer" target="_blank">
+                <a class="editor-landing__become" href="https://opencollective.com/editorjs/contribute/backer-8632/checkout" target="_blank">
                     Become a backer
                 </a>
             </div>
