@@ -27,7 +27,8 @@ export default class EditorWriting {
          * @type {{blocks: Object[]}}
          */
         let editorSettings = {
-            blocks: this.getArticleData()
+            blocks: this.getArticleData(),
+            autofocus: true
         };
 
         this.loadEditor(editorSettings).then((editor) => {

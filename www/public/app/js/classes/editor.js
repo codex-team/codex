@@ -39,6 +39,7 @@ export default class Editor {
      * @param {Object[]} settings.blocks - Editor's blocks content
      * @param {function} settings.onChange - Modifications callback for the Editor
      * @param {function} settings.onReady - Editor is ready callback
+     * @param {boolean} settings.autofocus - focus Editor on ready
      * @param {EditorConfig} settings.editorConfigOverride - any properties to override the default Editor config
      */
     constructor(settings) {
@@ -144,7 +145,7 @@ export default class Editor {
 
             },
 
-            autofocus: true
+            autofocus: settings.autofocus,
         }, settings.editorConfigOverride || {}));
 
     }

@@ -406,7 +406,7 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
             <div class="editor-landing__sponsors">
                 <h3>Sponsors</h3>
 
-                Support Editor.js by becoming a sponsor with pledge 100$ or more.
+                Support Editor.js by becoming a sponsor with pledge 100$ or more.
                 <br>
                 <a href="https://opencollective.com/editorjs#sponsors" target="_blank">
                     <object type="image/svg+xml" data="https://opencollective.com/editorjs/tiers/sponsor.svg?avatarHeight=72"></object>
