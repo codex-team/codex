@@ -156,6 +156,10 @@ export default class EditorLanding {
             blocks: dataSample,
             // blocks: editorLandingSettings.blocks,
             /**
+             * Need to focus editor
+             */
+            autofocus: false,
+            /**
              * Bind onchange callback to preview JSON data
              */
             onChange: () => {
