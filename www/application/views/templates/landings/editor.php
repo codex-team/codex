@@ -419,30 +419,25 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
                 </a>
             </div>
 
+            <div class="editor-landing__sponsors">
+                <h3>Sponsors</h3>
+
+                Support Editor.js by becoming a sponsor with pledge 100$ or more.
+                <br>
+                <a href="https://opencollective.com/editorjs#sponsors" target="_blank">
+                    <object type="image/svg+xml" data="https://opencollective.com/editorjs/tiers/sponsor.svg?avatarHeight=72"></object>
+                </a>
+            </div>
+
             <div class="editor-landing__backers">
                 <h3>Backers</h3>
                 Thank you to all our backers! 🙏
                 <br>
-                <a href="https://opencollective.com/editorjs#backers" target="_blank">
-                    <img src="https://opencollective.com/editorjs/backers.svg?width=600">
+                <a href="https://opencollective.com/editorjs" target="_blank">
+                    <object type="image/svg+xml" data="https://opencollective.com/editorjs/tiers/backer.svg?avatarHeight=36"></object>
                 </a>
                 <br>
-                <a class="editor-landing__become" href="https://opencollective.com/editorjs#backer" target="_blank">
-                    Become a backer
-                </a>
-            </div>
-            <div class="editor-landing__sponsors">
-                <h3>Sponsors</h3>
-
-                Support Editor.js by becoming a sponsor with pledge 100$ or more. Your logo will show up here with a link to your website.
-                <br>
-                <a href="https://opencollective.com/editorjs/sponsor/0/website" target="_blank">
-                    <img src="https://opencollective.com/editorjs/sponsor/0/avatar.svg">
-                </a>
-                <br>
-                <a class="editor-landing__become" href="https://opencollective.com/editorjs#sponsor" target="_blank">
-                    Become a sponsor 🎩
-                </a>
+                <img src="https://capella.pics/f3fa97af-3dd7-4a46-9ebc-41432a9e5bbd.jpg" style="width: 140px;">
             </div>
         </section>
 
