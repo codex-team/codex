@@ -421,7 +421,9 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
                     <object type="image/svg+xml" data="https://opencollective.com/editorjs/tiers/backer.svg?avatarHeight=36"></object>
                 </a>
                 <br>
-                <img src="https://capella.pics/f3fa97af-3dd7-4a46-9ebc-41432a9e5bbd.jpg" style="width: 140px;">
+                <a href="https://coupontoaster.co.uk" target="_blank">
+                    <img src="https://capella.pics/f3fa97af-3dd7-4a46-9ebc-41432a9e5bbd.jpg" style="width: 140px;">
+                </a>
             </div>
         </section>
 
