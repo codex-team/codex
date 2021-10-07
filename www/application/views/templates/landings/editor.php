@@ -7,7 +7,7 @@
             <div class="hawk-bnnr__title">What a day! 🥳🎈🎉 </div>
             <div class="hawk-bnnr__text">Today we are releasing our next big open-<br class="hawk-bnnr__break"> source project. As big as Editor.js or bigger.<br class="hawk-bnnr__break">  It is the error tracking service called Hawk!<br class="hawk-bnnr__break"> Check it out.</div>
             <div class="hawk-bnnr__second_title">Hawk</div>
-            <div class="hawk-bnnr__slogan">Code Problems. Resolved.</div>
+            <div class="hawk-bnnr__slogan">Code Problems Resolved.</div>
             <a href="https://www.producthunt.com/posts/editor-js?utm_source=badge-featured&amp;utm_medium=badge&amp;utm_souce=badge-editor-js" target="_blank">
                 <img class="hawk-bnnr__product-hunt" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=150153&amp;theme=light">
             </a>
