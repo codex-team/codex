@@ -85,7 +85,7 @@
     * Editor title and description block
     */
     &__info {
-        margin-top: 100px;
+        margin-top: 200px;
         padding-bottom: 70px;
         text-align: center;
     }
@@ -746,6 +746,12 @@
         color: #fff;
         line-height: 1.2;
         text-align: left;
+        border-radius: 10px;
+
+        @media (--mobile-s) {
+            background-image: url('https://capella.pics/7f81d43a-f2d0-4daf-884f-011d25a48ab7.jpg');
+            padding: 30px 25px;
+        }
     }
 
     &__content {
@@ -754,35 +760,76 @@
         margin-left: 23%;
         top: 12%;
         width: 50%;
+
+        @media (--mobile-s) {
+            position: inherit;
+            font-size: 11px;
+            width: 85%;
+            margin: 0 0 0 10px;
+        }
+    }
+
+    &__break {
+        @media (--mobile-s) {
+            display: none;
+        }
+    }
+
+    &__illustration-wrapper {
+        border-radius: 10px;
+        overflow: hidden;
     }
 
     &__illustration {
         width: 100%;
-        border-radius: 10px;
+
+        @media (--mobile-s) {
+            display: none;
+        }
     }
 
     &__title {
         font-size: 2.5em;
         font-weight: bold;
         margin-bottom: 0.5em;
+
+        @media (--mobile-s) {
+            font-size: 2.4em;
+            margin-bottom: 15px;
+        }
     }
 
     &__text {
-        font-size: 1em;
+        font-size: 1.2em;
         width: 100%;
         line-height: 1.5;
         margin-bottom: 7.5%;
+
+        @media (--mobile-s) {
+            width: 100%;
+            margin-bottom: 23px;
+            line-height: 1.43;
+        }
     }
 
     &__second_title {
         font-size: 1.5em;
         font-weight: bold;
+
+        @media (--mobile-s) {
+            font-size: 2em;
+        }
     }
 
     &__slogan {
         margin-top: 0.7%;
         font-size: 1em;
         font-weight: 500;
+        line-height: 1.5;
+
+        @media (--mobile-s) {
+            font-size: 1.2em;
+        }
     }
     
     &__garage {
@@ -794,11 +841,33 @@
         border: 1px solid #30323d;
         box-shadow: 0 12px 44px 0 rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.06);
         z-index: 2;
+
+        @media (--mobile-s) {
+            position: inherit;
+            width: 120%;
+            margin: 10px -10% 20px;
+            top: auto;
+            right: auto;
+        }
     }
 
     &__product-hunt {
         margin-top: 4%;
         width: 35%;
+
+        &--mobile {
+            display: none;
+        }
+
+        @media (--mobile-s) {
+            display: none;
+
+            &--mobile {
+                display: block;
+                width: 200px;
+                margin: 0 auto;
+            }
+        }
     }
 }
 
