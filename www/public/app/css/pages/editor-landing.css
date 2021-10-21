@@ -776,7 +776,7 @@
     }
 
     &__illustration-wrapper {
-        border-radius: 10px;
+        border-radius: 15px;
         overflow: hidden;
     }
 
@@ -835,17 +835,18 @@
     &__garage {
         position: absolute;
         width: 46%;
-        border-radius: 5px;
+        border-radius: 9px;
         right: -2%;
         top: 50%;
+        background: #30323d;
         border: 1px solid #30323d;
         box-shadow: 0 12px 44px 0 rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.06);
         z-index: 2;
 
         @media (--mobile-s) {
             position: inherit;
-            width: 120%;
-            margin: 20px -10% 20px;
+            width: calc(112% + 40px);
+            margin: 20px calc(-6% - 20px) 20px;
             top: auto;
             right: auto;
         }
