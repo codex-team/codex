@@ -411,6 +411,10 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
                 <a href="https://opencollective.com/editorjs#sponsors" target="_blank">
                     <object type="image/svg+xml" data="https://opencollective.com/editorjs/tiers/sponsor.svg?avatarHeight=72"></object>
                 </a>
+                <br>
+                <a href="https://www.mister-auto.com" target="_blank">
+                    <img src="https://capella.pics/0ef3eff3-2927-4892-9d13-d2900e94fad3.jpg" style="width: 140px;">
+                </a>
             </div>
 
             <div class="editor-landing__backers">
