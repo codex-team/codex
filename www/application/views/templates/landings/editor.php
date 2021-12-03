@@ -409,7 +409,7 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
                 Support Editor.js by becoming a sponsor with pledge 100$ or more.
                 <br>
                 <a href="https://opencollective.com/editorjs#sponsors" target="_blank">
-                    <object type="image/svg+xml" data="https://opencollective.com/editorjs/tiers/sponsor.svg?avatarHeight=72"></object>
+                    <object type="image/svg+xml" data="https://opencollective.com/editorjs/tiers/sponsor.svg?avatarHeight=72&width=375"></object>
                 </a>
                 <br>
                 <a href="https://www.mister-auto.com" target="_blank">
@@ -422,7 +422,7 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
                 Thank you to all our backers! 🙏
                 <br>
                 <a href="https://opencollective.com/editorjs" target="_blank">
-                    <object type="image/svg+xml" data="https://opencollective.com/editorjs/tiers/backer.svg?avatarHeight=36"></object>
+                    <object type="image/svg+xml" data="https://opencollective.com/editorjs/tiers/backer.svg?avatarHeight=36&width=375"></object>
                 </a>
                 <br>
                 <a href="https://coupontoaster.co.uk" target="_blank">
