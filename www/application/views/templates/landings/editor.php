@@ -408,12 +408,12 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
 
                 Support Editor.js by becoming a sponsor with pledge 100$ or more.
                 <br>
-                <a href="https://opencollective.com/editorjs#sponsors" target="_blank">
-                    <object type="image/svg+xml" data="https://opencollective.com/editorjs/tiers/sponsor.svg?avatarHeight=72&width=375"></object>
+                <a href="https://opencollective.com/editorjs/contribute/sponsor-8679/checkout" target="_blank">
+                    <object type="image/svg+xml" data="https://opencollective.com/editorjs/tiers/sponsor.svg?avatarHeight=72&width=300"></object>
                 </a>
                 <br>
                 <a href="https://www.mister-auto.com" target="_blank">
-                    <img src="https://capella.pics/0ef3eff3-2927-4892-9d13-d2900e94fad3.jpg" style="height: 72px;">
+                    <img src="https://capella.pics/0ef3eff3-2927-4892-9d13-d2900e94fad3.jpg" style="width: 72px;">
                 </a>
             </div>
 
@@ -421,8 +421,8 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
                 <h3>Backers</h3>
                 Thank you to all our backers! 🙏
                 <br>
-                <a href="https://opencollective.com/editorjs" target="_blank">
-                    <object type="image/svg+xml" data="https://opencollective.com/editorjs/tiers/backer.svg?avatarHeight=36&width=375"></object>
+                <a href="https://opencollective.com/editorjs/contribute/backer-8632/checkout" target="_blank">
+                    <object type="image/svg+xml" data="https://opencollective.com/editorjs/tiers/backer.svg?avatarHeight=36&width=300"></object>
                 </a>
                 <br>
                 <a href="https://coupontoaster.co.uk" target="_blank">
