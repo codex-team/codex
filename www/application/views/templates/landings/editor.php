@@ -413,7 +413,7 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
                 </a>
                 <br>
                 <a href="https://www.mister-auto.com" target="_blank">
-                    <img src="https://capella.pics/0ef3eff3-2927-4892-9d13-d2900e94fad3.jpg" style="width: 140px;">
+                    <img src="https://capella.pics/0ef3eff3-2927-4892-9d13-d2900e94fad3.jpg" style="height: 72px;">
                 </a>
             </div>
 
@@ -426,7 +426,7 @@ $your_plugin_code = "<span style='color:#b83370'>class</span> <span style='color
                 </a>
                 <br>
                 <a href="https://coupontoaster.co.uk" target="_blank">
-                    <img src="https://capella.pics/f3fa97af-3dd7-4a46-9ebc-41432a9e5bbd.jpg" style="width: 140px;">
+                    <img src="https://capella.pics/f3fa97af-3dd7-4a46-9ebc-41432a9e5bbd.jpg" style="height: 36px;">
                 </a>
             </div>
         </section>
