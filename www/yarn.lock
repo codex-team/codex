@@ -597,12 +597,12 @@
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@editorjs/delimiter/-/delimiter-1.2.0.tgz#5075f1a3e68765cfb6aec8694b316d81e2b41607"
 
-"@editorjs/editorjs@^2.23.0":
-  version "2.23.0"
-  resolved "https://registry.yarnpkg.com/@editorjs/editorjs/-/editorjs-2.23.0.tgz#64607e1fd2d17b1ed7ecea640f0da02721eed075"
+"@editorjs/editorjs@^2.23.1":
+  version "2.23.1"
+  resolved "https://registry.yarnpkg.com/@editorjs/editorjs/-/editorjs-2.23.1.tgz#09c8322f7cc9c2b58044edd4524019b2de517b74"
   dependencies:
     codex-notifier "^1.1.2"
-    codex-tooltip "^1.0.2"
+    codex-tooltip "^1.0.4"
     nanoid "^3.1.22"
 
 "@editorjs/embed@^2.5.0":
@@ -1501,9 +1501,9 @@ codex-notifier@^1.0.3, codex-notifier@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/codex-notifier/-/codex-notifier-1.1.2.tgz#a733079185f4c927fa296f1d71eb8753fe080895"
 
-codex-tooltip@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/codex-tooltip/-/codex-tooltip-1.0.2.tgz#81a9d3e2937658c6e5312106b47b9f094ff7be63"
+codex-tooltip@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/codex-tooltip/-/codex-tooltip-1.0.4.tgz#bb8c6e0fe7accc68ce79cdcb7c71bf7b4bf1317a"
 
 collection-visit@^1.0.0:
   version "1.0.0"
