@@ -16,10 +16,11 @@
     </div>
 
     <div class="join-page__content center_side clearfix">
+        <? /*
         <div class="read-in join-page__read-in">
             Read in
             <a class="read-in-item read-in-item--russian" href="<?= "/join?lang=ru" ?>">Russian</a>
-        </div>
+        </div> */ ?>
 
         <h1>
             Join CodeX
