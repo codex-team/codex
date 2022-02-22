@@ -135,6 +135,6 @@
     <section class="codex-bot__section">
         <h4 class="codex-bot__section-title">Contributors community</h4>
         <div class="codex-bot__section-text">We really appreciate your help and participation with improving and building platform together. Please, leave a feedback, bug-reports and add your own stuff.</div>
-        <a class="codex-bot__section-link" href="//github.com/codex_bot">github.com/codex-bot</a>
+        <a class="codex-bot__section-link" href="//github.com/codex-bot">github.com/codex-bot</a>
     </section>
 </div>
