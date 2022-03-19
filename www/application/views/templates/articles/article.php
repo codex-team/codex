@@ -185,7 +185,11 @@
         'desc'  => html_entity_decode($article->description),
     ))); ?>
 
-    <div class="vk_groups" id="vk_groups"></div>
+    <!--    <div class="vk_groups" id="vk_groups"></div>-->
+
+    <? if (isset($_SERVER['CARBON_SERVE']) && isset($_SERVER['CARBON_PLACEMENT'])): ?>
+      <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=<?= $_SERVER['CARBON_SERVE'] ?>&placement=<?= $_SERVER['CARBON_PLACEMENT'] ?>" id="_carbonads_js"></script>
+    <? endif ?>
 
     <ul class="random_articles">
         <h3>Читайте далее</h3>

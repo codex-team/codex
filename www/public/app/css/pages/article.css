@@ -12,8 +12,6 @@
     };
 }
 
-@custom-media --less-then-entry-column (max-width: 690px);
-
 /**
 * Article page styles
 */
