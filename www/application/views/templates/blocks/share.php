@@ -15,7 +15,7 @@
     </div>
     <span class="sharing__main-button vk" data-share-type="vkontakte"  data-url="<?= $share['url']; ?>" data-title="<?= $share['title']; ?>" data-desc="<?= $share['desc']; ?>" >
         <i class="icon-vkontakte"></i>
-        Поделиться
+        Share
     </span>
     <span class="sharing__button tw" data-share-type="twitter"  data-url="<?= $share['url']; ?>" data-title="<?= $share['title']; ?>" data-desc="<?= $share['desc']; ?>"  title="Tweet">
         <i class="icon-twitter"></i>
