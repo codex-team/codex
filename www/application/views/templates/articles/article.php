@@ -179,7 +179,7 @@
     <? endif ?>
 
     <?= View::factory('templates/blocks/share', array('share' => array(
-        'offer' => 'Если вам понравилась статья, поделитесь ссылкой на нее',
+        'offer' => 'If you like the article share a link to friends.',
         'url'   => 'https://' . Arr::get($_SERVER, 'HTTP_HOST', Arr::get($_SERVER, 'SERVER_NAME', 'codex.so')) . '/' . $article->uri ?: 'article/' . $article->id,
         'title' => html_entity_decode($article->title),
         'desc'  => html_entity_decode($article->description),
@@ -192,8 +192,8 @@
     <? endif ?>
 
     <ul class="random_articles">
-        <h3>Читайте далее</h3>
-        <p>Мы рассказываем об интересных технологиях и делимся опытом их использования.</p>
+        <h3>Read more</h3>
+        <p>We talk about interesting technologies and share our experience of using them.</p>
 
         <? foreach ($popularArticles as $popularArticle): ?>
             <?= View::factory('templates/articles/card', array('article'=> $popularArticle))->render(); ?>
