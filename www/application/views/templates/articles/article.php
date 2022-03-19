@@ -179,7 +179,7 @@
     <? endif ?>
 
     <?= View::factory('templates/blocks/share', array('share' => array(
-        'offer' => 'If you like the article share a link to friends.',
+        'offer' => 'If you like this article, share a link with your friends',
         'url'   => 'https://' . Arr::get($_SERVER, 'HTTP_HOST', Arr::get($_SERVER, 'SERVER_NAME', 'codex.so')) . '/' . $article->uri ?: 'article/' . $article->id,
         'title' => html_entity_decode($article->title),
         'desc'  => html_entity_decode($article->description),
