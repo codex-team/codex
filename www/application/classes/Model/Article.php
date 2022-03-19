@@ -403,10 +403,8 @@ class Model_Article extends Model
 
         if (!$allArticles) {
             $allArticles = self::getArticles(false, false, 10);
-            $stats = new Model_Stats();
 
             foreach ($allArticles as $key => $article) {
-                $article->views = $stats->get(Model_Stats::ARTICLE, $article->id);
                 if ($article->id == $currentArticleId) {
                     unset($allArticles[$key]);
                 }
@@ -415,18 +413,14 @@ class Model_Article extends Model
                 $article->coauthor = Model_User::get($coauthorship->user_id);
             }
 
-            // сортируем массив статей в порядке убывания по просмотрам
-            usort($allArticles, function ($a, $b) {
-                return ($a->views < $b->views) ? 1 : -1;
-            });
-
             $memcache->set($full_key, $allArticles, null, Date::MINUTE);
         }
 
-        $mostPopularArticles = array_slice($allArticles, 0, 10);
-        shuffle($mostPopularArticles);
+        $bucketOfArticles = array_slice($allArticles, 0, 15);
 
-        return array_slice($mostPopularArticles, 0, $numberOfArticles);
+        shuffle($bucketOfArticles);
+
+        return array_slice($bucketOfArticles, 0, $numberOfArticles);
     }
 
     /**
