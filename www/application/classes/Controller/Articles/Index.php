@@ -106,12 +106,12 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
             $this->template->articleEditLink = "/" . $articleUri . "/edit";
         }
 
-        /**
-         * If this article is not on the user's site language then change lang
-         */
-        if (LANG !== $article->lang) {
-            Internationalization::instance()->setLang($article->lang);
-        }
+        //        /**
+        //         * If this article is not on the user's site language then change lang
+        //         */
+        //        if (LANG !== $article->lang) {
+        //            Internationalization::instance()->setLang($article->lang);
+        //        }
 
         $this->title = $article->title;
         $this->description = $article->description;
