@@ -73,7 +73,7 @@
     right: 0;
 }
 
-@media (--mobile) {
+@media (--mobile), (--tablet) {
     #carbonads {
         margin: 0 auto;
         max-width: var(--article-max-width);
@@ -90,16 +90,20 @@
     }
 }
 
-@media (--tablet), (--desktop) {
+@media (--desktop) {
     #carbonads {
         float: right;
 
-        padding: 10px 10px 10px 40px;
+        padding: 0 10px 10px 0;
         background: #fff;
         border-radius: 0;
         margin: 0;
 
         max-width: 130px;
+
+        position: sticky;
+        bottom: 0;
+        right: 0;
     }
 
     #carbonads .carbon-wrap {
@@ -116,15 +120,5 @@
         right: unset;
         padding: 6px 0;
         background: none;
-
-        /*color: var(--color-text-second);*/
-    }
-}
-
-@media(--wide-desktop) {
-    #carbonads {
-        position: fixed;
-        bottom: 0;
-        right: 0;
     }
 }
