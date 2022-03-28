@@ -22,10 +22,10 @@
         </ul>
 
         <a class="codex-media__link" target="_blank" href="//school332.ru">Пример</a>
-        <a class="codex-media__link" href="//github.com/codex-team/codex.media">Исходный код</a>
+        <a class="codex-media__link" target="_blank" href="//github.com/codex-team/codex.media">Исходный код</a>
 
         <footer class="codex-media__footer clearfix">
-            <a class="codex-media__mail-link" href="//t.me/mediasite">Подключить свою школу</a>
+            <a class="codex-media__mail-link" target="_blank" href="//t.me/mediasite">Подключить свою школу</a>
             <!-- <a class="codex-media__mail-link" href="mailto:team@codex.so?subject=CodeX Media">Подключить свою школу</a> -->
             <div class="codex-media__footer-caption">St. Petersburg, Russia</div>
         </footer>
