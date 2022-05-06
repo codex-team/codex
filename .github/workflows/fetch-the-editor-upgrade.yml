@@ -1,0 +1,27 @@
+name: Pull the latest Editor and tools
+
+on:
+  schedule:
+    # Run this workflow every hour
+    - cron:  '0 * * * *'
+
+jobs:
+  recreate-doc:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Go to app dir, Install Node.js packages, Build static files
+        run: cd www && yarn && yarn editor-upgrade
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          commit-message: Upgrade Editor and Tools
+          committer: github-actions <action@github.com>
+          author: github-actions <action@github.com>
+          branch: pull-the-latest-editor-and-tools
+          delete-branch: true
+          title: "Pull the latest Editor and Tools"
