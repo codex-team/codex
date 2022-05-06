@@ -1,12 +1,9 @@
 name: Pull the latest Editor and tools
 
-# temp solution for test purposes
-on: [pull_request]
-
-#on:
-#  schedule:
-#    # Run this workflow every hour
-#    - cron:  '0 * * * *'
+on:
+  schedule:
+    # Run this workflow every hour
+    - cron:  '0 * * * *'
 
 jobs:
   pull-packages:
@@ -17,7 +14,7 @@ jobs:
           fetch-depth: 0
 
       - name: Go to app dir, Install Node.js packages, Pull Editor's packages
-        run: cd www && yarn && yarn editor-upgrade
+        run: cd www && yarn editor-upgrade
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
