@@ -13,15 +13,29 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Use Node.js 15
+        uses: actions/setup-node@v1
+        with:
+          node-version: 15
+
+      - name: Make envfile with Hawk token
+        uses: ozaytsev86/create-env-file@v1
+        with:
+          file-name: './www/.env'
+          ENV_HAWK_TOKEN: ${{ secrets.HAWK_TOKEN }}
+
       - name: Go to app dir, Install Node.js packages, Pull Editor's packages
-        run: cd www && yarn editor-upgrade
+        run: cd www && yarn editor-upgrade && yarn build
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
           commit-message: Upgrade Editor and Tools
-          committer: github-actions <action@github.com>
-          author: github-actions <action@github.com>
+          committer: github-actions <41898282+github-actions[bot]@users.noreply.github.com>
+          author: github-actions <41898282+github-actions[bot]@users.noreply.github.com>
           branch: pull-the-latest-editor-and-tools
           delete-branch: true
-          title: "Pull the latest Editor and Tools"
+          title: "Upgrade Editor.js and Tools"
+          body: |
+            Auto-generated PR for pulling the latest Editor and Tools
+
