@@ -1,19 +1,22 @@
 name: Pull the latest Editor and tools
 
-on:
-  schedule:
-    # Run this workflow every hour
-    - cron:  '0 * * * *'
+# temp solution for test purposes
+on: [pull_request]
+
+#on:
+#  schedule:
+#    # Run this workflow every hour
+#    - cron:  '0 * * * *'
 
 jobs:
-  recreate-doc:
+  pull-packages:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
-      - name: Go to app dir, Install Node.js packages, Build static files
+      - name: Go to app dir, Install Node.js packages, Pull Editor's packages
         run: cd www && yarn && yarn editor-upgrade
 
       - name: Create Pull Request
