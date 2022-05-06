@@ -5,7 +5,7 @@
   "scripts": {
     "build": "webpack --mode production",
     "build:dev": "webpack --mode development --progress --display-error-details --watch",
-    "editor-upgrade": "yarn add -D @editorjs/{editorjs,header,code,delimiter,list,link,quote,raw,image,table,embed,inline-code,marker}@latest"
+    "editor-upgrade": "./editor-upgrade.sh"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
