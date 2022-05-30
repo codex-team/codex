@@ -183,12 +183,6 @@ export default class EditorLanding {
                 tools: {
                     image: {
                         config: {
-                            additionalRequestData: {
-                                /**
-                                 * This flag tells the backend to store file temporary
-                                 */
-                                temporary: true
-                            },
                             /**
                              * Custom uploader
                              */
