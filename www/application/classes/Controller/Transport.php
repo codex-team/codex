@@ -24,16 +24,6 @@ class Controller_Transport extends Controller_Base_preDispatch
             'php://input'
         ));
 
-        /**
-         * Sometimes we need to store files in a temporary directory,
-         * for example, for editor.js landing
-         */
-        $isTemporary = (bool) $this->request->post('temporary');
-
-        if ($isTemporary){
-            $this->imagesDir = 'upload/temporary/';
-        }
-
         if (isset($json_data->url)) {
             $url = $json_data->url;
 
