@@ -183,11 +183,65 @@ export default class EditorLanding {
                 tools: {
                     image: {
                         config: {
-                            additionalRequestData: {
+                            /**
+                             * Custom uploader
+                             */
+                            uploader: {
                                 /**
-                                 * This flag tells the backend to store file temporary
+                                 * Fake "Upload file to the server" and return an uploaded image url
+                                 * @param {File} file - file selected from the device or pasted by drag-n-drop
+                                 * @return {Promise.<{success, file: {url}}>}
                                  */
-                                temporary: true
+                                uploadByFile(file) {
+
+                                    return new Promise((resolve, reject) => {
+
+                                        const reader = new FileReader();
+
+                                        reader.addEventListener('load', function () {
+
+                                            setTimeout(() => {
+
+                                                resolve({
+                                                    success: 1,
+                                                    file: {
+                                                        url: reader.result
+                                                    }
+                                                });
+
+                                            }, 1000);
+
+                                        }, false);
+
+                                        reader.readAsDataURL(file);
+
+                                    });
+
+                                },
+
+                                /**
+                                 * Fake "Send URL-string to the server" and return an uploaded image url
+                                 * @param {string} url - pasted image URL
+                                 * @return {Promise.<{success, file: {url}}>}
+                                 */
+                                uploadByUrl(url) {
+
+                                    return new Promise((resolve, reject) => {
+
+                                        setTimeout(() => {
+
+                                            resolve({
+                                                success: 1,
+                                                file: {
+                                                    url: url
+                                                }
+                                            });
+
+                                        }, 1000);
+
+                                    });
+
+                                }
                             }
                         }
                     }
