@@ -120,20 +120,12 @@ class Controller_Pages extends Controller_Base_preDispatch
         $this->view['success'] = $this->methods->saveJoinRequest($fields);
 
         if ($this->view['success']) {
-            /**
-             * If user is registered then show link to the profile
-             * otherwise show email and mailto link
-             */
-            if ($this->user->id) {
-                $name = $this->user->name;
-                $id = $this->user->id;
-                $host = Arr::get($_SERVER, 'HTTP_HOST');
+            $name = $this->user->name;
+            $id = $this->user->id;
+            $host = Arr::get($_SERVER, 'HTTP_HOST');
 
-                $link = "{$host}/user/{$id}";
-                $footer = "👤 [$link]($link)";
-            } else {
-                $footer = "✉️ {$email}";
-            }
+            $link = "{$host}/user/{$id}";
+            $footer = "✉️ {$email}";
 
             $text = "🦄 {$name} wants to join the team\n" .
                     "\n" .

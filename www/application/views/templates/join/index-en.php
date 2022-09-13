@@ -77,7 +77,7 @@
             The key factor is your enthusiasm. In exchange, you will get a huge amount of experience, new skills, interesting and hard projects, an opportunity to take part in creating and launching world market products.
         </p>
         <p>
-            To apply, enter email, so we can contact you, and fill a little form. Also, please write where are you from.
+            To apply, enter email or telegram, so we can contact you, and fill a little form. Also, please write where are you from.
         </p>
         <!--
         <section class="join-component join-component--compact">
