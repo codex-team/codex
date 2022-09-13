@@ -5,7 +5,7 @@
 
         <? if (!empty($error)): ?>
             <div class="join-page__error">
-                Enter an email, so we can message you.
+                Enter an email or telegram, so we can message you.
             </div>
         <? endif ?>
 
@@ -20,14 +20,12 @@
                         Your name
                     </label>
                     <input class="input" type="text" name="name" id="name" value="<?= HTML::chars(Arr::get($_POST, 'name')) ?>" required>
-
-                    <label for="js-email">
-                        Contact email
-                    </label>
-                    <input class="input" type="email" name="email" id="js-email" autocomplete="off" required>
                 </div>
             <? endif ?>
-
+            <label for="js-email">
+                Contact email or telegram
+            </label>
+            <input class="input" type="text" name="email" id="js-email" autocomplete="off" required>
             <label for="skills">Tell us about your skills</label>
             <textarea class="input" name="skills" id="skills" rows="5" required=""><?= Arr::get($_POST, 'skills') ?></textarea>
 
