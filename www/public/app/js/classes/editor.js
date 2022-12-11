@@ -64,7 +64,7 @@ export default class Editor {
             tools: {
                 header: {
                     class: Header,
-                    inlineToolbar: ['link', 'marker'],
+                    inlineToolbar: ['link', 'marker', 'Translate'],
                 },
 
                 image: {
