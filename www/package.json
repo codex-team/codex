@@ -38,6 +38,7 @@
     "css-loader": "^0.28.11",
     "cssnano": "^4.1.10",
     "dotenv": "^10.0.0",
+    "editorjs-translate-inline": "https://github.com/talyguryn/editorjs-translate-inline",
     "eslint": "^4.19.1",
     "eslint-loader": "^2.1.1",
     "exports-loader": "^0.7.0",

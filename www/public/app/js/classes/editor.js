@@ -24,6 +24,7 @@ const Table = require('@editorjs/table');
  */
 const InlineCode = require('@editorjs/inline-code');
 const Marker = require('@editorjs/marker');
+const Translate = require('editorjs-translate-inline');
 
 import * as _ from '../utils';
 
@@ -119,6 +120,13 @@ export default class Editor {
                     class: Marker,
                     shortcut: 'CMD+SHIFT+M'
                 },
+
+                Translate: {
+                    class: Translate,
+                    config: {
+                        endpoint: 'https://translate.stickerum.ru/translate?text=',
+                    }
+                }
             },
 
             data: {
