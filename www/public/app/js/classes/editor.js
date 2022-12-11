@@ -24,7 +24,7 @@ const Table = require('@editorjs/table');
  */
 const InlineCode = require('@editorjs/inline-code');
 const Marker = require('@editorjs/marker');
-const Translate = require('editorjs-translate-inline');
+const Translate = require('editorjs-translate-inline').default;
 
 import * as _ from '../utils';
 
