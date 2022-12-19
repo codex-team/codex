@@ -58,8 +58,6 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
 
     public function action_save()
     {
-        $csrfToken = Arr::get($_POST, 'csrf');
-
         /*
          * редактирование происходит напрямую из роута вида: <controller>/<action>/<id>
          * так как срабатывает обычный роут, то при отправке формы передается переменная contest_id.
@@ -75,15 +73,6 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
 
         $article_id = Arr::get($_POST, 'article_id');
         $article = Model_Article::get($article_id, true);
-
-        /*
-         * Articles Title.
-         */
-        if (!Security::check($csrfToken)) {
-            $this->sendAjaxResponse(array('message' => 'CSRF token invalid. Please refresh the page.', 'success' => 0));
-            return;
-        }
-
         $pageContent = Arr::get($_POST, 'article_text', '');
 
         try {
