@@ -700,10 +700,10 @@
   dependencies:
     "@codexteam/icons" "^0.0.6"
 
-"@editorjs/translate-inline@^1.0.0-rc.0":
-  version "1.0.0-rc.0"
-  resolved "https://registry.yarnpkg.com/@editorjs/translate-inline/-/translate-inline-1.0.0-rc.0.tgz#c1b62be289421e1405d4fc8b3815d925df34eea4"
-  integrity sha512-8Wa7xs16E/u2i30Qm5XcrL0UydOUFMvvrY72PIv9dAO8pxKe4qHOd8+zmH3CSZL61BymrnrHNGUL8g334/aVSg==
+"@editorjs/translate-inline@^1.0.0-rc.1":
+  version "1.0.0-rc.1"
+  resolved "https://registry.yarnpkg.com/@editorjs/translate-inline/-/translate-inline-1.0.0-rc.1.tgz#bf7221bf2e8dac0ca3bbe49dd0fb1b57dedb3841"
+  integrity sha512-HyryVbyp8B0EWNYRWVfGfxENzEPYW0ZUproPtUzuV14SzqoS36jrUQRFmigw/vBqi6n6pAbmfomqS8lcrRPqOg==
 
 "@hawk.so/javascript@^3.0.0":
   version "3.0.0"

@@ -27,7 +27,7 @@
     "@editorjs/quote": "^2.5.0",
     "@editorjs/raw": "^2.4.0",
     "@editorjs/table": "^2.1.2",
-    "@editorjs/translate-inline": "^1.0.0-rc.0",
+    "@editorjs/translate-inline": "^1.0.0-rc.1",
     "@hawk.so/javascript": "^3.0.0",
     "@hawk.so/webpack-plugin": "^1.0.1",
     "autoprefixer": "^8.6.2",
