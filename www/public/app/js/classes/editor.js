@@ -125,7 +125,8 @@ export default class Editor {
                     class: Translate,
                     config: {
                         endpoint: '/editor/translate?text=',
-                    }
+                    },
+                    shortcut: 'CMD+SHIFT+S'
                 }
             },
 
