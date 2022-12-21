@@ -1,6 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 use Opengraph\Reader;
+use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class Controller_Editor extends Controller_Base_preDispatch
 {
@@ -17,6 +18,39 @@ class Controller_Editor extends Controller_Base_preDispatch
         $this->auto_render = false;
         $this->response->headers('Content-Type', 'application/json; charset=utf-8');
         $this->response->body(@json_encode($response));
+    }
+
+    /**
+     * Use package https://github.com/Stichoza/google-translate-php to translate texts
+     */
+    public function action_translate()
+    {
+        $this->auto_render = false;
+        $this->response->headers('Content-Type', 'application/json; charset=utf-8');
+
+        try {
+            $text = Arr::get($_GET, 'text');
+
+            $tr = new GoogleTranslate('en');
+
+            $translatedText = $tr->translate($text);
+
+            $response = array(
+                'status' => 'success',
+                'message' => $translatedText
+            );
+            
+            $this->response->body(@json_encode($response));
+            return;
+        } catch (Exception $e) {
+            $response = array(
+                'status' => 'error',
+                'message' => $e->getMessage()
+            );
+
+            $this->response->body(@json_encode($response));
+            return;
+        }
     }
 
     /**

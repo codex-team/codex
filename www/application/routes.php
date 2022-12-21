@@ -217,6 +217,16 @@ Route::set('FETCH_URL', 'editor/fetchURL')
     ));
 
 /**
+ * Route for Translate plugin
+ * Translates string
+ */
+Route::set('TRANSLATE', 'editor/translate')
+    ->defaults(array(
+        'controller' => 'Editor',
+        'action'    => 'translate'
+    ));
+
+/**
  * Landing pages
  */
 Route::set('LANDINGS', '<action>', array(

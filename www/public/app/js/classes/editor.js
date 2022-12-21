@@ -124,7 +124,7 @@ export default class Editor {
                 Translate: {
                     class: Translate,
                     config: {
-                        endpoint: 'https://translate.stickerum.ru/translate?text=',
+                        endpoint: '/editor/translate?text=',
                     }
                 }
             },
