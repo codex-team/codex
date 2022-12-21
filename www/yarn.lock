@@ -581,6 +581,11 @@
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@codexteam/deeplinker/-/deeplinker-1.1.1.tgz#563229240db6ae35ea016a0490b9634ed5abac40"
 
+"@codexteam/icons@0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@codexteam/icons/-/icons-0.1.0.tgz#a02885fe8699f69902d05b077b5f1cd48a2ca6b9"
+  integrity sha512-jW1fWnwtWzcP4FBGsaodbJY3s1ZaRU+IJy1pvJ7ygNQxkQinybJcwXoyt0a5mWwu/4w30A42EWhCrZn8lp4fdw==
+
 "@codexteam/icons@^0.0.4":
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/@codexteam/icons/-/icons-0.0.4.tgz#8b72dcd3f3a1b0d880bdceb2abebd74b46d3ae13"
@@ -604,20 +609,23 @@
 "@editorjs/code@^2.8.0":
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/@editorjs/code/-/code-2.8.0.tgz#d31fdd947b9c763daae2cd2eabdf8dc37c0c6f5a"
+  integrity sha512-qlv1OqSEPKnLv/ZQgNFmVgqsMbGDkh/qgTEnbVWsS+yujo1nlwgVkqCB8tOkQGVsrpmAYLiWRlA413nKxxCN5w==
   dependencies:
     "@codexteam/icons" "^0.0.5"
 
 "@editorjs/delimiter@^1.3.0":
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/@editorjs/delimiter/-/delimiter-1.3.0.tgz#abc4c5b1e512c09ec6cd0c57f41e36434fbd4da4"
+  integrity sha512-/qz+3yRSPmx6dJpBcwnDfgKtCjOrCsQRoDhXR+wLWirGOchOifhYwQ/6JZyTvcgmY84UEoYY29/dgdWOGVPEEQ==
   dependencies:
     "@codexteam/icons" "^0.0.5"
 
-"@editorjs/editorjs@^2.26.0":
-  version "2.26.0"
-  resolved "https://registry.yarnpkg.com/@editorjs/editorjs/-/editorjs-2.26.0.tgz#42414a6ddacdc4a9d46ac1f496d7d016ec381801"
+"@editorjs/editorjs@^2.26.4":
+  version "2.26.4"
+  resolved "https://registry.yarnpkg.com/@editorjs/editorjs/-/editorjs-2.26.4.tgz#097e29341501d81cd1721604a74da1530f5ff74f"
+  integrity sha512-yuJ2NM1Y5+8DDNWr4C00tHMVHKy0uCqK1HS4pwFPVcXUawgJnU2Li2vKGvPLuf0Jj2ir7MVgADO6oC1TbYBOYQ==
   dependencies:
-    "@codexteam/icons" "^0.0.4"
+    "@codexteam/icons" "0.1.0"
     codex-notifier "^1.1.2"
     codex-tooltip "^1.0.5"
     html-janitor "^2.0.4"
@@ -626,28 +634,33 @@
 "@editorjs/embed@^2.5.3":
   version "2.5.3"
   resolved "https://registry.yarnpkg.com/@editorjs/embed/-/embed-2.5.3.tgz#83a9e2fa74f065ba90863b34e1dcc21389cb83da"
+  integrity sha512-+X0xX2tiwQjU/B2rPDv8DOwg0suiqrt2h/o9frjR308YuY1VTpqjLRF1lIV4TmelQyVr9cXkZruaa4Ty1wvfJg==
 
 "@editorjs/header@^2.7.0":
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/@editorjs/header/-/header-2.7.0.tgz#755d104a9210a8e2d9ccf22b175b2a93bdbb2330"
+  integrity sha512-4fGKGe2ZYblVqR/P/iw5ieG00uXInFgNMftBMqJRYcB2hUPD30kuu7Sn6eJDcLXoKUMOeqi8Z2AlUxYAmvw7zQ==
   dependencies:
     "@codexteam/icons" "^0.0.5"
 
-"@editorjs/image@^2.7.0":
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/@editorjs/image/-/image-2.7.0.tgz#6dd53b0ee7ea3d21384779316a53b1c8d6ee1f0a"
+"@editorjs/image@^2.8.1":
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/@editorjs/image/-/image-2.8.1.tgz#f78dd5ba52356d9fb2f61ff7498ea6c1510a80e4"
+  integrity sha512-4WscDAoi6OO0F6L7N1mkQymADwj8hHgH/ICk5wGRPdkesUZW1TgldX8XvSmy+f5VylsEi3F/gUggaZsrYxu2sA==
   dependencies:
     "@codexteam/icons" "^0.0.6"
 
 "@editorjs/inline-code@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@editorjs/inline-code/-/inline-code-1.4.0.tgz#25e9728bc6c73b7af2a009689679b4950e744417"
+  integrity sha512-nJJx2eBgQyml7U8MdMdJNFY2RgZCOuvvXHEW73xsdu36ZXCd44eAo7vq1S5Jz9l8bC676SvNbRfeH/nojXK37A==
   dependencies:
     "@codexteam/icons" "^0.0.5"
 
 "@editorjs/link@^2.5.0":
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/@editorjs/link/-/link-2.5.0.tgz#f2eff28030d858cd4d719cc07c4888c7840106d0"
+  integrity sha512-3Oa1VweBY7Sscjzw8pv1QcWGyP+XdPl6+yu+gXnSETyjz9TQRZUjved0qw2OomYOjMZ3RumrdDJXxoALlZdvuQ==
   dependencies:
     "@babel/runtime" "^7.10.2"
     "@codexteam/icons" "^0.0.4"
@@ -655,32 +668,42 @@
 "@editorjs/list@^1.8.0":
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/@editorjs/list/-/list-1.8.0.tgz#c64b88679f23c0129ffac589004300832c345d3b"
+  integrity sha512-Vq6cjyTXBzgegYv/MtTfuDdiz59yGhDEc/yAVXr6lmvoWAFs9cJ4TLuh4/9SbrbhIptcQLDvUjMDKmRrV6v2NQ==
   dependencies:
     "@codexteam/icons" "^0.0.4"
 
 "@editorjs/marker@^1.3.0":
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/@editorjs/marker/-/marker-1.3.0.tgz#425358a52aa6ff0133bdf0f063c958a02f00e1e3"
+  integrity sha512-RYWYDnFPjNBJgR7KIGjB9gPnUwGvn2aIoRevAm422Wx1mg5eT4gcvwc0T5V76pYPSoD2Z0T2GPkzl9d1hl398w==
   dependencies:
     "@codexteam/icons" "^0.0.5"
 
 "@editorjs/quote@^2.5.0":
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/@editorjs/quote/-/quote-2.5.0.tgz#a4a4e7513b8194db405825bb9b3ea02757a12a5a"
+  integrity sha512-24Mu8cESaj34a0kg1Enj7qiZ3yiCOsZI59+8xpfXLO/NkO7hBYWNForVcBy5yIWs/VLlEZK11FP37f/mHrKugQ==
   dependencies:
     "@codexteam/icons" "^0.0.5"
 
 "@editorjs/raw@^2.4.0":
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@editorjs/raw/-/raw-2.4.0.tgz#b22731fea9130354ae9320f6f5eeac7bb02ed3f7"
+  integrity sha512-6k7ngx1T8+ztTG4/i5QcGPKXkF2YvdqgKgtzpOTaG6Pzm17D7Hr30Krbqz2E2Y/uoV8SiR/X1UAyKTQxrk9B6Q==
   dependencies:
     "@codexteam/icons" "^0.0.4"
 
-"@editorjs/table@^2.1.1":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@editorjs/table/-/table-2.1.1.tgz#cadb043878ab74a967e0f8102eb2fb3a27f4948a"
+"@editorjs/table@^2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@editorjs/table/-/table-2.1.2.tgz#af87f3ec1178a1ce3a4a55a999aa64e1952bd842"
+  integrity sha512-0v29DU/HzjCOjkFxy8pjAhceWvCuaj70aS+i0YD1Wv7AvkMP66E4NW1lGFEv2eMaYCc5SL+/T1UJqhyd8H9uvg==
   dependencies:
     "@codexteam/icons" "^0.0.6"
+
+"@editorjs/translate-inline@^1.0.0-rc.1":
+  version "1.0.0-rc.1"
+  resolved "https://registry.yarnpkg.com/@editorjs/translate-inline/-/translate-inline-1.0.0-rc.1.tgz#bf7221bf2e8dac0ca3bbe49dd0fb1b57dedb3841"
+  integrity sha512-HyryVbyp8B0EWNYRWVfGfxENzEPYW0ZUproPtUzuV14SzqoS36jrUQRFmigw/vBqi6n6pAbmfomqS8lcrRPqOg==
 
 "@hawk.so/javascript@^3.0.0":
   version "3.0.0"

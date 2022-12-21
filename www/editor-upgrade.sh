@@ -1,16 +1,18 @@
 #!/bin/sh
 
 yarn add -D \
-  @editorjs/editorjs@latest \
-  @editorjs/header@latest \
-  @editorjs/code@latest \
-  @editorjs/delimiter@latest \
-  @editorjs/list@latest \
-  @editorjs/link@latest \
-  @editorjs/quote@latest \
-  @editorjs/raw@latest \
-  @editorjs/image@latest \
-  @editorjs/table@latest \
-  @editorjs/embed@latest \
-  @editorjs/inline-code@latest \
-  @editorjs/marker@latest
+  @editorjs/code \
+  @editorjs/delimiter \
+  @editorjs/editorjs \
+  @editorjs/embed \
+  @editorjs/header \
+  @editorjs/image \
+  @editorjs/inline-code \
+  @editorjs/link \
+  @editorjs/list \
+  @editorjs/marker \
+  @editorjs/quote \
+  @editorjs/raw \
+  @editorjs/table \
+  @editorjs/translate-inline
+

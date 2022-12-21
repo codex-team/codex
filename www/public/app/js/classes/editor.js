@@ -24,6 +24,7 @@ const Table = require('@editorjs/table');
  */
 const InlineCode = require('@editorjs/inline-code');
 const Marker = require('@editorjs/marker');
+const Translate = require('@editorjs/translate-inline').default;
 
 import * as _ from '../utils';
 
@@ -63,7 +64,7 @@ export default class Editor {
             tools: {
                 header: {
                     class: Header,
-                    inlineToolbar: ['link', 'marker'],
+                    inlineToolbar: ['link', 'marker', 'Translate'],
                 },
 
                 image: {
@@ -119,6 +120,14 @@ export default class Editor {
                     class: Marker,
                     shortcut: 'CMD+SHIFT+M'
                 },
+
+                Translate: {
+                    class: Translate,
+                    config: {
+                        endpoint: '/editor/translate?text=',
+                    },
+                    shortcut: 'CMD+SHIFT+S'
+                }
             },
 
             data: {
