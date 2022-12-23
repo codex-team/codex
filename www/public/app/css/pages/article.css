@@ -260,7 +260,7 @@
         padding-right: 0;
     }
 
-    img {
+    img, video {
         vertical-align: bottom;
         max-width: 100%;
     }
@@ -269,13 +269,13 @@
         max-width: none !important;
         width: 100% !important;
 
-        img {
+        img, video {
             width: 100%;
         }
     }
 
     &--bordered {
-        img {
+        img, video {
             border: 3px solid #fff;
             box-shadow: 0 0 0 2px var(--line-light);
             box-sizing: border-box;
@@ -286,7 +286,7 @@
         padding: 15px;
         background: var(--line-light);
 
-        img {
+        img, video {
             max-width: 60%;
             margin: 0 auto;
         }

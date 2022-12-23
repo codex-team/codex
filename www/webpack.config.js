@@ -82,9 +82,9 @@ module.exports = {
             filename: '[name].bundle.css'
         }),
 
-        new HawkWebpackPlugin({
-            integrationToken: process.env.HAWK_TOKEN
-        })
+        // new HawkWebpackPlugin({
+        //     integrationToken: process.env.HAWK_TOKEN
+        // })
     ],
 
     resolve: {

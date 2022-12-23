@@ -71,6 +71,8 @@ export default class Editor {
                     class: ImageTool,
                     inlineToolbar: true,
                     config: {
+                        types: 'image/jpeg, image/jpg, image/png, image/gif, video/mp4, video/quicktime',
+                        field: 'media',
                         endpoints: {
                             byFile: '/editor/transport',
                             byUrl: '/editor/transport',

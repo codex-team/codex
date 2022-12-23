@@ -145,6 +145,26 @@ class Model_Methods extends Model
         return false;
     }
 
+    public function saveVideo($file, $path)
+    {
+        if (!is_dir($path)) {
+            mkdir($path);
+        }
+
+        if (isset($file['tmp_name'])) {
+            $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
+            $filename = bin2hex(openssl_random_pseudo_bytes(16)) . '.' . $ext;
+
+            move_uploaded_file($file['tmp_name'], $path . $filename);
+
+            return array(
+                'name' => $filename
+            );
+        }
+
+        return false;
+    }
+
     public function getFile($url)
     {
         $tempName = tempnam('/tmp', 'tmp_files');
