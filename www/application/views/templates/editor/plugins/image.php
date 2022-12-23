@@ -15,7 +15,16 @@
 ?>
 
 <figure class="article-image <?= implode(' ', $classes) ?>">
-    <img src="<?= $block->file['url'] ?>" alt="<? !empty($block->caption) ? $block->caption : '' ?>">
+    <? $ext = pathinfo($block->file['url'], PATHINFO_EXTENSION); ?>        
+    <? if ($ext == 'mp4' || $ext == 'mov'): ?>
+        <? $mime = 'video/'. ($ext === 'mov' ? 'quicktime' : $ext) ?>
+        <video autoplay loop muted playsinline>
+           <source src="<?= $block->file['url'] ?>" type="<?= $mime ?>">
+        </video>
+    <? else: ?>
+        <img src="<?= $block->file['url'] ?>" alt="<? !empty($block->caption) ? $block->caption : '' ?>">
+    <? endif ?>
+
     <? if (!empty($block->caption)): ?>
         <footer class="article-image-caption">
             <?= $block->caption ?>

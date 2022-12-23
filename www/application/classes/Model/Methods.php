@@ -145,6 +145,33 @@ class Model_Methods extends Model
         return false;
     }
 
+    /**
+     * Save uploaded video
+     * @param resource $file - uploaded file
+     * @param string $path - path where video will be saved
+     * @return array|bool - object with image data: filename
+     * @throws Kohana_Exception
+     */
+    public function saveVideo($file, $path)
+    {
+        if (!is_dir($path)) {
+            mkdir($path);
+        }
+
+        if (isset($file['tmp_name'])) {
+            $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
+            $filename = bin2hex(openssl_random_pseudo_bytes(16)) . '.' . $ext;
+
+            move_uploaded_file($file['tmp_name'], $path . $filename);
+
+            return array(
+                'name' => $filename
+            );
+        }
+
+        return false;
+    }
+
     public function getFile($url)
     {
         $tempName = tempnam('/tmp', 'tmp_files');
