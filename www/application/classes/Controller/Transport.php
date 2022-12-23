@@ -1,6 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Transport extends Controller_Base_preDispatch {
+class Controller_Transport extends Controller_Base_preDispatch
+{
     private $transportResponse = array(
         'success' => 0
     );
@@ -71,6 +72,8 @@ class Controller_Transport extends Controller_Base_preDispatch {
                 'width'  => Arr::get($imageData, 'width', 0),
                 'height' => Arr::get($imageData, 'height', 0)
             );
+        } else {
+            $this->transportResponse['message'] = 'Something went wrong while saving the file';
         }
 
         finish:
