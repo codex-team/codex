@@ -69,8 +69,10 @@ RUN mv phpMyAdmin-5.0.2-all-languages /usr/share/phpmyadmin
 RUN cp /usr/share/phpmyadmin/config.sample.inc.php /usr/share/phpmyadmin/config.inc.php && \
     sed -i "s/\['host'\] = 'localhost'/\['host'\] = 'mysql'/" /usr/share/phpmyadmin/config.inc.php
 
-WORKDIR /var/www/codex/www
+WORKDIR /var/www/codex
 
 COPY www .
+
+WORKDIR /var/www/codex/www
 
 RUN composer install
