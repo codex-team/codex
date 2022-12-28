@@ -106,8 +106,7 @@ abstract class Model_Feed_Abstract extends Model
         if ($this->redis->zRank($this->timeline_key, $value) !== false) {
             return false;
         }
-
-        return $this->redis->zAdd($this->timeline_key, $item_score, $value);
+        return $this->redis->zAdd($this->timeline_key, (int)$item_score, $value);
     }
 
     /**
