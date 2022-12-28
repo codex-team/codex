@@ -63,16 +63,16 @@ RUN docker-php-ext-install \
     gd
 
 # Install phpMyAdmin
-RUN wget https://files.phpmyadmin.net/phpMyAdmin/5.0.2/phpMyAdmin-5.0.2-all-languages.zip
-RUN unzip phpMyAdmin-5.0.2-all-languages.zip
-RUN mv phpMyAdmin-5.0.2-all-languages /usr/share/phpmyadmin
-RUN cp /usr/share/phpmyadmin/config.sample.inc.php /usr/share/phpmyadmin/config.inc.php && \
-    sed -i "s/\['host'\] = 'localhost'/\['host'\] = 'mysql'/" /usr/share/phpmyadmin/config.inc.php
+#RUN wget https://files.phpmyadmin.net/phpMyAdmin/5.0.2/phpMyAdmin-5.0.2-all-languages.zip
+#RUN unzip phpMyAdmin-5.0.2-all-languages.zip
+#RUN mv phpMyAdmin-5.0.2-all-languages /usr/share/phpmyadmin
+#RUN cp /usr/share/phpmyadmin/config.sample.inc.php /usr/share/phpmyadmin/config.inc.php && \
+#    sed -i "s/\['host'\] = 'localhost'/\['host'\] = 'mysql'/" /usr/share/phpmyadmin/config.inc.php
+
+#WORKDIR /var/www/codex
+
+COPY www /var/www/codex
 
 WORKDIR /var/www/codex
-
-COPY www www
-
-WORKDIR /var/www/codex/www
 
 RUN composer install
