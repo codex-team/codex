@@ -71,7 +71,7 @@ RUN cp /usr/share/phpmyadmin/config.sample.inc.php /usr/share/phpmyadmin/config.
 
 WORKDIR /var/www/codex
 
-COPY www .
+COPY www www
 
 WORKDIR /var/www/codex/www
 
