@@ -71,6 +71,6 @@ RUN cp /usr/share/phpmyadmin/config.sample.inc.php /usr/share/phpmyadmin/config.
 
 WORKDIR /var/www/codex/www
 
-COPY /www .
+COPY www .
 
 RUN composer install
