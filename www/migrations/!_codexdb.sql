@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `Aliases` (
   `hash` binary(16) NOT NULL,
   `type` int(6) NOT NULL,
   `id` int(18) NOT NULL,
-  `dt_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `dt_create` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `deprecated` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB AUTO_INCREMENT=1210 DEFAULT CHARSET=utf8;
 
