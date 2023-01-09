@@ -8,6 +8,8 @@ class Controller_Base_preDispatch extends Template
     /** Data to pass into view */
     public $view = array();
 
+    protected static $redis;
+
     /**
      * @var Model_User активный пользователь.
      */
@@ -144,6 +146,11 @@ class Controller_Base_preDispatch extends Template
 
     public static function _redis()
     {
+        // If redis is already intialized
+        if (self::$redis) {
+            return self::$redis;
+        }
+
         if (!class_exists("Redis")) {
             return null;
         }
@@ -155,16 +162,16 @@ class Controller_Base_preDispatch extends Template
         $redisPswd = Arr::get($redisConfig, 'password', '');
         $redisDB   = Arr::get($redisConfig, 'database', '0');
 
-        $redis = new Redis();
-        $redis->connect($redisHost, $redisPort);
+        self::$redis = new Redis();
+        self::$redis->connect($redisHost, $redisPort);
 
         if ($redisPswd) {
-            $redis->auth($redisPswd);
+            self::$redis->auth($redisPswd);
         }
 
-        $redis->select($redisDB);
+        self::$redis->select($redisDB);
 
-        return $redis;
+        return self::$redis;
     }
 
     private function setGlobals()
