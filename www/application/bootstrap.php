@@ -139,7 +139,7 @@ Kohana::init(array(
     'errors' => true, // We need errors=true for errors catching
     'base_url'   => '/',
     'index_file' => false,
-    'profile' => true
+    // 'profile' => true
 ));
 
 Cookie::$salt = 'asdahsdfzfcsEERfAf';

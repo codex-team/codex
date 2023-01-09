@@ -6,7 +6,7 @@ services:
     restart: on-failure
     volumes:
       - './dump/mysql:/dump'
-      - 'mysql-data:/var/lib/mysql'
+      - 'mysql-data-3:/var/lib/mysql'
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
 
@@ -47,6 +47,6 @@ services:
       - 'pma-data:/usr/share'
 
 volumes:
-  mysql-data:
+  mysql-data-3:
   pma-data:
 
