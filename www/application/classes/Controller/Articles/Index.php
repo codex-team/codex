@@ -138,15 +138,21 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
      */
     public function getFeed()
     {
+        
         /**
          * Prepare Feed model
          */
+        $benchmark = Profiler::start('Prepare Feed model', __FUNCTION__);
         $feed = new Model_Feed_Articles();
+        Profiler::stop($benchmark);
 
+        
         /**
          * Get all published articles
          */
+        $benchmark = Profiler::start('Get all published articles', __FUNCTION__);
         $feed_items  = $feed->get();
+        Profiler::stop($benchmark);
 
         /**
          * List of published articles ids
@@ -158,13 +164,15 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
          */
         $items_to_be_deleted = array();
 
+        $benchmark = Profiler::start('Main foreach $feed_items', __FUNCTION__);
         foreach ($feed_items as $index => $feed_item) {
+            $benchmark1 = Profiler::start('$feed_items', __FUNCTION__);
             $coauthorship        = new Model_Coauthors($feed_item->id);
             $feed_item->coauthor = Model_User::get($coauthorship->user_id);
 
             /**
              * Fill up list of available articles
-             * Except items with hide_from_feed opted in
+             * Except items with hide_from_feed opted  in
              */
             array_push($published_articles_id_array, $feed_item->id);
 
@@ -182,16 +190,22 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
             if ((int) $feed_item->hide_from_feed) {
                 unset($feed_items[$index]);
             }
+            Profiler::stop($benchmark1);
         }
+        Profiler::stop($benchmark);
 
         /**
          * Remove copies of articles if eng and rus version are available
          */
+        $benchmark = Profiler::start('Last foreach $items_to_be_deleted', __FUNCTION__);
         foreach ($items_to_be_deleted as $index => $item_to_be_deleted) {
+            $benchmark1 = Profiler::start('$item_to_be_deleted', __FUNCTION__);
             if (!empty($item_to_be_deleted->linked_article) && in_array($item_to_be_deleted->linked_article, $published_articles_id_array)) {
                 unset($feed_items[$index]);
             }
+            Profiler::stop($benchmark1);
         }
+        Profiler::stop($benchmark);
 
         return $feed_items;
     }

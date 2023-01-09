@@ -76,7 +76,7 @@ class Controller_Base_preDispatch extends Template
      */
     public function after()
     {
-        //        echo View::factory('profiler/stats');
+        echo View::factory('profiler/stats');
 
         if ($this->auto_render) {
             if ($this->title) {
@@ -144,6 +144,7 @@ class Controller_Base_preDispatch extends Template
 
     public static function _redis()
     {
+        $benchmark2 = Profiler::start('new redis', __FUNCTION__);
         if (!class_exists("Redis")) {
             return null;
         }
@@ -163,6 +164,7 @@ class Controller_Base_preDispatch extends Template
         }
 
         $redis->select($redisDB);
+        Profiler::stop($benchmark2);
 
         return $redis;
     }
