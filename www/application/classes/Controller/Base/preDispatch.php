@@ -149,6 +149,8 @@ class Controller_Base_preDispatch extends Template
             return null;
         }
 
+        debug_print_backtrace();
+
         $redisConfig = Kohana::$config->load('redis.default');
 
         $redisHost = Arr::get($redisConfig, 'hostname', '127.0.0.1');
