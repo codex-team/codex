@@ -101,11 +101,11 @@ class Model_Article extends Model
      */
     private function fillByRow($article_row)
     {
-        $benchmark2 = Profiler::start('Model_Feed_RecentArticles', __FUNCTION__);
+        // $benchmark2 = Profiler::start('Model_Feed_RecentArticles', __FUNCTION__);
         $recentArticlesFeed = new Model_Feed_RecentArticles();
-        Profiler::stop($benchmark2);
+        // Profiler::stop($benchmark2);
 
-        $benchmark2 = Profiler::start('fill', __FUNCTION__);
+        // $benchmark2 = Profiler::start('fill', __FUNCTION__);
         if (!empty($article_row['id'])) {
             $this->id           = Arr::get($article_row, 'id');
             $this->uri          = Arr::get($article_row, 'uri');
@@ -128,16 +128,16 @@ class Model_Article extends Model
             $this->is_recent    = $recentArticlesFeed->isExist($this->id);
             $this->read_time    = Model_Methods::estimateReadingTime(null, $this->text);
 
-            $benchmark3 = Profiler::start('Model_User::get', __FUNCTION__);
+            // $benchmark3 = Profiler::start('Model_User::get', __FUNCTION__);
             $this->author           = Model_User::get($this->user_id);
-            Profiler::stop($benchmark3);
+            // Profiler::stop($benchmark3);
 
-            $benchmark3 = Profiler::start('countCommentsByArticle', __FUNCTION__);
+            // $benchmark3 = Profiler::start('countCommentsByArticle', __FUNCTION__);
             $this->commentsCount    = Model_Comment::countCommentsByArticle($this->id);
-            Profiler::stop($benchmark3);
+            // Profiler::stop($benchmark3);
 
         }
-        Profiler::stop($benchmark2);
+        // Profiler::stop($benchmark2);
 
         return $this;
     }
@@ -196,7 +196,7 @@ class Model_Article extends Model
      */
     public static function get($id = 0, $needClearCache = false)
     {
-        $benchmark2 = Profiler::start('Dao_Articles', __FUNCTION__);
+        // $benchmark2 = Profiler::start('Dao_Articles', __FUNCTION__);
         $article = Dao_Articles::select()
             ->where('id', '=', $id)
             ->limit(1); 
@@ -208,7 +208,7 @@ class Model_Article extends Model
         }
 
         $article = $article->execute();
-        Profiler::stop($benchmark2);
+        // Profiler::stop($benchmark2);
 
         $model = new Model_Article();
 

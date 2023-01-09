@@ -144,7 +144,7 @@ class Controller_Base_preDispatch extends Template
 
     public static function _redis()
     {
-        $benchmark2 = Profiler::start('new redis', __FUNCTION__);
+        // $benchmark2 = Profiler::start('new redis', __FUNCTION__);
         if (!class_exists("Redis")) {
             return null;
         }
@@ -164,7 +164,7 @@ class Controller_Base_preDispatch extends Template
         }
 
         $redis->select($redisDB);
-        Profiler::stop($benchmark2);
+        // Profiler::stop($benchmark2);
 
         return $redis;
     }

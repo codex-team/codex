@@ -138,8 +138,7 @@ if ( Kohana::$environment === Kohana::PRODUCTION ) {
 Kohana::init(array(
     'errors' => true, // We need errors=true for errors catching
     'base_url'   => '/',
-    'index_file' => false,
-    // 'profile' => true
+    'index_file' => false
 ));
 
 Cookie::$salt = 'asdahsdfzfcsEERfAf';
