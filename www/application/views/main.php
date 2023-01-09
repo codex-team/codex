@@ -87,7 +87,7 @@
     <? endif; ?>
 </head>
 <body>
-    <?= View::factory('profiler/stats'); ?>
+
     
     <?
       $headerVars = array();
