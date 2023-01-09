@@ -149,7 +149,9 @@ class Controller_Base_preDispatch extends Template
             return null;
         }
 
+        echo "<pre>";
         debug_print_backtrace();
+        echo "</pre>";
 
         $redisConfig = Kohana::$config->load('redis.default');
 
