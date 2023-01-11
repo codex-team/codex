@@ -2,16 +2,16 @@ version: '2'
 
 services:
   mysql:
-    image: 'mysql:5.7'
+    image: 'mysql:8'
     restart: on-failure
     volumes:
       - './dump/mysql:/dump'
-      - 'mysql-data:/var/lib/mysql'
+      - 'mysql-data-3:/var/lib/mysql'
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
 
   memcached:
-    image: 'memcached:alpine'
+    image: 'memcached:1.6.17-alpine'
     restart: on-failure
 
   redis:
@@ -47,6 +47,6 @@ services:
       - 'pma-data:/usr/share'
 
 volumes:
-  mysql-data:
+  mysql-data-3:
   pma-data:
 

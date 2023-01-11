@@ -27,6 +27,7 @@ class Controller_Articles_Modify extends Controller_Base_preDispatch
         */
         if ($article_id = $this->request->query('id') ?: $this->request->param('id')) {
             $article = Model_Article::get($article_id, true);
+            $article->addIsRecentField();
         } else {
             $article = new Model_Article();
         }

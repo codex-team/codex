@@ -2,7 +2,7 @@
 
 abstract class Model_Feed_Abstract extends Model
 {
-    protected $redis;
+    protected static $redis;
     protected $prefix;
 
     protected $timeline_key = null;
@@ -16,7 +16,9 @@ abstract class Model_Feed_Abstract extends Model
      */
     public function __construct($prefix = '')
     {
-        $this->redis = Controller_Base_preDispatch::_redis();
+        if (!self::$redis) {
+            self::$redis = Controller_Base_preDispatch::_redis();
+        }
 
         $this->prefix = $prefix;
     }
@@ -62,33 +64,33 @@ abstract class Model_Feed_Abstract extends Model
     {
         $item_value = $this->composeValueIdentity($item_id);
 
-        if ($this->redis->zRank($this->timeline_key, $item_value) === false) {
+        if (self::$redis->zRank($this->timeline_key, $item_value) === false) {
             return false;
         }
 
 
         //Если в качестве $item_below_value передан null, переставляем элемент в самое начало списка
         if (is_null($item_below_value)) {
-            $first_item_value = $this->redis->zRange($this->timeline_key, 0, 0); //actually, array([0] => first_item_value)
-            $first_item_score = $this->redis->zScore($this->timeline_key, $first_item_value[0]);
+            $first_item_value = self::$redis->zRange($this->timeline_key, 0, 0); //actually, array([0] => first_item_value)
+            $first_item_score = self::$redis->zScore($this->timeline_key, $first_item_value[0]);
 
-            $this->redis->zAdd($this->timeline_key, $first_item_score-1, $item_value);
+            self::$redis->zAdd($this->timeline_key, $first_item_score-1, $item_value);
         }
 
-        if ($this->redis->zRank($this->timeline_key, $item_below_value) === false) {
+        if (self::$redis->zRank($this->timeline_key, $item_below_value) === false) {
             return false;
         }
 
-        $item_below_score = $this->redis->zScore($this->timeline_key, $item_below_value);
+        $item_below_score = self::$redis->zScore($this->timeline_key, $item_below_value);
 
         //Увеличиваем всем элементам после $item_below_value значение на 1, чтобы точно вставить элемент в нужное место
-        $elements_below = $this->redis->zRangeByScore($this->timeline_key, $item_below_score+1, '+inf');
+        $elements_below = self::$redis->zRangeByScore($this->timeline_key, $item_below_score+1, '+inf');
 
         foreach ($elements_below as $element_value) {
-            $this->redis->zIncrBy($this->timeline_key, 1, $element_value);
+            self::$redis->zIncrBy($this->timeline_key, 1, $element_value);
         }
 
-        return $this->redis->zAdd($this->timeline_key, $item_below_score + 1, $item_value);
+        return self::$redis->zAdd($this->timeline_key, $item_below_score + 1, $item_value);
     }
 
     /**
@@ -103,11 +105,11 @@ abstract class Model_Feed_Abstract extends Model
     {
         $value = $this->composeValueIdentity($item_id);
 
-        if ($this->redis->zRank($this->timeline_key, $value) !== false) {
+        if (self::$redis->zRank($this->timeline_key, $value) !== false) {
             return false;
         }
 
-        return $this->redis->zAdd($this->timeline_key, $item_score, $value);
+        return self::$redis->zAdd($this->timeline_key, (int)$item_score, $value);
     }
 
     /**
@@ -119,7 +121,7 @@ abstract class Model_Feed_Abstract extends Model
     {
         $value = $this->composeValueIdentity($item_id);
 
-        $this->redis->zRem($this->timeline_key, $value);
+        self::$redis->zRem($this->timeline_key, $value);
     }
 
 
@@ -135,9 +137,9 @@ abstract class Model_Feed_Abstract extends Model
     {
         $end = $numberOfItems + $offset;
 
-        $end = $this->redis->zCard($this->timeline_key) > $end ? $end : 0;
+        $end = self::$redis->zCard($this->timeline_key) > $end ? $end : 0;
 
-        return $this->redis->zRevRange($this->timeline_key, $offset, $end - 1);
+        return self::$redis->zRevRange($this->timeline_key, $offset, $end - 1);
     }
 
     /**
@@ -157,10 +159,10 @@ abstract class Model_Feed_Abstract extends Model
      */
     public function reindexing()
     {
-        $elements = $this->redis->zRange($this->timeline_key, 0, -1);
+        $elements = self::$redis->zRange($this->timeline_key, 0, -1);
 
         foreach ($elements as $i => $element) {
-            $this->redis->zAdd($this->timeline_key, $i, $element);
+            self::$redis->zAdd($this->timeline_key, $i, $element);
         }
     }
 
@@ -170,7 +172,7 @@ abstract class Model_Feed_Abstract extends Model
     public function isExist($item_id)
     {
         $item_id = $this->composeValueIdentity($item_id);
-        return $this->redis->zRank($this->timeline_key, $item_id) !== false;
+        return self::$redis->zRank($this->timeline_key, $item_id) !== false;
     }
 
     /**
@@ -178,6 +180,6 @@ abstract class Model_Feed_Abstract extends Model
      */
     public function clear()
     {
-        $this->redis->del($this->timeline_key);
+        self::$redis->del($this->timeline_key);
     }
 }

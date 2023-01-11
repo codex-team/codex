@@ -50,6 +50,7 @@ class Model_Feed_Articles extends Model_Feed_Abstract
                         throw new Exception($error_text);
                 }
             }
+
             return $models_list;
         }
 

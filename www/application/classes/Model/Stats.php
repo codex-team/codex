@@ -8,12 +8,14 @@
 class Model_Stats extends Model
 {
     const ARTICLE = 1;
-    private $redis;
+    private static $redis;
 
 
     public function __construct()
     {
-        $this->redis = Controller_Base_preDispatch::_redis();
+        if (!self::$redis) {
+            self::$redis = Controller_Base_preDispatch::_redis();
+        }
     }
 
     /*
@@ -23,17 +25,17 @@ class Model_Stats extends Model
     */
     public function hit($type, $id, $time = 0)
     {
-        if (!$this->redis) {
+        if (!self::$redis) {
             return;
         }
 
         $key = self::getKey($type, $id, $time);
 
-        if (!$this->redis->get($key)) {
-            $this->redis->set($key, 1);
+        if (!self::$redis->get($key)) {
+            self::$redis->set($key, 1);
         }
 
-        $this->redis->incr($key);
+        self::$redis->incr($key);
     }
 
     /*
@@ -50,13 +52,13 @@ class Model_Stats extends Model
 
     public function get($type, $id, $time = 0)
     {
-        if (!$this->redis) {
+        if (!self::$redis) {
             return;
         }
 
         $key = self::getKey($type, $id, $time);
 
-        $views = $this->redis->get($key);
+        $views = self::$redis->get($key);
 
         return $views;
     }
