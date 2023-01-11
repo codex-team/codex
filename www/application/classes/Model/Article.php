@@ -126,9 +126,6 @@ class Model_Article extends Model
             $this->commentsCount    = Model_Comment::countCommentsByArticle($this->id);
         }
 
-
-        $this->addIsRecentField();
-
         return $this;
     }
 
