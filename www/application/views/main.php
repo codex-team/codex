@@ -87,8 +87,6 @@
     <? endif; ?>
 </head>
 <body>
-
-    
     <?
       $headerVars = array();
       $headerVars['articleEditLink'] = isset($articleEditLink) ? $articleEditLink : '';

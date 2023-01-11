@@ -194,8 +194,8 @@ class Model_Article extends Model
     {
         $article = Dao_Articles::select()
             ->where('id', '=', $id)
-            ->limit(1); 
-        
+            ->limit(1);
+
         if ($needClearCache) {
             $article->clearcache($id);
         } else {

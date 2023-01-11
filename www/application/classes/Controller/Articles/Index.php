@@ -157,13 +157,14 @@ class Controller_Articles_Index extends Controller_Base_preDispatch
          * Items to be removed from articles list
          */
         $items_to_be_deleted = array();
+
         foreach ($feed_items as $index => $feed_item) {
             $coauthorship        = new Model_Coauthors($feed_item->id);
             $feed_item->coauthor = Model_User::get($coauthorship->user_id);
 
             /**
              * Fill up list of available articles
-             * Except items with hide_from_feed opted  in
+             * Except items with hide_from_feed opted in
              */
             array_push($published_articles_id_array, $feed_item->id);
 
