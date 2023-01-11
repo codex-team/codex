@@ -39,7 +39,7 @@ class Model_Article extends Model
      * True if article showed on the index page
      * @var boolean
      */
-    public $is_recent = false;
+    public $is_recent = null;
 
     /**
      * Estimated time for reading
@@ -101,8 +101,6 @@ class Model_Article extends Model
      */
     private function fillByRow($article_row)
     {
-        $recentArticlesFeed = new Model_Feed_RecentArticles();
-
         if (!empty($article_row['id'])) {
             $this->id           = Arr::get($article_row, 'id');
             $this->uri          = Arr::get($article_row, 'uri');
@@ -122,7 +120,6 @@ class Model_Article extends Model
             $this->is_removed   = Arr::get($article_row, 'is_removed');
             $this->is_published = Arr::get($article_row, 'is_published');
             $this->hide_from_feed = Arr::get($article_row, 'hide_from_feed');
-            $this->is_recent    = $recentArticlesFeed->isExist($this->id);
             $this->read_time    = Model_Methods::estimateReadingTime(null, $this->text);
 
             $this->author           = Model_User::get($this->user_id);
@@ -132,6 +129,15 @@ class Model_Article extends Model
         return $this;
     }
 
+    /**
+     * Get is_recent value for the article
+     */
+    public function addIsRecentField()
+    {
+        $recentArticlesFeed = new Model_Feed_RecentArticles();
+
+        $this->is_recent = $recentArticlesFeed->isExist($this->id);
+    }
 
     /**
      * Удаляет статью, представленную в модели.
