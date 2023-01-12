@@ -7,6 +7,7 @@
 		"codex-team/hawk.php": "^2.1",
 		"pavelzotikov/social-covers-generator": "dev-first-version",
 		"ext-SimpleXML": "*",
-		"stichoza/google-translate-php": "v4.1.7"
+		"stichoza/google-translate-php": "v4.1.7",
+		"aws/aws-sdk-php": "^3.256"
 	}
 }
