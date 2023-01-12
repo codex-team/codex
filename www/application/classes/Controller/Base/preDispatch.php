@@ -185,8 +185,7 @@ class Controller_Base_preDispatch extends Template
         View::set_global('stats', $this->stats);
 
         // modules
-        $this->redis = $this->_redis();
-        View::set_global('redis', $this->redis);
+        View::set_global('redis', self::$redis);
 
         $this->memcache = $memcache = Cache::instance('memcache');
         View::set_global('memcache', $memcache);
