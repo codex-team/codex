@@ -61,8 +61,6 @@ class Model_Methods extends Model
         }
     }
 
-
-
     public function save_cover($cover)
     {
         $new_name = bin2hex(openssl_random_pseudo_bytes(5));
@@ -80,8 +78,27 @@ class Model_Methods extends Model
         }
     }
 
+    /**
+     * Save uploaded media to S3
+     */
+    public static function saveMedia($file, $folder)
+    {
+        try {
+            $filename = Model_S3::upload($file, $folder);
+
+            // Delete the temporary file
+            unlink($file['tmp_name']);
+
+            return $filename;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
 
     /**
+     * DEPRECATED
+     * 
      * Save uploaded image
      * @param resource $file - uploaded file
      * @param string $path - path where image will be saved
@@ -97,47 +114,13 @@ class Model_Methods extends Model
             return false;
         }
 
-        if (!is_dir($path)) {
-            mkdir($path);
-        }
-
         if (isset($file['tmp_name'])) {
-            $filename = bin2hex(openssl_random_pseudo_bytes(16)) . '.jpg';
-            $image = Image::factory($file['tmp_name']);
-            $image->save($path . $filename);
-
-            $originalWidth = $image->width;
-            $originalHeight = $image->height;
-
-            foreach ($this->IMAGE_SIZES_CONFIG as $prefix => $sizes) {
-                $isSquare = !!$sizes[0];
-                $width    = $sizes[1];
-                $height   = !$isSquare ? $sizes[2] : $width;
-                $image->background('#fff');
-
-                // Вырезание квадрата
-                if ($isSquare) {
-                    if ($image->width >= $image->height) {
-                        $image->resize(null, $height, true);
-                    } else {
-                        $image->resize($width, null, true);
-                    }
-                    $image->crop($width, $height);
-                } else {
-                    if ($image->width > $width || $image->height > $height) {
-                        $image->resize($width, $height, true);
-                    }
-                }
-
-                $image->save($path . $prefix . '_' . $filename);
-            }
+            $filename = Model_S3::upload($file, 'images');
 
             // Delete the temporary file
             unlink($file['tmp_name']);
 
             return array(
-                'width' => $originalWidth,
-                'height' => $originalHeight,
                 'name' => $filename
             );
         }
@@ -146,6 +129,8 @@ class Model_Methods extends Model
     }
 
     /**
+     * DEPRECATED
+     * 
      * Save uploaded video
      * @param resource $file - uploaded file
      * @param string $path - path where video will be saved
@@ -154,15 +139,15 @@ class Model_Methods extends Model
      */
     public function saveVideo($file, $path)
     {
-        if (!is_dir($path)) {
-            mkdir($path);
+        if (!Upload::type($file, array('mp4', 'mov'))) {
+            return false;
         }
 
         if (isset($file['tmp_name'])) {
-            $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
-            $filename = bin2hex(openssl_random_pseudo_bytes(16)) . '.' . $ext;
-
-            move_uploaded_file($file['tmp_name'], $path . $filename);
+            $filename = Model_S3::upload($file, 'images');
+            
+            // Delete the temporary file
+            unlink($file['tmp_name']);
 
             return array(
                 'name' => $filename
@@ -172,6 +157,9 @@ class Model_Methods extends Model
         return false;
     }
 
+    /**
+     * Download file by url
+     */
     public function getFile($url)
     {
         $tempName = tempnam('/tmp', 'tmp_files');

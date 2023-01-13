@@ -2,11 +2,9 @@
 
 class Controller_Base_Ajax extends Controller_Base_preDispatch
 {
-
-
     /**
-    * Constants means action we did with transfered file
-    */
+     * Constants means action we did with transfered file
+     */
     const TRANSPORT_ACTION_PROFILE_PHOTO = 1;
     const TRANSPORT_ACTION_ARTICLE_COVER = 2;
 
@@ -14,6 +12,8 @@ class Controller_Base_Ajax extends Controller_Base_preDispatch
     * @var string File size limitation
     */
     public $UPLOAD_MAX_SIZE = '30M';
+
+    private $mediaDir = 'upload/users';
 
 
     public function before()
@@ -47,8 +47,8 @@ class Controller_Base_Ajax extends Controller_Base_preDispatch
         /** Target id */
         $id = (int)Arr::get($_POST, 'id', 0);
 
-        /** Uploaded files */
-        $files = Arr::get($_FILES, 'files');
+        /** Uploaded file */
+        $file = Arr::get($_FILES, 'files');
 
         /** Array will be passed to JS transport module */
         $response = array('success' => 0);
@@ -56,7 +56,7 @@ class Controller_Base_Ajax extends Controller_Base_preDispatch
         /**
         * Check for correct parametres
         */
-        $dataValidationError = $this->getTransportValidationError($action, $id, $files);
+        $dataValidationError = $this->getTransportValidationError($action, $id, $file);
 
         if ($dataValidationError) {
             $response['error_description'] = $dataValidationError;
@@ -64,19 +64,18 @@ class Controller_Base_Ajax extends Controller_Base_preDispatch
             switch ($action) {
 
                 case self::TRANSPORT_ACTION_PROFILE_PHOTO:
-
-                    $file = $this->methods->saveImage($files, 'upload/users/');
-                    $filename = Arr::get($file, 'name');
+                    
+                    $filename = Model_Methods::saveMedia($file, $this->mediaDir);
 
                     if ($filename) {
 
                         /** Update user */
-                        $this->user->photo = '/upload/users/b_' . $filename;
+                        $this->user->photo = $filename;
                         $this->user->update();
 
                         /** Return success information. @uses client-side callback.saveProfilePhoto handler */
                         $response['success']  = 1;
-                        $response['callback'] = 'codex.profile.uploadPhotoSuccess("/upload/users/b_'.$filename.'")';
+                        $response['callback'] = 'codex.profile.uploadPhotoSuccess("'.$this->user->photo.'")';
                     } else {
                         $response['error_description'] = 'File wasn\'t saved';
                     }
