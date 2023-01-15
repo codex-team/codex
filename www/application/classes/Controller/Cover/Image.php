@@ -100,22 +100,29 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
 
         $image = null;
 
-        /**
-         * Try to get url of the first image from the article
+        /** 
+         * Get cover image from the article
          */
-        try {
-            $editor = new EditorJS($article->text, Model_Article::getEditorConfig());
-            $blocks = $editor->getBlocks();
+        if ($article->cover) {
+            $image = substr($article->cover, 0, 4) !== 'http' ? sprintf('%s%s', DOCROOT, $article->cover) : $article->cover;
+        } else {
+            /**
+             * Try to get url of the first image from the article
+             */
+            try {
+                $editor = new EditorJS($article->text, Model_Article::getEditorConfig());
+                $blocks = $editor->getBlocks();
 
-            foreach ($blocks as $block) {
-                if ($block['type'] === 'image') {
-                    $image_url = $block['data']['file']['url'];
-                    $image = substr($image_url, 0, 4) !== 'http' ? sprintf('%s%s', DOCROOT, $image_url) : $image_url;
-                    break;
+                foreach ($blocks as $block) {
+                    if ($block['type'] === 'image') {
+                        $image_url = $block['data']['file']['url'];
+                        $image = substr($image_url, 0, 4) !== 'http' ? sprintf('%s%s', DOCROOT, $image_url) : $image_url;
+                        break;
+                    }
                 }
+            } catch (\Exception $e) {
+                \Hawk\Catcher::get()->sendException($e);
             }
-        } catch (\Exception $e) {
-            \Hawk\Catcher::get()->sendException($e);
         }
 
         /**
