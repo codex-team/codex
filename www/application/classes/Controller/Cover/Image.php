@@ -121,11 +121,11 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
         /**
          * Check if passed image exists
          */
-        $image_exists = $image !== null && file_exists($image);
+        $image_exists = $image !== null;
         $cover = $this->background($image_exists ? $image : null);
 
         /**
-         * Use black font if background image exists
+         * Use white font if background image exists
          */
         if ($image_exists) {
             $font_color = '#FFFFFF';
