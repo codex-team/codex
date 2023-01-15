@@ -79,8 +79,6 @@ class Controller_Cover_Image extends Controller_Base_preDispatch
                 throw new Exception('Image is missing');
             }
         } catch (\Exception $e) {
-            var_dump($e->getMessage());
-
             $background = new \SocialCoversGenerator\Types\Background();
         }
 
