@@ -270,6 +270,7 @@
         width: 100% !important;
 
         img, video {
+            max-width: 2000px !important;
             width: 100%;
         }
     }
