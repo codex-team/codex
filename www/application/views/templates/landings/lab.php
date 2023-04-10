@@ -16,7 +16,7 @@
     </div>
 
     <div class="lab-page__banner-pic">
-        <img src="https://codex.so/upload/redactor_images/o_9fe12a632b1dbe4e13d4561865dfb7fe.jpg" />
+        <img src="https://static.codex.so/upload/redactor_images/o_9fe12a632b1dbe4e13d4561865dfb7fe.jpg" />
     </div>
 
     <div class="lab-page__description">
