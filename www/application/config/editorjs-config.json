@@ -110,6 +110,7 @@
       "caption": "string"
     },
     "table": {
+      "withHeadings": "boolean",
       "content": {
         "type": "array",
         "data": {
