@@ -28,10 +28,10 @@
         <div class="codex-logo"></div>
         <p>
             <?=
-                    _('CodeX is a team of passionate engineers and designers, unifying students, graduates, and other young specialists around the world interested in making high-quality open-source projects and getting a priceless experience of making full-valued products on a global market.');
+                    _('CodeX is a team of digital specialists around the world interested in building high-quality open source products on a global market. We are open for young people who want to constantly improve their skills and grow professionally with experiments in cutting-edge technologies.');
             ?>
         </p>
-        <p><?= _('Our goal is to make a team with fire in the eyes and idealistic tempers.') ?></p>
+        
 
         <?
             /** Join block */
