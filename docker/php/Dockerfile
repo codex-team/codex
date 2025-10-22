@@ -55,7 +55,8 @@ RUN docker-php-ext-enable \
     imagick
 
 # Install redis php-exts
-RUN pecl install redis
+# > use version 5.3.7 - last version compatible with PHP 7.2
+RUN pecl install redis-5.3.7
 RUN docker-php-ext-enable \
     redis
 
