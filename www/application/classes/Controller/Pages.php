@@ -65,6 +65,19 @@ class Controller_Pages extends Controller_Base_preDispatch
         }
     }
 
+    /**
+     * Replace emojis with placeholder to avoid database encoding issues
+     * @param string $string
+     * @return string
+     */
+    private function removeEmojis($string)
+    {
+        /**
+         * Replace 4-byte UTF-8 characters (emojis) with [Emoji] placeholder
+         */
+        return preg_replace('/[\x{10000}-\x{10FFFF}]/u', '[Emoji]', $string);
+    }
+
     public function action_process_join_form()
     {
         $this->auto_render = false;
@@ -93,16 +106,22 @@ class Controller_Pages extends Controller_Base_preDispatch
             return;
         }
 
+        /**
+         * Get sanitized values
+         */
         $name = HTML::chars(Arr::get($_POST, 'name', null));
         $email = HTML::chars(Arr::get($_POST, 'email', null));
         $skills = HTML::chars(Arr::get($_POST, 'skills'));
         $wishes = HTML::chars(Arr::get($_POST, 'wishes'));
 
+        /**
+         * Remove emojis before saving to database to avoid encoding errors
+         */
         $fields = array(
-            'skills' => $skills,
-            'wishes' => $wishes,
-            'email'  => $email,
-            'name'   => $name
+            'skills' => $this->removeEmojis($skills),
+            'wishes' => $this->removeEmojis($wishes),
+            'email'  => $this->removeEmojis($email),
+            'name'   => $this->removeEmojis($name)
         );
 
         if (!$fields['email'] && !$this->user->id) {

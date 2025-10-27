@@ -315,7 +315,7 @@
                             <div>
                                 <button type="submit" id="submit-button">
                                     <span class="button-text">Отправить заявку</span>
-                                    <span class="button-loader" style="display: none;">
+                                    <span class="button-loader">
                                         <span class="spinner"></span>
                                         Отправляем...
                                     </span>
