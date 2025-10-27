@@ -90,41 +90,14 @@ class Controller_Landings extends Controller_Base_preDispatch
     /**
      * Codex Editor Landing page
      * https://codex.so/editor
+     * Redirects to https://editorjs.io
      */
     public function action_editor()
     {
-        $this->title = 'CodeX Editor';
-        $this->description = 'Block style visual editor for beautiful pages';
-        $this->view['version'] = $this->getEditorVersion();
-
         /**
-         * Detect visits from Product Hunt
+         * Redirect to editorjs.io
          */
-        $isFromPH = $this->request->query('ref') === 'producthunt';
-
-        if ($isFromPH) {
-            Cookie::set('from', 'producthunt', Date::YEAR * 3);
-        }
-
-        $this->view['isFromPH'] = $isFromPH;
-
-        $landing = View::factory('templates/landings/editor', $this->view);;
-
-        /**
-         * On editorjs.io we inject landing as an iframe
-         * where we does not need a site header
-         */
-        if ($this->request->query('frame') === '1') {
-            $landing .= '
-                <style>
-                    .site-header {
-                        display: none;
-                    }
-                </style>
-            ';
-        }
-
-        $this->template->content = $landing;
+        $this->redirect('https://editorjs.io');
     }
 
     /**

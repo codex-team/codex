@@ -11,6 +11,7 @@ var join = function () {
 
     const animationClass = 'wobble';
 
+    const formWrapper = document.getElementById('join-form-wrapper');
     const formElement = document.getElementById('joinForm');
     const successMessageBanner = document.getElementById('success-message-banner');
 
@@ -56,6 +57,17 @@ var join = function () {
 
     const sendForm = function (form) {
 
+        /**
+         * Set loading state on form wrapper
+         */
+
+
+        if (formWrapper) {
+
+            formWrapper.setAttribute('data-loading', 'true');
+
+        }
+
         ajax.post({
             url: '/process-join-form',
             data: new FormData(form),
@@ -63,7 +75,25 @@ var join = function () {
         })
             .then((response) => {
 
+                /**
+                 * Remove loading state
+                 */
+                if (formWrapper) {
+
+                    formWrapper.setAttribute('data-loading', 'false');
+
+                }
+
                 if (response.success === 1) {
+
+                    /**
+                     * Set submitted state to hide description
+                     */
+                    if (formWrapper) {
+
+                        formWrapper.setAttribute('data-submitted', 'true');
+
+                    }
 
                     successMessageBanner.style.display = 'block';
                     formElement.style.display = 'none';
@@ -81,6 +111,15 @@ var join = function () {
 
             })
             .catch((error) => {
+
+                /**
+                 * Remove loading state on error
+                 */
+                if (formWrapper) {
+
+                    formWrapper.setAttribute('data-loading', 'false');
+
+                }
 
                 notifier.show({
                     message: 'Something went wrong',

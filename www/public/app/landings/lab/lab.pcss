@@ -55,8 +55,12 @@ body {
     background-color: var(--color-bg-main);
     color: #ffffff;
 
-    font-size: 16.2px;
+    font-size: 17.4px;
     letter-spacing: 0;
+
+    a:hover {
+        color:rgb(185, 93, 255);
+    }
 
     &__section {
         margin: 130px auto 0 auto;
@@ -67,11 +71,11 @@ body {
         }
 
         &-title {
-            font-size: 46px;
-            font-weight: 700;
+            font-size: 44px;
+            font-weight: 600;
             letter-spacing: 0.31px;
             line-height: 1.4em;
-            margin: 0 0 26px 0;
+            margin: 0 0 16px 0;
 
             @media (--mobile) {
                 font-size: 36px;
@@ -94,7 +98,7 @@ body {
         }
 
         & a {
-            color: #40a7ff;
+            color:rgb(39, 98, 150);
         }
 
         &-list {
@@ -153,12 +157,23 @@ body {
         max-width: 610px;
         margin: 0 auto;
 
+        --logo-size: 350px;
+
+        @media (--mobile) {
+            --logo-size: 200px;
+        }
+
+        &-logo {
+            width: var(--logo-size);
+            height: var(--logo-size);
+            margin: 150px 0 0px;
+        }
+
         @media (--mobile) {
             margin: 0 20px;
         }
 
         &-header {
-            margin-top: 35vh;
             margin-bottom: 0;
             font-size: 116px;
             font-weight: 800;
@@ -232,6 +247,8 @@ body {
 
         @media (--mobile) {
             margin: 70px 20px 0 20px;
+            flex-direction: column;
+            gap: 14px;
         }
 
         &-text {
@@ -239,27 +256,106 @@ body {
             line-height: 26px;
         }
 
-        &-pic {
-            width: 151px;
-            padding: 0;
+        &-github,
+        &-npm {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #fff;
+        }
+
+        img {
+            width: 26px;
+        }
+
+
+    }
+
+    &__projects {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        padding-top: 10px;
+
+        --image-size: 28px;
+        --image-gap: 10px;
+
+        &-item {
+            display: flex;
+            gap: 12px;
+            color: #fff;
+            line-height: 1em;
+            align-items: center;
 
             @media (--mobile) {
-                margin-left: 20px;
-                width: 75px;
-                margin-top: 6px;
+                gap: 14px;
             }
+
+            &-content {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            &-title {
+                display: flex;
+                gap: var(--image-gap);
+                font-size: 16px;
+                font-weight: 500;
+            }
+
+            &-subline {
+                font-size: 12px;
+                color: #a0a1a1;
+            }
+        }
+
+        img {
+            width: var(--image-size);
+            height: var(--image-size);
+            object-fit: contain;
         }
     }
 
     &__directions {
-        & ul {
+        margin: 0;
+        list-style-type: none;
+        padding: 0;
+
+        li {
+            list-style: none;
+            margin: 5px 0;
             line-height: 40px;
             letter-spacing: 0.33px;
             font-size: 26px;
             font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        li svg {
+            width: 28px;
+            height: 28px;
+            opacity: 0.6;
+        }
+    }
+
+    &__requirements {
+        margin-bottom: 40px;
+        & ul {
+            line-height: 1.4em;
+            letter-spacing: 0.33px;
+            font-size: 20px;
+            font-weight: 500;
             margin: 0;
-            list-style-type: none;
-            padding: 0;
+
+            li {
+                margin: 6px 0;
+            }
         }
     }
 
@@ -281,6 +377,10 @@ body {
                 &--slide {
                     display: none;
                 }
+            }
+
+            svg {
+                max-width: 400px;
             }
 
             path {
@@ -369,7 +469,7 @@ body {
         &-list {
             &-row {
                 display: flex;
-                justify-content: space-between;
+                gap: 50px;
                 align-items: center;
                 margin-top: 40px;
 
@@ -377,20 +477,23 @@ body {
                     flex-direction: column;
                     align-items: flex-start;
                     margin-top: 30px;
+                    gap: 30px;
                 }
             }
         }
 
         &-item {
             &--mnoc {
+                height: 60px;
                 @media (--mobile) {
                     height: 60px;
                 }
             }
 
             &--itmo {
+                height: 30px;
                 @media (--mobile) {
-                    margin-top: 30px;
+                    margin-top: 0;
                     height: 28px;
                 }
             }
@@ -439,8 +542,6 @@ body {
     }
 
     &__form {
-        margin-bottom: 50px;
-
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -454,12 +555,13 @@ body {
             margin: 0 0 10px 12px;
             display: inline-block;
             letter-spacing: -0.18px;
-            line-height: 19px;
+            line-height: 1.45em;
+
+
         }
 
         & input {
             width: 100%;
-            max-width: 407px;
             background-color: rgba(255, 255, 255, 0.08);
             box-sizing: border-box;
             border-radius: 10px;
@@ -473,7 +575,6 @@ body {
 
         & textarea {
             width: 100%;
-            max-width: 407px;
             background-color: rgba(255, 255, 255, 0.08);
             height: 112px;
             box-sizing: border-box;
@@ -481,7 +582,6 @@ body {
             border: 0;
             font-family: inherit;
             outline: none;
-            resize: none;
             color: #fff;
             padding: 12px;
             vertical-align: bottom;
@@ -489,7 +589,6 @@ body {
 
         & button {
             width: 100%;
-            max-width: 407px;
             background-color: #3a8df5;
             padding: 15px;
             border-radius: 10px;
@@ -507,6 +606,63 @@ body {
                 background-color: #3277cf;
             }
         }
+
+        &-wrapper {
+            --radius: 31px;
+            position: relative;
+            background: linear-gradient(180deg, #5800B1 0%, #C70469 100%), #8C3AFF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: var(--radius);
+            padding: 5px;
+
+            &-inner {
+                background-color: var(--color-bg-main);
+                border-radius: calc(var(--radius) - 2px);
+                padding: 40px 50px;
+
+                @media (--mobile) {
+                    padding: 20px 30px;
+                }
+            }
+        }
+
+        &-success {
+            line-height: 1.4em;
+
+            p:last-of-type {
+                margin-bottom: 0;
+            }
+
+            a {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                text-decoration: none;
+                color: #fff;
+                padding: 4px 6px;
+                line-height: 1em;
+                border-radius: 25px;
+                font-weight: 600;
+                font-size: 14px;
+                background: #fff;
+                color: #000;
+                margin: 0 1px;
+
+                &:hover {
+                    text-decoration: none;
+                    color: #000;
+                    box-shadow: 0 0 30px 0 rgba(255, 255, 255, 0.5);
+                }
+
+                svg {
+                    width: 12px;
+                    height: 12px;
+                    fill: currentColor;
+                }
+            }
+        }
     }
 
     &__telegram-auth-button {
@@ -520,10 +676,6 @@ body {
     .lab-page__roles-list-items &--animated-visible {
         animation: star-bounce 150ms ease-in forwards;
     }
-}
-
-#success-message-banner {
-    margin-bottom: 300px;
 }
 
 @keyframes text-in {
