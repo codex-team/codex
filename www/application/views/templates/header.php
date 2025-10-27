@@ -30,7 +30,7 @@
                 </a>
             </div>
         <? else: ?>
-            <a class="site-header__right fl_r" href="/auth/github" rel="nofollow">
+            <a class="site-header__right site-header__login fl_r" href="/auth/github" rel="nofollow">
                 <i class="site-header__github-icon icon-github-circled"></i>
                 Login
             </a>

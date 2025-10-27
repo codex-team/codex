@@ -107,7 +107,7 @@ class Controller_Pages extends Controller_Base_preDispatch
 
         if (!$fields['email'] && !$this->user->id) {
             $this->sendAjaxResponse(array(
-                'message' => 'Log in or enter your email so that we can contact you.',
+                'message' => 'Enter your contact information so that we can reach you.',
                 'success' => 0
             ));
             return;
