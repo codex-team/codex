@@ -1,30 +1,28 @@
-'use strict';
-
 /**
  * CodeX Editor bundle
  */
-const EditorJS = require('@editorjs/editorjs');
+import EditorJS from '@editorjs/editorjs';
 
 /**
  * Block Tools for the Editor
  */
-const Header = require('@editorjs/header');
-const Quote = require('@editorjs/quote');
-const CodeTool = require('@editorjs/code');
-const Delimiter = require('@editorjs/delimiter');
-const List = require('@editorjs/list');
-const LinkTool = require('@editorjs/link');
-const RawTool = require('@editorjs/raw');
-const ImageTool = require('@editorjs/image');
-const Embed = require('@editorjs/embed');
-const Table = require('@editorjs/table');
+import Header from '@editorjs/header';
+import Quote from '@editorjs/quote';
+import CodeTool from '@editorjs/code';
+import Delimiter from '@editorjs/delimiter';
+import List from '@editorjs/list';
+import LinkTool from '@editorjs/link';
+import RawTool from '@editorjs/raw';
+import ImageTool from '@editorjs/image';
+import Embed from '@editorjs/embed';
+import Table from '@editorjs/table';
 
 /**
  * Inline Tools for the Editor
  */
-const InlineCode = require('@editorjs/inline-code');
-const Marker = require('@editorjs/marker');
-const Translate = require('@editorjs/translate-inline').default;
+import InlineCode from '@editorjs/inline-code';
+import Marker from '@editorjs/marker';
+import Translate from '@editorjs/translate-inline';
 
 import * as _ from '../utils';
 
