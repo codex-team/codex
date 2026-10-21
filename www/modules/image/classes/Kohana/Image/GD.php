@@ -138,7 +138,8 @@ class Kohana_Image_GD extends Image {
 	 */
 	protected function _load_image()
 	{
-		if ( ! is_resource($this->_image))
+		// GD returns GdImage objects instead of resources since PHP 8.0
+		if ( ! is_resource($this->_image) AND ! ($this->_image instanceof GdImage))
 		{
 			// Gets create function
 			$create = $this->_create_function;
