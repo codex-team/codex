@@ -101,7 +101,8 @@ class Kohana_Arr {
 		}
 		else
 		{
-			if (array_key_exists($path, $array))
+			// array_key_exists() does not accept objects since PHP 8.0
+			if (is_array($array) ? array_key_exists($path, $array) : ($array instanceof ArrayAccess AND $array->offsetExists($path)))
 			{
 				// No need to do extra processing
 				return $array[$path];

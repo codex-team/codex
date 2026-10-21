@@ -111,12 +111,16 @@ if (isset($_SERVER['KOHANA_ENV']))
 }
 
 /**
-* Turn off notices and strict errors on production
+* Turn off notices and deprecations on production
 * @since 2017.16.02 @neSpecc
+*
+* > E_DEPRECATED must stay disabled: Kohana converts every reported error into
+* > an exception, and Kohana 3.3 raises a lot of deprecations on PHP 8.
+* > E_STRICT is not used since PHP 8.0 and the constant is deprecated in PHP 8.4
 */
 if ( Kohana::$environment === Kohana::PRODUCTION ) {
 
-    error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT);
+    error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED);
 
 }
 
