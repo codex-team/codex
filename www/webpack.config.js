@@ -22,6 +22,7 @@ module.exports = {
     },
 
     module: {
+        noParse: /@editorjs/,  // Don't parse @editorjs modules - use them as-is
         rules: [
             {
                 test : /\.(png|jpg|svg)$/,
@@ -57,10 +58,14 @@ module.exports = {
                         options: {
                             cacheDirectory: '.cache/babel-loader',
                             presets: [
-                                '@babel/preset-env',
+                                ['@babel/preset-env', {
+                                    modules: false,  // Keep ES modules for tree shaking
+                                    targets: {
+                                        browsers: ['> 1%', 'last 2 versions', 'not dead']
+                                    }
+                                }]
                             ],
                             plugins: [
-                                'babel-plugin-transform-es2015-modules-commonjs',
                                 '@babel/plugin-syntax-dynamic-import'
                             ]
                         }
@@ -91,6 +96,7 @@ module.exports = {
         alias: {
             classes: path.resolve(__dirname, 'public/app/js/classes'),
         },
+        mainFields: ['main', 'module'],  // Prefer 'main' (UMD) over 'module' (ESM) for compatibility
     },
 
     /**
