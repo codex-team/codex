@@ -1,10 +1,9 @@
-FROM php:7.2-fpm
-
-# Fix Debian Buster EOL - point to archive repositories
-RUN sed -i 's/deb.debian.org/archive.debian.org/g' /etc/apt/sources.list && \
-    sed -i 's|security.debian.org/debian-security|archive.debian.org/debian-security|g' /etc/apt/sources.list && \
-    sed -i '/stretch-updates/d' /etc/apt/sources.list && \
-    sed -i '/buster-updates/d' /etc/apt/sources.list
+# PHP 8.4.27 fixes CVE-2026-109618 and CVE-2026-109619 (RCE in PHP-FPM)
+# Read: https://www.php.net/archive/2026.php#2026-10-21-5
+#
+# > use Debian Bookworm cause it ships ImageMagick 6: Imagick::setImageOpacity()
+# > used by pavelzotikov/social-covers-generator does not exist with ImageMagick 7
+FROM php:8.4.27-fpm-bookworm
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
@@ -14,6 +13,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libjpeg-dev libpng-dev libfreetype6-dev \
     libssl-dev libpcre3 libpcre3-dev \
     libmagickwand-dev imagemagick
+
+# Build fonts cache for ImageMagick. Otherwise PHP-FPM workers log
+# "Fontconfig error: No writable cache directories" on every cover render
+RUN fc-cache -f
 
 # Set the locale
 RUN apt-get -qq update && apt-get -qqy install locales
@@ -35,33 +38,25 @@ RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
 
 # Install memcache extension
-RUN set -x \
-    && cd /tmp \
-    && curl -sSL -o php7.zip https://github.com/websupport-sk/pecl-memcache/archive/php7.zip \
-    && unzip php7 \
-    && cd pecl-memcache-php7 \
-    && /usr/local/bin/phpize \
-    && ./configure --with-php-config=/usr/local/bin/php-config \
-    && make \
-    && make install \
-    && echo "extension=memcache.so" > /usr/local/etc/php/conf.d/ext-memcache.ini \
-    && rm -rf /tmp/pecl-memcache-php7 php7.zip
+# > version 8.x supports PHP 8
+RUN pecl install memcache-8.2
+RUN docker-php-ext-enable \
+    memcache
 
 # Install ImageMagick
-# > use version 3.4.3 cause "Function Imagick::setImageOpacity() is deprecated"
-# > in 3.4.4 and above. Read: https://www.php.net/manual/en/imagick.setimageopacity.php
-RUN pecl install -f imagick-3.4.3
+# > Imagick::setImageOpacity() is deprecated since 3.4.4, so we disable
+# > E_DEPRECATED in bootstrap. Read: https://www.php.net/manual/en/imagick.setimageopacity.php
+RUN pecl install imagick-3.8.1
 RUN docker-php-ext-enable \
     imagick
 
 # Install redis php-exts
-# > use version 5.3.7 - last version compatible with PHP 7.2
-RUN pecl install redis-5.3.7
+RUN pecl install redis-6.3.0
 RUN docker-php-ext-enable \
     redis
 
 # Configure GD library
-RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 
 # Enable some php-exts
 RUN docker-php-ext-install \
