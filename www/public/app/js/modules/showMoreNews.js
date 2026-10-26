@@ -51,4 +51,4 @@ var showMoreNews = function () {
 
 }({});
 
-module.exports = showMoreNews;
+export default showMoreNews;

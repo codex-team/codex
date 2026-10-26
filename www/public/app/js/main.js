@@ -34,6 +34,7 @@ import vkWidget from './modules/vkWidget';
 import codeStyling from './modules/codeStyling';
 import deeplinker from '@codexteam/deeplinker';
 import pluginsFilter from './modules/pluginsFilter';
+import Player from './modules/player';
 
 import EditorLanding from './modules/editorLanding';
 import ArticleCreate from './modules/articleCreate';
@@ -112,16 +113,10 @@ function initModules() {
 
     if (playVideoButton) {
 
-        import('./modules/player').then(module => {
-
-            const Player = module.default;
-
-            new Player({
-                sourceURL: 'public/app/img/products/ar-tester.mp4',
-                toggler: playVideoButton,
-                wrapperSelector : '.product-card--ar-tester'
-            });
-
+        new Player({
+            sourceURL: 'public/app/img/products/ar-tester.mp4',
+            toggler: playVideoButton,
+            wrapperSelector : '.product-card--ar-tester'
         });
 
     }

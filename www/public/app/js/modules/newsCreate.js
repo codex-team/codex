@@ -1,7 +1,5 @@
-'use strict';
-
-const ajax = require('@codexteam/ajax');
-const notifier = require('codex-notifier');
+import ajax from '@codexteam/ajax';
+import notifier from 'codex-notifier';
 
 export default class NewsCreate {
 

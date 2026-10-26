@@ -1,6 +1,4 @@
-'use strict';
-
-require('./lab.pcss');
+import './lab.pcss';
 
 const DELAY_BETWEEN_ITEMS = 300;
 const animatedClassName = 'animated';

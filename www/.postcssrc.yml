@@ -3,13 +3,9 @@ plugins:
     # https://github.com/postcss/postcss-import
     postcss-import: {}
 
-    # Apply custom property sets via @apply rule
-    # https://github.com/pascalduez/postcss-apply
-    postcss-apply: {}
-
-    # PostCSS plugin that enables @for loop syntax in your CSS
-    # https://github.com/antyakushev/postcss-for
-    postcss-for: {}
+    # Reusable blocks of styles via @define-mixin and @mixin rules
+    # https://github.com/postcss/postcss-mixins
+    postcss-mixins: {}
 
     # PostCSS Nested ancestors helper
     # https://github.com/toomuchdesign/postcss-nested-ancestors
@@ -34,11 +30,7 @@ plugins:
         # List of features with levels: https://cssdb.org/
         stage: 0
 
-        # Define polyfills based on browsers you are supporting
-        # https://github.com/csstools/postcss-preset-env#browsers
-        browsers:
-            - 'last 2 versions'
-            - '> 1%'
+        # Target browsers are taken from the "browserslist" field of package.json
 
         # Instruct all plugins to omit pre-polyfilled CSS
         # https://github.com/csstools/postcss-preset-env#preserve

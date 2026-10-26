@@ -1,7 +1,7 @@
 /**
  * Модуль quiz с единственным публичным методом quiz.init()
  */
-module.exports = (function () {
+export default (function () {
 
     var quizData            = null,
         numberOfQuestions   = null,

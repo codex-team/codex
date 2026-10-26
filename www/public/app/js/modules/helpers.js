@@ -1,4 +1,4 @@
-module.exports = (function (helpers) {
+export default (function (helpers) {
 
     helpers.setCookie = function (name, value, expires, path, domain) {
 

@@ -1,7 +1,7 @@
 /**
 * Significant core methods
 */
-module.exports =  function () {
+export default (function () {
 
     /** Logging method */
     var log = function (str, prefix, type, arg) {
@@ -34,7 +34,7 @@ module.exports =  function () {
 
             }
 
-        } catch(e) {}
+        } catch (e) {}
 
     };
 
@@ -100,4 +100,4 @@ module.exports =  function () {
         log : log
     };
 
-}();
+})();

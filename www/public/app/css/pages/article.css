@@ -1,15 +1,13 @@
 /**
  * Layout rules
  */
-:root {
-    --entry-column-width: {
-        max-width: var(--article-max-width);
+@define-mixin entry-column-width {
+    max-width: var(--article-max-width);
 
-        @media (--mobile) {
-            padding-left: 20px;
-            padding-right: 20px;
-        }
-    };
+    @media (--mobile) {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
 }
 
 /**
@@ -61,7 +59,7 @@
     * Article information: author, date
     */
     &__info {
-        @apply --entry-column-width;
+        @mixin entry-column-width;
 
         margin: 0 auto 40px;
         display: flex;
@@ -73,7 +71,7 @@
     }
 
     &__author {
-        @apply --clearfix;
+        @mixin clearfix;
 
         white-space: nowrap;
 
@@ -86,7 +84,7 @@
             margin-top: -3px;
             float: left;
 
-            @apply --image-placeholder;
+            @mixin image-placeholder;
 
             @media (--mobile) {
                 width: 40px;
@@ -149,7 +147,7 @@
     }
 
     .sharing {
-        @apply --entry-column-width;
+        @mixin entry-column-width;
 
         margin: 40px auto;
 
@@ -202,7 +200,7 @@
     ul,
     ol,
     blockquote {
-        @apply --entry-column-width;
+        @mixin entry-column-width;
     }
 
     h1,
@@ -249,7 +247,7 @@
  * =========================
  */
 .article-image {
-    @apply --entry-column-width;
+    @mixin entry-column-width;
 
     margin: 40px auto;
     text-align: center;
@@ -303,7 +301,7 @@
  * =========================
  */
 .article-code {
-    @apply --entry-column-width;
+    @mixin entry-column-width;
 
     margin: 40px auto;
     border: 1px solid #e4e4e4;
@@ -542,7 +540,7 @@
  * ==================
  */
 .article-table {
-    @apply --entry-column-width;
+    @mixin entry-column-width;
 
     margin: 20px auto;
     table-layout: fixed;
@@ -562,7 +560,7 @@
  * ==================
  */
 .article-embed {
-    @apply --entry-column-width;
+    @mixin entry-column-width;
 
     margin: 20px auto;
 

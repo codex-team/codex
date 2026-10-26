@@ -1,4 +1,4 @@
-module.exports = require('@codexteam/reactions');
+export { default } from '@codexteam/reactions';
 
 // const Reactions = require('@codexteam/reactions');
 //

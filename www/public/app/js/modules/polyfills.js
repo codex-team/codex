@@ -54,4 +54,4 @@ var polyfills = function () {
 
 }({});
 
-module.exports = polyfills;
+export default polyfills;

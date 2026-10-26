@@ -1,4 +1,4 @@
-module.exports = (function (xhr) {
+export default (function (xhr) {
 
     var objectToQueryString = function (a) {
 

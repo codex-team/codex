@@ -279,4 +279,4 @@ var ajax = function () {
 
 }({});
 
-module.exports = ajax;
+export default ajax;

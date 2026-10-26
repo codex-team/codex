@@ -116,4 +116,4 @@ var simpleCode = (function (simpleCode_) {
 
 })({});
 
-module.exports = simpleCode;
+export default simpleCode;

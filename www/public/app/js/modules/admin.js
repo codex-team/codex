@@ -1,7 +1,7 @@
 /**
  * Admin page methods
  */
-module.exports = function (admin) {
+export default (function (admin) {
 
     /**
      * Initializes dragndrop module
@@ -140,4 +140,4 @@ module.exports = function (admin) {
 
     return admin;
 
-}({});
+})({});

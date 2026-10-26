@@ -1,7 +1,7 @@
 /**
  * Module for social sharing
  */
-module.exports = (function ( sharer ) {
+export default (function ( sharer ) {
 
     /**
      * @param  {Object} data - Info about item we want to share
