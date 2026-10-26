@@ -111,6 +111,10 @@
     },
     "table": {
       "withHeadings": "boolean",
+      "stretched": {
+        "type": "boolean",
+        "required": false
+      },
       "content": {
         "type": "array",
         "data": {

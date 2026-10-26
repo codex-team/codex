@@ -3,7 +3,42 @@
  */
 import moduleDispatcher from 'module-dispatcher';
 
-require('../css/main.css');
+/**
+ * Import CSS
+ */
+import '../css/main.css';
+
+/**
+ * Import Pages
+ */
+import admin from './modules/admin';
+import join from './modules/join';
+
+/**
+ * Import Modules
+ */
+import core from './modules/core';
+import dragndrop from './modules/dragndrop';
+import scrollUp from './modules/scrollUp';
+import sharer from './modules/sharer';
+import developer from './modules/bestDevelopers';
+import showMoreNews from './modules/showMoreNews';
+import polyfills from './modules/polyfills';
+import ajax from './modules/ajax';
+import profile from './modules/profile';
+import helpers from './modules/helpers';
+import quiz from './modules/quiz';
+import quizForm from './modules/quizForm';
+import transport from './modules/transport';
+import vkWidget from './modules/vkWidget';
+import codeStyling from './modules/codeStyling';
+import deeplinker from '@codexteam/deeplinker';
+import pluginsFilter from './modules/pluginsFilter';
+import Player from './modules/player';
+
+import EditorLanding from './modules/editorLanding';
+import ArticleCreate from './modules/articleCreate';
+import NewsCreate from './modules/newsCreate';
 
 /**
  * CodeX community id at vk.com.
@@ -11,7 +46,7 @@ require('../css/main.css');
  */
 const VK_COMMUNITY_ID = 103229636;
 
-var codex = (function (codex_) {
+const codex = (function (codex_) {
 
     'use strict';
 
@@ -23,7 +58,7 @@ var codex = (function (codex_) {
     codex_.init = function (settings) {
 
         /** Save settings or use defaults */
-        for (var set in settings ) {
+        for (const set in settings ) {
 
             this.settings[set] = settings[set] || this.settings[set] || null;
 
@@ -74,11 +109,9 @@ function initModules() {
     /**
      * Acitve play-video buttons
      */
-    let playVideoButton = document.querySelector('[name="js-show-player"]');
+    const playVideoButton = document.querySelector('[name="js-show-player"]');
 
     if (playVideoButton) {
-
-        const Player = require('./modules/player').default;
 
         new Player({
             sourceURL: 'public/app/img/products/ar-tester.mp4',
@@ -101,42 +134,30 @@ codex.docReady = function (f) {
 };
 
 /**
-* Pages
-*/
-codex.admin = require('./modules/admin');
-codex.join = require('./modules/join');
-
-
-/**
- * Modules
+ * Attach modules to codex object
  */
-codex.core = require('./modules/core');
-codex.dragndrop = require('./modules/dragndrop');
-codex.scrollUp = require('./modules/scrollUp');
-codex.sharer = require('./modules/sharer');
-codex.developer = require('./modules/bestDevelopers');
-// codex.simpleCode = require('./modules/simpleCodeStyling');
-codex.showMoreNews = require('./modules/showMoreNews');
-codex.polyfills = require('./modules/polyfills');
-codex.ajax = require('./modules/ajax');
-codex.profile = require('./modules/profile');
-codex.helpers = require('./modules/helpers');
-codex.quiz = require('./modules/quiz');
-codex.quizForm = require('./modules/quizForm');
-codex.transport = require('./modules/transport');
-codex.vkWidget = require('./modules/vkWidget');
-codex.codeStyling = require('./modules/codeStyling');
-codex.deeplinker = require('@codexteam/deeplinker');
-codex.pluginsFilter = require('./modules/pluginsFilter');
-
-import EditorLanding from './modules/editorLanding';
+codex.admin = admin;
+codex.join = join;
+codex.core = core;
+codex.dragndrop = dragndrop;
+codex.scrollUp = scrollUp;
+codex.sharer = sharer;
+codex.developer = developer;
+codex.showMoreNews = showMoreNews;
+codex.polyfills = polyfills;
+codex.ajax = ajax;
+codex.profile = profile;
+codex.helpers = helpers;
+codex.quiz = quiz;
+codex.quizForm = quizForm;
+codex.transport = transport;
+codex.vkWidget = vkWidget;
+codex.codeStyling = codeStyling;
+codex.deeplinker = deeplinker;
+codex.pluginsFilter = pluginsFilter;
 codex.editorLanding = new EditorLanding();
-
-import ArticleCreate from './modules/articleCreate';
 codex.articleCreate = new ArticleCreate();
-
-import NewsCreate from './modules/newsCreate';
 codex.newsCreate = new NewsCreate();
 
-module.exports = codex;
+export default codex;
 

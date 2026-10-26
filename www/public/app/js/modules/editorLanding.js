@@ -1,9 +1,7 @@
-'use strict';
-
 /**
  * Module to compose output JSON preview
  */
-const cPreview = require('../classes/cPreview');
+import cPreview from '../classes/cPreview';
 
 /**
  * Module for pages using Editor

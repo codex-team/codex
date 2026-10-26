@@ -4,7 +4,7 @@
 * Date: 09/12/16
 */
 
-module.exports = (function (quiz) {
+export default (function (quiz) {
 
     /**
     * Quiz form

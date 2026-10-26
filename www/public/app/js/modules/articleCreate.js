@@ -1,7 +1,5 @@
-'use strict';
-
-const ajax = require('@codexteam/ajax');
-const notifier = require('codex-notifier');
+import ajax from '@codexteam/ajax';
+import notifier from 'codex-notifier';
 
 /**
  * Module for pages using Editor
@@ -92,9 +90,7 @@ export default class EditorWriting {
                      * @property {string} redirect    - article's uri in case of success
                      * @property {string} message     - article saving error in case of fail
                      * @property {number} success     - article saving status, 1 - success, 0 - fail
-                     */
-
-                    /**
+                     *
                      * @param {responseData} response - ajax-response after form is sent
                      */
                     .then((response) => {

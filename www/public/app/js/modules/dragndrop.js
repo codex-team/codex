@@ -1,4 +1,4 @@
-module.exports = function (settings) {
+export default function (settings) {
 
     var defaultHandlers = {
         findDraggable: function (e) {
@@ -235,4 +235,4 @@ module.exports = function (settings) {
 
     };
 
-};
+}

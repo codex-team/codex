@@ -1,9 +1,7 @@
-'use strict';
-
 /**
  * Plugins filter on editor landing page
  */
-module.exports = (function () {
+export default (function () {
 
     /**
      * Block plugins

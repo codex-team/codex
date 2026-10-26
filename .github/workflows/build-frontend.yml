@@ -7,11 +7,11 @@ jobs:
     name: Build frontend
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js 15
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v4
+      - name: Use Node.js 24
+        uses: actions/setup-node@v4
         with:
-          node-version: 15
+          node-version: 24
 
       # Create a env file with a Hawk token to send a release info
       - name: Make envfile with Hawk token

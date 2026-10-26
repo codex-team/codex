@@ -1,11 +1,9 @@
-'use strict';
-
 /**
 * Ajax file transport module
 * @author Savchenko Peter (vk.com/specc)
 * @param {Object} transport
 */
-module.exports = (function (transport) {
+export default (function (transport) {
 
     transport.currentButtonClicked = {};
 

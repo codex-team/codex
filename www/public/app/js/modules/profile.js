@@ -1,7 +1,7 @@
 /**
  * Profile page methods
  */
-module.exports = function () {
+export default (function () {
 
     /**
      * Photo uploading success-callback
@@ -22,4 +22,4 @@ module.exports = function () {
         uploadPhotoSuccess,
     };
 
-}();
+})();

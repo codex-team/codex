@@ -71,7 +71,7 @@
             border-radius: 50%;
             border: 2px solid #fff;
 
-            @apply --image-placeholder;
+            @mixin image-placeholder;
         }
     }
 

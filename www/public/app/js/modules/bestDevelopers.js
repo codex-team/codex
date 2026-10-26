@@ -39,4 +39,4 @@ var developer = function () {
 
 }();
 
-module.exports = developer;
+export default developer;

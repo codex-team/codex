@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# @editorjs/list is kept on 1.x: 2.x saves nested items that the backend can't validate and render yet
 yarn add -D \
   @editorjs/code \
   @editorjs/delimiter \
@@ -9,7 +10,7 @@ yarn add -D \
   @editorjs/image \
   @editorjs/inline-code \
   @editorjs/link \
-  @editorjs/list \
+  @editorjs/list@^1 \
   @editorjs/marker \
   @editorjs/quote \
   @editorjs/raw \

@@ -1,14 +1,14 @@
 /**
+ * DOM manipulations helper
+ */
+import $ from './dom';
+
+/**
  * Code Styling module
  */
-module.exports = function codeStyling() {
+export default (function codeStyling() {
 
     'use strict';
-
-    /**
-     * DOM manipulations helper
-     */
-    const $ = require('./dom').default;
 
     /**
      * Extrnal library for code styling
@@ -68,4 +68,4 @@ module.exports = function codeStyling() {
         init
     };
 
-}();
+})();

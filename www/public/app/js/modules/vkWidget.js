@@ -76,4 +76,4 @@ var vkWidget = function () {
 
 }({});
 
-module.exports = vkWidget;
+export default vkWidget;

@@ -1,7 +1,7 @@
 /**
 * Module for scroll-up button
 */
-module.exports = function () {
+export default (function () {
 
     /**
     * Page scroll offset to show scroll-up button
@@ -55,4 +55,4 @@ module.exports = function () {
     };
 
 
-}();
+})();
